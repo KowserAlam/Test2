@@ -1,0 +1,59 @@
+import 'package:assessment_ishraak/features/auth/provider/login_view_model.dart';
+import 'package:assessment_ishraak/features/auth/view/login_screen.dart';
+import 'package:assessment_ishraak/features/home_screen/providers/dashboard_screen_provider.dart';
+import 'package:assessment_ishraak/main.dart';
+import 'package:assessment_ishraak/main_app/flavour/flavor_banner.dart';
+import 'package:assessment_ishraak/main_app/util/strings_utils.dart';
+import 'package:assessment_ishraak/main_app/view/drawer.dart';
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
+
+class Home extends StatefulWidget {
+  Home({Key key}) : super(key: key);
+
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+
+
+  @override
+  Widget build(BuildContext context) {
+    return FlavorBanner(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text("Home"),
+        ),
+        endDrawer: Drawer(
+          child: ListView(
+            children: <Widget>[
+              /// ************ sign out
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8),
+                child: DrawerListWidget(
+                  color: Colors.redAccent,
+                  label: StringUtils.signOutText,
+                  icon: FontAwesomeIcons.signOutAlt,
+                  isSelected: false,
+                  onTap: () {
+                    Provider.of<LoginViewModel>(context,listen: false).signOut();
+                    Provider.of<DashboardScreenProvider>(context).resetState();
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(builder: (context) => LoginScreen()),
+                            (_) => false);
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
+        body: Center(
+          child: Text("Home"),
+        ),
+      ),
+    );
+  }
+}

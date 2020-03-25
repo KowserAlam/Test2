@@ -1,0 +1,144 @@
+name: assessment_ishraak
+description: A new Flutter application for Project Seven.
+
+version: 1.0.17+1
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+
+  #  Dev tools -> different size of screen preview ###############
+  device_preview: ^0.3.0+1
+
+
+  #  Default icons asset for Cupertino widgets
+  cupertino_icons: ^0.1.3
+
+  #A mixture between dependency injection and state management
+  provider: ^4.0.4
+
+  #  The Font Awesome Icon pack available as Flutter Icons.
+  font_awesome_flutter: ^8.7.0
+
+  # reactiveX api for asynchronous programming.
+  rxdart: ^0.23.1
+
+
+  #   checks for internet by opening a socket to a list of specified addresses,
+  #  data_connection_checker: ^0.3.4
+
+  #  A composable, cross-platform, Future-based API for making HTTP requests.
+  http: ^0.12.0+4
+
+  #  Execute code after the first layout of your widget has been performed,
+  after_layout: ^1.0.7+2
+
+
+  #  A simple countdown timer plugin for flutter
+  countdown_flutter: ^0.1.1
+
+  #Circular and Linear percent indicators
+  percent_indicator: ^2.1.1+1
+
+  #providing a persistent store for simple data
+  shared_preferences: ^0.5.6+2
+
+  #A Flutter widget that can be expanded or collapsed by the user.
+  expandable: ^4.1.2
+
+  #internationalization and localization facilities --> used for DateFormat
+  intl: ^0.16.1
+
+  #  allow introduction wizard easy way
+  introduction_screen: ^1.0.8
+
+  #  track page view widget index
+  page_view_indicators: ^1.3.1
+
+  #  rating bar -> Used for star rating
+  flutter_rating_bar: ^3.0.1+1
+
+  #  Unique id generator
+  uuid: ^2.0.4
+
+  #  Image Cropper
+  image_crop: ^0.3.2
+
+  #   peak image form gallery and take capture image using camera
+  image_picker: ^0.6.3+4
+
+  #  Modal Progress hud (Heads Up Display) to show progress on to of screen
+  modal_progress_hud: ^0.1.3
+
+  #  Html formatting
+  flutter_html: ^0.11.1
+
+  #  keep screen always weak
+  wakelock: ^0.1.3+4
+
+  #  to retrieve information about app
+  package_info: ^0.4.0+14
+
+  #  Functional programming in Dart
+  dartz: 0.8.8
+
+  #  JSON serialization and deserialization.
+  json_annotation: ^2.0.0
+
+  #A package to include fonts from fonts.google.com
+  google_fonts: ^0.3.9
+
+  #  flutter toast library!
+  bot_toast: ^2.3.0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  test:
+  #  mockito used for mocking
+  mockito: 4.1.0
+
+  #  Automatically generate code for converting to and from JSON.
+  #  flutter pub run build_runner build
+  json_serializable: ^2.0.0
+
+  #Tools to write binaries that run builders.
+  build_runner: ^1.0.0
+
+
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - assets/
+    - assets/images/
+    - assets/images/icons/
+
+  fonts:
+    - family: Roboto
+      fonts:
+        - asset: assets/fonts/Roboto-Regular.ttf
+        - asset: assets/fonts/Roboto-Bold.ttf
+          weight: 800
+        - asset: assets/fonts/Roboto-RegularItalic.ttf
+          style: italic

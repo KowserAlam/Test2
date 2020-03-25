@@ -1,0 +1,1 @@
+flutter build apk --profile -t lib/main_qa.dart
