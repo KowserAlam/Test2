@@ -1,8 +1,8 @@
-import 'package:assessment_ishraak/main_app/api_helpers/urls.dart';
-import 'package:assessment_ishraak/main_app/util/strings_utils.dart';
-import 'package:assessment_ishraak/main_app/widgets/gredient_buton.dart';
-import 'package:assessment_ishraak/main_app/widgets/loader.dart';
-import 'package:assessment_ishraak/features/exam_center/Centerlogin_provider.dart';
+import 'package:p7app/main_app/api_helpers/urls.dart';
+import 'package:p7app/main_app/util/strings_utils.dart';
+import 'package:p7app/main_app/widgets/gredient_buton.dart';
+import 'package:p7app/main_app/widgets/loader.dart';
+import 'package:p7app/features/exam_center/Centerlogin_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

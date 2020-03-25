@@ -1,6 +1,6 @@
-import 'package:assessment_ishraak/features/auth/view/widgets/password_reset_enter_email_widget.dart';
-import 'package:assessment_ishraak/features/auth/view/widgets/password_reset_enter_new_password.dart';
-import 'package:assessment_ishraak/features/auth/view/widgets/password_reset_verify_code_widget.dart';
+import 'package:p7app/features/auth/view/widgets/password_reset_enter_email_widget.dart';
+import 'package:p7app/features/auth/view/widgets/password_reset_enter_new_password.dart';
+import 'package:p7app/features/auth/view/widgets/password_reset_verify_code_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:page_view_indicators/circle_page_indicator.dart';
 

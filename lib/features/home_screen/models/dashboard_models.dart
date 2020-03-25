@@ -1,9 +1,9 @@
-import 'package:assessment_ishraak/features/enrolled_exam_list_screen/models/enrolled_exam_model.dart';
-import 'package:assessment_ishraak/features/featured_exam_screen/models/featured_exam_model.dart';
-import 'package:assessment_ishraak/features/recent_exam/models/recent_exam_model.dart';
-import 'package:assessment_ishraak/main_app/util/const.dart';
-import 'package:assessment_ishraak/main_app/api_helpers/urls.dart';
-import 'package:json_annotation/json_annotation.dart';
+import 'package:p7app/features/enrolled_exam_list_screen/models/enrolled_exam_model.dart';
+import 'package:p7app/features/featured_exam_screen/models/featured_exam_model.dart';
+import 'package:p7app/features/recent_exam/models/recent_exam_model.dart';
+import 'package:p7app/main_app/util/const.dart';
+import 'package:p7app/main_app/api_helpers/urls.dart';
+
 
 
 class DashBoardModel {
@@ -32,11 +32,10 @@ class DashBoardModel {
   Map<String, dynamic> toJson() => _$DashBoardModelToJson(this);
 }
 
-@JsonSerializable()
 class UserDashBoard {
   String name;
   int id;
-  @JsonKey(name: 'profile_pic_url')
+
   String profilePicUrl;
   String email;
 

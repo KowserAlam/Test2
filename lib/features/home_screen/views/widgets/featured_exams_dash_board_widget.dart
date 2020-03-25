@@ -1,9 +1,9 @@
-import 'package:assessment_ishraak/features/featured_exam_screen/views/featured_exams_screen.dart';
-import 'package:assessment_ishraak/features/home_screen/providers/dashboard_screen_provider.dart';
-import 'package:assessment_ishraak/features/home_screen/views/widgets/dash_board_widgets_place_holder_widgets.dart';
-import 'package:assessment_ishraak/features/home_screen/views/widgets/view_more_button_widget.dart';
-import 'package:assessment_ishraak/main_app/util/strings_utils.dart';
-import 'package:assessment_ishraak/main_app/widgets/loader.dart';
+import 'package:p7app/features/featured_exam_screen/views/featured_exams_screen.dart';
+import 'package:p7app/features/home_screen/providers/dashboard_screen_provider.dart';
+import 'package:p7app/features/home_screen/views/widgets/dash_board_widgets_place_holder_widgets.dart';
+import 'package:p7app/features/home_screen/views/widgets/view_more_button_widget.dart';
+import 'package:p7app/main_app/util/strings_utils.dart';
+import 'package:p7app/main_app/widgets/loader.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

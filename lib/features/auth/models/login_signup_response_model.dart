@@ -1,7 +1,7 @@
 
 
-import 'package:assessment_ishraak/main_app/util/json_keys.dart';
-import 'package:assessment_ishraak/main_app/util/strings_utils.dart';
+import 'package:p7app/main_app/util/json_keys.dart';
+import 'package:p7app/main_app/util/strings_utils.dart';
 
 class LoginSignUpResponseModel {
   String status;

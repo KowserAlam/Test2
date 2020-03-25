@@ -1,7 +1,7 @@
 
 
-import 'package:assessment_ishraak/main_app/util/strings_utils.dart';
-import 'package:assessment_ishraak/main_app/util/validator.dart';
+import 'package:p7app/main_app/util/strings_utils.dart';
+import 'package:p7app/main_app/util/validator.dart';
 import 'package:test/test.dart';
 
 main(){

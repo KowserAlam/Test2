@@ -1,6 +1,6 @@
-import 'package:assessment_ishraak/features/featured_exam_screen/models/featured_exam_model.dart';
-import 'package:assessment_ishraak/features/home_screen/repositories/fetured_exam_search_repository.dart';
-import 'package:assessment_ishraak/main_app/failure/failure.dart';
+import 'package:p7app/features/featured_exam_screen/models/featured_exam_model.dart';
+import 'package:p7app/features/home_screen/repositories/fetured_exam_search_repository.dart';
+import 'package:p7app/main_app/failure/failure.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart';
 import 'package:rxdart/rxdart.dart';

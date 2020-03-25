@@ -1,8 +1,8 @@
 
 
-import 'package:assessment_ishraak/features/assessment/models/questions_model.dart';
-import 'package:assessment_ishraak/features/assessment/models/submit_asn_model.dart';
-import 'package:assessment_ishraak/features/assessment/providers/submit_provider.dart';
+import 'package:p7app/features/assessment/models/questions_model.dart';
+import 'package:p7app/features/assessment/models/submit_asn_model.dart';
+import 'package:p7app/features/assessment/providers/submit_provider.dart';
 import 'package:test/test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:http/http.dart' as http;

@@ -1,14 +1,14 @@
-import 'package:assessment_ishraak/features/auth/provider/login_view_model.dart';
-import 'package:assessment_ishraak/features/auth/provider/password_reset_provider.dart';
+import 'package:p7app/features/auth/provider/login_view_model.dart';
+import 'package:p7app/features/auth/provider/password_reset_provider.dart';
 
-import 'package:assessment_ishraak/main_app/util/const.dart';
-import 'package:assessment_ishraak/main_app/util/cosnt_style.dart';
-import 'package:assessment_ishraak/main_app/util/json_keys.dart';
-import 'package:assessment_ishraak/main_app/util/strings_utils.dart';
-import 'package:assessment_ishraak/main_app/util/validator.dart';
-import 'package:assessment_ishraak/main_app/widgets/app_logo.dart';
-import 'package:assessment_ishraak/main_app/widgets/gredient_buton.dart';
-import 'package:assessment_ishraak/main_app/widgets/loader.dart';
+import 'package:p7app/main_app/util/const.dart';
+import 'package:p7app/main_app/util/cosnt_style.dart';
+import 'package:p7app/main_app/util/json_keys.dart';
+import 'package:p7app/main_app/util/strings_utils.dart';
+import 'package:p7app/main_app/util/validator.dart';
+import 'package:p7app/main_app/widgets/app_logo.dart';
+import 'package:p7app/main_app/widgets/gredient_buton.dart';
+import 'package:p7app/main_app/widgets/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 class PasswordRestEnterNewPassword extends StatefulWidget {

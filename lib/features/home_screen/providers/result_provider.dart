@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:assessment_ishraak/features/home_screen/models/result_model.dart';
-import 'package:assessment_ishraak/main_app/api_helpers/api_client.dart';
-import 'package:assessment_ishraak/main_app/api_helpers/urls.dart';
+import 'package:p7app/features/home_screen/models/result_model.dart';
+import 'package:p7app/main_app/api_helpers/api_client.dart';
+import 'package:p7app/main_app/api_helpers/urls.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 

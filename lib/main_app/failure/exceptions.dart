@@ -1,5 +1,5 @@
 
-import 'package:assessment_ishraak/main_app/failure/failure.dart';
+import 'package:p7app/main_app/failure/failure.dart';
 
 class ServerExceptions implements Failure{
 

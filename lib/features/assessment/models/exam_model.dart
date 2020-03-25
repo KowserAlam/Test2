@@ -1,6 +1,6 @@
 
 
-import 'package:assessment_ishraak/features/assessment/models/questions_model.dart';
+import 'package:p7app/features/assessment/models/questions_model.dart';
 
 class ExamModel {
   List<QuestionModel> questionListWithAns;

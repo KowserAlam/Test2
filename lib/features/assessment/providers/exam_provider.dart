@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:assessment_ishraak/features/assessment/repositories/question_fetch_repository.dart';
-import 'package:assessment_ishraak/main_app/util/json_keys.dart';
-import 'package:assessment_ishraak/main_app/api_helpers/urls.dart';
+import 'package:p7app/features/assessment/repositories/question_fetch_repository.dart';
+import 'package:p7app/main_app/util/json_keys.dart';
+import 'package:p7app/main_app/api_helpers/urls.dart';
 import 'package:http/http.dart' as http;
-import 'package:assessment_ishraak/features/assessment/models/exam_model.dart';
-import 'package:assessment_ishraak/features/assessment/models/questions_model.dart';
-import 'package:assessment_ishraak/main_app/util/strings_utils.dart';
+import 'package:p7app/features/assessment/models/exam_model.dart';
+import 'package:p7app/features/assessment/models/questions_model.dart';
+import 'package:p7app/main_app/util/strings_utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:rxdart/rxdart.dart';
 

@@ -1,13 +1,13 @@
 
-import 'package:assessment_ishraak/features/assessment/models/candidate_exam_model.dart';
-import 'package:assessment_ishraak/features/assessment/views/instruction_screen.dart';
-import 'package:assessment_ishraak/features/enrolled_exam_list_screen/models/enrolled_exam_model.dart';
-import 'package:assessment_ishraak/features/home_screen/providers/dashboard_screen_provider.dart';
-import 'package:assessment_ishraak/features/home_screen/views/widgets/exam_duration_widget.dart';
-import 'package:assessment_ishraak/main_app/util/strings_utils.dart';
-import 'package:assessment_ishraak/main_app/util/cosnt_style.dart';
-import 'package:assessment_ishraak/main_app/widgets/circular_icon_button_primary_color.dart';
-import 'package:assessment_ishraak/main_app/widgets/gredient_buton.dart';
+import 'package:p7app/features/assessment/models/candidate_exam_model.dart';
+import 'package:p7app/features/assessment/views/instruction_screen.dart';
+import 'package:p7app/features/enrolled_exam_list_screen/models/enrolled_exam_model.dart';
+import 'package:p7app/features/home_screen/providers/dashboard_screen_provider.dart';
+import 'package:p7app/features/home_screen/views/widgets/exam_duration_widget.dart';
+import 'package:p7app/main_app/util/strings_utils.dart';
+import 'package:p7app/main_app/util/cosnt_style.dart';
+import 'package:p7app/main_app/widgets/circular_icon_button_primary_color.dart';
+import 'package:p7app/main_app/widgets/gredient_buton.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

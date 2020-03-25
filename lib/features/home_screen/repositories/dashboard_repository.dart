@@ -1,13 +1,13 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:assessment_ishraak/main_app/api_helpers/api_client.dart';
+import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:meta/meta.dart';
 
-import 'package:assessment_ishraak/features/home_screen/models/dashboard_models.dart';
-import 'package:assessment_ishraak/features/home_screen/repositories/base_dashboard_repository.dart';
-import 'package:assessment_ishraak/main_app/failure/exceptions.dart';
-import 'package:assessment_ishraak/main_app/failure/failure.dart';
-import 'package:assessment_ishraak/main_app/api_helpers/urls.dart';
+import 'package:p7app/features/home_screen/models/dashboard_models.dart';
+import 'package:p7app/features/home_screen/repositories/base_dashboard_repository.dart';
+import 'package:p7app/main_app/failure/exceptions.dart';
+import 'package:p7app/main_app/failure/failure.dart';
+import 'package:p7app/main_app/api_helpers/urls.dart';
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
 

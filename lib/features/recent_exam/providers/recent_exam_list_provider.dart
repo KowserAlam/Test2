@@ -1,7 +1,7 @@
 
-import 'package:assessment_ishraak/features/recent_exam/models/recent_exam_model.dart';
-import 'package:assessment_ishraak/features/recent_exam/repositories/recent_exam_list_repository.dart';
-import 'package:assessment_ishraak/main_app/models/exam_page_response_data_model.dart';
+import 'package:p7app/features/recent_exam/models/recent_exam_model.dart';
+import 'package:p7app/features/recent_exam/repositories/recent_exam_list_repository.dart';
+import 'package:p7app/main_app/models/exam_page_response_data_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:rxdart/rxdart.dart';
 

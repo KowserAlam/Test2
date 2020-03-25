@@ -1,4 +1,4 @@
-import 'package:assessment_ishraak/main_app/util/json_keys.dart';
+import 'package:p7app/main_app/util/json_keys.dart';
 import 'package:flutter/cupertino.dart';
 
 class SubmitAnsModel {

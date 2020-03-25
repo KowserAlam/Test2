@@ -1,5 +1,5 @@
-import 'package:assessment_ishraak/features/featured_exam_screen/views/featured_exams_screen.dart';
-import 'package:assessment_ishraak/main_app/util/strings_utils.dart';
+import 'package:p7app/features/featured_exam_screen/views/featured_exams_screen.dart';
+import 'package:p7app/main_app/util/strings_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

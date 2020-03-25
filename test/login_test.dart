@@ -1,10 +1,10 @@
 
-import 'package:assessment_ishraak/features/exam_center/center_login_screen.dart';
-import 'package:assessment_ishraak/main_app/api_helpers/urls.dart';
-import 'package:assessment_ishraak/main_app/util/strings_utils.dart';
+import 'package:p7app/features/exam_center/center_login_screen.dart';
+import 'package:p7app/main_app/api_helpers/urls.dart';
+import 'package:p7app/main_app/util/strings_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:assessment_ishraak/features/exam_center/Centerlogin_provider.dart';
+import 'package:p7app/features/exam_center/Centerlogin_provider.dart';
 import 'package:mockito/mockito.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';

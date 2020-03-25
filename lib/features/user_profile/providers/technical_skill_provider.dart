@@ -1,6 +1,6 @@
 
-import 'package:assessment_ishraak/features/user_profile/models/user_profile_models.dart';
-import 'package:assessment_ishraak/features/user_profile/providers/user_provider.dart';
+import 'package:p7app/features/user_profile/models/user_profile_models.dart';
+import 'package:p7app/features/user_profile/providers/user_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 

@@ -1,14 +1,14 @@
 import 'dart:convert';
 
-import 'package:assessment_ishraak/features/home_screen/views/dashboard_screen.dart';
-import 'package:assessment_ishraak/features/home_screen/views/home.dart';
-import 'package:assessment_ishraak/main_app/auth_service/auth_user_model.dart';
-import 'package:assessment_ishraak/features/auth/view/login_screen.dart';
-import 'package:assessment_ishraak/main_app/util/json_keys.dart';
-import 'package:assessment_ishraak/main_app/util/const.dart';
-import 'package:assessment_ishraak/main_app/util/strings_utils.dart';
-import 'package:assessment_ishraak/main_app/util/cosnt_style.dart';
-import 'package:assessment_ishraak/main_app/widgets/loader.dart';
+import 'package:p7app/features/home_screen/views/dashboard_screen.dart';
+import 'package:p7app/features/home_screen/views/home.dart';
+import 'package:p7app/main_app/auth_service/auth_user_model.dart';
+import 'package:p7app/features/auth/view/login_screen.dart';
+import 'package:p7app/main_app/util/json_keys.dart';
+import 'package:p7app/main_app/util/const.dart';
+import 'package:p7app/main_app/util/strings_utils.dart';
+import 'package:p7app/main_app/util/cosnt_style.dart';
+import 'package:p7app/main_app/widgets/loader.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';

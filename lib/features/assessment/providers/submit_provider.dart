@@ -1,9 +1,9 @@
-import 'package:assessment_ishraak/features/assessment/models/questions_model.dart';
-import 'package:assessment_ishraak/features/assessment/models/result_model.dart';
-import 'package:assessment_ishraak/features/assessment/models/submit_asn_model.dart';
-import 'package:assessment_ishraak/main_app/api_helpers/api_client.dart';
-import 'package:assessment_ishraak/main_app/auth_service/auth_service.dart';
-import 'package:assessment_ishraak/main_app/api_helpers/urls.dart';
+import 'package:p7app/features/assessment/models/questions_model.dart';
+import 'package:p7app/features/assessment/models/result_model.dart';
+import 'package:p7app/features/assessment/models/submit_asn_model.dart';
+import 'package:p7app/main_app/api_helpers/api_client.dart';
+import 'package:p7app/main_app/auth_service/auth_service.dart';
+import 'package:p7app/main_app/api_helpers/urls.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';

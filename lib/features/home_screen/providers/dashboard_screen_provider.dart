@@ -1,12 +1,12 @@
-import 'package:assessment_ishraak/features/assessment/models/candidate_exam_model.dart';
-import 'package:assessment_ishraak/features/enrolled_exam_list_screen/repositories/self_enroll_exam_repository.dart';
-import 'package:assessment_ishraak/features/home_screen/models/dashboard_models.dart';
-import 'package:assessment_ishraak/features/enrolled_exam_list_screen/models/enrolled_exam_model.dart';
-import 'package:assessment_ishraak/features/featured_exam_screen/models/featured_exam_model.dart';
-import 'package:assessment_ishraak/features/home_screen/repositories/dashboard_repository.dart';
-import 'package:assessment_ishraak/main_app/auth_service/auth_service.dart';
-import 'package:assessment_ishraak/main_app/failure/failure.dart';
-import 'package:assessment_ishraak/main_app/api_helpers/urls.dart';
+import 'package:p7app/features/assessment/models/candidate_exam_model.dart';
+import 'package:p7app/features/enrolled_exam_list_screen/repositories/self_enroll_exam_repository.dart';
+import 'package:p7app/features/home_screen/models/dashboard_models.dart';
+import 'package:p7app/features/enrolled_exam_list_screen/models/enrolled_exam_model.dart';
+import 'package:p7app/features/featured_exam_screen/models/featured_exam_model.dart';
+import 'package:p7app/features/home_screen/repositories/dashboard_repository.dart';
+import 'package:p7app/main_app/auth_service/auth_service.dart';
+import 'package:p7app/main_app/failure/failure.dart';
+import 'package:p7app/main_app/api_helpers/urls.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart';
 

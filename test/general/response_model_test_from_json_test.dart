@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:assessment_ishraak/features/auth/models/login_signup_response_model.dart';
+import 'package:p7app/features/auth/models/login_signup_response_model.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../test_data/dataReader.dart';

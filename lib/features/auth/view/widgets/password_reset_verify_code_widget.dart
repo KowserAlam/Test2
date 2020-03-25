@@ -1,9 +1,9 @@
-import 'package:assessment_ishraak/features/auth/provider/password_reset_provider.dart';
-import 'package:assessment_ishraak/main_app/util/const.dart';
-import 'package:assessment_ishraak/main_app/util/strings_utils.dart';
-import 'package:assessment_ishraak/main_app/widgets/gredient_buton.dart';
-import 'package:assessment_ishraak/main_app/widgets/loader.dart';
-import 'package:assessment_ishraak/main_app/widgets/verification_code_input.dart';
+import 'package:p7app/features/auth/provider/password_reset_provider.dart';
+import 'package:p7app/main_app/util/const.dart';
+import 'package:p7app/main_app/util/strings_utils.dart';
+import 'package:p7app/main_app/widgets/gredient_buton.dart';
+import 'package:p7app/main_app/widgets/loader.dart';
+import 'package:p7app/main_app/widgets/verification_code_input.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';

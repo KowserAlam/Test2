@@ -1,4 +1,4 @@
-package com.ishraak.assessment_ishraak
+package com.ishraak.p7app
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity

@@ -1,10 +1,10 @@
 import 'package:after_layout/after_layout.dart';
-import 'package:assessment_ishraak/features/featured_exam_screen/providers/featured_exam_list_screen_provider.dart';
-import 'package:assessment_ishraak/features/home_screen/views/widgets/fail_to_load_data_error_widget.dart';
-import 'package:assessment_ishraak/features/featured_exam_screen/views/featured_exam_list_tile.dart';
-import 'package:assessment_ishraak/features/recent_exam/widgets/search_bar_widget.dart';
-import 'package:assessment_ishraak/main_app/util/strings_utils.dart';
-import 'package:assessment_ishraak/main_app/widgets/loader.dart';
+import 'package:p7app/features/featured_exam_screen/providers/featured_exam_list_screen_provider.dart';
+import 'package:p7app/features/home_screen/views/widgets/fail_to_load_data_error_widget.dart';
+import 'package:p7app/features/featured_exam_screen/views/featured_exam_list_tile.dart';
+import 'package:p7app/features/recent_exam/widgets/search_bar_widget.dart';
+import 'package:p7app/main_app/util/strings_utils.dart';
+import 'package:p7app/main_app/widgets/loader.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

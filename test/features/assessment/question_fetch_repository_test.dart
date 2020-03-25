@@ -1,8 +1,8 @@
 import 'dart:io';
 
-import 'package:assessment_ishraak/features/assessment/models/questions_model.dart';
-import 'package:assessment_ishraak/features/assessment/repositories/question_fetch_repository.dart';
-import 'package:assessment_ishraak/features/home_screen/models/dashboard_models.dart';
+import 'package:p7app/features/assessment/models/questions_model.dart';
+import 'package:p7app/features/assessment/repositories/question_fetch_repository.dart';
+import 'package:p7app/features/home_screen/models/dashboard_models.dart';
 
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';

@@ -1,10 +1,10 @@
 import 'package:after_layout/after_layout.dart';
-import 'package:assessment_ishraak/features/assessment/models/candidate_exam_model.dart';
-import 'package:assessment_ishraak/features/assessment/providers/exam_provider.dart';
-import 'package:assessment_ishraak/features/assessment/views/time_out_screen.dart';
-import 'package:assessment_ishraak/features/enrolled_exam_list_screen/models/enrolled_exam_model.dart';
-import 'package:assessment_ishraak/main_app/util/strings_utils.dart';
-import 'package:assessment_ishraak/main_app/util/cosnt_style.dart';
+import 'package:p7app/features/assessment/models/candidate_exam_model.dart';
+import 'package:p7app/features/assessment/providers/exam_provider.dart';
+import 'package:p7app/features/assessment/views/time_out_screen.dart';
+import 'package:p7app/features/enrolled_exam_list_screen/models/enrolled_exam_model.dart';
+import 'package:p7app/main_app/util/strings_utils.dart';
+import 'package:p7app/main_app/util/cosnt_style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:countdown_flutter/countdown_flutter.dart';

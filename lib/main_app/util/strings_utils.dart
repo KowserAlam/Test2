@@ -1,4 +1,4 @@
-import 'package:assessment_ishraak/features/user_profile/edit_profile_screen.dart';
+import 'package:p7app/features/user_profile/edit_profile_screen.dart';
 
 class StringUtils {
   /// login screen

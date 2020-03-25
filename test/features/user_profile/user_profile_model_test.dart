@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:assessment_ishraak/features/user_profile/models/user_profile_models.dart';
+import 'package:p7app/features/user_profile/models/user_profile_models.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../test_data/dataReader.dart';

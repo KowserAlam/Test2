@@ -1,5 +1,5 @@
-import 'package:assessment_ishraak/main_app/util/cosnt_style.dart';
-import 'package:assessment_ishraak/main_app/util/strings_utils.dart';
+import 'package:p7app/main_app/util/cosnt_style.dart';
+import 'package:p7app/main_app/util/strings_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 

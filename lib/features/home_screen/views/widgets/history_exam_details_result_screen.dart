@@ -1,7 +1,7 @@
 import 'package:after_layout/after_layout.dart';
-import 'package:assessment_ishraak/features/assessment/models/candidate_exam_model.dart';
-import 'package:assessment_ishraak/features/home_screen/providers/result_provider.dart';
-import 'package:assessment_ishraak/main_app/widgets/loader.dart';
+import 'package:p7app/features/assessment/models/candidate_exam_model.dart';
+import 'package:p7app/features/home_screen/providers/result_provider.dart';
+import 'package:p7app/main_app/widgets/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:provider/provider.dart';

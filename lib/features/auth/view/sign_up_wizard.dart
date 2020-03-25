@@ -1,6 +1,6 @@
 
-import 'package:assessment_ishraak/features/home_screen/views/dashboard_screen.dart';
-import 'package:assessment_ishraak/features/user_profile/widgets/change_image_profile_widget.dart';
+import 'package:p7app/features/home_screen/views/dashboard_screen.dart';
+import 'package:p7app/features/user_profile/widgets/change_image_profile_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:page_view_indicators/circle_page_indicator.dart';

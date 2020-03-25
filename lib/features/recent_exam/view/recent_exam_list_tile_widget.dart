@@ -1,6 +1,6 @@
-import 'package:assessment_ishraak/features/home_screen/models/dashboard_models.dart';
-import 'package:assessment_ishraak/features/recent_exam/models/recent_exam_model.dart';
-import 'package:assessment_ishraak/main_app/util/const.dart';
+import 'package:p7app/features/home_screen/models/dashboard_models.dart';
+import 'package:p7app/features/recent_exam/models/recent_exam_model.dart';
+import 'package:p7app/main_app/util/const.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 

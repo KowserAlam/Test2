@@ -1,5 +1,5 @@
-import 'package:assessment_ishraak/features/home_screen/providers/dashboard_screen_provider.dart';
-import 'package:assessment_ishraak/main_app/util/strings_utils.dart';
+import 'package:p7app/features/home_screen/providers/dashboard_screen_provider.dart';
+import 'package:p7app/main_app/util/strings_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';

@@ -1,4 +1,4 @@
-import 'package:assessment_ishraak/features/home_screen/views/widgets/recent_exam_dash_board_widget.dart';
+import 'package:p7app/features/home_screen/views/widgets/recent_exam_dash_board_widget.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

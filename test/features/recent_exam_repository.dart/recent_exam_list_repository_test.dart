@@ -1,6 +1,6 @@
 import 'dart:convert';
-import 'package:assessment_ishraak/features/featured_exam_screen/repositories/featured_exam_list_repository.dart';
-import 'package:assessment_ishraak/features/recent_exam/repositories/recent_exam_list_repository.dart';
+import 'package:p7app/features/featured_exam_screen/repositories/featured_exam_list_repository.dart';
+import 'package:p7app/features/recent_exam/repositories/recent_exam_list_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 import '../../test_data/dataReader.dart';
 

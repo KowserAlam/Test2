@@ -1,13 +1,13 @@
 import 'dart:convert';
 
 import 'package:after_layout/after_layout.dart';
-import 'package:assessment_ishraak/features/assessment/providers/exam_provider.dart';
-import 'package:assessment_ishraak/features/assessment/providers/submit_provider.dart';
-import 'package:assessment_ishraak/features/home_screen/views/dashboard_screen.dart';
-import 'package:assessment_ishraak/main_app/auth_service/auth_user_model.dart';
-import 'package:assessment_ishraak/features/home_screen/providers/dashboard_screen_provider.dart';
-import 'package:assessment_ishraak/main_app/util/json_keys.dart';
-import 'package:assessment_ishraak/main_app/util/strings_utils.dart';
+import 'package:p7app/features/assessment/providers/exam_provider.dart';
+import 'package:p7app/features/assessment/providers/submit_provider.dart';
+import 'package:p7app/features/home_screen/views/dashboard_screen.dart';
+import 'package:p7app/main_app/auth_service/auth_user_model.dart';
+import 'package:p7app/features/home_screen/providers/dashboard_screen_provider.dart';
+import 'package:p7app/main_app/util/json_keys.dart';
+import 'package:p7app/main_app/util/strings_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';

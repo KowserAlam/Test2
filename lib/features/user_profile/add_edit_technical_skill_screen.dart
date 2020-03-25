@@ -1,10 +1,10 @@
 import 'package:after_layout/after_layout.dart';
-import 'package:assessment_ishraak/features/user_profile/providers/education_provider.dart';
-import 'package:assessment_ishraak/features/user_profile/providers/technical_skill_provider.dart';
-import 'package:assessment_ishraak/features/user_profile/models/user_profile_models.dart';
-import 'package:assessment_ishraak/main_app/util/strings_utils.dart';
-import 'package:assessment_ishraak/main_app/util/validator.dart';
-import 'package:assessment_ishraak/main_app/widgets/edit_screen_save_button.dart';
+import 'package:p7app/features/user_profile/providers/education_provider.dart';
+import 'package:p7app/features/user_profile/providers/technical_skill_provider.dart';
+import 'package:p7app/features/user_profile/models/user_profile_models.dart';
+import 'package:p7app/main_app/util/strings_utils.dart';
+import 'package:p7app/main_app/util/validator.dart';
+import 'package:p7app/main_app/widgets/edit_screen_save_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';

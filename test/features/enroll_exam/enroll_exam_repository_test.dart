@@ -1,12 +1,12 @@
 import 'dart:convert';
 
-import 'package:assessment_ishraak/features/enrolled_exam_list_screen/models/enroll_exam_response_model.dart';
-import 'package:assessment_ishraak/features/enrolled_exam_list_screen/repositories/self_enroll_exam_repository.dart';
-import 'package:assessment_ishraak/features/home_screen/models/dashboard_models.dart';
-import 'package:assessment_ishraak/features/home_screen/repositories/base_dashboard_repository.dart';
-import 'package:assessment_ishraak/features/home_screen/repositories/dashboard_repository.dart';
-import 'package:assessment_ishraak/main_app/failure/exceptions.dart';
-import 'package:assessment_ishraak/main_app/failure/failure.dart';
+import 'package:p7app/features/enrolled_exam_list_screen/models/enroll_exam_response_model.dart';
+import 'package:p7app/features/enrolled_exam_list_screen/repositories/self_enroll_exam_repository.dart';
+import 'package:p7app/features/home_screen/models/dashboard_models.dart';
+import 'package:p7app/features/home_screen/repositories/base_dashboard_repository.dart';
+import 'package:p7app/features/home_screen/repositories/dashboard_repository.dart';
+import 'package:p7app/main_app/failure/exceptions.dart';
+import 'package:p7app/main_app/failure/failure.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';

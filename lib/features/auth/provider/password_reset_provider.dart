@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:assessment_ishraak/main_app/util/validator.dart';
+import 'package:p7app/main_app/util/validator.dart';
 import 'package:flutter/foundation.dart';
 import 'package:rxdart/rxdart.dart';
 

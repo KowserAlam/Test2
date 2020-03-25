@@ -1,7 +1,7 @@
 import 'dart:convert';
-import 'package:assessment_ishraak/features/featured_exam_screen/models/featured_exam_model.dart';
-import 'package:assessment_ishraak/features/featured_exam_screen/repositories/featured_exam_list_repository.dart';
-import 'package:assessment_ishraak/features/home_screen/repositories/fetured_exam_search_repository.dart';
+import 'package:p7app/features/featured_exam_screen/models/featured_exam_model.dart';
+import 'package:p7app/features/featured_exam_screen/repositories/featured_exam_list_repository.dart';
+import 'package:p7app/features/home_screen/repositories/fetured_exam_search_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 import '../../test_data/dataReader.dart';
 

@@ -1,6 +1,6 @@
-import 'package:assessment_ishraak/features/assessment/models/exam_center_model.dart';
-import 'package:assessment_ishraak/main_app/api_helpers/urls.dart';
-import 'package:assessment_ishraak/main_app/util/strings_utils.dart';
+import 'package:p7app/features/assessment/models/exam_center_model.dart';
+import 'package:p7app/main_app/api_helpers/urls.dart';
+import 'package:p7app/main_app/util/strings_utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';

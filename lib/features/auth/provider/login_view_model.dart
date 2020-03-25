@@ -1,14 +1,14 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:assessment_ishraak/main_app/api_helpers/api_client.dart';
-import 'package:assessment_ishraak/main_app/auth_service/auth_service.dart';
-import 'package:assessment_ishraak/main_app/auth_service/auth_user_model.dart';
-import 'package:assessment_ishraak/features/auth/models/login_signup_response_model.dart';
-import 'package:assessment_ishraak/main_app/api_helpers/urls.dart';
-import 'package:assessment_ishraak/main_app/util/strings_utils.dart';
+import 'package:p7app/main_app/api_helpers/api_client.dart';
+import 'package:p7app/main_app/auth_service/auth_service.dart';
+import 'package:p7app/main_app/auth_service/auth_user_model.dart';
+import 'package:p7app/features/auth/models/login_signup_response_model.dart';
+import 'package:p7app/main_app/api_helpers/urls.dart';
+import 'package:p7app/main_app/util/strings_utils.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:http/http.dart' as http;
-import 'package:assessment_ishraak/main_app/util/json_keys.dart';
+import 'package:p7app/main_app/util/json_keys.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

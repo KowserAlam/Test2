@@ -1,9 +1,9 @@
 
-import 'package:assessment_ishraak/features/assessment/views/proceed_screen.dart';
-import 'package:assessment_ishraak/main_app/util/cosnt_style.dart';
-import 'package:assessment_ishraak/main_app/util/strings_utils.dart';
-import 'package:assessment_ishraak/main_app/widgets/loader.dart';
-import 'package:assessment_ishraak/features/exam_center/candidate_list_provider_exam_center.dart';
+import 'package:p7app/features/assessment/views/proceed_screen.dart';
+import 'package:p7app/main_app/util/cosnt_style.dart';
+import 'package:p7app/main_app/util/strings_utils.dart';
+import 'package:p7app/main_app/widgets/loader.dart';
+import 'package:p7app/features/exam_center/candidate_list_provider_exam_center.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';

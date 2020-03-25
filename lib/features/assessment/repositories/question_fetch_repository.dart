@@ -1,11 +1,11 @@
 import 'dart:convert';
 
-import 'package:assessment_ishraak/features/assessment/models/exam_model.dart';
-import 'package:assessment_ishraak/features/assessment/models/questions_model.dart';
-import 'package:assessment_ishraak/main_app/api_helpers/api_client.dart';
-import 'package:assessment_ishraak/main_app/failure/exceptions.dart';
-import 'package:assessment_ishraak/main_app/failure/failure.dart';
-import 'package:assessment_ishraak/main_app/api_helpers/urls.dart';
+import 'package:p7app/features/assessment/models/exam_model.dart';
+import 'package:p7app/features/assessment/models/questions_model.dart';
+import 'package:p7app/main_app/api_helpers/api_client.dart';
+import 'package:p7app/main_app/failure/exceptions.dart';
+import 'package:p7app/main_app/failure/failure.dart';
+import 'package:p7app/main_app/api_helpers/urls.dart';
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
 

@@ -1,10 +1,10 @@
-import 'package:assessment_ishraak/features/home_screen/models/dashboard_models.dart';
-import 'package:assessment_ishraak/features/featured_exam_screen/models/featured_exam_model.dart';
-import 'package:assessment_ishraak/features/home_screen/providers/dashboard_screen_provider.dart';
-import 'package:assessment_ishraak/main_app/util/app_theme.dart';
-import 'package:assessment_ishraak/main_app/util/const.dart';
-import 'package:assessment_ishraak/main_app/util/strings_utils.dart';
-import 'package:assessment_ishraak/main_app/widgets/gredient_buton.dart';
+import 'package:p7app/features/home_screen/models/dashboard_models.dart';
+import 'package:p7app/features/featured_exam_screen/models/featured_exam_model.dart';
+import 'package:p7app/features/home_screen/providers/dashboard_screen_provider.dart';
+import 'package:p7app/main_app/util/app_theme.dart';
+import 'package:p7app/main_app/util/const.dart';
+import 'package:p7app/main_app/util/strings_utils.dart';
+import 'package:p7app/main_app/widgets/gredient_buton.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

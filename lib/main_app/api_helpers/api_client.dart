@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:assessment_ishraak/main_app/api_helpers/urls.dart';
-import 'package:assessment_ishraak/main_app/auth_service/auth_service.dart';
-import 'package:assessment_ishraak/main_app/flavour/flavour_config.dart';
+import 'package:p7app/main_app/api_helpers/urls.dart';
+import 'package:p7app/main_app/auth_service/auth_service.dart';
+import 'package:p7app/main_app/flavour/flavour_config.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 
@@ -52,7 +52,7 @@ class ApiClient {
   }
 
   _buildUrl(String partialUrl) {
-    String baseUrl = FlavorConfig().values.baseUrl;
+    String baseUrl = FlavorConfig.instance.values.baseUrl;
     return baseUrl + partialUrl;
   }
 }

@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:assessment_ishraak/features/enrolled_exam_list_screen/repositories/enroll_exam_list_repository.dart';
+import 'package:p7app/features/enrolled_exam_list_screen/repositories/enroll_exam_list_repository.dart';
 
-import 'package:assessment_ishraak/features/enrolled_exam_list_screen/repositories/self_enroll_exam_repository.dart';
+import 'package:p7app/features/enrolled_exam_list_screen/repositories/self_enroll_exam_repository.dart';
 
 import 'package:flutter_test/flutter_test.dart';
 
