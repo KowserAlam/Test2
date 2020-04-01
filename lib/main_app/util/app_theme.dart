@@ -21,6 +21,7 @@ class AppTheme {
 
   static Color lightBG = Colors.grey[100];
   static Color lightScaffoldColor = Colors.white;
+
   static Color darkBG = Colors.grey[900];
   static Color darkScaffoldColor = Colors.grey[800];
 
