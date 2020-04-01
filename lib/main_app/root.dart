@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:p7app/features/home_screen/views/dashboard_screen.dart';
-import 'package:p7app/features/home_screen/views/home.dart';
+import 'package:p7app/features/home_screen/views/home_screen.dart';
 import 'package:p7app/main_app/auth_service/auth_user_model.dart';
 import 'package:p7app/features/auth/view/login_screen.dart';
 import 'package:p7app/main_app/util/json_keys.dart';
@@ -29,7 +29,7 @@ class _RootState extends State<Root> {
         Future.delayed(Duration(seconds: 2)).then((_) {
           Navigator.pushAndRemoveUntil(
               context,
-              CupertinoPageRoute(builder: (context) => DashBoardScreen()),
+              CupertinoPageRoute(builder: (context) => HomeScreen()),
               (Route<dynamic> route) => false);
         });
       } else {

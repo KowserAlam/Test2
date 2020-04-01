@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 import 'package:p7app/features/enrolled_exam_list_screen/providers/enrolled_exam_list_screen_provider.dart';
 import 'package:p7app/features/featured_exam_screen/providers/featured_exam_list_screen_provider.dart';
 import 'package:p7app/features/home_screen/providers/featured_exam_search_provider.dart';
-import 'package:p7app/main_app/view/root.dart';
+import 'package:p7app/main_app/root.dart';
 import 'package:p7app/features/recent_exam/providers/recent_exam_list_provider.dart';
 import 'package:p7app/features/user_profile/providers/edit_profile_provider.dart';
 import 'package:p7app/features/user_profile/providers/experiance_provider.dart';
