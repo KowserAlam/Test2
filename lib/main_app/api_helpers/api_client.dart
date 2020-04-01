@@ -30,12 +30,13 @@ class ApiClient {
   }
 
   Future<http.Response> postRequest(
-      String url, Map<String, dynamic> body) async {
+      String url, Map<String, dynamic> body,{Duration timeout}) async {
     var completeUrl = _buildUrl(url);
     var headers = await _getHeaders();
     var encodedBody = json.encode(body);
-    return httClient.post(completeUrl, headers: headers, body: encodedBody);
+    return httClient.post(completeUrl, headers: headers, body: encodedBody).timeout(Duration(seconds: 15));
   }
+  
 
   Future<Map<String, String>> _getHeaders() async {
     var token = await AuthService.getInstance()

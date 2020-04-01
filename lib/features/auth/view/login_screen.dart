@@ -75,7 +75,34 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
-
+  Widget signInHeader = Container(
+    height: 50,
+//      margin: EdgeInsets.symmetric(horizontal: 8),
+    decoration: BoxDecoration(
+        color: Colors.grey[200], borderRadius: BorderRadius.circular(5)),
+    child: Row(
+      children: <Widget>[
+        Container(
+          height: 50,
+          width: 50,
+          child: Icon(
+            Icons.edit,
+            color: Colors.black54,
+          ),
+        ),
+        Container(
+            height: 50,
+            padding: EdgeInsets.only(top: 15),
+            child: Text(
+              StringUtils.signInText,
+              style: TextStyle(
+                  color: Colors.black54,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 17),
+            )),
+      ],
+    ),
+  );
   Widget _successfulSignUorLoginText() {
     return Consumer<LoginViewModel>(
         builder: (BuildContext context, loginProvider, Widget child) {
@@ -91,12 +118,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             );
           }
-          return SizedBox(
-            child: Text(
-              StringUtils.loginButtonText,
-              style: Theme.of(context).textTheme.display1,
-            ),
-          );
+          return SizedBox();
         });
   }
 
@@ -105,7 +127,7 @@ class _LoginScreenState extends State<LoginScreen> {
       tag: kDefaultLogo,
       child: Image.asset(
         kDefaultLogo,
-        width: 180,
+        width: 160,
         fit: BoxFit.contain,
       ),
     );
@@ -126,7 +148,7 @@ class _LoginScreenState extends State<LoginScreen> {
         },
         decoration: kEmailInputDecoration,
         onSaved: (val) => loginProvider.email = val.trim(),
-        validator: Validator().validateEmail,
+        validator: (val)=>Validator().validateEmail(val.trim()),
       ),
     );
   }
@@ -170,7 +192,7 @@ class _LoginScreenState extends State<LoginScreen> {
       onTap: () {
         _handleLogin(context);
       },
-      label: StringUtils.loginButtonText,
+      label: StringUtils.signInButtonText,
     );
   }
 
@@ -179,7 +201,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return RichText(
       text: TextSpan(children: [
         TextSpan(
-          text: StringUtils.alreadyHaveAndAccountText,
+          text: StringUtils.doNotHaveAccountText,
           style: TextStyle(color: Colors.grey, fontSize: 15),
         ),
         WidgetSpan(
@@ -291,6 +313,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: <Widget>[
                     SizedBox(height: 10),
                     _logoSection(),
+                    signInHeader,
                     _buildForm(context),
                     SizedBox(height: 10),
                   ],
@@ -320,6 +343,8 @@ class _LoginScreenState extends State<LoginScreen> {
         children: <Widget>[
           SizedBox(height: 10),
           _logoSection(),
+          SizedBox(height: 10),
+          signInHeader,
           SizedBox(height: 10),
           _buildForm(context),
           SizedBox(height: 10),

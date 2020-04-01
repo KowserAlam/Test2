@@ -62,8 +62,7 @@ class LoginViewModel with ChangeNotifier {
     };
 
     try {
-      http.Response response =
-          await ApiClient().postRequest(Urls.loginUrl, body);
+      http.Response response = await ApiClient().postRequest(Urls.loginUrl, body);
 
       print(response.body);
       print(response.statusCode);

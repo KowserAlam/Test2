@@ -1,5 +1,6 @@
 import 'package:p7app/features/auth/provider/password_reset_provider.dart';
 import 'package:p7app/features/auth/view/login_screen.dart';
+import 'package:p7app/features/auth/view/widgets/title_widget.dart';
 
 import 'package:p7app/main_app/util/const.dart';
 import 'package:p7app/main_app/util/strings_utils.dart';
@@ -30,7 +31,7 @@ class _PasswordResetEmailWidgetState extends State<PasswordResetEmailWidget> {
         tag: kDefaultLogo,
         child: Image.asset(
           kDefaultLogo,
-          width: 200,
+          width: 150,
           fit: BoxFit.contain,
         ),
       ),
@@ -38,12 +39,7 @@ class _PasswordResetEmailWidgetState extends State<PasswordResetEmailWidget> {
   }
 
   Widget _titleText() {
-    return Center(
-      child: Text(
-        StringUtils.passwordResetText,
-        style: TextStyle(fontSize: 25),
-      ),
-    );
+    return  TitleWidget(labelText: StringUtils.passwordResetText,);
   }
 
   Widget _inputTypeSelectionItemWidget(
@@ -133,10 +129,10 @@ class _PasswordResetEmailWidgetState extends State<PasswordResetEmailWidget> {
                         color: Colors.grey,
                         width: 1.6,
                       ),
-                      borderRadius: BorderRadius.circular(20.0),
+                      borderRadius: BorderRadius.circular(5.0),
                     ),
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.0),
+                      borderRadius: BorderRadius.circular(5.0),
                     ),
                     prefixIcon: Icon(
                       iconPrefix,

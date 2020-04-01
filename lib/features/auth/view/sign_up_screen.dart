@@ -114,7 +114,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
       ),
     ),);
-    Widget signInHeader = Container(
+    Widget signUpHeader = Container(
       height: 50,
 //      margin: EdgeInsets.symmetric(horizontal: 8),
       decoration: BoxDecoration(
@@ -143,7 +143,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       ),
     );
 
-    Widget signInForm = Consumer<SignUpViewModel>(
+     Widget signUpFrom = Consumer<SignUpViewModel>(
       builder: (context, signUpViewModel, _) {
         return Form(
           key: _fromKey,
@@ -297,8 +297,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
               SizedBox(height: topPadding),
               logo,
               SizedBox(height: 30),
-              signInHeader,
-              signInForm,
+              signUpHeader,
+              signUpFrom,
 //              acceptTermAndCondition,
               SizedBox(height: 30),
               registerButton,

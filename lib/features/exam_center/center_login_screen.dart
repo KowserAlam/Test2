@@ -200,7 +200,7 @@ key: Key("login-email"),
 
   Widget _loginButton(context) {
 
-    return GradientButton(onTap: (){ _handleLogin(context);}, label:  StringUtils.loginButtonText,);
+    return GradientButton(onTap: (){ _handleLogin(context);}, label:  StringUtils.signInButtonText,);
   }
 
   _handleLogin(BuildContext context) async{
