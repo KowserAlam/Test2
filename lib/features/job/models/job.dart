@@ -80,7 +80,7 @@ class JobModel {
     companyName = json['company_name'];
     division = json['division'];
     district = json['district'];
-    jobSkills = json['job_skills'];
+    jobSkills = json['job_skills']?.cast<String>();
  
   }
 

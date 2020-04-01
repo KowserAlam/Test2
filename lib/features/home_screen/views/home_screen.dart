@@ -1,6 +1,9 @@
+import 'package:after_layout/after_layout.dart';
 import 'package:p7app/features/auth/provider/login_view_model.dart';
 import 'package:p7app/features/auth/view/login_screen.dart';
 import 'package:p7app/features/home_screen/providers/dashboard_screen_provider.dart';
+import 'package:p7app/features/home_screen/view_model/home_view_model.dart';
+import 'package:p7app/features/job/models/job.dart';
 import 'package:p7app/main.dart';
 import 'package:p7app/main_app/flavour/flavor_banner.dart';
 import 'package:p7app/main_app/util/strings_utils.dart';
@@ -16,8 +19,11 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
-
+class _HomeScreenState extends State<HomeScreen> with AfterLayoutMixin{
+  @override
+  void afterFirstLayout(BuildContext context) {
+    Provider.of<HomeViewModel>(context,listen: false).getJobList();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,10 +56,19 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
         ),
-        body: Center(
-          child: Text("Home"),
-        ),
+        body: Consumer<HomeViewModel>(builder: (BuildContext context, homeViewModel, Widget child) {
+          var jobList = homeViewModel.jobList;
+          print(jobList.length);
+          return ListView.builder(
+            itemCount: jobList.length,
+              itemBuilder: (context,index){
+            JobModel job = jobList[index];
+            return Text(job.title);
+          });
+        },),
       ),
     );
   }
+
+
 }

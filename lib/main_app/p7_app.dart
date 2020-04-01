@@ -6,6 +6,7 @@ import 'package:p7app/features/config/config_provider.dart';
 import 'package:p7app/features/home_screen/providers/result_provider.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
+import 'package:p7app/features/home_screen/view_model/home_view_model.dart';
 import 'package:provider/provider.dart';
 import 'package:p7app/features/enrolled_exam_list_screen/providers/enrolled_exam_list_screen_provider.dart';
 import 'package:p7app/features/featured_exam_screen/providers/featured_exam_list_screen_provider.dart';
@@ -39,6 +40,7 @@ class P7App extends StatelessWidget {
       ChangeNotifierProvider(create: (context) => SignUpViewModel()),
       ChangeNotifierProvider(create: (context) => ResultProvider()),
       ChangeNotifierProvider(create: (context) => FeaturedExamSearchProvider()),
+      ChangeNotifierProvider(create: (context) => HomeViewModel()),
       ChangeNotifierProvider(create: (context) => PasswordResetProvider()),
       ChangeNotifierProvider(
           create: (context) => EnrolledExamListScreenProvider()),
