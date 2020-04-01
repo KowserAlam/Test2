@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 import 'package:p7app/features/enrolled_exam_list_screen/providers/enrolled_exam_list_screen_provider.dart';
 import 'package:p7app/features/featured_exam_screen/providers/featured_exam_list_screen_provider.dart';
 import 'package:p7app/features/home_screen/providers/featured_exam_search_provider.dart';
-import 'package:p7app/main_app/view/splash_screen.dart';
+import 'package:p7app/main_app/view/root.dart';
 import 'package:p7app/features/recent_exam/providers/recent_exam_list_provider.dart';
 import 'package:p7app/features/user_profile/providers/edit_profile_provider.dart';
 import 'package:p7app/features/user_profile/providers/experiance_provider.dart';
@@ -19,19 +19,16 @@ import 'package:p7app/features/user_profile/providers/technical_skill_provider.d
 import 'package:p7app/features/user_profile/providers/user_provider.dart';
 import 'package:p7app/main_app/util/app_theme.dart';
 import 'package:p7app/main_app/util/strings_utils.dart';
-import 'package:p7app/features/exam_center/candidate_list_provider_exam_center.dart';
 import 'package:p7app/features/assessment/providers/exam_provider.dart';
 import 'package:p7app/features/home_screen/providers/dashboard_screen_provider.dart';
-import 'package:p7app/features/exam_center/Centerlogin_provider.dart';
 import 'package:bot_toast/bot_toast.dart';
-import 'package:provider/provider.dart';
 
 
 
-class ProjectSevenMaterialApp extends StatelessWidget {
+class P7App extends StatelessWidget {
   final isEnabledDevicePreview;
 
-  ProjectSevenMaterialApp({this.isEnabledDevicePreview = false});
+  P7App({this.isEnabledDevicePreview = false});
 
   @override
   Widget build(BuildContext context) {
@@ -49,8 +46,6 @@ class ProjectSevenMaterialApp extends StatelessWidget {
           create: (context) => FeaturedExamListScreenProvider()),
       ChangeNotifierProvider(
           create: (context) => RecentExamListScreenProvider()),
-      ChangeNotifierProvider(create: (context) => CenterLoginProvider()),
-      ChangeNotifierProvider(create: (context) => CandidateProvider()),
       ChangeNotifierProvider(create: (context) => SubmitProvider()),
       ChangeNotifierProvider(create: (context) => ExamProvider()),
       ChangeNotifierProvider(create: (context) => DashboardScreenProvider()),
@@ -85,7 +80,7 @@ class ProjectSevenMaterialApp extends StatelessWidget {
               ? AppTheme.darkTheme
               : AppTheme.lightTheme,
 //      darkTheme: AppTheme.darkTheme,
-          home: SplashScreen(),
+          home: Root(),
         ),
       ),
     );

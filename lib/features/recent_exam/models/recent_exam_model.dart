@@ -22,7 +22,8 @@ class RecentExamModel {
       this.percentageOfCorrect});
 
   factory RecentExamModel.fromJson(json) {
-    var baseUrl = FlavorConfig.instance.values.baseUrl;
+
+    var baseUrl = FlavorConfig?.instance?.values?.baseUrl ?? "";
 
     var image = json["exam"] != null
         ? (json['exam']['image'] != null? "$baseUrl${json['exam']['image']}" : kExamCoverImageNetwork)

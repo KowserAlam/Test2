@@ -23,7 +23,7 @@ class EnrolledExamModel {
       this.id});
 
   factory EnrolledExamModel.fromJson(json) {
-    var baseUrl = FlavorConfig.instance.values.baseUrl;
+    var baseUrl = FlavorConfig?.instance?.values?.baseUrl??"";
     return EnrolledExamModel(
         examCode: json['exam_code'] as String,
         examName: json['exam_name'] as String,

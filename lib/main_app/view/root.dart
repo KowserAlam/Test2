@@ -13,12 +13,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class SplashScreen extends StatefulWidget {
+class Root extends StatefulWidget {
   @override
-  _SplashScreenState createState() => _SplashScreenState();
+  _RootState createState() => _RootState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _RootState extends State<Root> {
   @override
   void initState() {
 //    ApiHelper apiHelper = ApiHelper();

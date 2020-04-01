@@ -8,6 +8,7 @@ import 'package:p7app/features/featured_exam_screen/repositories/featured_exam_l
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:mockito/mockito.dart';
+import 'package:p7app/main_app/flavour/flavour_config.dart';
 
 import '../../test_data/dataReader.dart';
 
@@ -17,10 +18,11 @@ void main() {
   //setup test data
 
 
-  group("Exam Enroll repository test", () {
+  group("Exam Enroll repository Group test", () {
     var responseJsonSuccess;
     //arrange
     setUp(() async {
+//      FlavorConfig(values: FlavorValues(baseUrl: ""));
       responseJsonSuccess =
           await TestDataReader().readData("featured_exam_list_success.json");
     });
@@ -43,14 +45,10 @@ void main() {
     test("enrollExamListFromJsonTest invalid josn should return empty list",
         () {
       // arrange
-
       var data = {};
-
       //act
       var list = FeaturedExamListRepository.enrolledExamModelFromMapJson(data);
-
       //assert
-
       expect(list.length, 0);
     });
   });

@@ -1,6 +1,6 @@
 import 'package:p7app/features/config/config_provider.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
-import 'package:p7app/main_app/project_seven_app.dart';
+import 'package:p7app/main_app/p7_app.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -22,9 +22,9 @@ void main() async {
       create: (context) => ConfigProvider(),
       child: isEnabledDevicePreview
           ? DevicePreview(
-              builder: (context) => ProjectSevenMaterialApp(),
+              builder: (context) => P7App(),
             )
-          : ProjectSevenMaterialApp(
+          : P7App(
               isEnabledDevicePreview: isEnabledDevicePreview,
             ),
     ),
