@@ -29,7 +29,7 @@ class _RootState extends State<Root> {
         Future.delayed(Duration(seconds: 2)).then((_) {
           Navigator.pushAndRemoveUntil(
               context,
-              CupertinoPageRoute(builder: (context) => HomeScreen()),
+              CupertinoPageRoute(builder: (context) => DashBoardScreen()),
               (Route<dynamic> route) => false);
         });
       } else {
