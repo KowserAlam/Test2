@@ -54,7 +54,6 @@ class _JobListItemWidgetState extends State<JobListItemWidget> {
                     ],
                   ),
                 ),
-
                 //Location Name & Icon
                 Container(
                   child: Row(
