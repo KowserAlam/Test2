@@ -1,4 +1,4 @@
-import 'package:p7app/main_app/util/const.dart';
+import 'package:p7app/main_app/resource/const.dart';
 import 'package:flutter/material.dart';
 
 class AppLogo extends StatelessWidget {

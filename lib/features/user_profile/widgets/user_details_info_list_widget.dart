@@ -2,7 +2,7 @@ import 'package:p7app/features/user_profile/providers/user_provider.dart';
 import 'package:p7app/features/user_profile/widgets/personal_info_widget.dart';
 import 'package:p7app/features/user_profile/widgets/technical_skill_list_item.dart';
 import 'package:p7app/features/user_profile/widgets/user_info_list_item.dart';
-import 'package:p7app/main_app/util/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

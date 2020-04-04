@@ -3,8 +3,8 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p7app/features/job/models/job.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
-import 'package:p7app/main_app/util/const.dart';
-import 'package:p7app/main_app/util/strings_utils.dart';
+import 'package:p7app/main_app/resource/const.dart';
+import 'package:p7app/main_app/resource/strings_utils.dart';
 
 class JobListItemWidget extends StatefulWidget {
   final JobModel jobModel;

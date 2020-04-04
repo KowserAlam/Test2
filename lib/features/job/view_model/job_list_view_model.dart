@@ -5,7 +5,7 @@ import 'package:p7app/features/job/models/job.dart';
 import 'package:p7app/features/job/repositories/job_list_repository.dart';
 import 'package:p7app/main_app/failure/error.dart';
 
-class HomeViewModel with ChangeNotifier{
+class JobListViewModel with ChangeNotifier{
   List<JobModel> _jobList =[];
 
   List<JobModel> get jobList => _jobList;

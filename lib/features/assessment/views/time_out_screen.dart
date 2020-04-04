@@ -2,7 +2,7 @@ import 'package:after_layout/after_layout.dart';
 import 'package:p7app/features/assessment/providers/exam_provider.dart';
 import 'package:p7app/features/assessment/providers/submit_provider.dart';
 import 'package:p7app/features/enrolled_exam_list_screen/models/enrolled_exam_model.dart';
-import 'package:p7app/main_app/util/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_utils.dart';
 import '../models/candidate_exam_model.dart';
 import '../models/questions_model.dart';
 import 'package:p7app/features/assessment/views/result_screen.dart';

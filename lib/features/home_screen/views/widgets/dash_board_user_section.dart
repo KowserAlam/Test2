@@ -1,5 +1,5 @@
 import 'package:p7app/features/home_screen/providers/dashboard_screen_provider.dart';
-import 'package:p7app/main_app/util/const.dart';
+import 'package:p7app/main_app/resource/const.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

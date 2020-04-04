@@ -2,7 +2,7 @@ import 'package:p7app/features/home_screen/providers/dashboard_screen_provider.d
 import 'package:p7app/features/recent_exam/view/recent_exam_list_tile_widget.dart';
 import 'package:p7app/features/home_screen/views/widgets/view_more_button_widget.dart';
 import 'package:p7app/features/recent_exam/view/recent_exam_list_screen.dart';
-import 'package:p7app/main_app/util/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/widgets/loader.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

@@ -1,7 +1,7 @@
 import 'package:after_layout/after_layout.dart';
 import 'package:p7app/features/user_profile/providers/experiance_provider.dart';
 import 'package:p7app/features/user_profile/models/user_profile_models.dart';
-import 'package:p7app/main_app/util/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/util/validator.dart';
 import 'package:p7app/main_app/widgets/edit_screen_save_button.dart';
 import 'package:flutter/cupertino.dart';

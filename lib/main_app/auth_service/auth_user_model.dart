@@ -1,4 +1,4 @@
-import 'package:p7app/main_app/util/json_keys.dart';
+import 'package:p7app/main_app/resource/json_keys.dart';
 
 class AuthUserModel {
   String refresh;

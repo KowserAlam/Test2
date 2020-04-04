@@ -1,6 +1,6 @@
 import 'package:p7app/features/auth/provider/password_reset_provider.dart';
-import 'package:p7app/main_app/util/const.dart';
-import 'package:p7app/main_app/util/strings_utils.dart';
+import 'package:p7app/main_app/resource/const.dart';
+import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/widgets/gredient_buton.dart';
 import 'package:p7app/main_app/widgets/loader.dart';
 import 'package:p7app/main_app/widgets/verification_code_input.dart';

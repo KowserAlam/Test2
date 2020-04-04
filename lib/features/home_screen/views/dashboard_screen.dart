@@ -7,8 +7,8 @@ import 'package:p7app/features/home_screen/views/widgets/fail_to_load_data_error
 import 'package:p7app/features/home_screen/views/widgets/enrolled_n_recent_exam_dashboard_widgets.dart';
 import 'package:p7app/main_app/flavour/flavor_banner.dart';
 import 'package:p7app/main_app/widgets/app_drawer.dart';
-import 'package:p7app/main_app/util/const.dart';
-import 'package:p7app/main_app/util/strings_utils.dart';
+import 'package:p7app/main_app/resource/const.dart';
+import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

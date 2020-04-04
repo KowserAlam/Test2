@@ -1,7 +1,7 @@
 import 'package:p7app/features/enrolled_exam_list_screen/models/enrolled_exam_model.dart';
 import 'package:p7app/features/featured_exam_screen/models/featured_exam_model.dart';
 import 'package:p7app/features/recent_exam/models/recent_exam_model.dart';
-import 'package:p7app/main_app/util/const.dart';
+import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
 
 

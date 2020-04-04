@@ -6,8 +6,8 @@ import 'package:p7app/features/home_screen/views/widgets/dash_board_widgets_plac
 import 'package:p7app/features/home_screen/views/widgets/exam_duration_widget.dart';
 import 'package:p7app/features/home_screen/views/widgets/view_more_button_widget.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
-import 'package:p7app/main_app/util/const.dart';
-import 'package:p7app/main_app/util/strings_utils.dart';
+import 'package:p7app/main_app/resource/const.dart';
+import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/widgets/loader.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

@@ -6,7 +6,7 @@ import 'package:p7app/features/config/config_provider.dart';
 import 'package:p7app/features/home_screen/providers/result_provider.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
-import 'package:p7app/features/home_screen/view_model/home_view_model.dart';
+import 'package:p7app/features/job/view_model/job_list_view_model.dart';
 import 'package:provider/provider.dart';
 import 'package:p7app/features/enrolled_exam_list_screen/providers/enrolled_exam_list_screen_provider.dart';
 import 'package:p7app/features/featured_exam_screen/providers/featured_exam_list_screen_provider.dart';
@@ -19,7 +19,7 @@ import 'package:p7app/features/user_profile/providers/education_provider.dart';
 import 'package:p7app/features/user_profile/providers/technical_skill_provider.dart';
 import 'package:p7app/features/user_profile/providers/user_provider.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
-import 'package:p7app/main_app/util/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/features/assessment/providers/exam_provider.dart';
 import 'package:p7app/features/home_screen/providers/dashboard_screen_provider.dart';
 import 'package:bot_toast/bot_toast.dart';
@@ -40,7 +40,7 @@ class P7App extends StatelessWidget {
       ChangeNotifierProvider(create: (context) => SignUpViewModel()),
       ChangeNotifierProvider(create: (context) => ResultProvider()),
       ChangeNotifierProvider(create: (context) => FeaturedExamSearchProvider()),
-      ChangeNotifierProvider(create: (context) => HomeViewModel()),
+      ChangeNotifierProvider(create: (context) => JobListViewModel()),
       ChangeNotifierProvider(create: (context) => PasswordResetProvider()),
       ChangeNotifierProvider(
           create: (context) => EnrolledExamListScreenProvider()),

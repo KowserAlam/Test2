@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:p7app/main_app/auth_service/auth_user_model.dart';
-import 'package:p7app/main_app/util/json_keys.dart';
+import 'package:p7app/main_app/resource/json_keys.dart';
 import 'package:p7app/main_app/util/local_storage.dart';
-import 'package:p7app/main_app/util/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService {

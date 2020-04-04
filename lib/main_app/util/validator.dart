@@ -1,4 +1,4 @@
-import 'package:p7app/main_app/util/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_utils.dart';
 
 class Validator {
   String nullFieldValidate(String value) =>

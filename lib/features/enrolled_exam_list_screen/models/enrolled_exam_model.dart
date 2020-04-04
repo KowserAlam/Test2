@@ -1,5 +1,5 @@
 import 'package:p7app/main_app/flavour/flavour_config.dart';
-import 'package:p7app/main_app/util/const.dart';
+import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
 
 class EnrolledExamModel {

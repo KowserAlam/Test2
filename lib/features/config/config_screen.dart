@@ -1,7 +1,7 @@
 
 import 'package:p7app/features/config/config_provider.dart';
 import 'package:p7app/main_app/repositories/app_info_repository.dart';
-import 'package:p7app/main_app/util/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';

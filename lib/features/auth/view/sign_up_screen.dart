@@ -1,7 +1,7 @@
 import 'package:p7app/features/auth/provider/login_view_model.dart';
 import 'package:p7app/features/auth/provider/signup_viewmodel.dart';
-import 'package:p7app/main_app/util/const.dart';
-import 'package:p7app/main_app/util/strings_utils.dart';
+import 'package:p7app/main_app/resource/const.dart';
+import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/util/validator.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';

@@ -3,7 +3,7 @@ import 'package:p7app/features/auth/view/widgets/password_reset_enter_new_passwo
 import 'package:p7app/features/auth/view/widgets/password_reset_verify_code_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:p7app/features/auth/view/widgets/title_widget.dart';
-import 'package:p7app/main_app/util/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:page_view_indicators/circle_page_indicator.dart';
 
 class PasswordResetScreens extends StatefulWidget {

@@ -10,7 +10,7 @@ import 'package:p7app/features/assessment/views/widgets/sidebar_indicator_item.d
 import 'package:p7app/features/config/config_provider.dart';
 import 'package:p7app/features/enrolled_exam_list_screen/models/enrolled_exam_model.dart';
 import 'package:p7app/features/home_screen/views/widgets/fail_to_load_data_error_widget.dart';
-import 'package:p7app/main_app/util/json_keys.dart';
+import 'package:p7app/main_app/resource/json_keys.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import '../models/candidate_exam_model.dart';
 import '../models/questions_model.dart';
@@ -18,7 +18,7 @@ import 'package:p7app/features/assessment/providers/exam_provider.dart';
 
 import 'package:p7app/features/assessment/views/result_screen.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
-import 'package:p7app/main_app/util/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/app_theme/comon_styles.dart';
 
 import 'package:p7app/main_app/widgets/custom_alert_dialog.dart';

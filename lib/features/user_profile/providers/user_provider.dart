@@ -1,6 +1,6 @@
 import 'package:p7app/features/user_profile/models/user_profile_models.dart';
 import 'package:p7app/features/user_profile/repositories/user_profile_repository.dart';
-import 'package:p7app/main_app/util/json_keys.dart';
+import 'package:p7app/main_app/resource/json_keys.dart';
 import 'package:flutter/foundation.dart';
 import 'package:uuid/uuid.dart';
 

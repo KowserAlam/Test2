@@ -8,7 +8,7 @@ import 'package:p7app/features/recent_exam/providers/recent_exam_list_provider.d
 import 'package:p7app/features/recent_exam/widgets/search_bar_widget.dart';
 import 'package:p7app/main_app/widgets/loader.dart';
 import 'package:p7app/main_app/widgets/search_bar_view_widget.dart';
-import 'package:p7app/main_app/util/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

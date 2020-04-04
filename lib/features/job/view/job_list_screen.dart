@@ -2,12 +2,12 @@ import 'package:after_layout/after_layout.dart';
 import 'package:p7app/features/auth/provider/login_view_model.dart';
 import 'package:p7app/features/auth/view/login_screen.dart';
 import 'package:p7app/features/home_screen/providers/dashboard_screen_provider.dart';
-import 'package:p7app/features/home_screen/view_model/home_view_model.dart';
+import 'package:p7app/features/job/view_model/job_list_view_model.dart';
 import 'package:p7app/features/job/models/job.dart';
 import 'package:p7app/features/job/view/widgets/job_list_item_widget.dart';
 import 'package:p7app/main.dart';
 import 'package:p7app/main_app/flavour/flavor_banner.dart';
-import 'package:p7app/main_app/util/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/widgets/app_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -23,7 +23,7 @@ class JobListScreen extends StatefulWidget {
 class _JobListScreenState extends State<JobListScreen> with AfterLayoutMixin{
   @override
   void afterFirstLayout(BuildContext context) {
-    Provider.of<HomeViewModel>(context,listen: false).getJobList();
+    Provider.of<JobListViewModel>(context,listen: false).getJobList();
   }
 
   @override
@@ -34,7 +34,7 @@ class _JobListScreenState extends State<JobListScreen> with AfterLayoutMixin{
           title: Text("Home"),
         ),
         drawer: Drawer(child: AppDrawer(routeName: 'home',)),
-        body: Consumer<HomeViewModel>(builder: (BuildContext context, homeViewModel, Widget child) {
+        body: Consumer<JobListViewModel>(builder: (BuildContext context, homeViewModel, Widget child) {
           var jobList = homeViewModel.jobList;
           print(jobList.length);
           return ListView.builder(

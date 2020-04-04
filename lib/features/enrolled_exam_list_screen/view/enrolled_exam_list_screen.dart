@@ -3,7 +3,7 @@ import 'package:p7app/features/enrolled_exam_list_screen/providers/enrolled_exam
 import 'package:p7app/features/enrolled_exam_list_screen/view/enroll_exam_list_tile.dart';
 import 'package:p7app/features/home_screen/views/widgets/fail_to_load_data_error_widget.dart';
 import 'package:p7app/features/recent_exam/widgets/search_bar_widget.dart';
-import 'package:p7app/main_app/util/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/widgets/loader.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
