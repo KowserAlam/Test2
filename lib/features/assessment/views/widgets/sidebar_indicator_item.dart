@@ -1,4 +1,4 @@
-import 'package:p7app/main_app/util/cosnt_style.dart';
+import 'package:p7app/main_app/util/comon_styles.dart';
 import 'package:flutter/material.dart';
 
 class SidebarIndicatorItem extends StatelessWidget {

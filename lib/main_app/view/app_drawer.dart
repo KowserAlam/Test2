@@ -4,6 +4,8 @@ import 'package:p7app/features/config/config_screen.dart';
 import 'package:p7app/features/enrolled_exam_list_screen/view/enrolled_exam_list_screen.dart';
 import 'package:p7app/features/featured_exam_screen/views/featured_exams_screen.dart';
 import 'package:p7app/features/home_screen/providers/dashboard_screen_provider.dart';
+import 'package:p7app/features/home_screen/views/dashboard_screen.dart';
+import 'package:p7app/features/home_screen/views/home_screen.dart';
 import 'package:p7app/features/recent_exam/view/recent_exam_list_screen.dart';
 import 'package:p7app/features/user_profile/profile_screen.dart';
 import 'package:p7app/main_app/util/const.dart';
@@ -14,11 +16,16 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 class AppDrawer extends StatefulWidget {
+  final String routeName ;
+
+  AppDrawer({this.routeName});
+
   @override
   _AppDrawerState createState() => _AppDrawerState();
 }
 
 class _AppDrawerState extends State<AppDrawer> {
+  var selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -85,21 +92,37 @@ class _AppDrawerState extends State<AppDrawer> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                ///DashBoard
+
+
+                ///Home / Jobs index = 0
+
+                DrawerListWidget(
+                  label: StringUtils.homText,
+                  icon: Icons.home,
+                  isSelected: widget.routeName == 'home',
+                  onTap: () {
+                    Navigator.of(context)
+                        .pushReplacement(CupertinoPageRoute(builder: (context)=>HomeScreen()));
+
+                  },
+                ),
+
+                ///DashBoard index 1
 
                 DrawerListWidget(
                   label: StringUtils.dashBoardText,
                   icon: Icons.dashboard,
-                  isSelected: true,
+                  isSelected: widget.routeName == 'dashboard',
                   onTap: () {
-                    Navigator.pop(context);
+                    Navigator.of(context)
+                        .pushReplacement(CupertinoPageRoute(builder: (context)=>DashBoardScreen()));
                   },
                 ),
                 Divider(
                   height: 1,
                 ),
 
-                ///Enrolled Exams
+                ///Enrolled Exams index = 2
 
                 DrawerListWidget(
                   label: StringUtils.enrolledExamsText,
@@ -116,7 +139,7 @@ class _AppDrawerState extends State<AppDrawer> {
                   height: 1,
                 ),
 
-                ///RecentExamScreen
+                ///RecentExamScreen index = 3
 
                 DrawerListWidget(
                   label: StringUtils.recentExamsText,
@@ -130,10 +153,10 @@ class _AppDrawerState extends State<AppDrawer> {
                   },
                 ),
                 Divider(
-                  height: 1,
+                  height: 1
                 ),
 
-                ///FeaturedExamsScreen
+                ///FeaturedExamsScreen index = 4
                 DrawerListWidget(
                   label: StringUtils.featuredExamsText,
                   icon: FontAwesomeIcons.fireAlt,
@@ -146,10 +169,10 @@ class _AppDrawerState extends State<AppDrawer> {
                   },
                 ),
                 Divider(
-                  height: 1,
+                  height: 1
                 ),
 
-                ///Profile
+                ///Profile index = 4
                 DrawerListWidget(
                   label: StringUtils.profileText,
                   icon: FontAwesomeIcons.userTie,

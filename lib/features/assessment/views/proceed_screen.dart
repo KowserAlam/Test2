@@ -5,7 +5,7 @@ import 'package:p7app/features/enrolled_exam_list_screen/models/enrolled_exam_mo
 import 'package:p7app/features/home_screen/providers/dashboard_screen_provider.dart';
 import 'package:p7app/features/home_screen/views/widgets/exam_duration_widget.dart';
 import 'package:p7app/main_app/util/strings_utils.dart';
-import 'package:p7app/main_app/util/cosnt_style.dart';
+import 'package:p7app/main_app/util/comon_styles.dart';
 import 'package:p7app/main_app/widgets/circular_icon_button_primary_color.dart';
 import 'package:p7app/main_app/widgets/gredient_buton.dart';
 import 'package:flutter/cupertino.dart';

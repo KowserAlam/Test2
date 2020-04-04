@@ -15,7 +15,8 @@ const String  kExamCoverImageNetwork =   "https://i.ibb.co/Wtt5Hn9/exam-cover.jp
 
 
 /// Less then 720 will be count as
-const double kMidDeviceScreenSize = 720;
+const double kSmallScreenSize = 480;
+const double kMidDeviceScreenSize = 680;
 const double kLargeDeviceScreenSize = 1080;
 
 /// Date Field

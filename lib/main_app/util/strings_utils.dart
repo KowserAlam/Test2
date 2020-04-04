@@ -260,9 +260,17 @@ class StringUtils {
 
   static String noExamFoundText = "No exam found !";
 
+  static var homText = "home";
+
   static String enumName(String enumToString) {
     List<String> paths = enumToString.split(".");
     return paths[paths.length - 1];
   }
 
+
+  ///
+/// Jobs
+static const String unspecifiedText = "Unspecified";
+static const String deadlineText = "Deadline";
+static const String applyText = "Apply";
 }

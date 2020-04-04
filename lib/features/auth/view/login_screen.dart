@@ -5,7 +5,7 @@ import 'package:p7app/features/home_screen/views/home_screen.dart';
 import 'package:p7app/features/auth/provider/login_view_model.dart';
 import 'package:p7app/main_app/flavour/flavor_banner.dart';
 import 'package:p7app/main_app/util/const.dart';
-import 'package:p7app/main_app/util/cosnt_style.dart';
+import 'package:p7app/main_app/util/comon_styles.dart';
 import 'package:p7app/main_app/util/strings_utils.dart';
 import 'package:p7app/main_app/util/validator.dart';
 import 'package:p7app/main_app/widgets/app_version_widget_small.dart';

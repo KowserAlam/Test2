@@ -8,7 +8,7 @@ import 'package:p7app/features/job/view/widgets/job_list_item_widget.dart';
 import 'package:p7app/main.dart';
 import 'package:p7app/main_app/flavour/flavor_banner.dart';
 import 'package:p7app/main_app/util/strings_utils.dart';
-import 'package:p7app/main_app/view/drawer.dart';
+import 'package:p7app/main_app/view/app_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -33,30 +33,7 @@ class _HomeScreenState extends State<HomeScreen> with AfterLayoutMixin{
         appBar: AppBar(
           title: Text("Home"),
         ),
-        endDrawer: Drawer(
-          child: ListView(
-            children: <Widget>[
-              /// ************ sign out
-              Padding(
-                padding: const EdgeInsets.only(bottom: 8),
-                child: DrawerListWidget(
-                  color: Colors.redAccent,
-                  label: StringUtils.signOutText,
-                  icon: FontAwesomeIcons.signOutAlt,
-                  isSelected: false,
-                  onTap: () {
-                    Provider.of<LoginViewModel>(context,listen: false).signOut();
-                    Provider.of<DashboardScreenProvider>(context).resetState();
-                    Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(builder: (context) => LoginScreen()),
-                            (_) => false);
-                  },
-                ),
-              ),
-            ],
-          ),
-        ),
+        drawer: Drawer(child: AppDrawer(routeName: 'home',)),
         body: Consumer<HomeViewModel>(builder: (BuildContext context, homeViewModel, Widget child) {
           var jobList = homeViewModel.jobList;
           print(jobList.length);

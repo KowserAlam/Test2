@@ -22,7 +22,8 @@ dependencies:
   provider: ^4.0.4
 
   #  The Font Awesome Icon pack available as Flutter Icons.
-  font_awesome_flutter: ^8.7.0
+  font_awesome_flutter: ^8.8.1
+  flutter_feather_icons: ^1.0.3
 
   # reactiveX api for asynchronous programming.
   rxdart: ^0.23.1
@@ -69,7 +70,7 @@ dependencies:
   image_crop: ^0.3.2
 
   #   peak image form gallery and take capture image using camera
-  image_picker: ^0.6.3+4
+  image_picker: ^0.6.4
 
   #  Modal Progress hud (Heads Up Display) to show progress on to of screen
   modal_progress_hud: ^0.1.3
@@ -93,7 +94,7 @@ dependencies:
   google_fonts: ^0.3.10
 
   #  flutter toast library!
-  bot_toast: ^2.3.1
+  bot_toast: ^2.4.0
 
 
 

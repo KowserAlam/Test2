@@ -19,7 +19,7 @@ import 'package:p7app/features/assessment/providers/exam_provider.dart';
 import 'package:p7app/features/assessment/views/result_screen.dart';
 import 'package:p7app/main_app/util/app_theme.dart';
 import 'package:p7app/main_app/util/strings_utils.dart';
-import 'package:p7app/main_app/util/cosnt_style.dart';
+import 'package:p7app/main_app/util/comon_styles.dart';
 
 import 'package:p7app/main_app/widgets/custom_alert_dialog.dart';
 import 'package:p7app/main_app/widgets/gredient_buton.dart';

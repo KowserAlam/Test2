@@ -2,6 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
+
+
+
+  static Color orange = Color(0xfffd7e14);
+  static Color danger = Color(0xffdc3545);
+  static Color warning = Color(0xffffc107);
+  static Color dark = Color(0xff343a40);
+  static Color light = Color(0xfff8f9fa);
+  static Color primary = Color(0xff007bff);
+  static Color grey = Color(0xff6c757d);
+
+
 //Colors for theme
   static Color lightPrimary = Color(0xfffcfcff);
 
@@ -18,6 +30,8 @@ class AppTheme {
 
   static Color colorAccentLight = Color(0xFFEE5623);
   static Color colorAccentDark = Color(0xffff9875);
+
+
 
   static Color lightBG = Colors.grey[100];
   static Color lightScaffoldColor = Colors.white;
@@ -41,6 +55,7 @@ class AppTheme {
       begin: Alignment.centerRight,
       end: Alignment.centerLeft);
 
+  var fontFamily = GoogleFonts.poppins().fontFamily;
 
   static ThemeData lightTheme = ThemeData(
       brightness: Brightness.light,
@@ -49,7 +64,7 @@ class AppTheme {
       accentColor: colorAccentLight,
       buttonTheme: ButtonThemeData(buttonColor: colorPrimary),
       scaffoldBackgroundColor: lightScaffoldColor,
-      textTheme: GoogleFonts.robotoTextTheme().copyWith(
+      textTheme: GoogleFonts.poppinsTextTheme().copyWith(
           display1: TextStyle(
               fontSize: 26, color: Colors.black, fontWeight: FontWeight.bold),
           title: TextStyle(
@@ -75,7 +90,7 @@ class AppTheme {
       elevation: 0,
       iconTheme: IconThemeData(color: lightBG),
       actionsIconTheme: IconThemeData(color: lightBG),
-      textTheme: TextTheme(
+      textTheme: GoogleFonts.poppinsTextTheme().copyWith(
         title: TextStyle(
           color: lightBG,
           fontSize: 18.0,

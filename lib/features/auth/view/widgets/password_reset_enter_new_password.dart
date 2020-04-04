@@ -2,7 +2,7 @@ import 'package:p7app/features/auth/provider/login_view_model.dart';
 import 'package:p7app/features/auth/provider/password_reset_provider.dart';
 
 import 'package:p7app/main_app/util/const.dart';
-import 'package:p7app/main_app/util/cosnt_style.dart';
+import 'package:p7app/main_app/util/comon_styles.dart';
 import 'package:p7app/main_app/util/json_keys.dart';
 import 'package:p7app/main_app/util/strings_utils.dart';
 import 'package:p7app/main_app/util/validator.dart';
