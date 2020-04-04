@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:p7app/features/home_screen/views/dashboard_screen.dart';
-import 'package:p7app/features/home_screen/views/home_screen.dart';
+import 'package:p7app/features/home_screen/views/job_list_screen.dart';
 import 'package:p7app/main_app/auth_service/auth_user_model.dart';
 import 'package:p7app/features/auth/view/login_screen.dart';
 import 'package:p7app/main_app/util/json_keys.dart';
@@ -26,10 +26,10 @@ class _RootState extends State<Root> {
 
     getAuthStatus().then((AuthUserModel user) {
       if (user != null) {
-        Future.delayed(Duration(seconds: 2)).then((_) {
+        Future.delayed(Duration(seconds: 1)).then((_) {
           Navigator.pushAndRemoveUntil(
               context,
-              CupertinoPageRoute(builder: (context) => HomeScreen()),
+              CupertinoPageRoute(builder: (context) => JobListScreen()),
               (Route<dynamic> route) => false);
         });
       } else {

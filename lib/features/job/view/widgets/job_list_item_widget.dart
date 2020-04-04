@@ -24,24 +24,21 @@ class _JobListItemWidgetState extends State<JobListItemWidget> {
     var backgroundColor = Theme.of(context).backgroundColor;
     var scaffoldBackgroundColor = Theme.of(context).scaffoldBackgroundColor;
     bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
-    var titleStyle = TextStyle(fontSize: 18, fontWeight: FontWeight.w600);
+    var titleStyle = TextStyle(fontSize: 16, fontWeight: FontWeight.w600);
     double iconSize = 14.0;
     bool isTabLayout = MediaQuery.of(context).size.width > kMidDeviceScreenSize;
     var subtitleColor = AppTheme.grey;
 
     var companyLogo = Container(
-
-      height: 80,
-      width: 80,
+      height: 40,
+      width: 40,
       decoration: BoxDecoration(
-        color: scaffoldBackgroundColor,
-        border: Border.all(color: AppTheme.grey.withOpacity(0.5))
-      ),
-
+          color: scaffoldBackgroundColor,
+          border: Border.all(color: AppTheme.grey.withOpacity(0.5))),
       child: Center(
         child: FaIcon(
           FontAwesomeIcons.atom,
-          size: 50,
+          size: 20,
           color: Colors.purpleAccent,
         ),
       ),
@@ -96,16 +93,14 @@ class _JobListItemWidgetState extends State<JobListItemWidget> {
         setState(() {});
       },
       child: Container(
-        height: 50,
-        width: 50,
+//        height: 50,
+//        width: 50,
         alignment: Alignment.center,
-        decoration: BoxDecoration(
-          border:  Border.all(color: heart == true ? AppTheme.orange:AppTheme.grey),
-          shape: BoxShape.circle,
-          color: scaffoldBackgroundColor,
+        child: Icon(
+          FeatherIcons.heart,
+          color: heart == true ? AppTheme.orange : AppTheme.grey,
+          size: 22,
         ),
-        child: Icon(FeatherIcons.heart,
-            color: heart == true ? AppTheme.orange : AppTheme.grey,size: 22,),
       ),
     );
     var applyButton = Container(
@@ -142,89 +137,118 @@ class _JobListItemWidgetState extends State<JobListItemWidget> {
     );
     var deadLine = Row(
       children: <Widget>[
-        Text(
-          "${StringUtils.deadlineText}: ",
+        Icon(
+          FontAwesomeIcons.calendar,
+          size: iconSize,
+          color: AppTheme.orange,
         ),
+        SizedBox(
+          width: 5,
+        ),
+        Text("${StringUtils.deadlineText}: ",
+            style: TextStyle(color: subtitleColor)),
         Text(
           widget.jobModel.applicationDeadline != null
               ? widget.jobModel.applicationDeadline
               : StringUtils.unspecifiedText,
+          style: TextStyle(color: subtitleColor),
         ),
       ],
     );
     return Container(
-      color:backgroundColor,
+      decoration: BoxDecoration(color: backgroundColor,
+//        borderRadius: BorderRadius.circular(5),
+          boxShadow: [
+            BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 10),
+            BoxShadow(color: Colors.black.withOpacity(0.2), blurRadius: 10),
+          ]),
       margin: EdgeInsets.all(8),
       padding: EdgeInsets.all(8),
-      child: isTabLayout?Row(
-        children: <Widget>[
-          companyLogo,
-          SizedBox(width: 10,),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+      child: isTabLayout
+          ? Row(
               children: <Widget>[
-                //Job Title
-                jobTitle,
+                companyLogo,
                 SizedBox(
-                  height: 10
+                  width: 10,
                 ),
-                Row(
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      //Job Title
+                      jobTitle,
+                      SizedBox(height: 10),
+                      Row(
+                        children: <Widget>[
+                          Expanded(flex: 3, child: companyName),
+                          Expanded(flex: 2, child: companyLocation),
+                        ],
+                      ),
+                      SizedBox(height: 3),
+
+                      SizedBox(height: 3),
+                      jobType,
+                    ],
+                  ),
+                ),
+                Column(
                   children: <Widget>[
-                    Expanded(flex:3,child: companyName),
-                    Expanded(flex:2,child: companyLocation),
+                    //Job Title
+                    Row(
+                      children: <Widget>[
+                        heartButton,
+                        SizedBox(
+                          width: 20,
+                        ),
+                        applyButton,
+                      ],
+                    ),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    deadLine
                   ],
                 ),
-                SizedBox(height: 3),
-
-                SizedBox(height: 3),
-                jobType,
-
-
-
               ],
-            ),
-          ),
-          Column(children: <Widget>[
-            //Job Title
-            Row(
+            )
+          : Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                heartButton,
-                SizedBox(width: 20,),
-                applyButton,
+                Row(
+                  children: <Widget>[
+                    companyLogo,
+                    SizedBox(width: 8),
+                    Expanded(child: jobTitle),
+                    SizedBox(width: 8),
+                    heartButton,
+                  ],
+                ),
+                //Job Title
+                SizedBox(height: 10),
+                companyName,
+
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          SizedBox(height: 3),
+                          companyLocation,
+                          SizedBox(height: 3),
+                          jobType,
+                          deadLine,
+                        ],
+                      ),
+                    ),
+
+                    applyButton,
+                  ],
+                ),
               ],
             ),
-            SizedBox(height: 8,),
-            deadLine
-          ],),
-        ],
-      ):Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          companyLogo,
-          //Job Title
-          jobTitle,
-          SizedBox(
-            height: 10,
-          ),
-          companyName,
-          SizedBox(height: 3),
-          companyLocation,
-          SizedBox(height: 3),
-          jobType,
-          SizedBox(height: 8),
-          Row(
-            children: <Widget>[
-              heartButton,
-              SizedBox(width: 20,),
-              applyButton,
-            ],
-          ),
-          SizedBox(height: 8,),
-          deadLine,
-        ],
-      )
-      ,
     );
   }
 }

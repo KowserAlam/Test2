@@ -1,9 +1,10 @@
 import 'package:p7app/features/auth/view/password_reset_screens.dart';
 import 'package:p7app/features/auth/view/sign_up_screen.dart';
 import 'package:p7app/features/home_screen/views/dashboard_screen.dart';
-import 'package:p7app/features/home_screen/views/home_screen.dart';
+import 'package:p7app/features/home_screen/views/job_list_screen.dart';
 import 'package:p7app/features/auth/provider/login_view_model.dart';
 import 'package:p7app/main_app/flavour/flavor_banner.dart';
+import 'package:p7app/main_app/root.dart';
 import 'package:p7app/main_app/util/const.dart';
 import 'package:p7app/main_app/util/comon_styles.dart';
 import 'package:p7app/main_app/util/strings_utils.dart';
@@ -245,7 +246,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
       if (res) {
         Navigator.of(context).pushAndRemoveUntil(
-            CupertinoPageRoute(builder: (BuildContext context) => DashBoardScreen()),
+            CupertinoPageRoute(builder: (BuildContext context) => Root()),
                 (_) => false);
       }
 
@@ -266,18 +267,7 @@ class _LoginScreenState extends State<LoginScreen> {
       backgroundColor: color,
     ));
   }
-//
-//  _showFlashBar(BuildContext context) {
-//    Flushbar(
-//      onTap: (s) {
-//        s.dismiss();
-//      },
-//      flushbarPosition: FlushbarPosition.TOP,
-//      title: "Network Error",
-//      message: "Please check your connectivity !",
-//      backgroundColor: Colors.red,
-//    ).show(context);
-//  }
+
 
   Widget _forgotPasswordWidget(context) => InkWell(
       borderRadius: BorderRadius.circular(10),

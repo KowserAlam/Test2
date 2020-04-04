@@ -1,6 +1,6 @@
 import 'package:p7app/features/enrolled_exam_list_screen/models/enrolled_exam_model.dart';
 import 'package:p7app/features/enrolled_exam_list_screen/repositories/enroll_exam_list_repository.dart';
-import 'package:p7app/main_app/models/exam_page_response_data_model.dart';
+import 'package:p7app/features/assessment/models/exam_page_response_data_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:rxdart/rxdart.dart';
 

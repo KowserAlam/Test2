@@ -13,14 +13,14 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
-class HomeScreen extends StatefulWidget {
-  HomeScreen({Key key}) : super(key: key);
+class JobListScreen extends StatefulWidget {
+  JobListScreen({Key key}) : super(key: key);
 
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _JobListScreenState createState() => _JobListScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> with AfterLayoutMixin{
+class _JobListScreenState extends State<JobListScreen> with AfterLayoutMixin{
   @override
   void afterFirstLayout(BuildContext context) {
     Provider.of<HomeViewModel>(context,listen: false).getJobList();
@@ -37,9 +37,9 @@ class _HomeScreenState extends State<HomeScreen> with AfterLayoutMixin{
         body: Consumer<HomeViewModel>(builder: (BuildContext context, homeViewModel, Widget child) {
           var jobList = homeViewModel.jobList;
           print(jobList.length);
-          return ListView.separated(
+          return ListView.builder(
             itemCount: jobList.length,
-              separatorBuilder: (context,index)=>Divider(),
+//              separatorBuilder: (context,index)=>Divider(),
               itemBuilder: (context,index){
             JobModel job = jobList[index];
             return JobListItemWidget(job);

@@ -1,4 +1,4 @@
-import 'package:p7app/main_app/models/exam_page_response_data_model.dart';
+import 'package:p7app/features/assessment/models/exam_page_response_data_model.dart';
 import 'package:p7app/features/featured_exam_screen/repositories/featured_exam_list_repository.dart';
 import 'package:p7app/features/home_screen/models/dashboard_models.dart';
 import 'package:p7app/features/featured_exam_screen/models/featured_exam_model.dart';

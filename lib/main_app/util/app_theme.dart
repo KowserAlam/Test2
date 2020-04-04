@@ -59,11 +59,11 @@ class AppTheme {
 
   static ThemeData lightTheme = ThemeData(
       brightness: Brightness.light,
-      backgroundColor: lightBG,
+      backgroundColor: lightScaffoldColor,
       primaryColor: colorPrimary,
       accentColor: colorAccentLight,
       buttonTheme: ButtonThemeData(buttonColor: colorPrimary),
-      scaffoldBackgroundColor: lightScaffoldColor,
+      scaffoldBackgroundColor: lightBG,
       textTheme: GoogleFonts.poppinsTextTheme().copyWith(
           display1: TextStyle(
               fontSize: 26, color: Colors.black, fontWeight: FontWeight.bold),
