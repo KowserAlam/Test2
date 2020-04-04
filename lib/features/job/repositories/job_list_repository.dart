@@ -11,9 +11,9 @@ class JobListRepository {
   String next;
 
   Future<Either<AppError, List<JobModel>>> fetchJobList(
-      {int page = 1, int size = 5}) async {
+      {int page = 1, int size = 10}) async {
     try {
-      var response = await ApiClient().getRequest(Urls.jobListUrl);
+      var response = await ApiClient().getRequest(Urls.jobListUrl+"?page=$page&page_size=$size");
       print(response.statusCode);
       if (response.statusCode == 200) {
         var mapData  = json.decode(response.body);

@@ -44,7 +44,7 @@ class _JobListItemWidgetState extends State<JobListItemWidget> {
       ),
     ); //That pointless fruit logo
     var jobTitle = Text(
-      widget.jobModel.title,
+      widget.jobModel.title??"",
       style: titleStyle,
     );
     var companyName = Row(
@@ -59,7 +59,7 @@ class _JobListItemWidgetState extends State<JobListItemWidget> {
         ),
         Expanded(
           child: Text(
-            widget.jobModel.companyName,
+            widget.jobModel.companyName??"",
             style: TextStyle(color: subtitleColor),
           ),
         )
@@ -77,7 +77,7 @@ class _JobListItemWidgetState extends State<JobListItemWidget> {
             width: 5,
           ),
           Text(
-            widget.jobModel.jobLocation,
+            widget.jobModel.jobLocation??"",
             style: TextStyle(color: subtitleColor),
           )
         ],
