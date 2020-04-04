@@ -67,6 +67,7 @@ class _JobListItemWidgetState extends State<JobListItemWidget> {
     );
     var companyLocation = Container(
       child: Row(
+
         children: <Widget>[
           Icon(
             FeatherIcons.mapPin,
@@ -76,9 +77,11 @@ class _JobListItemWidgetState extends State<JobListItemWidget> {
           SizedBox(
             width: 5,
           ),
-          Text(
-            widget.jobModel.jobLocation??"",
-            style: TextStyle(color: subtitleColor),
+          Expanded(
+            child: Text(
+              widget.jobModel.jobLocation??"",
+              style: TextStyle(color: subtitleColor),
+            ),
           )
         ],
       ),

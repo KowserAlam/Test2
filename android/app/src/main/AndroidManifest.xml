@@ -11,7 +11,7 @@
 
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="SkillCheck"
+        android:label="JobSearch"
         android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
