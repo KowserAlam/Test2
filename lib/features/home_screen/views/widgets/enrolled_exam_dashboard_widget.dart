@@ -5,7 +5,7 @@ import 'package:p7app/features/enrolled_exam_list_screen/models/enrolled_exam_mo
 import 'package:p7app/features/home_screen/views/widgets/dash_board_widgets_place_holder_widgets.dart';
 import 'package:p7app/features/home_screen/views/widgets/exam_duration_widget.dart';
 import 'package:p7app/features/home_screen/views/widgets/view_more_button_widget.dart';
-import 'package:p7app/main_app/util/app_theme.dart';
+import 'package:p7app/main_app/app_theme/app_theme.dart';
 import 'package:p7app/main_app/util/const.dart';
 import 'package:p7app/main_app/util/strings_utils.dart';
 import 'package:p7app/main_app/widgets/loader.dart';

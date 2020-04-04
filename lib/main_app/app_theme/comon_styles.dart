@@ -1,4 +1,4 @@
-import 'package:p7app/main_app/util/app_theme.dart';
+import 'package:p7app/main_app/app_theme/app_theme.dart';
 import 'package:p7app/main_app/util/strings_utils.dart';
 import 'package:flutter/material.dart';
 

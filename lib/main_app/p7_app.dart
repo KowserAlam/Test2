@@ -18,7 +18,7 @@ import 'package:p7app/features/user_profile/providers/experiance_provider.dart';
 import 'package:p7app/features/user_profile/providers/education_provider.dart';
 import 'package:p7app/features/user_profile/providers/technical_skill_provider.dart';
 import 'package:p7app/features/user_profile/providers/user_provider.dart';
-import 'package:p7app/main_app/util/app_theme.dart';
+import 'package:p7app/main_app/app_theme/app_theme.dart';
 import 'package:p7app/main_app/util/strings_utils.dart';
 import 'package:p7app/features/assessment/providers/exam_provider.dart';
 import 'package:p7app/features/home_screen/providers/dashboard_screen_provider.dart';

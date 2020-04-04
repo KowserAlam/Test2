@@ -7,7 +7,7 @@ import 'package:p7app/features/auth/view/login_screen.dart';
 import 'package:p7app/main_app/util/json_keys.dart';
 import 'package:p7app/main_app/util/const.dart';
 import 'package:p7app/main_app/util/strings_utils.dart';
-import 'package:p7app/main_app/util/comon_styles.dart';
+import 'package:p7app/main_app/app_theme/comon_styles.dart';
 import 'package:p7app/main_app/widgets/loader.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

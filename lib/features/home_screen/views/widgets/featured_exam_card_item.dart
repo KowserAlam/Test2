@@ -1,7 +1,7 @@
 import 'package:p7app/features/home_screen/models/dashboard_models.dart';
 import 'package:p7app/features/featured_exam_screen/models/featured_exam_model.dart';
 import 'package:p7app/features/home_screen/providers/dashboard_screen_provider.dart';
-import 'package:p7app/main_app/util/app_theme.dart';
+import 'package:p7app/main_app/app_theme/app_theme.dart';
 import 'package:p7app/main_app/util/const.dart';
 import 'package:p7app/main_app/util/strings_utils.dart';
 import 'package:p7app/main_app/widgets/gredient_buton.dart';

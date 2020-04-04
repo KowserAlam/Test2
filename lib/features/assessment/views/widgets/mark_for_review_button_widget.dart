@@ -1,4 +1,4 @@
-import 'package:p7app/main_app/util/comon_styles.dart';
+import 'package:p7app/main_app/app_theme/comon_styles.dart';
 import 'package:p7app/main_app/util/strings_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
