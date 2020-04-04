@@ -5,7 +5,7 @@ import 'package:p7app/features/enrolled_exam_list_screen/view/enrolled_exam_list
 import 'package:p7app/features/featured_exam_screen/views/featured_exams_screen.dart';
 import 'package:p7app/features/home_screen/providers/dashboard_screen_provider.dart';
 import 'package:p7app/features/home_screen/views/dashboard_screen.dart';
-import 'package:p7app/features/home_screen/views/job_list_screen.dart';
+import 'package:p7app/features/job/view/job_list_screen.dart';
 import 'package:p7app/features/recent_exam/view/recent_exam_list_screen.dart';
 import 'package:p7app/features/user_profile/profile_screen.dart';
 import 'package:p7app/main_app/util/const.dart';
