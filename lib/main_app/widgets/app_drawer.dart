@@ -1,12 +1,7 @@
 import 'package:p7app/features/auth/provider/login_view_model.dart';
 import 'package:p7app/features/auth/view/login_screen.dart';
 import 'package:p7app/features/config/config_screen.dart';
-import 'package:p7app/features/enrolled_exam_list_screen/view/enrolled_exam_list_screen.dart';
-import 'package:p7app/features/featured_exam_screen/views/featured_exams_screen.dart';
-import 'package:p7app/features/home_screen/providers/dashboard_screen_provider.dart';
-import 'package:p7app/features/home_screen/views/dashboard_screen.dart';
 import 'package:p7app/features/job/view/job_list_screen.dart';
-import 'package:p7app/features/recent_exam/view/recent_exam_list_screen.dart';
 import 'package:p7app/features/user_profile/profile_screen.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
@@ -35,55 +30,40 @@ class _AppDrawerState extends State<AppDrawer> {
           height: MediaQuery.of(context).padding.top,
         ),
 
-        Consumer<DashboardScreenProvider>(
-            builder: (context, dashboardScreenProvider, child) {
-          return ListTile(
-            leading: Container(
-              padding: const EdgeInsets.all(4.0),
-              height: 50,
-              width: 50,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(100),
+        ListTile(
+          leading: Container(
+            padding: const EdgeInsets.all(4.0),
+            height: 50,
+            width: 50,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(100),
+            ),
+            child: ClipRRect(
+              child: FadeInImage(
+                placeholder: AssetImage(kDefaultUserImageAsset),
+                image: NetworkImage(kDefaultUserImageNetwork,),
+                fit: BoxFit.cover,
               ),
-              child: ClipRRect(
-                child: Consumer<DashboardScreenProvider>(
-                    builder: (context, dashboardScreenProvider, child) {
-                  return FadeInImage(
-                    placeholder: AssetImage(kDefaultUserImageAsset),
-                    image: NetworkImage(
-                      dashboardScreenProvider.dashBoardData != null
-                          ? dashboardScreenProvider
-                              .dashBoardData.user.profilePicUrl
-                          : kDefaultUserImageNetwork,
-                    ),
-                    fit: BoxFit.cover,
-                  );
-                }),
-                borderRadius: BorderRadius.circular(100),
-              ),
+              borderRadius: BorderRadius.circular(100),
             ),
-            title: Text(
-              dashboardScreenProvider.dashBoardData != null
-                  ? "${dashboardScreenProvider.dashBoardData.user.name}"
-                  : "",
-              overflow: TextOverflow.ellipsis,
+          ),
+          title: Text(
+            "",
+            overflow: TextOverflow.ellipsis,
+          ),
+          subtitle: Text(
+         "",
+            overflow: TextOverflow.ellipsis,
+          ),
+          trailing: Container(
+            child: IconButton(
+              icon: Icon(Icons.menu),
+              onPressed: () {
+                Navigator.pop(context);
+              },
             ),
-            subtitle: Text(
-              dashboardScreenProvider.dashBoardData != null
-                  ? "${dashboardScreenProvider.dashBoardData.user.email}"
-                  : "",
-              overflow: TextOverflow.ellipsis,
-            ),
-            trailing: Container(
-              child: IconButton(
-                icon: Icon(Icons.menu),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-            ),
-          );
-        }),
+          ),
+        ),
 
         /// top menu bar icon for pop the app Drawer
 
@@ -107,67 +87,6 @@ class _AppDrawerState extends State<AppDrawer> {
                   },
                 ),
 
-                ///DashBoard index 1
-
-                DrawerListWidget(
-                  label: StringUtils.dashBoardText,
-                  icon: Icons.dashboard,
-                  isSelected: widget.routeName == 'dashboard',
-                  onTap: () {
-                    Navigator.of(context)
-                        .pushReplacement(CupertinoPageRoute(builder: (context)=>DashBoardScreen()));
-                  },
-                ),
-                Divider(
-                  height: 1,
-                ),
-
-                ///Enrolled Exams index = 2
-
-                DrawerListWidget(
-                  label: StringUtils.enrolledExamsText,
-                  icon: FontAwesomeIcons.solidBookmark,
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => EnrolledExamScreen()));
-                  },
-                ),
-                Divider(
-                  height: 1,
-                ),
-
-                ///RecentExamScreen index = 3
-
-                DrawerListWidget(
-                  label: StringUtils.recentExamsText,
-                  icon: FontAwesomeIcons.history,
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => RecentExamScreen()));
-                  },
-                ),
-                Divider(
-                  height: 1
-                ),
-
-                ///FeaturedExamsScreen index = 4
-                DrawerListWidget(
-                  label: StringUtils.featuredExamsText,
-                  icon: FontAwesomeIcons.fireAlt,
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => FeaturedExamsScreen()));
-                  },
-                ),
                 Divider(
                   height: 1
                 ),
@@ -222,7 +141,6 @@ class _AppDrawerState extends State<AppDrawer> {
             isSelected: false,
             onTap: () {
               Provider.of<LoginViewModel>(context,listen: false).signOut();
-              Provider.of<DashboardScreenProvider>(context,listen: false).resetState();
               Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(builder: (context) => LoginScreen()),

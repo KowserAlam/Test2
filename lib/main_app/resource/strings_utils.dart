@@ -6,7 +6,7 @@ class StringUtils {
   static var signSuccessfulText =
       "Sign up Successful \n Check your email to verify account !";
 
-  static String appName = "Skill Check";
+  static String appName = "Job Search";
   static String signInButtonText = "Sign in";
   static String loginSuccessMessage = "Login Successful";
   static String loginUnsuccessfulMessage = "Login unsuccessful";
