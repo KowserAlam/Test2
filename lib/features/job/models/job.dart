@@ -9,7 +9,7 @@ class JobModel {
   String descriptions;
   String responsibilities;
   String education;
-  double salary;
+  String salary;
   String otherBenefits;
   String rawContent;
   String webAddress;
@@ -65,7 +65,7 @@ class JobModel {
     descriptions = json['descriptions'];
     responsibilities = json['responsibilities'];
     education = json['education'];
-    salary = json['salary'];
+    salary = json['salary']?.toString();
     otherBenefits = json['other_benefits'];
     rawContent = json['raw_content'];
     webAddress = json['web_address'];

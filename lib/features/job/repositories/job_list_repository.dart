@@ -11,7 +11,7 @@ class JobListRepository {
   String next;
 
   Future<Either<AppError, List<JobModel>>> fetchJobList(
-      {int page = 1, int size = 10}) async {
+      {int page = 1, int size = 15}) async {
     try {
       var response = await ApiClient().getRequest(Urls.jobListUrl+"?page=$page&page_size=$size");
       print(response.statusCode);

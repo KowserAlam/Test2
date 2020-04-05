@@ -5,6 +5,7 @@ import 'package:p7app/features/job/view/widgets/job_list_item_widget.dart';
 import 'package:p7app/main_app/flavour/flavor_banner.dart';
 import 'package:p7app/main_app/widgets/app_drawer.dart';
 import 'package:flutter/material.dart';
+import 'package:p7app/main_app/widgets/loader.dart';
 import 'package:provider/provider.dart';
 
 class JobListScreen extends StatefulWidget {
@@ -15,9 +16,27 @@ class JobListScreen extends StatefulWidget {
 }
 
 class _JobListScreenState extends State<JobListScreen> with AfterLayoutMixin{
+
+  ScrollController _scrollController = ScrollController();
+
   @override
   void afterFirstLayout(BuildContext context) {
-    Provider.of<JobListViewModel>(context,listen: false).getJobList();
+    var jobListViewModel = Provider.of<JobListViewModel>(context,listen: false);
+    jobListViewModel.getJobList();
+
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent &&
+          jobListViewModel.hasMoreData && !jobListViewModel.isFetchingData) {
+        jobListViewModel.getMoreData();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 
   @override
@@ -32,10 +51,17 @@ class _JobListScreenState extends State<JobListScreen> with AfterLayoutMixin{
           var jobList = homeViewModel.jobList;
           print(jobList.length);
           return ListView.builder(
-            itemCount: jobList.length,
+            controller: _scrollController,
+            itemCount: jobList.length+1,
 //              separatorBuilder: (context,index)=>Divider(),
               itemBuilder: (context,index){
+                if(index == jobList.length){
+                  return homeViewModel.isFetchingData?Padding(padding: EdgeInsets.all(15),child: Loader()):SizedBox();
+                }
+
             JobModel job = jobList[index];
+
+
             return JobListItemWidget(job);
           });
         },),
