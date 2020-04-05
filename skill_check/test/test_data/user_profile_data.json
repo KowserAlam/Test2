@@ -1,0 +1,16 @@
+{
+  "status": "success",
+  "code": 200,
+  "data": {
+    "user": {
+      "name": "Shofi",
+      "mobile_number": "",
+      "id": 2,
+      "profile_pic_url": "https://icon-library.net/images/default-user-icon/default-user-icon-4.jpg",
+      "email": "shofi@ishraak.com",
+      "address": "",
+      "about": "Entrepreneur and businessman Bill Gates and his business partner Paul Allen founded and built the world's largest software business, Microsoft, through technological innovation, keen business strategy and aggressive business tactics. In the process, Gates became one of the richest men in the world.",
+      "city": "Dhaka"
+    }
+  }
+}

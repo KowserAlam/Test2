@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:p7app/features/home_screen/views/dashboard_screen.dart';
 import 'package:p7app/features/job/view/job_list_screen.dart';
 import 'package:p7app/main_app/auth_service/auth_user_model.dart';
 import 'package:p7app/features/auth/view/login_screen.dart';

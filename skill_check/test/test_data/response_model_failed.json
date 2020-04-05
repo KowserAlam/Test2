@@ -1,0 +1,10 @@
+{
+  "status": "failed",
+  "code": 401,
+  "message": "Wrong Email or Password",
+  "result": {
+    "user": {
+      "": ""
+    }
+  }
+}

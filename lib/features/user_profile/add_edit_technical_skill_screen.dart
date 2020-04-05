@@ -71,7 +71,7 @@ class _AddEditTechnicalSkillState extends State<AddEditTechnicalSkill> with Afte
     return WillPopScope(
       onWillPop: ()async{
 
-        Provider.of<TechnicalSkillProvider>(context).clearState();
+        Provider.of<TechnicalSkillProvider>(context,listen: false).clearState();
         return true;
       },
       child: Scaffold(

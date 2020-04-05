@@ -80,6 +80,8 @@ class _JobListItemWidgetState extends State<JobListItemWidget> {
           Expanded(
             child: Text(
               widget.jobModel.jobLocation??"",
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
               style: TextStyle(color: subtitleColor),
             ),
           )
