@@ -1,0 +1,162 @@
+{
+  "status": "success",
+  "code": 200,
+  "data": {
+    "featured_exam_list": [
+      {
+        "id": 15,
+        "exam_code": "001",
+        "exam_name": "Django",
+        "duration": "99",
+        "image": null,
+        "exam_fee": null,
+        "discount_price": null,
+        "discount_percent": null,
+        "instruction": "<p>999</p>\r\n"
+      },
+      {
+        "id": 14,
+        "exam_code": "001",
+        "exam_name": "Django",
+        "duration": "99",
+        "image": null,
+        "exam_fee": null,
+        "discount_price": null,
+        "discount_percent": null,
+        "instruction": "<p>999</p>\r\n"
+      },
+      {
+        "id": 13,
+        "exam_code": "PY-1001",
+        "exam_name": "Python Programming",
+        "duration": "20",
+        "image": "/media/images/Group_38.png",
+        "exam_fee": "0",
+        "discount_price": null,
+        "discount_percent": "10",
+        "instruction": "<p><em>Lorem ipsum</em>, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs. The passage is attributed to an unknown typesetter in the 15th century who is thought to have scrambled parts of Cicero&#39;s De Finibus Bonorum et Malorum for use in a type specimen book.</p>"
+      },
+      {
+        "id": 12,
+        "exam_code": "Python Test",
+        "exam_name": "Python Test",
+        "duration": "20",
+        "image": "/media/images/bg_image_login.png",
+        "exam_fee": null,
+        "discount_price": null,
+        "discount_percent": null,
+        "instruction": "<p><strong>Programming</strong>&nbsp;is the process of creating a set of instructions that tell a computer how to perform a task.&nbsp;<strong>Programming</strong>&nbsp;can be done using a variety of computer &quot;languages,&quot; such as SQL, Java, Python, and C+</p>"
+      },
+      {
+        "id": 10,
+        "exam_code": "Python",
+        "exam_name": "Python",
+        "duration": "00",
+        "image": null,
+        "exam_fee": null,
+        "discount_price": null,
+        "discount_percent": null,
+        "instruction": "<p>00</p>"
+      },
+      {
+        "id": 9,
+        "exam_code": "Python",
+        "exam_name": "Python",
+        "duration": "00",
+        "image": null,
+        "exam_fee": null,
+        "discount_price": null,
+        "discount_percent": null,
+        "instruction": "<p>00</p>"
+      },
+      {
+        "id": 8,
+        "exam_code": "Python",
+        "exam_name": "Python",
+        "duration": "00",
+        "image": null,
+        "exam_fee": null,
+        "discount_price": null,
+        "discount_percent": null,
+        "instruction": "<p>00</p>"
+      },
+      {
+        "id": 7,
+        "exam_code": "Python",
+        "exam_name": "Python",
+        "duration": "00",
+        "image": null,
+        "exam_fee": null,
+        "discount_price": null,
+        "discount_percent": null,
+        "instruction": "<p>00</p>"
+      },
+      {
+        "id": 6,
+        "exam_code": "Python",
+        "exam_name": "Python",
+        "duration": "00",
+        "image": null,
+        "exam_fee": null,
+        "discount_price": null,
+        "discount_percent": null,
+        "instruction": "<p>00</p>"
+      },
+      {
+        "id": 5,
+        "exam_code": "Python",
+        "exam_name": "Python",
+        "duration": "00",
+        "image": null,
+        "exam_fee": null,
+        "discount_price": null,
+        "discount_percent": null,
+        "instruction": "<p>00</p>"
+      },
+      {
+        "id": 4,
+        "exam_code": "Python",
+        "exam_name": "Python",
+        "duration": "00",
+        "image": null,
+        "exam_fee": null,
+        "discount_price": null,
+        "discount_percent": null,
+        "instruction": "<p>00</p>"
+      },
+      {
+        "id": 3,
+        "exam_code": "Python",
+        "exam_name": "Python",
+        "duration": "00",
+        "image": null,
+        "exam_fee": null,
+        "discount_price": null,
+        "discount_percent": null,
+        "instruction": "<p>00</p>"
+      },
+      {
+        "id": 2,
+        "exam_code": "Python",
+        "exam_name": "Python",
+        "duration": "00",
+        "image": null,
+        "exam_fee": null,
+        "discount_price": null,
+        "discount_percent": null,
+        "instruction": "<p>00</p>"
+      },
+      {
+        "id": 1,
+        "exam_code": "Python",
+        "exam_name": "Python",
+        "duration": "00",
+        "image": null,
+        "exam_fee": null,
+        "discount_price": null,
+        "discount_percent": null,
+        "instruction": "<p>00</p>"
+      }
+    ]
+  }
+}
