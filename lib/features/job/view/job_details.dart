@@ -232,12 +232,13 @@ class _JobDetailsState extends State<JobDetails> {
           Divider(height: 15,),
           Row(
             children: <Widget>[
-              RichText(text: TextSpan(children: <TextSpan>[
+              Text.rich(
+                TextSpan(children: <TextSpan>[
                 TextSpan(text: StringUtils.publishedOn, style: descriptionFontStyleBold),
                 TextSpan(text: widget.jobModel.createdDate != null
                     ? widget.jobModel.createdDate
                     : StringUtils.unspecifiedText, style: descriptionFontStyle),
-              ]),)
+              ]),style: descriptionFontStyle,)
             ],
           ),
           SizedBox(height: 5,),
