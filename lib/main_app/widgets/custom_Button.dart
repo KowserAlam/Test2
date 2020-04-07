@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
-import 'package:p7app/main_app/resource/decorations.dart';
+
 
 class BlueButton extends StatefulWidget {
   final double height;
@@ -25,7 +25,7 @@ class _BlueButtonState extends State<BlueButton> {
           color: Colors.blue,
         ),
         child: Center(
-          child: Text(widget.text, style: TextStyle(fontSize: widget.height/4, fontWeight: FontWeight.bold),),
+          child: Text(widget.text, style: TextStyle(fontSize: widget.height/4, fontWeight: FontWeight.bold, color: Colors.white),),
         ),
       ),
     );
@@ -56,7 +56,8 @@ class _GreyToWhiteButtonWithIconState extends State<GreyToWhiteButtonWithIcon> {
         width: widget.width,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),
-          gradient: isDarkMode?AppTheme.darkLinearGradient:AppTheme.lightLinearGradient
+          gradient: isDarkMode?AppTheme.darkLinearGradient:AppTheme.lightLinearGradient,
+          border: Border.all(width: 1, color: Colors.grey[300])
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,

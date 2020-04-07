@@ -31,6 +31,14 @@ class _JobDetailsState extends State<JobDetails> {
     TextStyle descriptionFontStyleBold = TextStyle(fontSize: 12,fontWeight: FontWeight.bold);
     TextStyle appbarTextStyle = TextStyle();
 
+    Text jobSummeryRichText(String title, String description){
+      return Text.rich(
+        TextSpan(children: <TextSpan>[
+          TextSpan(text: title, style: descriptionFontStyleBold),
+          TextSpan(text: description, style: descriptionFontStyle),
+        ]),style: descriptionFontStyle,);
+    }
+
 
     double iconSize = 14;
     double sectionIconSize = 20;
@@ -222,7 +230,8 @@ class _JobDetailsState extends State<JobDetails> {
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
-        gradient: isDarkMode?AppTheme.darkLinearGradient:AppTheme.lightLinearGradient
+        gradient: isDarkMode?AppTheme.darkLinearGradient:AppTheme.lightLinearGradient,
+        border: Border.all(width: 1, color: Colors.grey[300])
       ),
       padding: EdgeInsets.all(10),
       child: Column(
@@ -232,90 +241,64 @@ class _JobDetailsState extends State<JobDetails> {
           Divider(height: 15,),
           Row(
             children: <Widget>[
-              Text.rich(
-                TextSpan(children: <TextSpan>[
-                TextSpan(text: StringUtils.publishedOn, style: descriptionFontStyleBold),
-                TextSpan(text: widget.jobModel.createdDate != null
-                    ? widget.jobModel.createdDate
-                    : StringUtils.unspecifiedText, style: descriptionFontStyle),
-              ]),style: descriptionFontStyle,)
+              jobSummeryRichText(StringUtils.publishedOn, widget.jobModel.createdDate != null
+                  ? widget.jobModel.createdDate.toString():StringUtils.unspecifiedText)
             ],
           ),
           SizedBox(height: 5,),
           Row(
             children: <Widget>[
-              RichText(text: TextSpan(children: <TextSpan>[
-                TextSpan(text: StringUtils.vacancy, style: descriptionFontStyleBold),
-                TextSpan(text: widget.jobModel.vacancy != null
-                    ? widget.jobModel.vacancy.toString()
-                    : StringUtils.unspecifiedText, style: descriptionFontStyle),
-              ]),)
+              jobSummeryRichText(StringUtils.vacancy, widget.jobModel.vacancy != null
+                  ? widget.jobModel.vacancy.toString()
+                  : StringUtils.unspecifiedText)
             ],
           ),
           SizedBox(height: 5,),
           Row(
             children: <Widget>[
-              RichText(text: TextSpan(children: <TextSpan>[
-                TextSpan(text: StringUtils.employmentStatus, style: descriptionFontStyleBold),
-                TextSpan(text: widget.jobModel.employmentStatus != null
-                    ? widget.jobModel.employmentStatus
-                    : StringUtils.unspecifiedText, style: descriptionFontStyle),
-              ]),)
+              jobSummeryRichText(StringUtils.employmentStatus, widget.jobModel.employmentStatus != null
+                  ? widget.jobModel.employmentStatus
+                  : StringUtils.unspecifiedText)
             ],
           ),
           SizedBox(height: 5,),
           Row(
             children: <Widget>[
-              RichText(text: TextSpan(children: <TextSpan>[
-                TextSpan(text: StringUtils.yearsOfExperience, style: descriptionFontStyleBold),
-                TextSpan(text: widget.jobModel.experience != null
-                    ? widget.jobModel.experience
-                    : StringUtils.unspecifiedText, style: descriptionFontStyle),
-              ]),)
+              jobSummeryRichText(StringUtils.yearsOfExperience, widget.jobModel.experience != null
+                  ? widget.jobModel.experience.toString()
+                  : StringUtils.unspecifiedText)
             ],
           ),
           SizedBox(height: 5,),
           Row(
             children: <Widget>[
-              RichText(text: TextSpan(children: <TextSpan>[
-                TextSpan(text: StringUtils.jobLocation, style: descriptionFontStyleBold),
-                TextSpan(text: widget.jobModel.jobLocation != null
-                    ? widget.jobModel.jobLocation
-                    : StringUtils.unspecifiedText, style: descriptionFontStyle),
-              ]),)
+              jobSummeryRichText(StringUtils.jobLocation, widget.jobModel.jobLocation != null
+                  ? widget.jobModel.jobLocation.toString()
+                  : StringUtils.unspecifiedText)
             ],
           ),
           SizedBox(height: 5,),
           Row(
             children: <Widget>[
-              RichText(text: TextSpan(children: <TextSpan>[
-                TextSpan(text: StringUtils.salary, style: descriptionFontStyleBold),
-                TextSpan(text: widget.jobModel.salary != null
-                    ? widget.jobModel.salary.toString()
-                    : StringUtils.unspecifiedText, style: descriptionFontStyle),
-              ]),)
+              jobSummeryRichText(StringUtils.salary, widget.jobModel.salary != null
+                  ? widget.jobModel.salary.toString()
+                  : StringUtils.unspecifiedText)
             ],
           ),
           SizedBox(height: 5,),
           Row(
             children: <Widget>[
-              RichText(text: TextSpan(children: <TextSpan>[
-                TextSpan(text: StringUtils.gender, style: descriptionFontStyleBold),
-                TextSpan(text: widget.jobModel.gender != null
-                    ? widget.jobModel.gender
-                    : StringUtils.unspecifiedText, style: descriptionFontStyle),
-              ]),)
+              jobSummeryRichText(StringUtils.gender, widget.jobModel.gender != null
+                  ? widget.jobModel.gender.toString()
+                  : StringUtils.unspecifiedText)
             ],
           ),
           SizedBox(height: 5,),
           Row(
             children: <Widget>[
-              RichText(text: TextSpan(children: <TextSpan>[
-                TextSpan(text: StringUtils.applicationDeadline, style: descriptionFontStyleBold),
-                TextSpan(text: widget.jobModel.applicationDeadline != null
-                    ? widget.jobModel.applicationDeadline
-                    : StringUtils.unspecifiedText, style: descriptionFontStyle),
-              ]),)
+              jobSummeryRichText(StringUtils.applicationDeadline, widget.jobModel.applicationDeadline != null
+                  ? widget.jobModel.applicationDeadline.toString()
+                  : StringUtils.unspecifiedText)
             ],
           ),
           SizedBox(height: 5,),
