@@ -55,6 +55,18 @@ class AppTheme {
       begin: Alignment.centerRight,
       end: Alignment.centerLeft);
 
+  static var lightLinearGradient = LinearGradient(
+      begin: Alignment.centerLeft,
+      end: Alignment.centerRight,
+      colors: [Colors.grey[100], Colors.white]
+  );
+
+  static var darkLinearGradient = LinearGradient(
+      begin: Alignment.bottomCenter,
+      end: Alignment.topCenter,
+      colors: [Colors.grey[600], Colors.grey[500]]
+  );
+
   var fontFamily = GoogleFonts.poppins().fontFamily;
 
   static ThemeData lightTheme = ThemeData(

@@ -23,7 +23,7 @@ class JobModel {
   String currency;
   String companyName;
   String division;
-  Null district;
+  String district;
   List<String> jobSkills;
 
   JobModel(

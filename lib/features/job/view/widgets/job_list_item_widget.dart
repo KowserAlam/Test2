@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p7app/features/job/models/job.dart';
+import 'package:p7app/features/job/view/job_details.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
@@ -67,7 +68,6 @@ class _JobListItemWidgetState extends State<JobListItemWidget> {
     );
     var companyLocation = Container(
       child: Row(
-
         children: <Widget>[
           Icon(
             FeatherIcons.mapPin,
@@ -160,100 +160,106 @@ class _JobListItemWidgetState extends State<JobListItemWidget> {
         ),
       ],
     );
-    return Container(
-      decoration: BoxDecoration(color: backgroundColor,
+    return GestureDetector(
+      onTap: (){
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => JobDetails(jobModel: widget.jobModel,)));
+      },
+      child: Container(
+        decoration: BoxDecoration(color: backgroundColor,
 //        borderRadius: BorderRadius.circular(5),
-          boxShadow: [
-            BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 10),
-            BoxShadow(color: Colors.black.withOpacity(0.2), blurRadius: 10),
-          ]),
-      margin: EdgeInsets.all(8),
-      padding: EdgeInsets.all(8),
-      child: isTabLayout
-          ? Row(
-              children: <Widget>[
-                companyLogo,
-                SizedBox(
-                  width: 10,
-                ),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      //Job Title
-                      jobTitle,
-                      SizedBox(height: 10),
-                      Row(
-                        children: <Widget>[
-                          Expanded(flex: 3, child: companyName),
-                          Expanded(flex: 2, child: companyLocation),
-                        ],
-                      ),
-                      SizedBox(height: 3),
-
-                      SizedBox(height: 3),
-                      jobType,
-                    ],
+            boxShadow: [
+              BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 10),
+              BoxShadow(color: Colors.black.withOpacity(0.2), blurRadius: 10),
+            ]),
+        margin: EdgeInsets.all(8),
+        padding: EdgeInsets.all(8),
+        child: isTabLayout
+            ? Row(
+                children: <Widget>[
+                  companyLogo,
+                  SizedBox(
+                    width: 10,
                   ),
-                ),
-                Column(
-                  children: <Widget>[
-                    //Job Title
-                    Row(
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        heartButton,
-                        SizedBox(
-                          width: 20,
+                        //Job Title
+                        jobTitle,
+                        SizedBox(height: 10),
+                        Row(
+                          children: <Widget>[
+                            Expanded(flex: 3, child: companyName),
+                            Expanded(flex: 2, child: companyLocation),
+                          ],
                         ),
-                        applyButton,
+                        SizedBox(height: 3),
+
+                        SizedBox(height: 3),
+                        jobType,
                       ],
                     ),
-                    SizedBox(
-                      height: 8,
-                    ),
-                    deadLine
-                  ],
-                ),
-              ],
-            )
-          : Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    companyLogo,
-                    SizedBox(width: 8),
-                    Expanded(child: jobTitle),
-                    SizedBox(width: 8),
-                    heartButton,
-                  ],
-                ),
-                //Job Title
-                SizedBox(height: 10),
-                companyName,
-
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
+                  ),
+                  Column(
+                    children: <Widget>[
+                      //Job Title
+                      Row(
                         children: <Widget>[
-                          SizedBox(height: 3),
-                          companyLocation,
-                          SizedBox(height: 3),
-                          jobType,
-                          deadLine,
+                          heartButton,
+                          SizedBox(
+                            width: 20,
+                          ),
+                          applyButton,
                         ],
                       ),
-                    ),
+                      SizedBox(
+                        height: 8,
+                      ),
+                      deadLine
+                    ],
+                  ),
+                ],
+              )
+            : Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Row(
+                    children: <Widget>[
+                      companyLogo,
+                      SizedBox(width: 8),
+                      Expanded(child: jobTitle),
+                      SizedBox(width: 8),
+                      heartButton,
+                    ],
+                  ),
+                  //Job Title
+                  SizedBox(height: 10),
+                  companyName,
 
-                    applyButton,
-                  ],
-                ),
-              ],
-            ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            SizedBox(height: 3),
+                            companyLocation,
+                            SizedBox(height: 3),
+                            jobType,
+                            deadLine,
+                          ],
+                        ),
+                      ),
+
+                      applyButton,
+                    ],
+                  ),
+                ],
+              ),
+      ),
     );
   }
 }

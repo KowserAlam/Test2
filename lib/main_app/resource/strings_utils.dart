@@ -273,4 +273,26 @@ class StringUtils {
 static const String unspecifiedText = "Unspecified";
 static const String deadlineText = "Deadline";
 static const String applyText = "Apply";
+
+///Job Details
+static const String jobDetailsAppBarTitle = 'Job Details';
+static const String applyButtonText = 'Apply Online';
+static const String saveJobButtonText = 'Save Job';
+static const String jobDescriptionTitle = 'Job Description';
+static const String responsibilitiesTitle = 'Responsibilities';
+static const String educationTitle = 'Education';
+static const String salaryTitle = 'Salary';
+static const String otherBenefitsTitle = 'Other Benefits';
+static const String secondApplyButtonText = 'Apply Online';
+static const String emailJobButtonText = 'Email Job';
+static const String jobSummeryTitle = 'Job Summery';
+static const String publishedOn = 'Published on';
+static const String vacancy = 'Vacancy';
+static const String employmentStatus = 'Emplyment Status';
+static const String yearsOfExperience = 'Yeas of Experience';
+static const String jobLocation = 'Job Location';
+static const String salary = 'Salary';
+static const String gender = 'Gender';
+static const String applicationDeadline = 'Application Deadline';
+static const String requiredSkills = 'Required Skills';
 }
