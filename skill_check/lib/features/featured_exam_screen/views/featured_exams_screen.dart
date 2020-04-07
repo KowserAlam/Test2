@@ -33,6 +33,7 @@ class _FeaturedExamsScreenState extends State<FeaturedExamsScreen>
     featuredExamListScreenProvider.sinkSearchQuery("");
 
     featuredExamListScreenProvider.listenStream();
+    
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
               _scrollController.position.maxScrollExtent &&
@@ -40,6 +41,7 @@ class _FeaturedExamsScreenState extends State<FeaturedExamsScreen>
         featuredExamListScreenProvider.getMoreData();
       }
     });
+    
   }
 
   Widget _noDataWidget(BuildContext context) => Container(
