@@ -22,7 +22,7 @@ dependencies:
   provider: ^4.0.4
 
   #  The Font Awesome Icon pack available as Flutter Icons.
-  font_awesome_flutter: ^8.8.1
+  font_awesome_flutter: ^8.8.0
   flutter_feather_icons: ^1.0.3
 
   # reactiveX api for asynchronous programming.
@@ -79,7 +79,7 @@ dependencies:
   flutter_html: ^0.11.1
 
   #  keep screen always weak
-  wakelock: ^0.1.4+1
+  wakelock:
 
   #  to retrieve information about app
   package_info: ^0.4.0+16

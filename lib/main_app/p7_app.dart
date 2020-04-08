@@ -5,6 +5,8 @@ import 'package:p7app/features/auth/provider/signup_viewmodel.dart';
 import 'package:p7app/features/config/config_provider.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
+import 'package:p7app/features/job/view/job_details.dart';
+import 'package:p7app/features/job/view/job_list_screen.dart';
 import 'package:p7app/features/job/view_model/job_list_view_model.dart';
 import 'package:provider/provider.dart';
 import 'package:p7app/main_app/root.dart';
