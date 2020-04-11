@@ -320,17 +320,6 @@ class _JobDetailsState extends State<JobDetails> {
     return Scaffold(
       appBar: AppBar(
         elevation: 2,
-        title: Container(
-          padding: EdgeInsets.symmetric(vertical: 5),
-          height: AppBar().preferredSize.height,
-          child: Row(
-            children: <Widget>[
-              Image.asset(kDefaultLogo,fit: BoxFit.cover,),
-              Text(StringUtils.jobDetailsAppBarTitle),
-            ],
-          ),
-        ),
-        automaticallyImplyLeading: false,
       ),
       body: ListView(
         children: <Widget>[
