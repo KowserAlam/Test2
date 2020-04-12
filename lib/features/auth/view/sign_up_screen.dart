@@ -108,7 +108,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       ),
       child: Center(
         child: Text(
-          StringUtils.registerText,
+          StringUtils.signupText,
           style: TextStyle(
               color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15),
         ),

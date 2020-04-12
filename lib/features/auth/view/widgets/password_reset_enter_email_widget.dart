@@ -148,7 +148,7 @@ class _PasswordResetEmailWidgetState extends State<PasswordResetEmailWidget> {
     return Center(
       child: passwordResetProvider.isBusyEmail
           ? Loader()
-          : GradientButton(
+          : CommonButton(
               onTap: () {
                 _handleEmailSubmit(_emailTextController.text, context);
               },

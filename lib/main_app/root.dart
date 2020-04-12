@@ -70,7 +70,7 @@ class _RootState extends State<Root> {
                   children: <Widget>[
                     Container(
                       width: width*0.27,
-                      child: Image.asset(kDefaultLogo,fit: BoxFit.cover,),
+                      child: Hero(tag: kDefaultLogo,child: Image.asset(kDefaultLogo,fit: BoxFit.cover,)),
                     ),
                     Container(
                       width: width*0.42,

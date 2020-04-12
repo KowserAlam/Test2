@@ -7,7 +7,7 @@ class StringUtils {
       "Sign up Successful \n Check your email to verify account !";
 
   static String appName = "Job Search";
-  static String signInButtonText = "Sign in";
+  static String logInButtonText = "LOG IN";
   static String loginSuccessMessage = "Login Successful";
   static String loginUnsuccessfulMessage = "Login unsuccessful";
   static String checkInternetConnectionMessage = "Check Internet Connection";
@@ -189,7 +189,7 @@ class StringUtils {
   /// SignUp Screen
 
   static var signInText = "Sign In";
-  static var registerText = "Register";
+  static var signupText = "Signup";
   static var registerAccountText = "Register Account";
   static var signUpText = "Signup";
   static var proceedText = "Proceed";
