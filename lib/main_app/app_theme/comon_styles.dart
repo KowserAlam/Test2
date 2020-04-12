@@ -33,20 +33,25 @@ const TextStyle kTimerTextStyleBold =
 const TextStyle kTimerTextStyleRegular = TextStyle(fontSize: 18);
 
 var kEmailInputDecoration = InputDecoration(
-    contentPadding: EdgeInsets.zero,
+//    contentPadding: EdgeInsets.zero,
     hintText: StringUtils.emailText,
-    enabledBorder: OutlineInputBorder(
-      borderSide: BorderSide(
-        color: Colors.grey,
-        width: 1.6,
-      ),
-      borderRadius: BorderRadius.circular(5.0),
+  focusedBorder: OutlineInputBorder(
+    borderSide: BorderSide(
+      color: Colors.lightBlueAccent,
+      width: 1.6,
     ),
-    border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(5.0),
+    borderRadius: BorderRadius.circular(40),
+  ),
+  enabledBorder: OutlineInputBorder(
+    borderSide: BorderSide(
+      color: Colors.transparent,
+      width: 1.6,
     ),
+    borderRadius: BorderRadius.circular(40),
+  ),
+    //border: InputBorder.none,
     prefixIcon: Icon(
-      Icons.mail,
+      Icons.person_outline,
     ));
 var kFullNameInputDecoration = InputDecoration(
     contentPadding: EdgeInsets.zero,
@@ -70,20 +75,26 @@ var kFullNameInputDecoration = InputDecoration(
 
 InputDecoration kPasswordInputDecoration({suffixIcon, hintText}) => InputDecoration(
   errorMaxLines: 3,
-    contentPadding: EdgeInsets.zero,
     hintText: hintText??StringUtils.passwordText,
     hintStyle: TextStyle(
       fontSize: 16.0,
     ),
-    enabledBorder: OutlineInputBorder(
+    focusedBorder: OutlineInputBorder(
       borderSide: BorderSide(
-        color: Colors.grey,
+        color: Colors.lightBlueAccent,
         width: 1.6,
       ),
-      borderRadius: BorderRadius.circular(5.0),
+      borderRadius: BorderRadius.circular(40),
+    ),
+    enabledBorder: OutlineInputBorder(
+      borderSide: BorderSide(
+        color: Colors.transparent,
+        width: 1.6,
+      ),
+      borderRadius: BorderRadius.circular(40),
     ),
     border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(5.0),
+      borderRadius: BorderRadius.circular(40),
     ),
     prefixIcon: Icon(
       Icons.lock,

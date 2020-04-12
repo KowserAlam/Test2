@@ -125,7 +125,7 @@ class _PasswordRestEnterNewPasswordState extends State<PasswordRestEnterNewPassw
                     return Center(
                       child: passwordResetProvider.isBusyConfirmation
                           ? Loader()
-                          : GradientButton(
+                          : CommonButton(
                         width: 220,
                         onTap: () {
 
