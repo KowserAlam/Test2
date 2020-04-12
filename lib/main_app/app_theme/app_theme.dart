@@ -67,7 +67,7 @@ class AppTheme {
       colors: [Colors.grey[600], Colors.grey[500]]
   );
 
-  var fontFamily = GoogleFonts.poppins().fontFamily;
+  var fontFamily = GoogleFonts.roboto().fontFamily;
 
   static ThemeData lightTheme = ThemeData(
       brightness: Brightness.light,
@@ -76,7 +76,7 @@ class AppTheme {
       accentColor: colorAccentLight,
       buttonTheme: ButtonThemeData(buttonColor: colorPrimary),
       scaffoldBackgroundColor: lightBG,
-      textTheme: GoogleFonts.poppinsTextTheme().copyWith(
+      textTheme: GoogleFonts.robotoTextTheme().copyWith(
           display1: TextStyle(
               fontSize: 26, color: Colors.black, fontWeight: FontWeight.bold),
           title: TextStyle(
@@ -102,7 +102,7 @@ class AppTheme {
       elevation: 0,
       iconTheme: IconThemeData(color: lightBG),
       actionsIconTheme: IconThemeData(color: lightBG),
-      textTheme: GoogleFonts.poppinsTextTheme().copyWith(
+      textTheme: GoogleFonts.robotoTextTheme().copyWith(
         title: TextStyle(
           color: lightBG,
           fontSize: 18.0,

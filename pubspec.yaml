@@ -91,7 +91,7 @@ dependencies:
 #  json_annotation: ^2.0.0
 
   #A package to include fonts from fonts.google.com
-  google_fonts: ^0.3.10
+  google_fonts: ^0.4.0
 
   #  flutter toast library!
   bot_toast: ^2.4.0

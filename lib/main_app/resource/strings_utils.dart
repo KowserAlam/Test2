@@ -273,6 +273,8 @@ class StringUtils {
 static const String unspecifiedText = "Unspecified";
 static const String deadlineText = "Deadline";
 static const String applyText = "Apply";
+static const String jobListText = "Job List";
+
 
 ///Job Details
 static const String jobDetailsAppBarTitle = 'Job Details';

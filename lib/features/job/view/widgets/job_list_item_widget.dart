@@ -27,7 +27,7 @@ class _JobListItemWidgetState extends State<JobListItemWidget> {
     bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     var titleStyle = TextStyle(fontSize: 16, fontWeight: FontWeight.w600);
     double iconSize = 14.0;
-    bool isTabLayout = MediaQuery.of(context).size.width > kMidDeviceScreenSize;
+//    bool isTabLayout = MediaQuery.of(context).size.width > kMidDeviceScreenSize;
     var subtitleColor = AppTheme.grey;
 
     var companyLogo = Container(
@@ -172,56 +172,9 @@ class _JobListItemWidgetState extends State<JobListItemWidget> {
               BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 10),
               BoxShadow(color: Colors.black.withOpacity(0.2), blurRadius: 10),
             ]),
-        margin: EdgeInsets.all(8),
+        margin: EdgeInsets.fromLTRB(8, 4, 8, 4),
         padding: EdgeInsets.all(8),
-        child: isTabLayout
-            ? Row(
-                children: <Widget>[
-                  companyLogo,
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        //Job Title
-                        jobTitle,
-                        SizedBox(height: 10),
-                        Row(
-                          children: <Widget>[
-                            Expanded(flex: 3, child: companyName),
-                            Expanded(flex: 2, child: companyLocation),
-                          ],
-                        ),
-                        SizedBox(height: 3),
-
-                        SizedBox(height: 3),
-                        jobType,
-                      ],
-                    ),
-                  ),
-                  Column(
-                    children: <Widget>[
-                      //Job Title
-                      Row(
-                        children: <Widget>[
-                          heartButton,
-                          SizedBox(
-                            width: 20,
-                          ),
-                          applyButton,
-                        ],
-                      ),
-                      SizedBox(
-                        height: 8,
-                      ),
-                      deadLine
-                    ],
-                  ),
-                ],
-              )
-            : Column(
+        child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Row(

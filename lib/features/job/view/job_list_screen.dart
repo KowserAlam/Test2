@@ -3,6 +3,7 @@ import 'package:p7app/features/job/view_model/job_list_view_model.dart';
 import 'package:p7app/features/job/models/job.dart';
 import 'package:p7app/features/job/view/widgets/job_list_item_widget.dart';
 import 'package:p7app/main_app/flavour/flavor_banner.dart';
+import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/widgets/app_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:p7app/main_app/widgets/loader.dart';
@@ -44,9 +45,9 @@ class _JobListScreenState extends State<JobListScreen> with AfterLayoutMixin{
     return FlavorBanner(
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Home"),
+          title: Text(StringUtils.jobListText),
         ),
-        drawer: Drawer(child: AppDrawer(routeName: 'home',)),
+        drawer: Drawer(child: AppDrawer(routeName: 'job_list',)),
         body: Consumer<JobListViewModel>(builder: (BuildContext context, homeViewModel, Widget child) {
           var jobList = homeViewModel.jobList;
           print(jobList.length);
