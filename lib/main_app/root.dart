@@ -19,30 +19,30 @@ class Root extends StatefulWidget {
 
 class _RootState extends State<Root> {
   @override
-  void initState() {
-//    ApiHelper apiHelper = ApiHelper();
-//    apiHelper.checkInternetConnectivity();
-
-    getAuthStatus().then((AuthUserModel user) {
-      if (user != null) {
-        Future.delayed(Duration(seconds: 1)).then((_) {
-          Navigator.pushAndRemoveUntil(
-              context,
-              CupertinoPageRoute(builder: (context) => JobListScreen()),
-              (Route<dynamic> route) => false);
-        });
-      } else {
-        Future.delayed(Duration(seconds: 2)).then((_) {
-          Navigator.pushAndRemoveUntil(
-              context,
-              CupertinoPageRoute(builder: (context) => LoginScreen()),
-              (Route<dynamic> route) => false);
-        });
-      }
-    });
-
-    super.initState();
-  }
+//  void initState() {
+////    ApiHelper apiHelper = ApiHelper();
+////    apiHelper.checkInternetConnectivity();
+//
+//    getAuthStatus().then((AuthUserModel user) {
+//      if (user != null) {
+//        Future.delayed(Duration(seconds: 1)).then((_) {
+//          Navigator.pushAndRemoveUntil(
+//              context,
+//              CupertinoPageRoute(builder: (context) => JobListScreen()),
+//              (Route<dynamic> route) => false);
+//        });
+//      } else {
+//        Future.delayed(Duration(seconds: 2)).then((_) {
+//          Navigator.pushAndRemoveUntil(
+//              context,
+//              CupertinoPageRoute(builder: (context) => LoginScreen()),
+//              (Route<dynamic> route) => false);
+//        });
+//      }
+//    });
+//
+//    super.initState();
+//  }
 
   Future<AuthUserModel> getAuthStatus() async {
     var prf = await SharedPreferences.getInstance();
@@ -85,6 +85,7 @@ class _RootState extends State<Root> {
               child: Container(
                 width: width*0.5,
                 height: height*0.2,
+                padding: EdgeInsets.only(bottom: 5),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
@@ -92,7 +93,7 @@ class _RootState extends State<Root> {
                     FutureBuilder(
                       future: AppInfoRepository().getAppVersion(),
                       builder: (c,snapshot)=> Text(snapshot.hasData?"v ${snapshot.data}":"",style: TextStyle(color: Colors.grey),),
-                    )
+                    ),
                   ],
                 )
               ),
