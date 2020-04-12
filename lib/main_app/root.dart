@@ -19,30 +19,30 @@ class Root extends StatefulWidget {
 
 class _RootState extends State<Root> {
   @override
-//  void initState() {
-////    ApiHelper apiHelper = ApiHelper();
-////    apiHelper.checkInternetConnectivity();
-//
-//    getAuthStatus().then((AuthUserModel user) {
-//      if (user != null) {
-//        Future.delayed(Duration(seconds: 1)).then((_) {
-//          Navigator.pushAndRemoveUntil(
-//              context,
-//              CupertinoPageRoute(builder: (context) => JobListScreen()),
-//              (Route<dynamic> route) => false);
-//        });
-//      } else {
-//        Future.delayed(Duration(seconds: 2)).then((_) {
-//          Navigator.pushAndRemoveUntil(
-//              context,
-//              CupertinoPageRoute(builder: (context) => LoginScreen()),
-//              (Route<dynamic> route) => false);
-//        });
-//      }
-//    });
-//
-//    super.initState();
-//  }
+  void initState() {
+//    ApiHelper apiHelper = ApiHelper();
+//    apiHelper.checkInternetConnectivity();
+
+    getAuthStatus().then((AuthUserModel user) {
+      if (user != null) {
+        Future.delayed(Duration(seconds: 1)).then((_) {
+          Navigator.pushAndRemoveUntil(
+              context,
+              CupertinoPageRoute(builder: (context) => JobListScreen()),
+              (Route<dynamic> route) => false);
+        });
+      } else {
+        Future.delayed(Duration(seconds: 2)).then((_) {
+          Navigator.pushAndRemoveUntil(
+              context,
+              CupertinoPageRoute(builder: (context) => LoginScreen()),
+              (Route<dynamic> route) => false);
+        });
+      }
+    });
+
+    super.initState();
+  }
 
   Future<AuthUserModel> getAuthStatus() async {
     var prf = await SharedPreferences.getInstance();
