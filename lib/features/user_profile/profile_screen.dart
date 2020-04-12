@@ -94,57 +94,28 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
           RectangularButton(
             primaryFill: false,
             text: StringUtils.editProfileText,
-            onPressed: () {
-
-            },
+            onPressed: () {},
           )
         ],
       );
 
-  Widget aboutWidget(context) => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(
-            " " + StringUtils.aboutText,
-            style: Theme.of(context).textTheme.title,
-          ),
-          SizedBox(
-            height: 3,
-          ),
-          Container(
-              height: 2, width: 60, color: Theme.of(context).primaryColor),
-          SizedBox(
-            height: 5,
-          ),
-          Material(
-            color: Theme.of(context).backgroundColor,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Selector<UserProvider, String>(
-                  selector: (_, userProvider) => userProvider.userData.about,
-                  builder: (context, String data, _) {
-                    return Text(
-                      data,
-                      textAlign: TextAlign.justify,
-                      maxLines: 3,
-                      overflow: TextOverflow.ellipsis,
-                    );
-                  }),
-            ),
-          ),
-        ],
-      );
+
 
   @override
   Widget build(BuildContext context) {
     var primaryColor = Theme.of(context).primaryColor;
+    var titleTextStyle = TextStyle(
+        fontSize: 17,fontWeight: FontWeight.bold
+    );
+
+
+
     var profileHeaderBackgroundColor = Color(0xff08233A);
     var profileHeaderFontColor = Colors.white;
-
     var profileImageWidget = Container(
       margin: EdgeInsets.only(bottom: 15),
-      height: 70,
-      width: 70,
+      height: 60,
+      width: 60,
       decoration:
           BoxDecoration(borderRadius: BorderRadius.circular(100), boxShadow: [
         BoxShadow(color: Colors.black12, blurRadius: 5, spreadRadius: 5),
@@ -179,10 +150,8 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
       color: profileHeaderFontColor,
       iconSize: 22,
       onPressed: () {
-        Navigator.push(
-            context,
-            CupertinoPageRoute(
-                builder: (context) => EditProfileScreen()));
+        Navigator.push(context,
+            CupertinoPageRoute(builder: (context) => EditProfileScreen()));
       },
     );
     var userLocationWidget = Row(
@@ -217,7 +186,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
             ),
           );
         });
-    Widget designationWidget = Selector<UserProvider, String>(
+    var designationWidget = Selector<UserProvider, String>(
         selector: (_, userProvider) => userProvider.userData.designation,
         builder: (context, String data, _) {
           return Column(
@@ -240,6 +209,53 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
             ],
           );
         });
+    var aboutWidget = Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Row(
+          children: <Widget>[
+            Icon(Icons.info_outline,size: 18,),
+            SizedBox(width: 3,),
+            Text(
+              StringUtils.aboutMeText,
+              style: titleTextStyle,
+            ),
+            Spacer(),
+            InkWell(child: Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: Icon(Icons.edit,size: 18,),
+            ),onTap: (){
+
+            },),
+          ],
+        ),
+
+        SizedBox(
+          height: 5,
+        ),
+        Container(
+         decoration: BoxDecoration(
+           color: Theme.of(context).backgroundColor,
+           boxShadow: [
+             BoxShadow(color: Colors.black38,blurRadius: 4),
+           ]
+         ),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Selector<UserProvider, String>(
+                selector: (_, userProvider) => userProvider.userData.about,
+                builder: (context, String data, _) {
+                  return Text(
+                    data,
+                    textAlign: TextAlign.justify,
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                  );
+                }),
+          ),
+        ),
+      ],
+    );
 
     return Scaffold(
       appBar: AppBar(
@@ -258,12 +274,11 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
             children: <Widget>[
               // profile header
               Container(
-                height: 250,
+                height: 200,
                 color: profileHeaderBackgroundColor,
                 padding: EdgeInsets.all(8),
                 child: Column(
                   children: [
-                    SizedBox(height: 14),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -294,10 +309,17 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                 ),
               ),
               SizedBox(height: 10),
-              aboutWidget(context),
-              SizedBox(height: 15),
-              UserDetailsInfoListWidget(),
-              SizedBox(height: 5),
+              Container(
+                padding: EdgeInsets.all(8),
+                child: Column(
+                  children: [
+                    aboutWidget,
+                    SizedBox(height: 15),
+                    UserDetailsInfoListWidget(),
+                    SizedBox(height: 5),
+                  ],
+                ),
+              ),
             ],
           );
         }),

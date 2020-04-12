@@ -1,11 +1,12 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
+import 'package:p7app/main_app/resource/strings_utils.dart';
 
 class UserInfoListItem extends StatelessWidget {
   final IconData icon;
   final String label;
   final Function onTapAddNewAction;
-  final List<Widget> expandedChildren;
+  final List<Widget> children;
   final bool useSeparator;
 
   UserInfoListItem({
@@ -13,7 +14,7 @@ class UserInfoListItem extends StatelessWidget {
     @required this.label,
     this.onTapAddNewAction,
     this.useSeparator = true,
-    @required this.expandedChildren,
+    @required this.children,
   });
 
   Widget _addNewWidget(context) => onTapAddNewAction == null
@@ -45,69 +46,48 @@ class UserInfoListItem extends StatelessWidget {
           ),
         );
 
-  Widget _expendedWidget(context) {
-    return Column(
-      children: <Widget>[
-        Container(
-          margin: EdgeInsets.only(left: 20),
-          decoration: BoxDecoration(
-              border: Border(
-                  left: BorderSide(color: Colors.grey.withOpacity(0.5)))),
-          child: ListView.separated(
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemCount: expandedChildren.length,
-            separatorBuilder: (c, i) => useSeparator?Divider(
-              height: 2,
-              thickness: 2,
-            ):SizedBox(),
-            itemBuilder: (c, i) => expandedChildren[i],
-          ),
-        ),
-        _addNewWidget(context),
-      ],
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Theme.of(context).backgroundColor,
-      child: ExpandableNotifier(
-        child: ScrollOnExpand(
-          child: ExpandablePanel(
-            header: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: <Widget>[
-                  Material(
-                    color: Theme.of(context).scaffoldBackgroundColor,
-                    borderRadius: BorderRadius.circular(5),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Icon(
-                        icon,
-                        size: 40,
-                        color: Theme.of(context).unselectedWidgetColor,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    label,
-                    style: Theme.of(context).textTheme.title,
-                  ),
-                ],
-              ),
+    var titleTextStyle = TextStyle(fontSize: 17, fontWeight: FontWeight.bold);
+    return Column(
+      children: <Widget>[
+        Row(
+          children: <Widget>[
+            Icon(
+              icon,
+              size: 15,
             ),
-            expanded: _expendedWidget(context),
-            tapHeaderToExpand: true,
-            hasIcon: true,
-          ),
+            SizedBox(
+              width: 4,
+            ),
+            Text(label, style: titleTextStyle),
+            Spacer(),
+            InkWell(
+              child: Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: Icon(
+                  Icons.edit,
+                  size: 18,
+                ),
+              ),
+              onTap: () {
+
+              },
+            ),
+          ],
         ),
-      ),
+        SizedBox(
+          height: 5,
+        ),
+        ListView.builder(
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          itemCount: children.length,
+          itemBuilder: (c, i) => children[i],
+        ),
+        _addNewWidget(context),
+      ],
     );
   }
 }

@@ -20,41 +20,45 @@ class ExperienceListItem extends StatelessWidget {
           "- ${experienceModel.leavingDate == null ? "" : DateFormat().add_yMMMM().format(experienceModel.leavingDate)}";
     }
 
-    return Material(
-      color: Theme.of(context).canvasColor,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-        child: ListTile(
-          contentPadding: EdgeInsets.only(left: 5),
-          leading: Material(
-            color: Theme.of(context).scaffoldBackgroundColor,
-            borderRadius: BorderRadius.circular(5),
-            child: Padding(
-              padding: const EdgeInsets.all(7.0),
-              child: Icon(
-                FontAwesomeIcons.star,
-                size: 40,
-                color: Theme.of(context).primaryColor,
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: Material(
+        color: Theme.of(context).canvasColor,
+        elevation: 4,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+          child: ListTile(
+            contentPadding: EdgeInsets.only(left: 5),
+            leading: Material(
+              color: Theme.of(context).scaffoldBackgroundColor,
+              borderRadius: BorderRadius.circular(5),
+              child: Padding(
+                padding: const EdgeInsets.all(7.0),
+                child: Icon(
+                  FontAwesomeIcons.star,
+                  size: 40,
+                  color: Theme.of(context).primaryColor,
+                ),
               ),
             ),
-          ),
-          title: Text(
-            experienceModel.organizationName,
-            style: Theme.of(context)
-                .textTheme
-                .title
-                .apply(color: Theme.of(context).primaryColor),
-          ),
-          subtitle: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(experienceModel.position),
-              Text(time),
-            ],
-          ),
-          trailing: IconButton(
-            icon: Icon(FontAwesomeIcons.solidEdit),
-            onPressed: onTapEdit,
+            title: Text(
+              experienceModel.organizationName,
+              style: Theme.of(context)
+                  .textTheme
+                  .title
+                  .apply(color: Theme.of(context).primaryColor),
+            ),
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(experienceModel.position),
+                Text(time),
+              ],
+            ),
+            trailing: IconButton(
+              icon: Icon(FontAwesomeIcons.solidEdit),
+              onPressed: onTapEdit,
+            ),
           ),
         ),
       ),
