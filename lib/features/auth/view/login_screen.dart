@@ -68,6 +68,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 return _signInButton(context);
               }),
           SizedBox(height: 30),
+          _connectUsing(),
+          SizedBox(height: 20,),
           _registerText(),
 
         ],
@@ -121,12 +123,12 @@ class _LoginScreenState extends State<LoginScreen> {
         });
   }
 
-  Widget _logoSection() {
+  Widget _logoSection(double width) {
     return Hero(
       tag: kDefaultLogo,
       child: Image.asset(
         kDefaultLogo,
-        width: 160,
+        width: width,
         fit: BoxFit.contain,
       ),
     );
@@ -135,19 +137,34 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget _loginEmail(context) {
     var loginProvider = Provider.of<LoginViewModel>(context);
     return Center(
-      child: TextFormField(
-        keyboardType: TextInputType.emailAddress,
-        focusNode: _emailFocus,
-        textInputAction: TextInputAction.next,
-        controller: _emailTextController,
-        onFieldSubmitted: (s) {
-          _emailFocus.unfocus();
-          FocusScope.of(_scaffoldKey.currentState.context)
-              .requestFocus(_passwordFocus);
-        },
-        decoration: kEmailInputDecoration,
-        onSaved: (val) => loginProvider.email = val.trim(),
-        validator: (val)=>Validator().validateEmail(val.trim()),
+      child: Container(
+        height: 60,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(40),
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey[200],
+              spreadRadius: 3,
+              blurRadius: 10,
+              offset: Offset(1,1)
+            )
+          ]
+        ),
+        child: Center(
+          child: TextFormField(
+            keyboardType: TextInputType.emailAddress,
+            focusNode: _emailFocus,
+            textInputAction: TextInputAction.next,
+            controller: _emailTextController,
+            decoration: kEmailInputDecoration,
+            onFieldSubmitted: (s) {
+              _emailFocus.unfocus();
+              FocusScope.of(_scaffoldKey.currentState.context)
+                  .requestFocus(_passwordFocus);
+            },
+          ),
+        ),
       ),
     );
   }
@@ -156,42 +173,63 @@ class _LoginScreenState extends State<LoginScreen> {
     return Consumer<LoginViewModel>(
       builder: (BuildContext context, loginProvider, Widget child) {
         bool isObscure = loginProvider.isObscurePassword;
-        return TextFormField(
-          focusNode: _passwordFocus,
-          textInputAction: TextInputAction.done,
-          obscureText: loginProvider.isObscurePassword,
-          controller: _passwordTextController,
-          onFieldSubmitted: (s) {
-            _handleLogin(_scaffoldKey.currentState.context);
-          },
-          decoration: kPasswordInputDecoration(
-              suffixIcon: IconButton(
-                icon: !isObscure
-                    ? Icon(
-                  Icons.visibility,
+        return Container(
+          height: 60,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(40),
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                    color: Colors.grey[200],
+                    spreadRadius: 3,
+                    blurRadius: 10,
+                    offset: Offset(1,1)
                 )
-                    : Icon(
-                  Icons.visibility_off,
-                  color: Theme.of(context).textTheme.body1.color,
-                ),
-                onPressed: () {
-                  loginProvider.isObscurePassword = !isObscure;
-                },
-              )),
-          onSaved: (val) => loginProvider.password = val,
-          validator: Validator().nullFieldValidate,
+              ]
+          ),
+          child: Center(
+            child: TextFormField(
+              focusNode: _passwordFocus,
+              textInputAction: TextInputAction.done,
+              obscureText: loginProvider.isObscurePassword,
+              controller: _passwordTextController,
+              onFieldSubmitted: (s) {
+                _handleLogin(_scaffoldKey.currentState.context);
+              },
+              decoration: kPasswordInputDecoration(
+                  suffixIcon: IconButton(
+                    icon: !isObscure
+                        ? Icon(
+                      Icons.visibility,
+                    )
+                        : Icon(
+                      Icons.visibility_off,
+                      color: Theme.of(context).textTheme.body1.color,
+                    ),
+                    onPressed: () {
+                      loginProvider.isObscurePassword = !isObscure;
+                    },
+                  )),
+              onSaved: (val) => loginProvider.password = val,
+              validator: Validator().nullFieldValidate,
+            ),
+          ),
         );
       },
     );
   }
 
   Widget _signInButton(context) {
-    return GradientButton(
-      width: double.infinity,
-      onTap: () {
-        _handleLogin(context);
-      },
-      label: StringUtils.signInButtonText,
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
+    return Container(
+      width: width*0.5,
+      child: CommonButton(
+        onTap: () {
+          _handleLogin(context);
+        },
+        label: StringUtils.logInButtonText,
+      ),
     );
   }
 
@@ -217,7 +255,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   context, MaterialPageRoute(builder: (context) => SignUpScreen()));
             },
             child: Text(
-              '  ${StringUtils.registerText}',
+              '  ${StringUtils.signupText}',
               style: TextStyle(
                   color: Theme.of(context).primaryColor, fontWeight: FontWeight.bold, fontSize: 15),
             ),
@@ -280,7 +318,6 @@ class _LoginScreenState extends State<LoginScreen> {
             padding: EdgeInsets.all(8),
             child: Text(
               StringUtils.forgotPassword,
-              style: TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
         ],
@@ -300,7 +337,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Column(
                   children: <Widget>[
                     SizedBox(height: 10),
-                    _logoSection(),
+                    _logoSection(160),
                     signInHeader,
                     _buildForm(context),
                     SizedBox(height: 10),
@@ -323,22 +360,103 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget _mobileLayout(context) {
-    return Padding(
-      padding: EdgeInsets.fromLTRB(16, 8, 16, 8),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          SizedBox(height: 10),
-          _logoSection(),
-          SizedBox(height: 10),
-          signInHeader,
-          SizedBox(height: 10),
-          _buildForm(context),
-          SizedBox(height: 10),
-          AppVersionWidgetSmall()
-        ],
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
+    return Container(
+      height: height,
+      width: width,
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(16, 8, 16, 8),
+        child: Stack(
+          fit: StackFit.expand,
+          children: <Widget>[
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              children: <Widget>[
+                SizedBox(height: 10),
+                _logoSection(130),
+                SizedBox(height: 10),
+                _welcomeBackText(),
+                SizedBox(height: 10),
+                _buildForm(context),
+                SizedBox(height: 10),
+              ],
+            ),
+            Align(alignment: Alignment.bottomCenter,child: AppVersionWidgetSmall(),)
+          ],
+        ),
       ),
+    );
+  }
+
+  Widget _connectUsing(){
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        Text('Or connect using', style: TextStyle(color: Colors.grey[400], fontSize: 18),),
+        SizedBox(height: 10,),
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Container(
+              height: 45,
+              width: 140,
+              padding: EdgeInsets.symmetric(vertical: 13),
+              decoration: BoxDecoration(
+                color: Color.fromARGB(0xFF, 59, 89, 152),
+                borderRadius: BorderRadius.only(topLeft: Radius.circular(40), bottomLeft: Radius.circular(40))
+              ),
+              child: Center(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    ClipRRect(borderRadius:BorderRadius.only(topLeft: Radius.circular(40), bottomLeft: Radius.circular(40)),child: Image.asset('assets/images/fbIcon.png',fit: BoxFit.cover,)),
+                    SizedBox(width: 5,),
+                    Text('Facebook', style: TextStyle(color: Colors.white),)
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(width: 10,),
+            Container(
+              height: 45,
+              width: 140,
+              padding: EdgeInsets.symmetric(vertical: 10),
+              decoration: BoxDecoration(
+                  color: Color.fromARGB(0xFF, 243, 80, 29),
+                  borderRadius: BorderRadius.only(topRight: Radius.circular(40), bottomRight: Radius.circular(40))
+              ),
+              child: Center(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    ClipRRect(borderRadius:BorderRadius.only(topLeft: Radius.circular(40), bottomLeft: Radius.circular(40)),child: Image.asset('assets/images/gmail_red_icon.png',fit: BoxFit.cover,)),
+                    SizedBox(width: 5,),
+                    Text('Google +', style: TextStyle(color: Colors.white),)
+                  ],
+                ),
+              ),
+            )
+          ],
+        )
+      ],
+    );
+  }
+
+  Widget _welcomeBackText(){
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        Text('Welcome back!', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),),
+        SizedBox(height: 10,),
+        Text('Login to your existing account', style: TextStyle(fontSize: 20, color: Colors.grey[400]),)
+      ],
     );
   }
 

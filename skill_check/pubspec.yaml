@@ -1,7 +1,7 @@
 name: skill_check
 description: A new Flutter application for Project Seven.
 
-version: 1.0.18+1
+version: 1.0.20+1
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
@@ -120,7 +120,7 @@ dev_dependencies:
 flutter_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/images/job_search_logo_sq.png"
+  image_path: "assets/images/skillcheck.png"
 
 
 

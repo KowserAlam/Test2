@@ -7,7 +7,7 @@ class StringUtils {
       "Sign up Successful \n Check your email to verify account !";
 
   static String appName = "Job Search";
-  static String signInButtonText = "Sign in";
+  static String logInButtonText = "LOG IN";
   static String loginSuccessMessage = "Login Successful";
   static String loginUnsuccessfulMessage = "Login unsuccessful";
   static String checkInternetConnectionMessage = "Check Internet Connection";
@@ -188,7 +188,7 @@ class StringUtils {
   /// SignUp Screen
 
   static var signInText = "Sign In";
-  static var registerText = "Register";
+  static var signupText = "Signup";
   static var registerAccountText = "Register Account";
   static var signUpText = "Signup";
   static var proceedText = "Proceed";
@@ -273,6 +273,8 @@ class StringUtils {
 static const String unspecifiedText = "Unspecified";
 static const String deadlineText = "Deadline";
 static const String applyText = "Apply";
+static const String jobListText = "Job List";
+
 
 ///Job Details
 static const String jobDetailsAppBarTitle = 'Job Details';

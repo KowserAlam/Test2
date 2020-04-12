@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 class AppTheme {
 
 
-
+/// Oficion color
   static Color orange = Color(0xfffd7e14);
   static Color danger = Color(0xffdc3545);
   static Color warning = Color(0xffffc107);
@@ -14,25 +14,10 @@ class AppTheme {
   static Color grey = Color(0xff6c757d);
 
 
-//Colors for theme
-  static Color lightPrimary = Color(0xfffcfcff);
-
-//  static Color colorPrimary = Color(0xff5FB562);
-//  static Color colorPrimaryDark = Color(0xff91ff95);
-//  static Color colorAccentLight = Colors.green[800];
-//  static Color colorAccentDark = Colors.green[300];
 
 
-//  static Color colorPrimary = Color(0xFFFB415B);
-  static Color colorPrimary = Color(0xFF006BF2);
-//  static Color colorPrimaryDark = Color(0xffff7d8e);
-  static Color colorPrimaryDark = Color(0xff00B6ED);
-
-  static Color colorAccentLight = Color(0xFFEE5623);
-  static Color colorAccentDark = Color(0xffff9875);
-
-
-
+  static Color colorPrimary = Color(0xff0A5394);
+  static Color colorAccent = Color(0xff1C4587);
   static Color lightBG = Colors.grey[100];
   static Color lightScaffoldColor = Colors.white;
 
@@ -51,7 +36,7 @@ class AppTheme {
 
   static var defaultLinearGradient = LinearGradient(
 //      colors: [Color(0xFFFB415B), Color(0xFFEE5623)],
-      colors: [colorPrimary, colorPrimaryDark],
+      colors: [colorPrimary, colorAccent],
       begin: Alignment.centerRight,
       end: Alignment.centerLeft);
 
@@ -67,16 +52,16 @@ class AppTheme {
       colors: [Colors.grey[600], Colors.grey[500]]
   );
 
-  var fontFamily = GoogleFonts.poppins().fontFamily;
+  var fontFamily = GoogleFonts.roboto().fontFamily;
 
   static ThemeData lightTheme = ThemeData(
       brightness: Brightness.light,
       backgroundColor: lightScaffoldColor,
       primaryColor: colorPrimary,
-      accentColor: colorAccentLight,
+      accentColor: colorAccent,
       buttonTheme: ButtonThemeData(buttonColor: colorPrimary),
       scaffoldBackgroundColor: lightBG,
-      textTheme: GoogleFonts.poppinsTextTheme().copyWith(
+      textTheme: GoogleFonts.robotoTextTheme().copyWith(
           display1: TextStyle(
               fontSize: 26, color: Colors.black, fontWeight: FontWeight.bold),
           title: TextStyle(
@@ -93,16 +78,16 @@ class AppTheme {
     brightness: Brightness.dark,
     errorColor: darkErrorColor,
     backgroundColor: darkBG,
-    primaryColor: colorPrimaryDark,
-    accentColor: colorAccentDark,
+    primaryColor: colorPrimary,
+    accentColor: colorAccent,
     scaffoldBackgroundColor: darkScaffoldColor,
-    cursorColor: colorAccentLight,
+    cursorColor: colorAccent,
     appBarTheme: AppBarTheme(
       color: darkBG,
       elevation: 0,
       iconTheme: IconThemeData(color: lightBG),
       actionsIconTheme: IconThemeData(color: lightBG),
-      textTheme: GoogleFonts.poppinsTextTheme().copyWith(
+      textTheme: GoogleFonts.robotoTextTheme().copyWith(
         title: TextStyle(
           color: lightBG,
           fontSize: 18.0,

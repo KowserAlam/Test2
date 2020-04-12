@@ -79,7 +79,7 @@ class _AppDrawerState extends State<AppDrawer> {
                 DrawerListWidget(
                   label: StringUtils.homText,
                   icon: Icons.home,
-                  isSelected: widget.routeName == 'home',
+                  isSelected: widget.routeName == 'job_list',
                   onTap: () {
                     Navigator.of(context)
                         .pushReplacement(CupertinoPageRoute(builder: (context)=>JobListScreen()));
