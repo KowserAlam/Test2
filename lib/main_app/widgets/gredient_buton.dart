@@ -18,7 +18,7 @@ class CommonButton extends StatelessWidget {
       color: Colors.transparent,
       elevation: onTap == null ? 0:5.0,
       child: Container(
-        height: height*0.08,
+        height: height*0.07,
         width: width??(115),
         decoration: BoxDecoration(
           color: onTap == null ? Colors.grey:null,
