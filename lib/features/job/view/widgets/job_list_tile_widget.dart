@@ -100,7 +100,7 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 8, horizontal: 15),
         decoration: BoxDecoration(
-          gradient: AppTheme.defaultLinearGradient,
+          color: Theme.of(context).accentColor,
           borderRadius: BorderRadius.circular(5),
         ),
         child: Text(
