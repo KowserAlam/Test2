@@ -69,11 +69,11 @@ class _RootState extends State<Root> {
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     Container(
-                      width: width*0.3,
+                      width: width*0.27,
                       child: Image.asset(kDefaultLogo,fit: BoxFit.cover,),
                     ),
                     Container(
-                      width: width*0.4,
+                      width: width*0.42,
                       child: Image.asset(kDefaultLogoText,fit: BoxFit.cover,),
                     ),
                   ],
