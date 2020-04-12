@@ -1,28 +1,28 @@
 import 'package:p7app/main_app/app_theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
-class GradientButton extends StatelessWidget {
+class CommonButton extends StatelessWidget {
   final String label;
   final Function onTap;
   /// width could be null
   /// default width 135 for large device and 115 for mobile device
   final double width;
-  const GradientButton({@required this.label, @required this.onTap,this.width});
+  const CommonButton({@required this.label, @required this.onTap,this.width});
 
   @override
   Widget build(BuildContext context) {
-    bool isLarge = MediaQuery.of(context).size.width > 720 ;
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
     return Material(
-
-      borderRadius: BorderRadius.circular(5.0),
+      borderRadius: BorderRadius.circular(40.0),
       color: Colors.transparent,
       elevation: onTap == null ? 0:5.0,
       child: Container(
-        height: 48.0,
-        width: width??(isLarge? 135 : 115),
+        height: height*0.08,
+        width: width??(115),
         decoration: BoxDecoration(
           color: onTap == null ? Colors.grey:null,
-          borderRadius: BorderRadius.circular(5.0),
+          borderRadius: BorderRadius.circular(40.0),
           gradient: onTap == null ? null :AppTheme.defaultLinearGradient
         ),
         child: Material(
@@ -35,7 +35,8 @@ class GradientButton extends StatelessWidget {
                 label,
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: isLarge? 18.0:16.5,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold
                 ),
               ),
             ),
