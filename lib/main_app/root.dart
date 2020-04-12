@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:p7app/features/job/view/job_list_screen.dart';
 import 'package:p7app/main_app/auth_service/auth_user_model.dart';
 import 'package:p7app/features/auth/view/login_screen.dart';
+import 'package:p7app/main_app/repositories/app_info_repository.dart';
 import 'package:p7app/main_app/resource/json_keys.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
@@ -52,34 +53,52 @@ class _RootState extends State<Root> {
 
   @override
   Widget build(BuildContext context) {
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Center(
-        child: Container(
-          height: 300,
-          child: Column(
-            children: <Widget>[
-              Hero(
-                  tag: kDefaultLogo,
-                  child: Image(
-                    image: AssetImage(kDefaultLogo),
-                    width: 150,
-                    height: 150,
-                    fit: BoxFit.contain,
-                  )),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  StringUtils.appName,
-                  style: kTitleStyle,
+      body: Container(
+        height: height,
+        width: width,
+        child: Stack(
+          children: <Widget>[
+            Center(
+              child: Padding(
+                padding: EdgeInsets.only(bottom: height*0.09),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Container(
+                      width: width*0.27,
+                      child: Image.asset(kDefaultLogo,fit: BoxFit.cover,),
+                    ),
+                    Container(
+                      width: width*0.42,
+                      child: Image.asset(kDefaultLogoText,fit: BoxFit.cover,),
+                    ),
+                  ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Loader(),
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                width: width*0.5,
+                height: height*0.2,
+                padding: EdgeInsets.only(bottom: 5),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Image.asset(kIshraakLogo,fit: BoxFit.cover,),
+                    FutureBuilder(
+                      future: AppInfoRepository().getAppVersion(),
+                      builder: (c,snapshot)=> Text(snapshot.hasData?"v ${snapshot.data}":"",style: TextStyle(color: Colors.grey),),
+                    ),
+                  ],
+                )
               ),
-            ],
-          ),
+            )
+          ],
         ),
       ),
     );
