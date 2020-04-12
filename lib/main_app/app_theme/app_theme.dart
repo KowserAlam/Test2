@@ -54,6 +54,7 @@ class AppTheme {
 
   var fontFamily = GoogleFonts.roboto().fontFamily;
 
+
   static ThemeData lightTheme = ThemeData(
       brightness: Brightness.light,
       backgroundColor: lightScaffoldColor,

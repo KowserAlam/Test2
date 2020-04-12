@@ -131,6 +131,7 @@ flutter:
 
   assets:
     - assets/
+    - assets/google_fonts/
     - assets/images/
     - assets/images/icons/
 
