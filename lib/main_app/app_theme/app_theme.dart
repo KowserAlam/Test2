@@ -24,9 +24,9 @@ class AppTheme {
 
 
 //  static Color colorPrimary = Color(0xFFFB415B);
-  static Color colorPrimary = Color(0xFF006BF2);
+  static Color colorPrimary = Color(0xff0D4082);
 //  static Color colorPrimaryDark = Color(0xffff7d8e);
-  static Color colorPrimaryDark = Color(0xff00B6ED);
+  static Color colorPrimaryDark = Color(0xff173374);
 
   static Color colorAccentLight = Color(0xFFEE5623);
   static Color colorAccentDark = Color(0xffff9875);
