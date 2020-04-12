@@ -7,17 +7,17 @@ import 'package:p7app/main_app/app_theme/app_theme.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 
-class JobListItemWidget extends StatefulWidget {
+class JobListTileWidget extends StatefulWidget {
   final JobModel jobModel;
   final Function onTap;
 
-  JobListItemWidget(this.jobModel, {this.onTap});
+  JobListTileWidget(this.jobModel, {this.onTap});
 
   @override
-  _JobListItemWidgetState createState() => _JobListItemWidgetState();
+  _JobListTileWidgetState createState() => _JobListTileWidgetState();
 }
 
-class _JobListItemWidgetState extends State<JobListItemWidget> {
+class _JobListTileWidgetState extends State<JobListTileWidget> {
   bool heart;
 
   @override

@@ -1,7 +1,7 @@
 import 'package:after_layout/after_layout.dart';
 import 'package:p7app/features/job/view_model/job_list_view_model.dart';
 import 'package:p7app/features/job/models/job.dart';
-import 'package:p7app/features/job/view/widgets/job_list_item_widget.dart';
+import 'package:p7app/features/job/view/widgets/job_list_tile_widget.dart';
 import 'package:p7app/main_app/flavour/flavor_banner.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/widgets/app_drawer.dart';
@@ -63,7 +63,7 @@ class _JobListScreenState extends State<JobListScreen> with AfterLayoutMixin{
             JobModel job = jobList[index];
 
 
-            return JobListItemWidget(job);
+            return JobListTileWidget(job);
           });
         },),
       ),
