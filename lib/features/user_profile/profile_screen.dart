@@ -12,7 +12,7 @@ import 'package:flutter/painting.dart';
 import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatefulWidget {
-  static final String titleText = StringUtils.profileText;
+
 
   @override
   _ProfileScreenState createState() => _ProfileScreenState();
@@ -252,41 +252,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                 child: Center(child: Loader()),
               );
             }
-            return isTabLayout
-                ? Column(
-                    children: <Widget>[
-                      SizedBox(height: 16),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          SizedBox(width: 20),
-                          profileImageWidget(context),
-                          SizedBox(width: 20),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                displayNameWidget(context),
-                                SizedBox(height: 5),
-                                designationWidget(context),
-                                SizedBox(height: 5),
-                                emailWidget(context),
-                                SizedBox(height: 5),
-                                userContactInfo(context),
-                                userLocationWidget(context),
-                                SizedBox(height: 10),
-                                aboutWidget(context),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 15),
-                      UserDetailsInfoListWidget(),
-                      SizedBox(height: 5),
-                    ],
-                  )
-                : Column(
+            return  Column(
                     children: <Widget>[
                       SizedBox(height: 16),
                       profileImageWidget(context),

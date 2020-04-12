@@ -129,7 +129,7 @@ class StringUtils {
 
   /// **************** Profile *****************
 
-  static String profileText = "Profile";
+  static String profileText = "My Profile";
 
   static String publicView = "PUBLIC VIEW";
 
