@@ -108,9 +108,10 @@ var dummyUserData = UserProfileModel(
         "https://pbs.twimg.com/profile_images/988775660163252226/XpgonN0X_400x400.jpg",
     city: "Dhaka, Bangladesh",
     designation: "American business magnate",
-    about: "Co-chair of the Bill & Melinda Gates Foundation. "
-        "Microsoft Co-founder. Voracious reader. Avid traveler. "
-        "Active blogger.",
+    about: "Experienced Software Engineer with a demonstrated history of working "
+        "in the computer software industry. Skilled in Microsoft Word, HTML5, "
+        "CSS3, Bootstrap, PHP, Laravel, MySQL, WordPress, jQuery, and MySQLi. "
+        "Java, C, C++, C#, Asp.Net MVC, Angularjs, Angular, Strong engineering professional",
     email: "bill.gates@microsoft.com",
     mobileNumber: "+88010000000000",
     personalInfo: PersonalInfo(

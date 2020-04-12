@@ -37,7 +37,7 @@ class _UserDetailsInfoListWidgetState extends State<UserDetailsInfoListWidget> {
                 CupertinoPageRoute(
                     builder: (context) => AddNewExperienceScreen()));
           },
-          expandedChildren: List.generate(expList.length, (int index) {
+          children: List.generate(expList.length, (int index) {
             var exp = expList[index];
             return ExperienceListItem(
               experienceModel: exp,
@@ -67,7 +67,7 @@ class _UserDetailsInfoListWidgetState extends State<UserDetailsInfoListWidget> {
                 CupertinoPageRoute(
                     builder: (context) => AddEditEducationScreen()));
           },
-          expandedChildren: List.generate(eduList.length, (int i) {
+          children: List.generate(eduList.length, (int i) {
             return EducationsListItem(
               educationItemModel: eduList[i],
               index: i,
@@ -90,7 +90,7 @@ class _UserDetailsInfoListWidgetState extends State<UserDetailsInfoListWidget> {
                 CupertinoPageRoute(
                     builder: (context) => AddEditTechnicalSkill()));
           },
-          expandedChildren: List.generate(list.length, (index) {
+          children: List.generate(list.length, (index) {
             var skill = list[index];
             return TechnicalSkillListItem(
               technicalSkill: skill,
@@ -124,7 +124,7 @@ class _UserDetailsInfoListWidgetState extends State<UserDetailsInfoListWidget> {
 //                CupertinoPageRoute(
 //                    builder: (context) => AddEditTechnicalSkill()));
           },
-          expandedChildren: List.generate(list.length, (index) {
+          children: List.generate(list.length, (index) {
             var skill = list[index];
             return ListTile(
               title: Text("Project Name"),
@@ -141,7 +141,7 @@ class _UserDetailsInfoListWidgetState extends State<UserDetailsInfoListWidget> {
         return UserInfoListItem(
           icon: FontAwesomeIcons.fileAlt,
           label: StringUtils.otherText,
-          expandedChildren: [
+          children: [
             Material(
               color: Theme.of(context).canvasColor,
               child: Column(
@@ -210,7 +210,7 @@ class _UserDetailsInfoListWidgetState extends State<UserDetailsInfoListWidget> {
 //                CupertinoPageRoute(
 //                    builder: (context) => AddEditTechnicalSkill()));
           },
-          expandedChildren: List.generate(list.length, (index) {
+          children: List.generate(list.length, (index) {
             var skill = list[index];
             return Material(
               color: Theme.of(context).canvasColor,

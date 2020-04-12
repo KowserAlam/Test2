@@ -36,7 +36,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
 
   @override
   void afterFirstLayout(BuildContext context) {
-    var userProvider = Provider.of<UserProvider>(_scaffoldKey.currentContext);
+    var userProvider = Provider.of<UserProvider>(context,listen: false);
 
     if (userProvider.userData != null) {
       var user = userProvider.userData;

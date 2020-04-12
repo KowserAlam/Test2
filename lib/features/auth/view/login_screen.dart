@@ -158,6 +158,8 @@ class _LoginScreenState extends State<LoginScreen> {
             textInputAction: TextInputAction.next,
             controller: _emailTextController,
             decoration: kEmailInputDecoration,
+            onSaved: (val) => loginProvider.email = val.trim(),
+            validator: (val)=>Validator().validateEmail(val.trim()),
             onFieldSubmitted: (s) {
               _emailFocus.unfocus();
               FocusScope.of(_scaffoldKey.currentState.context)

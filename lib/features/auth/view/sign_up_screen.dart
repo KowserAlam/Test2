@@ -183,6 +183,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               SizedBox(height: 25),
               //Mobile TextField
+
               TextFormField(
                 keyboardType: TextInputType.phone,
                 textInputAction: TextInputAction.next,

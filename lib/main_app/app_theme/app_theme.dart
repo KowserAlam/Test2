@@ -54,6 +54,7 @@ class AppTheme {
 
   var fontFamily = GoogleFonts.roboto().fontFamily;
 
+
   static ThemeData lightTheme = ThemeData(
       brightness: Brightness.light,
       backgroundColor: lightScaffoldColor,
@@ -66,7 +67,7 @@ class AppTheme {
               fontSize: 26, color: Colors.black, fontWeight: FontWeight.bold),
           title: TextStyle(
             color: Colors.black,
-            fontSize: 18.0,
+            fontSize: 16.0,
             fontWeight: FontWeight.w800,
           )),
       inputDecorationTheme: InputDecorationTheme(
@@ -90,7 +91,7 @@ class AppTheme {
       textTheme: GoogleFonts.robotoTextTheme().copyWith(
         title: TextStyle(
           color: lightBG,
-          fontSize: 18.0,
+          fontSize: 16.0,
           fontWeight: FontWeight.w800,
         ),
       ),

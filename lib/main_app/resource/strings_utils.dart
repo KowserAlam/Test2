@@ -129,20 +129,21 @@ class StringUtils {
 
   /// **************** Profile *****************
 
-  static String profileText = "Profile";
+  static String profileText = "My Profile";
 
   static String publicView = "PUBLIC VIEW";
 
-  static var editProfileText = "EDIT PROFILE";
-  static var aboutText = "About";
+  static String editProfileText = "EDIT PROFILE";
+  static String aboutText = "About";
+  static String aboutMeText = "About Me";
 
   static String contactInfoText = "Contact info";
 
-  static var experienceText = "Experience";
+  static var experienceText = "Professional Experiences";
   static var educationsText = "Educations";
   static var skillsText = "Skills";
   static var technicalSkillText = "Technical Skills";
-  static var projectsText = "Projects";
+  static var projectsText = "Portfolio";
   static var otherText = "Other";
   static var referenceText = "Reference";
   static var personalInfoText = "Personal Information";

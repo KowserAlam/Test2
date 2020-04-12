@@ -39,7 +39,7 @@ class PersonalInfoWidget extends StatelessWidget {
       useSeparator: false,
       icon: FontAwesomeIcons.infoCircle,
       label: StringUtils.personalInfoText,
-      expandedChildren: <Widget>[
+      children: <Widget>[
         Material(
           color: Theme.of(context).canvasColor,
           child: Padding(
