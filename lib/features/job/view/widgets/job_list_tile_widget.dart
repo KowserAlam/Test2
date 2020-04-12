@@ -6,6 +6,7 @@ import 'package:p7app/features/job/view/job_details.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/util/date_format_uitl.dart';
 
 class JobListTileWidget extends StatefulWidget {
   final JobModel jobModel;
@@ -22,49 +23,38 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
 
   @override
   Widget build(BuildContext context) {
+    String publishDateText = widget.jobModel.createdDate == null
+        ? StringUtils.unspecifiedText
+        : DateFormatUtil()
+            .dateFormat1(DateTime.parse(widget.jobModel.createdDate));
+    String deadLineText = widget.jobModel.applicationDeadline == null
+        ? StringUtils.unspecifiedText
+        : DateFormatUtil()
+            .dateFormat1(DateTime.parse(widget.jobModel.applicationDeadline));
+
     var backgroundColor = Theme.of(context).backgroundColor;
     var scaffoldBackgroundColor = Theme.of(context).scaffoldBackgroundColor;
     bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     var titleStyle = TextStyle(fontSize: 16, fontWeight: FontWeight.w600);
     double iconSize = 14.0;
 //    bool isTabLayout = MediaQuery.of(context).size.width > kMidDeviceScreenSize;
-    var subtitleColor = AppTheme.grey;
+    var subtitleColor = isDarkMode ? Colors.white : AppTheme.grey;
 
     var companyLogo = Container(
-      height: 40,
-      width: 40,
+      height: 60,
+      width: 60,
       decoration: BoxDecoration(
-          color: scaffoldBackgroundColor,
-          border: Border.all(color: AppTheme.grey.withOpacity(0.5))),
-      child: Center(
-        child: FaIcon(
-          FontAwesomeIcons.atom,
-          size: 20,
-          color: Colors.purpleAccent,
-        ),
+        color: scaffoldBackgroundColor,
       ),
+      child:Image.asset(kImagePlaceHolderAsset),
     ); //That pointless fruit logo
     var jobTitle = Text(
-      widget.jobModel.title??"",
+      widget.jobModel.title ?? "",
       style: titleStyle,
     );
-    var companyName = Row(
-      children: <Widget>[
-        Icon(
-          FeatherIcons.briefcase,
-          color: subtitleColor,
-          size: iconSize,
-        ),
-        SizedBox(
-          width: 5,
-        ),
-        Expanded(
-          child: Text(
-            widget.jobModel.companyName??"",
-            style: TextStyle(color: subtitleColor),
-          ),
-        )
-      ],
+    var companyName = Text(
+      widget.jobModel.companyName ?? "",
+      style: TextStyle(color: subtitleColor),
     );
     var companyLocation = Container(
       child: Row(
@@ -79,7 +69,7 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
           ),
           Expanded(
             child: Text(
-              widget.jobModel.jobLocation??"",
+              widget.jobModel.jobLocation ?? "",
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(color: subtitleColor),
@@ -88,7 +78,7 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
         ],
       ),
     );
-    var heartButton = GestureDetector(
+    var heartButton = InkWell(
       onTap: () {
         if (heart == false) {
           heart = true;
@@ -97,12 +87,10 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
         }
         setState(() {});
       },
-      child: Container(
-//        height: 50,
-//        width: 50,
-        alignment: Alignment.center,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
         child: Icon(
-          FeatherIcons.heart,
+          heart == true? FontAwesomeIcons.solidHeart:FontAwesomeIcons.heart,
           color: heart == true ? AppTheme.orange : AppTheme.grey,
           size: 22,
         ),
@@ -110,7 +98,7 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
     );
     var applyButton = Container(
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+        padding: EdgeInsets.symmetric(vertical: 8, horizontal: 15),
         decoration: BoxDecoration(
           gradient: AppTheme.defaultLinearGradient,
           borderRadius: BorderRadius.circular(5),
@@ -118,7 +106,7 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
         child: Text(
           StringUtils.applyText,
           style: TextStyle(
-              fontSize: 16, color: Colors.white, fontWeight: FontWeight.w600),
+              fontSize: 15, color: Colors.white, fontWeight: FontWeight.w600),
         ),
       ),
     );
@@ -140,78 +128,94 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
         ),
       ],
     );
-    var deadLine = Row(
+    var publishDateWidget = Row(
       children: <Widget>[
         Icon(
-          FontAwesomeIcons.calendar,
+          FeatherIcons.clock,
           size: iconSize,
-          color: AppTheme.orange,
+          color: subtitleColor
         ),
-        SizedBox(
-          width: 5,
-        ),
-        Text("${StringUtils.deadlineText}: ",
-            style: TextStyle(color: subtitleColor)),
+        SizedBox(width: 5),
         Text(
-          widget.jobModel.applicationDeadline != null
-              ? widget.jobModel.applicationDeadline
-              : StringUtils.unspecifiedText,
-          style: TextStyle(color: subtitleColor),
+          deadLineText,
+          style: TextStyle(color: subtitleColor,fontWeight: FontWeight.w100),
+        ),
+      ],
+    );
+    var deadLineWidget = Row(
+      children: <Widget>[
+        Icon(
+          FeatherIcons.calendar,
+          size: iconSize,
+          color: subtitleColor,
+        ),
+        SizedBox(width: 5),
+        Text(
+          publishDateText,
+          style: TextStyle(color: subtitleColor,fontWeight: FontWeight.w100),
         ),
       ],
     );
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => JobDetails(jobModel: widget.jobModel,)));
+            builder: (context) => JobDetails(
+                  jobModel: widget.jobModel,
+                )));
       },
       child: Container(
-        decoration: BoxDecoration(color: backgroundColor,
+        decoration: BoxDecoration(color: scaffoldBackgroundColor,
 //        borderRadius: BorderRadius.circular(5),
             boxShadow: [
               BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 10),
               BoxShadow(color: Colors.black.withOpacity(0.2), blurRadius: 10),
             ]),
         margin: EdgeInsets.fromLTRB(8, 4, 8, 4),
-        padding: EdgeInsets.all(8),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Container(
+              color: backgroundColor,
+              padding: EdgeInsets.all(8),
+              child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Row(
+                  companyLogo,
+                  SizedBox(width: 8),
+                  Expanded(
+                      child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      companyLogo,
-                      SizedBox(width: 8),
-                      Expanded(child: jobTitle),
-                      SizedBox(width: 8),
-                      heartButton,
+                      jobTitle,
+                      SizedBox(height: 3),
+                      companyName,
+                      SizedBox(height: 3),
+                      companyLocation,
                     ],
-                  ),
-                  //Job Title
-                  SizedBox(height: 10),
-                  companyName,
-
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: <Widget>[
-                            SizedBox(height: 3),
-                            companyLocation,
-                            SizedBox(height: 3),
-                            jobType,
-                            deadLine,
-                          ],
-                        ),
-                      ),
-
-                      applyButton,
-                    ],
-                  ),
+                  )),
+                  SizedBox(width: 8),
+                  heartButton,
                 ],
               ),
+            ),
+            //Job Title
+            SizedBox(
+              height: 4
+            ),
+            Container(
+              padding: EdgeInsets.all(8),
+              color: backgroundColor,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  deadLineWidget,
+                  publishDateWidget,
+                  applyButton,
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

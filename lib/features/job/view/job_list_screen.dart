@@ -46,12 +46,16 @@ class _JobListScreenState extends State<JobListScreen> with AfterLayoutMixin{
       child: Scaffold(
         appBar: AppBar(
           title: Text(StringUtils.jobListText),
+          actions: [
+            IconButton(icon: Icon(Icons.search),onPressed: (){},)
+          ],
         ),
         drawer: Drawer(child: AppDrawer(routeName: 'job_list',)),
         body: Consumer<JobListViewModel>(builder: (BuildContext context, homeViewModel, Widget child) {
           var jobList = homeViewModel.jobList;
           print(jobList.length);
           return ListView.builder(
+            padding: EdgeInsets.symmetric(vertical: 4),
             controller: _scrollController,
             itemCount: jobList.length+1,
 //              separatorBuilder: (context,index)=>Divider(),

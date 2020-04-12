@@ -11,6 +11,7 @@ const String  kLoaderImage =   "assets/images/loader.gif";
 const String  kExamCoverImageAsset =   "assets/images/exam_cover.jpg";
 const String  kExamCoverImageNetwork =   "https://i.ibb.co/Wtt5Hn9/exam-cover.jpg";
 const String  kIshraakIcon = "assets/images/ishraak.png";
+const String  kImagePlaceHolderAsset = "assets/images/image_placeholder.png";
 
 
 
