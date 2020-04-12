@@ -85,6 +85,7 @@ class _RootState extends State<Root> {
               child: Container(
                 width: width*0.5,
                 height: height*0.2,
+                padding: EdgeInsets.only(bottom: 5),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
@@ -92,7 +93,7 @@ class _RootState extends State<Root> {
                     FutureBuilder(
                       future: AppInfoRepository().getAppVersion(),
                       builder: (c,snapshot)=> Text(snapshot.hasData?"v ${snapshot.data}":"",style: TextStyle(color: Colors.grey),),
-                    )
+                    ),
                   ],
                 )
               ),
