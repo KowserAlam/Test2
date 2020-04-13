@@ -1,4 +1,4 @@
-import 'package:expandable/expandable.dart';
+
 import 'package:flutter/material.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 
@@ -6,6 +6,7 @@ class UserInfoListItem extends StatelessWidget {
   final IconData icon;
   final String label;
   final Function onTapAddNewAction;
+  final Function onTapAddEditAction;
   final List<Widget> children;
   final bool useSeparator;
 
@@ -13,38 +14,43 @@ class UserInfoListItem extends StatelessWidget {
     @required this.icon,
     @required this.label,
     this.onTapAddNewAction,
+    this.onTapAddEditAction,
     this.useSeparator = true,
     @required this.children,
   });
 
   Widget _addNewWidget(context) => onTapAddNewAction == null
       ? SizedBox()
-      : InkWell(
+      : Material(
+    borderRadius: BorderRadius.circular(5),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(5),
           onTap: onTapAddNewAction,
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  "Add New",
-                  style: TextStyle(
-                      color: Theme.of(context).primaryColor.withOpacity(.8),
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold),
-                ),
-                SizedBox(
-                  width: 8,
-                ),
-                Material(
-                    borderRadius: BorderRadius.circular(50),
-                    color: Theme.of(context).primaryColor.withOpacity(.1),
-                    child: Icon(Icons.add,
-                        color: Theme.of(context).primaryColor.withOpacity(.8)))
-              ],
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    "Add New",
+                    style: TextStyle(
+                        color: Theme.of(context).primaryColor.withOpacity(.8),
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    width: 8
+                  ),
+                  Material(
+                      borderRadius: BorderRadius.circular(50),
+                      color: Theme.of(context).primaryColor.withOpacity(.1),
+                      child: Icon(Icons.add,
+                          color: Theme.of(context).primaryColor.withOpacity(.8)))
+                ],
+              ),
             ),
-          ),
-        );
+        ),
+      );
 
 
   @override
@@ -59,10 +65,11 @@ class UserInfoListItem extends StatelessWidget {
               size: 15,
             ),
             SizedBox(
-              width: 4,
+              width: 8,
             ),
             Text(label, style: titleTextStyle),
             Spacer(),
+            onTapAddEditAction == null? SizedBox():
             InkWell(
               child: Padding(
                 padding: const EdgeInsets.all(4.0),
@@ -71,14 +78,12 @@ class UserInfoListItem extends StatelessWidget {
                   size: 18,
                 ),
               ),
-              onTap: () {
-
-              },
+              onTap: onTapAddEditAction,
             ),
           ],
         ),
         SizedBox(
-          height: 5,
+          height: 10,
         ),
         ListView.builder(
           shrinkWrap: true,

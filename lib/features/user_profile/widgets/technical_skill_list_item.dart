@@ -14,8 +14,15 @@ class TechnicalSkillListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Theme.of(context).canvasColor,
+    return Container(
+      margin: EdgeInsets.only(bottom: 8),
+      decoration: BoxDecoration(
+        color: Theme.of(context).backgroundColor,
+        borderRadius: BorderRadius.circular(5),
+        boxShadow: [
+          BoxShadow(color: Colors.black26, blurRadius: 2),
+        ],
+      ),
       child: InkWell(
         onTap: onTap,
         child: Padding(

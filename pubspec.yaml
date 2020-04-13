@@ -47,10 +47,6 @@ dependencies:
 
   #providing a persistent store for simple data
   shared_preferences: ^0.5.6+3
-
-  #A Flutter widget that can be expanded or collapsed by the user.
-  expandable: ^4.1.2
-
   #internationalization and localization facilities --> used for DateFormat
   intl: ^0.16.1
 
