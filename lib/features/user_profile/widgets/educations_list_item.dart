@@ -17,57 +17,59 @@ class EducationsListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Theme.of(context).canvasColor,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-        child: ListTile(
-          contentPadding: EdgeInsets.only(left: 5),
-          leading: Material(
-            color: Theme.of(context).scaffoldBackgroundColor,
-            borderRadius: BorderRadius.circular(5),
-            child: Padding(
-              padding: const EdgeInsets.all(7.0),
-              child: Icon(
-                FontAwesomeIcons.university,
-                size: 40,
-                color: Theme.of(context).primaryColor,
-              ),
+    var backgroundColor = Theme.of(context).backgroundColor;
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+      margin: EdgeInsets.only(bottom: 8),
+      decoration: BoxDecoration(
+        color: backgroundColor,
+        borderRadius: BorderRadius.circular(5),
+        boxShadow: [
+          BoxShadow(color: Colors.black26, blurRadius: 2),
+        ],
+      ),
+      child: ListTile(
+        contentPadding: EdgeInsets.only(left: 5),
+        leading: Material(
+          color: Theme.of(context).scaffoldBackgroundColor,
+          borderRadius: BorderRadius.circular(5),
+          child: Padding(
+            padding: const EdgeInsets.all(7.0),
+            child: Icon(
+              FontAwesomeIcons.university,
+              size: 40,
+              color: Theme.of(context).primaryColor,
             ),
           ),
-          title: Text(
-            educationItemModel.nameOfInstitution,
-            style: Theme.of(context)
-                .textTheme
-                .title
-                .apply(color: Theme.of(context).primaryColor),
-          ),
-          subtitle: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(educationItemModel.degree ?? ""),
-              Text(
-                educationItemModel.passingYear != null
-                    ? DateFormat()
-                    .add_yMMMMd()
-                    .format(educationItemModel.passingYear)
-                    .toString()
-                    : "",
-              ),
-            ],
-          ),
-          trailing: IconButton(
-            icon: Icon(FontAwesomeIcons.solidEdit),
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  CupertinoPageRoute(
-                      builder: (context) => AddEditEducationScreen(
-                        educationModel: educationItemModel,
-                        index: index,
-                      )));
-            },
-          ),
+        ),
+        title: Text(
+          educationItemModel.nameOfInstitution,
+        ),
+        subtitle: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(educationItemModel.degree ?? ""),
+            Text(
+              educationItemModel.passingYear != null
+                  ? DateFormat()
+                      .add_yMMMMd()
+                      .format(educationItemModel.passingYear)
+                      .toString()
+                  : "",
+            ),
+          ],
+        ),
+        trailing: IconButton(
+          icon: Icon(FontAwesomeIcons.edit),
+          onPressed: () {
+            Navigator.push(
+                context,
+                CupertinoPageRoute(
+                    builder: (context) => AddEditEducationScreen(
+                          educationModel: educationItemModel,
+                          index: index,
+                        )));
+          },
         ),
       ),
     );

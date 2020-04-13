@@ -37,7 +37,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
 
   @override
   void afterFirstLayout(BuildContext context) {
-    var expProvider = Provider.of<ExperienceProvider>(context);
+    var expProvider = Provider.of<ExperienceProvider>(context,listen: false);
 
     if (experienceModel != null) {
       organizationNameController.text = experienceModel.organizationName;
@@ -52,7 +52,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
 
   _handleSave() {
     var isSuccess = _formKey.currentState.validate();
-    var addEditProvider = Provider.of<ExperienceProvider>(context);
+    var addEditProvider = Provider.of<ExperienceProvider>(context,listen: false);
 
     if (isSuccess) {
       var exp = Experience(
@@ -83,7 +83,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        Provider.of<ExperienceProvider>(context).clearState();
+        Provider.of<ExperienceProvider>(context,listen: false).clearState();
         return true;
       },
       child: Scaffold(
@@ -270,7 +270,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
   }
 
   _showJoinDatePicker(context) {
-    var provider = Provider.of<ExperienceProvider>(context);
+    var provider = Provider.of<ExperienceProvider>(context,listen: false);
     var initialDate = DateTime.now();
     if (provider.joiningDate == null) {
       provider.onJoiningDateChangeEvent(DateTime.now());
@@ -318,7 +318,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
   }
 
   _showLeavingDatePicker(context) {
-    var provider = Provider.of<ExperienceProvider>(context);
+    var provider = Provider.of<ExperienceProvider>(context,listen: false);
     var initialDate = DateTime.now();
     if (provider.leavingDate == null) {
       provider.onLeavingDateChangeEvent(DateTime.now());

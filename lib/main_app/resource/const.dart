@@ -1,4 +1,3 @@
-
 import 'package:intl/intl.dart';
 
 const String  kDefaultUserImageAsset = "assets/images/user_default.jpg";

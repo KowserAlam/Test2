@@ -15,6 +15,9 @@ class AppTheme {
 
 
 
+  static Color facebookColor = Color(0xff3D579E);
+  static Color linkedInColor = Color(0xff0076B4);
+  static Color twitterColor = Color(0xff55ABEE);
 
   static Color colorPrimary = Color(0xff0A5394);
   static Color colorAccent = Color(0xff1C4587);

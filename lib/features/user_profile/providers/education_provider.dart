@@ -31,7 +31,7 @@ class EducationProvider with ChangeNotifier {
   addData(BuildContext context, education) {
     /// add data in local state
 
-    var userProvider = Provider.of<UserProvider>(context);
+    var userProvider = Provider.of<UserProvider>(context,listen: false);
 
     var user = userProvider.userData;
     var eduList = user.educationModelList;

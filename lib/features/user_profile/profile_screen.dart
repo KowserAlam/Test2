@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p7app/features/user_profile/edit_profile_screen.dart';
 import 'package:p7app/features/user_profile/providers/user_provider.dart';
 import 'package:p7app/features/user_profile/widgets/user_details_info_list_widget.dart';
+import 'package:p7app/main_app/app_theme/app_theme.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/widgets/loader.dart';
@@ -99,16 +100,10 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
         ],
       );
 
-
-
   @override
   Widget build(BuildContext context) {
     var primaryColor = Theme.of(context).primaryColor;
-    var titleTextStyle = TextStyle(
-        fontSize: 17,fontWeight: FontWeight.bold
-    );
-
-
+    var titleTextStyle = TextStyle(fontSize: 17, fontWeight: FontWeight.bold);
 
     var profileHeaderBackgroundColor = Color(0xff08233A);
     var profileHeaderFontColor = Colors.white;
@@ -143,6 +138,49 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                 color: profileHeaderFontColor),
           );
         });
+    var socialIconsWidgets = Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          constraints: BoxConstraints(
+              minHeight: 25, maxHeight: 25, minWidth: 25, maxWidth: 25),
+          decoration: BoxDecoration(
+              color: AppTheme.facebookColor,
+              borderRadius: BorderRadius.circular(20)),
+          child: Icon(
+            FontAwesomeIcons.facebookF,
+            color: Colors.white,
+            size: 15,
+          ),
+        ),
+        SizedBox(width: 8,),
+        Container(
+          constraints: BoxConstraints(
+              minHeight: 25, maxHeight: 25, minWidth: 25, maxWidth: 25),
+          decoration: BoxDecoration(
+              color: AppTheme.linkedInColor,
+              borderRadius: BorderRadius.circular(20)),
+          child: Icon(
+            FontAwesomeIcons.linkedinIn,
+            color: Colors.white,
+            size: 15,
+          ),
+        ),
+        SizedBox(width: 8,),
+        Container(
+          constraints: BoxConstraints(
+              minHeight: 25, maxHeight: 25, minWidth: 25, maxWidth: 25),
+          decoration: BoxDecoration(
+              color: AppTheme.twitterColor,
+              borderRadius: BorderRadius.circular(20)),
+          child: Icon(
+            FontAwesomeIcons.twitter,
+            color: Colors.white,
+            size: 15,
+          ),
+        ),
+      ],
+    );
     var editButton = IconButton(
       icon: Icon(
         FontAwesomeIcons.edit,
@@ -214,32 +252,41 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
       children: <Widget>[
         Row(
           children: <Widget>[
-            Icon(Icons.info_outline,size: 18,),
-            SizedBox(width: 3,),
+            Icon(
+              Icons.info_outline,
+              size: 18,
+            ),
+            SizedBox(
+              width: 3,
+            ),
             Text(
               StringUtils.aboutMeText,
               style: titleTextStyle,
             ),
             Spacer(),
-            InkWell(child: Padding(
-              padding: const EdgeInsets.all(4.0),
-              child: Icon(Icons.edit,size: 18,),
-            ),onTap: (){
-
-            },),
+            InkWell(
+              child: Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: Icon(
+                  Icons.edit,
+                  size: 18,
+                ),
+              ),
+              onTap: () {},
+            ),
           ],
         ),
-
         SizedBox(
           height: 5,
         ),
         Container(
-         decoration: BoxDecoration(
-           color: Theme.of(context).backgroundColor,
-           boxShadow: [
-             BoxShadow(color: Colors.black38,blurRadius: 4),
-           ]
-         ),
+          margin: EdgeInsets.only(bottom: 8),
+          decoration: BoxDecoration(
+            color: Theme.of(context).backgroundColor,
+            borderRadius: BorderRadius.circular(5),
+            boxShadow: [
+              BoxShadow(color: Colors.black26, blurRadius: 2),
+            ],),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Selector<UserProvider, String>(
@@ -303,8 +350,9 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                       ],
                     ),
                     Spacer(),
+                    socialIconsWidgets,
+                    SizedBox(height: 5,),
                     designationWidget,
-                    Spacer(),
                   ],
                 ),
               ),
