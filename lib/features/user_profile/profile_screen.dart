@@ -332,7 +332,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                     color: profileHeaderBackgroundColor,
                     image: DecorationImage(
                         image: AssetImage(kUserProfileCoverImageAsset),
-                        fit: BoxFit.cover)),
+                        fit: BoxFit.cover),),
                 padding: EdgeInsets.all(8),
                 child: Column(
                   children: [
