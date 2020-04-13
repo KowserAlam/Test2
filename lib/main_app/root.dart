@@ -7,6 +7,7 @@ import 'package:p7app/main_app/resource/json_keys.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/app_theme/comon_styles.dart';
+import 'package:p7app/main_app/widgets/app_version_widget_small.dart';
 import 'package:p7app/main_app/widgets/loader.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +33,7 @@ class _RootState extends State<Root> {
               (Route<dynamic> route) => false);
         });
       } else {
-        Future.delayed(Duration(seconds: 2)).then((_) {
+        Future.delayed(Duration(seconds: 2000)).then((_) {
           Navigator.pushAndRemoveUntil(
               context,
               CupertinoPageRoute(builder: (context) => LoginScreen()),
@@ -55,11 +56,11 @@ class _RootState extends State<Root> {
     mainAxisSize: MainAxisSize.min,
     children: <Widget>[
       Container(
-        width: 100,
+        width: 170,
         child: Hero(tag: kDefaultLogo,child: Image.asset(kDefaultLogo,fit: BoxFit.cover,)),
       ),
       Container(
-        width: 150,
+        width: 250,
         child: Image.asset(kDefaultLogoText,fit: BoxFit.cover,),
       ),
     ],
@@ -81,9 +82,12 @@ class _RootState extends State<Root> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             SizedBox(),
+            SizedBox(),
             appLogoText,
             SizedBox(),
-            ishraakLogo,
+            Container(width: 150,child: ishraakLogo,),
+            SizedBox(),
+            AppVersionWidgetLowerCase()
           ],
         ),
       ),
