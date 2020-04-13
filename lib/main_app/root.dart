@@ -51,6 +51,22 @@ class _RootState extends State<Root> {
     return res != null ? AuthUserModel.fromJson(jsonDecode(res)) : null;
   }
 
+  var appLogoText = Column(
+    mainAxisSize: MainAxisSize.min,
+    children: <Widget>[
+      Container(
+        width: 100,
+        child: Hero(tag: kDefaultLogo,child: Image.asset(kDefaultLogo,fit: BoxFit.cover,)),
+      ),
+      Container(
+        width: 150,
+        child: Image.asset(kDefaultLogoText,fit: BoxFit.cover,),
+      ),
+    ],
+  );
+
+  var ishraakLogo = Image.asset(kIshraakLogo,fit: BoxFit.cover,);
+
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
@@ -60,44 +76,14 @@ class _RootState extends State<Root> {
       body: Container(
         height: height,
         width: width,
-        child: Stack(
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Center(
-              child: Padding(
-                padding: EdgeInsets.only(bottom: height*0.09),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Container(
-                      width: width*0.27,
-                      child: Hero(tag: kDefaultLogo,child: Image.asset(kDefaultLogo,fit: BoxFit.cover,)),
-                    ),
-                    Container(
-                      width: width*0.42,
-                      child: Image.asset(kDefaultLogoText,fit: BoxFit.cover,),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                width: width*0.5,
-                height: height*0.2,
-                padding: EdgeInsets.only(bottom: 5),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Image.asset(kIshraakLogo,fit: BoxFit.cover,),
-                    FutureBuilder(
-                      future: AppInfoRepository().getAppVersion(),
-                      builder: (c,snapshot)=> Text(snapshot.hasData?"v ${snapshot.data}":"",style: TextStyle(color: Colors.grey),),
-                    ),
-                  ],
-                )
-              ),
-            )
+            SizedBox(),
+            appLogoText,
+            SizedBox(),
+            ishraakLogo,
           ],
         ),
       ),
