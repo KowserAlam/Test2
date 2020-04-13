@@ -285,7 +285,9 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
             color: Theme.of(context).backgroundColor,
             borderRadius: BorderRadius.circular(5),
             boxShadow: [
-              BoxShadow(color: Colors.black26, blurRadius: 2),
+              BoxShadow(color: Color(0xff000000).withOpacity(0.2), blurRadius: 5),
+              BoxShadow(color: Color(0xfffafafa).withOpacity(0.2), blurRadius: 5),
+
             ],),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -294,9 +296,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                 builder: (context, String data, _) {
                   return Text(
                     data,
-                    textAlign: TextAlign.justify,
-                    maxLines: 3,
-                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.left,
                   );
                 }),
           ),

@@ -1,6 +1,7 @@
 import 'package:after_layout/after_layout.dart';
 import 'package:p7app/features/user_profile/providers/experiance_provider.dart';
 import 'package:p7app/features/user_profile/models/user_profile_models.dart';
+import 'package:p7app/features/user_profile/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/util/validator.dart';
 import 'package:p7app/main_app/widgets/edit_screen_save_button.dart';
@@ -37,7 +38,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
 
   @override
   void afterFirstLayout(BuildContext context) {
-    var expProvider = Provider.of<ExperienceProvider>(context,listen: false);
+    var expProvider = Provider.of<ExperienceProvider>(context, listen: false);
 
     if (experienceModel != null) {
       organizationNameController.text = experienceModel.organizationName;
@@ -49,10 +50,10 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
     }
   }
 
-
   _handleSave() {
     var isSuccess = _formKey.currentState.validate();
-    var addEditProvider = Provider.of<ExperienceProvider>(context,listen: false);
+    var addEditProvider =
+        Provider.of<ExperienceProvider>(context, listen: false);
 
     if (isSuccess) {
       var exp = Experience(
@@ -65,12 +66,11 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
       );
 
       if (experienceModel == null || index == null) {
-        exp.id= Uuid().v1();
+        exp.id = Uuid().v1();
         addEditProvider.addData(_formKey.currentContext, exp);
       } else {
-        exp.id= experienceModel.id;
-        addEditProvider.updateData(
-            _formKey.currentContext, exp, index);
+        exp.id = experienceModel.id;
+        addEditProvider.updateData(_formKey.currentContext, exp, index);
       }
 
       /// Navigate to previous screen
@@ -83,7 +83,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        Provider.of<ExperienceProvider>(context,listen: false).clearState();
+        Provider.of<ExperienceProvider>(context, listen: false).clearState();
         return true;
       },
       child: Scaffold(
@@ -110,43 +110,34 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       ///Name
-
-                      TextFormField(
+                      CustomTextFormField(
                         validator: Validator().nullFieldValidate,
                         controller: organizationNameController,
-                        style: Theme.of(context).textTheme.title,
-                        decoration: InputDecoration(
-                            labelText: StringUtils.nameOfOrganizationText,
-                            hintText: StringUtils.nameOfOrganizationEg),
+                        hintText: StringUtils.nameOfOrganizationEg,
+                        labelText: StringUtils.nameOfOrganizationText,
                       ),
-                      SizedBox(
-                        height: 10,
-                      ),
+                      SizedBox(height: 15),
 
                       /// Position
 
-                      TextFormField(
+                      CustomTextFormField(
                         validator: Validator().nullFieldValidate,
-                        style: Theme.of(context).textTheme.title,
                         controller: positionNameController,
-                        decoration: InputDecoration(
-                            labelText: StringUtils.positionText,
-                            hintText: StringUtils.positionTextEg),
+                        labelText: StringUtils.positionText,
+                        hintText: StringUtils.positionTextEg,
                       ),
-                      SizedBox(
-                        height: 10,
-                      ),
+                      SizedBox(height: 15),
 
                       /// Role
 
-                      TextFormField(
+                      CustomTextFormField(
                         controller: roleNameController,
                         keyboardType: TextInputType.multiline,
-                        style: Theme.of(context).textTheme.title,
                         maxLines: null,
-                        decoration: InputDecoration(
-                            labelText: StringUtils.roleText,
-                            hintText: StringUtils.roleTextEg),
+                        labelText: StringUtils.roleText,
+                        hintText: StringUtils.roleTextEg,
+                        contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 10),
                       ),
 
                       /// Joining Date
@@ -159,7 +150,6 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
                           Text(
                             StringUtils.joiningDateText,
                             textAlign: TextAlign.left,
-                            style: Theme.of(context).textTheme.title,
                           ),
                           Spacer(),
                           InkWell(
@@ -195,8 +185,13 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
                         child: Container(
                           width: double.infinity,
                           decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: Colors.grey.withOpacity(.6))),
+                            color: Theme.of(context).backgroundColor,
+                            borderRadius: BorderRadius.circular(7),
+                            boxShadow: [
+                              BoxShadow(color: Color(0xff000000).withOpacity(0.2), blurRadius: 20),
+                              BoxShadow(color: Color(0xfffafafa).withOpacity(0.2), blurRadius: 20),
+
+                            ],),
                           padding: EdgeInsets.all(8),
                           child: Text(
                             addEditExperienceProvider.joiningDate != null
@@ -206,7 +201,6 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
                                         addEditExperienceProvider.joiningDate)
                                     .toString()
                                 : "",
-                            style: Theme.of(context).textTheme.title,
                           ),
                         ),
                       ),
@@ -219,7 +213,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
                       Text(
                         StringUtils.leavingDateText,
                         textAlign: TextAlign.left,
-                        style: Theme.of(context).textTheme.title.apply(
+                        style: TextStyle(
                             color:
                                 addEditExperienceProvider.currentLyWorkingHere
                                     ? Colors.grey
@@ -239,8 +233,13 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
                         child: Container(
                           width: double.infinity,
                           decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: Colors.grey.withOpacity(.6))),
+                            color: Theme.of(context).backgroundColor,
+                            borderRadius: BorderRadius.circular(7),
+                            boxShadow: [
+                              BoxShadow(color: Color(0xff000000).withOpacity(0.2), blurRadius: 20),
+                              BoxShadow(color: Color(0xfffafafa).withOpacity(0.2), blurRadius: 20),
+
+                            ],),
                           padding: EdgeInsets.all(8),
                           child: Text(
                             addEditExperienceProvider.leavingDate != null
@@ -250,7 +249,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
                                         addEditExperienceProvider.leavingDate)
                                     .toString()
                                 : "",
-                            style: Theme.of(context).textTheme.title.apply(
+                            style: TextStyle(
                                 color: addEditExperienceProvider
                                         .currentLyWorkingHere
                                     ? Colors.grey
@@ -270,7 +269,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
   }
 
   _showJoinDatePicker(context) {
-    var provider = Provider.of<ExperienceProvider>(context,listen: false);
+    var provider = Provider.of<ExperienceProvider>(context, listen: false);
     var initialDate = DateTime.now();
     if (provider.joiningDate == null) {
       provider.onJoiningDateChangeEvent(DateTime.now());
@@ -290,7 +289,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
                   children: <Widget>[
                     Expanded(
                       child: CupertinoTheme(
-                        data: CupertinoThemeData(),
+                        data: CupertinoThemeData(brightness: Theme.of(context).brightness),
                         child: CupertinoDatePicker(
                           initialDateTime: initialDate,
                           mode: CupertinoDatePickerMode.date,
@@ -318,7 +317,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
   }
 
   _showLeavingDatePicker(context) {
-    var provider = Provider.of<ExperienceProvider>(context,listen: false);
+    var provider = Provider.of<ExperienceProvider>(context, listen: false);
     var initialDate = DateTime.now();
     if (provider.leavingDate == null) {
       provider.onLeavingDateChangeEvent(DateTime.now());
@@ -364,8 +363,6 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
           );
         });
   }
-
-
 }
 
 class ErrorWidget extends StatelessWidget {

@@ -163,7 +163,7 @@ class StringUtils {
   static String nameOfOrganizationText = "Name of Organization";
   static String nameOfOrganizationEg = "eg. Ishraak Solutions";
   static String positionText = "Position";
-  static String positionTextEg = "Software Engineer";
+  static String positionTextEg = "eg. Software Engineer";
   static String roleText = "Role(Optional)";
   static String roleTextEg = " ... ";
   static String joiningDateText = "Joining Date";
