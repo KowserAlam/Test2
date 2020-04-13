@@ -48,31 +48,36 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget _buildForm(context) {
-    return Form(
-      key: _formKey,
-      child: Column(
-        children: <Widget>[
-          _successfulSignUorLoginText(),
-          SizedBox(height: 20),
-          _loginEmail(context),
-          SizedBox(height: 20),
-          _loginPassword(context),
-          SizedBox(height: 10),
-          _forgotPasswordWidget(context),
-          SizedBox(height: 10),
-          Consumer<LoginViewModel>(
-              builder: (BuildContext context, loginProvider, Widget child) {
-                if (loginProvider.isBusyLogin) {
-                  return Loader();
-                }
-                return _signInButton(context);
-              }),
-          SizedBox(height: 30),
-          _connectUsing(),
-          SizedBox(height: 20,),
-          _registerText(),
+    return SingleChildScrollView(
+      child: Container(
+        color: Colors.red,
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: <Widget>[
+              _successfulSignUorLoginText(),
+              SizedBox(height: 20),
+              _loginEmail(context),
+              SizedBox(height: 20),
+              _loginPassword(context),
+              SizedBox(height: 10),
+              _forgotPasswordWidget(context),
+              SizedBox(height: 10),
+              Consumer<LoginViewModel>(
+                  builder: (BuildContext context, loginProvider, Widget child) {
+                    if (loginProvider.isBusyLogin) {
+                      return Loader();
+                    }
+                    return _signInButton(context);
+                  }),
+              SizedBox(height: 30),
+              _connectUsing(),
+              SizedBox(height: 20,),
+              _registerText(),
 
-        ],
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -369,8 +374,9 @@ class _LoginScreenState extends State<LoginScreen> {
       width: width,
       child: Padding(
         padding: EdgeInsets.fromLTRB(16, 8, 16, 8),
-        child: Stack(
-          fit: StackFit.expand,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -383,7 +389,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 _welcomeBackText(),
                 SizedBox(height: 10),
                 _buildForm(context),
-                SizedBox(height: 10),
               ],
             ),
             Align(alignment: Alignment.bottomCenter,child: AppVersionWidgetSmall(),)
@@ -469,16 +474,14 @@ class _LoginScreenState extends State<LoginScreen> {
         backgroundColor: Theme.of(context).backgroundColor,
         key: _scaffoldKey,
         body: Center(
-          child: SingleChildScrollView(
-            child: LayoutBuilder(
-              builder: (BuildContext context, BoxConstraints constraints) {
-                if (constraints.maxWidth < 720) {
-                  return _mobileLayout(_scaffoldKey.currentState.context);
-                } else {
-                  return _tabLayout(_scaffoldKey.currentState.context);
-                }
-              },
-            ),
+          child: LayoutBuilder(
+            builder: (BuildContext context, BoxConstraints constraints) {
+              if (constraints.maxWidth < 720) {
+                return _mobileLayout(_scaffoldKey.currentState.context);
+              } else {
+                return _tabLayout(_scaffoldKey.currentState.context);
+              }
+            },
           ),
         ),
       ),
