@@ -10,6 +10,7 @@ import 'package:p7app/main_app/util/date_format_uitl.dart';
 import 'package:p7app/main_app/widgets/custom_Button.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/widgets/gredient_buton.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class JobDetails extends StatefulWidget {
   final JobModel jobModel;
@@ -346,17 +347,13 @@ class _JobDetailsState extends State<JobDetails> {
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(StringUtils.jobSource, style: topSideDescriptionFontStyle,)
+            InkWell(
+                onTap: (){
+                  launch(widget.jobModel.webAddress);
+                },
+                child: Text(StringUtils.jobSource, style: TextStyle(fontSize: 15,color: Colors.blueAccent),))
           ],
         ),
-//        Row(
-//          mainAxisSize: MainAxisSize.max,
-//          mainAxisAlignment: MainAxisAlignment.center,
-//          children: <Widget>[
-//            Text(widget.jobModel.webAddress != null
-//                ? widget.jobModel.webAddress: StringUtils.unspecifiedText, style: topSideDescriptionFontStyle,)
-//          ],
-//        )
       ],
     );
 
@@ -392,7 +389,7 @@ class _JobDetailsState extends State<JobDetails> {
                 Divider(height: 20,),
                 betweenDividerSection,
                 Divider(height: 20,),
-                jobSource
+                widget.jobModel.webAddress!=null?jobSource:null
               ],
             ),
           ),

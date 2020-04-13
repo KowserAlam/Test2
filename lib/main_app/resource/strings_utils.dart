@@ -299,5 +299,5 @@ static const String gender = 'Gender: ';
 static const String applicationDeadline = 'Deadline: ';
 static const String requiredSkills = 'Skill Requirement: ';
 static const String benefits = 'Benefits: ';
-static const String jobSource = 'Job Source';
+static const String jobSource = 'Open job Source';
 }
