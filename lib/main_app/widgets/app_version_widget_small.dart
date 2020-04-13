@@ -20,3 +20,21 @@ class AppVersionWidgetSmall extends StatelessWidget {
     );
   }
 }
+
+class AppVersionWidgetLowerCase extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: FutureBuilder(
+        future: AppInfoRepository().getAppVersion(),
+        builder: (c,snapshot){
+          if(snapshot.hasData){
+            return Text("${StringUtils.versionTextLowerCase}${snapshot.data}",style: TextStyle(color: Colors.grey),);
+          }
+          return SizedBox();
+        },
+      ),
+    );
+  }
+}

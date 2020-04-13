@@ -260,7 +260,7 @@ class StringUtils {
 
   /// General
   static var versionText = "Version";
-
+  static var versionTextLowerCase = "v ";
   static String noExamFoundText = "No exam found !";
 
   static var homText = "home";

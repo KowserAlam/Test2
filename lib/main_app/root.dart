@@ -7,6 +7,7 @@ import 'package:p7app/main_app/resource/json_keys.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/app_theme/comon_styles.dart';
+import 'package:p7app/main_app/widgets/app_version_widget_small.dart';
 import 'package:p7app/main_app/widgets/loader.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -51,6 +52,22 @@ class _RootState extends State<Root> {
     return res != null ? AuthUserModel.fromJson(jsonDecode(res)) : null;
   }
 
+  var appLogoText = Column(
+    mainAxisSize: MainAxisSize.min,
+    children: <Widget>[
+      Container(
+        width: 170,
+        child: Hero(tag: kDefaultLogo,child: Image.asset(kDefaultLogo,fit: BoxFit.cover,)),
+      ),
+      Container(
+        width: 250,
+        child: Image.asset(kDefaultLogoText,fit: BoxFit.cover,),
+      ),
+    ],
+  );
+
+  var ishraakLogo = Image.asset(kIshraakLogo,fit: BoxFit.cover,);
+
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
@@ -60,44 +77,17 @@ class _RootState extends State<Root> {
       body: Container(
         height: height,
         width: width,
-        child: Stack(
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Center(
-              child: Padding(
-                padding: EdgeInsets.only(bottom: height*0.09),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Container(
-                      width: width*0.27,
-                      child: Hero(tag: kDefaultLogo,child: Image.asset(kDefaultLogo,fit: BoxFit.cover,)),
-                    ),
-                    Container(
-                      width: width*0.42,
-                      child: Image.asset(kDefaultLogoText,fit: BoxFit.cover,),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                width: width*0.5,
-                height: height*0.2,
-                padding: EdgeInsets.only(bottom: 5),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Image.asset(kIshraakLogo,fit: BoxFit.cover,),
-                    FutureBuilder(
-                      future: AppInfoRepository().getAppVersion(),
-                      builder: (c,snapshot)=> Text(snapshot.hasData?"v ${snapshot.data}":"",style: TextStyle(color: Colors.grey),),
-                    ),
-                  ],
-                )
-              ),
-            )
+            SizedBox(),
+            SizedBox(),
+            appLogoText,
+            SizedBox(),
+            Container(width: 150,child: ishraakLogo,),
+            SizedBox(),
+            AppVersionWidgetLowerCase()
           ],
         ),
       ),
