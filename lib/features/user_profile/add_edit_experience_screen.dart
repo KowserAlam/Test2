@@ -15,7 +15,8 @@ class AddNewExperienceScreen extends StatefulWidget {
   final Experience experienceModel;
   final int index;
 
-  AddNewExperienceScreen({this.experienceModel, this.index});
+
+  AddNewExperienceScreen({this.experienceModel, this.index,});
 
   @override
   _AddNewExperienceScreenState createState() =>

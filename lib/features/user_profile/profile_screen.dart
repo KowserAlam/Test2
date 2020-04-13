@@ -2,6 +2,7 @@ import 'package:after_layout/after_layout.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p7app/features/user_profile/edit_profile_screen.dart';
 import 'package:p7app/features/user_profile/providers/user_provider.dart';
+import 'package:p7app/features/user_profile/styles/profile_common_style.dart';
 import 'package:p7app/features/user_profile/widgets/user_details_info_list_widget.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
 import 'package:p7app/main_app/resource/const.dart';
@@ -274,6 +275,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                 child: Icon(
                   Icons.edit,
                   size: 18,
+                  color: primaryColor,
                 ),
               ),
               onTap: () {},
@@ -288,12 +290,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
           decoration: BoxDecoration(
             color: Theme.of(context).backgroundColor,
             borderRadius: BorderRadius.circular(5),
-            boxShadow: [
-              BoxShadow(
-                  color: Color(0xff000000).withOpacity(0.2), blurRadius: 5),
-              BoxShadow(
-                  color: Color(0xfffafafa).withOpacity(0.2), blurRadius: 5),
-            ],
+            boxShadow: ProfileCommonStyle.boxShadow,
           ),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
