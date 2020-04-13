@@ -3,6 +3,7 @@ import 'package:after_layout/after_layout.dart';
 import 'package:p7app/features/user_profile/providers/edit_profile_provider.dart';
 import 'package:p7app/features/user_profile/models/user_profile_models.dart';
 import 'package:p7app/features/user_profile/providers/user_provider.dart';
+import 'package:p7app/features/user_profile/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/json_keys.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
@@ -199,53 +200,48 @@ class _EditProfileScreenState extends State<EditProfileScreen>
         child: Column(
           children: <Widget>[
             ///name
-            TextFormField(
-              style: Theme.of(context).textTheme.title,
+            CustomTextFormField(
               controller: _fullNameTextEditingController,
               validator: Validator().nullFieldValidate,
-              decoration: InputDecoration(
-                  labelText: "Full Name", hintText: "eg. Bill Gates"),
+                  labelText: "Full Name", hintText: "eg. Bill Gates",
             ),
             SizedBox(height: 10),
 
             /// Designation
-            TextFormField(
-              style: Theme.of(context).textTheme.title,
+            CustomTextFormField(
+
               controller: _designationTextEditingController,
               validator: Validator().nullFieldValidate,
-              decoration: InputDecoration(
-                  labelText: "Designation", hintText: "eg. Software Engineer"),
+
+                  labelText: "Designation", hintText: "eg. Software Engineer",
             ),
 
             SizedBox(height: 10),
 
             ///about
-            TextFormField(
-              style: Theme.of(context).textTheme.title,
+            CustomTextFormField(
               controller: _aboutTextEditingController,
               validator: Validator().nullFieldValidate,
               keyboardType: TextInputType.multiline,
               maxLines: null,
-              decoration: InputDecoration(
                 labelText: StringUtils.aboutText,
                 hintText: StringUtils.aboutHintText,
-              ),
+
             ),
 
             SizedBox(height: 10),
 
             /// phone
 
-            TextFormField(
-              style: Theme.of(context).textTheme.title,
+            CustomTextFormField(
               controller: _phoneEditingController,
               validator: Validator().validatePhoneNumber,
               keyboardType: TextInputType.phone,
               maxLines: null,
-              decoration: InputDecoration(
+
                 labelText: StringUtils.smsText,
                 hintText: StringUtils.phoneHintText,
-              ),
+
             ),
 
             SizedBox(height: 10),
@@ -267,16 +263,14 @@ class _EditProfileScreenState extends State<EditProfileScreen>
 //            SizedBox(height: 10),
 
             ///location
-            TextFormField(
-              style: Theme.of(context).textTheme.title,
+            CustomTextFormField(
               controller: _locationEditingController,
               validator: Validator().nullFieldValidate,
               keyboardType: TextInputType.multiline,
               maxLines: null,
-              decoration: InputDecoration(
                 labelText: StringUtils.locationText,
                 hintText: StringUtils.locationHintText,
-              ),
+
             ),
           ],
         ),

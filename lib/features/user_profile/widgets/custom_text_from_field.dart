@@ -31,35 +31,40 @@ const CustomTextFormField({
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Theme.of(context).backgroundColor,
-        borderRadius: BorderRadius.circular(7),
-        boxShadow: [
-          BoxShadow(color: Color(0xff000000).withOpacity(0.2), blurRadius: 20),
-          BoxShadow(color: Color(0xfffafafa).withOpacity(0.2), blurRadius: 20),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text("  "+labelText??"",style: TextStyle(fontWeight: FontWeight.bold),),
+        SizedBox(height: 5,),
+        Container(
+          decoration: BoxDecoration(
+            color: Theme.of(context).backgroundColor,
+            borderRadius: BorderRadius.circular(7),
+            boxShadow: [
+              BoxShadow(color: Color(0xff000000).withOpacity(0.2), blurRadius: 20),
+              BoxShadow(color: Color(0xfffafafa).withOpacity(0.2), blurRadius: 20),
 
-        ],),
-      child: TextFormField(
-        onFieldSubmitted:onFieldSubmitted,
-        autofocus: autofocus,
-        focusNode: focusNode,
-        maxLines: maxLines,
-        keyboardType: keyboardType,
-        validator: validator,
-        controller: controller,
-        textInputAction: textInputAction,
-        decoration: InputDecoration(
-          border: InputBorder.none,
-          contentPadding: contentPadding,
-          focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(7),
-              borderSide: BorderSide(color: Theme.of(context).primaryColor)
+            ],),
+          child: TextFormField(
+            onFieldSubmitted:onFieldSubmitted,
+            autofocus: autofocus,
+            focusNode: focusNode,
+            maxLines: maxLines,
+            keyboardType: keyboardType,
+            validator: validator,
+            controller: controller,
+            textInputAction: textInputAction,
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              contentPadding: contentPadding,
+              focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(7),
+                  borderSide: BorderSide(color: Theme.of(context).primaryColor)
+              ),
+            ),
           ),
-          hintText: hintText,
-          labelText: labelText,
         ),
-      ),
+      ],
     );
   }
 

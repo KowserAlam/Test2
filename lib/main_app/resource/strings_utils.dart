@@ -164,11 +164,11 @@ class StringUtils {
   static String nameOfOrganizationEg = "eg. Ishraak Solutions";
   static String positionText = "Position";
   static String positionTextEg = "eg. Software Engineer";
-  static String roleText = "Role(Optional)";
+  static String roleText = "Role";
   static String roleTextEg = " ... ";
   static String joiningDateText = "Joining Date";
   static String leavingDateText = "Leaving Date";
-  static String currentlyWorkingHereText = "I'm currently working here";
+  static String currentlyWorkingHereText = "Currently working here";
 
   /// Add or Edit New Education
 

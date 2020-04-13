@@ -151,27 +151,6 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
                             StringUtils.joiningDateText,
                             textAlign: TextAlign.left,
                           ),
-                          Spacer(),
-                          InkWell(
-                            onTap: () {
-                              addEditExperienceProvider.currentLyWorkingHere =
-                                  !addEditExperienceProvider
-                                      .currentLyWorkingHere;
-                            },
-                            child: Text(
-                              StringUtils.currentlyWorkingHereText,
-                              softWrap: true,
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                          Checkbox(
-                            value:
-                                addEditExperienceProvider.currentLyWorkingHere,
-                            onChanged: (v) {
-                              addEditExperienceProvider.currentLyWorkingHere =
-                                  v;
-                            },
-                          ),
                         ],
                       ),
                       SizedBox(
@@ -204,11 +183,34 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
                           ),
                         ),
                       ),
+                      SizedBox(height: 10,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: <Widget>[
 
-                      /// Leaving Date
-                      SizedBox(
-                        height: 16,
+                          InkWell(
+                            onTap: () {
+                              addEditExperienceProvider.currentLyWorkingHere =
+                              !addEditExperienceProvider
+                                  .currentLyWorkingHere;
+                            },
+                            child: Text(
+                              StringUtils.currentlyWorkingHereText,
+                              softWrap: true,
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          Checkbox(
+                            value:
+                            addEditExperienceProvider.currentLyWorkingHere,
+                            onChanged: (v) {
+                              addEditExperienceProvider.currentLyWorkingHere =
+                                  v;
+                            },
+                          ),
+                        ],
                       ),
+                      /// Leaving Date
 
                       Text(
                         StringUtils.leavingDateText,
@@ -337,7 +339,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
                   children: <Widget>[
                     Expanded(
                       child: CupertinoTheme(
-                        data: CupertinoThemeData(),
+                        data: CupertinoThemeData(brightness: Theme.of(context).brightness),
                         child: CupertinoDatePicker(
                           initialDateTime: initialDate,
                           mode: CupertinoDatePickerMode.date,

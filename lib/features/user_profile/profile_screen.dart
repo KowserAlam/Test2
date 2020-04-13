@@ -282,13 +282,13 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
         Container(
           margin: EdgeInsets.only(bottom: 8),
           decoration: BoxDecoration(
-            color: Theme.of(context).backgroundColor,
-            borderRadius: BorderRadius.circular(5),
-            boxShadow: [
-              BoxShadow(color: Color(0xff000000).withOpacity(0.2), blurRadius: 5),
-              BoxShadow(color: Color(0xfffafafa).withOpacity(0.2), blurRadius: 5),
+          color: Theme.of(context).backgroundColor,
+          borderRadius: BorderRadius.circular(5),
+          boxShadow: [
+            BoxShadow(color: Color(0xff000000).withOpacity(0.2), blurRadius: 5),
+            BoxShadow(color: Color(0xfffafafa).withOpacity(0.2), blurRadius: 5),
 
-            ],),
+          ],),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Selector<UserProvider, String>(
