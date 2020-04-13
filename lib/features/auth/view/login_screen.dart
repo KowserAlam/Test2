@@ -387,7 +387,7 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(height: 10),
               _buildForm(context),
               SizedBox(height: 50,),
-              AppVersionWidgetSmall()
+              AppVersionWidgetLowerCase()
             ],
           ),
         ],
