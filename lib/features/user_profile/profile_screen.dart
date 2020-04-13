@@ -153,7 +153,9 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
             size: 15,
           ),
         ),
-        SizedBox(width: 8,),
+        SizedBox(
+          width: 8,
+        ),
         Container(
           constraints: BoxConstraints(
               minHeight: 25, maxHeight: 25, minWidth: 25, maxWidth: 25),
@@ -166,7 +168,9 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
             size: 15,
           ),
         ),
-        SizedBox(width: 8,),
+        SizedBox(
+          width: 8,
+        ),
         Container(
           constraints: BoxConstraints(
               minHeight: 25, maxHeight: 25, minWidth: 25, maxWidth: 25),
@@ -282,13 +286,15 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
         Container(
           margin: EdgeInsets.only(bottom: 8),
           decoration: BoxDecoration(
-          color: Theme.of(context).backgroundColor,
-          borderRadius: BorderRadius.circular(5),
-          boxShadow: [
-            BoxShadow(color: Color(0xff000000).withOpacity(0.2), blurRadius: 5),
-            BoxShadow(color: Color(0xfffafafa).withOpacity(0.2), blurRadius: 5),
-
-          ],),
+            color: Theme.of(context).backgroundColor,
+            borderRadius: BorderRadius.circular(5),
+            boxShadow: [
+              BoxShadow(
+                  color: Color(0xff000000).withOpacity(0.2), blurRadius: 5),
+              BoxShadow(
+                  color: Color(0xfffafafa).withOpacity(0.2), blurRadius: 5),
+            ],
+          ),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Selector<UserProvider, String>(
@@ -322,7 +328,11 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
               // profile header
               Container(
                 height: 200,
-                color: profileHeaderBackgroundColor,
+                decoration: BoxDecoration(
+                    color: profileHeaderBackgroundColor,
+                    image: DecorationImage(
+                        image: AssetImage(kUserProfileCoverImageAsset),
+                        fit: BoxFit.cover)),
                 padding: EdgeInsets.all(8),
                 child: Column(
                   children: [
@@ -351,7 +361,9 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                     ),
                     Spacer(),
                     socialIconsWidgets,
-                    SizedBox(height: 5,),
+                    SizedBox(
+                      height: 5,
+                    ),
                     designationWidget,
                   ],
                 ),
