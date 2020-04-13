@@ -279,11 +279,11 @@ static const String jobListText = "Job List";
 
 ///Job Details
 static const String jobDetailsAppBarTitle = 'Job Details';
-static const String applyButtonText = 'Apply Online';
+static const String applyButtonText = 'Apply';
 static const String saveJobButtonText = 'Save Job';
-static const String jobDescriptionTitle = 'Job Description: ';
+static const String jobDescriptionTitle = 'Description: ';
 static const String responsibilitiesTitle = 'Responsibilities: ';
-static const String educationTitle = 'Education: ';
+static const String educationTitle = 'Educational Requirement: ';
 static const String salaryTitle = 'Salary: ';
 static const String otherBenefitsTitle = 'Other Benefits: ';
 static const String secondApplyButtonText = 'Apply Online: ';
@@ -291,11 +291,13 @@ static const String emailJobButtonText = 'Email Job: ';
 static const String jobSummeryTitle = 'Job Summery: ';
 static const String publishedOn = 'Published on: ';
 static const String vacancy = 'Vacancy: ';
-static const String employmentStatus = 'Emplyment Status: ';
-static const String yearsOfExperience = 'Yeas of Experience: ';
-static const String jobLocation = 'Job Location: ';
+static const String employmentStatus = 'Type: ';
+static const String yearsOfExperience = 'Experience Requirement: ';
+static const String jobLocation = 'Location: ';
 static const String salary = 'Salary: ';
 static const String gender = 'Gender: ';
-static const String applicationDeadline = 'Application Deadline: ';
-static const String requiredSkills = 'Required Skills: ';
+static const String applicationDeadline = 'Deadline: ';
+static const String requiredSkills = 'Skill Requirement: ';
+static const String benefits = 'Benefits: ';
+static const String jobSource = 'Job Source';
 }
