@@ -200,7 +200,7 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
             ),
             //Job Title
             SizedBox(
-              height: 4
+              height: 1
             ),
             Container(
               padding: EdgeInsets.all(8),
