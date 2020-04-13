@@ -118,7 +118,7 @@ class _UserDetailsInfoListWidgetState extends State<UserDetailsInfoListWidget> {
         var list = userProvider.userData.technicalSkillList;
 
         return UserInfoListItem(
-          icon: FontAwesomeIcons.hammer,
+          icon: FontAwesomeIcons.wallet,
           label: StringUtils.projectsText,
           onTapAddNewAction: () {
 //            Navigator.push(
@@ -142,6 +142,84 @@ class _UserDetailsInfoListWidgetState extends State<UserDetailsInfoListWidget> {
                 leading: Image.asset(kImagePlaceHolderAsset,height: 55,width: 55,),
                 title: Text("Project Name"),
                 subtitle: Text("Project Duration"),
+              ),
+            );
+          }),
+        );
+      }),
+
+      /// Certifications
+      Consumer<UserProvider>(builder: (context, userProvider, _) {
+        var list = userProvider.userData.technicalSkillList;
+
+        return UserInfoListItem(
+          icon: FontAwesomeIcons.certificate,
+          label: StringUtils.certificationsText,
+          onTapAddNewAction: () {
+//            Navigator.push(
+//                context,
+//                CupertinoPageRoute(
+//                    builder: (context) => AddEditTechnicalSkill()));
+          },
+          children: List.generate(1, (index) {
+            var skill = list[index];
+            return Container(
+              margin: EdgeInsets.only(bottom: 8),
+              decoration: BoxDecoration(
+                color: Theme.of(context).backgroundColor,
+                borderRadius: BorderRadius.circular(5),
+                boxShadow: [
+                  BoxShadow(color: Colors.black26, blurRadius: 2),
+                ],),
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: ListTile(
+                contentPadding: EdgeInsets.zero,
+                leading: Container(
+                  height: 55,
+                    width: 55,
+                    color: Theme.of(context).scaffoldBackgroundColor,
+                    child: Icon(FontAwesomeIcons.certificate)),
+                title: Text("AWS Certified Solutions Architect - Associate"),
+                subtitle: Text("Issue by: IBM"),
+              ),
+            );
+          }),
+        );
+      }),
+
+      /// Memberships
+      Consumer<UserProvider>(builder: (context, userProvider, _) {
+        var list = userProvider.userData.technicalSkillList;
+
+        return UserInfoListItem(
+          icon: FontAwesomeIcons.users,
+          label: StringUtils.membershipsText,
+          onTapAddNewAction: () {
+//            Navigator.push(
+//                context,
+//                CupertinoPageRoute(
+//                    builder: (context) => AddEditTechnicalSkill()));
+          },
+          children: List.generate(1, (index) {
+            var skill = list[index];
+            return Container(
+              margin: EdgeInsets.only(bottom: 8),
+              decoration: BoxDecoration(
+                color: Theme.of(context).backgroundColor,
+                borderRadius: BorderRadius.circular(5),
+                boxShadow: [
+                  BoxShadow(color: Colors.black26, blurRadius: 2),
+                ],),
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: ListTile(
+                contentPadding: EdgeInsets.zero,
+                leading: Container(
+                    height: 55,
+                    width: 55,
+                    color: Theme.of(context).scaffoldBackgroundColor,
+                    child: Icon(FontAwesomeIcons.users)),
+                title: Text("Member of IEE"),
+                subtitle: Text("Jan 10,2020 - Ongoing"),
               ),
             );
           }),
