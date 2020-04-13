@@ -92,6 +92,10 @@ dependencies:
   #  flutter toast library!
   bot_toast: ^2.4.0
 
+  #URL launcher
+  url_launcher: ^5.4.2
+
+
 
 
 
