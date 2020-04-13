@@ -33,7 +33,7 @@ class _RootState extends State<Root> {
               (Route<dynamic> route) => false);
         });
       } else {
-        Future.delayed(Duration(seconds: 2000)).then((_) {
+        Future.delayed(Duration(seconds: 2)).then((_) {
           Navigator.pushAndRemoveUntil(
               context,
               CupertinoPageRoute(builder: (context) => LoginScreen()),
