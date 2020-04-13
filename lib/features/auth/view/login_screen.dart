@@ -369,31 +369,28 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget _mobileLayout(context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
-    return Container(
-      height: height,
-      width: width,
-      child: Padding(
-        padding: EdgeInsets.fromLTRB(16, 0, 16, 8),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              children: <Widget>[
-                SizedBox(height: 10),
-                _logoSection(height*0.09),
-                SizedBox(height: 10),
-                _welcomeBackText(),
-                SizedBox(height: 10),
-                _buildForm(context),
-              ],
-            ),
-            Align(alignment: Alignment.bottomCenter,child: AppVersionWidgetSmall(),)
-          ],
-        ),
+    return Padding(
+      padding: EdgeInsets.fromLTRB(16, 15, 16, 8),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          SizedBox(height: 0,),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            children: <Widget>[
+              _logoSection(height*0.085),
+              SizedBox(height: 10),
+              _welcomeBackText(),
+              SizedBox(height: 10),
+              _buildForm(context),
+              SizedBox(height: 50,),
+              AppVersionWidgetSmall()
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -474,14 +471,16 @@ class _LoginScreenState extends State<LoginScreen> {
         backgroundColor: Theme.of(context).backgroundColor,
         key: _scaffoldKey,
         body: Center(
-          child: LayoutBuilder(
-            builder: (BuildContext context, BoxConstraints constraints) {
-              if (constraints.maxWidth < 720) {
-                return _mobileLayout(_scaffoldKey.currentState.context);
-              } else {
-                return _tabLayout(_scaffoldKey.currentState.context);
-              }
-            },
+          child: SingleChildScrollView(
+            child: LayoutBuilder(
+              builder: (BuildContext context, BoxConstraints constraints) {
+                if (constraints.maxWidth < 720) {
+                  return _mobileLayout(_scaffoldKey.currentState.context);
+                } else {
+                  return _tabLayout(_scaffoldKey.currentState.context);
+                }
+              },
+            ),
           ),
         ),
       ),
