@@ -2,6 +2,7 @@ import 'package:p7app/features/user_profile/providers/user_provider.dart';
 import 'package:p7app/features/user_profile/widgets/personal_info_widget.dart';
 import 'package:p7app/features/user_profile/widgets/technical_skill_list_item.dart';
 import 'package:p7app/features/user_profile/widgets/user_info_list_item.dart';
+import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +24,7 @@ class UserDetailsInfoListWidget extends StatefulWidget {
 class _UserDetailsInfoListWidgetState extends State<UserDetailsInfoListWidget> {
   @override
   Widget build(BuildContext context) {
+
     var itemList = [
       ///Experience
 
@@ -83,7 +85,7 @@ class _UserDetailsInfoListWidgetState extends State<UserDetailsInfoListWidget> {
 
         return UserInfoListItem(
           icon: FontAwesomeIcons.brain,
-          label: StringUtils.technicalSkillText,
+          label: StringUtils.personalSkillText,
           onTapAddNewAction: () {
             Navigator.push(
                 context,
@@ -111,7 +113,7 @@ class _UserDetailsInfoListWidgetState extends State<UserDetailsInfoListWidget> {
       /// Personal info
       PersonalInfoWidget(),
 
-      /// Projects
+      /// Portfolio
       Consumer<UserProvider>(builder: (context, userProvider, _) {
         var list = userProvider.userData.technicalSkillList;
 
@@ -126,74 +128,23 @@ class _UserDetailsInfoListWidgetState extends State<UserDetailsInfoListWidget> {
           },
           children: List.generate(list.length, (index) {
             var skill = list[index];
-            return ListTile(
-              title: Text("Project Name"),
-              subtitle: Text("Project Duration"),
+            return Container(
+              margin: EdgeInsets.only(bottom: 8),
+              decoration: BoxDecoration(
+                color: Theme.of(context).backgroundColor,
+                borderRadius: BorderRadius.circular(5),
+                boxShadow: [
+                  BoxShadow(color: Colors.black26, blurRadius: 2),
+                ],),
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: ListTile(
+                contentPadding: EdgeInsets.zero,
+                leading: Image.asset(kImagePlaceHolderAsset,height: 55,width: 55,),
+                title: Text("Project Name"),
+                subtitle: Text("Project Duration"),
+              ),
             );
           }),
-        );
-      }),
-
-      /// other
-      Consumer<UserProvider>(builder: (context, userProvider, _) {
-        var list = userProvider.userData.technicalSkillList;
-
-        return UserInfoListItem(
-          icon: FontAwesomeIcons.fileAlt,
-          label: StringUtils.otherText,
-          children: [
-            Material(
-              color: Theme.of(context).canvasColor,
-              child: Column(
-                children: <Widget>[
-                  ListTile(
-                    title: Text("Career Objective:"),
-                    subtitle: Padding(
-                      padding: const EdgeInsets.all( 8),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text("Description"),
-                          Text("Current Designation"),
-                        ],
-                      ),
-                    ),
-                  ),
-                  ListTile(
-                    title: Text("Achievements:"),
-                    subtitle: Padding(
-                      padding: const EdgeInsets.only(left: 8),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text("Name Of Achievements"),
-                          Text("Date"),
-                        ],
-                      ),
-                    ),
-                  ),
-                  ListTile(
-                    title: Text("Declaration:"),
-                    subtitle:   Padding(
-                      padding: const EdgeInsets.only(left: 8),
-                      child: Text("Brief Details text"),
-                    ),
-                  ),
-                  ListTile(
-                    title: Text("Interest/Hobbies:"),
-                    subtitle: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Padding(padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 4), child: Text("Hobbies 1"),),
-                        Padding(padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 4), child: Text("Hobbies 2"),),
-                        Padding(padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 4), child: Text("Hobbies 3"),),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
         );
       }),
 
@@ -211,11 +162,21 @@ class _UserDetailsInfoListWidgetState extends State<UserDetailsInfoListWidget> {
 //                    builder: (context) => AddEditTechnicalSkill()));
           },
           children: List.generate(list.length, (index) {
-            var skill = list[index];
-            return Material(
-              color: Theme.of(context).canvasColor,
+            var ref = list[index];
+            return Container(
+              margin: EdgeInsets.only(bottom: 8),
+              decoration: BoxDecoration(
+                color: Theme.of(context).backgroundColor,
+                borderRadius: BorderRadius.circular(5),
+                boxShadow: [
+                  BoxShadow(color: Colors.black26, blurRadius: 2),
+                ],),
               child: ListTile(
-                leading: CircleAvatar(
+                contentPadding: EdgeInsets.zero,
+                leading: Container(
+                  height: 55,
+                  width: 55,
+                  color: Theme.of(context).backgroundColor,
                   child: Icon(FontAwesomeIcons.user),
                 ),
                 title: Text("Name"),
@@ -231,9 +192,8 @@ class _UserDetailsInfoListWidgetState extends State<UserDetailsInfoListWidget> {
       shrinkWrap: true,
       primary: false,
       itemCount: itemList.length,
-      separatorBuilder: (context, int) => Divider(
-        height: 3,
-        color: Colors.grey,
+      separatorBuilder: (context, int) => SizedBox(
+        height: 15,
       ),
       itemBuilder: (context, index) => itemList[index],
     );

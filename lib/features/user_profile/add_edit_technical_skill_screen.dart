@@ -34,7 +34,7 @@ class _AddEditTechnicalSkillState extends State<AddEditTechnicalSkill> with Afte
   @override
   void afterFirstLayout(BuildContext context) {
   if(technicalSkill != null || index != null){
-    var technicalSkillProvider = Provider.of<TechnicalSkillProvider>(context);
+    var technicalSkillProvider = Provider.of<TechnicalSkillProvider>(context,listen: false);
     technicalSkillProvider.skillLevel = technicalSkill.level;
     _textEditingController.text = technicalSkill.skillName;
 
@@ -46,7 +46,7 @@ class _AddEditTechnicalSkillState extends State<AddEditTechnicalSkill> with Afte
 
     if (isSuccess) {
       var technicalSkillProvider =
-      Provider.of<TechnicalSkillProvider>(context);
+      Provider.of<TechnicalSkillProvider>(context,listen: false);
 
       var education = TechnicalSkill(
           skillName: _textEditingController.text,
@@ -77,7 +77,7 @@ class _AddEditTechnicalSkillState extends State<AddEditTechnicalSkill> with Afte
       child: Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
-          title: Text(StringUtils.technicalSkillText),
+          title: Text(StringUtils.personalSkillText),
           actions: <Widget>[
             EditScreenSaveButton(
               text: "Save",

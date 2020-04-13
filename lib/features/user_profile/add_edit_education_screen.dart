@@ -56,7 +56,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen>
 
     if (educationModel != null) {
       var addEditEducationProvider =
-          Provider.of<EducationProvider>(context);
+          Provider.of<EducationProvider>(context,listen: false);
       institutionNameController.text = educationModel.nameOfInstitution;
       degreeTextController.text = educationModel.degree;
       gpaTextController.text = educationModel.gpa.toString();
@@ -71,7 +71,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen>
 
     if (isSuccess) {
       var addEditEducationProvider =
-          Provider.of<EducationProvider>(context);
+          Provider.of<EducationProvider>(context,listen: false);
 
       var education = Education(
           nameOfInstitution: institutionNameController.text,
@@ -100,7 +100,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen>
     return WillPopScope(
       onWillPop: ()async{
         var addEditEducationProvider =
-        Provider.of<EducationProvider>(context);
+        Provider.of<EducationProvider>(context,listen: false);
         addEditEducationProvider.clearState();
         return true;
       },
@@ -255,7 +255,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen>
   }
 
   _showJoinDatePicker(context) {
-    var provider = Provider.of<EducationProvider>(context);
+    var provider = Provider.of<EducationProvider>(context,listen: false);
     var initialDate = DateTime.now();
     if (provider.passingYear == null) {
       provider.onStartingDateChangeEvent(DateTime.now());
@@ -274,13 +274,10 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen>
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
                     Expanded(
-                      child: CupertinoTheme(
-                        data: CupertinoThemeData(),
-                        child: CupertinoDatePicker(
-                          initialDateTime: initialDate,
-                          mode: CupertinoDatePickerMode.date,
-                          onDateTimeChanged: provider.onStartingDateChangeEvent,
-                        ),
+                      child: CupertinoDatePicker(
+                        initialDateTime: initialDate,
+                        mode: CupertinoDatePickerMode.date,
+                        onDateTimeChanged: provider.onStartingDateChangeEvent,
                       ),
                     ),
                     InkWell(
