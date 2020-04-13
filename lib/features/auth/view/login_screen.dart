@@ -48,35 +48,32 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget _buildForm(context) {
-    return SingleChildScrollView(
-      child: Container(
-        color: Colors.red,
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: <Widget>[
-              _successfulSignUorLoginText(),
-              SizedBox(height: 20),
-              _loginEmail(context),
-              SizedBox(height: 20),
-              _loginPassword(context),
-              SizedBox(height: 10),
-              _forgotPasswordWidget(context),
-              SizedBox(height: 10),
-              Consumer<LoginViewModel>(
-                  builder: (BuildContext context, loginProvider, Widget child) {
-                    if (loginProvider.isBusyLogin) {
-                      return Loader();
-                    }
-                    return _signInButton(context);
-                  }),
-              SizedBox(height: 30),
-              _connectUsing(),
-              SizedBox(height: 20,),
-              _registerText(),
+    return Container(
+      child: Form(
+        key: _formKey,
+        child: Column(
+          children: <Widget>[
+            _successfulSignUorLoginText(),
+            SizedBox(height: 15),
+            _loginEmail(context),
+            SizedBox(height: 15),
+            _loginPassword(context),
+            SizedBox(height: 5),
+            _forgotPasswordWidget(context),
+            SizedBox(height: 5),
+            Consumer<LoginViewModel>(
+                builder: (BuildContext context, loginProvider, Widget child) {
+                  if (loginProvider.isBusyLogin) {
+                    return Loader();
+                  }
+                  return _signInButton(context);
+                }),
+            SizedBox(height: 10),
+            _connectUsing(),
+            SizedBox(height: 10,),
+            _registerText(),
 
-            ],
-          ),
+          ],
         ),
       ),
     );
@@ -143,7 +140,8 @@ class _LoginScreenState extends State<LoginScreen> {
     var loginProvider = Provider.of<LoginViewModel>(context);
     return Center(
       child: Container(
-        height: 60,
+        height: 50,
+        margin: EdgeInsets.symmetric(horizontal: 10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(40),
           color: Colors.white,
@@ -181,7 +179,8 @@ class _LoginScreenState extends State<LoginScreen> {
       builder: (BuildContext context, loginProvider, Widget child) {
         bool isObscure = loginProvider.isObscurePassword;
         return Container(
-          height: 60,
+          height: 50,
+          margin: EdgeInsets.symmetric(horizontal: 10),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(40),
               color: Colors.white,
@@ -230,7 +229,8 @@ class _LoginScreenState extends State<LoginScreen> {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return Container(
-      width: width*0.5,
+      height: 50,
+      width: 200,
       child: CommonButton(
         onTap: () {
           _handleLogin(context);
@@ -373,7 +373,7 @@ class _LoginScreenState extends State<LoginScreen> {
       height: height,
       width: width,
       child: Padding(
-        padding: EdgeInsets.fromLTRB(16, 8, 16, 8),
+        padding: EdgeInsets.fromLTRB(16, 0, 16, 8),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -384,7 +384,7 @@ class _LoginScreenState extends State<LoginScreen> {
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
                 SizedBox(height: 10),
-                _logoSection(130),
+                _logoSection(height*0.09),
                 SizedBox(height: 10),
                 _welcomeBackText(),
                 SizedBox(height: 10),
@@ -403,14 +403,14 @@ class _LoginScreenState extends State<LoginScreen> {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        Text('Or connect using', style: TextStyle(color: Colors.grey[400], fontSize: 18),),
-        SizedBox(height: 10,),
+        Text('Or connect using', style: TextStyle(color: Colors.grey[400], fontSize: 15),),
+        SizedBox(height: 5,),
         Row(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Container(
-              height: 45,
-              width: 140,
+              height: 40,
+              width: 120,
               padding: EdgeInsets.symmetric(vertical: 13),
               decoration: BoxDecoration(
                 color: Color.fromARGB(0xFF, 59, 89, 152),
@@ -430,8 +430,8 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             SizedBox(width: 10,),
             Container(
-              height: 45,
-              width: 140,
+              height: 40,
+              width: 120,
               padding: EdgeInsets.symmetric(vertical: 10),
               decoration: BoxDecoration(
                   color: Color.fromARGB(0xFF, 243, 80, 29),
@@ -460,9 +460,9 @@ class _LoginScreenState extends State<LoginScreen> {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        Text('Welcome back!', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),),
+        Text('Welcome back!', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),),
         SizedBox(height: 10,),
-        Text('Login to your existing account', style: TextStyle(fontSize: 20, color: Colors.grey[400]),)
+        Text('Login to your existing account', style: TextStyle(fontSize: 15, color: Colors.grey[400]),)
       ],
     );
   }
