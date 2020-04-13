@@ -31,7 +31,7 @@ class _JobDetailsState extends State<JobDetails> {
     TextStyle headerTextStyle = new TextStyle(fontSize: 18, fontWeight: FontWeight.bold);
     TextStyle sectionTitleFont = TextStyle(fontSize: 17,fontWeight: FontWeight.bold);
     TextStyle descriptionFontStyle = TextStyle(fontSize: 13);
-    TextStyle topSideDescriptionFontStyle = TextStyle(fontSize: 15,color: Colors.grey[600]);
+    TextStyle topSideDescriptionFontStyle = TextStyle(fontSize: 14,color: Colors.grey[600]);
     TextStyle descriptionFontStyleBold = TextStyle(fontSize: 12,fontWeight: FontWeight.bold);
 
     Text jobSummeryRichText(String title, String description){
@@ -324,8 +324,7 @@ class _JobDetailsState extends State<JobDetails> {
           ],
         ),
         Container(
-          height: 35,
-          width: 95,
+          padding: EdgeInsets.symmetric(vertical: 8, horizontal: 15),
           decoration: BoxDecoration(
             color: Theme.of(context).accentColor,
             borderRadius: BorderRadius.circular(5),
@@ -334,7 +333,7 @@ class _JobDetailsState extends State<JobDetails> {
             child: Text(
               StringUtils.applyButtonText,
               style: TextStyle(
-                  fontSize: 15, color: Colors.white, fontWeight: FontWeight.w600),
+                  fontSize: 14, color: Colors.white, fontWeight: FontWeight.w600),
             ),
           ),
         )
