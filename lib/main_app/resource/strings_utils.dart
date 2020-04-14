@@ -300,6 +300,6 @@ static const String salary = 'Salary: ';
 static const String gender = 'Gender: ';
 static const String applicationDeadline = 'Deadline: ';
 static const String requiredSkills = 'Skill Requirement';
-static const String benefitSectionTitle = 'Benefits: ';
+static const String benefitSectionTitle = 'Benefits';
 static const String jobSource = 'Job Source';
 }

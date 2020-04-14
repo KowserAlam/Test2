@@ -12,7 +12,7 @@ dependencies:
 
 
   #  Dev tools -> different size of screen preview ###############
-  device_preview: ^0.4.4
+  device_preview: ^0.3.0+1
 
 
   #  Default icons asset for Cupertino widgets

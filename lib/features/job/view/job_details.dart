@@ -396,17 +396,18 @@ class _JobDetailsState extends State<JobDetails> {
               padding: EdgeInsets.all(10),
               decoration: BoxDecoration(
                 color: Colors.white,
+                borderRadius: BorderRadius.circular(3),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.grey[300],
                     spreadRadius: 1,
-                    blurRadius: 1,
+                    blurRadius: 10,
                     offset: Offset(1,1)
                   ),
                   BoxShadow(
                       color: Colors.grey[400],
                       spreadRadius: 1,
-                      blurRadius: 1,
+                      blurRadius: 10,
                       offset: Offset(-1,-1)
                   )
                 ]
