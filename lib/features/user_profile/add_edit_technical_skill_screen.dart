@@ -2,6 +2,7 @@ import 'package:after_layout/after_layout.dart';
 import 'package:p7app/features/user_profile/providers/education_provider.dart';
 import 'package:p7app/features/user_profile/providers/technical_skill_provider.dart';
 import 'package:p7app/features/user_profile/models/user_profile_models.dart';
+import 'package:p7app/features/user_profile/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/util/validator.dart';
 import 'package:p7app/main_app/widgets/edit_screen_save_button.dart';
@@ -12,18 +13,19 @@ import 'package:uuid/uuid.dart';
 
 class AddEditTechnicalSkill extends StatefulWidget {
   final TechnicalSkill technicalSkill;
-  final int index ;
-
+  final int index;
 
   AddEditTechnicalSkill({this.technicalSkill, this.index});
 
   @override
-  _AddEditTechnicalSkillState createState() => _AddEditTechnicalSkillState(this.technicalSkill, this.index);
+  _AddEditTechnicalSkillState createState() =>
+      _AddEditTechnicalSkillState(this.technicalSkill, this.index);
 }
 
-class _AddEditTechnicalSkillState extends State<AddEditTechnicalSkill> with AfterLayoutMixin{
+class _AddEditTechnicalSkillState extends State<AddEditTechnicalSkill>
+    with AfterLayoutMixin {
   final TechnicalSkill technicalSkill;
-  final int index ;
+  final int index;
 
   _AddEditTechnicalSkillState(this.technicalSkill, this.index);
 
@@ -33,12 +35,12 @@ class _AddEditTechnicalSkillState extends State<AddEditTechnicalSkill> with Afte
 
   @override
   void afterFirstLayout(BuildContext context) {
-  if(technicalSkill != null || index != null){
-    var technicalSkillProvider = Provider.of<TechnicalSkillProvider>(context,listen: false);
-    technicalSkillProvider.skillLevel = technicalSkill.level;
-    _textEditingController.text = technicalSkill.skillName;
-
-  }
+    if (technicalSkill != null || index != null) {
+      var technicalSkillProvider =
+          Provider.of<TechnicalSkillProvider>(context, listen: false);
+      technicalSkillProvider.skillLevel = technicalSkill.level;
+      _textEditingController.text = technicalSkill.skillName;
+    }
   }
 
   _handleSave() {
@@ -46,19 +48,20 @@ class _AddEditTechnicalSkillState extends State<AddEditTechnicalSkill> with Afte
 
     if (isSuccess) {
       var technicalSkillProvider =
-      Provider.of<TechnicalSkillProvider>(context,listen: false);
+          Provider.of<TechnicalSkillProvider>(context, listen: false);
 
       var education = TechnicalSkill(
-          skillName: _textEditingController.text,
+        skillName: _textEditingController.text,
         level: technicalSkillProvider.skillLevel,
       );
 
-      if(education == null || index == null){
+      if (education == null || index == null) {
         education.id = Uuid().v1();
         technicalSkillProvider.addData(context, education);
-      }else{
+      } else {
         education.id = technicalSkill.id;
-        technicalSkillProvider.updateData(_scaffoldKey.currentContext, education, index);
+        technicalSkillProvider.updateData(
+            _scaffoldKey.currentContext, education, index);
       }
 
       Navigator.pop(context);
@@ -69,9 +72,9 @@ class _AddEditTechnicalSkillState extends State<AddEditTechnicalSkill> with Afte
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: ()async{
-
-        Provider.of<TechnicalSkillProvider>(context,listen: false).clearState();
+      onWillPop: () async {
+        Provider.of<TechnicalSkillProvider>(context, listen: false)
+            .clearState();
         return true;
       },
       child: Scaffold(
@@ -98,17 +101,13 @@ class _AddEditTechnicalSkillState extends State<AddEditTechnicalSkill> with Afte
                   ),
                   Consumer<TechnicalSkillProvider>(
                       builder: (context, technicalSkillProvider, _) {
-                      return TextFormField(
-                        validator: Validator().nullFieldValidate,
-                        controller: _textEditingController,
-                        style: Theme.of(context).textTheme.title,
-                        decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            labelText: StringUtils.skillNameText,
-                            hintText: StringUtils.skillNameExample),
-                      );
-                    }
-                  ),
+                    return CustomTextFormField(
+                      validator: Validator().nullFieldValidate,
+                      controller: _textEditingController,
+                      labelText: StringUtils.skillNameText,
+                      hintText: StringUtils.skillNameExample,
+                    );
+                  }),
                   SizedBox(
                     height: 20,
                   ),
@@ -124,7 +123,8 @@ class _AddEditTechnicalSkillState extends State<AddEditTechnicalSkill> with Afte
                     return Row(
                       children: <Widget>[
                         RatingBar(
-                          initialRating: technicalSkillProvider.skillLevel ?? 0.0,
+                          initialRating:
+                              technicalSkillProvider.skillLevel ?? 0.0,
                           direction: Axis.horizontal,
                           allowHalfRating: true,
                           itemCount: 5,
@@ -141,7 +141,10 @@ class _AddEditTechnicalSkillState extends State<AddEditTechnicalSkill> with Afte
                         Spacer(),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text("${technicalSkillProvider.skillLevel??"0.0"}",style: Theme.of(context).textTheme.display1,),
+                          child: Text(
+                            "${technicalSkillProvider.skillLevel ?? "0.0"}",
+                            style: Theme.of(context).textTheme.display1,
+                          ),
                         ),
                       ],
                     );
@@ -154,6 +157,4 @@ class _AddEditTechnicalSkillState extends State<AddEditTechnicalSkill> with Afte
       ),
     );
   }
-
-
 }

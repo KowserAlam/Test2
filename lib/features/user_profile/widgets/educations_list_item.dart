@@ -3,16 +3,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:p7app/features/user_profile/styles/profile_common_style.dart';
 
 import '../add_edit_education_screen.dart';
 
 class EducationsListItem extends StatelessWidget {
   final Education educationItemModel;
   final int index;
+  final bool isInEditMode;
 
   EducationsListItem({
     @required this.educationItemModel,
     @required this.index,
+    this.isInEditMode = false
   });
 
   @override
@@ -24,9 +27,7 @@ class EducationsListItem extends StatelessWidget {
       decoration: BoxDecoration(
         color: backgroundColor,
         borderRadius: BorderRadius.circular(5),
-        boxShadow: [
-          BoxShadow(color: Colors.black26, blurRadius: 2),
-        ],
+        boxShadow: ProfileCommonStyle.boxShadow,
       ),
       child: ListTile(
         contentPadding: EdgeInsets.only(left: 5),
@@ -59,7 +60,7 @@ class EducationsListItem extends StatelessWidget {
             ),
           ],
         ),
-        trailing: IconButton(
+        trailing: !isInEditMode?null:IconButton(
           icon: Icon(FontAwesomeIcons.edit),
           onPressed: () {
             Navigator.push(

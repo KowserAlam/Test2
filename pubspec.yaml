@@ -1,7 +1,7 @@
 name: p7app
 description: A new Flutter application for Project Seven.
 
-version: 1.0.20+1
+version: 1.0.22+1
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
@@ -12,7 +12,7 @@ dependencies:
 
 
   #  Dev tools -> different size of screen preview ###############
-  device_preview: ^0.3.0+1
+  device_preview: ^0.4.4
 
 
   #  Default icons asset for Cupertino widgets

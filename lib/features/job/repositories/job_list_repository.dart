@@ -8,7 +8,7 @@ import 'package:p7app/main_app/failure/error.dart';
 
 class JobListRepository {
   int count;
-  String next;
+  bool next;
 
   Future<Either<AppError, List<JobModel>>> fetchJobList(
       {int page = 1, int size = 15}) async {
@@ -30,7 +30,7 @@ class JobListRepository {
 
   List<JobModel> fromJson(Map<String, dynamic> json) {
     count = json['count'];
-    next = json['next'];
+    next = json['next_pages'];
     List<JobModel>    jobList = new List<JobModel>();
     if (json['results'] != null) {
       json['results'].forEach((v) {

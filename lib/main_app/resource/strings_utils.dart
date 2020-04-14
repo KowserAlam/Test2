@@ -147,7 +147,7 @@ class StringUtils {
   static var certificationsText = "Certifications";
   static var membershipsText = "Memberships";
   static var otherText = "Other";
-  static var referenceText = "Reference";
+  static var referencesText = "References";
   static var personalInfoText = "Personal Informations";
   static var editPersonalInfoText = "Edit Personal Information";
   static var contactText = "Contact";
@@ -163,12 +163,12 @@ class StringUtils {
   static String nameOfOrganizationText = "Name of Organization";
   static String nameOfOrganizationEg = "eg. Ishraak Solutions";
   static String positionText = "Position";
-  static String positionTextEg = "Software Engineer";
-  static String roleText = "Role(Optional)";
+  static String positionTextEg = "eg. Software Engineer";
+  static String roleText = "Role";
   static String roleTextEg = " ... ";
   static String joiningDateText = "Joining Date";
   static String leavingDateText = "Leaving Date";
-  static String currentlyWorkingHereText = "I'm currently working here";
+  static String currentlyWorkingHereText = "Currently working here";
 
   /// Add or Edit New Education
 

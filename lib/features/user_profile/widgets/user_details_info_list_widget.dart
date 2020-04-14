@@ -1,4 +1,5 @@
 import 'package:p7app/features/user_profile/providers/user_provider.dart';
+import 'package:p7app/features/user_profile/styles/profile_common_style.dart';
 import 'package:p7app/features/user_profile/widgets/personal_info_widget.dart';
 import 'package:p7app/features/user_profile/widgets/technical_skill_list_item.dart';
 import 'package:p7app/features/user_profile/widgets/user_info_list_item.dart';
@@ -22,15 +23,32 @@ class UserDetailsInfoListWidget extends StatefulWidget {
 }
 
 class _UserDetailsInfoListWidgetState extends State<UserDetailsInfoListWidget> {
+
+  bool isInEditModeExperience = false;
+  bool isInEditModeEducation = false;
+
+
   @override
   Widget build(BuildContext context) {
 
     var itemList = [
+
+      /// about me
+
+
+
       ///Experience
 
       Consumer<UserProvider>(builder: (context, userProvider, _) {
         var expList = userProvider.userData.experienceList;
         return UserInfoListItem(
+          isInEditMode: isInEditModeExperience,
+          onTapEditAction: (v){
+            isInEditModeExperience = v;
+            setState(() {
+
+            });
+          },
           icon: FontAwesomeIcons.globeEurope,
           label: StringUtils.experienceText,
           onTapAddNewAction: () {
@@ -42,6 +60,7 @@ class _UserDetailsInfoListWidgetState extends State<UserDetailsInfoListWidget> {
           children: List.generate(expList.length, (int index) {
             var exp = expList[index];
             return ExperienceListItem(
+              isInEditMode:             isInEditModeExperience,
               experienceModel: exp,
               onTapEdit: () {
                 Navigator.push(
@@ -61,8 +80,15 @@ class _UserDetailsInfoListWidgetState extends State<UserDetailsInfoListWidget> {
       Consumer<UserProvider>(builder: (context, userProvider, _) {
         var eduList = userProvider.userData.educationModelList;
         return UserInfoListItem(
+          isInEditMode: isInEditModeEducation,
           icon: FontAwesomeIcons.university,
           label: StringUtils.educationsText,
+          onTapEditAction: (bool value){
+            setState(() {
+              isInEditModeEducation = value;
+              print(value);
+            });
+          },
           onTapAddNewAction: () {
             Navigator.push(
                 context,
@@ -73,6 +99,7 @@ class _UserDetailsInfoListWidgetState extends State<UserDetailsInfoListWidget> {
             return EducationsListItem(
               educationItemModel: eduList[i],
               index: i,
+              isInEditMode: isInEditModeEducation,
             );
           }),
         );
@@ -133,9 +160,7 @@ class _UserDetailsInfoListWidgetState extends State<UserDetailsInfoListWidget> {
               decoration: BoxDecoration(
                 color: Theme.of(context).backgroundColor,
                 borderRadius: BorderRadius.circular(5),
-                boxShadow: [
-                  BoxShadow(color: Colors.black26, blurRadius: 2),
-                ],),
+                boxShadow: ProfileCommonStyle.boxShadow,),
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: ListTile(
                 contentPadding: EdgeInsets.zero,
@@ -168,9 +193,7 @@ class _UserDetailsInfoListWidgetState extends State<UserDetailsInfoListWidget> {
               decoration: BoxDecoration(
                 color: Theme.of(context).backgroundColor,
                 borderRadius: BorderRadius.circular(5),
-                boxShadow: [
-                  BoxShadow(color: Colors.black26, blurRadius: 2),
-                ],),
+                boxShadow: ProfileCommonStyle.boxShadow,),
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: ListTile(
                 contentPadding: EdgeInsets.zero,
@@ -207,9 +230,7 @@ class _UserDetailsInfoListWidgetState extends State<UserDetailsInfoListWidget> {
               decoration: BoxDecoration(
                 color: Theme.of(context).backgroundColor,
                 borderRadius: BorderRadius.circular(5),
-                boxShadow: [
-                  BoxShadow(color: Colors.black26, blurRadius: 2),
-                ],),
+                boxShadow: ProfileCommonStyle.boxShadow,),
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: ListTile(
                 contentPadding: EdgeInsets.zero,
@@ -226,13 +247,13 @@ class _UserDetailsInfoListWidgetState extends State<UserDetailsInfoListWidget> {
         );
       }),
 
-      /// Reference
+      /// References
       Consumer<UserProvider>(builder: (context, userProvider, _) {
         var list = userProvider.userData.technicalSkillList;
 
         return UserInfoListItem(
           icon: FontAwesomeIcons.bookReader,
-          label: StringUtils.referenceText,
+          label: StringUtils.referencesText,
           onTapAddNewAction: () {
 //            Navigator.push(
 //                context,
@@ -246,9 +267,7 @@ class _UserDetailsInfoListWidgetState extends State<UserDetailsInfoListWidget> {
               decoration: BoxDecoration(
                 color: Theme.of(context).backgroundColor,
                 borderRadius: BorderRadius.circular(5),
-                boxShadow: [
-                  BoxShadow(color: Colors.black26, blurRadius: 2),
-                ],),
+                boxShadow: ProfileCommonStyle.boxShadow,),
               child: ListTile(
                 contentPadding: EdgeInsets.zero,
                 leading: Container(

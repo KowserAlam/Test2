@@ -2,6 +2,7 @@ import 'package:after_layout/after_layout.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p7app/features/user_profile/edit_profile_screen.dart';
 import 'package:p7app/features/user_profile/providers/user_provider.dart';
+import 'package:p7app/features/user_profile/styles/profile_common_style.dart';
 import 'package:p7app/features/user_profile/widgets/user_details_info_list_widget.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
 import 'package:p7app/main_app/resource/const.dart';
@@ -108,9 +109,9 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
     var profileHeaderBackgroundColor = Color(0xff08233A);
     var profileHeaderFontColor = Colors.white;
     var profileImageWidget = Container(
-      margin: EdgeInsets.only(bottom: 15),
-      height: 60,
-      width: 60,
+      margin: EdgeInsets.only(bottom: 15,top: 8),
+      height: 65,
+      width: 65,
       decoration:
           BoxDecoration(borderRadius: BorderRadius.circular(100), boxShadow: [
         BoxShadow(color: Colors.black12, blurRadius: 5, spreadRadius: 5),
@@ -133,7 +134,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
           return Text(
             data ?? "",
             style: TextStyle(
-                fontSize: 20,
+                fontSize: 18,
                 fontWeight: FontWeight.bold,
                 color: profileHeaderFontColor),
           );
@@ -153,7 +154,9 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
             size: 15,
           ),
         ),
-        SizedBox(width: 8,),
+        SizedBox(
+          width: 8,
+        ),
         Container(
           constraints: BoxConstraints(
               minHeight: 25, maxHeight: 25, minWidth: 25, maxWidth: 25),
@@ -166,7 +169,9 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
             size: 15,
           ),
         ),
-        SizedBox(width: 8,),
+        SizedBox(
+          width: 8,
+        ),
         Container(
           constraints: BoxConstraints(
               minHeight: 25, maxHeight: 25, minWidth: 25, maxWidth: 25),
@@ -270,6 +275,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                 child: Icon(
                   Icons.edit,
                   size: 18,
+                  color: primaryColor,
                 ),
               ),
               onTap: () {},
@@ -284,9 +290,8 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
           decoration: BoxDecoration(
             color: Theme.of(context).backgroundColor,
             borderRadius: BorderRadius.circular(5),
-            boxShadow: [
-              BoxShadow(color: Colors.black26, blurRadius: 2),
-            ],),
+            boxShadow: ProfileCommonStyle.boxShadow,
+          ),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Selector<UserProvider, String>(
@@ -294,9 +299,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                 builder: (context, String data, _) {
                   return Text(
                     data,
-                    textAlign: TextAlign.justify,
-                    maxLines: 3,
-                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.left,
                   );
                 }),
           ),
@@ -322,10 +325,15 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
               // profile header
               Container(
                 height: 200,
-                color: profileHeaderBackgroundColor,
+                decoration: BoxDecoration(
+                    color: profileHeaderBackgroundColor,
+                    image: DecorationImage(
+                        image: AssetImage(kUserProfileCoverImageAsset),
+                        fit: BoxFit.cover),),
                 padding: EdgeInsets.all(8),
                 child: Column(
                   children: [
+
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -337,11 +345,11 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              SizedBox(height: 5),
+                              SizedBox(height: 8,),
                               displayNameWidget,
-                              SizedBox(height: 5),
+                              SizedBox(height: 3),
                               emailWidget,
-                              SizedBox(height: 5),
+                              SizedBox(height: 3),
                               userLocationWidget,
                             ],
                           ),
@@ -351,7 +359,9 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                     ),
                     Spacer(),
                     socialIconsWidgets,
-                    SizedBox(height: 5,),
+                    SizedBox(
+                      height: 5,
+                    ),
                     designationWidget,
                   ],
                 ),

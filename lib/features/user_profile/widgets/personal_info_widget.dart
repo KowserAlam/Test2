@@ -1,4 +1,5 @@
 import 'package:p7app/features/user_profile/providers/user_provider.dart';
+import 'package:p7app/features/user_profile/styles/profile_common_style.dart';
 import 'package:p7app/features/user_profile/widgets/edit_personal_info_screen.dart';
 import 'package:p7app/features/user_profile/widgets/user_info_list_item.dart';
 import 'package:p7app/main_app/resource/const.dart';
@@ -39,7 +40,7 @@ class PersonalInfoWidget extends StatelessWidget {
       useSeparator: false,
       icon: FontAwesomeIcons.infoCircle,
       label: StringUtils.personalInfoText,
-      onTapAddEditAction: (){
+      onTapEditAction: (v){
         Navigator.push(
             context,
             CupertinoPageRoute(
@@ -52,9 +53,7 @@ class PersonalInfoWidget extends StatelessWidget {
           decoration: BoxDecoration(
             color: Theme.of(context).backgroundColor,
             borderRadius: BorderRadius.circular(5),
-            boxShadow: [
-              BoxShadow(color: Colors.black26, blurRadius: 2),
-            ],),
+            boxShadow: ProfileCommonStyle.boxShadow,),
           child: Consumer<UserProvider>(builder: (context, userProvider, _) {
             var personalInfo = userProvider.userData.personalInfo;
             return Column(
