@@ -78,7 +78,11 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
         ],
       ),
     );
-    var heartButton = InkWell(
+    var heartButton = Material(
+      color: Colors.transparent,
+      borderRadius: BorderRadius.circular(20),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(20),
       onTap: () {
         if (heart == false) {
           heart = true;
@@ -95,7 +99,7 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
           size: 22,
         ),
       ),
-    );
+    ),);
     var applyButton = Container(
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 8, horizontal: 15),

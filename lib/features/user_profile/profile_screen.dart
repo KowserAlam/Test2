@@ -109,9 +109,9 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
     var profileHeaderBackgroundColor = Color(0xff08233A);
     var profileHeaderFontColor = Colors.white;
     var profileImageWidget = Container(
-      margin: EdgeInsets.only(bottom: 15),
-      height: 60,
-      width: 60,
+      margin: EdgeInsets.only(bottom: 15,top: 8),
+      height: 65,
+      width: 65,
       decoration:
           BoxDecoration(borderRadius: BorderRadius.circular(100), boxShadow: [
         BoxShadow(color: Colors.black12, blurRadius: 5, spreadRadius: 5),
@@ -134,7 +134,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
           return Text(
             data ?? "",
             style: TextStyle(
-                fontSize: 20,
+                fontSize: 18,
                 fontWeight: FontWeight.bold,
                 color: profileHeaderFontColor),
           );
@@ -333,6 +333,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                 padding: EdgeInsets.all(8),
                 child: Column(
                   children: [
+
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -344,11 +345,11 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              SizedBox(height: 5),
+                              SizedBox(height: 8,),
                               displayNameWidget,
-                              SizedBox(height: 5),
+                              SizedBox(height: 3),
                               emailWidget,
-                              SizedBox(height: 5),
+                              SizedBox(height: 3),
                               userLocationWidget,
                             ],
                           ),

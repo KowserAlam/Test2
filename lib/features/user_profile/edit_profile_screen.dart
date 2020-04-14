@@ -69,7 +69,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
 
     if (isValid) {
       _formKey.currentState.save();
-      var userProvider = Provider.of<UserProvider>(_scaffoldKey.currentContext);
+      var userProvider = Provider.of<UserProvider>(context,listen: false);
       userProvider.isBusySaving = true;
 
       var user = userProvider.userData;
