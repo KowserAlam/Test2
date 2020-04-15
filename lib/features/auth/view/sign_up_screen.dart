@@ -6,6 +6,7 @@ import 'package:p7app/main_app/util/validator.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:p7app/main_app/widgets/gredient_buton.dart';
 import 'package:provider/provider.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -97,23 +98,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
       ]),
     );
 
-    Widget registerButton = InkWell(onTap: (){
-      _handleRegister();
-    },child: Container(
-      height: 60,
-//      margin: EdgeInsets.only(top: 10),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(5),
-        color: primaryColor,
+    Widget registerButton = Container(
+      height: 50,
+      width: 200,
+      child: CommonButton(
+        onTap: () {
+          _handleRegister();
+        },
+        label: StringUtils.logInButtonText,
       ),
-      child: Center(
-        child: Text(
-          StringUtils.signupText,
-          style: TextStyle(
-              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15),
-        ),
-      ),
-    ),);
+    );
     Widget signUpHeader = Container(
       height: 50,
 //      margin: EdgeInsets.symmetric(horizontal: 8),
@@ -151,115 +145,210 @@ class _SignUpScreenState extends State<SignUpScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               SizedBox(height: 25),
-              TextFormField(
-                keyboardType: TextInputType.text,
-                textInputAction: TextInputAction.next,
-                focusNode: _nameFocusNode,
-                onFieldSubmitted: (v){
-                  _emailFocusNode.requestFocus();
-                },
-                validator: Validator().nullFieldValidate,
-                controller: _nameEditingController,
-                decoration: InputDecoration(
-                  hintText: StringUtils.nameText,
-                  hintStyle: TextStyle(color: Colors.grey),
+              Container(
+                height: 50,
+                padding: EdgeInsets.only(left: 15),
+                margin: EdgeInsets.symmetric(horizontal: 10),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(40),
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.grey[200],
+                          spreadRadius: 3,
+                          blurRadius: 10,
+                          offset: Offset(1,1)
+                      )
+                    ]
+                ),
+                child: Center(
+                  child: TextFormField(
+                    keyboardType: TextInputType.text,
+                    textInputAction: TextInputAction.next,
+                    focusNode: _nameFocusNode,
+                    onFieldSubmitted: (v){
+                      _emailFocusNode.requestFocus();
+                    },
+                    validator: Validator().nullFieldValidate,
+                    controller: _nameEditingController,
+                    decoration: InputDecoration.collapsed(
+                      hintText: StringUtils.nameText,
+                      hintStyle: TextStyle(color: Colors.grey),
+                    ),
+                  ),
                 ),
               ),
               //Email
               SizedBox(height: 25),
-              TextFormField(
-                keyboardType: TextInputType.emailAddress,
-                textInputAction: TextInputAction.next,
-                focusNode: _emailFocusNode,
-                onFieldSubmitted: (v){
-                  _mobileFocusNode.requestFocus();
-                },
-                validator: Validator().validateEmail,
-                controller: _emailEditingController,
-                decoration: InputDecoration(
-                  hintText: StringUtils.emailText,
-                  hintStyle: TextStyle(color: Colors.grey),
+              Container(
+                height: 50,
+                padding: EdgeInsets.only(left: 15),
+                margin: EdgeInsets.symmetric(horizontal: 10),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(40),
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.grey[200],
+                          spreadRadius: 3,
+                          blurRadius: 10,
+                          offset: Offset(1,1)
+                      )
+                    ]
+                ),
+                child: Center(
+                  child: TextFormField(
+                    keyboardType: TextInputType.emailAddress,
+                    textInputAction: TextInputAction.next,
+                    focusNode: _emailFocusNode,
+                    onFieldSubmitted: (v){
+                      _mobileFocusNode.requestFocus();
+                    },
+                    validator: Validator().validateEmail,
+                    controller: _emailEditingController,
+                    decoration: InputDecoration.collapsed(
+                      hintText: StringUtils.emailText,
+                      hintStyle: TextStyle(color: Colors.grey),
+                    ),
+                  ),
                 ),
               ),
               SizedBox(height: 25),
               //Mobile TextField
 
-              TextFormField(
-                keyboardType: TextInputType.phone,
-                textInputAction: TextInputAction.next,
-                validator: Validator().nullFieldValidate,
-                focusNode: _mobileFocusNode,
-                onFieldSubmitted: (v){
-                  _passwordFocusNode.requestFocus();
-                },
-                controller: _mobileEditingController,
-                decoration: InputDecoration(
-                  hintText: StringUtils.mobileText,
-                  hintStyle: TextStyle(color: Colors.grey),
+              Container(
+                height: 50,
+                padding: EdgeInsets.only(left: 15),
+                margin: EdgeInsets.symmetric(horizontal: 10),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(40),
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.grey[200],
+                          spreadRadius: 3,
+                          blurRadius: 10,
+                          offset: Offset(1,1)
+                      )
+                    ]
+                ),
+                child: Center(
+                  child: TextFormField(
+                    keyboardType: TextInputType.phone,
+                    textInputAction: TextInputAction.next,
+                    validator: Validator().nullFieldValidate,
+                    focusNode: _mobileFocusNode,
+                    onFieldSubmitted: (v){
+                      _passwordFocusNode.requestFocus();
+                    },
+                    controller: _mobileEditingController,
+                    decoration: InputDecoration.collapsed(
+                      hintText: StringUtils.mobileText,
+                      hintStyle: TextStyle(color: Colors.grey),
+                    ),
+                  ),
                 ),
               ),
               SizedBox(height: 25),
               //Password TextField
-              TextFormField(
-                keyboardType: TextInputType.visiblePassword,
-                textInputAction: TextInputAction.next,
-                focusNode: _passwordFocusNode,
-                onFieldSubmitted: (v){
-                  _confirmPasswordFocusNode.requestFocus();
+              Container(
+                height: 50,
+                padding: EdgeInsets.only(left: 15),
+                margin: EdgeInsets.symmetric(horizontal: 10),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(40),
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.grey[200],
+                          spreadRadius: 3,
+                          blurRadius: 10,
+                          offset: Offset(1,1)
+                      )
+                    ]
+                ),
+                child: Center(
+                  child: TextFormField(
+                    keyboardType: TextInputType.visiblePassword,
+                    textInputAction: TextInputAction.next,
+                    focusNode: _passwordFocusNode,
+                    onFieldSubmitted: (v){
+                      _confirmPasswordFocusNode.requestFocus();
 
-                },
-                validator: Validator().validatePassword,
-                controller: _passwordEditingController,
-                obscureText: signUpViewModel.isObscurePassword,
-                decoration: InputDecoration(
-                  hintText: StringUtils.passwordText,
-                  errorMaxLines: 2,
-                  hintStyle: TextStyle(color: Colors.grey),
-                  suffixIcon: IconButton(
-                    icon: !signUpViewModel.isObscurePassword
-                        ? Icon(
-                      Icons.visibility,
-                    )
-                        : Icon(
-                      Icons.visibility_off,
-                      color: Theme.of(context).textTheme.body1.color,
-                    ),
-                    onPressed: () {
-                      signUpViewModel.isObscurePassword =
-                      !signUpViewModel.isObscurePassword;
                     },
+                    validator: Validator().validatePassword,
+                    controller: _passwordEditingController,
+                    obscureText: signUpViewModel.isObscurePassword,
+                    decoration: InputDecoration(
+                      hintText: StringUtils.passwordText,
+                      errorMaxLines: 2,
+                      hintStyle: TextStyle(color: Colors.grey),
+                      suffixIcon: IconButton(
+                        icon: !signUpViewModel.isObscurePassword
+                            ? Icon(
+                          Icons.visibility,
+                        )
+                            : Icon(
+                          Icons.visibility_off,
+                          color: Theme.of(context).textTheme.body1.color,
+                        ),
+                        onPressed: () {
+                          signUpViewModel.isObscurePassword =
+                          !signUpViewModel.isObscurePassword;
+                        },
+                      ),
+                    ),
                   ),
                 ),
               ),
               SizedBox(height: 25),
               //Confirm Password TextField
-              TextFormField(
-                keyboardType: TextInputType.visiblePassword,
-                textInputAction: TextInputAction.done,
-                validator: (cp)=>Validator().validateConfirmPassword(_passwordEditingController.text, cp),
-                controller: _confirmPasswordEditingController,
-                focusNode: _confirmPasswordFocusNode,
-                onFieldSubmitted: (v){
-                  _confirmPasswordFocusNode.unfocus();
-                  _handleRegister();
-                },
-                obscureText: signUpViewModel.isObscurePassword,
-                decoration: InputDecoration(
-                  hintText: StringUtils.confirmPasswordText,
-                  hintStyle: TextStyle(color: Colors.grey),
-                  suffixIcon: IconButton(
-                    icon: !signUpViewModel.isObscurePassword
-                        ? Icon(
-                      Icons.visibility,
-                    )
-                        : Icon(
-                      Icons.visibility_off,
-
-                    ),
-                    onPressed: () {
-                      signUpViewModel.isObscurePassword =
-                      !signUpViewModel.isObscurePassword;
+              Container(
+                height: 50,
+                padding: EdgeInsets.only(left: 15),
+                margin: EdgeInsets.symmetric(horizontal: 10),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(40),
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.grey[200],
+                          spreadRadius: 3,
+                          blurRadius: 10,
+                          offset: Offset(1,1)
+                      )
+                    ]
+                ),
+                child: Center(
+                  child: TextFormField(
+                    keyboardType: TextInputType.visiblePassword,
+                    textInputAction: TextInputAction.done,
+                    validator: (cp)=>Validator().validateConfirmPassword(_passwordEditingController.text, cp),
+                    controller: _confirmPasswordEditingController,
+                    focusNode: _confirmPasswordFocusNode,
+                    onFieldSubmitted: (v){
+                      _confirmPasswordFocusNode.unfocus();
+                      _handleRegister();
                     },
+                    obscureText: signUpViewModel.isObscurePassword,
+                    decoration: InputDecoration(
+                      hintText: StringUtils.confirmPasswordText,
+                      hintStyle: TextStyle(color: Colors.grey),
+                      suffixIcon: IconButton(
+                        icon: !signUpViewModel.isObscurePassword
+                            ? Icon(
+                          Icons.visibility,
+                        )
+                            : Icon(
+                          Icons.visibility_off,
+
+                        ),
+                        onPressed: () {
+                          signUpViewModel.isObscurePassword =
+                          !signUpViewModel.isObscurePassword;
+                        },
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -288,6 +377,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
       ],
     );
 
+    Widget _registerNewAccountText(){
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Text('Register for a new account.', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),),
+          SizedBox(height: 10,),
+//          Text('Login to your existing account', style: TextStyle(fontSize: 15, color: Colors.grey[400]),)
+        ],
+      );
+    }
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -297,8 +398,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
             children: <Widget>[
               SizedBox(height: topPadding),
               logo,
-              SizedBox(height: 30),
-              signUpHeader,
+              SizedBox(height: 20),
+              _registerNewAccountText(),
               signUpFrom,
 //              acceptTermAndCondition,
               SizedBox(height: 30),
