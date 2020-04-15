@@ -27,6 +27,9 @@ class _AppDrawerState extends State<AppDrawer> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: <Widget>[
+        SizedBox(
+          height: MediaQuery.of(context).padding.top,
+        ),
 
         Container(
           height: 160,
@@ -76,9 +79,6 @@ class _AppDrawerState extends State<AppDrawer> {
           Text('Job Searcher',style: TextStyle(color: navBarTextColor,fontSize: 18),),
           Text('seeker@jobsearch.com',style: TextStyle(color: navBarTextColor),),
         ],),),
-        SizedBox(
-          height: MediaQuery.of(context).padding.top,
-        ),
 
 
 
@@ -107,6 +107,18 @@ class _AppDrawerState extends State<AppDrawer> {
               ),
 
 
+
+              DrawerListWidget(
+                label: StringUtils.favoriteJobsText,
+                icon: FontAwesomeIcons.heart,
+                isSelected: false,
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+              Divider(
+                  height: 1
+              ),
 
               DrawerListWidget(
                 label: StringUtils.appliedJobsText,
@@ -151,9 +163,6 @@ class _AppDrawerState extends State<AppDrawer> {
               ),
             ],
           ),
-        ),
-        Divider(
-          height: 1
         ),
 
         /// ************ sign out
