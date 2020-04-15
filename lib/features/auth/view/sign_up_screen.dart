@@ -280,6 +280,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     controller: _passwordEditingController,
                     obscureText: signUpViewModel.isObscurePassword,
                     decoration: InputDecoration(
+                      border: InputBorder.none,
                       hintText: StringUtils.passwordText,
                       errorMaxLines: 2,
                       hintStyle: TextStyle(color: Colors.grey),
@@ -332,6 +333,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     },
                     obscureText: signUpViewModel.isObscurePassword,
                     decoration: InputDecoration(
+                      border: InputBorder.none,
                       hintText: StringUtils.confirmPasswordText,
                       hintStyle: TextStyle(color: Colors.grey),
                       suffixIcon: IconButton(
