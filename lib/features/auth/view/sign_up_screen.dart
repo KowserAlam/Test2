@@ -146,7 +146,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
             children: <Widget>[
               SizedBox(height: 25),
               Container(
-                height: 50,
                 padding: EdgeInsets.only(left: 15),
                 margin: EdgeInsets.symmetric(horizontal: 10),
                 decoration: BoxDecoration(
@@ -181,7 +180,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
               //Email
               SizedBox(height: 25),
               Container(
-                height: 50,
                 padding: EdgeInsets.only(left: 15),
                 margin: EdgeInsets.symmetric(horizontal: 10),
                 decoration: BoxDecoration(
@@ -217,7 +215,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
               //Mobile TextField
 
               Container(
-                height: 50,
                 padding: EdgeInsets.only(left: 15),
                 margin: EdgeInsets.symmetric(horizontal: 10),
                 decoration: BoxDecoration(
@@ -252,7 +249,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
               SizedBox(height: 25),
               //Password TextField
               Container(
-                height: 50,
                 padding: EdgeInsets.only(left: 15),
                 margin: EdgeInsets.symmetric(horizontal: 10),
                 decoration: BoxDecoration(
@@ -305,7 +301,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
               SizedBox(height: 25),
               //Confirm Password TextField
               Container(
-                height: 50,
                 padding: EdgeInsets.only(left: 15),
                 margin: EdgeInsets.symmetric(horizontal: 10),
                 decoration: BoxDecoration(
@@ -384,7 +379,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          Text('Register for a new account.', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),),
+          Text('Sign up', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),),
           SizedBox(height: 10,),
 //          Text('Login to your existing account', style: TextStyle(fontSize: 15, color: Colors.grey[400]),)
         ],
