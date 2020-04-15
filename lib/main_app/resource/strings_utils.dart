@@ -145,7 +145,7 @@ class StringUtils {
   static var experienceText = "Professional Experiences";
   static var educationsText = "Educations";
   static var skillsText = "Skills";
-  static var personalSkillText = "Personal Skills";
+  static var professionalSkillText = "Professional Skills";
   static var projectsText = "Portfolio";
   static var certificationsText = "Certifications";
   static var membershipsText = "Memberships";

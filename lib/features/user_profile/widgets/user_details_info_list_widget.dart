@@ -112,7 +112,7 @@ class _UserDetailsInfoListWidgetState extends State<UserDetailsInfoListWidget> {
 
         return UserInfoListItem(
           icon: FontAwesomeIcons.brain,
-          label: StringUtils.personalSkillText,
+          label: StringUtils.professionalSkillText,
           onTapAddNewAction: () {
             Navigator.push(
                 context,

@@ -80,7 +80,7 @@ class _AddEditTechnicalSkillState extends State<AddEditTechnicalSkill>
       child: Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
-          title: Text(StringUtils.personalSkillText),
+          title: Text(StringUtils.professionalSkillText),
           actions: <Widget>[
             EditScreenSaveButton(
               text: "Save",
