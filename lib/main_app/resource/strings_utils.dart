@@ -118,6 +118,8 @@ class StringUtils {
 
   static String durationText = "Duration";
   static String settingsText = "Settings";
+  static String skillCheckText = "Skill Check";
+  static String appliedJobsText = "Applied Jobs";
   static String signOutText = "Sign out";
 
   static String darkModeText = "DarkMode";

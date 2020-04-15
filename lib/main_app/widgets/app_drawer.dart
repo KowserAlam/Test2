@@ -21,17 +21,43 @@ class AppDrawer extends StatefulWidget {
 
 class _AppDrawerState extends State<AppDrawer> {
   var selectedIndex = 0;
+  var navBarTextColor = Colors.white;
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: <Widget>[
-        SizedBox(
-          height: MediaQuery.of(context).padding.top,
-        ),
 
-        ListTile(
-          leading: Container(
+        Container(
+          height: 160,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(kUserProfileCoverImageAsset),fit: BoxFit.cover
+            ),
+          ),
+          child: Column(children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+            IconButton(icon: Icon(Icons.settings,),color: navBarTextColor,onPressed: (){
+              Navigator.pop(context);
+              Navigator.push(
+                  context,
+                  CupertinoPageRoute(
+                      builder: (context) => ConfigScreen()));
+            },),
+            Container(
+              child: IconButton(
+                icon: Icon(Icons.menu),
+    color: navBarTextColor,
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ),
+          ],),
+          //profile image
+          Container(
             padding: const EdgeInsets.all(4.0),
             height: 50,
             width: 50,
@@ -47,95 +73,93 @@ class _AppDrawerState extends State<AppDrawer> {
               borderRadius: BorderRadius.circular(100),
             ),
           ),
-          title: Text(
-            "",
-            overflow: TextOverflow.ellipsis,
-          ),
-          subtitle: Text(
-         "",
-            overflow: TextOverflow.ellipsis,
-          ),
-          trailing: Container(
-            child: IconButton(
-              icon: Icon(Icons.menu),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
-          ),
+          Text('Job Searcher',style: TextStyle(color: navBarTextColor,fontSize: 18),),
+          Text('seeker@jobsearch.com',style: TextStyle(color: navBarTextColor),),
+        ],),),
+        SizedBox(
+          height: MediaQuery.of(context).padding.top,
         ),
 
-        /// top menu bar icon for pop the app Drawer
-
-        Expanded(
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
 
 
-                ///Home / Jobs index = 0
 
-                DrawerListWidget(
-                  label: StringUtils.homText,
-                  icon: Icons.home,
-                  isSelected: widget.routeName == 'job_list',
-                  onTap: () {
-                    Navigator.of(context)
-                        .pushReplacement(CupertinoPageRoute(builder: (context)=>JobListScreen()));
+        SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
 
-                  },
-                ),
 
-                Divider(
+              ///Home / Jobs index = 0
+
+              DrawerListWidget(
+                label: StringUtils.jobListText,
+                icon: FontAwesomeIcons.clipboardList,
+                isSelected: false,
+                onTap: () {
+                  Navigator.of(context)
+                      .pushReplacement(CupertinoPageRoute(builder: (context)=>JobListScreen()));
+
+                },
+              ),
+
+              Divider(
+                height: 1
+              ),
+
+
+
+              DrawerListWidget(
+                label: StringUtils.appliedJobsText,
+                icon: FontAwesomeIcons.checkCircle,
+                isSelected: false,
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+              Divider(
                   height: 1
-                ),
+              ),
 
-                ///Profile index = 4
-                DrawerListWidget(
-                  label: StringUtils.profileText,
-                  icon: FontAwesomeIcons.userTie,
-                  isSelected: false,
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.push(
-                        context,
-                        CupertinoPageRoute(
-                            builder: (context) => ProfileScreen()));
-                  },
-                ),
+              DrawerListWidget(
+                label: StringUtils.skillCheckText,
+                icon: FontAwesomeIcons.list,
+                isSelected: false,
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+              Divider(
+                  height: 1
+              ),
 
-                Divider(
-                  height: 1,
-                ),
+              ///Profile
+              DrawerListWidget(
+                label: StringUtils.profileText,
+                icon: FontAwesomeIcons.infoCircle,
+                isSelected: false,
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                          builder: (context) => ProfileScreen()));
+                },
+              ),
 
-                ///Index not required !
-                ///Settings
-                DrawerListWidget(
-                  label: StringUtils.settingsText,
-                  icon: FontAwesomeIcons.cog,
-                  isSelected: false,
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.push(
-                        context,
-                        CupertinoPageRoute(
-                            builder: (context) => ConfigScreen()));
-                  },
-                ),
-              ],
-            ),
+              Divider(
+                height: 1,
+              ),
+            ],
           ),
         ),
         Divider(
-          height: 1,
+          height: 1
         ),
 
         /// ************ sign out
         Padding(
           padding: const EdgeInsets.only(bottom: 8),
           child: DrawerListWidget(
-            color: Colors.redAccent,
             label: StringUtils.signOutText,
             icon: FontAwesomeIcons.signOutAlt,
             isSelected: false,
@@ -147,6 +171,9 @@ class _AppDrawerState extends State<AppDrawer> {
                   (_) => false);
             },
           ),
+        ),
+        Divider(
+            height: 1
         ),
       ],
     );
@@ -192,7 +219,7 @@ class DrawerListWidget extends StatelessWidget {
                 color: color ??
                     (isSelected
                         ? Theme.of(context).primaryColor
-                        : Theme.of(context).iconTheme.color),
+                        : Colors.grey[700]),
               ),
               title: Text(
                 label,
