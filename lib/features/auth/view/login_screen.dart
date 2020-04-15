@@ -140,7 +140,6 @@ class _LoginScreenState extends State<LoginScreen> {
     var loginProvider = Provider.of<LoginViewModel>(context);
     return Center(
       child: Container(
-        height: 50,
         margin: EdgeInsets.symmetric(horizontal: 10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(40),
@@ -179,7 +178,6 @@ class _LoginScreenState extends State<LoginScreen> {
       builder: (BuildContext context, loginProvider, Widget child) {
         bool isObscure = loginProvider.isObscurePassword;
         return Container(
-          height: 50,
           margin: EdgeInsets.symmetric(horizontal: 10),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(40),
