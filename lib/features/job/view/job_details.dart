@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
@@ -33,6 +35,7 @@ class _JobDetailsState extends State<JobDetails> {
     TextStyle descriptionFontStyle = TextStyle(fontSize: 13);
     TextStyle topSideDescriptionFontStyle = TextStyle(fontSize: 14,color: Colors.grey[600]);
     TextStyle descriptionFontStyleBold = TextStyle(fontSize: 12,fontWeight: FontWeight.bold);
+    double fontAwesomeIconSize = 15;
 
     Text jobSummeryRichText(String title, String description){
       return Text.rich(
@@ -115,6 +118,8 @@ class _JobDetailsState extends State<JobDetails> {
         children: <Widget>[
           Row(
             children: <Widget>[
+              Transform.rotate(angle: pi,child: Transform(alignment:Alignment.center,transform: Matrix4.rotationY(pi),child: FaIcon(FontAwesomeIcons.alignLeft, size: fontAwesomeIconSize,))),
+              SizedBox(width: 5,),
               Text(StringUtils.jobDescriptionTitle, style: sectionTitleFont,)
             ],
           ),
@@ -131,6 +136,8 @@ class _JobDetailsState extends State<JobDetails> {
         children: <Widget>[
           Row(
             children: <Widget>[
+              FaIcon(FontAwesomeIcons.bolt, size: fontAwesomeIconSize,),
+              SizedBox(width: 5,),
               Text(StringUtils.responsibilitiesTitle, style: sectionTitleFont,)
             ],
           ),
@@ -147,6 +154,8 @@ class _JobDetailsState extends State<JobDetails> {
         children: <Widget>[
           Row(
             children: <Widget>[
+              FaIcon(FontAwesomeIcons.book, size: fontAwesomeIconSize,),
+              SizedBox(width: 5,),
               Text(StringUtils.educationTitle, style: sectionTitleFont,)
             ],
           ),
@@ -163,6 +172,8 @@ class _JobDetailsState extends State<JobDetails> {
         children: <Widget>[
           Row(
             children: <Widget>[
+              FaIcon(FontAwesomeIcons.moneyBillWave, size: fontAwesomeIconSize,),
+              SizedBox(width: 5,),
               Text(StringUtils.salaryTitle, style: sectionTitleFont,)
             ],
           ),
@@ -179,6 +190,8 @@ class _JobDetailsState extends State<JobDetails> {
         children: <Widget>[
           Row(
             children: <Widget>[
+              FaIcon(FontAwesomeIcons.gift, size: fontAwesomeIconSize,),
+              SizedBox(width: 5,),
               Text(StringUtils.otherBenefitsTitle, style: sectionTitleFont,)
             ],
           ),
@@ -189,91 +202,102 @@ class _JobDetailsState extends State<JobDetails> {
         ],
       ),
     );
-    var jobSummery = Container(
-      width: double.infinity,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(5),
-        gradient: isDarkMode?AppTheme.darkLinearGradient:AppTheme.lightLinearGradient,
-        border: Border.all(width: 1, color: Colors.grey[300])
-      ),
-      padding: EdgeInsets.all(10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Row(
+    var jobSummary = Column(
+      children: <Widget>[
+        Row(
+          children: <Widget>[
+            Icon(Icons.list, color: Colors.black,),
+            Text(StringUtils.jobSummeryTitle,style: sectionTitleFont,),
+          ],
+        ),
+        SizedBox(height: 10,),
+        Container(
+          width: double.infinity,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5),
+              //gradient: isDarkMode?AppTheme.darkLinearGradient:AppTheme.lightLinearGradient,
+              border: Border.all(width: 1, color: Colors.grey[300]),
+              color: Colors.grey[200]
+          ),
+          padding: EdgeInsets.all(10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Icon(Icons.event_note, color: Colors.black,),
-              Text(StringUtils.jobSummeryTitle,style: sectionTitleFont,),
+              Row(
+                children: <Widget>[
+                  jobSummeryRichText(StringUtils.publishedOn, widget.jobModel.createdDate != null
+                      ? widget.jobModel.createdDate.toString():StringUtils.unspecifiedText)
+                ],
+              ),
+              SizedBox(height: 5,),
+              Row(
+                children: <Widget>[
+                  jobSummeryRichText(StringUtils.vacancy, widget.jobModel.vacancy != null
+                      ? widget.jobModel.vacancy.toString()
+                      : StringUtils.unspecifiedText)
+                ],
+              ),
+              SizedBox(height: 5,),
+              Row(
+                children: <Widget>[
+                  jobSummeryRichText(StringUtils.employmentStatus, widget.jobModel.employmentStatus != null
+                      ? widget.jobModel.employmentStatus
+                      : StringUtils.unspecifiedText)
+                ],
+              ),
+              SizedBox(height: 5,),
+              Row(
+                children: <Widget>[
+                  jobSummeryRichText(StringUtils.yearsOfExperience, widget.jobModel.experience != null
+                      ? widget.jobModel.experience.toString()
+                      : StringUtils.unspecifiedText)
+                ],
+              ),
+              SizedBox(height: 5,),
+              Container(child: jobSummeryRichText(StringUtils.jobLocation, widget.jobModel.jobLocation != null
+                  ? widget.jobModel.jobLocation.toString()
+                  : StringUtils.unspecifiedText),),
+              SizedBox(height: 5,),
+              Row(
+                children: <Widget>[
+                  jobSummeryRichText(StringUtils.salary, widget.jobModel.salary != null
+                      ? widget.jobModel.salary.toString()
+                      : StringUtils.unspecifiedText)
+                ],
+              ),
+              SizedBox(height: 5,),
+              Row(
+                children: <Widget>[
+                  jobSummeryRichText(StringUtils.gender, widget.jobModel.gender != null
+                      ? widget.jobModel.gender.toString()
+                      : StringUtils.unspecifiedText)
+                ],
+              ),
+              SizedBox(height: 5,),
+              Row(
+                children: <Widget>[
+                  jobSummeryRichText(StringUtils.applicationDeadline, widget.jobModel.applicationDeadline != null
+                      ? widget.jobModel.applicationDeadline.toString()
+                      : StringUtils.unspecifiedText)
+                ],
+              ),
+              SizedBox(height: 5,),
             ],
           ),
-          Divider(height: 15,),
-          Row(
-            children: <Widget>[
-              jobSummeryRichText(StringUtils.publishedOn, widget.jobModel.createdDate != null
-                  ? widget.jobModel.createdDate.toString():StringUtils.unspecifiedText)
-            ],
-          ),
-          SizedBox(height: 5,),
-          Row(
-            children: <Widget>[
-              jobSummeryRichText(StringUtils.vacancy, widget.jobModel.vacancy != null
-                  ? widget.jobModel.vacancy.toString()
-                  : StringUtils.unspecifiedText)
-            ],
-          ),
-          SizedBox(height: 5,),
-          Row(
-            children: <Widget>[
-              jobSummeryRichText(StringUtils.employmentStatus, widget.jobModel.employmentStatus != null
-                  ? widget.jobModel.employmentStatus
-                  : StringUtils.unspecifiedText)
-            ],
-          ),
-          SizedBox(height: 5,),
-          Row(
-            children: <Widget>[
-              jobSummeryRichText(StringUtils.yearsOfExperience, widget.jobModel.experience != null
-                  ? widget.jobModel.experience.toString()
-                  : StringUtils.unspecifiedText)
-            ],
-          ),
-          SizedBox(height: 5,),
-          Container(child: jobSummeryRichText(StringUtils.jobLocation, widget.jobModel.jobLocation != null
-              ? widget.jobModel.jobLocation.toString()
-              : StringUtils.unspecifiedText),),
-          SizedBox(height: 5,),
-          Row(
-            children: <Widget>[
-              jobSummeryRichText(StringUtils.salary, widget.jobModel.salary != null
-                  ? widget.jobModel.salary.toString()
-                  : StringUtils.unspecifiedText)
-            ],
-          ),
-          SizedBox(height: 5,),
-          Row(
-            children: <Widget>[
-              jobSummeryRichText(StringUtils.gender, widget.jobModel.gender != null
-                  ? widget.jobModel.gender.toString()
-                  : StringUtils.unspecifiedText)
-            ],
-          ),
-          SizedBox(height: 5,),
-          Row(
-            children: <Widget>[
-              jobSummeryRichText(StringUtils.applicationDeadline, widget.jobModel.applicationDeadline != null
-                  ? widget.jobModel.applicationDeadline.toString()
-                  : StringUtils.unspecifiedText)
-            ],
-          ),
-          SizedBox(height: 5,),
-        ],
-      ),
+        )
+      ],
     );
     var requiredSkills = Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(StringUtils.requiredSkills, style: sectionTitleFont,),
+          Row(
+            children: <Widget>[
+              FaIcon(FontAwesomeIcons.tools, size: fontAwesomeIconSize,),
+              SizedBox(width: 5,),
+              Text(StringUtils.requiredSkills, style: sectionTitleFont,)
+            ],
+          ),
           SizedBox(height: 5,),
         ],
       ),
@@ -282,7 +306,7 @@ class _JobDetailsState extends State<JobDetails> {
     var benefits = Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        Row(mainAxisAlignment: MainAxisAlignment.center,children: <Widget>[Text(StringUtils.benefits, style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),)],),
+        Row(mainAxisAlignment: MainAxisAlignment.center,children: <Widget>[Text(StringUtils.benefitSectionTitle, style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),)],),
         Divider(height: 20,),
         salary,
         spaceBetweenSections,
@@ -367,29 +391,51 @@ class _JobDetailsState extends State<JobDetails> {
         children: <Widget>[
           Container(
             padding: EdgeInsets.all(10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                dividerUpperSide,
-                Divider(height: 20,),
-                betweenDividerSection,
-                Divider(height: 20,),
-                jobSummery,
-                spaceBetweenSections,
-                description,
-                spaceBetweenSections,
-                responsibilities,
-                spaceBetweenSections,
-                requiredSkills,
-                spaceBetweenSections,
-                education,
-                spaceBetweenSections,
-                benefits,
-                Divider(height: 20,),
-                betweenDividerSection,
-                Divider(height: 20,),
-                widget.jobModel.webAddress!=null?jobSource:null
-              ],
+            color: Colors.grey[200],
+            child: Container(
+              padding: EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(3),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey[300],
+                    spreadRadius: 1,
+                    blurRadius: 10,
+                    offset: Offset(1,1)
+                  ),
+                  BoxShadow(
+                      color: Colors.grey[400],
+                      spreadRadius: 1,
+                      blurRadius: 10,
+                      offset: Offset(-1,-1)
+                  )
+                ]
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  dividerUpperSide,
+                  Divider(height: 20,),
+                  betweenDividerSection,
+                  Divider(height: 20,),
+                  jobSummary,
+                  spaceBetweenSections,
+                  description,
+                  spaceBetweenSections,
+                  responsibilities,
+                  spaceBetweenSections,
+                  requiredSkills,
+                  spaceBetweenSections,
+                  education,
+                  spaceBetweenSections,
+                  benefits,
+                  Divider(height: 20,),
+                  betweenDividerSection,
+                  Divider(height: 20,),
+                  widget.jobModel.webAddress!=null?jobSource:null
+                ],
+              ),
             ),
           ),
         ],
