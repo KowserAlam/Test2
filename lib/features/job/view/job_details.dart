@@ -306,12 +306,18 @@ class _JobDetailsState extends State<JobDetails> {
     var benefits = Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        Row(mainAxisAlignment: MainAxisAlignment.center,children: <Widget>[Text(StringUtils.benefitSectionTitle, style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),)],),
-        Divider(height: 20,),
+        SizedBox(height: 5,),
         salary,
         spaceBetweenSections,
         otherBenefits
       ],
+    );
+
+    var benefitsHeader = Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        Row(mainAxisAlignment: MainAxisAlignment.center,children: <Widget>[Text(StringUtils.benefitSectionTitle, style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),)],),
+        ],
     );
 
     var betweenDividerSection = Row(
@@ -392,50 +398,100 @@ class _JobDetailsState extends State<JobDetails> {
           Container(
             padding: EdgeInsets.all(10),
             color: Colors.grey[200],
-            child: Container(
-              padding: EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(3),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey[300],
-                    spreadRadius: 1,
-                    blurRadius: 10,
-                    offset: Offset(1,1)
+            child: Column(
+              children: <Widget>[
+                Container(
+                  padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(topLeft: Radius.circular(3), topRight: Radius.circular(3))
                   ),
-                  BoxShadow(
-                      color: Colors.grey[400],
-                      spreadRadius: 1,
-                      blurRadius: 10,
-                      offset: Offset(-1,-1)
-                  )
-                ]
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  dividerUpperSide,
-                  Divider(height: 20,),
-                  betweenDividerSection,
-                  Divider(height: 20,),
-                  jobSummary,
-                  spaceBetweenSections,
-                  description,
-                  spaceBetweenSections,
-                  responsibilities,
-                  spaceBetweenSections,
-                  requiredSkills,
-                  spaceBetweenSections,
-                  education,
-                  spaceBetweenSections,
-                  benefits,
-                  Divider(height: 20,),
-                  betweenDividerSection,
-                  Divider(height: 20,),
-                  widget.jobModel.webAddress!=null?jobSource:null
-                ],
-              ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      dividerUpperSide,
+                      SizedBox(height: 10,),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 2,),
+                Container(
+                  padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      betweenDividerSection,
+                    ],
+                  ),
+                ),
+                SizedBox(height: 2,),
+                Container(
+                  padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      jobSummary,
+                      spaceBetweenSections,
+                      description,
+                      spaceBetweenSections,
+                      responsibilities,
+                      spaceBetweenSections,
+                      requiredSkills,
+                      spaceBetweenSections,
+                      education,
+                      spaceBetweenSections,
+                      benefitsHeader,
+                    ],
+                  ),
+                ),
+                SizedBox(height: 2,),
+                Container(
+                  padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      benefits,
+                      SizedBox(height: 5,),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 2,),
+                Container(
+                  padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      betweenDividerSection,
+                    ],
+                  ),
+                ),
+                SizedBox(height: 2,),
+                Container(
+                  padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(bottomLeft: Radius.circular(3),bottomRight: Radius.circular(3)),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      widget.jobModel.webAddress!=null?jobSource:null
+                    ],
+                  ),
+                )
+              ],
             ),
           ),
         ],
