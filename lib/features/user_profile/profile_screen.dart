@@ -10,7 +10,6 @@ import 'package:p7app/features/user_profile/widgets/educations_list_item.dart';
 import 'package:p7app/features/user_profile/widgets/experience_list_item.dart';
 import 'package:p7app/features/user_profile/widgets/personal_info_widget.dart';
 import 'package:p7app/features/user_profile/widgets/technical_skill_list_item.dart';
-import 'package:p7app/features/user_profile/widgets/user_details_info_list_widget.dart';
 import 'package:p7app/features/user_profile/widgets/user_info_list_item.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
 import 'package:p7app/main_app/resource/const.dart';
