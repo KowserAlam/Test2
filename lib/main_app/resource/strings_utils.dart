@@ -1,3 +1,6 @@
+
+
+import 'package:p7app/features/user_profile/models/reference_data.dart';
 import 'package:p7app/features/user_profile/views/screens/edit_profile_screen.dart';
 
 class StringUtils {
@@ -158,6 +161,12 @@ class StringUtils {
 
   static String saveText = "Save";
 
+  //Reference Screen
+  static var referenceNameText = "Name";
+  static var referenceCurrentPositionText = "Current Position";
+  static var referenceEmailText = "Email";
+  static var referenceMobileText = "Mobile No";
+
   ///SharedPreferences key Strings
 
   static const String isDarkModeOn = "isDarkModeOn";
@@ -172,6 +181,9 @@ class StringUtils {
   static String joiningDateText = "Joining Date";
   static String leavingDateText = "Leaving Date";
   static String currentlyWorkingHereText = "Currently working here";
+
+
+
 
   /// Add or Edit New Education
 
@@ -243,8 +255,8 @@ class StringUtils {
   static var fatherNameText = "Father name";
   static var motherNameText = "Mother name";
   static var dateOfBirthText = "Date of Birth";
-  static var permanentAddersText = "Permanent adders";
-  static var currentAddersText = "Current adders";
+  static var permanentAddressText = "Permanent address";
+  static var currentAddressText = "Current address";
   static var religionText = "Religion";
   static var genderText = "Gender";
   static var nationalityText = "Nationality";

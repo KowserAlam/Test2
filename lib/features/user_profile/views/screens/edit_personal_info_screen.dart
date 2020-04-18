@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 import 'package:p7app/features/user_profile/styles/profile_common_style.dart';
+import 'package:p7app/features/user_profile/views/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:p7app/main_app/util/validator.dart';
@@ -12,12 +13,10 @@ class EditPersonalInfoScreen extends StatefulWidget {
 }
 
 class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
-  static final _formKey = new GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
-    var height = MediaQuery.of(context).size.height;
-    var width = MediaQuery.of(context).size.width;
-
     //TextStyle
     TextStyle titleFont = TextStyle(fontSize: 15, color: Colors.black, fontWeight: FontWeight.bold);
     TextStyle textFieldFont = TextStyle(fontSize: 15, color: Colors.black);
@@ -84,6 +83,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
     var genderSelection = Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
+        SizedBox(width: 5,),
         Text('Gender:',style: titleFont,),
         Row(
           mainAxisSize: MainAxisSize.max,
@@ -114,239 +114,6 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
         ),
       ],
     );
-    var fatherNameInput = Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text('Father\'s name:', style: titleFont,),
-        SizedBox(height: 5,),
-        Container(
-          height: 50,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.grey[200],
-                    spreadRadius: 3,
-                    blurRadius: 10,
-                    offset: Offset(1,1)
-                )
-              ]
-          ),
-          child: Center(
-            child: TextFormField(
-              keyboardType: TextInputType.text,
-              focusNode: _fatherNameFocusNode,
-              textInputAction: TextInputAction.next,
-              controller: _fatherNameController,
-            decoration: commonInputDecoration,
-            style: textFieldFont,
-            validator: (val)=>Validator().nullFieldValidate(val.trim()),
-              onFieldSubmitted: (s) {
-                _fatherNameFocusNode.unfocus();
-                FocusScope.of(context)
-                    .requestFocus(_motherNameFocusNode);
-              },
-            ),
-          ),
-        )
-      ],
-    );
-    var motherNameInput = Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text('Mother\'s name:', style: titleFont,),
-        SizedBox(height: 5,),
-        Container(
-          height: 50,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.grey[200],
-                    spreadRadius: 3,
-                    blurRadius: 10,
-                    offset: Offset(1,1)
-                )
-              ]
-          ),
-          child: Center(
-            child: TextFormField(
-              keyboardType: TextInputType.emailAddress,
-              focusNode: _motherNameFocusNode,
-              textInputAction: TextInputAction.next,
-              controller: _motherNameController,
-              decoration: commonInputDecoration,
-              style: textFieldFont,
-              validator: (val)=>Validator().nullFieldValidate(val.trim()),
-//              onSaved: (val) => loginProvider.email = val.trim(),
-//              onFieldSubmitted: (s) {
-//                _emailFocus.unfocus();
-//                FocusScope.of(_scaffoldKey.currentState.context)
-//                    .requestFocus(_passwordFocus);
-//              },
-            ),
-          ),
-        )
-      ],
-    );
-    var nationalityNameInput = Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text('Nationality:', style: titleFont,),
-        SizedBox(height: 5,),
-        Container(
-          height: 50,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.grey[200],
-                    spreadRadius: 3,
-                    blurRadius: 10,
-                    offset: Offset(1,1)
-                )
-              ]
-          ),
-          child: Center(
-            child: TextFormField(
-              keyboardType: TextInputType.emailAddress,
-              focusNode: _nationalityFocusNode,
-              textInputAction: TextInputAction.next,
-              controller: _nationalityController,
-              decoration: commonInputDecoration,
-              style: textFieldFont,
-              validator: (val)=>Validator().nullFieldValidate(val.trim()),
-//              onSaved: (val) => loginProvider.email = val.trim(),
-//              onFieldSubmitted: (s) {
-//                _emailFocus.unfocus();
-//                FocusScope.of(_scaffoldKey.currentState.context)
-//                    .requestFocus(_passwordFocus);
-//              },
-            ),
-          ),
-        )
-      ],
-    );
-    var religionNameInput = Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text('Religion:', style: titleFont,),
-        SizedBox(height: 5,),
-        Container(
-          height: 50,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.grey[200],
-                    spreadRadius: 3,
-                    blurRadius: 10,
-                    offset: Offset(1,1)
-                )
-              ]
-          ),
-          child: Center(
-            child: TextFormField(
-              keyboardType: TextInputType.emailAddress,
-              focusNode: _religionFocusNode,
-              textInputAction: TextInputAction.next,
-              controller: _religionController,
-              decoration: commonInputDecoration,
-              style: textFieldFont,
-              validator: (val)=>Validator().nullFieldValidate(val.trim()),
-//              onSaved: (val) => loginProvider.email = val.trim(),
-//              onFieldSubmitted: (s) {
-//                _emailFocus.unfocus();
-//                FocusScope.of(_scaffoldKey.currentState.context)
-//                    .requestFocus(_passwordFocus);
-//              },
-            ),
-          ),
-        )
-      ],
-    );
-    var currentAddressNameInput = Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text('Current Address:', style: titleFont,),
-        SizedBox(height: 5,),
-        Container(
-          height: 50,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.grey[200],
-                    spreadRadius: 3,
-                    blurRadius: 10,
-                    offset: Offset(1,1)
-                )
-              ]
-          ),
-          child: Center(
-            child: TextFormField(
-              keyboardType: TextInputType.emailAddress,
-              focusNode: _currentAddressFocusNode,
-              textInputAction: TextInputAction.next,
-              controller: _currentAddressController,
-              decoration: commonInputDecoration,
-              style: textFieldFont,
-              validator: (val)=>Validator().nullFieldValidate(val.trim()),
-//              onSaved: (val) => loginProvider.email = val.trim(),
-//              onFieldSubmitted: (s) {
-//                _emailFocus.unfocus();
-//                FocusScope.of(_scaffoldKey.currentState.context)
-//                    .requestFocus(_passwordFocus);
-//              },
-            ),
-          ),
-        )
-      ],
-    );
-    var permanentAddressNameInput = Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text('Permanent Address:', style: titleFont,),
-        SizedBox(height: 5,),
-        Container(
-          height: 50,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.grey[200],
-                    spreadRadius: 3,
-                    blurRadius: 10,
-                    offset: Offset(1,1)
-                )
-              ]
-          ),
-          child: Center(
-            child: TextFormField(
-              keyboardType: TextInputType.emailAddress,
-              focusNode: _permanentAddressFocusNode,
-              textInputAction: TextInputAction.next,
-              controller: _permanentAddressController,
-              decoration: commonInputDecoration,
-              style: textFieldFont,
-              validator: (val)=>Validator().nullFieldValidate(val.trim()),
-//              onSaved: (val) => loginProvider.email = val.trim(),
-//              onFieldSubmitted: (s) {
-//                _emailFocus.unfocus();
-//                FocusScope.of(_scaffoldKey.currentState.context)
-//                    .requestFocus(_passwordFocus);
-//              },
-            ),
-          ),
-        )
-      ],
-    );
     var saveButton = Row(
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.center,
@@ -363,100 +130,6 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
       )],
     );
 
-    _showDatePicker(context) {
-      //var userProfileViewModel = Provider.of<UserProfileViewModel>(context,listen: false);
-      var initialDate = DateTime.now().subtract(Duration(days: 356 * 18));
-//      if (userProfileViewModel.user.dateOfBirth == null) {
-//        initialDate = DateTime.now().subtract(Duration(days: 356 * 18));
-//        userProfileViewModel.user.dateOfBirth = initialDate;
-//        setState(() {});
-//      } else {
-//        initialDate = userProfileViewModel.user.dateOfBirth;
-//      }
-
-      showDialog(
-          context: context,
-          builder: (context) {
-            return Center(
-              child: Container(
-                height: MediaQuery.of(context).size.height / 2,
-                width: MediaQuery.of(context).size.width / 1.3,
-                child: Material(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: <Widget>[
-                      Expanded(
-                        child: CupertinoTheme(
-                          data: CupertinoThemeData(),
-                          child: CupertinoDatePicker(
-                            initialDateTime: initialDate,
-                            mode: CupertinoDatePickerMode.date,
-                            onDateTimeChanged: (date) {
-//                              var user = userProfileViewModel.user;
-//                              user.dateOfBirth = date;
-//                              userProfileViewModel.user = user;
-                            },
-                          ),
-                        ),
-                      ),
-                      InkWell(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Icon(
-                              Icons.done,
-                              color: Theme.of(context).primaryColor,
-                            ),
-                          ),
-                          onTap: () {
-                            Navigator.pop(context);
-                          }),
-                    ],
-                  ),
-                ),
-              ),
-            );
-          });
-    };
-    var dob = Material(
-      borderRadius: BorderRadius.circular(10),
-      color: Colors.transparent,
-
-      child: Padding(
-        padding: EdgeInsets.symmetric(
-            horizontal: 0),
-        child: InkWell(
-          onTap: () {
-            _showDatePicker(context);
-          },
-          child: TextFormField(
-//            controller: userProfileViewModel.user.dateOfBirth != null
-//                ? TextEditingController(
-//                text: DateFormat("yMMMd").format(
-//                    userProfileViewModel.user.dateOfBirth))
-//                : TextEditingController(),
-            enabled: false,
-            decoration: InputDecoration(
-              disabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide:
-                BorderSide(color: Colors.grey, width: 1),
-              ),
-              border: InputBorder.none,
-              labelStyle: TextStyle(
-                  color: Theme.of(context).textTheme.title.color),
-              hintStyle:
-              TextStyle(color: Colors.grey.withOpacity(0.5)),
-              labelText: 'Date of birth',
-              hintText: 'Date of birth',
-            ),
-          ),
-        ),
-      ),
-    );
-
-
-
-
     return Scaffold(
       appBar: AppBar(
         title: Text(StringUtils.personalInfoText),
@@ -464,15 +137,123 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
         child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              SizedBox(height: 10,),
-              dob,
-              spaceBetweenFields,
-              //buildForm(context),
-              saveButton
-            ],
+          child: Form(
+            key: _formKey,
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  //Gender
+                  genderSelection,
+                  spaceBetweenFields,
+                  //Father's Name
+                  CustomTextFormField(
+                    validator: Validator().nullFieldValidate,
+                    focusNode: _fatherNameFocusNode,
+                    textInputAction: TextInputAction.next,
+                    onFieldSubmitted: (a) {
+                      FocusScope.of(context)
+                          .requestFocus(_motherNameFocusNode);
+                    },
+                    controller: _fatherNameController,
+                    labelText: StringUtils.fatherNameText,
+                    hintText: StringUtils.fatherNameText,
+                  ),
+                  spaceBetweenFields,
+                  //Mother's Name
+                  CustomTextFormField(
+                    validator: Validator().nullFieldValidate,
+                    focusNode: _motherNameFocusNode,
+                    textInputAction: TextInputAction.next,
+                    onFieldSubmitted: (a) {
+                      FocusScope.of(context)
+                          .requestFocus(_currentAddressFocusNode);
+                    },
+                    controller: _motherNameController,
+                    labelText: StringUtils.motherNameText,
+                    hintText: StringUtils.motherNameText,
+                  ),
+                  spaceBetweenFields,
+                  //Current Address
+                  CustomTextFormField(
+                    validator: Validator().nullFieldValidate,
+                    focusNode: _currentAddressFocusNode,
+                    textInputAction: TextInputAction.next,
+                    onFieldSubmitted: (a) {
+                      FocusScope.of(context)
+                          .requestFocus(_permanentAddressFocusNode);
+                    },
+                    controller: _currentAddressController,
+                    labelText: StringUtils.currentAddressText,
+                    hintText: StringUtils.currentAddressText,
+                  ),
+                  spaceBetweenFields,
+                  //Permanent Address
+                  CustomTextFormField(
+                    validator: Validator().nullFieldValidate,
+                    focusNode: _permanentAddressFocusNode,
+                    textInputAction: TextInputAction.next,
+                    onFieldSubmitted: (a) {
+                      FocusScope.of(context)
+                          .requestFocus(_nationalityFocusNode);
+                    },
+                    controller: _permanentAddressController,
+                    labelText: StringUtils.permanentAddressText,
+                    hintText: StringUtils.permanentAddressText,
+                  ),
+                  spaceBetweenFields,
+                  //Nationality
+                  CustomTextFormField(
+                    validator: Validator().nullFieldValidate,
+                    focusNode: _nationalityFocusNode,
+                    textInputAction: TextInputAction.next,
+                    onFieldSubmitted: (a) {
+                      FocusScope.of(context)
+                          .requestFocus(_religionFocusNode);
+                    },
+                    controller: _nationalityController,
+                    labelText: StringUtils.nationalityText,
+                    hintText: StringUtils.nationalityText,
+                  ),
+                  spaceBetweenFields,
+                  //Religion
+                  CustomTextFormField(
+                    validator: Validator().nullFieldValidate,
+                    focusNode: _religionFocusNode,
+                    textInputAction: TextInputAction.next,
+                    onFieldSubmitted: (a) {
+//                      FocusScope.of(context)
+//                          .requestFocus(_religionFocusNode);
+                    },
+                    controller: _religionController,
+                    labelText: StringUtils.religionText,
+                    hintText: StringUtils.religionText,
+                  ),
+                  spaceBetweenFields,
+//                  InkWell(
+//                    onTap: () {
+//                      _showJoinDatePicker(context);
+//                    },
+//                    child: Container(
+//                      width: double.infinity,
+//                      decoration: BoxDecoration(
+//                        color: Theme.of(context).backgroundColor,
+//                        borderRadius: BorderRadius.circular(7),
+//                        boxShadow: [
+//                          BoxShadow(color: Color(0xff000000).withOpacity(0.2), blurRadius: 20),
+//                          BoxShadow(color: Color(0xfffafafa).withOpacity(0.2), blurRadius: 20),
+//
+//                        ],),
+//                      padding: EdgeInsets.all(8),
+//                      child: Text(
+//                        "",
+//                      ),
+//                    ),
+//                  ),
+                ],
+              ),
+            ),
           ),
         ),
       ),
