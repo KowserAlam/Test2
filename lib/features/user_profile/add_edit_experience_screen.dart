@@ -1,32 +1,32 @@
 import 'package:after_layout/after_layout.dart';
-import 'package:p7app/features/user_profile/providers/experiance_provider.dart';
-import 'package:p7app/features/user_profile/models/user_profile_models.dart';
+import 'package:p7app/features/user_profile/models/experience_info.dart';
+import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/features/user_profile/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/util/validator.dart';
 import 'package:p7app/main_app/widgets/edit_screen_save_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:uuid/uuid.dart';
+
 
 class AddNewExperienceScreen extends StatefulWidget {
-  final Experience experienceModel;
+  final ExperienceInfo experienceInfoModel;
   final int index;
 
 
-  AddNewExperienceScreen({this.experienceModel, this.index,});
+  AddNewExperienceScreen({this.experienceInfoModel, this.index,});
 
   @override
   _AddNewExperienceScreenState createState() =>
-      _AddNewExperienceScreenState(experienceModel, index);
+      _AddNewExperienceScreenState(experienceInfoModel, index);
 }
 
 class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
     with AfterLayoutMixin {
-  final Experience experienceModel;
+  final ExperienceInfo experienceModel;
   final int index;
+  bool currentLyWorkingHere = false;
 
   _AddNewExperienceScreenState(this.experienceModel, this.index);
 
@@ -39,52 +39,19 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
 
   @override
   void afterFirstLayout(BuildContext context) {
-    var expProvider = Provider.of<ExperienceProvider>(context, listen: false);
 
-    if (experienceModel != null) {
-      organizationNameController.text = experienceModel.organizationName;
-      positionNameController.text = experienceModel.position;
-      roleNameController.text = experienceModel.role;
-      expProvider.currentLyWorkingHere = experienceModel.currentlyWorkHere;
-      expProvider.joiningDate = experienceModel.joiningDate;
-      expProvider.leavingDate = experienceModel.leavingDate;
-    }
   }
 
   _handleSave() {
     var isSuccess = _formKey.currentState.validate();
-    var addEditProvider =
-        Provider.of<ExperienceProvider>(context, listen: false);
 
-    if (isSuccess) {
-      var exp = Experience(
-        organizationName: organizationNameController.text,
-        currentlyWorkHere: addEditProvider.currentLyWorkingHere,
-        joiningDate: addEditProvider.joiningDate,
-        leavingDate: addEditProvider.leavingDate,
-        role: roleNameController.text,
-        position: positionNameController.text,
-      );
-
-      if (experienceModel == null || index == null) {
-        exp.id = Uuid().v1();
-        addEditProvider.addData(_formKey.currentContext, exp);
-      } else {
-        exp.id = experienceModel.id;
-        addEditProvider.updateData(_formKey.currentContext, exp, index);
-      }
-
-      /// Navigate to previous screen
-      Navigator.pop(_scaffoldKey.currentContext);
-      addEditProvider.clearState();
-    }
   }
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        Provider.of<ExperienceProvider>(context, listen: false).clearState();
+
         return true;
       },
       child: Scaffold(
@@ -101,7 +68,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
         ),
         body: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
-          child: Consumer<ExperienceProvider>(
+          child: Consumer<UserProfileViewModel>(
             builder: (context, addEditExperienceProvider, ch) {
               return Form(
                 key: _formKey,
@@ -174,13 +141,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
                             ],),
                           padding: EdgeInsets.all(8),
                           child: Text(
-                            addEditExperienceProvider.joiningDate != null
-                                ? DateFormat()
-                                    .add_yMMMMd()
-                                    .format(
-                                        addEditExperienceProvider.joiningDate)
-                                    .toString()
-                                : "",
+                            "JD",
                           ),
                         ),
                       ),
@@ -191,9 +152,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
 
                           InkWell(
                             onTap: () {
-                              addEditExperienceProvider.currentLyWorkingHere =
-                              !addEditExperienceProvider
-                                  .currentLyWorkingHere;
+
                             },
                             child: Text(
                               StringUtils.currentlyWorkingHereText,
@@ -202,11 +161,9 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
                             ),
                           ),
                           Checkbox(
-                            value:
-                            addEditExperienceProvider.currentLyWorkingHere,
+                            value:false,
                             onChanged: (v) {
-                              addEditExperienceProvider.currentLyWorkingHere =
-                                  v;
+
                             },
                           ),
                         ],
@@ -218,7 +175,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
                         textAlign: TextAlign.left,
                         style: TextStyle(
                             color:
-                                addEditExperienceProvider.currentLyWorkingHere
+                                currentLyWorkingHere
                                     ? Colors.grey
                                     : null),
                       ),
@@ -228,7 +185,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
                       ),
 
                       InkWell(
-                        onTap: !addEditExperienceProvider.currentLyWorkingHere
+                        onTap:  !currentLyWorkingHere
                             ? () {
                                 _showLeavingDatePicker(context);
                               }
@@ -245,16 +202,9 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
                             ],),
                           padding: EdgeInsets.all(8),
                           child: Text(
-                            addEditExperienceProvider.leavingDate != null
-                                ? DateFormat()
-                                    .add_yMMMMd()
-                                    .format(
-                                        addEditExperienceProvider.leavingDate)
-                                    .toString()
-                                : "",
+                          "leavingDate",
                             style: TextStyle(
-                                color: addEditExperienceProvider
-                                        .currentLyWorkingHere
+                                color: currentLyWorkingHere
                                     ? Colors.grey
                                     : null),
                           ),
@@ -272,13 +222,9 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
   }
 
   _showJoinDatePicker(context) {
-    var provider = Provider.of<ExperienceProvider>(context, listen: false);
+
     var initialDate = DateTime.now();
-    if (provider.joiningDate == null) {
-      provider.onJoiningDateChangeEvent(DateTime.now());
-    } else {
-      initialDate = provider.joiningDate;
-    }
+
     showDialog(
         context: context,
         builder: (context) {
@@ -296,7 +242,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
                         child: CupertinoDatePicker(
                           initialDateTime: initialDate,
                           mode: CupertinoDatePickerMode.date,
-                          onDateTimeChanged: provider.onJoiningDateChangeEvent,
+                          onDateTimeChanged: (v){},
                         ),
                       ),
                     ),
@@ -320,13 +266,9 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
   }
 
   _showLeavingDatePicker(context) {
-    var provider = Provider.of<ExperienceProvider>(context, listen: false);
+
     var initialDate = DateTime.now();
-    if (provider.leavingDate == null) {
-      provider.onLeavingDateChangeEvent(DateTime.now());
-    } else {
-      initialDate = provider.leavingDate;
-    }
+
     showDialog(
         context: context,
         builder: (context) {
@@ -344,7 +286,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
                         child: CupertinoDatePicker(
                           initialDateTime: initialDate,
                           mode: CupertinoDatePickerMode.date,
-                          onDateTimeChanged: provider.onLeavingDateChangeEvent,
+                          onDateTimeChanged: (v){},
                         ),
                       ),
                     ),

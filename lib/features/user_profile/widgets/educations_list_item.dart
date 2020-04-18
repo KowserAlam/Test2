@@ -1,4 +1,5 @@
-import 'package:p7app/features/user_profile/models/user_profile_models.dart';
+import 'package:p7app/features/user_profile/models/edu_info.dart';
+import 'package:p7app/features/user_profile/models/user_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -8,12 +9,12 @@ import 'package:p7app/features/user_profile/styles/profile_common_style.dart';
 import '../add_edit_education_screen.dart';
 
 class EducationsListItem extends StatelessWidget {
-  final Education educationItemModel;
+  final EduInfo eduInfoModel;
   final int index;
   final bool isInEditMode;
 
   EducationsListItem({
-    @required this.educationItemModel,
+    @required this.eduInfoModel,
     @required this.index,
     this.isInEditMode = false
   });
@@ -44,19 +45,13 @@ class EducationsListItem extends StatelessWidget {
           ),
         ),
         title: Text(
-          educationItemModel.nameOfInstitution,
+          eduInfoModel.institution,
         ),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(educationItemModel.degree ?? ""),
-            Text(
-              educationItemModel.passingYear != null
-                  ? DateFormat()
-                      .add_yMMMMd()
-                      .format(educationItemModel.passingYear)
-                      .toString()
-                  : "",
+            Text(eduInfoModel.qualification ?? ""),
+            Text( " ${eduInfoModel.graduationDate}"
             ),
           ],
         ),
@@ -67,7 +62,7 @@ class EducationsListItem extends StatelessWidget {
                 context,
                 CupertinoPageRoute(
                     builder: (context) => AddEditEducationScreen(
-                          educationModel: educationItemModel,
+                          educationModel: eduInfoModel,
                           index: index,
                         )));
           },

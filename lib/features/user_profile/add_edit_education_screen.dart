@@ -1,8 +1,9 @@
 import 'dart:ui';
 
 import 'package:after_layout/after_layout.dart';
-import 'package:p7app/features/user_profile/providers/education_provider.dart';
-import 'package:p7app/features/user_profile/models/user_profile_models.dart';
+import 'package:p7app/features/user_profile/models/edu_info.dart';
+import 'package:p7app/features/user_profile/models/user_model.dart';
+import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/features/user_profile/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/util/validator.dart';
@@ -16,7 +17,7 @@ import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
 class AddEditEducationScreen extends StatefulWidget {
-  final Education educationModel;
+  final EduInfo educationModel;
   final int index;
 
   AddEditEducationScreen({
@@ -31,7 +32,7 @@ class AddEditEducationScreen extends StatefulWidget {
 
 class _AddEditEducationScreenState extends State<AddEditEducationScreen>
     with AfterLayoutMixin {
-  final Education educationModel;
+  final EduInfo educationModel;
   final int index;
 
   _AddEditEducationScreenState(
@@ -52,214 +53,166 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen>
 
   @override
   void afterFirstLayout(BuildContext context) {
-    /// Initializing input fields when edit mode
 
-    if (educationModel != null) {
-      var addEditEducationProvider =
-          Provider.of<EducationProvider>(context, listen: false);
-      institutionNameController.text = educationModel.nameOfInstitution;
-      degreeTextController.text = educationModel.degree;
-      gpaTextController.text = educationModel.gpa.toString();
-      addEditEducationProvider.currentlyStudyingHere =
-          educationModel.currentlyStudyingHere;
-      addEditEducationProvider.passingYear = educationModel.passingYear;
-    }
   }
 
   _handleSave() {
     var isSuccess = _formKey.currentState.validate();
 
     if (isSuccess) {
-      var addEditEducationProvider =
-          Provider.of<EducationProvider>(context, listen: false);
 
-      var education = Education(
-          nameOfInstitution: institutionNameController.text,
-          gpa: gpaTextController.text,
-          passingYear: addEditEducationProvider.passingYear,
-          degree: degreeTextController.text,
-          currentlyStudyingHere:
-              addEditEducationProvider.currentlyStudyingHere);
 
-      if (education == null || index == null) {
-        education.id = Uuid().v1();
-        addEditEducationProvider.addData(context, education);
-      } else {
-        education.id = educationModel.id;
-
-        addEditEducationProvider.updateData(
-            _scaffoldKey.currentContext, education, index);
-      }
-
+      var education = EduInfo(
+          institution: institutionNameController.text,
+          cgpa: gpaTextController.text,
+          qualification: degreeTextController.text,);
       Navigator.pop(context);
-      addEditEducationProvider.clearState();
+
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        var addEditEducationProvider =
-            Provider.of<EducationProvider>(context, listen: false);
-        addEditEducationProvider.clearState();
-        return true;
-      },
-      child: Scaffold(
-        key: _scaffoldKey,
-        backgroundColor: Theme.of(context).backgroundColor,
-        appBar: AppBar(
-          title: Text(StringUtils.educationsText),
-          actions: <Widget>[
-            EditScreenSaveButton(
-              text: StringUtils.saveText,
-              onPressed: _handleSave,
-            ),
-          ],
-        ),
-        body: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
-          child: Consumer<EducationProvider>(
-            builder: (context, addEditEducationProvider, ch) {
-              return Form(
-                key: _formKey,
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      SizedBox(
-                        height: 10,
-                      ),
+    return Scaffold(
+      key: _scaffoldKey,
+      backgroundColor: Theme.of(context).backgroundColor,
+      appBar: AppBar(
+        title: Text(StringUtils.educationsText),
+        actions: <Widget>[
+          EditScreenSaveButton(
+            text: StringUtils.saveText,
+            onPressed: _handleSave,
+          ),
+        ],
+      ),
+      body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
+        child: Consumer<UserProfileViewModel>(
+          builder: (context, addEditEducationProvider, ch) {
+            return Form(
+              key: _formKey,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    SizedBox(
+                      height: 10,
+                    ),
 
-                      /// nameOfOInstitutionText
+                    /// nameOfOInstitutionText
 
-                      CustomTextFormField(
-                        validator: Validator().nullFieldValidate,
-                        focusNode: _institutionNameFocusNode,
-                        autofocus: true,
-                        textInputAction: TextInputAction.next,
-                        onFieldSubmitted: (a) {
-                          FocusScope.of(_scaffoldKey.currentContext)
-                              .requestFocus(_degreeFocusNode);
-                        },
-                        controller: institutionNameController,
-                        labelText: StringUtils.nameOfOInstitutionText,
-                        hintText: StringUtils.nameOfOInstitutionHintText,
-                      ),
-                      SizedBox(height: 15),
-                      ///Degree
+                    CustomTextFormField(
+                      validator: Validator().nullFieldValidate,
+                      focusNode: _institutionNameFocusNode,
+                      autofocus: true,
+                      textInputAction: TextInputAction.next,
+                      onFieldSubmitted: (a) {
+                        FocusScope.of(_scaffoldKey.currentContext)
+                            .requestFocus(_degreeFocusNode);
+                      },
+                      controller: institutionNameController,
+                      labelText: StringUtils.nameOfOInstitutionText,
+                      hintText: StringUtils.nameOfOInstitutionHintText,
+                    ),
+                    SizedBox(height: 15),
+                    ///Degree
 
-                      CustomTextFormField(
-                        validator: Validator().nullFieldValidate,
-                        focusNode: _degreeFocusNode,
-                        autofocus: true,
-                        textInputAction: TextInputAction.next,
-                        onFieldSubmitted: (a) {
-                          FocusScope.of(_scaffoldKey.currentContext)
-                              .requestFocus(_percentageFocusNode);
-                        },
-                        controller: degreeTextController,
-                        labelText: StringUtils.nameOfODegreeText,
-                        hintText: StringUtils.nameOfODegreeHintText,
-                      ),
+                    CustomTextFormField(
+                      validator: Validator().nullFieldValidate,
+                      focusNode: _degreeFocusNode,
+                      autofocus: true,
+                      textInputAction: TextInputAction.next,
+                      onFieldSubmitted: (a) {
+                        FocusScope.of(_scaffoldKey.currentContext)
+                            .requestFocus(_percentageFocusNode);
+                      },
+                      controller: degreeTextController,
+                      labelText: StringUtils.nameOfODegreeText,
+                      hintText: StringUtils.nameOfODegreeHintText,
+                    ),
 
-                      SizedBox(height: 15),
+                    SizedBox(height: 15),
 
-                      /// gpaText
+                    /// gpaText
 
-                      CustomTextFormField(
-                        controller: gpaTextController,
-                        focusNode: _percentageFocusNode,
-                        keyboardType: TextInputType.number,
-                        maxLines: null,
-                        labelText: StringUtils.gpaText,
-                        hintText: StringUtils.gpaHintText,
-                      ),
+                    CustomTextFormField(
+                      controller: gpaTextController,
+                      focusNode: _percentageFocusNode,
+                      keyboardType: TextInputType.number,
+                      maxLines: null,
+                      labelText: StringUtils.gpaText,
+                      hintText: StringUtils.gpaHintText,
+                    ),
 
-                      /// passingYear
-                      SizedBox(
-                        height: 16
-                      ),
+                    /// passingYear
+                    SizedBox(
+                      height: 16
+                    ),
 
-                      Row(
-                        children: <Widget>[
-                          Text(
-                            StringUtils.passingYearText,
-                            textAlign: TextAlign.left,
-                          ),
-                          Spacer(),
-                          InkWell(
-                            onTap: () {
-                              addEditEducationProvider.currentlyStudyingHere =
-                                  !addEditEducationProvider
-                                      .currentlyStudyingHere;
-                            },
-                            child: Text(
-                              StringUtils.currentlyStudyingHereText,
-                              softWrap: true,
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                          Checkbox(
-                            value:
-                                addEditEducationProvider.currentlyStudyingHere,
-                            onChanged: (v) {
-                              addEditEducationProvider.currentlyStudyingHere =
-                                  v;
-                            },
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 8,
-                      ),
+                    Row(
+                      children: <Widget>[
+                        Text(
+                          StringUtils.passingYearText,
+                          textAlign: TextAlign.left,
+                        ),
+                        Spacer(),
+                        InkWell(
+                          onTap: () {
 
-                      InkWell(
-                        onTap: () {
-                          _showJoinDatePicker(context);
-                        },
-                        child: Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).backgroundColor,
-                            borderRadius: BorderRadius.circular(7),
-                            boxShadow: [
-                              BoxShadow(color: Color(0xff000000).withOpacity(0.2), blurRadius: 20),
-                              BoxShadow(color: Color(0xfffafafa).withOpacity(0.2), blurRadius: 20),
-
-                            ],),
-                          padding: EdgeInsets.all(8),
+                          },
                           child: Text(
-                            addEditEducationProvider.passingYear != null
-                                ? DateFormat()
-                                    .add_yMMMMd()
-                                    .format(
-                                        addEditEducationProvider.passingYear)
-                                    .toString()
-                                : "",
+                            StringUtils.currentlyStudyingHereText,
+                            softWrap: true,
+                            textAlign: TextAlign.center,
                           ),
                         ),
+                        Checkbox(
+                          value:
+                              false,
+                          onChanged: (v) {
+
+                          },
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 8,
+                    ),
+
+                    InkWell(
+                      onTap: () {
+                        _showJoinDatePicker(context);
+                      },
+                      child: Container(
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).backgroundColor,
+                          borderRadius: BorderRadius.circular(7),
+                          boxShadow: [
+                            BoxShadow(color: Color(0xff000000).withOpacity(0.2), blurRadius: 20),
+                            BoxShadow(color: Color(0xfffafafa).withOpacity(0.2), blurRadius: 20),
+
+                          ],),
+                        padding: EdgeInsets.all(8),
+                        child: Text(
+                         "",
+                        ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              );
-            },
-          ),
+              ),
+            );
+          },
         ),
       ),
     );
   }
 
   _showJoinDatePicker(context) {
-    var provider = Provider.of<EducationProvider>(context, listen: false);
+
     var initialDate = DateTime.now();
-    if (provider.passingYear == null) {
-      provider.onStartingDateChangeEvent(DateTime.now());
-    } else {
-      initialDate = provider.passingYear;
-    }
     showDialog(
         context: context,
         builder: (context) {
@@ -278,7 +231,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen>
                         child: CupertinoDatePicker(
                           initialDateTime: initialDate,
                           mode: CupertinoDatePickerMode.date,
-                          onDateTimeChanged: provider.onStartingDateChangeEvent,
+                          onDateTimeChanged: (v){},
                         ),
                       ),
                     ),

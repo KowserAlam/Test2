@@ -1,8 +1,6 @@
 import 'dart:io';
 import 'package:after_layout/after_layout.dart';
-import 'package:p7app/features/user_profile/providers/edit_profile_provider.dart';
-import 'package:p7app/features/user_profile/models/user_profile_models.dart';
-import 'package:p7app/features/user_profile/providers/user_provider.dart';
+import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/features/user_profile/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/json_keys.dart';
@@ -27,6 +25,8 @@ class _EditProfileScreenState extends State<EditProfileScreen>
   final cropKey = GlobalKey<CropState>();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final _formKey = GlobalKey<FormState>();
+  bool isBusyImageCrop = false;
+  File fileProfileImage;
 
   var _fullNameTextEditingController = TextEditingController();
   var _designationTextEditingController = TextEditingController();
@@ -37,28 +37,20 @@ class _EditProfileScreenState extends State<EditProfileScreen>
 
   @override
   void afterFirstLayout(BuildContext context) {
-    var userProvider = Provider.of<UserProvider>(context,listen: false);
+    var userProvider = Provider.of<UserProfileViewModel>(context,listen: false);
 
-    if (userProvider.userData != null) {
-      var user = userProvider.userData;
-      _fullNameTextEditingController.text = user.displayName;
-      _designationTextEditingController.text = user.designation;
-      _aboutTextEditingController.text = user.about;
-      _locationEditingController.text = user.city;
-      _phoneEditingController.text = user.mobileNumber;
-    }
   }
 
   Future getImage() async {
-    var editProfileProvider = Provider.of<EditProfileProvider>(context,listen: false);
-    editProfileProvider.isBusyImageCrop = true;
+
+
 
     File image = await ImagePicker.pickImage(source: ImageSource.gallery);
 
     if (image != null) {
       _showCropDialog(image);
     } else {
-      editProfileProvider.isBusyImageCrop = false;
+
     }
 
   }
@@ -68,30 +60,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
     var isValid = _formKey.currentState.validate();
 
     if (isValid) {
-      _formKey.currentState.save();
-      var userProvider = Provider.of<UserProvider>(context,listen: false);
-      userProvider.isBusySaving = true;
 
-      var user = userProvider.userData;
-      user.displayName = _fullNameTextEditingController.text;
-//      user.address = _fullAddressEditingController.text;
-      user.city = _locationEditingController.text;
-      user.about = _aboutTextEditingController.text;
-      user.mobileNumber = _phoneEditingController.text;
-      user.designation = _designationTextEditingController.text;
-
-      var res = await userProvider.updateUserData(user);
-
-      if (res[JsonKeys.code] == "200") {
-        userProvider.isBusySaving = false;
-        Navigator.pop(context);
-      } else {
-        userProvider.isBusySaving = false;
-        _scaffoldKey.currentState.showSnackBar(SnackBar(
-            content: Text(
-          res[JsonKeys.message],
-        )));
-      }
     }
   }
 
@@ -112,7 +81,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
       ),
       body: ModalProgressHUD(
         opacity: .6,
-        inAsyncCall: Provider.of<UserProvider>(context).isBusySaving,
+        inAsyncCall: Provider.of<UserProfileViewModel>(context).isBusySaving,
         progressIndicator: Loader(size: 20,),
         child: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
@@ -133,7 +102,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
   }
 
   _buildEditProfileImage() {
-    return Consumer<EditProfileProvider>(
+    return Consumer<UserProfileViewModel>(
         builder: (context, editProfileProvider, _) {
       return Stack(
         children: <Widget>[
@@ -146,12 +115,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                   decoration: BoxDecoration(
                     color: Theme.of(context).backgroundColor,
                   ),
-                  child: editProfileProvider.fileProfileImage != null
-                      ? Image.file(
-                          editProfileProvider.fileProfileImage,
-                          fit: BoxFit.cover,
-                        )
-                      : Image.asset(
+                  child:  Image.asset(
                           kDefaultUserImageAsset,
                           fit: BoxFit.cover,
                         ),
@@ -179,7 +143,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
             right: 0,
             bottom: 0,
           ),
-          editProfileProvider.isBusyImageCrop
+ isBusyImageCrop
               ? Positioned(
                   bottom: 80,
                   left: 80,
@@ -325,11 +289,14 @@ class _EditProfileScreenState extends State<EditProfileScreen>
 
   /// Method to crop Image file
   Future<void> _cropImage(File image) async {
-    var editProfileProvider = Provider.of<EditProfileProvider>(context);
+
     final scale = cropKey.currentState.scale;
     final area = cropKey.currentState.area;
     if (area == null) {
-      editProfileProvider.isBusyImageCrop = false;
+   isBusyImageCrop = false;
+   setState(() {
+
+   });
       // cannot crop, widget is not setup
       return;
     }
@@ -346,8 +313,11 @@ class _EditProfileScreenState extends State<EditProfileScreen>
 
     sample.delete();
 
-    editProfileProvider.fileProfileImage = file;
-    editProfileProvider.isBusyImageCrop = false;
+fileProfileImage = file;
+ isBusyImageCrop = false;
+    setState(() {
+
+    });
 
 //    _lastCropped?.delete();
 //    _lastCropped = file;
