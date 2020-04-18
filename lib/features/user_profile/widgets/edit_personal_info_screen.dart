@@ -60,6 +60,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
     //Variables
     String radioValue;
     String _gender;
+    final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
     void radioButtonChanges(String value) {
       setState(() {
         radioValue = value;
@@ -357,7 +358,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
             color: Colors.blue
         ),
         child: Center(
-          child: Text('Save', style: TextStyle(color: Colors.white),),
+          child: Text('Save', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
         ),
       )],
     );
@@ -453,6 +454,30 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
       ),
     );
 
+    Widget buildForm(context){
+      return Form(
+        //key: _formKey,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            fatherNameInput,
+            spaceBetweenFields,
+            motherNameInput,
+            spaceBetweenFields,
+            currentAddressNameInput,
+            spaceBetweenFields,
+            permanentAddressNameInput,
+            spaceBetweenFields,
+            nationalityNameInput,
+            spaceBetweenFields,
+            religionNameInput,
+            spaceBetweenFields,
+            spaceBetweenFields,
+          ],
+        ),
+      );
+    }
+
 
 
     return Scaffold(
@@ -471,19 +496,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
               SizedBox(height: 10,),
               dob,
               spaceBetweenFields,
-              fatherNameInput,
-              spaceBetweenFields,
-              motherNameInput,
-              spaceBetweenFields,
-              currentAddressNameInput,
-              spaceBetweenFields,
-              permanentAddressNameInput,
-              spaceBetweenFields,
-              nationalityNameInput,
-              spaceBetweenFields,
-              religionNameInput,
-              spaceBetweenFields,
-              spaceBetweenFields,
+              buildForm(context),
               saveButton
             ],
           ),

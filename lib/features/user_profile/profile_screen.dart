@@ -6,6 +6,8 @@ import 'package:p7app/features/user_profile/add_edit_technical_skill_screen.dart
 import 'package:p7app/features/user_profile/edit_profile_screen.dart';
 import 'package:p7app/features/user_profile/providers/user_provider.dart';
 import 'package:p7app/features/user_profile/styles/profile_common_style.dart';
+import 'package:p7app/features/user_profile/widgets/edit_memberships_screen.dart';
+import 'package:p7app/features/user_profile/widgets/edit_reference_screen.dart';
 import 'package:p7app/features/user_profile/widgets/educations_list_item.dart';
 import 'package:p7app/features/user_profile/widgets/experience_list_item.dart';
 import 'package:p7app/features/user_profile/widgets/personal_info_widget.dart';
@@ -563,11 +565,11 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                       return UserInfoListItem(
                         icon: FontAwesomeIcons.users,
                         label: StringUtils.membershipsText,
-                        onTapAddNewAction: () {
-//            Navigator.push(
-//                context,
-//                CupertinoPageRoute(
-//                    builder: (context) => AddEditTechnicalSkill()));
+                        onTapEditAction: (_) {
+                          Navigator.push(
+                              context,
+                              CupertinoPageRoute(
+                                  builder: (context) => EditMemberShips()));
                         },
                         children: List.generate(1, (index) {
                           var skill = list[index];
@@ -600,11 +602,11 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                       return UserInfoListItem(
                         icon: FontAwesomeIcons.bookReader,
                         label: StringUtils.referencesText,
-                        onTapAddNewAction: () {
-//            Navigator.push(
-//                context,
-//                CupertinoPageRoute(
-//                    builder: (context) => AddEditTechnicalSkill()));
+                        onTapEditAction: (_) {
+                          Navigator.push(
+                              context,
+                              CupertinoPageRoute(
+                                  builder: (context) => EditReferenceScreen()));
                         },
                         children: List.generate(list.length, (index) {
                           var ref = list[index];
