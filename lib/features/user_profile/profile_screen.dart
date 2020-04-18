@@ -317,7 +317,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
       ],
     );
     var experienceWidget = Consumer<UserProfileViewModel>(builder: (context, userProvider, _) {
-      var expList = userProvider.userData.experiecnceInfo;
+      var expList = userProvider.userData.experienceInfo;
       return UserInfoListItem(
         isInEditMode: isInEditModeExperience,
         onTapEditAction: (v){

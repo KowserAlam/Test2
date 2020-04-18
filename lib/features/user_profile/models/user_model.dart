@@ -11,7 +11,7 @@ class UserModel {
   UserPersonalInfo personalInfo;
   List<EduInfo> eduInfo;
   List<SkillInfo> skillInfo;
-  List<ExperienceInfo> experiecnceInfo;
+  List<ExperienceInfo> experienceInfo;
   List<PortfolioInfo> portfolioInfo;
   List<MembershipInfo> membershipInfo;
   List<CertificationInfo> certificationInfo;
@@ -21,7 +21,7 @@ class UserModel {
       {this.personalInfo,
         this.eduInfo,
         this.skillInfo,
-        this.experiecnceInfo,
+        this.experienceInfo,
         this.portfolioInfo,
         this.membershipInfo,
         this.certificationInfo,
@@ -44,9 +44,9 @@ class UserModel {
       });
     }
     if (json['experiecnce_info'] != null) {
-      experiecnceInfo = new List<ExperienceInfo>();
+      experienceInfo = new List<ExperienceInfo>();
       json['experiecnce_info'].forEach((v) {
-        experiecnceInfo.add(new ExperienceInfo.fromJson(v));
+        experienceInfo.add(new ExperienceInfo.fromJson(v));
       });
     }
     if (json['portfolio_info'] != null) {
@@ -86,9 +86,9 @@ class UserModel {
     if (this.skillInfo != null) {
       data['skill_info'] = this.skillInfo.map((v) => v.toJson()).toList();
     }
-    if (this.experiecnceInfo != null) {
+    if (this.experienceInfo != null) {
       data['experiecnce_info'] =
-          this.experiecnceInfo.map((v) => v.toJson()).toList();
+          this.experienceInfo.map((v) => v.toJson()).toList();
     }
     if (this.portfolioInfo != null) {
       data['portfolio_info'] =

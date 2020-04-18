@@ -1,3 +1,5 @@
+
+
 class SkillInfo {
   String skill;
   int rating;
@@ -16,6 +18,7 @@ class SkillInfo {
     data['skill'] = this.skill;
     data['rating'] = this.rating;
     data['verified_by_skillcheck'] = this.verifiedBySkillcheck;
+
     return data;
   }
 }

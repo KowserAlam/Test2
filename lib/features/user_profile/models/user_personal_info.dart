@@ -73,7 +73,10 @@ class UserPersonalInfo {
     facebbokId = json['facebbok_id'];
     twitterId = json['twitter_id'];
     linkedinId = json['linkedin_id'];
-    dateOfBirth = json['date_of_birth'];
+    if(json['date_of_birth'] != null){
+      dateOfBirth = DateTime.parse(json['date_of_birth']);
+    }
+
     expectedSalaryMin = json['expected_salary_min'];
     expectedSalaryMax = json['expected_salary_max'];
     industryExpertise = json['industry_expertise'];
