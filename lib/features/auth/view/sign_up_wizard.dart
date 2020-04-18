@@ -1,5 +1,5 @@
 
-import 'package:p7app/features/user_profile/widgets/change_image_profile_widget.dart';
+import 'package:p7app/features/user_profile/views/widgets/change_image_profile_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p7app/main_app/root.dart';

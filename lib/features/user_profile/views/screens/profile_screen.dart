@@ -3,14 +3,14 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p7app/features/user_profile/add_edit_education_screen.dart';
 import 'package:p7app/features/user_profile/add_edit_experience_screen.dart';
 import 'package:p7app/features/user_profile/add_edit_technical_skill_screen.dart';
-import 'package:p7app/features/user_profile/edit_profile_screen.dart';
+import 'package:p7app/features/user_profile/views/screens/edit_profile_screen.dart';
 import 'package:p7app/features/user_profile/styles/profile_common_style.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
-import 'package:p7app/features/user_profile/widgets/educations_list_item.dart';
-import 'package:p7app/features/user_profile/widgets/experience_list_item.dart';
-import 'package:p7app/features/user_profile/widgets/personal_info_widget.dart';
-import 'package:p7app/features/user_profile/widgets/technical_skill_list_item.dart';
-import 'package:p7app/features/user_profile/widgets/user_info_list_item.dart';
+import 'package:p7app/features/user_profile/views/widgets/educations_list_item.dart';
+import 'package:p7app/features/user_profile/views/widgets/experience_list_item.dart';
+import 'package:p7app/features/user_profile/views/widgets/personal_info_widget.dart';
+import 'package:p7app/features/user_profile/views/widgets/technical_skill_list_item.dart';
+import 'package:p7app/features/user_profile/views/widgets/user_info_list_item.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
@@ -244,7 +244,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
           return Column(
             children: <Widget>[
               Text(
-                userProfileViewModel??"",
+                userProfileViewModel.userData.personalInfo.qualification??"",
                 style: TextStyle(
                     fontSize: 18,
                     color: profileHeaderFontColor,
@@ -254,14 +254,14 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                 height: 5,
               ),
               Text(
-                "Ishraak Solutions",
+                userProfileViewModel.userData.personalInfo.experience??"",
                 style: TextStyle(
                     color: profileHeaderFontColor, fontWeight: FontWeight.w100),
               ),
             ],
           );
         });
-    var aboutWidget = Column(
+    var aboutMeWidget = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Row(
@@ -295,6 +295,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
           height: 5,
         ),
         Container(
+          width: double.infinity,
           margin: EdgeInsets.only(bottom: 8),
           decoration: BoxDecoration(
             color: Theme.of(context).backgroundColor,
@@ -609,7 +610,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                 padding: EdgeInsets.all(8),
                 child: Column(
                   children: [
-                    aboutWidget,
+                    aboutMeWidget,
                     SizedBox(height: 15),
                     /// Experience
                     experienceWidget,
