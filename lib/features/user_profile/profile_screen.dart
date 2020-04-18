@@ -1,9 +1,16 @@
 import 'package:after_layout/after_layout.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:p7app/features/user_profile/add_edit_education_screen.dart';
+import 'package:p7app/features/user_profile/add_edit_experience_screen.dart';
+import 'package:p7app/features/user_profile/add_edit_technical_skill_screen.dart';
 import 'package:p7app/features/user_profile/edit_profile_screen.dart';
 import 'package:p7app/features/user_profile/providers/user_provider.dart';
 import 'package:p7app/features/user_profile/styles/profile_common_style.dart';
-import 'package:p7app/features/user_profile/widgets/user_details_info_list_widget.dart';
+import 'package:p7app/features/user_profile/widgets/educations_list_item.dart';
+import 'package:p7app/features/user_profile/widgets/experience_list_item.dart';
+import 'package:p7app/features/user_profile/widgets/personal_info_widget.dart';
+import 'package:p7app/features/user_profile/widgets/technical_skill_list_item.dart';
+import 'package:p7app/features/user_profile/widgets/user_info_list_item.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
@@ -103,6 +110,9 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
 
   @override
   Widget build(BuildContext context) {
+    bool isInEditModeExperience = false;
+    bool isInEditModeEducation = false;
+
     var primaryColor = Theme.of(context).primaryColor;
     var titleTextStyle = TextStyle(fontSize: 17, fontWeight: FontWeight.bold);
 
@@ -366,15 +376,260 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                   ],
                 ),
               ),
-              SizedBox(height: 10),
+              SizedBox(height: 15),
               Container(
                 padding: EdgeInsets.all(8),
                 child: Column(
                   children: [
                     aboutWidget,
                     SizedBox(height: 15),
-                    UserDetailsInfoListWidget(),
-                    SizedBox(height: 5),
+                    Consumer<UserProvider>(builder: (context, userProvider, _) {
+                      var expList = userProvider.userData.experienceList;
+                      return UserInfoListItem(
+                        isInEditMode: isInEditModeExperience,
+                        onTapEditAction: (v){
+                          isInEditModeExperience = v;
+                          setState(() {
+
+                          });
+                        },
+                        icon: FontAwesomeIcons.globeEurope,
+                        label: StringUtils.experienceText,
+                        onTapAddNewAction: () {
+                          Navigator.push(
+                              context,
+                              CupertinoPageRoute(
+                                  builder: (context) => AddNewExperienceScreen()));
+                        },
+                        children: List.generate(expList.length, (int index) {
+                          var exp = expList[index];
+                          return ExperienceListItem(
+                            isInEditMode:             isInEditModeExperience,
+                            experienceModel: exp,
+                            onTapEdit: () {
+                              Navigator.push(
+                                  context,
+                                  CupertinoPageRoute(
+                                      builder: (context) => AddNewExperienceScreen(
+                                        index: index,
+                                        experienceModel: exp,
+                                      )));
+                            },
+                          );
+                        }),
+                      );
+                    }),
+                    SizedBox(height: 15),
+
+                    ///Education
+                    Consumer<UserProvider>(builder: (context, userProvider, _) {
+                      var eduList = userProvider.userData.educationModelList;
+                      return UserInfoListItem(
+                        isInEditMode: isInEditModeEducation,
+                        icon: FontAwesomeIcons.university,
+                        label: StringUtils.educationsText,
+                        onTapEditAction: (bool value){
+                          setState(() {
+                            isInEditModeEducation = value;
+                            print(value);
+                          });
+                        },
+                        onTapAddNewAction: () {
+                          Navigator.push(
+                              context,
+                              CupertinoPageRoute(
+                                  builder: (context) => AddEditEducationScreen()));
+                        },
+                        children: List.generate(eduList.length, (int i) {
+                          return EducationsListItem(
+                            educationItemModel: eduList[i],
+                            index: i,
+                            isInEditMode: isInEditModeEducation,
+                          );
+                        }),
+                      );
+                    }),
+                    SizedBox(height: 15),
+
+                    ///Skill
+
+                    Consumer<UserProvider>(builder: (context, userProvider, _) {
+                      var list = userProvider.userData.technicalSkillList;
+
+                      return UserInfoListItem(
+                        icon: FontAwesomeIcons.brain,
+                        label: StringUtils.professionalSkillText,
+                        onTapAddNewAction: () {
+                          Navigator.push(
+                              context,
+                              CupertinoPageRoute(
+                                  builder: (context) => AddEditTechnicalSkill()));
+                        },
+                        children: List.generate(list.length, (index) {
+                          var skill = list[index];
+                          return TechnicalSkillListItem(
+                            technicalSkill: skill,
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  CupertinoPageRoute(
+                                      builder: (context) => AddEditTechnicalSkill(
+                                        index: index,
+                                        technicalSkill: skill,
+                                      )));
+                            },
+                          );
+                        }),
+                      );
+                    }),
+                    SizedBox(height: 15),
+                    /// Personal info
+                    PersonalInfoWidget(),
+                    SizedBox(height: 15),
+                    /// Portfolio
+                    Consumer<UserProvider>(builder: (context, userProvider, _) {
+                      var list = userProvider.userData.technicalSkillList;
+
+                      return UserInfoListItem(
+                        icon: FontAwesomeIcons.wallet,
+                        label: StringUtils.projectsText,
+                        onTapAddNewAction: () {
+//            Navigator.push(
+//                context,
+//                CupertinoPageRoute(
+//                    builder: (context) => AddEditTechnicalSkill()));
+                        },
+                        children: List.generate(list.length, (index) {
+                          var skill = list[index];
+                          return Container(
+                            margin: EdgeInsets.only(bottom: 8),
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).backgroundColor,
+                              borderRadius: BorderRadius.circular(5),
+                              boxShadow: ProfileCommonStyle.boxShadow,),
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                            child: ListTile(
+                              contentPadding: EdgeInsets.zero,
+                              leading: Image.asset(kImagePlaceHolderAsset,height: 55,width: 55,),
+                              title: Text("Project Name"),
+                              subtitle: Text("Project Duration"),
+                            ),
+                          );
+                        }),
+                      );
+                    }),
+                    SizedBox(height: 15),
+                    /// Certifications
+                    Consumer<UserProvider>(builder: (context, userProvider, _) {
+                      var list = userProvider.userData.technicalSkillList;
+
+                      return UserInfoListItem(
+                        icon: FontAwesomeIcons.certificate,
+                        label: StringUtils.certificationsText,
+                        onTapAddNewAction: () {
+//            Navigator.push(
+//                context,
+//                CupertinoPageRoute(
+//                    builder: (context) => AddEditTechnicalSkill()));
+                        },
+                        children: List.generate(1, (index) {
+                          var skill = list[index];
+                          return Container(
+                            margin: EdgeInsets.only(bottom: 8),
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).backgroundColor,
+                              borderRadius: BorderRadius.circular(5),
+                              boxShadow: ProfileCommonStyle.boxShadow,),
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                            child: ListTile(
+                              contentPadding: EdgeInsets.zero,
+                              leading: Container(
+                                  height: 55,
+                                  width: 55,
+                                  color: Theme.of(context).scaffoldBackgroundColor,
+                                  child: Icon(FontAwesomeIcons.certificate)),
+                              title: Text("AWS Certified Solutions Architect - Associate"),
+                              subtitle: Text("Issue by: IBM"),
+                            ),
+                          );
+                        }),
+                      );
+                    }),
+                    SizedBox(height: 15),
+                    /// Memberships
+                    Consumer<UserProvider>(builder: (context, userProvider, _) {
+                      var list = userProvider.userData.technicalSkillList;
+
+                      return UserInfoListItem(
+                        icon: FontAwesomeIcons.users,
+                        label: StringUtils.membershipsText,
+                        onTapAddNewAction: () {
+//            Navigator.push(
+//                context,
+//                CupertinoPageRoute(
+//                    builder: (context) => AddEditTechnicalSkill()));
+                        },
+                        children: List.generate(1, (index) {
+                          var skill = list[index];
+                          return Container(
+                            margin: EdgeInsets.only(bottom: 8),
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).backgroundColor,
+                              borderRadius: BorderRadius.circular(5),
+                              boxShadow: ProfileCommonStyle.boxShadow,),
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                            child: ListTile(
+                              contentPadding: EdgeInsets.zero,
+                              leading: Container(
+                                  height: 55,
+                                  width: 55,
+                                  color: Theme.of(context).scaffoldBackgroundColor,
+                                  child: Icon(FontAwesomeIcons.users)),
+                              title: Text("Member of IEE"),
+                              subtitle: Text("Jan 10,2020 - Ongoing"),
+                            ),
+                          );
+                        }),
+                      );
+                    }),
+                    SizedBox(height: 15),
+                    /// References
+                    Consumer<UserProvider>(builder: (context, userProvider, _) {
+                      var list = userProvider.userData.technicalSkillList;
+
+                      return UserInfoListItem(
+                        icon: FontAwesomeIcons.bookReader,
+                        label: StringUtils.referencesText,
+                        onTapAddNewAction: () {
+//            Navigator.push(
+//                context,
+//                CupertinoPageRoute(
+//                    builder: (context) => AddEditTechnicalSkill()));
+                        },
+                        children: List.generate(list.length, (index) {
+                          var ref = list[index];
+                          return Container(
+                            margin: EdgeInsets.only(bottom: 8),
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).backgroundColor,
+                              borderRadius: BorderRadius.circular(5),
+                              boxShadow: ProfileCommonStyle.boxShadow,),
+                            child: ListTile(
+                              contentPadding: EdgeInsets.zero,
+                              leading: Container(
+                                height: 55,
+                                width: 55,
+                                color: Theme.of(context).backgroundColor,
+                                child: Icon(FontAwesomeIcons.user),
+                              ),
+                              title: Text("Name"),
+                              subtitle: Text("Current Position"),
+                            ),
+                          );
+                        }),
+                      );
+                    }),
+                    SizedBox(height: 15),
                   ],
                 ),
               ),
