@@ -454,29 +454,6 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
       ),
     );
 
-    Widget buildForm(context){
-      return Form(
-        key: _formKey,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            fatherNameInput,
-            spaceBetweenFields,
-            motherNameInput,
-            spaceBetweenFields,
-            currentAddressNameInput,
-            spaceBetweenFields,
-            permanentAddressNameInput,
-            spaceBetweenFields,
-            nationalityNameInput,
-            spaceBetweenFields,
-            religionNameInput,
-            spaceBetweenFields,
-            spaceBetweenFields,
-          ],
-        ),
-      );
-    }
 
 
 
@@ -496,7 +473,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
               SizedBox(height: 10,),
               dob,
               spaceBetweenFields,
-              buildForm(context),
+              //buildForm(context),
               saveButton
             ],
           ),
