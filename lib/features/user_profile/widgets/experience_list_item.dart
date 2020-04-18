@@ -14,6 +14,8 @@ class ExperienceListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+
     var backgroundColor = Theme.of(context).backgroundColor;
     String time = "";
 
