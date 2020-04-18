@@ -50,7 +50,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
   }
 
   Future getImage() async {
-    var editProfileProvider = Provider.of<EditProfileProvider>(context);
+    var editProfileProvider = Provider.of<EditProfileProvider>(context,listen: false);
     editProfileProvider.isBusyImageCrop = true;
 
     File image = await ImagePicker.pickImage(source: ImageSource.gallery);
