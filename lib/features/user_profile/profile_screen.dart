@@ -244,7 +244,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
           return Column(
             children: <Widget>[
               Text(
-                userProfileViewModel??"",
+                userProfileViewModel.userData.personalInfo.qualification??"",
                 style: TextStyle(
                     fontSize: 18,
                     color: profileHeaderFontColor,
@@ -254,14 +254,14 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                 height: 5,
               ),
               Text(
-                "Ishraak Solutions",
+                userProfileViewModel.userData.personalInfo.experience??"",
                 style: TextStyle(
                     color: profileHeaderFontColor, fontWeight: FontWeight.w100),
               ),
             ],
           );
         });
-    var aboutWidget = Column(
+    var aboutMeWidget = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Row(
@@ -295,6 +295,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
           height: 5,
         ),
         Container(
+          width: double.infinity,
           margin: EdgeInsets.only(bottom: 8),
           decoration: BoxDecoration(
             color: Theme.of(context).backgroundColor,
@@ -609,7 +610,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                 padding: EdgeInsets.all(8),
                 child: Column(
                   children: [
-                    aboutWidget,
+                    aboutMeWidget,
                     SizedBox(height: 15),
                     /// Experience
                     experienceWidget,
