@@ -4,8 +4,8 @@ import 'package:p7app/features/user_profile/add_edit_education_screen.dart';
 import 'package:p7app/features/user_profile/add_edit_experience_screen.dart';
 import 'package:p7app/features/user_profile/add_edit_technical_skill_screen.dart';
 import 'package:p7app/features/user_profile/edit_profile_screen.dart';
-import 'package:p7app/features/user_profile/providers/user_provider.dart';
 import 'package:p7app/features/user_profile/styles/profile_common_style.dart';
+import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/features/user_profile/widgets/educations_list_item.dart';
 import 'package:p7app/features/user_profile/widgets/experience_list_item.dart';
 import 'package:p7app/features/user_profile/widgets/personal_info_widget.dart';
@@ -29,7 +29,7 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
   @override
   void afterFirstLayout(BuildContext context) {
-    Provider.of<UserProvider>(context, listen: false).fetchUserData();
+    Provider.of<UserProfileViewModel>(context, listen: false).fetchUserData();
   }
 
   Widget userContactInfo(context) => InkWell(
@@ -43,9 +43,9 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                     width: MediaQuery.of(context).size.width / 1.2,
                     child: Material(
                       borderRadius: BorderRadius.circular(20),
-                      child: Consumer<UserProvider>(
-                          builder: (context, userProvider, _) {
-                        var user = userProvider.userData;
+                      child: Consumer<UserProfileViewModel>(
+                          builder: (context, userProfileViewModel, _) {
+                        var user = userProfileViewModel.userData;
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Column(
@@ -53,14 +53,14 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                             children: <Widget>[
                               Spacer(),
                               Divider(),
-                              Text(user.email ?? ""),
+                              Text(user.personalInfo.email ?? ""),
                               Divider(),
                               Text(
-                                user.mobileNumber ?? "",
+                                user.personalInfo.phone ?? "",
                                 style: Theme.of(context).textTheme.title,
                               ),
                               Divider(),
-                              Text(user.personalInfo.currentAddress ?? ""),
+                              Text(user.personalInfo.address ?? ""),
                               Divider(),
                               Spacer(),
                               IconButton(
@@ -126,7 +126,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
           BoxDecoration(borderRadius: BorderRadius.circular(100), boxShadow: [
         BoxShadow(color: Colors.black12, blurRadius: 5, spreadRadius: 5),
       ]),
-      child: Consumer<UserProvider>(builder: (context, userProvider, s) {
+      child: Consumer<UserProfileViewModel>(builder: (context, userProfileViewModel, s) {
         return ClipRRect(
             borderRadius: BorderRadius.circular(100),
             child: FadeInImage(
@@ -134,12 +134,12 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
               placeholder: AssetImage(
                 kDefaultUserImageAsset,
               ),
-              image: NetworkImage(userProvider.userData.profilePicUrl),
+              image: NetworkImage(userProfileViewModel.userData.personalInfo.image?? kDefaultUserImageNetwork),
             ));
       }),
     );
-    var displayNameWidget = Selector<UserProvider, String>(
-        selector: (_, userProvider) => userProvider.userData.displayName,
+    var displayNameWidget = Selector<UserProfileViewModel, String>(
+        selector: (_, userProfileViewModel) => userProfileViewModel.userData.personalInfo.fullName,
         builder: (context, String data, _) {
           return Text(
             data ?? "",
@@ -217,8 +217,8 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
         SizedBox(
           width: 3,
         ),
-        Selector<UserProvider, String>(
-            selector: (_, userProvider) => userProvider.userData.city,
+        Selector<UserProfileViewModel, String>(
+            selector: (_, userProfileViewModel) => userProfileViewModel.userData.personalInfo.address,
             builder: (context, String data, _) {
               return Text(
                 data ?? "",
@@ -228,8 +228,8 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
             }),
       ],
     );
-    var emailWidget = Selector<UserProvider, String>(
-        selector: (_, userProvider) => userProvider.userData.email,
+    var emailWidget = Selector<UserProfileViewModel, String>(
+        selector: (_, userProfileViewModel) => userProfileViewModel.userData.personalInfo.email,
         builder: (context, String data, _) {
           return Text(
             data ?? "",
@@ -239,13 +239,12 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
             ),
           );
         });
-    var designationWidget = Selector<UserProvider, String>(
-        selector: (_, userProvider) => userProvider.userData.designation,
-        builder: (context, String data, _) {
+    var designationWidget = Consumer<UserProfileViewModel>(
+        builder: (context, userProfileViewModel, _) {
           return Column(
             children: <Widget>[
               Text(
-                "Jr. Software Engineer",
+                userProfileViewModel??"",
                 style: TextStyle(
                     fontSize: 18,
                     color: profileHeaderFontColor,
@@ -304,8 +303,8 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
           ),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Selector<UserProvider, String>(
-                selector: (_, userProvider) => userProvider.userData.about,
+            child: Selector<UserProfileViewModel, String>(
+                selector: (_, userProfileViewModel) => userProfileViewModel.userData.personalInfo.aboutMe??"",
                 builder: (context, String data, _) {
                   return Text(
                     data,
@@ -316,8 +315,8 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
         ),
       ],
     );
-    var experienceWidget = Consumer<UserProvider>(builder: (context, userProvider, _) {
-      var expList = userProvider.userData.experienceList;
+    var experienceWidget = Consumer<UserProfileViewModel>(builder: (context, userProfileViewModel, _) {
+      var expList = userProfileViewModel.userData.experienceInfo;
       return UserInfoListItem(
         isInEditMode: isInEditModeExperience,
         onTapEditAction: (v){
@@ -338,22 +337,22 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
           var exp = expList[index];
           return ExperienceListItem(
             isInEditMode:             isInEditModeExperience,
-            experienceModel: exp,
+            experienceInfoModel: exp,
             onTapEdit: () {
               Navigator.push(
                   context,
                   CupertinoPageRoute(
                       builder: (context) => AddNewExperienceScreen(
                         index: index,
-                        experienceModel: exp,
+                        experienceInfoModel: exp,
                       )));
             },
           );
         }),
       );
     });
-    var educationWidget = Consumer<UserProvider>(builder: (context, userProvider, _) {
-      var eduList = userProvider.userData.educationModelList;
+    var educationWidget = Consumer<UserProfileViewModel>(builder: (context, UserProfileViewModel, _) {
+      var eduList = UserProfileViewModel.userData.eduInfo;
       return UserInfoListItem(
         isInEditMode: isInEditModeEducation,
         icon: FontAwesomeIcons.university,
@@ -372,15 +371,15 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
         },
         children: List.generate(eduList.length, (int i) {
           return EducationsListItem(
-            educationItemModel: eduList[i],
+            eduInfoModel: eduList[i],
             index: i,
             isInEditMode: isInEditModeEducation,
           );
         }),
       );
     });
-    var skillsWidget =  Consumer<UserProvider>(builder: (context, userProvider, _) {
-      var list = userProvider.userData.technicalSkillList;
+    var skillsWidget =  Consumer<UserProfileViewModel>(builder: (context, userProfileViewModel, _) {
+      var list = userProfileViewModel.userData.skillInfo;
 
       return UserInfoListItem(
         icon: FontAwesomeIcons.brain,
@@ -394,14 +393,14 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
         children: List.generate(list.length, (index) {
           var skill = list[index];
           return TechnicalSkillListItem(
-            technicalSkill: skill,
+            skillInfo: skill,
             onTap: () {
               Navigator.push(
                   context,
                   CupertinoPageRoute(
                       builder: (context) => AddEditTechnicalSkill(
                         index: index,
-                        technicalSkill: skill,
+                        skillInfo: skill,
                       )));
             },
           );
@@ -409,8 +408,8 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
       );
     });
     var personalInfoWidget = PersonalInfoWidget();
-    var portfolioWidget =  Consumer<UserProvider>(builder: (context, userProvider, _) {
-      var list = userProvider.userData.technicalSkillList;
+    var portfolioWidget =  Consumer<UserProfileViewModel>(builder: (context, userProfileViewModel, _) {
+      var list = userProfileViewModel.userData.skillInfo;
 
       return UserInfoListItem(
         icon: FontAwesomeIcons.wallet,
@@ -440,8 +439,8 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
         }),
       );
     });
-    var certificationsWidget = Consumer<UserProvider>(builder: (context, userProvider, _) {
-      var list = userProvider.userData.technicalSkillList;
+    var certificationsWidget = Consumer<UserProfileViewModel>(builder: (context, userProfileViewModel, _) {
+      var list = userProfileViewModel.userData.skillInfo;
 
       return UserInfoListItem(
         icon: FontAwesomeIcons.certificate,
@@ -475,8 +474,8 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
         }),
       );
     });
-    var membersShipWidget = Consumer<UserProvider>(builder: (context, userProvider, _) {
-      var list = userProvider.userData.technicalSkillList;
+    var membersShipWidget = Consumer<UserProfileViewModel>(builder: (context, userProfileViewModel, _) {
+      var list = userProfileViewModel.userData.skillInfo;
 
       return UserInfoListItem(
         icon: FontAwesomeIcons.users,
@@ -510,8 +509,8 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
         }),
       );
     });
-    var referencesWidget =    Consumer<UserProvider>(builder: (context, userProvider, _) {
-      var list = userProvider.userData.technicalSkillList;
+    var referencesWidget =    Consumer<UserProfileViewModel>(builder: (context, userProfileViewModel, _) {
+      var list = userProfileViewModel.userData.skillInfo;
 
       return UserInfoListItem(
         icon: FontAwesomeIcons.bookReader,
@@ -552,8 +551,8 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
       ),
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
-        child: Consumer<UserProvider>(builder: (context, userProvider, child) {
-          if (userProvider.userData == null) {
+        child: Consumer<UserProfileViewModel>(builder: (context, UserProfileViewModel, child) {
+          if (UserProfileViewModel.userData == null) {
             return Container(
               height: MediaQuery.of(context).size.height,
               child: Center(child: Loader()),
