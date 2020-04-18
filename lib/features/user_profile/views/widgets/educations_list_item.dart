@@ -6,7 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:p7app/features/user_profile/styles/profile_common_style.dart';
 
-import '../add_edit_education_screen.dart';
+import '../../add_edit_education_screen.dart';
 
 class EducationsListItem extends StatelessWidget {
   final EduInfo eduInfoModel;
