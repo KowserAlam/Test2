@@ -1,8 +1,8 @@
 import 'package:after_layout/after_layout.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:p7app/features/user_profile/add_edit_education_screen.dart';
-import 'package:p7app/features/user_profile/add_edit_experience_screen.dart';
-import 'package:p7app/features/user_profile/add_edit_technical_skill_screen.dart';
+import 'package:p7app/features/user_profile/views/screens/add_edit_education_screen.dart';
+import 'package:p7app/features/user_profile/views/screens/add_edit_experience_screen.dart';
+import 'package:p7app/features/user_profile/views/screens/add_edit_technical_skill_screen.dart';
 import 'package:p7app/features/user_profile/views/screens/edit_profile_screen.dart';
 import 'package:p7app/features/user_profile/styles/profile_common_style.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
@@ -511,7 +511,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
       );
     });
     var referencesWidget =    Consumer<UserProfileViewModel>(builder: (context, userProfileViewModel, _) {
-      var list = userProfileViewModel.userData.skillInfo;
+      var referenceList = userProfileViewModel.userData.referenceData;
 
       return UserInfoListItem(
         icon: FontAwesomeIcons.bookReader,
@@ -522,8 +522,8 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
 //                CupertinoPageRoute(
 //                    builder: (context) => AddEditTechnicalSkill()));
         },
-        children: List.generate(list.length, (index) {
-          var ref = list[index];
+        children: List.generate(referenceList.length, (index) {
+          var ref = referenceList[index];
           return Container(
             margin: EdgeInsets.only(bottom: 8),
             decoration: BoxDecoration(
