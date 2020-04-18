@@ -460,7 +460,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
     });
     var certificationsWidget = Consumer<UserProfileViewModel>(
         builder: (context, userProfileViewModel, _) {
-      var list = userProfileViewModel.userData.skillInfo;
+      var list = userProfileViewModel.userData.certificationInfo;
 
       return UserInfoListItem(
         icon: FontAwesomeIcons.certificate,
@@ -472,8 +472,8 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
 //                    builder: (context) => AddEditTechnicalSkill()));
         },
         children: List.generate(1, (index) {
-          var skill = list[index];
-          return CertificationsListItemWidget();
+          var cer = list[index];
+          return CertificationsListItemWidget(certificationInfo: cer,);
         }),
       );
     });
