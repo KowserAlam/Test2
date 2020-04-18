@@ -1,4 +1,5 @@
 import 'package:after_layout/after_layout.dart';
+import 'package:p7app/features/user_profile/views/screens/portfolio_list_item_widget.dart';
 import 'package:p7app/features/user_profile/views/screens/certifications_list_item_widget.dart';
 import 'package:p7app/features/user_profile/views/screens/references_list_item_widget.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -363,8 +364,8 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
       );
     });
     var educationWidget = Consumer<UserProfileViewModel>(
-        builder: (context, UserProfileViewModel, _) {
-      var eduList = UserProfileViewModel.userData.eduInfo;
+        builder: (context, userProfileViewModel, _) {
+      var eduList = userProfileViewModel.userData.eduInfo;
       return UserInfoListItem(
         isInEditMode: isInEditModeEducation,
         icon: FontAwesomeIcons.university,
@@ -423,7 +424,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
     var personalInfoWidget = PersonalInfoWidget();
     var portfolioWidget = Consumer<UserProfileViewModel>(
         builder: (context, userProfileViewModel, _) {
-      var list = userProfileViewModel.userData.skillInfo;
+      var list = userProfileViewModel.userData.portfolioInfo;
 
       return UserInfoListItem(
         icon: FontAwesomeIcons.wallet,
@@ -435,26 +436,8 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
 //                    builder: (context) => AddEditTechnicalSkill()));
         },
         children: List.generate(list.length, (index) {
-          var skill = list[index];
-          return Container(
-            margin: EdgeInsets.only(bottom: 8),
-            decoration: BoxDecoration(
-              color: Theme.of(context).backgroundColor,
-              borderRadius: BorderRadius.circular(5),
-              boxShadow: ProfileCommonStyle.boxShadow,
-            ),
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            child: ListTile(
-              contentPadding: EdgeInsets.zero,
-              leading: Image.asset(
-                kImagePlaceHolderAsset,
-                height: 55,
-                width: 55,
-              ),
-              title: Text("Project Name"),
-              subtitle: Text("Project Duration"),
-            ),
-          );
+          var port = list[index];
+          return PortfolioListItemWidget(portfolioInfo: port,);
         }),
       );
     });
@@ -473,7 +456,9 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
         },
         children: List.generate(1, (index) {
           var cer = list[index];
-          return CertificationsListItemWidget(certificationInfo: cer,);
+          return CertificationsListItemWidget(
+            certificationInfo: cer,
+          );
         }),
       );
     });
