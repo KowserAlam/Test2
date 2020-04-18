@@ -462,14 +462,11 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
         title: Text(StringUtils.personalInfoText),
       ),
       body: Container(
-        height: height,
-        width: width,
         padding: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              genderSelection,
               SizedBox(height: 10,),
               dob,
               spaceBetweenFields,
