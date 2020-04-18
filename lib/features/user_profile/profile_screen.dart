@@ -316,6 +316,235 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
         ),
       ],
     );
+    var experienceWidget = Consumer<UserProvider>(builder: (context, userProvider, _) {
+      var expList = userProvider.userData.experienceList;
+      return UserInfoListItem(
+        isInEditMode: isInEditModeExperience,
+        onTapEditAction: (v){
+          isInEditModeExperience = v;
+          setState(() {
+
+          });
+        },
+        icon: FontAwesomeIcons.globeEurope,
+        label: StringUtils.experienceText,
+        onTapAddNewAction: () {
+          Navigator.push(
+              context,
+              CupertinoPageRoute(
+                  builder: (context) => AddNewExperienceScreen()));
+        },
+        children: List.generate(expList.length, (int index) {
+          var exp = expList[index];
+          return ExperienceListItem(
+            isInEditMode:             isInEditModeExperience,
+            experienceModel: exp,
+            onTapEdit: () {
+              Navigator.push(
+                  context,
+                  CupertinoPageRoute(
+                      builder: (context) => AddNewExperienceScreen(
+                        index: index,
+                        experienceModel: exp,
+                      )));
+            },
+          );
+        }),
+      );
+    });
+    var educationWidget = Consumer<UserProvider>(builder: (context, userProvider, _) {
+      var eduList = userProvider.userData.educationModelList;
+      return UserInfoListItem(
+        isInEditMode: isInEditModeEducation,
+        icon: FontAwesomeIcons.university,
+        label: StringUtils.educationsText,
+        onTapEditAction: (bool value){
+          setState(() {
+            isInEditModeEducation = value;
+            print(value);
+          });
+        },
+        onTapAddNewAction: () {
+          Navigator.push(
+              context,
+              CupertinoPageRoute(
+                  builder: (context) => AddEditEducationScreen()));
+        },
+        children: List.generate(eduList.length, (int i) {
+          return EducationsListItem(
+            educationItemModel: eduList[i],
+            index: i,
+            isInEditMode: isInEditModeEducation,
+          );
+        }),
+      );
+    });
+    var skillsWidget =  Consumer<UserProvider>(builder: (context, userProvider, _) {
+      var list = userProvider.userData.technicalSkillList;
+
+      return UserInfoListItem(
+        icon: FontAwesomeIcons.brain,
+        label: StringUtils.professionalSkillText,
+        onTapAddNewAction: () {
+          Navigator.push(
+              context,
+              CupertinoPageRoute(
+                  builder: (context) => AddEditTechnicalSkill()));
+        },
+        children: List.generate(list.length, (index) {
+          var skill = list[index];
+          return TechnicalSkillListItem(
+            technicalSkill: skill,
+            onTap: () {
+              Navigator.push(
+                  context,
+                  CupertinoPageRoute(
+                      builder: (context) => AddEditTechnicalSkill(
+                        index: index,
+                        technicalSkill: skill,
+                      )));
+            },
+          );
+        }),
+      );
+    });
+    var personalInfoWidget = PersonalInfoWidget();
+    var portfolioWidget =  Consumer<UserProvider>(builder: (context, userProvider, _) {
+      var list = userProvider.userData.technicalSkillList;
+
+      return UserInfoListItem(
+        icon: FontAwesomeIcons.wallet,
+        label: StringUtils.projectsText,
+        onTapAddNewAction: () {
+//            Navigator.push(
+//                context,
+//                CupertinoPageRoute(
+//                    builder: (context) => AddEditTechnicalSkill()));
+        },
+        children: List.generate(list.length, (index) {
+          var skill = list[index];
+          return Container(
+            margin: EdgeInsets.only(bottom: 8),
+            decoration: BoxDecoration(
+              color: Theme.of(context).backgroundColor,
+              borderRadius: BorderRadius.circular(5),
+              boxShadow: ProfileCommonStyle.boxShadow,),
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: ListTile(
+              contentPadding: EdgeInsets.zero,
+              leading: Image.asset(kImagePlaceHolderAsset,height: 55,width: 55,),
+              title: Text("Project Name"),
+              subtitle: Text("Project Duration"),
+            ),
+          );
+        }),
+      );
+    });
+    var certificationsWidget = Consumer<UserProvider>(builder: (context, userProvider, _) {
+      var list = userProvider.userData.technicalSkillList;
+
+      return UserInfoListItem(
+        icon: FontAwesomeIcons.certificate,
+        label: StringUtils.certificationsText,
+        onTapAddNewAction: () {
+//            Navigator.push(
+//                context,
+//                CupertinoPageRoute(
+//                    builder: (context) => AddEditTechnicalSkill()));
+        },
+        children: List.generate(1, (index) {
+          var skill = list[index];
+          return Container(
+            margin: EdgeInsets.only(bottom: 8),
+            decoration: BoxDecoration(
+              color: Theme.of(context).backgroundColor,
+              borderRadius: BorderRadius.circular(5),
+              boxShadow: ProfileCommonStyle.boxShadow,),
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: ListTile(
+              contentPadding: EdgeInsets.zero,
+              leading: Container(
+                  height: 55,
+                  width: 55,
+                  color: Theme.of(context).scaffoldBackgroundColor,
+                  child: Icon(FontAwesomeIcons.certificate)),
+              title: Text("AWS Certified Solutions Architect - Associate"),
+              subtitle: Text("Issue by: IBM"),
+            ),
+          );
+        }),
+      );
+    });
+    var membersShipWidget = Consumer<UserProvider>(builder: (context, userProvider, _) {
+      var list = userProvider.userData.technicalSkillList;
+
+      return UserInfoListItem(
+        icon: FontAwesomeIcons.users,
+        label: StringUtils.membershipsText,
+        onTapAddNewAction: () {
+//            Navigator.push(
+//                context,
+//                CupertinoPageRoute(
+//                    builder: (context) => AddEditTechnicalSkill()));
+        },
+        children: List.generate(1, (index) {
+          var skill = list[index];
+          return Container(
+            margin: EdgeInsets.only(bottom: 8),
+            decoration: BoxDecoration(
+              color: Theme.of(context).backgroundColor,
+              borderRadius: BorderRadius.circular(5),
+              boxShadow: ProfileCommonStyle.boxShadow,),
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: ListTile(
+              contentPadding: EdgeInsets.zero,
+              leading: Container(
+                  height: 55,
+                  width: 55,
+                  color: Theme.of(context).scaffoldBackgroundColor,
+                  child: Icon(FontAwesomeIcons.users)),
+              title: Text("Member of IEE"),
+              subtitle: Text("Jan 10,2020 - Ongoing"),
+            ),
+          );
+        }),
+      );
+    });
+    var referencesWidget =    Consumer<UserProvider>(builder: (context, userProvider, _) {
+      var list = userProvider.userData.technicalSkillList;
+
+      return UserInfoListItem(
+        icon: FontAwesomeIcons.bookReader,
+        label: StringUtils.referencesText,
+        onTapAddNewAction: () {
+//            Navigator.push(
+//                context,
+//                CupertinoPageRoute(
+//                    builder: (context) => AddEditTechnicalSkill()));
+        },
+        children: List.generate(list.length, (index) {
+          var ref = list[index];
+          return Container(
+            margin: EdgeInsets.only(bottom: 8),
+            decoration: BoxDecoration(
+              color: Theme.of(context).backgroundColor,
+              borderRadius: BorderRadius.circular(5),
+              boxShadow: ProfileCommonStyle.boxShadow,),
+            child: ListTile(
+              contentPadding: EdgeInsets.zero,
+              leading: Container(
+                height: 55,
+                width: 55,
+                color: Theme.of(context).backgroundColor,
+                child: Icon(FontAwesomeIcons.user),
+              ),
+              title: Text("Name"),
+              subtitle: Text("Current Position"),
+            ),
+          );
+        }),
+      );
+    });
 
     return Scaffold(
       appBar: AppBar(
@@ -383,252 +612,32 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                   children: [
                     aboutWidget,
                     SizedBox(height: 15),
-                    Consumer<UserProvider>(builder: (context, userProvider, _) {
-                      var expList = userProvider.userData.experienceList;
-                      return UserInfoListItem(
-                        isInEditMode: isInEditModeExperience,
-                        onTapEditAction: (v){
-                          isInEditModeExperience = v;
-                          setState(() {
-
-                          });
-                        },
-                        icon: FontAwesomeIcons.globeEurope,
-                        label: StringUtils.experienceText,
-                        onTapAddNewAction: () {
-                          Navigator.push(
-                              context,
-                              CupertinoPageRoute(
-                                  builder: (context) => AddNewExperienceScreen()));
-                        },
-                        children: List.generate(expList.length, (int index) {
-                          var exp = expList[index];
-                          return ExperienceListItem(
-                            isInEditMode:             isInEditModeExperience,
-                            experienceModel: exp,
-                            onTapEdit: () {
-                              Navigator.push(
-                                  context,
-                                  CupertinoPageRoute(
-                                      builder: (context) => AddNewExperienceScreen(
-                                        index: index,
-                                        experienceModel: exp,
-                                      )));
-                            },
-                          );
-                        }),
-                      );
-                    }),
+                    /// Experience
+                    experienceWidget,
                     SizedBox(height: 15),
 
                     ///Education
-                    Consumer<UserProvider>(builder: (context, userProvider, _) {
-                      var eduList = userProvider.userData.educationModelList;
-                      return UserInfoListItem(
-                        isInEditMode: isInEditModeEducation,
-                        icon: FontAwesomeIcons.university,
-                        label: StringUtils.educationsText,
-                        onTapEditAction: (bool value){
-                          setState(() {
-                            isInEditModeEducation = value;
-                            print(value);
-                          });
-                        },
-                        onTapAddNewAction: () {
-                          Navigator.push(
-                              context,
-                              CupertinoPageRoute(
-                                  builder: (context) => AddEditEducationScreen()));
-                        },
-                        children: List.generate(eduList.length, (int i) {
-                          return EducationsListItem(
-                            educationItemModel: eduList[i],
-                            index: i,
-                            isInEditMode: isInEditModeEducation,
-                          );
-                        }),
-                      );
-                    }),
+                    educationWidget,
                     SizedBox(height: 15),
 
                     ///Skill
 
-                    Consumer<UserProvider>(builder: (context, userProvider, _) {
-                      var list = userProvider.userData.technicalSkillList;
-
-                      return UserInfoListItem(
-                        icon: FontAwesomeIcons.brain,
-                        label: StringUtils.professionalSkillText,
-                        onTapAddNewAction: () {
-                          Navigator.push(
-                              context,
-                              CupertinoPageRoute(
-                                  builder: (context) => AddEditTechnicalSkill()));
-                        },
-                        children: List.generate(list.length, (index) {
-                          var skill = list[index];
-                          return TechnicalSkillListItem(
-                            technicalSkill: skill,
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  CupertinoPageRoute(
-                                      builder: (context) => AddEditTechnicalSkill(
-                                        index: index,
-                                        technicalSkill: skill,
-                                      )));
-                            },
-                          );
-                        }),
-                      );
-                    }),
+                   skillsWidget,
                     SizedBox(height: 15),
                     /// Personal info
-                    PersonalInfoWidget(),
+                    personalInfoWidget,
                     SizedBox(height: 15),
                     /// Portfolio
-                    Consumer<UserProvider>(builder: (context, userProvider, _) {
-                      var list = userProvider.userData.technicalSkillList;
-
-                      return UserInfoListItem(
-                        icon: FontAwesomeIcons.wallet,
-                        label: StringUtils.projectsText,
-                        onTapAddNewAction: () {
-//            Navigator.push(
-//                context,
-//                CupertinoPageRoute(
-//                    builder: (context) => AddEditTechnicalSkill()));
-                        },
-                        children: List.generate(list.length, (index) {
-                          var skill = list[index];
-                          return Container(
-                            margin: EdgeInsets.only(bottom: 8),
-                            decoration: BoxDecoration(
-                              color: Theme.of(context).backgroundColor,
-                              borderRadius: BorderRadius.circular(5),
-                              boxShadow: ProfileCommonStyle.boxShadow,),
-                            padding: const EdgeInsets.symmetric(horizontal: 8),
-                            child: ListTile(
-                              contentPadding: EdgeInsets.zero,
-                              leading: Image.asset(kImagePlaceHolderAsset,height: 55,width: 55,),
-                              title: Text("Project Name"),
-                              subtitle: Text("Project Duration"),
-                            ),
-                          );
-                        }),
-                      );
-                    }),
+                   portfolioWidget,
                     SizedBox(height: 15),
                     /// Certifications
-                    Consumer<UserProvider>(builder: (context, userProvider, _) {
-                      var list = userProvider.userData.technicalSkillList;
-
-                      return UserInfoListItem(
-                        icon: FontAwesomeIcons.certificate,
-                        label: StringUtils.certificationsText,
-                        onTapAddNewAction: () {
-//            Navigator.push(
-//                context,
-//                CupertinoPageRoute(
-//                    builder: (context) => AddEditTechnicalSkill()));
-                        },
-                        children: List.generate(1, (index) {
-                          var skill = list[index];
-                          return Container(
-                            margin: EdgeInsets.only(bottom: 8),
-                            decoration: BoxDecoration(
-                              color: Theme.of(context).backgroundColor,
-                              borderRadius: BorderRadius.circular(5),
-                              boxShadow: ProfileCommonStyle.boxShadow,),
-                            padding: const EdgeInsets.symmetric(horizontal: 8),
-                            child: ListTile(
-                              contentPadding: EdgeInsets.zero,
-                              leading: Container(
-                                  height: 55,
-                                  width: 55,
-                                  color: Theme.of(context).scaffoldBackgroundColor,
-                                  child: Icon(FontAwesomeIcons.certificate)),
-                              title: Text("AWS Certified Solutions Architect - Associate"),
-                              subtitle: Text("Issue by: IBM"),
-                            ),
-                          );
-                        }),
-                      );
-                    }),
+                    certificationsWidget,
                     SizedBox(height: 15),
                     /// Memberships
-                    Consumer<UserProvider>(builder: (context, userProvider, _) {
-                      var list = userProvider.userData.technicalSkillList;
-
-                      return UserInfoListItem(
-                        icon: FontAwesomeIcons.users,
-                        label: StringUtils.membershipsText,
-                        onTapAddNewAction: () {
-//            Navigator.push(
-//                context,
-//                CupertinoPageRoute(
-//                    builder: (context) => AddEditTechnicalSkill()));
-                        },
-                        children: List.generate(1, (index) {
-                          var skill = list[index];
-                          return Container(
-                            margin: EdgeInsets.only(bottom: 8),
-                            decoration: BoxDecoration(
-                              color: Theme.of(context).backgroundColor,
-                              borderRadius: BorderRadius.circular(5),
-                              boxShadow: ProfileCommonStyle.boxShadow,),
-                            padding: const EdgeInsets.symmetric(horizontal: 8),
-                            child: ListTile(
-                              contentPadding: EdgeInsets.zero,
-                              leading: Container(
-                                  height: 55,
-                                  width: 55,
-                                  color: Theme.of(context).scaffoldBackgroundColor,
-                                  child: Icon(FontAwesomeIcons.users)),
-                              title: Text("Member of IEE"),
-                              subtitle: Text("Jan 10,2020 - Ongoing"),
-                            ),
-                          );
-                        }),
-                      );
-                    }),
+                    membersShipWidget,
                     SizedBox(height: 15),
                     /// References
-                    Consumer<UserProvider>(builder: (context, userProvider, _) {
-                      var list = userProvider.userData.technicalSkillList;
-
-                      return UserInfoListItem(
-                        icon: FontAwesomeIcons.bookReader,
-                        label: StringUtils.referencesText,
-                        onTapAddNewAction: () {
-//            Navigator.push(
-//                context,
-//                CupertinoPageRoute(
-//                    builder: (context) => AddEditTechnicalSkill()));
-                        },
-                        children: List.generate(list.length, (index) {
-                          var ref = list[index];
-                          return Container(
-                            margin: EdgeInsets.only(bottom: 8),
-                            decoration: BoxDecoration(
-                              color: Theme.of(context).backgroundColor,
-                              borderRadius: BorderRadius.circular(5),
-                              boxShadow: ProfileCommonStyle.boxShadow,),
-                            child: ListTile(
-                              contentPadding: EdgeInsets.zero,
-                              leading: Container(
-                                height: 55,
-                                width: 55,
-                                color: Theme.of(context).backgroundColor,
-                                child: Icon(FontAwesomeIcons.user),
-                              ),
-                              title: Text("Name"),
-                              subtitle: Text("Current Position"),
-                            ),
-                          );
-                        }),
-                      );
-                    }),
+                 referencesWidget,
                     SizedBox(height: 15),
                   ],
                 ),
