@@ -1,5 +1,8 @@
 import 'package:after_layout/after_layout.dart';
+import 'package:p7app/features/user_profile/views/screens/certifications_list_item_widget.dart';
+import 'package:p7app/features/user_profile/views/screens/references_list_item_widget.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:p7app/features/user_profile/models/member_ship_info.dart';
 import 'package:p7app/features/user_profile/views/screens/add_edit_education_screen.dart';
 import 'package:p7app/features/user_profile/views/screens/add_edit_experience_screen.dart';
 import 'package:p7app/features/user_profile/views/screens/add_edit_technical_skill_screen.dart';
@@ -8,6 +11,7 @@ import 'package:p7app/features/user_profile/styles/profile_common_style.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/features/user_profile/views/widgets/educations_list_item.dart';
 import 'package:p7app/features/user_profile/views/widgets/experience_list_item.dart';
+import 'package:p7app/features/user_profile/views/widgets/member_ship_list_item.dart';
 import 'package:p7app/features/user_profile/views/widgets/personal_info_widget.dart';
 import 'package:p7app/features/user_profile/views/widgets/technical_skill_list_item.dart';
 import 'package:p7app/features/user_profile/views/widgets/user_info_list_item.dart';
@@ -119,14 +123,15 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
     var profileHeaderBackgroundColor = Color(0xff08233A);
     var profileHeaderFontColor = Colors.white;
     var profileImageWidget = Container(
-      margin: EdgeInsets.only(bottom: 15,top: 8),
+      margin: EdgeInsets.only(bottom: 15, top: 8),
       height: 65,
       width: 65,
       decoration:
           BoxDecoration(borderRadius: BorderRadius.circular(100), boxShadow: [
         BoxShadow(color: Colors.black12, blurRadius: 5, spreadRadius: 5),
       ]),
-      child: Consumer<UserProfileViewModel>(builder: (context, userProfileViewModel, s) {
+      child: Consumer<UserProfileViewModel>(
+          builder: (context, userProfileViewModel, s) {
         return ClipRRect(
             borderRadius: BorderRadius.circular(100),
             child: FadeInImage(
@@ -134,12 +139,15 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
               placeholder: AssetImage(
                 kDefaultUserImageAsset,
               ),
-              image: NetworkImage(userProfileViewModel.userData.personalInfo.image?? kDefaultUserImageNetwork),
+              image: NetworkImage(
+                  userProfileViewModel.userData.personalInfo.image ??
+                      kDefaultUserImageNetwork),
             ));
       }),
     );
     var displayNameWidget = Selector<UserProfileViewModel, String>(
-        selector: (_, userProfileViewModel) => userProfileViewModel.userData.personalInfo.fullName,
+        selector: (_, userProfileViewModel) =>
+            userProfileViewModel.userData.personalInfo.fullName,
         builder: (context, String data, _) {
           return Text(
             data ?? "",
@@ -218,7 +226,8 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
           width: 3,
         ),
         Selector<UserProfileViewModel, String>(
-            selector: (_, userProfileViewModel) => userProfileViewModel.userData.personalInfo.address,
+            selector: (_, userProfileViewModel) =>
+                userProfileViewModel.userData.personalInfo.address,
             builder: (context, String data, _) {
               return Text(
                 data ?? "",
@@ -229,7 +238,8 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
       ],
     );
     var emailWidget = Selector<UserProfileViewModel, String>(
-        selector: (_, userProfileViewModel) => userProfileViewModel.userData.personalInfo.email,
+        selector: (_, userProfileViewModel) =>
+            userProfileViewModel.userData.personalInfo.email,
         builder: (context, String data, _) {
           return Text(
             data ?? "",
@@ -241,26 +251,26 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
         });
     var designationWidget = Consumer<UserProfileViewModel>(
         builder: (context, userProfileViewModel, _) {
-          return Column(
-            children: <Widget>[
-              Text(
-                userProfileViewModel.userData.personalInfo.qualification??"",
-                style: TextStyle(
-                    fontSize: 18,
-                    color: profileHeaderFontColor,
-                    fontWeight: FontWeight.w100),
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              Text(
-                userProfileViewModel.userData.personalInfo.experience??"",
-                style: TextStyle(
-                    color: profileHeaderFontColor, fontWeight: FontWeight.w100),
-              ),
-            ],
-          );
-        });
+      return Column(
+        children: <Widget>[
+          Text(
+            userProfileViewModel.userData.personalInfo.qualification ?? "",
+            style: TextStyle(
+                fontSize: 18,
+                color: profileHeaderFontColor,
+                fontWeight: FontWeight.w100),
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          Text(
+            userProfileViewModel.userData.personalInfo.experience ?? "",
+            style: TextStyle(
+                color: profileHeaderFontColor, fontWeight: FontWeight.w100),
+          ),
+        ],
+      );
+    });
     var aboutMeWidget = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -305,7 +315,8 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Selector<UserProfileViewModel, String>(
-                selector: (_, userProfileViewModel) => userProfileViewModel.userData.personalInfo.aboutMe??"",
+                selector: (_, userProfileViewModel) =>
+                    userProfileViewModel.userData.personalInfo.aboutMe ?? "",
                 builder: (context, String data, _) {
                   return Text(
                     data,
@@ -316,15 +327,14 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
         ),
       ],
     );
-    var experienceWidget = Consumer<UserProfileViewModel>(builder: (context, userProfileViewModel, _) {
+    var experienceWidget = Consumer<UserProfileViewModel>(
+        builder: (context, userProfileViewModel, _) {
       var expList = userProfileViewModel.userData.experienceInfo;
       return UserInfoListItem(
         isInEditMode: isInEditModeExperience,
-        onTapEditAction: (v){
+        onTapEditAction: (v) {
           isInEditModeExperience = v;
-          setState(() {
-
-          });
+          setState(() {});
         },
         icon: FontAwesomeIcons.globeEurope,
         label: StringUtils.experienceText,
@@ -337,28 +347,29 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
         children: List.generate(expList.length, (int index) {
           var exp = expList[index];
           return ExperienceListItem(
-            isInEditMode:             isInEditModeExperience,
+            isInEditMode: isInEditModeExperience,
             experienceInfoModel: exp,
             onTapEdit: () {
               Navigator.push(
                   context,
                   CupertinoPageRoute(
                       builder: (context) => AddNewExperienceScreen(
-                        index: index,
-                        experienceInfoModel: exp,
-                      )));
+                            index: index,
+                            experienceInfoModel: exp,
+                          )));
             },
           );
         }),
       );
     });
-    var educationWidget = Consumer<UserProfileViewModel>(builder: (context, UserProfileViewModel, _) {
+    var educationWidget = Consumer<UserProfileViewModel>(
+        builder: (context, UserProfileViewModel, _) {
       var eduList = UserProfileViewModel.userData.eduInfo;
       return UserInfoListItem(
         isInEditMode: isInEditModeEducation,
         icon: FontAwesomeIcons.university,
         label: StringUtils.educationsText,
-        onTapEditAction: (bool value){
+        onTapEditAction: (bool value) {
           setState(() {
             isInEditModeEducation = value;
             print(value);
@@ -379,7 +390,8 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
         }),
       );
     });
-    var skillsWidget =  Consumer<UserProfileViewModel>(builder: (context, userProfileViewModel, _) {
+    var skillsWidget = Consumer<UserProfileViewModel>(
+        builder: (context, userProfileViewModel, _) {
       var list = userProfileViewModel.userData.skillInfo;
 
       return UserInfoListItem(
@@ -400,16 +412,17 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                   context,
                   CupertinoPageRoute(
                       builder: (context) => AddEditTechnicalSkill(
-                        index: index,
-                        skillInfo: skill,
-                      )));
+                            index: index,
+                            skillInfo: skill,
+                          )));
             },
           );
         }),
       );
     });
     var personalInfoWidget = PersonalInfoWidget();
-    var portfolioWidget =  Consumer<UserProfileViewModel>(builder: (context, userProfileViewModel, _) {
+    var portfolioWidget = Consumer<UserProfileViewModel>(
+        builder: (context, userProfileViewModel, _) {
       var list = userProfileViewModel.userData.skillInfo;
 
       return UserInfoListItem(
@@ -428,11 +441,16 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
             decoration: BoxDecoration(
               color: Theme.of(context).backgroundColor,
               borderRadius: BorderRadius.circular(5),
-              boxShadow: ProfileCommonStyle.boxShadow,),
+              boxShadow: ProfileCommonStyle.boxShadow,
+            ),
             padding: const EdgeInsets.symmetric(horizontal: 8),
             child: ListTile(
               contentPadding: EdgeInsets.zero,
-              leading: Image.asset(kImagePlaceHolderAsset,height: 55,width: 55,),
+              leading: Image.asset(
+                kImagePlaceHolderAsset,
+                height: 55,
+                width: 55,
+              ),
               title: Text("Project Name"),
               subtitle: Text("Project Duration"),
             ),
@@ -440,8 +458,9 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
         }),
       );
     });
-    var certificationsWidget = Consumer<UserProfileViewModel>(builder: (context, userProfileViewModel, _) {
-      var list = userProfileViewModel.userData.skillInfo;
+    var certificationsWidget = Consumer<UserProfileViewModel>(
+        builder: (context, userProfileViewModel, _) {
+      var list = userProfileViewModel.userData.certificationInfo;
 
       return UserInfoListItem(
         icon: FontAwesomeIcons.certificate,
@@ -453,30 +472,14 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
 //                    builder: (context) => AddEditTechnicalSkill()));
         },
         children: List.generate(1, (index) {
-          var skill = list[index];
-          return Container(
-            margin: EdgeInsets.only(bottom: 8),
-            decoration: BoxDecoration(
-              color: Theme.of(context).backgroundColor,
-              borderRadius: BorderRadius.circular(5),
-              boxShadow: ProfileCommonStyle.boxShadow,),
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            child: ListTile(
-              contentPadding: EdgeInsets.zero,
-              leading: Container(
-                  height: 55,
-                  width: 55,
-                  color: Theme.of(context).scaffoldBackgroundColor,
-                  child: Icon(FontAwesomeIcons.certificate)),
-              title: Text("AWS Certified Solutions Architect - Associate"),
-              subtitle: Text("Issue by: IBM"),
-            ),
-          );
+          var cer = list[index];
+          return CertificationsListItemWidget(certificationInfo: cer,);
         }),
       );
     });
-    var membersShipWidget = Consumer<UserProfileViewModel>(builder: (context, userProfileViewModel, _) {
-      var list = userProfileViewModel.userData.skillInfo;
+    var membersShipWidget = Consumer<UserProfileViewModel>(
+        builder: (context, userProfileViewModel, _) {
+      List<MembershipInfo> list = userProfileViewModel.userData.membershipInfo;
 
       return UserInfoListItem(
         icon: FontAwesomeIcons.users,
@@ -488,29 +491,15 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
 //                    builder: (context) => AddEditTechnicalSkill()));
         },
         children: List.generate(1, (index) {
-          var skill = list[index];
-          return Container(
-            margin: EdgeInsets.only(bottom: 8),
-            decoration: BoxDecoration(
-              color: Theme.of(context).backgroundColor,
-              borderRadius: BorderRadius.circular(5),
-              boxShadow: ProfileCommonStyle.boxShadow,),
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            child: ListTile(
-              contentPadding: EdgeInsets.zero,
-              leading: Container(
-                  height: 55,
-                  width: 55,
-                  color: Theme.of(context).scaffoldBackgroundColor,
-                  child: Icon(FontAwesomeIcons.users)),
-              title: Text("Member of IEE"),
-              subtitle: Text("Jan 10,2020 - Ongoing"),
-            ),
+          var memberShip = list[index];
+          return MemberShipListItem(
+            memberShip: memberShip,
           );
         }),
       );
     });
-    var referencesWidget =    Consumer<UserProfileViewModel>(builder: (context, userProfileViewModel, _) {
+    var referencesWidget = Consumer<UserProfileViewModel>(
+        builder: (context, userProfileViewModel, _) {
       var referenceList = userProfileViewModel.userData.referenceData;
 
       return UserInfoListItem(
@@ -524,23 +513,8 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
         },
         children: List.generate(referenceList.length, (index) {
           var ref = referenceList[index];
-          return Container(
-            margin: EdgeInsets.only(bottom: 8),
-            decoration: BoxDecoration(
-              color: Theme.of(context).backgroundColor,
-              borderRadius: BorderRadius.circular(5),
-              boxShadow: ProfileCommonStyle.boxShadow,),
-            child: ListTile(
-              contentPadding: EdgeInsets.zero,
-              leading: Container(
-                height: 55,
-                width: 55,
-                color: Theme.of(context).backgroundColor,
-                child: Icon(FontAwesomeIcons.user),
-              ),
-              title: Text("Name"),
-              subtitle: Text("Current Position"),
-            ),
+          return ReferencesListItemWidget(
+            referenceData: ref,
           );
         }),
       );
@@ -552,8 +526,9 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
       ),
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
-        child: Consumer<UserProfileViewModel>(builder: (context, UserProfileViewModel, child) {
-          if (UserProfileViewModel.userData == null) {
+        child: Consumer<UserProfileViewModel>(
+            builder: (context, userProfileViewModel, child) {
+          if (userProfileViewModel.userData == null) {
             return Container(
               height: MediaQuery.of(context).size.height,
               child: Center(child: Loader()),
@@ -565,14 +540,14 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
               Container(
                 height: 200,
                 decoration: BoxDecoration(
-                    color: profileHeaderBackgroundColor,
-                    image: DecorationImage(
-                        image: AssetImage(kUserProfileCoverImageAsset),
-                        fit: BoxFit.cover),),
+                  color: profileHeaderBackgroundColor,
+                  image: DecorationImage(
+                      image: AssetImage(kUserProfileCoverImageAsset),
+                      fit: BoxFit.cover),
+                ),
                 padding: EdgeInsets.all(8),
                 child: Column(
                   children: [
-
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -584,7 +559,9 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              SizedBox(height: 8,),
+                              SizedBox(
+                                height: 8,
+                              ),
                               displayNameWidget,
                               SizedBox(height: 3),
                               emailWidget,
@@ -612,6 +589,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                   children: [
                     aboutMeWidget,
                     SizedBox(height: 15),
+
                     /// Experience
                     experienceWidget,
                     SizedBox(height: 15),
@@ -622,22 +600,27 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
 
                     ///Skill
 
-                   skillsWidget,
+                    skillsWidget,
                     SizedBox(height: 15),
+
                     /// Personal info
                     personalInfoWidget,
                     SizedBox(height: 15),
+
                     /// Portfolio
-                   portfolioWidget,
+                    portfolioWidget,
                     SizedBox(height: 15),
+
                     /// Certifications
                     certificationsWidget,
                     SizedBox(height: 15),
+
                     /// Memberships
                     membersShipWidget,
                     SizedBox(height: 15),
+
                     /// References
-                 referencesWidget,
+                    referencesWidget,
                     SizedBox(height: 15),
                   ],
                 ),
