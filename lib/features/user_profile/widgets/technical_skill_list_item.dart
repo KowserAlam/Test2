@@ -1,14 +1,15 @@
-import 'package:p7app/features/user_profile/models/user_profile_models.dart';
+import 'package:p7app/features/user_profile/models/skill_info.dart';
+import 'package:p7app/features/user_profile/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p7app/features/user_profile/styles/profile_common_style.dart';
 
 class TechnicalSkillListItem extends StatelessWidget {
-  final TechnicalSkill technicalSkill;
+  final SkillInfo skillInfo;
   final Function onTap;
 
   TechnicalSkillListItem({
-    @required this.technicalSkill,
+    @required this.skillInfo,
     @required this.onTap,
 
   });
@@ -30,7 +31,7 @@ class TechnicalSkillListItem extends StatelessWidget {
             contentPadding: EdgeInsets.only(left: 5),
             leading: Padding(
               padding: const EdgeInsets.all(7.0),
-              child: technicalSkill.isVerified ?? false
+              child: skillInfo.verifiedBySkillcheck ?? false
                   ? Icon(
                 FontAwesomeIcons.checkCircle,
                 color: Colors.orange,
@@ -41,7 +42,7 @@ class TechnicalSkillListItem extends StatelessWidget {
               ),
             ),
             title: Text(
-              technicalSkill.skillName,
+              skillInfo.skill,
               style: Theme.of(context)
                   .textTheme
                   .title
@@ -51,11 +52,11 @@ class TechnicalSkillListItem extends StatelessWidget {
               children: List.generate(5, (int index) {
                 var iconData = Icons.star_border;
 
-                if (technicalSkill.level > index) {
+                if (skillInfo.rating > index) {
                   iconData = Icons.star;
                 }
 
-                if (technicalSkill.level > index && technicalSkill.level < index + 1) {
+                if (skillInfo.rating > index && skillInfo.rating < index + 1) {
                   iconData = Icons.star_half;
                 }
                 return Icon(

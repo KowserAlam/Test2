@@ -1,4 +1,4 @@
-import 'package:p7app/features/user_profile/providers/user_provider.dart';
+import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/features/user_profile/styles/profile_common_style.dart';
 import 'package:p7app/features/user_profile/widgets/edit_personal_info_screen.dart';
 import 'package:p7app/features/user_profile/widgets/user_info_list_item.dart';
@@ -54,7 +54,7 @@ class PersonalInfoWidget extends StatelessWidget {
             color: Theme.of(context).backgroundColor,
             borderRadius: BorderRadius.circular(5),
             boxShadow: ProfileCommonStyle.boxShadow,),
-          child: Consumer<UserProvider>(builder: (context, userProvider, _) {
+          child: Consumer<UserProfileViewModel>(builder: (context, userProvider, _) {
             var personalInfo = userProvider.userData.personalInfo;
             return Column(
               children: <Widget>[
@@ -84,12 +84,12 @@ class PersonalInfoWidget extends StatelessWidget {
                 _item(
                     context: context,
                     label: StringUtils.currentAddersText,
-                    value: personalInfo.currentAddress),
+                    value: personalInfo.address),
                 //permanent address
                 _item(
                     context: context,
                     label: StringUtils.permanentAddersText,
-                    value: personalInfo.permanentAddress),
+                    value: personalInfo.address),
                 //nationality
                 _item(
                     context: context,
@@ -99,7 +99,7 @@ class PersonalInfoWidget extends StatelessWidget {
                 _item(
                     context: context,
                     label: StringUtils.religionText,
-                    value: personalInfo.religion),
+                    value: StringUtils.religionText),
               ],
             );
           }),

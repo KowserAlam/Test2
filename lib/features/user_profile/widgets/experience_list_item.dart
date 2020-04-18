@@ -1,4 +1,5 @@
-import 'package:p7app/features/user_profile/models/user_profile_models.dart';
+import 'package:p7app/features/user_profile/models/experience_info.dart';
+import 'package:p7app/features/user_profile/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
@@ -6,21 +7,22 @@ import 'package:p7app/features/user_profile/styles/profile_common_style.dart';
 import 'package:p7app/main_app/resource/const.dart';
 
 class ExperienceListItem extends StatelessWidget {
-  final Experience experienceModel;
+  final ExperienceInfo experienceInfoModel;
   final Function onTapEdit;
   final bool isInEditMode;
 
-  ExperienceListItem({this.experienceModel, this.onTapEdit,this.isInEditMode});
+  ExperienceListItem({this.experienceInfoModel, this.onTapEdit,this.isInEditMode});
 
   @override
   Widget build(BuildContext context) {
 
 
     var backgroundColor = Theme.of(context).backgroundColor;
-    String time = "";
 
-    time = "${DateFormat().add_yMMMd().format(experienceModel.joiningDate)} "
-        "- ${experienceModel.leavingDate == null ? "Ongoing" : DateFormat().add_yMMMd().format(experienceModel.leavingDate)}";
+
+    String startDate = experienceInfoModel.startedDate != null ?  "${DateFormat().add_yMMMd().format(experienceInfoModel.startedDate)} " :"";
+   String date = "$startDate"
+        "- ${experienceInfoModel.endDate == null ? "Ongoing" : DateFormat().add_yMMMd().format(experienceInfoModel.endDate)}";
 
     return Container(
       margin: EdgeInsets.only(bottom: 8),
@@ -37,14 +39,14 @@ class ExperienceListItem extends StatelessWidget {
           width: 55,
         ),
         title: Text(
-          experienceModel.position,
+          experienceInfoModel.designation,
         ),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(experienceModel.organizationName),
+            Text(experienceInfoModel.company),
             Text(
-              time,
+              date,
               style: TextStyle(fontSize: 12),
             ),
           ],
