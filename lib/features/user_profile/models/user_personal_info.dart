@@ -106,7 +106,7 @@ class UserPersonalInfo {
     data['facebbok_id'] = this.facebbokId;
     data['twitter_id'] = this.twitterId;
     data['linkedin_id'] = this.linkedinId;
-    data['date_of_birth'] = this.dateOfBirth;
+    data['date_of_birth'] = this.dateOfBirth.toIso8601String();
     data['expected_salary_min'] = this.expectedSalaryMin;
     data['expected_salary_max'] = this.expectedSalaryMax;
     data['industry_expertise'] = this.industryExpertise;

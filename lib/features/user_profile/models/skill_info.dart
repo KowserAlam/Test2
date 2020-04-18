@@ -3,12 +3,12 @@
 class SkillInfo {
   String skill;
   int rating;
-  String verifiedBySkillcheck;
+  bool verifiedBySkillcheck;
 
   SkillInfo({this.skill, this.rating, this.verifiedBySkillcheck});
 
   SkillInfo.fromJson(Map<String, dynamic> json) {
-    skill = json['skill'];
+    skill = json['skill']?.toString();
     rating = json['rating'];
     verifiedBySkillcheck = json['verified_by_skillcheck'];
   }

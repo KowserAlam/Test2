@@ -43,9 +43,9 @@ class UserModel {
         skillInfo.add(new SkillInfo.fromJson(v));
       });
     }
-    if (json['experiecnce_info'] != null) {
+    if (json['experience_info'] != null) {
       experienceInfo = new List<ExperienceInfo>();
-      json['experiecnce_info'].forEach((v) {
+      json['experience_info'].forEach((v) {
         experienceInfo.add(new ExperienceInfo.fromJson(v));
       });
     }
@@ -87,7 +87,7 @@ class UserModel {
       data['skill_info'] = this.skillInfo.map((v) => v.toJson()).toList();
     }
     if (this.experienceInfo != null) {
-      data['experiecnce_info'] =
+      data['experience_info'] =
           this.experienceInfo.map((v) => v.toJson()).toList();
     }
     if (this.portfolioInfo != null) {

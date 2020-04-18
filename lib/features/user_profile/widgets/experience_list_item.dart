@@ -18,9 +18,10 @@ class ExperienceListItem extends StatelessWidget {
 
 
     var backgroundColor = Theme.of(context).backgroundColor;
-    String time = "";
 
-    time = "${DateFormat().add_yMMMd().format(experienceInfoModel.startedDate)} "
+
+    String startDate = experienceInfoModel.startedDate != null ?  "${DateFormat().add_yMMMd().format(experienceInfoModel.startedDate)} " :"";
+   String date = "$startDate"
         "- ${experienceInfoModel.endDate == null ? "Ongoing" : DateFormat().add_yMMMd().format(experienceInfoModel.endDate)}";
 
     return Container(
@@ -45,7 +46,7 @@ class ExperienceListItem extends StatelessWidget {
           children: <Widget>[
             Text(experienceInfoModel.company),
             Text(
-              time,
+              date,
               style: TextStyle(fontSize: 12),
             ),
           ],

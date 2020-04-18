@@ -53,6 +53,8 @@ class UserProfileViewModel with ChangeNotifier {
       return false;
     }, (right) {
       /// if right
+
+      _userData = right;
       _hasError = false;
       _isBusyLoading = false;
       notifyListeners();

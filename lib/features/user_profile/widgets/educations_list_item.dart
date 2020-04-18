@@ -13,11 +13,10 @@ class EducationsListItem extends StatelessWidget {
   final int index;
   final bool isInEditMode;
 
-  EducationsListItem({
-    @required this.eduInfoModel,
-    @required this.index,
-    this.isInEditMode = false
-  });
+  EducationsListItem(
+      {@required this.eduInfoModel,
+      @required this.index,
+      this.isInEditMode = false});
 
   @override
   Widget build(BuildContext context) {
@@ -45,28 +44,29 @@ class EducationsListItem extends StatelessWidget {
           ),
         ),
         title: Text(
-          eduInfoModel.institution,
+          eduInfoModel.institution ?? "",
         ),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(eduInfoModel.qualification ?? ""),
-            Text( " ${eduInfoModel.graduationDate}"
-            ),
+            Text(eduInfoModel.graduationDate ?? ""),
           ],
         ),
-        trailing: !isInEditMode?null:IconButton(
-          icon: Icon(FontAwesomeIcons.edit),
-          onPressed: () {
-            Navigator.push(
-                context,
-                CupertinoPageRoute(
-                    builder: (context) => AddEditEducationScreen(
-                          educationModel: eduInfoModel,
-                          index: index,
-                        )));
-          },
-        ),
+        trailing: !isInEditMode
+            ? null
+            : IconButton(
+                icon: Icon(FontAwesomeIcons.edit),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                          builder: (context) => AddEditEducationScreen(
+                                educationModel: eduInfoModel,
+                                index: index,
+                              )));
+                },
+              ),
       ),
     );
   }

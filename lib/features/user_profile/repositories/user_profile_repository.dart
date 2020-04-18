@@ -13,9 +13,9 @@ class UserProfileRepository {
 //    try {
       var authUser = await AuthService.getInstance();
       var userId = authUser.getUser().userId;
-      var url = "${Urls.userProfileUrl}/$userId";
-
-      var response = await  ApiClient().getRequest(url);
+//      var url = "${Urls.userProfileUrl}/$userId";
+//
+//      var response = await  ApiClient().getRequest(url);
 
 //      var response = await http.get("${Urls.userProfileUrl}/$userId");
 //      var mapJson = json.decode(response.body);
@@ -28,8 +28,7 @@ class UserProfileRepository {
 //    }
   }
 
-   var dummyData = """ 
-   {
+   var dummyData = """ {
     "personal_info": {
         "id": "c8eb21a2-0bb6-46ec-add6-0de5336e1723",
         "professional_id": null,
@@ -50,38 +49,53 @@ class UserProfileRepository {
         "date_of_birth": "2020-04-11",
         "expected_salary_min": "20000.00",
         "expected_salary_max": "50000.00",
+        "permanent_address": null,
         "industry_expertise": null,
         "user": 39,
         "gender": null,
         "status": null,
         "experience": null,
         "qualification": null,
-        "nationality": null
+        "nationality": null,
+        "religion": null
     },
     "edu_info": [
         {
+            "education_id": 1,
             "qualification": "Hsc",
-            "institution": "None",
-            "cgpa": "None",
-            "major": "None",
+            "institution": null,
+            "cgpa": null,
+            "major": null,
+            "enrolled_date": null,
+            "graduation_date": null
+        },
+        {
+            "education_id": 2,
+            "qualification": null,
+            "institution": null,
+            "cgpa": "5.00",
+            "major": null,
             "enrolled_date": null,
             "graduation_date": null
         }
     ],
     "skill_info": [
         {
-            "skill": "1",
+            "prof_skill_id": 1,
+            "skill": 1,
             "rating": 0,
-            "verified_by_skillcheck": "False"
+            "verified_by_skillcheck": false
         },
         {
-            "skill": "2",
-                     "rating": 2,
-            "verified_by_skillcheck": "False"
+            "prof_skill_id": 2,
+            "skill": 2,
+            "rating": 0,
+            "verified_by_skillcheck": false
         }
     ],
-    "experiecnce_info": [
+    "experience_info": [
         {
+            "experience_id": 1,
             "company": "infolytyx",
             "designation": "system analyst",
             "Started_date": null,
@@ -90,40 +104,51 @@ class UserProfileRepository {
     ],
     "portfolio_info": [
         {
+            "portfolio_id": 1,
             "name": "machine god",
-            "image": "None",
+            "image": null,
             "description": "hello hello"
         }
     ],
     "membership_info": [
         {
-            "org_name": "1",
+            "membership_id": 1,
+            "org_name": 1,
             "position_held": "member",
-            "membership_ongoing": "False",
-            "Start_date": "None",
-            "end_date": "None",
-            "desceription": "None"
+            "membership_ongoing": false,
+            "Start_date": null,
+            "end_date": null,
+            "desceription": null
         }
     ],
     "certification_info": [
         {
-            "certification_name": "2",
-            "organization_name": "2",
-            "has_expiry_period": "True",
-            "issue_date": "None",
-            "expiry_date": "None",
-            "credential_id": "None",
-            "credential_url": "None"
+            "certification_id": 1,
+            "certification_name": 2,
+            "organization_name": 2,
+            "has_expiry_period": true,
+            "issue_date": null,
+            "expiry_date": null,
+            "credential_id": null,
+            "credential_url": null
         }
     ],
     "reference_data": [
         {
+            "reference_id": 1,
             "name": "robertson",
-            "current_position": "None",
-            "email": "None",
-            "mobile": "None"
+            "current_position": null,
+            "email": null,
+            "mobile": null
+        },
+        {
+            "reference_id": 2,
+            "name": "robert",
+            "current_position": null,
+            "email": null,
+            "mobile": null
         }
     ]
 }
-   """;
+ """;
 }

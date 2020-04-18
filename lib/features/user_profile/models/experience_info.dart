@@ -1,4 +1,5 @@
 class ExperienceInfo {
+  int experienceId;
   String company;
   String designation;
   DateTime startedDate;
@@ -8,6 +9,7 @@ class ExperienceInfo {
       {this.company, this.designation, this.startedDate, this.endDate});
 
   ExperienceInfo.fromJson(Map<String, dynamic> json) {
+    experienceId = json['experience_id'];
     company = json['company'];
     designation = json['designation'];
 
@@ -24,6 +26,7 @@ class ExperienceInfo {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['experience_id'] = this.experienceId;
     data['company'] = this.company;
     data['designation'] = this.designation;
     data['Started_date'] = this.startedDate;
