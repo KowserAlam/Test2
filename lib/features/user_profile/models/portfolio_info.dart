@@ -1,7 +1,7 @@
 class PortfolioInfo {
   int portfolioId;
   String name;
-  Null image;
+  String image;
   String description;
 
   PortfolioInfo({this.portfolioId, this.name, this.image, this.description});

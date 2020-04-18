@@ -1,4 +1,5 @@
 import 'package:after_layout/after_layout.dart';
+import 'package:p7app/features/user_profile/views/screens/portfolio_list_item_widget.dart';
 import 'package:p7app/features/user_profile/views/screens/certifications_list_item_widget.dart';
 import 'package:p7app/features/user_profile/views/screens/references_list_item_widget.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -272,44 +273,21 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
       );
     });
     var aboutMeWidget = Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        Row(
-          children: <Widget>[
-            Icon(
-              Icons.info_outline,
-              size: 18,
-            ),
-            SizedBox(
-              width: 3,
-            ),
-            Text(
-              StringUtils.aboutMeText,
-              style: titleTextStyle,
-            ),
-            Spacer(),
-            InkWell(
-              child: Padding(
-                padding: const EdgeInsets.all(4.0),
-                child: Icon(
-                  Icons.edit,
-                  size: 18,
-                  color: primaryColor,
-                ),
-              ),
-              onTap: () {},
-            ),
-          ],
+        Text(
+          StringUtils.aboutMeText,
+          style: titleTextStyle.apply(color: Colors.white),
+
         ),
         SizedBox(
           height: 5,
         ),
         Container(
           width: double.infinity,
-          margin: EdgeInsets.only(bottom: 8),
           decoration: BoxDecoration(
             color: Theme.of(context).backgroundColor,
-            borderRadius: BorderRadius.circular(5),
+//            borderRadius: BorderRadius.circular(5),
             boxShadow: ProfileCommonStyle.boxShadow,
           ),
           child: Padding(
@@ -321,6 +299,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                   return Text(
                     data,
                     textAlign: TextAlign.left,
+                    maxLines: 8,
                   );
                 }),
           ),
@@ -363,8 +342,8 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
       );
     });
     var educationWidget = Consumer<UserProfileViewModel>(
-        builder: (context, UserProfileViewModel, _) {
-      var eduList = UserProfileViewModel.userData.eduInfo;
+        builder: (context, userProfileViewModel, _) {
+      var eduList = userProfileViewModel.userData.eduInfo;
       return UserInfoListItem(
         isInEditMode: isInEditModeEducation,
         icon: FontAwesomeIcons.university,
@@ -423,7 +402,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
     var personalInfoWidget = PersonalInfoWidget();
     var portfolioWidget = Consumer<UserProfileViewModel>(
         builder: (context, userProfileViewModel, _) {
-      var list = userProfileViewModel.userData.skillInfo;
+      var list = userProfileViewModel.userData.portfolioInfo;
 
       return UserInfoListItem(
         icon: FontAwesomeIcons.wallet,
@@ -435,26 +414,8 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
 //                    builder: (context) => AddEditTechnicalSkill()));
         },
         children: List.generate(list.length, (index) {
-          var skill = list[index];
-          return Container(
-            margin: EdgeInsets.only(bottom: 8),
-            decoration: BoxDecoration(
-              color: Theme.of(context).backgroundColor,
-              borderRadius: BorderRadius.circular(5),
-              boxShadow: ProfileCommonStyle.boxShadow,
-            ),
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            child: ListTile(
-              contentPadding: EdgeInsets.zero,
-              leading: Image.asset(
-                kImagePlaceHolderAsset,
-                height: 55,
-                width: 55,
-              ),
-              title: Text("Project Name"),
-              subtitle: Text("Project Duration"),
-            ),
-          );
+          var port = list[index];
+          return PortfolioListItemWidget(portfolioInfo: port,);
         }),
       );
     });
@@ -473,7 +434,9 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
         },
         children: List.generate(1, (index) {
           var cer = list[index];
-          return CertificationsListItemWidget(certificationInfo: cer,);
+          return CertificationsListItemWidget(
+            certificationInfo: cer,
+          );
         }),
       );
     });
@@ -538,7 +501,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
             children: <Widget>[
               // profile header
               Container(
-                height: 200,
+                height: 350,
                 decoration: BoxDecoration(
                   color: profileHeaderBackgroundColor,
                   image: DecorationImage(
@@ -579,6 +542,8 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                       height: 5,
                     ),
                     designationWidget,
+                    Spacer(),
+                    aboutMeWidget,
                   ],
                 ),
               ),
@@ -587,7 +552,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                 padding: EdgeInsets.all(8),
                 child: Column(
                   children: [
-                    aboutMeWidget,
+
                     SizedBox(height: 15),
 
                     /// Experience

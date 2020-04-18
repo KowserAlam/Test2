@@ -1,9 +1,9 @@
 class ReferenceData {
   int referenceId;
   String name;
-  Null currentPosition;
-  Null email;
-  Null mobile;
+  String currentPosition;
+  String email;
+  String mobile;
 
   ReferenceData(
       {this.referenceId,
@@ -15,7 +15,7 @@ class ReferenceData {
   ReferenceData.fromJson(Map<String, dynamic> json) {
     referenceId = json['reference_id'];
     name = json['name'];
-    currentPosition = json['current_position'];
+    currentPosition = json['current_position']?.toString();
     email = json['email'];
     mobile = json['mobile'];
   }
