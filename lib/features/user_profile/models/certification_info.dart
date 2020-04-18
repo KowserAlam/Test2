@@ -1,7 +1,7 @@
 class CertificationInfo {
   int certificationId;
-  int certificationName;
-  int organizationName;
+  String certificationName;
+  String organizationName;
   bool hasExpiryPeriod;
   String issueDate;
   String expiryDate;
@@ -20,8 +20,8 @@ class CertificationInfo {
 
   CertificationInfo.fromJson(Map<String, dynamic> json) {
     certificationId = json['certification_id'];
-    certificationName = json['certification_name'];
-    organizationName = json['organization_name'];
+    certificationName = json['certification_name']?.toString();
+    organizationName = json['organization_name']?.toString();
     hasExpiryPeriod = json['has_expiry_period'];
     issueDate = json['issue_date'];
     expiryDate = json['expiry_date'];

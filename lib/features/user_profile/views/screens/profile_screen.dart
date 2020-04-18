@@ -1,4 +1,6 @@
 import 'package:after_layout/after_layout.dart';
+import 'package:p7app/features/user_profile/views/screens/certifications_list_item_widget.dart';
+import 'package:p7app/features/user_profile/views/screens/references_list_item_widget.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p7app/features/user_profile/models/member_ship_info.dart';
 import 'package:p7app/features/user_profile/views/screens/add_edit_education_screen.dart';
@@ -471,25 +473,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
         },
         children: List.generate(1, (index) {
           var skill = list[index];
-          return Container(
-            margin: EdgeInsets.only(bottom: 8),
-            decoration: BoxDecoration(
-              color: Theme.of(context).backgroundColor,
-              borderRadius: BorderRadius.circular(5),
-              boxShadow: ProfileCommonStyle.boxShadow,
-            ),
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            child: ListTile(
-              contentPadding: EdgeInsets.zero,
-              leading: Container(
-                  height: 55,
-                  width: 55,
-                  color: Theme.of(context).scaffoldBackgroundColor,
-                  child: Icon(FontAwesomeIcons.certificate)),
-              title: Text("AWS Certified Solutions Architect - Associate"),
-              subtitle: Text("Issue by: IBM"),
-            ),
-          );
+          return CertificationsListItemWidget();
         }),
       );
     });
@@ -529,24 +513,8 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
         },
         children: List.generate(referenceList.length, (index) {
           var ref = referenceList[index];
-          return Container(
-            margin: EdgeInsets.only(bottom: 8),
-            decoration: BoxDecoration(
-              color: Theme.of(context).backgroundColor,
-              borderRadius: BorderRadius.circular(5),
-              boxShadow: ProfileCommonStyle.boxShadow,
-            ),
-            child: ListTile(
-              contentPadding: EdgeInsets.zero,
-              leading: Container(
-                height: 55,
-                width: 55,
-                color: Theme.of(context).backgroundColor,
-                child: Icon(FontAwesomeIcons.user),
-              ),
-              title: Text("Name"),
-              subtitle: Text("Current Position"),
-            ),
+          return ReferencesListItemWidget(
+            referenceData: ref,
           );
         }),
       );
@@ -559,8 +527,8 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: Consumer<UserProfileViewModel>(
-            builder: (context, UserProfileViewModel, child) {
-          if (UserProfileViewModel.userData == null) {
+            builder: (context, userProfileViewModel, child) {
+          if (userProfileViewModel.userData == null) {
             return Container(
               height: MediaQuery.of(context).size.height,
               child: Center(child: Loader()),

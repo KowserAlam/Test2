@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:p7app/features/user_profile/models/member_ship_info.dart';
+import 'package:p7app/features/user_profile/models/certification_info.dart';
 import 'package:p7app/features/user_profile/styles/profile_common_style.dart';
 
-class MemberShipListItem extends StatelessWidget {
-  final MembershipInfo memberShip;
-  MemberShipListItem({
-    @required this.memberShip,
-  });
+class CertificationsListItemWidget extends StatelessWidget {
+  final CertificationInfo certificationInfo;
+  const CertificationsListItemWidget({
+    Key key,
+    this.certificationInfo
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -15,7 +17,8 @@ class MemberShipListItem extends StatelessWidget {
       decoration: BoxDecoration(
         color: Theme.of(context).backgroundColor,
         borderRadius: BorderRadius.circular(5),
-        boxShadow: ProfileCommonStyle.boxShadow,),
+        boxShadow: ProfileCommonStyle.boxShadow,
+      ),
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: ListTile(
         contentPadding: EdgeInsets.zero,
@@ -24,11 +27,9 @@ class MemberShipListItem extends StatelessWidget {
             width: 55,
             color: Theme.of(context).scaffoldBackgroundColor,
             child: Icon(FontAwesomeIcons.certificate)),
-        title: Text(memberShip.positionHeld??""),
-        subtitle: Text(memberShip.orgName??""),
+        title: Text(certificationInfo.certificationName??""),
+        subtitle: Text(certificationInfo.organizationName??""),
       ),
     );
   }
-
-
 }

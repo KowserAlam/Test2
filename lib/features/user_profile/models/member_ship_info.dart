@@ -1,6 +1,6 @@
 class MembershipInfo {
   int membershipId;
-  int orgName;
+  String orgName;
   String positionHeld;
   bool membershipOngoing;
   String startDate;
@@ -18,8 +18,8 @@ class MembershipInfo {
 
   MembershipInfo.fromJson(Map<String, dynamic> json) {
     membershipId = json['membership_id'];
-    orgName = json['org_name'];
-    positionHeld = json['position_held'];
+    orgName = json['org_name']?.toString();
+    positionHeld = json['position_held']?.toString();
     membershipOngoing = json['membership_ongoing'];
     startDate = json['Start_date'];
     endDate = json['end_date'];
