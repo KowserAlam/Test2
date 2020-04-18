@@ -32,19 +32,19 @@ class UserProfileRepository {
     "personal_info": {
         "id": "c8eb21a2-0bb6-46ec-add6-0de5336e1723",
         "professional_id": null,
-        "full_name": "shofi",
-        "email": "shofi@ishraak.com",
+        "full_name": "Bill Gates",
+        "email": "bill@ishraak.com",
         "phone": "01940469959",
-        "address": null,
-        "about_me": null,
-        "image": null,
+        "address": "Dhaka, Bangladesh",
+        "about_me": "Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs. The passage is attributed to an unknown typesetter in the 15th century who is thought to have scrambled parts of Cicero's De Finibus Bonorum et Malorum for use in a type specimen book.",
+        "image": "https://www.gstatic.com/tv/thumb/persons/614/614_v9_bc.jpg",
         "terms_and_condition_status": true,
         "password": "pbkdf2_sha256\$180000\$kOXQcDfnrT9w\$sNxPnGUAH3slWwsXhJMjfMXDB8qud7ZPIYMjEZZ/w7I=",
         "signup_verification_code": "",
         "father_name": "M.A.Jabbar",
         "mother_name": "Mirjadi Sebrina Flora",
-        "facebbok_id": null,
-        "twitter_id": null,
+        "facebbok_id": "https://www.facebook.com/public/Bill-Gates",
+        "twitter_id": "https://twitter.com/BillGates",
         "linkedin_id": null,
         "date_of_birth": "2020-04-11",
         "expected_salary_min": "20000.00",
@@ -54,16 +54,16 @@ class UserProfileRepository {
         "user": 39,
         "gender": null,
         "status": null,
-        "experience": null,
-        "qualification": null,
+        "experience": "System Analyst",
+        "qualification": "System Analyst",
         "nationality": null,
         "religion": null
     },
     "edu_info": [
         {
             "education_id": 1,
-            "qualification": "Hsc",
-            "institution": null,
+            "qualification": "Bachelor of Science",
+            "institution": "Howard University",
             "cgpa": null,
             "major": null,
             "enrolled_date": null,
@@ -82,8 +82,8 @@ class UserProfileRepository {
     "skill_info": [
         {
             "prof_skill_id": 1,
-            "skill": 1,
-            "rating": 0,
+            "skill": "Python ",
+            "rating": 5,
             "verified_by_skillcheck": false
         },
         {
@@ -96,8 +96,8 @@ class UserProfileRepository {
     "experience_info": [
         {
             "experience_id": 1,
-            "company": "infolytyx",
-            "designation": "system analyst",
+            "company": "Ishraak Solutions",
+            "designation": "System Analyst",
             "Started_date": null,
             "end_date": null
         }
@@ -105,16 +105,16 @@ class UserProfileRepository {
     "portfolio_info": [
         {
             "portfolio_id": 1,
-            "name": "machine god",
-            "image": null,
-            "description": "hello hello"
+            "name": "This is portfolio title",
+            "image": "https://miro.medium.com/max/700/1*NW5Hhpv4Gckxynr5U-MZwA.jpeg",
+            "description": "This is portfolio descripsion"
         }
     ],
     "membership_info": [
         {
             "membership_id": 1,
-            "org_name": 1,
-            "position_held": "member",
+            "org_name": "IEE",
+            "position_held": "Member",
             "membership_ongoing": false,
             "Start_date": null,
             "end_date": null,
@@ -124,8 +124,8 @@ class UserProfileRepository {
     "certification_info": [
         {
             "certification_id": 1,
-            "certification_name": 2,
-            "organization_name": 2,
+            "certification_name": "AWS DevOps",
+            "organization_name": "AWS",
             "has_expiry_period": true,
             "issue_date": null,
             "expiry_date": null,
@@ -136,8 +136,8 @@ class UserProfileRepository {
     "reference_data": [
         {
             "reference_id": 1,
-            "name": "robertson",
-            "current_position": null,
+            "name": "Robertson",
+            "current_position": "Software Engineer",
             "email": null,
             "mobile": null
         },

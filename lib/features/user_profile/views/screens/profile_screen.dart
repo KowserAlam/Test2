@@ -273,44 +273,21 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
       );
     });
     var aboutMeWidget = Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        Row(
-          children: <Widget>[
-            Icon(
-              Icons.info_outline,
-              size: 18,
-            ),
-            SizedBox(
-              width: 3,
-            ),
-            Text(
-              StringUtils.aboutMeText,
-              style: titleTextStyle,
-            ),
-            Spacer(),
-            InkWell(
-              child: Padding(
-                padding: const EdgeInsets.all(4.0),
-                child: Icon(
-                  Icons.edit,
-                  size: 18,
-                  color: primaryColor,
-                ),
-              ),
-              onTap: () {},
-            ),
-          ],
+        Text(
+          StringUtils.aboutMeText,
+          style: titleTextStyle.apply(color: Colors.white),
+
         ),
         SizedBox(
           height: 5,
         ),
         Container(
           width: double.infinity,
-          margin: EdgeInsets.only(bottom: 8),
           decoration: BoxDecoration(
             color: Theme.of(context).backgroundColor,
-            borderRadius: BorderRadius.circular(5),
+//            borderRadius: BorderRadius.circular(5),
             boxShadow: ProfileCommonStyle.boxShadow,
           ),
           child: Padding(
@@ -322,6 +299,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                   return Text(
                     data,
                     textAlign: TextAlign.left,
+                    maxLines: 8,
                   );
                 }),
           ),
@@ -523,7 +501,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
             children: <Widget>[
               // profile header
               Container(
-                height: 200,
+                height: 350,
                 decoration: BoxDecoration(
                   color: profileHeaderBackgroundColor,
                   image: DecorationImage(
@@ -564,6 +542,8 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                       height: 5,
                     ),
                     designationWidget,
+                    Spacer(),
+                    aboutMeWidget,
                   ],
                 ),
               ),
@@ -572,7 +552,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                 padding: EdgeInsets.all(8),
                 child: Column(
                   children: [
-                    aboutMeWidget,
+
                     SizedBox(height: 15),
 
                     /// Experience

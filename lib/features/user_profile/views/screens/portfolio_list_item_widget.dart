@@ -27,7 +27,13 @@ class PortfolioListItemWidget extends StatelessWidget {
         leading: CachedNetworkImage(
           height: 55,
           width: 55,
-          imageUrl: portfolioInfo.image??kDefaultUserImageNetwork,
+          imageUrl: portfolioInfo.image??"",
+          placeholder: (context, _) => Image.asset(
+            kImagePlaceHolderAsset,
+            height: 55,
+            width: 55,
+          ),
+          fit: BoxFit.cover,
         ),
         title: Text(portfolioInfo.name ?? ""),
         subtitle: Text(portfolioInfo.description),
