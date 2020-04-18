@@ -376,7 +376,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                   ],
                 ),
               ),
-              SizedBox(height: 10),
+              SizedBox(height: 15),
               Container(
                 padding: EdgeInsets.all(8),
                 child: Column(
@@ -419,7 +419,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                         }),
                       );
                     }),
-                    SizedBox(height: 10),
+                    SizedBox(height: 15),
 
                     ///Education
                     Consumer<UserProvider>(builder: (context, userProvider, _) {
@@ -449,7 +449,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                         }),
                       );
                     }),
-                    SizedBox(height: 10),
+                    SizedBox(height: 15),
 
                     ///Skill
 
@@ -482,10 +482,10 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                         }),
                       );
                     }),
-                    SizedBox(height: 10),
+                    SizedBox(height: 15),
                     /// Personal info
                     PersonalInfoWidget(),
-                    SizedBox(height: 10),
+                    SizedBox(height: 15),
                     /// Portfolio
                     Consumer<UserProvider>(builder: (context, userProvider, _) {
                       var list = userProvider.userData.technicalSkillList;
@@ -518,7 +518,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                         }),
                       );
                     }),
-                    SizedBox(height: 10),
+                    SizedBox(height: 15),
                     /// Certifications
                     Consumer<UserProvider>(builder: (context, userProvider, _) {
                       var list = userProvider.userData.technicalSkillList;
@@ -555,7 +555,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                         }),
                       );
                     }),
-                    SizedBox(height: 10),
+                    SizedBox(height: 15),
                     /// Memberships
                     Consumer<UserProvider>(builder: (context, userProvider, _) {
                       var list = userProvider.userData.technicalSkillList;
@@ -592,7 +592,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                         }),
                       );
                     }),
-                    SizedBox(height: 10),
+                    SizedBox(height: 15),
                     /// References
                     Consumer<UserProvider>(builder: (context, userProvider, _) {
                       var list = userProvider.userData.technicalSkillList;
@@ -629,7 +629,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                         }),
                       );
                     }),
-                    SizedBox(height: 5),
+                    SizedBox(height: 15),
                   ],
                 ),
               ),
