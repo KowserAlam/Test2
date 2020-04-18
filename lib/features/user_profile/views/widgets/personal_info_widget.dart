@@ -1,6 +1,6 @@
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/features/user_profile/styles/profile_common_style.dart';
-import 'package:p7app/features/user_profile/widgets/edit_personal_info_screen.dart';
+import 'package:p7app/features/user_profile/views/screens/edit_personal_info_screen.dart';
 import 'package:p7app/features/user_profile/views/widgets/user_info_list_item.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';

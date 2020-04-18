@@ -12,6 +12,7 @@ class EditPersonalInfoScreen extends StatefulWidget {
 }
 
 class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
+  static final _formKey = new GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
@@ -60,7 +61,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
     //Variables
     String radioValue;
     String _gender;
-    final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
     void radioButtonChanges(String value) {
       setState(() {
         radioValue = value;
@@ -134,19 +135,18 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
           ),
           child: Center(
             child: TextFormField(
-              keyboardType: TextInputType.emailAddress,
+              keyboardType: TextInputType.text,
               focusNode: _fatherNameFocusNode,
               textInputAction: TextInputAction.next,
               controller: _fatherNameController,
             decoration: commonInputDecoration,
             style: textFieldFont,
             validator: (val)=>Validator().nullFieldValidate(val.trim()),
-//              onSaved: (val) => loginProvider.email = val.trim(),
-//              onFieldSubmitted: (s) {
-//                _emailFocus.unfocus();
-//                FocusScope.of(_scaffoldKey.currentState.context)
-//                    .requestFocus(_passwordFocus);
-//              },
+              onFieldSubmitted: (s) {
+                _fatherNameFocusNode.unfocus();
+                FocusScope.of(context)
+                    .requestFocus(_motherNameFocusNode);
+              },
             ),
           ),
         )
@@ -454,29 +454,6 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
       ),
     );
 
-    Widget buildForm(context){
-      return Form(
-        //key: _formKey,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            fatherNameInput,
-            spaceBetweenFields,
-            motherNameInput,
-            spaceBetweenFields,
-            currentAddressNameInput,
-            spaceBetweenFields,
-            permanentAddressNameInput,
-            spaceBetweenFields,
-            nationalityNameInput,
-            spaceBetweenFields,
-            religionNameInput,
-            spaceBetweenFields,
-            spaceBetweenFields,
-          ],
-        ),
-      );
-    }
 
 
 
@@ -485,18 +462,15 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
         title: Text(StringUtils.personalInfoText),
       ),
       body: Container(
-        height: height,
-        width: width,
         padding: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              genderSelection,
               SizedBox(height: 10,),
               dob,
               spaceBetweenFields,
-              buildForm(context),
+              //buildForm(context),
               saveButton
             ],
           ),
