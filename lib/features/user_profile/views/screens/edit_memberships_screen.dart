@@ -126,8 +126,10 @@ class _EditMemberShipsState extends State<EditMemberShips> {
                     hintText: StringUtils.membershipOngoingText,
                   ),
                   spaceBetweenFields,
+                  //Description
                   CustomTextFormField(
                     validator: Validator().nullFieldValidate,
+                    maxLines: null,
                     focusNode: _descriptionFocusNode,
                     keyboardType: TextInputType.text,
                     autofocus: true,
@@ -140,6 +142,8 @@ class _EditMemberShipsState extends State<EditMemberShips> {
                     hintText: StringUtils.membershipDescriptionText,
                   ),
                   spaceBetweenFields,
+
+                  //Start Date
                   Row(
                     children: <Widget>[
                       Text(
@@ -173,6 +177,8 @@ class _EditMemberShipsState extends State<EditMemberShips> {
                     ),
                   ),
                   spaceBetweenFields,
+
+                  //End Date
                   Row(
                     children: <Widget>[
                       Text(
