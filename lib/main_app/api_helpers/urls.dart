@@ -20,6 +20,14 @@ class Urls {
   static String userProfileUpdateUrlPartial = "/api/professional/profile_update_partial";
   static String userProfileUpdateUrl = "/api/professional/profile_update";
 
+  static String professionalReferenceSave = "/api/professional/professional_reference_save/";
+
+  static String industryListUrl = "/api/industry/";
+
+
+
+
+
   static String examListUrl = "/registration/index";
   static String questionListUrl = "/api/question-list";
   static String submitUrl = "/api/exam-paper/submit";

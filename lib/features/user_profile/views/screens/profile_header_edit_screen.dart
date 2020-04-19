@@ -104,7 +104,11 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
       if (fileProfileImage != null) {
         data.addAll({'image':getBase64Image()});
       }
-      UserProfileRepository().updateUserBasicInfo(data);
+      UserProfileRepository().updateUserBasicInfo(data).then((personalInfoModel) {
+        userData.personalInfo = personalInfo;
+        userViewModel.userData = userData;
+        Navigator.pop(context);
+      });
     }
 
 
