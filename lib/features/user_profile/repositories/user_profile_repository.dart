@@ -18,7 +18,7 @@ class UserProfileRepository {
       debugPrint(professionalId);
       var url = "${Urls.userProfileUrl}/$professionalId";
 
-      var response = await  ApiClient().getRequest(url);
+//      var response = await  ApiClient().getRequest(url);
 //      var mapJson = json.decode(response.body);
       var mapJson = json.decode(dummyData);
       var userModel = UserModel.fromJson(mapJson);
@@ -45,7 +45,7 @@ class UserProfileRepository {
         "phone": "01940469959",
         "address": "Dhaka, Bangladesh",
         "about_me": "Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs. The passage is attributed to an unknown typesetter in the 15th century who is thought to have scrambled parts of Cicero's De Finibus Bonorum et Malorum for use in a type specimen book.",
-        "image": "https://www.gstatic.com/tv/thumb/persons/614/614_v9_bc.jpg",
+        "image": null,
         "terms_and_condition_status": true,
         "password": "pbkdf2_sha256\$180000\$kOXQcDfnrT9w\$sNxPnGUAH3slWwsXhJMjfMXDB8qud7ZPIYMjEZZ/w7I=",
         "signup_verification_code": "",
