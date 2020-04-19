@@ -1,5 +1,7 @@
 
 
+import 'package:p7app/main_app/flavour/flavour_config.dart';
+
 class UserPersonalInfo {
   String id;
   String professionalId;
@@ -9,9 +11,7 @@ class UserPersonalInfo {
   String address;
   String aboutMe;
   String image;
-  bool termsAndConditionStatus;
   String password;
-  String signupVerificationCode;
   String fatherName;
   String motherName;
   String facebbokId;
@@ -37,9 +37,7 @@ class UserPersonalInfo {
         this.address,
         this.aboutMe,
         this.image,
-        this.termsAndConditionStatus,
         this.password,
-        this.signupVerificationCode,
         this.fatherName,
         this.motherName,
         this.facebbokId,
@@ -57,6 +55,9 @@ class UserPersonalInfo {
         this.nationality});
 
   UserPersonalInfo.fromJson(Map<String, dynamic> json) {
+    String baseUrl = FlavorConfig.instance.values.baseUrl;
+    var imageUlr = json['image'] == null? null: "$baseUrl${json['image']}";
+
     id = json['id'];
     professionalId = json['professional_id'];
     fullName = json['full_name'];
@@ -64,10 +65,8 @@ class UserPersonalInfo {
     phone = json['phone'];
     address = json['address'];
     aboutMe = json['about_me'];
-    image = json['image'];
-    termsAndConditionStatus = json['terms_and_condition_status'];
+    image = imageUlr;
     password = json['password'];
-    signupVerificationCode = json['signup_verification_code'];
     fatherName = json['father_name'];
     motherName = json['mother_name'];
     facebbokId = json['facebbok_id'];
@@ -98,9 +97,7 @@ class UserPersonalInfo {
     data['address'] = this.address;
     data['about_me'] = this.aboutMe;
     data['image'] = this.image;
-    data['terms_and_condition_status'] = this.termsAndConditionStatus;
     data['password'] = this.password;
-    data['signup_verification_code'] = this.signupVerificationCode;
     data['father_name'] = this.fatherName;
     data['mother_name'] = this.motherName;
     data['facebbok_id'] = this.facebbokId;

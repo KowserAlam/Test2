@@ -6,6 +6,7 @@ import 'package:p7app/features/user_profile/models/portfolio_info.dart';
 import 'package:p7app/features/user_profile/models/reference_data.dart';
 import 'package:p7app/features/user_profile/models/skill_info.dart';
 import 'package:p7app/features/user_profile/models/user_personal_info.dart';
+import 'package:p7app/main_app/flavour/flavour_config.dart';
 
 class UserModel {
   UserPersonalInfo personalInfo;
@@ -28,6 +29,9 @@ class UserModel {
         this.referenceData});
 
   UserModel.fromJson(Map<String, dynamic> json) {
+
+
+
     personalInfo = json['personal_info'] != null
         ? new UserPersonalInfo.fromJson(json['personal_info'])
         : null;
