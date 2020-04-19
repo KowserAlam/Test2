@@ -564,7 +564,6 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                     SizedBox(height: 15),
 
                     ///Skill
-
                     skillsWidget,
                     SizedBox(height: 15),
 
