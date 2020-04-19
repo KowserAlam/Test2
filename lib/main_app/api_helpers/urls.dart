@@ -15,7 +15,10 @@ class Urls {
   static String signUpUrl = "/api/professional/create_with_user/";
   static String passwordResetUrl = "api/professional/password_reset/";
   static String dashboardUrl = "/api/app-dashboard";
+
   static String userProfileUrl = "/api/professional/profile";
+  static String userProfileUpdateUrl = "/api/professional/profile_update";
+
   static String examListUrl = "/registration/index";
   static String questionListUrl = "/api/question-list";
   static String submitUrl = "/api/exam-paper/submit";

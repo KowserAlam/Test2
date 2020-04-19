@@ -266,7 +266,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
       return Column(
         children: <Widget>[
           Text(
-            userProfileViewModel.userData.personalInfo.qualification ?? "",
+            userProfileViewModel.userData.personalInfo.industryExpertise ?? "",
             style: TextStyle(
                 fontSize: 18,
                 color: profileHeaderFontColor,
@@ -592,9 +592,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                     skillsWidget,
                     SizedBox(height: 15),
 
-                    /// Personal info
-                    personalInfoWidget,
-                    SizedBox(height: 15),
+
 
                     /// Portfolio
                     portfolioWidget,
@@ -610,6 +608,10 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
 
                     /// References
                     referencesWidget,
+                    SizedBox(height: 15),
+
+                    /// Personal info
+                    personalInfoWidget,
                     SizedBox(height: 15),
                   ],
                 ),
