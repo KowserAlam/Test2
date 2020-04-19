@@ -1,4 +1,5 @@
 import 'package:after_layout/after_layout.dart';
+import 'package:p7app/features/user_profile/views/screens/edit_portfolio_screen.dart';
 import 'package:p7app/features/user_profile/views/screens/edit_reference_screen.dart';
 import 'package:p7app/features/user_profile/views/screens/portfolio_list_item_widget.dart';
 import 'package:p7app/features/user_profile/views/screens/certifications_list_item_widget.dart';
@@ -423,10 +424,10 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
         icon: FontAwesomeIcons.wallet,
         label: StringUtils.projectsText,
         onTapAddNewAction: () {
-//            Navigator.push(
-//                context,
-//                CupertinoPageRoute(
-//                    builder: (context) => AddEditTechnicalSkill()));
+            Navigator.push(
+                context,
+                CupertinoPageRoute(
+                    builder: (context) => EditPortfolio()));
         },
         children: List.generate(list.length, (index) {
           var port = list[index];
@@ -434,13 +435,10 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
             isInEditMode: isInEditModePortfolio,
             portfolioInfo: port,
             onTapEdit: () {
-//              Navigator.push(
-//                  context,
-//                  CupertinoPageRoute(
-//                      builder: (context) => AddNewExperienceScreen(
-//                        index: index,
-//                        experienceInfoModel: exp,
-//                      )));
+              Navigator.push(
+                    context,
+                    CupertinoPageRoute(
+                        builder: (context) => EditPortfolio()));
             },
           );
         }),
