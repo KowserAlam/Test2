@@ -32,7 +32,6 @@ class _EditProfileScreenState extends State<EditProfileScreen>
   var _fullNameTextEditingController = TextEditingController();
   var _designationTextEditingController = TextEditingController();
   var _aboutTextEditingController = TextEditingController();
-//  var _fullAddressEditingController = TextEditingController();
   var _locationEditingController = TextEditingController();
   var _phoneEditingController = TextEditingController();
 
@@ -197,7 +196,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
               validator: Validator().nullFieldValidate,
               keyboardType: TextInputType.multiline,
               maxLines: null,
-                labelText: StringUtils.aboutText,
+                labelText: StringUtils.aboutMeText,
                 hintText: StringUtils.aboutHintText,
 
             ),
@@ -212,7 +211,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
               keyboardType: TextInputType.phone,
               maxLines: null,
 
-                labelText: StringUtils.smsText,
+                labelText: StringUtils.phoneText,
                 hintText: StringUtils.phoneHintText,
 
             ),
@@ -235,13 +234,13 @@ class _EditProfileScreenState extends State<EditProfileScreen>
 //
 //            SizedBox(height: 10),
 
-            ///location
+            ///address
             CustomTextFormField(
               controller: _locationEditingController,
               validator: Validator().nullFieldValidate,
               keyboardType: TextInputType.multiline,
               maxLines: null,
-                labelText: StringUtils.locationText,
+                labelText: StringUtils.addressText,
                 hintText: StringUtils.locationHintText,
 
             ),

@@ -261,7 +261,7 @@ class StringUtils {
   static var phoneText = "Phone";
   static var mobileText = "Mobile";
   static var phoneHintText = "+8801XXXXXXXX";
-  static var addressText = "Full Address";
+  static var addressText = "Address";
   static var addressHintText =
       "eg. House 76 (Level 4), Road 4, Block B, Niketan Gulshan 1, Dhaka 1212, Bangladesh";
 
