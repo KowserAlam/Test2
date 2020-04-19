@@ -45,26 +45,6 @@ class _EditMemberShipsState extends State<EditMemberShips> {
       }
     };
 
-
-    //InputDecoration
-    InputDecoration commonInputDecoration = InputDecoration(
-//    contentPadding: EdgeInsets.zero,
-      focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide(
-          color: Colors.lightBlueAccent,
-          width: 1.6,
-        ),
-        borderRadius: BorderRadius.circular(10),
-      ),
-      enabledBorder: OutlineInputBorder(
-        borderSide: BorderSide(
-          color: Colors.transparent,
-          width: 1.6,
-        ),
-        borderRadius: BorderRadius.circular(10),
-      ),
-      //border: InputBorder.none,
-    );
     return Scaffold(
       appBar: AppBar(
         title: Text('Membership'),
