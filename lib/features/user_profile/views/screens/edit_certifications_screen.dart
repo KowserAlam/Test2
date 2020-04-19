@@ -4,6 +4,7 @@ import 'package:p7app/features/user_profile/views/widgets/custom_text_from_field
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/util/validator.dart';
 import 'package:p7app/main_app/widgets/common_button.dart';
+import 'package:p7app/main_app/widgets/edit_screen_save_button.dart';
 
 class EditCertification extends StatefulWidget {
   @override
@@ -27,7 +28,7 @@ class _EditCertificationState extends State<EditCertification> {
 
   @override
   Widget build(BuildContext context) {
-    Function _onPressed = (){
+    Function _handleSave = (){
       if(_formKey.currentState.validate()){
         print('validated');
       }else{
@@ -39,6 +40,12 @@ class _EditCertificationState extends State<EditCertification> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Cetification'),
+        actions: <Widget>[
+          EditScreenSaveButton(
+            text: StringUtils.saveText,
+            onPressed: _handleSave,
+          ),
+        ],
       ),
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
@@ -142,8 +149,6 @@ class _EditCertificationState extends State<EditCertification> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 40,),
-                  Row(mainAxisAlignment: MainAxisAlignment.center,mainAxisSize: MainAxisSize.max,children: <Widget>[Container(width: 150,child: CommonButton(label: 'Save',onTap: _onPressed,),)],)
                 ],
               ),
             ),

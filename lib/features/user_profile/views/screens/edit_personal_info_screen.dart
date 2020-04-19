@@ -6,6 +6,7 @@ import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:p7app/main_app/util/validator.dart';
 import 'package:p7app/main_app/widgets/common_button.dart';
+import 'package:p7app/main_app/widgets/edit_screen_save_button.dart';
 
 class EditPersonalInfoScreen extends StatefulWidget {
 
@@ -45,7 +46,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
   @override
   Widget build(BuildContext context) {
 
-    Function _onPressed = (){
+    Function _handleSave = (){
       if(_formKey.currentState.validate()){
         print('validated');
       }else{
@@ -113,6 +114,12 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(StringUtils.personalInfoText),
+        actions: <Widget>[
+          EditScreenSaveButton(
+            text: StringUtils.saveText,
+            onPressed: _handleSave,
+          ),
+        ],
       ),
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
@@ -216,8 +223,6 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                     labelText: StringUtils.religionText,
                     hintText: StringUtils.religionText,
                   ),
-                  SizedBox(height: 40,),
-                  Row(mainAxisAlignment: MainAxisAlignment.center,mainAxisSize: MainAxisSize.max,children: <Widget>[Container(width: 150,child: CommonButton(label: 'Save',onTap: _onPressed,),)],),
 //                  InkWell(
 //                    onTap: () {
 //                      _showJoinDatePicker(context);
