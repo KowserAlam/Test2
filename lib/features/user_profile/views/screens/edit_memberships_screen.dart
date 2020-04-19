@@ -112,7 +112,7 @@ class _EditMemberShipsState extends State<EditMemberShips> {
                   spaceBetweenFields,
                   //Ongoing
                   CustomTextFormField(
-                    validator: (val)=>Validator().validateEmail(val.trim()),
+                    validator: Validator().nullFieldValidate,
                     focusNode: _membershipOngoingFocusNode,
                     keyboardType: TextInputType.text,
                     autofocus: true,
