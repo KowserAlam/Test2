@@ -39,7 +39,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
   File fileProfileImage;
 
   var _fullNameTextEditingController = TextEditingController();
-  var _designationTextEditingController = TextEditingController();
+  var industryExpertiseTextEditingController = TextEditingController();
   var _aboutTextEditingController = TextEditingController();
   var _addressEditingController = TextEditingController();
   var _phoneEditingController = TextEditingController();
@@ -57,7 +57,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
     _phoneEditingController.text = personalInfo.phone ?? "";
     _addressEditingController.text = personalInfo.address ?? "";
     _aboutTextEditingController.text = personalInfo.aboutMe ?? "";
-    _designationTextEditingController.text =
+    industryExpertiseTextEditingController.text =
         personalInfo.industryExpertise ?? "";
     _fullNameTextEditingController.text = personalInfo.fullName ?? "";
 
@@ -87,15 +87,24 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
           Provider.of<UserProfileViewModel>(context, listen: false);
       var userData = userViewModel.userData;
       UserPersonalInfo personalInfo = userViewModel.userData.personalInfo;
-      personalInfo.address = _aboutTextEditingController.text;
+
+      personalInfo.address = _addressEditingController.text;
       personalInfo.fullName = _fullNameTextEditingController.text;
-      personalInfo.industryExpertise = _designationTextEditingController.text;
+      personalInfo.industryExpertise = industryExpertiseTextEditingController.text;
       personalInfo.aboutMe = _aboutTextEditingController.text;
       personalInfo.phone = _phoneEditingController.text;
+      var data = {
+        "address":_addressEditingController.text,
+        "full_name":_fullNameTextEditingController.text,
+        "industry_expertise":industryExpertiseTextEditingController.text,
+        "about_me":_aboutTextEditingController.text,
+        "phone":_phoneEditingController.text,
+
+      };
       if (fileProfileImage != null) {
-        personalInfo.image = getBase64Image();
+        data.addAll({'image':getBase64Image()});
       }
-      UserProfileRepository().updateUserBasicInfo(personalInfo.toJson());
+      UserProfileRepository().updateUserBasicInfo(data);
     }
 
 
@@ -224,7 +233,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
             /// Designation
             CustomTextFormField(
               focusNode: _designationFocusNode,
-              controller: _designationTextEditingController,
+              controller: industryExpertiseTextEditingController,
               validator: Validator().nullFieldValidate,
               labelText: "Designation",
               hintText: "eg. Software Engineer",

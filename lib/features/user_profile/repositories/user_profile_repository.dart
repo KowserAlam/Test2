@@ -42,7 +42,7 @@ class UserProfileRepository {
   Future<Either<AppError,bool>> updateUserBasicInfo(Map<String,dynamic> body)async{
     var authUser = await AuthService.getInstance();
     var professionalId = authUser.getUser().professionalId;
-    var url = "${Urls.userProfileUpdateUrl}/$professionalId/";
+    var url = "${Urls.userProfileUpdateUrlPartial}/$professionalId/";
     try{
       var response = await  ApiClient().putRequest(url,body);
 

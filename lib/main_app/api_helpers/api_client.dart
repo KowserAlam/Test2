@@ -36,6 +36,7 @@ class ApiClient {
     var encodedBody = json.encode(body);
     return httClient.post(completeUrl, headers: headers, body: encodedBody).timeout(Duration(seconds: 15));
   }
+
   Future<http.Response> putRequest(
       String url, Map<String, dynamic> body,{Duration timeout}) async {
     var completeUrl = _buildUrl(url);

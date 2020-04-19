@@ -17,6 +17,7 @@ class Urls {
   static String dashboardUrl = "/api/app-dashboard";
 
   static String userProfileUrl = "/api/professional/profile";
+  static String userProfileUpdateUrlPartial = "/api/professional/profile_update_partial";
   static String userProfileUpdateUrl = "/api/professional/profile_update";
 
   static String examListUrl = "/registration/index";
