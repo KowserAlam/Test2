@@ -437,7 +437,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
       return UserInfoListItem(
         icon: FontAwesomeIcons.certificate,
         label: StringUtils.certificationsText,
-        onTapEditAction: (_) {
+        onTapAddNewAction: () {
             Navigator.push(
                 context,
                 CupertinoPageRoute(
@@ -458,7 +458,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
       return UserInfoListItem(
         icon: FontAwesomeIcons.users,
         label: StringUtils.membershipsText,
-        onTapEditAction: (_) {
+        onTapAddNewAction: () {
             Navigator.push(
                 context,
                 CupertinoPageRoute(
@@ -479,7 +479,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
       return UserInfoListItem(
         icon: FontAwesomeIcons.bookReader,
         label: StringUtils.referencesText,
-        onTapEditAction: (_) {
+        onTapAddNewAction: () {
             Navigator.push(
                 context,
                 CupertinoPageRoute(
