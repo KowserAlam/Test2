@@ -1,5 +1,7 @@
 
 
+import 'package:p7app/main_app/flavour/flavour_config.dart';
+
 class UserPersonalInfo {
   String id;
   String professionalId;
@@ -57,6 +59,9 @@ class UserPersonalInfo {
         this.nationality});
 
   UserPersonalInfo.fromJson(Map<String, dynamic> json) {
+    String baseUrl = FlavorConfig.instance.values.baseUrl;
+    var imageUlr = json['image'] == null? null: "$baseUrl${json['image']}";
+
     id = json['id'];
     professionalId = json['professional_id'];
     fullName = json['full_name'];
@@ -64,7 +69,7 @@ class UserPersonalInfo {
     phone = json['phone'];
     address = json['address'];
     aboutMe = json['about_me'];
-    image = json['image'];
+    image = imageUlr;
     termsAndConditionStatus = json['terms_and_condition_status'];
     password = json['password'];
     signupVerificationCode = json['signup_verification_code'];
