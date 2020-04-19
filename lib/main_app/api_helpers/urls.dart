@@ -1,12 +1,12 @@
 
 
 //dev server
-const String kBaseUrDev = "http://54.84.198.57";
+const String kBaseUrDev = "http://54.84.198.57:8081";
 
 ////rashed vai
 //const String kBaseUrDev = "http://192.168.1.51:8000";
 
-const String kBaseUrlQA = "http://54.84.198.57";
+const String kBaseUrlQA = "http://54.84.198.57:8081";
 const String kBaseUrlProd = "http://100.25.85.115";
 
 class Urls {
@@ -15,7 +15,7 @@ class Urls {
   static String signUpUrl = "/api/professional/create_with_user/";
   static String passwordResetUrl = "api/professional/password_reset/";
   static String dashboardUrl = "/api/app-dashboard";
-  static String userProfileUrl = "/api/profile-info";
+  static String userProfileUrl = "/api/professional/profile";
   static String examListUrl = "/registration/index";
   static String questionListUrl = "/api/question-list";
   static String submitUrl = "/api/exam-paper/submit";

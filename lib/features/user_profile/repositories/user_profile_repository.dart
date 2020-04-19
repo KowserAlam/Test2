@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:p7app/features/user_profile/models/user_model.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/auth_service/auth_service.dart';
@@ -12,14 +13,13 @@ class UserProfileRepository {
   Future<Either<AppError, UserModel>> getUserData() async {
 //    try {
       var authUser = await AuthService.getInstance();
-      var userId = authUser.getUser().userId;
-//      var url = "${Urls.userProfileUrl}/$userId";
-//
-//      var response = await  ApiClient().getRequest(url);
+      var professionalId = authUser.getUser().professionalId;
+      debugPrint(professionalId);
+      var url = "${Urls.userProfileUrl}/$professionalId";
 
-//      var response = await http.get("${Urls.userProfileUrl}/$userId");
-//      var mapJson = json.decode(response.body);
-      var mapJson = json.decode(dummyData);
+      var response = await  ApiClient().getRequest(url);
+      var mapJson = json.decode(response.body);
+//      var mapJson = json.decode(dummyData);
       var userModel = UserModel.fromJson(mapJson);
 
       return Right(userModel);
