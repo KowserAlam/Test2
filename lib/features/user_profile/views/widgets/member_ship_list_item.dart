@@ -5,8 +5,10 @@ import 'package:p7app/features/user_profile/styles/profile_common_style.dart';
 
 class MemberShipListItem extends StatelessWidget {
   final MembershipInfo memberShip;
+  final Function onTapEdit;
+  final bool isInEditMode;
   MemberShipListItem({
-    @required this.memberShip,
+    @required this.memberShip,this.onTapEdit,this.isInEditMode
   });
   @override
   Widget build(BuildContext context) {
@@ -26,6 +28,10 @@ class MemberShipListItem extends StatelessWidget {
             child: Icon(FontAwesomeIcons.certificate)),
         title: Text(memberShip.positionHeld??""),
         subtitle: Text(memberShip.orgName??""),
+        trailing: !isInEditMode?SizedBox():IconButton(
+          icon: Icon(FontAwesomeIcons.edit),
+          onPressed: onTapEdit,
+        ),
       ),
     );
   }

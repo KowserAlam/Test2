@@ -5,9 +5,11 @@ import 'package:p7app/features/user_profile/styles/profile_common_style.dart';
 
 class CertificationsListItemWidget extends StatelessWidget {
   final CertificationInfo certificationInfo;
+  final Function onTapEdit;
+  final bool isInEditMode;
   const CertificationsListItemWidget({
     Key key,
-    this.certificationInfo
+    this.certificationInfo,this.isInEditMode,this.onTapEdit
   }) : super(key: key);
 
   @override
@@ -29,6 +31,10 @@ class CertificationsListItemWidget extends StatelessWidget {
             child: Icon(FontAwesomeIcons.certificate)),
         title: Text(certificationInfo.certificationName??""),
         subtitle: Text(certificationInfo.organizationName??""),
+        trailing: !isInEditMode?SizedBox():IconButton(
+          icon: Icon(FontAwesomeIcons.edit),
+          onPressed: onTapEdit,
+        ),
       ),
     );
   }
