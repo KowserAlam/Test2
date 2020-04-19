@@ -6,7 +6,7 @@ class UserInfoListItem extends StatefulWidget {
   final IconData icon;
   final String label;
   final Function onTapAddNewAction;
-  final Function(bool) onTapEditAction;
+  final Function onTapEditAction;
   final List<Widget> children;
   final bool useSeparator;
   final bool isInEditMode;
@@ -68,11 +68,7 @@ class _UserInfoListItemState extends State<UserInfoListItem> {
                   color: Theme.of(context).primaryColor,
                 ),
               ),
-              onTap: (){
-                if(widget.onTapEditAction != null){
-                  widget.onTapEditAction(!widget.isInEditMode);
-                }
-              },
+              onTap: widget.onTapEditAction,
             ),
           ],
         ),

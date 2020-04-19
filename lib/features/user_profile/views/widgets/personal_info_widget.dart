@@ -40,7 +40,7 @@ class PersonalInfoWidget extends StatelessWidget {
       useSeparator: false,
       icon: FontAwesomeIcons.infoCircle,
       label: StringUtils.personalInfoText,
-      onTapEditAction: (v){
+      onTapEditAction: (){
         Navigator.push(
             context,
             CupertinoPageRoute(

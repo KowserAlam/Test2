@@ -32,6 +32,14 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
+  bool isInEditModeExperience = false;
+  bool isInEditModeEducation = false;
+  bool isInEditModeSkill = false;
+  bool isInEditModePortfolio = false;
+  bool isInEditModeCertifications = false;
+  bool isInEditModeMembersShip = false;
+  bool isInEditModeReferences = false;
+
   @override
   void afterFirstLayout(BuildContext context) {
     Provider.of<UserProfileViewModel>(context, listen: false).fetchUserData();
@@ -115,14 +123,13 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
 
   @override
   Widget build(BuildContext context) {
-    bool isInEditModeExperience = false;
-    bool isInEditModeEducation = false;
+
 
     var primaryColor = Theme.of(context).primaryColor;
     var titleTextStyle = TextStyle(fontSize: 17, fontWeight: FontWeight.bold);
-
     var profileHeaderBackgroundColor = Color(0xff08233A);
     var profileHeaderFontColor = Colors.white;
+
     var profileImageWidget = Container(
       margin: EdgeInsets.only(bottom: 15, top: 8),
       height: 65,
@@ -278,7 +285,6 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
         Text(
           StringUtils.aboutMeText,
           style: titleTextStyle.apply(color: Colors.white),
-
         ),
         SizedBox(
           height: 5,
@@ -311,8 +317,8 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
       var expList = userProfileViewModel.userData.experienceInfo;
       return UserInfoListItem(
         isInEditMode: isInEditModeExperience,
-        onTapEditAction: (v) {
-          isInEditModeExperience = v;
+        onTapEditAction: (){
+          isInEditModeExperience = !isInEditModeExperience;
           setState(() {});
         },
         icon: FontAwesomeIcons.globeEurope,
@@ -348,10 +354,9 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
         isInEditMode: isInEditModeEducation,
         icon: FontAwesomeIcons.university,
         label: StringUtils.educationsText,
-        onTapEditAction: (bool value) {
+        onTapEditAction: () {
           setState(() {
-            isInEditModeEducation = value;
-            print(value);
+            isInEditModeEducation = !isInEditModeEducation;
           });
         },
         onTapAddNewAction: () {
@@ -415,7 +420,9 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
         },
         children: List.generate(list.length, (index) {
           var port = list[index];
-          return PortfolioListItemWidget(portfolioInfo: port,);
+          return PortfolioListItemWidget(
+            portfolioInfo: port,
+          );
         }),
       );
     });
@@ -552,7 +559,6 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                 padding: EdgeInsets.all(8),
                 child: Column(
                   children: [
-
                     SizedBox(height: 15),
 
                     /// Experience
