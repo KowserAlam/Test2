@@ -30,7 +30,7 @@ class ProfileHeaderEditScreen extends StatefulWidget {
   });
 }
 
-class _ProfileHeaderEditScreenState  {
+class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
   final cropKey = GlobalKey<CropState>();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final _formKey = GlobalKey<FormState>();
@@ -210,6 +210,7 @@ class _ProfileHeaderEditScreenState  {
             ///name
             CustomTextFormField(
               controller: _fullNameTextEditingController,
+              focusNode: _fullNameFocusNode,
               validator: Validator().nullFieldValidate,
               labelText: "Full Name",
               hintText: "eg. Bill Gates",
@@ -218,6 +219,7 @@ class _ProfileHeaderEditScreenState  {
 
             /// Designation
             CustomTextFormField(
+              focusNode: _designationFocusNode,
               controller: _designationTextEditingController,
               validator: Validator().nullFieldValidate,
               labelText: "Designation",
