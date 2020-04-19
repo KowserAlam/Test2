@@ -1,1 +1,1 @@
-flutter build apk --profile -t lib/main_qa.dart
+flutter build apk --target-platform android-arm,android-arm64 --release -t lib/main_qa.dart
