@@ -95,6 +95,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
         personalInfo.image = getBase64Image();
       }
     }
+
   }
 
   @override

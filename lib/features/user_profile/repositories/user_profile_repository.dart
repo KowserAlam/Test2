@@ -20,9 +20,9 @@ class UserProfileRepository {
       debugPrint(professionalId);
       var url = "${Urls.userProfileUrl}/$professionalId";
 
-//      var response = await  ApiClient().getRequest(url);
-//      var mapJson = json.decode(response.body);
-      var mapJson = json.decode(dummyData);
+      var response = await  ApiClient().getRequest(url);
+      var mapJson = json.decode(response.body);
+//      var mapJson = json.decode(dummyData);
       var userModel = UserModel.fromJson(mapJson);
 
 
