@@ -180,7 +180,7 @@ class StringUtils {
   static var certificationIssueDateText = "Issue Date";
   static var certificationExpiryDateText = "Expiry Date";
   static var certificationCredentialIdText = "Credential Id";
-  static var certificationCredentialUrlText = "Description";
+  static var certificationCredentialUrlText = "Credential URL";
 
   //Portfolio Edit Screen
   static var portfolioNameText = "Name";

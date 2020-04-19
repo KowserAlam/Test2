@@ -149,7 +149,6 @@ class _EditMemberShipsState extends State<EditMemberShips> {
                     hintText: StringUtils.membershipDescriptionText,
                   ),
                   spaceBetweenFields,
-
                   //Start Date
                   Row(
                     children: <Widget>[
@@ -218,6 +217,7 @@ class _EditMemberShipsState extends State<EditMemberShips> {
                       ),
                     ),
                   ),
+                  spaceBetweenFields
                 ],
               ),
             ),

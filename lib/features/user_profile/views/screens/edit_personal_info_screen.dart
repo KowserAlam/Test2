@@ -122,7 +122,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
         ],
       ),
       body: Container(
-        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+        //padding: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
         child: SingleChildScrollView(
           child: Form(
             key: _formKey,
@@ -131,6 +131,40 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
+                  //Date of Birth
+                  Row(
+                    children: <Widget>[
+                      Text(
+                        StringUtils.dateOfBirthText,
+                        textAlign: TextAlign.left,
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 8,
+                  ),
+
+                  InkWell(
+                    onTap: () {
+                      _showDateOfBirthPicker(context);
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).backgroundColor,
+                        borderRadius: BorderRadius.circular(7),
+                        boxShadow: [
+                          BoxShadow(color: Color(0xff000000).withOpacity(0.2), blurRadius: 20),
+                          BoxShadow(color: Color(0xfffafafa).withOpacity(0.2), blurRadius: 20),
+
+                        ],),
+                      padding: EdgeInsets.all(8),
+                      child: Text(
+                        "DOB",
+                      ),
+                    ),
+                  ),
+                  spaceBetweenFields,
                   //Gender
                   genderSelection,
                   spaceBetweenFields,
@@ -223,26 +257,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                     labelText: StringUtils.religionText,
                     hintText: StringUtils.religionText,
                   ),
-//                  InkWell(
-//                    onTap: () {
-//                      _showJoinDatePicker(context);
-//                    },
-//                    child: Container(
-//                      width: double.infinity,
-//                      decoration: BoxDecoration(
-//                        color: Theme.of(context).backgroundColor,
-//                        borderRadius: BorderRadius.circular(7),
-//                        boxShadow: [
-//                          BoxShadow(color: Color(0xff000000).withOpacity(0.2), blurRadius: 20),
-//                          BoxShadow(color: Color(0xfffafafa).withOpacity(0.2), blurRadius: 20),
-//
-//                        ],),
-//                      padding: EdgeInsets.all(8),
-//                      child: Text(
-//                        "",
-//                      ),
-//                    ),
-//                  ),
+                  spaceBetweenFields
                 ],
               ),
             ),
@@ -252,5 +267,47 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
     );
   }
 
+  _showDateOfBirthPicker(context) {
 
+    var initialDate = DateTime.now();
+
+    showDialog(
+        context: context,
+        builder: (context) {
+          return Center(
+            child: Container(
+              height: MediaQuery.of(context).size.height / 2,
+              width: MediaQuery.of(context).size.width / 1.3,
+              child: Material(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    Expanded(
+                      child: CupertinoTheme(
+                        data: CupertinoThemeData(brightness: Theme.of(context).brightness),
+                        child: CupertinoDatePicker(
+                          initialDateTime: initialDate,
+                          mode: CupertinoDatePickerMode.date,
+                          onDateTimeChanged: (v){},
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Icon(
+                            Icons.done,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                        ),
+                        onTap: () {
+                          Navigator.pop(context);
+                        }),
+                  ],
+                ),
+              ),
+            ),
+          );
+        });
+  }
 }
