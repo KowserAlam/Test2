@@ -5,7 +5,7 @@ import 'package:skill_check/features/home_screen/providers/dashboard_screen_prov
 import 'package:skill_check/main_app/util/app_theme.dart';
 import 'package:skill_check/main_app/util/const.dart';
 import 'package:skill_check/main_app/util/strings_utils.dart';
-import 'package:skill_check/main_app/widgets/gredient_buton.dart';
+import 'package:skill_check/main_app/widgets/common_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

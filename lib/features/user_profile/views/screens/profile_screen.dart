@@ -1,4 +1,5 @@
 import 'package:after_layout/after_layout.dart';
+import 'package:p7app/features/user_profile/views/screens/edit_reference_screen.dart';
 import 'package:p7app/features/user_profile/views/screens/portfolio_list_item_widget.dart';
 import 'package:p7app/features/user_profile/views/screens/certifications_list_item_widget.dart';
 import 'package:p7app/features/user_profile/views/screens/references_list_item_widget.dart';
@@ -25,6 +26,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:provider/provider.dart';
+
+import 'edit_certifications_screen.dart';
+import 'edit_memberships_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -426,11 +430,11 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
       return UserInfoListItem(
         icon: FontAwesomeIcons.certificate,
         label: StringUtils.certificationsText,
-        onTapAddNewAction: () {
-//            Navigator.push(
-//                context,
-//                CupertinoPageRoute(
-//                    builder: (context) => AddEditTechnicalSkill()));
+        onTapEditAction: (_) {
+            Navigator.push(
+                context,
+                CupertinoPageRoute(
+                    builder: (context) => EditCertification()));
         },
         children: List.generate(1, (index) {
           var cer = list[index];
@@ -447,11 +451,11 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
       return UserInfoListItem(
         icon: FontAwesomeIcons.users,
         label: StringUtils.membershipsText,
-        onTapAddNewAction: () {
-//            Navigator.push(
-//                context,
-//                CupertinoPageRoute(
-//                    builder: (context) => AddEditTechnicalSkill()));
+        onTapEditAction: (_) {
+            Navigator.push(
+                context,
+                CupertinoPageRoute(
+                    builder: (context) => EditMemberShips()));
         },
         children: List.generate(1, (index) {
           var memberShip = list[index];
@@ -468,11 +472,11 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
       return UserInfoListItem(
         icon: FontAwesomeIcons.bookReader,
         label: StringUtils.referencesText,
-        onTapAddNewAction: () {
-//            Navigator.push(
-//                context,
-//                CupertinoPageRoute(
-//                    builder: (context) => AddEditTechnicalSkill()));
+        onTapEditAction: (_) {
+            Navigator.push(
+                context,
+                CupertinoPageRoute(
+                    builder: (context) => EditReferenceScreen()));
         },
         children: List.generate(referenceList.length, (index) {
           var ref = referenceList[index];

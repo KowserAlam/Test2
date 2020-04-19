@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:p7app/features/user_profile/views/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/util/validator.dart';
+import 'package:p7app/main_app/widgets/common_button.dart';
 
 class EditReferenceScreen extends StatefulWidget {
   @override
@@ -10,11 +11,33 @@ class EditReferenceScreen extends StatefulWidget {
 
 class _EditReferenceScreenState extends State<EditReferenceScreen> {
   final _formKey = GlobalKey<FormState>();
+
+  //TextEditingController
+  final _nameController = TextEditingController();
+  final _currentPositionController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _mobileController = TextEditingController();
+
+  //FocusNodes
+  final _nameFocusNode = FocusNode();
+  final _currentPositionFocusNode = FocusNode();
+  final _emailFocusNode = FocusNode();
+  final _mobileFocusNode = FocusNode();
+
+  //widgets
+  var spaceBetweenFields = SizedBox(height: 15,);
+
   @override
   Widget build(BuildContext context) {
-    //TextStyle
-    TextStyle titleFont = TextStyle(fontSize: 15, color: Colors.black, fontWeight: FontWeight.bold);
-    TextStyle textFieldFont = TextStyle(fontSize: 15, color: Colors.black);
+
+    Function _onPressed = (){
+      if(_formKey.currentState.validate()){
+        print('validated');
+      }else{
+        print('not validated');
+      }
+    };
+
 
     //InputDecoration
     InputDecoration commonInputDecoration = InputDecoration(
@@ -36,36 +59,6 @@ class _EditReferenceScreenState extends State<EditReferenceScreen> {
       //border: InputBorder.none,
     );
 
-    //TextEditingController
-    final _nameController = TextEditingController();
-    final _currentPositionController = TextEditingController();
-    final _emailController = TextEditingController();
-    final _mobileController = TextEditingController();
-
-    //FocusNodes
-    final _nameFocusNode = FocusNode();
-    final _currentPositionFocusNode = FocusNode();
-    final _emailFocusNode = FocusNode();
-    final _mobileFocusNode = FocusNode();
-
-    //widgets
-    var spaceBetweenFields = SizedBox(height: 15,);
-
-    var saveButton = Row(
-      mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[Container(
-        height: 50,
-        width: 90,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: Colors.blue
-        ),
-        child: Center(
-          child: Text('Save', style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
-        ),
-      )],
-    );
 
     return Scaffold(
       appBar: AppBar(
@@ -84,6 +77,7 @@ class _EditReferenceScreenState extends State<EditReferenceScreen> {
                   //Name
                   CustomTextFormField(
                     validator: Validator().nullFieldValidate,
+                    keyboardType: TextInputType.text,
                     focusNode: _nameFocusNode,
                     autofocus: true,
                     textInputAction: TextInputAction.next,
@@ -100,6 +94,7 @@ class _EditReferenceScreenState extends State<EditReferenceScreen> {
                   CustomTextFormField(
                     validator: Validator().nullFieldValidate,
                     focusNode: _currentPositionFocusNode,
+                    keyboardType: TextInputType.text,
                     autofocus: true,
                     textInputAction: TextInputAction.next,
                     onFieldSubmitted: (a) {
@@ -113,8 +108,9 @@ class _EditReferenceScreenState extends State<EditReferenceScreen> {
                   spaceBetweenFields,
                   //Email
                   CustomTextFormField(
-                    validator: Validator().nullFieldValidate,
+                    validator: (val)=>Validator().validateEmail(val.trim()),
                     focusNode: _emailFocusNode,
+                    keyboardType: TextInputType.emailAddress,
                     autofocus: true,
                     textInputAction: TextInputAction.next,
                     onFieldSubmitted: (a) {
@@ -128,10 +124,10 @@ class _EditReferenceScreenState extends State<EditReferenceScreen> {
                   spaceBetweenFields,
                   //Mobile
                   CustomTextFormField(
-                    validator: Validator().nullFieldValidate,
+                    validator: (val)=>Validator().validatePhoneNumber(val.trim()),
                     focusNode: _mobileFocusNode,
+                    keyboardType: TextInputType.number,
                     autofocus: true,
-                    textInputAction: TextInputAction.next,
                     onFieldSubmitted: (a) {
 //                      FocusScope.of(context)
 //                          .requestFocus(_nationalityFocusNode);
@@ -140,7 +136,8 @@ class _EditReferenceScreenState extends State<EditReferenceScreen> {
                     labelText: StringUtils.referenceMobileText,
                     hintText: StringUtils.referenceMobileText,
                   ),
-                  spaceBetweenFields,
+                  SizedBox(height: 40,),
+                  Row(mainAxisAlignment: MainAxisAlignment.center,mainAxisSize: MainAxisSize.max,children: <Widget>[Container(width: 150,child: CommonButton(label: 'Save',onTap: _onPressed,),)],),
                 ],
               ),
             ),

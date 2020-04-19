@@ -1,5 +1,4 @@
 
-
 import 'package:p7app/features/user_profile/models/reference_data.dart';
 import 'package:p7app/features/user_profile/views/screens/edit_profile_screen.dart';
 
@@ -161,11 +160,32 @@ class StringUtils {
 
   static String saveText = "Save";
 
-  //Reference Screen
+  //Reference Edit Screen
   static var referenceNameText = "Name";
   static var referenceCurrentPositionText = "Current Position";
   static var referenceEmailText = "Email";
   static var referenceMobileText = "Mobile No";
+
+  //Membership Edit Screen
+  static var membershipOrgNameText = "Organization Name";
+  static var membershipPositionHeldText = "Position Held";
+  static var membershipOngoingText = "Ongoing";
+  static var membershipStartDateText = "Start Date";
+  static var membershipEndDateText = "End Date";
+  static var membershipDescriptionText = "Description";
+
+  //Certifications Edit Screen
+  static var certificationNameText = "Certification Name";
+  static var certificationOrganizationNameText = "Organization Name";
+  static var certificationIssueDateText = "Issue Date";
+  static var certificationExpiryDateText = "Expiry Date";
+  static var certificationCredentialIdText = "Credential Id";
+  static var certificationCredentialUrlText = "Description";
+
+  //Portfolio Edit Screen
+  static var portfolioNameText = "Name";
+  static var portfolioImageText = "Upload Image";
+  static var portfolioDescriptionText = "Description";
 
   ///SharedPreferences key Strings
 

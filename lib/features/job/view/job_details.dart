@@ -11,7 +11,7 @@ import 'package:p7app/main_app/resource/decorations.dart';
 import 'package:p7app/main_app/util/date_format_uitl.dart';
 import 'package:p7app/main_app/widgets/custom_Button.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
-import 'package:p7app/main_app/widgets/gredient_buton.dart';
+import 'package:p7app/main_app/widgets/common_button.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class JobDetails extends StatefulWidget {

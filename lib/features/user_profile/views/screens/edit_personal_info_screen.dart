@@ -5,6 +5,7 @@ import 'package:p7app/features/user_profile/views/widgets/custom_text_from_field
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:p7app/main_app/util/validator.dart';
+import 'package:p7app/main_app/widgets/common_button.dart';
 
 class EditPersonalInfoScreen extends StatefulWidget {
 
@@ -14,52 +15,46 @@ class EditPersonalInfoScreen extends StatefulWidget {
 
 class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
   final _formKey = GlobalKey<FormState>();
-  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  //TextEditingController
+  final _fatherNameController = TextEditingController();
+  final _motherNameController = TextEditingController();
+  final _currentAddressController = TextEditingController();
+  final _permanentAddressController = TextEditingController();
+  final _nationalityController = TextEditingController();
+  final _religionController = TextEditingController();
+
+  //FocusNode
+  final _fatherNameFocusNode = FocusNode();
+  final _motherNameFocusNode = FocusNode();
+  final _nationalityFocusNode = FocusNode();
+  final _currentAddressFocusNode = FocusNode();
+  final _permanentAddressFocusNode = FocusNode();
+  final _religionFocusNode = FocusNode();
+
+  //Variables
+  String radioValue;
+  String _gender;
+  @override
+  void initState() {
+    // TODO: implement initState
+    radioValue = 'one';
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+
+    Function _onPressed = (){
+      if(_formKey.currentState.validate()){
+        print('validated');
+      }else{
+        print('not validated');
+      }
+    };
     //TextStyle
     TextStyle titleFont = TextStyle(fontSize: 15, color: Colors.black, fontWeight: FontWeight.bold);
-    TextStyle textFieldFont = TextStyle(fontSize: 15, color: Colors.black);
 
-    //InputDecoration
-    InputDecoration commonInputDecoration = InputDecoration(
-//    contentPadding: EdgeInsets.zero,
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: Colors.lightBlueAccent,
-            width: 1.6,
-          ),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: Colors.transparent,
-            width: 1.6,
-          ),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        //border: InputBorder.none,
-        );
-
-    //TextEditingController
-    final _fatherNameController = TextEditingController();
-    final _motherNameController = TextEditingController();
-    final _currentAddressController = TextEditingController();
-    final _permanentAddressController = TextEditingController();
-    final _nationalityController = TextEditingController();
-    final _religionController = TextEditingController();
-
-    //FocusNode
-    final _fatherNameFocusNode = FocusNode();
-    final _motherNameFocusNode = FocusNode();
-    final _nationalityFocusNode = FocusNode();
-    final _currentAddressFocusNode = FocusNode();
-    final _permanentAddressFocusNode = FocusNode();
-    final _religionFocusNode = FocusNode();
-
-    //Variables
-    String radioValue;
-    String _gender;
 
     void radioButtonChanges(String value) {
       setState(() {
@@ -114,21 +109,6 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
         ),
       ],
     );
-    var saveButton = Row(
-      mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[Container(
-        height: 50,
-        width: 90,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: Colors.blue
-        ),
-        child: Center(
-          child: Text('Save', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
-        ),
-      )],
-    );
 
     return Scaffold(
       appBar: AppBar(
@@ -150,6 +130,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                   //Father's Name
                   CustomTextFormField(
                     validator: Validator().nullFieldValidate,
+                    keyboardType: TextInputType.text,
                     focusNode: _fatherNameFocusNode,
                     textInputAction: TextInputAction.next,
                     onFieldSubmitted: (a) {
@@ -165,6 +146,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                   CustomTextFormField(
                     validator: Validator().nullFieldValidate,
                     focusNode: _motherNameFocusNode,
+                    keyboardType: TextInputType.text,
                     textInputAction: TextInputAction.next,
                     onFieldSubmitted: (a) {
                       FocusScope.of(context)
@@ -180,6 +162,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                     validator: Validator().nullFieldValidate,
                     focusNode: _currentAddressFocusNode,
                     textInputAction: TextInputAction.next,
+                    keyboardType: TextInputType.text,
                     onFieldSubmitted: (a) {
                       FocusScope.of(context)
                           .requestFocus(_permanentAddressFocusNode);
@@ -194,6 +177,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                     validator: Validator().nullFieldValidate,
                     focusNode: _permanentAddressFocusNode,
                     textInputAction: TextInputAction.next,
+                    keyboardType: TextInputType.text,
                     onFieldSubmitted: (a) {
                       FocusScope.of(context)
                           .requestFocus(_nationalityFocusNode);
@@ -207,6 +191,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                   CustomTextFormField(
                     validator: Validator().nullFieldValidate,
                     focusNode: _nationalityFocusNode,
+                    keyboardType: TextInputType.text,
                     textInputAction: TextInputAction.next,
                     onFieldSubmitted: (a) {
                       FocusScope.of(context)
@@ -220,6 +205,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                   //Religion
                   CustomTextFormField(
                     validator: Validator().nullFieldValidate,
+                    keyboardType: TextInputType.text,
                     focusNode: _religionFocusNode,
                     textInputAction: TextInputAction.next,
                     onFieldSubmitted: (a) {
@@ -230,7 +216,8 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                     labelText: StringUtils.religionText,
                     hintText: StringUtils.religionText,
                   ),
-                  spaceBetweenFields,
+                  SizedBox(height: 40,),
+                  Row(mainAxisAlignment: MainAxisAlignment.center,mainAxisSize: MainAxisSize.max,children: <Widget>[Container(width: 150,child: CommonButton(label: 'Save',onTap: _onPressed,),)],),
 //                  InkWell(
 //                    onTap: () {
 //                      _showJoinDatePicker(context);
