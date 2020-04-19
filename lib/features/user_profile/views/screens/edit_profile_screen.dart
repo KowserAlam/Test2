@@ -4,6 +4,7 @@ import 'package:after_layout/after_layout.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:p7app/features/user_profile/models/user_model.dart';
 import 'package:p7app/features/user_profile/models/user_personal_info.dart';
+import 'package:p7app/features/user_profile/repositories/user_profile_repository.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/features/user_profile/views/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/resource/const.dart';
@@ -94,7 +95,9 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
       if (fileProfileImage != null) {
         personalInfo.image = getBase64Image();
       }
+      UserProfileRepository().updateUserBasicInfo(personalInfo.toJson());
     }
+
 
   }
 
@@ -273,7 +276,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
             ///address
             CustomTextFormField(
               controller: _addressEditingController,
-              validator: Validator().nullFieldValidate,
+//              validator: Validator().nullFieldValidate,
               keyboardType: TextInputType.multiline,
               maxLines: null,
               labelText: StringUtils.addressText,
