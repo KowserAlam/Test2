@@ -1,3 +1,5 @@
+
+import 'package:p7app/features/user_profile/models/reference_data.dart';
 import 'package:p7app/features/user_profile/views/screens/edit_profile_screen.dart';
 
 class StringUtils {
@@ -158,6 +160,33 @@ class StringUtils {
 
   static String saveText = "Save";
 
+  //Reference Edit Screen
+  static var referenceNameText = "Name";
+  static var referenceCurrentPositionText = "Current Position";
+  static var referenceEmailText = "Email";
+  static var referenceMobileText = "Mobile No";
+
+  //Membership Edit Screen
+  static var membershipOrgNameText = "Organization Name";
+  static var membershipPositionHeldText = "Position Held";
+  static var membershipOngoingText = "Ongoing";
+  static var membershipStartDateText = "Start Date";
+  static var membershipEndDateText = "End Date";
+  static var membershipDescriptionText = "Description";
+
+  //Certifications Edit Screen
+  static var certificationNameText = "Certification Name";
+  static var certificationOrganizationNameText = "Organization Name";
+  static var certificationIssueDateText = "Issue Date";
+  static var certificationExpiryDateText = "Expiry Date";
+  static var certificationCredentialIdText = "Credential Id";
+  static var certificationCredentialUrlText = "Description";
+
+  //Portfolio Edit Screen
+  static var portfolioNameText = "Name";
+  static var portfolioImageText = "Upload Image";
+  static var portfolioDescriptionText = "Description";
+
   ///SharedPreferences key Strings
 
   static const String isDarkModeOn = "isDarkModeOn";
@@ -172,6 +201,9 @@ class StringUtils {
   static String joiningDateText = "Joining Date";
   static String leavingDateText = "Leaving Date";
   static String currentlyWorkingHereText = "Currently working here";
+
+
+
 
   /// Add or Edit New Education
 
@@ -243,8 +275,8 @@ class StringUtils {
   static var fatherNameText = "Father name";
   static var motherNameText = "Mother name";
   static var dateOfBirthText = "Date of Birth";
-  static var permanentAddersText = "Permanent adders";
-  static var currentAddersText = "Current adders";
+  static var permanentAddressText = "Permanent address";
+  static var currentAddressText = "Current address";
   static var religionText = "Religion";
   static var genderText = "Gender";
   static var nationalityText = "Nationality";

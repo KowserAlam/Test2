@@ -7,7 +7,7 @@ import 'package:skill_check/features/home_screen/views/widgets/exam_duration_wid
 import 'package:skill_check/main_app/util/strings_utils.dart';
 import 'package:skill_check/main_app/util/cosnt_style.dart';
 import 'package:skill_check/main_app/widgets/circular_icon_button_primary_color.dart';
-import 'package:skill_check/main_app/widgets/gredient_buton.dart';
+import 'package:skill_check/main_app/widgets/common_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

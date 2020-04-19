@@ -4,7 +4,7 @@ import 'package:skill_check/features/auth/view/widgets/title_widget.dart';
 
 import 'package:skill_check/main_app/util/const.dart';
 import 'package:skill_check/main_app/util/strings_utils.dart';
-import 'package:skill_check/main_app/widgets/gredient_buton.dart';
+import 'package:skill_check/main_app/widgets/common_button.dart';
 import 'package:skill_check/main_app/widgets/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

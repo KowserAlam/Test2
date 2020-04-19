@@ -6,7 +6,7 @@ import 'package:p7app/main_app/util/validator.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:p7app/main_app/widgets/gredient_buton.dart';
+import 'package:p7app/main_app/widgets/common_button.dart';
 import 'package:provider/provider.dart';
 
 class SignUpScreen extends StatefulWidget {

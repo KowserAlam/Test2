@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:p7app/features/user_profile/views/widgets/custom_text_from_field.dart';
+import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/util/validator.dart';
+import 'package:p7app/main_app/widgets/common_button.dart';
 
 class EditReferenceScreen extends StatefulWidget {
   @override
@@ -7,14 +10,34 @@ class EditReferenceScreen extends StatefulWidget {
 }
 
 class _EditReferenceScreenState extends State<EditReferenceScreen> {
+  final _formKey = GlobalKey<FormState>();
+
+  //TextEditingController
+  final _nameController = TextEditingController();
+  final _currentPositionController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _mobileController = TextEditingController();
+
+  //FocusNodes
+  final _nameFocusNode = FocusNode();
+  final _currentPositionFocusNode = FocusNode();
+  final _emailFocusNode = FocusNode();
+  final _mobileFocusNode = FocusNode();
+
+  //widgets
+  var spaceBetweenFields = SizedBox(height: 15,);
+
   @override
   Widget build(BuildContext context) {
-    var height = MediaQuery.of(context).size.height;
-    var width = MediaQuery.of(context).size.width;
 
-    //TextStyle
-    TextStyle titleFont = TextStyle(fontSize: 15, color: Colors.black, fontWeight: FontWeight.bold);
-    TextStyle textFieldFont = TextStyle(fontSize: 15, color: Colors.black);
+    Function _onPressed = (){
+      if(_formKey.currentState.validate()){
+        print('validated');
+      }else{
+        print('not validated');
+      }
+    };
+
 
     //InputDecoration
     InputDecoration commonInputDecoration = InputDecoration(
@@ -36,215 +59,88 @@ class _EditReferenceScreenState extends State<EditReferenceScreen> {
       //border: InputBorder.none,
     );
 
-    //TextEditingController
-    final _nameController = TextEditingController();
-    final _currentPositionController = TextEditingController();
-    final _emailController = TextEditingController();
-    final _mobileController = TextEditingController();
-
-    //FocusNodes
-    final _nameFocusNode = FocusNode();
-    final _currentPositionFocusNode = FocusNode();
-    final _emailFocusNode = FocusNode();
-    final _mobileFocusNode = FocusNode();
-
-    //widgets
-    var spaceBetweenFields = SizedBox(height: 15,);
-    var nameInput = Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text('Name:', style: titleFont,),
-        SizedBox(height: 5,),
-        Container(
-          height: 50,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.grey[200],
-                    spreadRadius: 3,
-                    blurRadius: 10,
-                    offset: Offset(1,1)
-                )
-              ]
-          ),
-          child: Center(
-            child: TextFormField(
-              keyboardType: TextInputType.emailAddress,
-              focusNode: _nameFocusNode,
-              textInputAction: TextInputAction.next,
-              controller: _nameController,
-              decoration: commonInputDecoration,
-              style: textFieldFont,
-              validator: (val)=>Validator().nullFieldValidate(val.trim()),
-//              onSaved: (val) => loginProvider.email = val.trim(),
-//              onFieldSubmitted: (s) {
-//                _emailFocus.unfocus();
-//                FocusScope.of(_scaffoldKey.currentState.context)
-//                    .requestFocus(_passwordFocus);
-//              },
-            ),
-          ),
-        )
-      ],
-    );
-    var currentPositionInput = Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text('Position:', style: titleFont,),
-        SizedBox(height: 5,),
-        Container(
-          height: 50,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.grey[200],
-                    spreadRadius: 3,
-                    blurRadius: 10,
-                    offset: Offset(1,1)
-                )
-              ]
-          ),
-          child: Center(
-            child: TextFormField(
-              keyboardType: TextInputType.emailAddress,
-              focusNode: _currentPositionFocusNode,
-              textInputAction: TextInputAction.next,
-              controller: _currentPositionController,
-              decoration: commonInputDecoration,
-              style: textFieldFont,
-              validator: (val)=>Validator().nullFieldValidate(val.trim()),
-//              onSaved: (val) => loginProvider.email = val.trim(),
-//              onFieldSubmitted: (s) {
-//                _emailFocus.unfocus();
-//                FocusScope.of(_scaffoldKey.currentState.context)
-//                    .requestFocus(_passwordFocus);
-//              },
-            ),
-          ),
-        )
-      ],
-    );
-    var emailInput = Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text('Email:', style: titleFont,),
-        SizedBox(height: 5,),
-        Container(
-          height: 50,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.grey[200],
-                    spreadRadius: 3,
-                    blurRadius: 10,
-                    offset: Offset(1,1)
-                )
-              ]
-          ),
-          child: Center(
-            child: TextFormField(
-              keyboardType: TextInputType.emailAddress,
-              focusNode: _emailFocusNode,
-              textInputAction: TextInputAction.next,
-              controller: _emailController,
-              decoration: commonInputDecoration,
-              style: textFieldFont,
-              validator: (val)=>Validator().nullFieldValidate(val.trim()),
-//              onSaved: (val) => loginProvider.email = val.trim(),
-//              onFieldSubmitted: (s) {
-//                _emailFocus.unfocus();
-//                FocusScope.of(_scaffoldKey.currentState.context)
-//                    .requestFocus(_passwordFocus);
-//              },
-            ),
-          ),
-        )
-      ],
-    );
-    var mobileInput = Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text('Mobile No:', style: titleFont,),
-        SizedBox(height: 5,),
-        Container(
-          height: 50,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.grey[200],
-                    spreadRadius: 3,
-                    blurRadius: 10,
-                    offset: Offset(1,1)
-                )
-              ]
-          ),
-          child: Center(
-            child: TextFormField(
-              keyboardType: TextInputType.emailAddress,
-              focusNode: _mobileFocusNode,
-              textInputAction: TextInputAction.next,
-              controller: _mobileController,
-              decoration: commonInputDecoration,
-              style: textFieldFont,
-              validator: (val)=>Validator().nullFieldValidate(val.trim()),
-//              onSaved: (val) => loginProvider.email = val.trim(),
-//              onFieldSubmitted: (s) {
-//                _emailFocus.unfocus();
-//                FocusScope.of(_scaffoldKey.currentState.context)
-//                    .requestFocus(_passwordFocus);
-//              },
-            ),
-          ),
-        )
-      ],
-    );
-    var saveButton = Row(
-      mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[Container(
-        height: 50,
-        width: 90,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: Colors.blue
-        ),
-        child: Center(
-          child: Text('Save', style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
-        ),
-      )],
-    );
 
     return Scaffold(
       appBar: AppBar(
         title: Text('Reference'),
       ),
       body: Container(
-        height: height,
-        width: width,
         padding: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
         child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              nameInput,
-              spaceBetweenFields,
-              currentPositionInput,
-              spaceBetweenFields,
-              emailInput,
-              spaceBetweenFields,
-              mobileInput,
-              spaceBetweenFields,
-              spaceBetweenFields,
-              saveButton
-            ],
+          child: Form(
+            key: _formKey,
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  //Name
+                  CustomTextFormField(
+                    validator: Validator().nullFieldValidate,
+                    keyboardType: TextInputType.text,
+                    focusNode: _nameFocusNode,
+                    autofocus: true,
+                    textInputAction: TextInputAction.next,
+                    onFieldSubmitted: (a) {
+                      FocusScope.of(context)
+                          .requestFocus(_currentPositionFocusNode);
+                    },
+                    controller: _nameController,
+                    labelText: StringUtils.referenceNameText,
+                    hintText: StringUtils.referenceNameText,
+                  ),
+                  spaceBetweenFields,
+                  //Current Position
+                  CustomTextFormField(
+                    validator: Validator().nullFieldValidate,
+                    focusNode: _currentPositionFocusNode,
+                    keyboardType: TextInputType.text,
+                    autofocus: true,
+                    textInputAction: TextInputAction.next,
+                    onFieldSubmitted: (a) {
+                      FocusScope.of(context)
+                          .requestFocus(_emailFocusNode);
+                    },
+                    controller: _currentPositionController,
+                    labelText: StringUtils.referenceCurrentPositionText,
+                    hintText: StringUtils.referenceCurrentPositionText,
+                  ),
+                  spaceBetweenFields,
+                  //Email
+                  CustomTextFormField(
+                    validator: (val)=>Validator().validateEmail(val.trim()),
+                    focusNode: _emailFocusNode,
+                    keyboardType: TextInputType.emailAddress,
+                    autofocus: true,
+                    textInputAction: TextInputAction.next,
+                    onFieldSubmitted: (a) {
+                      FocusScope.of(context)
+                          .requestFocus(_mobileFocusNode);
+                    },
+                    controller: _emailController,
+                    labelText: StringUtils.referenceEmailText,
+                    hintText: StringUtils.referenceEmailText,
+                  ),
+                  spaceBetweenFields,
+                  //Mobile
+                  CustomTextFormField(
+                    validator: (val)=>Validator().validatePhoneNumber(val.trim()),
+                    focusNode: _mobileFocusNode,
+                    keyboardType: TextInputType.number,
+                    autofocus: true,
+                    onFieldSubmitted: (a) {
+//                      FocusScope.of(context)
+//                          .requestFocus(_nationalityFocusNode);
+                    },
+                    controller: _mobileController,
+                    labelText: StringUtils.referenceMobileText,
+                    hintText: StringUtils.referenceMobileText,
+                  ),
+                  SizedBox(height: 40,),
+                  Row(mainAxisAlignment: MainAxisAlignment.center,mainAxisSize: MainAxisSize.max,children: <Widget>[Container(width: 150,child: CommonButton(label: 'Save',onTap: _onPressed,),)],),
+                ],
+              ),
+            ),
           ),
         ),
       ),

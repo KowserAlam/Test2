@@ -9,7 +9,7 @@ import 'package:skill_check/main_app/util/cosnt_style.dart';
 import 'package:skill_check/main_app/util/strings_utils.dart';
 import 'package:skill_check/main_app/util/validator.dart';
 import 'package:skill_check/main_app/widgets/app_version_widget_small.dart';
-import 'package:skill_check/main_app/widgets/gredient_buton.dart';
+import 'package:skill_check/main_app/widgets/common_button.dart';
 import 'package:skill_check/main_app/widgets/loader.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
