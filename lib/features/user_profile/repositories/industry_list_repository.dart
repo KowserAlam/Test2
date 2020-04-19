@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dartz/dartz.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
@@ -9,6 +11,8 @@ class IndustryListRepository{
     try{
 
       var res = await ApiClient().getRequest(Urls.industryListUrl);
+      var list = json
+      Right();
 
     }catch (e){
       return Left(AppError.serverError);

@@ -88,11 +88,11 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
       var userData = userViewModel.userData;
       UserPersonalInfo personalInfo = userViewModel.userData.personalInfo;
 
-      personalInfo.address = _addressEditingController.text;
-      personalInfo.fullName = _fullNameTextEditingController.text;
-      personalInfo.industryExpertise = industryExpertiseTextEditingController.text;
-      personalInfo.aboutMe = _aboutTextEditingController.text;
-      personalInfo.phone = _phoneEditingController.text;
+//      personalInfo.address = _addressEditingController.text;
+//      personalInfo.fullName = _fullNameTextEditingController.text;
+//      personalInfo.industryExpertise = industryExpertiseTextEditingController.text;
+//      personalInfo.aboutMe = _aboutTextEditingController.text;
+//      personalInfo.phone = _phoneEditingController.text;
       var data = {
         "address":_addressEditingController.text,
         "full_name":_fullNameTextEditingController.text,
@@ -101,9 +101,9 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
         "phone":_phoneEditingController.text,
 
       };
-      if (fileProfileImage != null) {
-        data.addAll({'image':getBase64Image()});
-      }
+//      if (fileProfileImage != null) {
+//        data.addAll({'image':getBase64Image()});
+//      }
       UserProfileRepository().updateUserBasicInfo(data).then((personalInfoModel) {
         userData.personalInfo = personalInfo;
         userViewModel.userData = userData;
