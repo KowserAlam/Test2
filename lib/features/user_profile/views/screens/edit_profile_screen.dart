@@ -6,7 +6,6 @@ import 'package:p7app/features/user_profile/models/user_personal_info.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/features/user_profile/views/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/resource/const.dart';
-import 'package:p7app/main_app/resource/json_keys.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/util/validator.dart';
 import 'package:p7app/main_app/widgets/edit_screen_save_button.dart';
@@ -18,12 +17,12 @@ import 'package:image_picker/image_picker.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
 
-class EditProfileScreen extends StatefulWidget {
+class ProfileHeaderEditScreen extends StatefulWidget {
   @override
-  _EditProfileScreenState createState() => _EditProfileScreenState();
+  _ProfileHeaderEditScreenState createState() => _ProfileHeaderEditScreenState();
 }
 
-class _EditProfileScreenState extends State<EditProfileScreen>
+class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen>
     with AfterLayoutMixin {
   final cropKey = GlobalKey<CropState>();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -37,17 +36,37 @@ class _EditProfileScreenState extends State<EditProfileScreen>
   var _locationEditingController = TextEditingController();
   var _phoneEditingController = TextEditingController();
 
+  var _fullNameFocusNode = FocusNode();
+  var _designationFocusNode = FocusNode();
+  var _aboutMeFocusNode = FocusNode();
+  var _locationFocusNode = FocusNode();
+  var _phoneFocusNode = FocusNode();
+
   @override
   void afterFirstLayout(BuildContext context) {
     var userViewModel = Provider.of<UserProfileViewModel>(context,listen: false);
     UserPersonalInfo personalInfo = userViewModel.userData.personalInfo;
-    _fullNameTextEditingController.text = personalInfo.fullName??"";
-    _designationTextEditingController.text = personalInfo.industryExpertise??"";
-    _aboutTextEditingController.text = personalInfo.aboutMe??"";
-    _locationEditingController.text = personalInfo.address??"";
     _phoneEditingController.text = personalInfo.phone??"";
+    _locationEditingController.text = personalInfo.address??"";
+    _aboutTextEditingController.text = personalInfo.aboutMe??"";
+    _designationTextEditingController.text = personalInfo.industryExpertise??"";
+    _fullNameTextEditingController.text = personalInfo.fullName??"";
+  }
 
+  dispose(){
+    _phoneEditingController.dispose();
+    _locationEditingController.dispose();
+    _locationEditingController.dispose();
+    _designationTextEditingController.dispose();
+    _fullNameTextEditingController.dispose();
 
+    _fullNameFocusNode.dispose();
+    _designationFocusNode.dispose();
+    _aboutMeFocusNode.dispose();
+    _locationFocusNode.dispose();
+    _phoneFocusNode.dispose();
+
+    super.dispose();
   }
 
   String getBase64Image(){

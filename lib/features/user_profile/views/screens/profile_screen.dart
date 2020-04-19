@@ -216,7 +216,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
         ),
       ],
     );
-    var editButton = IconButton(
+    var editButtonHeader = IconButton( 
       icon: Icon(
         FontAwesomeIcons.edit,
       ),
@@ -224,7 +224,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
       iconSize: 22,
       onPressed: () {
         Navigator.push(context,
-            CupertinoPageRoute(builder: (context) => EditProfileScreen()));
+            CupertinoPageRoute(builder: (context) => ProfileHeaderEditScreen()));
       },
     );
     var userLocationWidget = Row(
@@ -559,7 +559,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                             ],
                           ),
                         ),
-                        editButton,
+                        editButtonHeader,
                       ],
                     ),
                     Spacer(),

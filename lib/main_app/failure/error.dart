@@ -1,2 +1,2 @@
 
-enum AppError{serverError,NetworkError,unknownError,}
+enum AppError{serverError,networkError,unknownError,}

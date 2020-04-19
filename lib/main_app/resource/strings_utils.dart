@@ -251,7 +251,7 @@ class StringUtils {
   static var verify = "Verify";
 
   /// Edit Profile Screen Texts
-  /// [EditProfileScreen]
+  /// [ProfileHeaderEditScreen]
 
   static var fullNameText = "Full Name";
   static var fullNameHintText = "eg. Bill Gates";

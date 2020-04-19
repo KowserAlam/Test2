@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:p7app/features/user_profile/models/user_model.dart';
@@ -10,6 +11,7 @@ import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
 
 class UserProfileRepository {
+
   Future<Either<AppError, UserModel>> getUserData() async {
     try {
       var authUser = await AuthService.getInstance();
@@ -25,14 +27,30 @@ class UserProfileRepository {
 
 
       return Right(userModel);
-    } catch (e) {
+    } 
+    on SocketException catch (e){
+      print(e);
+      return left(AppError.networkError);
+    }
+    catch (e) {
+      print(e);
       return left(AppError.serverError);
+      
     }
   }
 
-  updateUserBasicInfo()async{
+  updateUserBasicInfo(Map<String,dynamic> body)async{
     var authUser = await AuthService.getInstance();
     var professionalId = authUser.getUser().professionalId;
+    var url = "${Urls.userProfileUpdateUrl}/$professionalId";
+    try{
+      var response = await  ApiClient().postRequest(url,body);
+    }catch (e) {
+
+    }
+
+
+
 
   }
 
