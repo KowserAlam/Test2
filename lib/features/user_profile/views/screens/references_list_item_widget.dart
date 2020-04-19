@@ -5,9 +5,11 @@ import 'package:p7app/features/user_profile/styles/profile_common_style.dart';
 
 class ReferencesListItemWidget extends StatelessWidget {
   final ReferenceData referenceData;
+  final Function onTapEdit;
+  final bool isInEditMode;
   const ReferencesListItemWidget({
     Key key,
-    @required this.referenceData,
+    @required this.referenceData,this.isInEditMode,this.onTapEdit
   }) : super(key: key);
 
   @override
@@ -29,6 +31,10 @@ class ReferencesListItemWidget extends StatelessWidget {
         ),
         title: Text(referenceData.name??""),
         subtitle: Text(referenceData.currentPosition??""),
+        trailing: !isInEditMode?SizedBox():IconButton(
+          icon: Icon(FontAwesomeIcons.edit),
+          onPressed: onTapEdit,
+        ),
       ),
     );
   }

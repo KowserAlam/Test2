@@ -415,6 +415,11 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
       var list = userProfileViewModel.userData.portfolioInfo;
 
       return UserInfoListItem(
+        isInEditMode: isInEditModePortfolio,
+        onTapEditAction: (){
+          isInEditModePortfolio = !isInEditModePortfolio;
+          setState(() {});
+        },
         icon: FontAwesomeIcons.wallet,
         label: StringUtils.projectsText,
         onTapAddNewAction: () {
@@ -426,7 +431,17 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
         children: List.generate(list.length, (index) {
           var port = list[index];
           return PortfolioListItemWidget(
+            isInEditMode: isInEditModePortfolio,
             portfolioInfo: port,
+            onTapEdit: () {
+//              Navigator.push(
+//                  context,
+//                  CupertinoPageRoute(
+//                      builder: (context) => AddNewExperienceScreen(
+//                        index: index,
+//                        experienceInfoModel: exp,
+//                      )));
+            },
           );
         }),
       );
@@ -452,7 +467,14 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
         children: List.generate(list.length, (index) {
           var cer = list[index];
           return CertificationsListItemWidget(
+            isInEditMode: isInEditModeCertifications,
             certificationInfo: cer,
+            onTapEdit: (){
+              Navigator.push(
+                  context,
+                  CupertinoPageRoute(
+                      builder: (context) => EditCertification()));
+            },
           );
         }),
       );
@@ -478,7 +500,14 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
         children: List.generate(list.length, (index) {
           var memberShip = list[index];
           return MemberShipListItem(
+            isInEditMode: isInEditModeMembersShip,
             memberShip: memberShip,
+            onTapEdit: (){
+              Navigator.push(
+                  context,
+                  CupertinoPageRoute(
+                      builder: (context) => EditMemberShips()));
+            },
           );
         }),
       );
@@ -504,7 +533,14 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
         children: List.generate(referenceList.length, (index) {
           var ref = referenceList[index];
           return ReferencesListItemWidget(
+            isInEditMode: isInEditModeReferences,
             referenceData: ref,
+            onTapEdit: (){
+              Navigator.push(
+                  context,
+                  CupertinoPageRoute(
+                      builder: (context) => EditReferenceScreen()));
+            },
           );
         }),
       );
