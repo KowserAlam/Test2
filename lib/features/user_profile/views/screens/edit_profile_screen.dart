@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:after_layout/after_layout.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:p7app/features/user_profile/models/user_model.dart';
 import 'package:p7app/features/user_profile/models/user_personal_info.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/features/user_profile/views/widgets/custom_text_from_field.dart';
@@ -18,12 +19,18 @@ import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
 
 class ProfileHeaderEditScreen extends StatefulWidget {
+  final UserModel userModel;
+
   @override
-  _ProfileHeaderEditScreenState createState() => _ProfileHeaderEditScreenState();
+  _ProfileHeaderEditScreenState createState() =>
+      _ProfileHeaderEditScreenState();
+
+  const ProfileHeaderEditScreen({
+    @required this.userModel,
+  });
 }
 
-class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen>
-    with AfterLayoutMixin {
+class _ProfileHeaderEditScreenState  {
   final cropKey = GlobalKey<CropState>();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final _formKey = GlobalKey<FormState>();
@@ -33,7 +40,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen>
   var _fullNameTextEditingController = TextEditingController();
   var _designationTextEditingController = TextEditingController();
   var _aboutTextEditingController = TextEditingController();
-  var _locationEditingController = TextEditingController();
+  var _addressEditingController = TextEditingController();
   var _phoneEditingController = TextEditingController();
 
   var _fullNameFocusNode = FocusNode();
@@ -43,55 +50,40 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen>
   var _phoneFocusNode = FocusNode();
 
   @override
-  void afterFirstLayout(BuildContext context) {
-    var userViewModel = Provider.of<UserProfileViewModel>(context,listen: false);
-    UserPersonalInfo personalInfo = userViewModel.userData.personalInfo;
-    _phoneEditingController.text = personalInfo.phone??"";
-    _locationEditingController.text = personalInfo.address??"";
-    _aboutTextEditingController.text = personalInfo.aboutMe??"";
-    _designationTextEditingController.text = personalInfo.industryExpertise??"";
-    _fullNameTextEditingController.text = personalInfo.fullName??"";
+  void initState() {
+    var personalInfo = widget.userModel.personalInfo;
+
+    _phoneEditingController.text = personalInfo.phone ?? "";
+    _addressEditingController.text = personalInfo.address ?? "";
+    _aboutTextEditingController.text = personalInfo.aboutMe ?? "";
+    _designationTextEditingController.text =
+        personalInfo.industryExpertise ?? "";
+    _fullNameTextEditingController.text = personalInfo.fullName ?? "";
+
+    super.initState();
   }
 
-  dispose(){
-    _phoneEditingController.dispose();
-    _locationEditingController.dispose();
-    _locationEditingController.dispose();
-    _designationTextEditingController.dispose();
-    _fullNameTextEditingController.dispose();
 
-    _fullNameFocusNode.dispose();
-    _designationFocusNode.dispose();
-    _aboutMeFocusNode.dispose();
-    _locationFocusNode.dispose();
-    _phoneFocusNode.dispose();
 
-    super.dispose();
-  }
-
-  String getBase64Image(){
+  String getBase64Image() {
     List<int> imageBytes = fileProfileImage.readAsBytesSync();
     print(imageBytes);
     return base64Encode(imageBytes);
   }
 
-
   Future getImage() async {
     File image = await ImagePicker.pickImage(source: ImageSource.gallery);
     if (image != null) {
       _showCropDialog(image);
-    } else {
-
-    }
-
+    } else {}
   }
 
   _handleSave() async {
-
     var isValid = _formKey.currentState.validate();
 
     if (isValid) {
-      var userViewModel = Provider.of<UserProfileViewModel>(context,listen: false);
+      var userViewModel =
+          Provider.of<UserProfileViewModel>(context, listen: false);
       var userData = userViewModel.userData;
       UserPersonalInfo personalInfo = userViewModel.userData.personalInfo;
       personalInfo.address = _aboutTextEditingController.text;
@@ -99,11 +91,9 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen>
       personalInfo.industryExpertise = _designationTextEditingController.text;
       personalInfo.aboutMe = _aboutTextEditingController.text;
       personalInfo.phone = _phoneEditingController.text;
-      if(fileProfileImage != null){
+      if (fileProfileImage != null) {
         personalInfo.image = getBase64Image();
       }
-
-
     }
   }
 
@@ -125,7 +115,9 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen>
       body: ModalProgressHUD(
         opacity: .6,
         inAsyncCall: Provider.of<UserProfileViewModel>(context).isBusySaving,
-        progressIndicator: Loader(size: 20,),
+        progressIndicator: Loader(
+          size: 20,
+        ),
         child: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
           child: Column(
@@ -158,10 +150,19 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen>
                   decoration: BoxDecoration(
                     color: Theme.of(context).backgroundColor,
                   ),
-                  child:  fileProfileImage != null? Image.file(fileProfileImage,): CachedNetworkImage(
-                    placeholder: (context,_)=>Image.asset(kDefaultUserImageAsset,fit: BoxFit.cover,),
-                    imageUrl: userProfileViewModel.userData.personalInfo.image??"",
-                  ),
+                  child: fileProfileImage != null
+                      ? Image.file(
+                          fileProfileImage,
+                        )
+                      : CachedNetworkImage(
+                          placeholder: (context, _) => Image.asset(
+                            kDefaultUserImageAsset,
+                            fit: BoxFit.cover,
+                          ),
+                          imageUrl: userProfileViewModel
+                                  .userData.personalInfo.image ??
+                              "",
+                        ),
                 )),
           ),
           Positioned(
@@ -186,7 +187,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen>
             right: 0,
             bottom: 0,
           ),
- isBusyImageCrop
+          isBusyImageCrop
               ? Positioned(
                   bottom: 80,
                   left: 80,
@@ -210,17 +211,17 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen>
             CustomTextFormField(
               controller: _fullNameTextEditingController,
               validator: Validator().nullFieldValidate,
-                  labelText: "Full Name", hintText: "eg. Bill Gates",
+              labelText: "Full Name",
+              hintText: "eg. Bill Gates",
             ),
             SizedBox(height: 10),
 
             /// Designation
             CustomTextFormField(
-
               controller: _designationTextEditingController,
               validator: Validator().nullFieldValidate,
-
-                  labelText: "Designation", hintText: "eg. Software Engineer",
+              labelText: "Designation",
+              hintText: "eg. Software Engineer",
             ),
 
             SizedBox(height: 10),
@@ -231,9 +232,8 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen>
               validator: Validator().nullFieldValidate,
               keyboardType: TextInputType.multiline,
               maxLines: null,
-                labelText: StringUtils.aboutMeText,
-                hintText: StringUtils.aboutHintText,
-
+              labelText: StringUtils.aboutMeText,
+              hintText: StringUtils.aboutHintText,
             ),
 
             SizedBox(height: 10),
@@ -245,10 +245,8 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen>
               validator: Validator().validatePhoneNumber,
               keyboardType: TextInputType.phone,
               maxLines: null,
-
-                labelText: StringUtils.phoneText,
-                hintText: StringUtils.phoneHintText,
-
+              labelText: StringUtils.phoneText,
+              hintText: StringUtils.phoneHintText,
             ),
 
             SizedBox(height: 10),
@@ -271,13 +269,12 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen>
 
             ///address
             CustomTextFormField(
-              controller: _locationEditingController,
+              controller: _addressEditingController,
               validator: Validator().nullFieldValidate,
               keyboardType: TextInputType.multiline,
               maxLines: null,
-                labelText: StringUtils.addressText,
-                hintText: StringUtils.locationHintText,
-
+              labelText: StringUtils.addressText,
+              hintText: StringUtils.locationHintText,
             ),
           ],
         ),
@@ -350,14 +347,11 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen>
 
   /// Method to crop Image file
   Future<void> _cropImage(File image) async {
-
     final scale = cropKey.currentState.scale;
     final area = cropKey.currentState.area;
     if (area == null) {
-   isBusyImageCrop = false;
-   setState(() {
-
-   });
+      isBusyImageCrop = false;
+      setState(() {});
       // cannot crop, widget is not setup
       return;
     }
@@ -374,11 +368,9 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen>
 
     sample.delete();
 
-fileProfileImage = file;
- isBusyImageCrop = false;
-    setState(() {
-
-    });
+    fileProfileImage = file;
+    isBusyImageCrop = false;
+    setState(() {});
 
 //    _lastCropped?.delete();
 //    _lastCropped = file;

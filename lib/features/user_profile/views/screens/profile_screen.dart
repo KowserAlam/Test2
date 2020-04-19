@@ -223,8 +223,9 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
       color: profileHeaderFontColor,
       iconSize: 22,
       onPressed: () {
+       var userModel =  Provider.of<UserProfileViewModel>(context, listen: false).userData;
         Navigator.push(context,
-            CupertinoPageRoute(builder: (context) => ProfileHeaderEditScreen()));
+            CupertinoPageRoute(builder: (context) => ProfileHeaderEditScreen(userModel: userModel,)));
       },
     );
     var userLocationWidget = Row(
