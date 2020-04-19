@@ -61,12 +61,12 @@ class _EditPortfolioState extends State<EditPortfolio> {
                     autofocus: true,
                     textInputAction: TextInputAction.next,
                     onFieldSubmitted: (a) {
-//                      FocusScope.of(context)
-//                          .requestFocus(_currentPositionFocusNode);
+                      FocusScope.of(context)
+                          .requestFocus(_portfolioDescriptionFocusNode);
                     },
                     controller: _portfolioNameController,
-                    labelText: StringUtils.referenceNameText,
-                    hintText: StringUtils.referenceNameText,
+                    labelText: StringUtils.portfolioNameText,
+                    hintText: StringUtils.portfolioNameText,
                   ),
                   spaceBetweenFields,
                   //Description
@@ -82,8 +82,8 @@ class _EditPortfolioState extends State<EditPortfolio> {
 //                          .requestFocus(_currentPositionFocusNode);
                     },
                     controller: _portfolioDescriptionController,
-                    labelText: StringUtils.referenceNameText,
-                    hintText: StringUtils.referenceNameText,
+                    labelText: StringUtils.portfolioDescriptionText,
+                    hintText: StringUtils.portfolioDescriptionText,
                   ),
                   spaceBetweenFields,
                 ],
