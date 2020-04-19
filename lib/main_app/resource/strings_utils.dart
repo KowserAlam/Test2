@@ -281,6 +281,8 @@ class StringUtils {
   static var genderText = "Gender";
   static var nationalityText = "Nationality";
   static var languagesKnown  = "Languages Known ";
+  static var cropImageText  = "Crop Image";
+  static var cancelText  = "Cancel";
 
 
   /// password reset

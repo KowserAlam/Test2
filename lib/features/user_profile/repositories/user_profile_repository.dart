@@ -11,21 +11,29 @@ import 'package:http/http.dart' as http;
 
 class UserProfileRepository {
   Future<Either<AppError, UserModel>> getUserData() async {
-//    try {
+    try {
       var authUser = await AuthService.getInstance();
+
       var professionalId = authUser.getUser().professionalId;
       debugPrint(professionalId);
       var url = "${Urls.userProfileUrl}/$professionalId";
 
       var response = await  ApiClient().getRequest(url);
-      var mapJson = json.decode(response.body);
-//      var mapJson = json.decode(dummyData);
+//      var mapJson = json.decode(response.body);
+      var mapJson = json.decode(dummyData);
       var userModel = UserModel.fromJson(mapJson);
 
+
       return Right(userModel);
-//    } catch (e) {
-//      return left(AppError.serverError);
-//    }
+    } catch (e) {
+      return left(AppError.serverError);
+    }
+  }
+
+  updateUserBasicInfo()async{
+    var authUser = await AuthService.getInstance();
+    var professionalId = authUser.getUser().professionalId;
+
   }
 
    var dummyData = """ {
