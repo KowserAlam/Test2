@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:p7app/features/user_profile/views/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
@@ -109,6 +110,38 @@ class _EditCertificationState extends State<EditCertification> {
                     hintText: StringUtils.certificationCredentialUrlText,
                   ),
                   spaceBetweenFields,
+                  Row(
+                    children: <Widget>[
+                      Text(
+                        StringUtils.joiningDateText,
+                        textAlign: TextAlign.left,
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 8,
+                  ),
+
+                  InkWell(
+                    onTap: () {
+                      _showIssueDatePicker(context);
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).backgroundColor,
+                        borderRadius: BorderRadius.circular(7),
+                        boxShadow: [
+                          BoxShadow(color: Color(0xff000000).withOpacity(0.2), blurRadius: 20),
+                          BoxShadow(color: Color(0xfffafafa).withOpacity(0.2), blurRadius: 20),
+
+                        ],),
+                      padding: EdgeInsets.all(8),
+                      child: Text(
+                        "ID",
+                      ),
+                    ),
+                  ),
                   SizedBox(height: 40,),
                   Row(mainAxisAlignment: MainAxisAlignment.center,mainAxisSize: MainAxisSize.max,children: <Widget>[Container(width: 150,child: CommonButton(label: 'Save',onTap: _onPressed,),)],)
                 ],
@@ -118,5 +151,93 @@ class _EditCertificationState extends State<EditCertification> {
         ),
       ),
     );
+  }
+
+  _showIssueDatePicker(context) {
+
+    var initialDate = DateTime.now();
+
+    showDialog(
+        context: context,
+        builder: (context) {
+          return Center(
+            child: Container(
+              height: MediaQuery.of(context).size.height / 2,
+              width: MediaQuery.of(context).size.width / 1.3,
+              child: Material(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    Expanded(
+                      child: CupertinoTheme(
+                        data: CupertinoThemeData(brightness: Theme.of(context).brightness),
+                        child: CupertinoDatePicker(
+                          initialDateTime: initialDate,
+                          mode: CupertinoDatePickerMode.date,
+                          onDateTimeChanged: (v){},
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Icon(
+                            Icons.done,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                        ),
+                        onTap: () {
+                          Navigator.pop(context);
+                        }),
+                  ],
+                ),
+              ),
+            ),
+          );
+        });
+  }
+
+  _showExpiryDatePicker(context) {
+
+    var initialDate = DateTime.now();
+
+    showDialog(
+        context: context,
+        builder: (context) {
+          return Center(
+            child: Container(
+              height: MediaQuery.of(context).size.height / 2,
+              width: MediaQuery.of(context).size.width / 1.3,
+              child: Material(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    Expanded(
+                      child: CupertinoTheme(
+                        data: CupertinoThemeData(brightness: Theme.of(context).brightness),
+                        child: CupertinoDatePicker(
+                          initialDateTime: initialDate,
+                          mode: CupertinoDatePickerMode.date,
+                          onDateTimeChanged: (v){},
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Icon(
+                            Icons.done,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                        ),
+                        onTap: () {
+                          Navigator.pop(context);
+                        }),
+                  ],
+                ),
+              ),
+            ),
+          );
+        });
   }
 }
