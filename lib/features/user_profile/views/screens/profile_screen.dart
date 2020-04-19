@@ -443,7 +443,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                 CupertinoPageRoute(
                     builder: (context) => EditCertification()));
         },
-        children: List.generate(1, (index) {
+        children: List.generate(list.length, (index) {
           var cer = list[index];
           return CertificationsListItemWidget(
             certificationInfo: cer,
@@ -464,7 +464,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                 CupertinoPageRoute(
                     builder: (context) => EditMemberShips()));
         },
-        children: List.generate(1, (index) {
+        children: List.generate(list.length, (index) {
           var memberShip = list[index];
           return MemberShipListItem(
             memberShip: memberShip,
