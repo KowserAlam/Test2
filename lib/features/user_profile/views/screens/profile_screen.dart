@@ -266,7 +266,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
       return Column(
         children: <Widget>[
           Text(
-            userProfileViewModel.userData.personalInfo.qualification ?? "",
+            userProfileViewModel.userData.personalInfo.industryExpertise ?? "",
             style: TextStyle(
                 fontSize: 18,
                 color: profileHeaderFontColor,

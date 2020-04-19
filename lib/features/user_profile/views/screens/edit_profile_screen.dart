@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:after_layout/after_layout.dart';
+import 'package:p7app/features/user_profile/models/user_personal_info.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/features/user_profile/views/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/resource/const.dart';
@@ -37,7 +38,15 @@ class _EditProfileScreenState extends State<EditProfileScreen>
 
   @override
   void afterFirstLayout(BuildContext context) {
-    var userProvider = Provider.of<UserProfileViewModel>(context,listen: false);
+    var userViewModel = Provider.of<UserProfileViewModel>(context,listen: false);
+    UserPersonalInfo personalInfo = userViewModel.userData.personalInfo;
+    _fullNameTextEditingController.text = personalInfo.fullName??"";
+    _designationTextEditingController.text = personalInfo.industryExpertise??"";
+    _designationTextEditingController.text = personalInfo.industryExpertise??"";
+    _aboutTextEditingController.text = personalInfo.aboutMe??"";
+    _locationEditingController.text = personalInfo.address??"";
+    _phoneEditingController.text = personalInfo.address??"";
+
 
   }
 
