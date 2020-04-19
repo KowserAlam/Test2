@@ -55,7 +55,7 @@ class UserPersonalInfo {
         this.nationality});
 
   UserPersonalInfo.fromJson(Map<String, dynamic> json) {
-    String baseUrl = FlavorConfig.instance.values.baseUrl;
+    String baseUrl = FlavorConfig?.instance?.values?.baseUrl;
     var imageUlr = json['image'] == null? null: "$baseUrl${json['image']}";
 
     id = json['id'];

@@ -15,12 +15,22 @@ class IndustryListRepository{
       var decodedJson = json.decode(res.body);
       print(decodedJson);
 
-      List<String> list = decodedJson.map((v)=>v["name"] as String ).toList();
+      List<String> list = fromJson(decodedJson);
       return Right(list);
 
     }catch (e){
       print(e);
+
       return Left(AppError.serverError);
     }
+  }
+  List<String> fromJson(json){
+   List<String> list = [];
+//   List<Map<String,dynamic>> tl = json.cast<Map<String,dynamic>>();
+//    tl.map<String>((e) => e['name']).toList();
+   json.forEach((element) {
+     list.add(element['name']);
+   });
+   return list;
   }
 }
