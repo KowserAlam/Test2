@@ -1,12 +1,12 @@
 
 
 //dev server
-const String kBaseUrDev = "http://54.84.198.57";
+const String kBaseUrDev = "http://54.84.198.57:8081";
 
 ////rashed vai
 //const String kBaseUrDev = "http://192.168.1.51:8000";
 
-const String kBaseUrlQA = "http://54.84.198.57";
+const String kBaseUrlQA = "http://54.84.198.57:8081";
 const String kBaseUrlProd = "http://100.25.85.115";
 
 class Urls {

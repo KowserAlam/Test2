@@ -13,13 +13,11 @@ class UserProfileRepository {
 //    try {
       var authUser = await AuthService.getInstance();
       var userId = authUser.getUser().userId;
-//      var url = "${Urls.userProfileUrl}/$userId";
-//
-//      var response = await  ApiClient().getRequest(url);
+      var url = "${Urls.userProfileUrl}/$userId";
 
-//      var response = await http.get("${Urls.userProfileUrl}/$userId");
-//      var mapJson = json.decode(response.body);
-      var mapJson = json.decode(dummyData);
+      var response = await  ApiClient().getRequest(url);
+      var mapJson = json.decode(response.body);
+//      var mapJson = json.decode(dummyData);
       var userModel = UserModel.fromJson(mapJson);
 
       return Right(userModel);
