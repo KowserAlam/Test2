@@ -1,12 +1,16 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:after_layout/after_layout.dart';
+import 'package:bot_toast/bot_toast.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dartz/dartz.dart' as dartZ;
 import 'package:p7app/features/user_profile/models/user_model.dart';
 import 'package:p7app/features/user_profile/models/user_personal_info.dart';
+import 'package:p7app/features/user_profile/repositories/industry_list_repository.dart';
 import 'package:p7app/features/user_profile/repositories/user_profile_repository.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/features/user_profile/views/widgets/custom_text_from_field.dart';
+import 'package:p7app/main_app/failure/error.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/util/validator.dart';
@@ -43,12 +47,13 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
   var _aboutTextEditingController = TextEditingController();
   var _addressEditingController = TextEditingController();
   var _phoneEditingController = TextEditingController();
-
   var _fullNameFocusNode = FocusNode();
   var _designationFocusNode = FocusNode();
   var _aboutMeFocusNode = FocusNode();
   var _locationFocusNode = FocusNode();
   var _phoneFocusNode = FocusNode();
+  List<DropdownMenuItem<String>> _industryList = [];
+  String selectedDropDownItem = "";
 
   @override
   void initState() {
@@ -60,11 +65,28 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
     industryExpertiseTextEditingController.text =
         personalInfo.industryExpertise ?? "";
     _fullNameTextEditingController.text = personalInfo.fullName ?? "";
+    selectedDropDownItem = personalInfo.industryExpertise??"";
 
+    IndustryListRepository()
+        .getIndustryList()
+        .then((dartZ.Either<AppError, List<String>> value) {
+      value.fold((l) {
+        // left
+        BotToast.showText(text: "Unable to load expertise list ");
+      }, (r) {
+        // right
+        _industryList = r
+            .map((e) => DropdownMenuItem(
+                  key: Key(e),
+                  value: e,
+                  child: Text(e ?? ""),
+                ))
+            .toList();
+        setState(() {});
+      });
+    });
     super.initState();
   }
-
-
 
   String getBase64Image() {
     List<int> imageBytes = fileProfileImage.readAsBytesSync();
@@ -93,25 +115,27 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
 //      personalInfo.industryExpertise = industryExpertiseTextEditingController.text;
 //      personalInfo.aboutMe = _aboutTextEditingController.text;
 //      personalInfo.phone = _phoneEditingController.text;
-      var data = {
-        "address":_addressEditingController.text,
-        "full_name":_fullNameTextEditingController.text,
-        "industry_expertise":industryExpertiseTextEditingController.text,
-        "about_me":_aboutTextEditingController.text,
-        "phone":_phoneEditingController.text,
 
+      var data = {
+        "address": _addressEditingController.text,
+        "full_name": _fullNameTextEditingController.text,
+        "industry_expertise": industryExpertiseTextEditingController.text,
+        "about_me": _aboutTextEditingController.text,
+        "phone": _phoneEditingController.text,
       };
+
 //      if (fileProfileImage != null) {
 //        data.addAll({'image':getBase64Image()});
 //      }
-      UserProfileRepository().updateUserBasicInfo(data).then((personalInfoModel) {
+
+      UserProfileRepository()
+          .updateUserBasicInfo(data)
+          .then((personalInfoModel) {
         userData.personalInfo = personalInfo;
         userViewModel.userData = userData;
         Navigator.pop(context);
       });
     }
-
-
   }
 
   @override
@@ -129,25 +153,18 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
           ),
         ],
       ),
-      body: ModalProgressHUD(
-        opacity: .6,
-        inAsyncCall: Provider.of<UserProfileViewModel>(context).isBusySaving,
-        progressIndicator: Loader(
-          size: 20,
-        ),
-        child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
-          child: Column(
-            children: <Widget>[
-              SizedBox(
-                width: double.infinity,
-              ),
-              SizedBox(height: 20),
-              _buildEditProfileImage(),
-              SizedBox(height: 20),
-              _buildInformationFields(),
-            ],
-          ),
+      body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
+        child: Column(
+          children: <Widget>[
+            SizedBox(
+              width: double.infinity,
+            ),
+            SizedBox(height: 20),
+            _buildEditProfileImage(),
+            SizedBox(height: 20),
+            _buildInformationFields(),
+          ],
         ),
       ),
     );
@@ -234,13 +251,18 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
             ),
             SizedBox(height: 10),
 
-            /// Designation
-            CustomTextFormField(
-              focusNode: _designationFocusNode,
-              controller: industryExpertiseTextEditingController,
-              validator: Validator().nullFieldValidate,
-              labelText: "Designation",
-              hintText: "eg. Software Engineer",
+//            /// Designation
+//            CustomTextFormField(
+//              focusNode: _designationFocusNode,
+//              controller: industryExpertiseTextEditingController,
+//              validator: Validator().nullFieldValidate,
+//              labelText: "Designation",
+//              hintText: "eg. Software Engineer",
+//            ),
+
+            DropdownButtonFormField<String>(
+              onChanged: (value) {},
+              items: _industryList,
             ),
 
             SizedBox(height: 10),
