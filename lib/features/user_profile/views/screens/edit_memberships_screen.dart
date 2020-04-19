@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:p7app/features/user_profile/views/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
@@ -111,51 +112,24 @@ class _EditMemberShipsState extends State<EditMemberShips> {
                   spaceBetweenFields,
                   //Ongoing
                   CustomTextFormField(
-                    validator: (val)=>Validator().validateEmail(val.trim()),
+                    validator: Validator().nullFieldValidate,
                     focusNode: _membershipOngoingFocusNode,
                     keyboardType: TextInputType.text,
                     autofocus: true,
                     textInputAction: TextInputAction.next,
                     onFieldSubmitted: (a) {
                       FocusScope.of(context)
-                          .requestFocus(_startDateFocusNode);
+                          .requestFocus(_descriptionFocusNode);
                     },
                     controller: _membershipOngoingController,
                     labelText: StringUtils.membershipOngoingText,
                     hintText: StringUtils.membershipOngoingText,
                   ),
                   spaceBetweenFields,
-                  //Start Date
-                  CustomTextFormField(
-                    validator: (val)=>Validator().validatePhoneNumber(val.trim()),
-                    focusNode: _startDateFocusNode,
-                    keyboardType: TextInputType.number,
-                    autofocus: true,
-                    onFieldSubmitted: (a) {
-                      FocusScope.of(context)
-                          .requestFocus(_endDateFocusNode);
-                    },
-                    controller: _startDateController,
-                    labelText: StringUtils.membershipStartDateText,
-                    hintText: StringUtils.membershipStartDateText,
-                  ),
-                  spaceBetweenFields,
-                  CustomTextFormField(
-                    validator: (val)=>Validator().validatePhoneNumber(val.trim()),
-                    focusNode: _endDateFocusNode,
-                    keyboardType: TextInputType.number,
-                    autofocus: true,
-                    onFieldSubmitted: (a) {
-                      FocusScope.of(context)
-                          .requestFocus(_descriptionFocusNode);
-                    },
-                    controller: _endDateController,
-                    labelText: StringUtils.membershipEndDateText,
-                    hintText: StringUtils.membershipEndDateText,
-                  ),
-                  spaceBetweenFields,
+                  //Description
                   CustomTextFormField(
                     validator: Validator().nullFieldValidate,
+                    maxLines: null,
                     focusNode: _descriptionFocusNode,
                     keyboardType: TextInputType.text,
                     autofocus: true,
@@ -167,6 +141,76 @@ class _EditMemberShipsState extends State<EditMemberShips> {
                     labelText: StringUtils.membershipDescriptionText,
                     hintText: StringUtils.membershipDescriptionText,
                   ),
+                  spaceBetweenFields,
+
+                  //Start Date
+                  Row(
+                    children: <Widget>[
+                      Text(
+                        StringUtils.membershipStartDateText,
+                        textAlign: TextAlign.left,
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 8,
+                  ),
+
+                  InkWell(
+                    onTap: () {
+                      _showStartDatePicker(context);
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).backgroundColor,
+                        borderRadius: BorderRadius.circular(7),
+                        boxShadow: [
+                          BoxShadow(color: Color(0xff000000).withOpacity(0.2), blurRadius: 20),
+                          BoxShadow(color: Color(0xfffafafa).withOpacity(0.2), blurRadius: 20),
+
+                        ],),
+                      padding: EdgeInsets.all(8),
+                      child: Text(
+                        "SD",
+                      ),
+                    ),
+                  ),
+                  spaceBetweenFields,
+
+                  //End Date
+                  Row(
+                    children: <Widget>[
+                      Text(
+                        StringUtils.membershipEndDateText,
+                        textAlign: TextAlign.left,
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 8,
+                  ),
+
+                  InkWell(
+                    onTap: () {
+                      _showEndDatePicker(context);
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).backgroundColor,
+                        borderRadius: BorderRadius.circular(7),
+                        boxShadow: [
+                          BoxShadow(color: Color(0xff000000).withOpacity(0.2), blurRadius: 20),
+                          BoxShadow(color: Color(0xfffafafa).withOpacity(0.2), blurRadius: 20),
+
+                        ],),
+                      padding: EdgeInsets.all(8),
+                      child: Text(
+                        "ED",
+                      ),
+                    ),
+                  ),
                   SizedBox(height: 40,),
                   Row(mainAxisAlignment: MainAxisAlignment.center,mainAxisSize: MainAxisSize.max,children: <Widget>[Container(width: 150,child: CommonButton(label: 'Save',onTap: _onPressed,),)],),
                 ],
@@ -176,5 +220,92 @@ class _EditMemberShipsState extends State<EditMemberShips> {
         ),
       ),
     );
+  }
+
+  _showEndDatePicker(context) {
+
+    var initialDate = DateTime.now();
+
+    showDialog(
+        context: context,
+        builder: (context) {
+          return Center(
+            child: Container(
+              height: MediaQuery.of(context).size.height / 2,
+              width: MediaQuery.of(context).size.width / 1.3,
+              child: Material(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    Expanded(
+                      child: CupertinoTheme(
+                        data: CupertinoThemeData(brightness: Theme.of(context).brightness),
+                        child: CupertinoDatePicker(
+                          initialDateTime: initialDate,
+                          mode: CupertinoDatePickerMode.date,
+                          onDateTimeChanged: (v){},
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Icon(
+                            Icons.done,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                        ),
+                        onTap: () {
+                          Navigator.pop(context);
+                        }),
+                  ],
+                ),
+              ),
+            ),
+          );
+        });
+  }
+  _showStartDatePicker(context) {
+
+    var initialDate = DateTime.now();
+
+    showDialog(
+        context: context,
+        builder: (context) {
+          return Center(
+            child: Container(
+              height: MediaQuery.of(context).size.height / 2,
+              width: MediaQuery.of(context).size.width / 1.3,
+              child: Material(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    Expanded(
+                      child: CupertinoTheme(
+                        data: CupertinoThemeData(brightness: Theme.of(context).brightness),
+                        child: CupertinoDatePicker(
+                          initialDateTime: initialDate,
+                          mode: CupertinoDatePickerMode.date,
+                          onDateTimeChanged: (v){},
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Icon(
+                            Icons.done,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                        ),
+                        onTap: () {
+                          Navigator.pop(context);
+                        }),
+                  ],
+                ),
+              ),
+            ),
+          );
+        });
   }
 }

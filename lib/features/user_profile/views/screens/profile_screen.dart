@@ -435,6 +435,11 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
       var list = userProfileViewModel.userData.certificationInfo;
 
       return UserInfoListItem(
+        isInEditMode: isInEditModeCertifications,
+        onTapEditAction: (){
+          isInEditModeCertifications = !isInEditModeCertifications;
+          setState(() {});
+        },
         icon: FontAwesomeIcons.certificate,
         label: StringUtils.certificationsText,
         onTapAddNewAction: () {
@@ -456,6 +461,11 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
       List<MembershipInfo> list = userProfileViewModel.userData.membershipInfo;
 
       return UserInfoListItem(
+        isInEditMode: isInEditModeMembersShip,
+        onTapEditAction: (){
+          isInEditModeMembersShip = !isInEditModeMembersShip;
+          setState(() {});
+        },
         icon: FontAwesomeIcons.users,
         label: StringUtils.membershipsText,
         onTapAddNewAction: () {
@@ -477,6 +487,11 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
       var referenceList = userProfileViewModel.userData.referenceData;
 
       return UserInfoListItem(
+        isInEditMode: isInEditModeReferences,
+        onTapEditAction: (){
+          isInEditModeReferences = !isInEditModeReferences;
+          setState(() {});
+        },
         icon: FontAwesomeIcons.bookReader,
         label: StringUtils.referencesText,
         onTapAddNewAction: () {
