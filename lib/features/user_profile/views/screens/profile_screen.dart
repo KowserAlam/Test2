@@ -592,9 +592,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                     skillsWidget,
                     SizedBox(height: 15),
 
-                    /// Personal info
-                    personalInfoWidget,
-                    SizedBox(height: 15),
+
 
                     /// Portfolio
                     portfolioWidget,
@@ -610,6 +608,10 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
 
                     /// References
                     referencesWidget,
+                    SizedBox(height: 15),
+
+                    /// Personal info
+                    personalInfoWidget,
                     SizedBox(height: 15),
                   ],
                 ),

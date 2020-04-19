@@ -27,7 +27,7 @@ class PersonalInfoWidget extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: Text(": $value"),
+            child: Text(": ${value??""}"),
           ),
         ],
       ),
@@ -63,43 +63,43 @@ class PersonalInfoWidget extends StatelessWidget {
                 _item(
                     context: context,
                     label: StringUtils.dateOfBirthText,
-                    value: kDateFormatBD.format(personalInfo.dateOfBirth)),
+                    value: kDateFormatBD.format(personalInfo.dateOfBirth??"")),
                 //gender
                 _item(
                     context: context,
                     label: StringUtils.genderText,
-                    value: personalInfo.gender),
+                    value: personalInfo.gender??""),
                 //father name
                 _item(
                     context: context,
                     label: StringUtils.fatherNameText,
-                    value: personalInfo.fatherName),
+                    value: personalInfo.fatherName??""),
                 //mother name
                 _item(
                     context: context,
                     label: StringUtils.motherNameText,
-                    value: personalInfo.motherName),
+                    value: personalInfo.motherName??""),
 
                 //current address
                 _item(
                     context: context,
                     label: StringUtils.currentAddressText,
-                    value: personalInfo.address),
+                    value: personalInfo.address??""),
                 //permanent address
                 _item(
                     context: context,
                     label: StringUtils.permanentAddressText,
-                    value: personalInfo.address),
+                    value: personalInfo.address??""),
                 //nationality
                 _item(
                     context: context,
                     label: StringUtils.nationalityText,
-                    value: personalInfo.nationality),
+                    value: personalInfo.nationality??""),
                 //religion
                 _item(
                     context: context,
                     label: StringUtils.religionText,
-                    value: StringUtils.religionText),
+                    value: StringUtils.religionText??""),
               ],
             );
           }),
