@@ -89,10 +89,8 @@ class UserPersonalInfo {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['professional_id'] = this.professionalId;
+
     data['full_name'] = this.fullName;
-    data['email'] = this.email;
     data['phone'] = this.phone;
     data['address'] = this.address;
     data['about_me'] = this.aboutMe;
@@ -107,7 +105,6 @@ class UserPersonalInfo {
     data['expected_salary_min'] = this.expectedSalaryMin;
     data['expected_salary_max'] = this.expectedSalaryMax;
     data['industry_expertise'] = this.industryExpertise;
-    data['user'] = this.user;
     data['gender'] = this.gender;
     data['status'] = this.status;
     data['experience'] = this.experience;

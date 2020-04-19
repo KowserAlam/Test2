@@ -1,8 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:p7app/features/user_profile/models/user_model.dart';
+import 'package:p7app/features/user_profile/models/user_personal_info.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/failure/error.dart';
@@ -14,17 +16,16 @@ class UserProfileRepository {
 
   Future<Either<AppError, UserModel>> getUserData() async {
     try {
-      var authUser = await AuthService.getInstance();
 
+
+      var authUser = await AuthService.getInstance();
       var professionalId = authUser.getUser().professionalId;
       debugPrint(professionalId);
       var url = "${Urls.userProfileUrl}/$professionalId";
-
       var response = await  ApiClient().getRequest(url);
       var mapJson = json.decode(response.body);
 //      var mapJson = json.decode(dummyData);
       var userModel = UserModel.fromJson(mapJson);
-
 
       return Right(userModel);
     } 
@@ -39,13 +40,34 @@ class UserProfileRepository {
     }
   }
 
-  updateUserBasicInfo(Map<String,dynamic> body)async{
+  Future<Either<AppError,UserPersonalInfo>> updateUserBasicInfo(Map<String,dynamic> body)async{
+    BotToast.showLoading();
     var authUser = await AuthService.getInstance();
     var professionalId = authUser.getUser().professionalId;
-    var url = "${Urls.userProfileUpdateUrl}/$professionalId";
+    var url = "${Urls.userProfileUpdateUrlPartial}/$professionalId/";
     try{
-      var response = await  ApiClient().postRequest(url,body);
-    }catch (e) {
+
+      var response = await  ApiClient().putRequest(url,body);
+
+      print(response.statusCode);
+      print(response.body);
+      if(response.statusCode == 200){
+        BotToast.closeAllLoading();
+        var data = UserPersonalInfo.fromJson(json.decode(response.body));
+        return Right(data);
+
+      }else{
+        BotToast.closeAllLoading();
+        return Left(AppError.unknownError);}
+    }  on SocketException catch (e){
+      BotToast.closeAllLoading();
+      print(e);
+      return left(AppError.networkError);
+    }
+    catch (e) {
+      BotToast.closeAllLoading();
+      print(e);
+      return left(AppError.serverError);
 
     }
 

@@ -9,7 +9,7 @@ import 'package:p7app/features/user_profile/models/member_ship_info.dart';
 import 'package:p7app/features/user_profile/views/screens/add_edit_education_screen.dart';
 import 'package:p7app/features/user_profile/views/screens/add_edit_experience_screen.dart';
 import 'package:p7app/features/user_profile/views/screens/add_edit_technical_skill_screen.dart';
-import 'package:p7app/features/user_profile/views/screens/edit_profile_screen.dart';
+import 'package:p7app/features/user_profile/views/screens/profile_header_edit_screen.dart';
 import 'package:p7app/features/user_profile/styles/profile_common_style.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/features/user_profile/views/widgets/educations_list_item.dart';

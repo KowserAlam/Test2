@@ -4,6 +4,7 @@ import 'package:after_layout/after_layout.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:p7app/features/user_profile/models/user_model.dart';
 import 'package:p7app/features/user_profile/models/user_personal_info.dart';
+import 'package:p7app/features/user_profile/repositories/user_profile_repository.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/features/user_profile/views/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/resource/const.dart';
@@ -38,7 +39,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
   File fileProfileImage;
 
   var _fullNameTextEditingController = TextEditingController();
-  var _designationTextEditingController = TextEditingController();
+  var industryExpertiseTextEditingController = TextEditingController();
   var _aboutTextEditingController = TextEditingController();
   var _addressEditingController = TextEditingController();
   var _phoneEditingController = TextEditingController();
@@ -56,7 +57,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
     _phoneEditingController.text = personalInfo.phone ?? "";
     _addressEditingController.text = personalInfo.address ?? "";
     _aboutTextEditingController.text = personalInfo.aboutMe ?? "";
-    _designationTextEditingController.text =
+    industryExpertiseTextEditingController.text =
         personalInfo.industryExpertise ?? "";
     _fullNameTextEditingController.text = personalInfo.fullName ?? "";
 
@@ -86,15 +87,30 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
           Provider.of<UserProfileViewModel>(context, listen: false);
       var userData = userViewModel.userData;
       UserPersonalInfo personalInfo = userViewModel.userData.personalInfo;
-      personalInfo.address = _aboutTextEditingController.text;
+
+      personalInfo.address = _addressEditingController.text;
       personalInfo.fullName = _fullNameTextEditingController.text;
-      personalInfo.industryExpertise = _designationTextEditingController.text;
+      personalInfo.industryExpertise = industryExpertiseTextEditingController.text;
       personalInfo.aboutMe = _aboutTextEditingController.text;
       personalInfo.phone = _phoneEditingController.text;
+      var data = {
+        "address":_addressEditingController.text,
+        "full_name":_fullNameTextEditingController.text,
+        "industry_expertise":industryExpertiseTextEditingController.text,
+        "about_me":_aboutTextEditingController.text,
+        "phone":_phoneEditingController.text,
+
+      };
       if (fileProfileImage != null) {
-        personalInfo.image = getBase64Image();
+        data.addAll({'image':getBase64Image()});
       }
+      UserProfileRepository().updateUserBasicInfo(data).then((personalInfoModel) {
+        userData.personalInfo = personalInfo;
+        userViewModel.userData = userData;
+        Navigator.pop(context);
+      });
     }
+
 
   }
 
@@ -221,7 +237,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
             /// Designation
             CustomTextFormField(
               focusNode: _designationFocusNode,
-              controller: _designationTextEditingController,
+              controller: industryExpertiseTextEditingController,
               validator: Validator().nullFieldValidate,
               labelText: "Designation",
               hintText: "eg. Software Engineer",
@@ -273,7 +289,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
             ///address
             CustomTextFormField(
               controller: _addressEditingController,
-              validator: Validator().nullFieldValidate,
+//              validator: Validator().nullFieldValidate,
               keyboardType: TextInputType.multiline,
               maxLines: null,
               labelText: StringUtils.addressText,
