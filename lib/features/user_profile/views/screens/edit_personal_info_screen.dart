@@ -131,12 +131,12 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
         "father_name": _fatherNameController.text,
         "mother_name": _motherNameController.text,
         "permanent_address": _permanentAddressController.text,
-        //"nationality": _nationalityController.text,
-        //"religion": _nationalityController.text,
+        "nationality": _selectedNationalityDropDownItem,
+        "religion": _selectedReligionDropDownItem,
         "address": _currentAddressController.text,
         "permanent_address" : _permanentAddressController.text,
         "gender": _gender,
-        "date_of_birth": _chosenDate
+        //"date_of_birth": _chosenDate
       };
 
 //      if (fileProfileImage != null) {
