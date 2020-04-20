@@ -6,10 +6,15 @@ import 'package:p7app/features/user_profile/styles/profile_common_style.dart';
 class ReferencesListItemWidget extends StatelessWidget {
   final ReferenceData referenceData;
   final Function onTapEdit;
+  final Function onTapDelete;
   final bool isInEditMode;
+
   const ReferencesListItemWidget({
     Key key,
-    @required this.referenceData,this.isInEditMode,this.onTapEdit
+    @required this.referenceData,
+    this.isInEditMode,
+    this.onTapEdit,
+    this.onTapDelete,
   }) : super(key: key);
 
   @override
@@ -29,22 +34,25 @@ class ReferencesListItemWidget extends StatelessWidget {
           color: Theme.of(context).backgroundColor,
           child: Icon(FontAwesomeIcons.user),
         ),
-        title: Text(referenceData.name??""),
-        subtitle: Text(referenceData.currentPosition??""),
-        trailing: !isInEditMode?SizedBox():Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-          IconButton(
-            icon: Icon(FontAwesomeIcons.edit),
-            onPressed: onTapEdit,
-            iconSize: 18,
-          ),
-          IconButton(
-            icon: Icon(FontAwesomeIcons.trash),
-            onPressed: onTapEdit,
-            iconSize: 18,
-          ),
-        ],),
+        title: Text(referenceData.name ?? ""),
+        subtitle: Text(referenceData.currentPosition ?? ""),
+        trailing: !isInEditMode
+            ? SizedBox()
+            : Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  IconButton(
+                    icon: Icon(FontAwesomeIcons.edit),
+                    onPressed: onTapEdit,
+                    iconSize: 18,
+                  ),
+                  IconButton(
+                    icon: Icon(FontAwesomeIcons.trash),
+                    onPressed: onTapDelete,
+                    iconSize: 18,
+                  ),
+                ],
+              ),
       ),
     );
   }
