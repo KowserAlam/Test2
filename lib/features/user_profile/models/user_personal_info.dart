@@ -14,7 +14,7 @@ class UserPersonalInfo {
   String password;
   String fatherName;
   String motherName;
-  String facebbokId;
+  String facebookId;
   String twitterId;
   String linkedinId;
   DateTime dateOfBirth;
@@ -40,10 +40,9 @@ class UserPersonalInfo {
         this.aboutMe,
         this.image,
         this.password,
-        this.religion,
         this.fatherName,
         this.motherName,
-        this.facebbokId,
+        this.facebookId,
         this.twitterId,
         this.linkedinId,
         this.dateOfBirth,
@@ -55,26 +54,26 @@ class UserPersonalInfo {
         this.status,
         this.experience,
         this.qualification,
-        this.nationality});
+        this.nationality,
+      this.religion,
+      this.permanentAddress});
 
   UserPersonalInfo.fromJson(Map<String, dynamic> json) {
-    String baseUrl = FlavorConfig?.instance?.values?.baseUrl;
+    String baseUrl = FlavorConfig.instance.values.baseUrl;
     var imageUlr = json['image'] == null? null: "$baseUrl${json['image']}";
 
     id = json['id'];
     professionalId = json['professional_id'];
     fullName = json['full_name'];
-    permanentAddress = json['permanent_address'];
     email = json['email'];
     phone = json['phone'];
-    religion = json['religion'];
     address = json['address'];
     aboutMe = json['about_me'];
     image = imageUlr;
     password = json['password'];
     fatherName = json['father_name'];
     motherName = json['mother_name'];
-    facebbokId = json['facebbok_id'];
+    facebookId = json['facebbok_id'];
     twitterId = json['twitter_id'];
     linkedinId = json['linkedin_id'];
     if(json['date_of_birth'] != null){
@@ -90,6 +89,8 @@ class UserPersonalInfo {
     experience = json['experience'];
     qualification = json['qualification'];
     nationality = json['nationality'];
+    religion = json['religion'];
+    permanentAddress = json['permanent_address'];
   }
 
   Map<String, dynamic> toJson() {
@@ -103,11 +104,9 @@ class UserPersonalInfo {
     data['password'] = this.password;
     data['father_name'] = this.fatherName;
     data['mother_name'] = this.motherName;
-    data['religion'] = this.religion;
-    data['facebbok_id'] = this.facebbokId;
+    data['facebbok_id'] = this.facebookId;
     data['twitter_id'] = this.twitterId;
     data['linkedin_id'] = this.linkedinId;
-    data['permanent_address'] = this.permanentAddress;
     data['date_of_birth'] = this.dateOfBirth.toIso8601String();
     data['expected_salary_min'] = this.expectedSalaryMin;
     data['expected_salary_max'] = this.expectedSalaryMax;
@@ -117,6 +116,8 @@ class UserPersonalInfo {
     data['experience'] = this.experience;
     data['qualification'] = this.qualification;
     data['nationality'] = this.nationality;
+    data['religion'] = this.religion;
+    data['permanent_address'] = this.permanentAddress;
     return data;
   }
 }

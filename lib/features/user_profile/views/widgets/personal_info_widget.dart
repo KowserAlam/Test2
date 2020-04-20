@@ -41,11 +41,12 @@ class PersonalInfoWidget extends StatelessWidget {
       icon: FontAwesomeIcons.infoCircle,
       label: StringUtils.personalInfoText,
       onTapEditAction: (){
+        var userModel =  Provider.of<UserProfileViewModel>(context, listen: false).userData;
         Navigator.push(
             context,
             CupertinoPageRoute(
                 builder: (context) =>
-                    EditPersonalInfoScreen()));
+                    EditPersonalInfoScreen(userModel: userModel,)));
       },
       children: <Widget>[
         Container(
