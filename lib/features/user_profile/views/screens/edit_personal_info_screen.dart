@@ -6,6 +6,7 @@ import 'package:p7app/features/user_profile/repositories/user_profile_repository
 import 'package:p7app/features/user_profile/styles/profile_common_style.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/features/user_profile/views/widgets/custom_text_from_field.dart';
+import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:p7app/main_app/util/validator.dart';
@@ -48,10 +49,15 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
   void initState() {
     // TODO: implement initState
     radioValue = 'one';
+    _gender = 'male';
     var personalInfo = widget.userModel.personalInfo;
     _fatherNameController.text = personalInfo.fatherName ?? "";
     _motherNameController.text = personalInfo.motherName ??"";
     _nationalityController.text = personalInfo.nationality ??"";
+    _currentAddressController.text = personalInfo.address ?? "";
+    _permanentAddressController.text = personalInfo.permanentAddress ?? "";
+    _nationalityController.text = personalInfo.nationality ?? "";
+    _religionController.text = personalInfo.religion ?? "";
 
     super.initState();
   }
@@ -76,11 +82,12 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
         "father_name": _fatherNameController.text,
         "mother_name": _motherNameController.text,
         "permanent_address": _permanentAddressController.text,
-        "nationality": _nationalityController.text,
+        //"nationality": _nationalityController.text,
         "religion": _nationalityController.text,
         "address": _currentAddressController.text,
         "permanent_address" : _permanentAddressController.text,
-        "date_of_birth": _chosenDate
+        //"date_of_birth": _chosenDate,
+        "gender": _gender,
       };
 
 //      if (fileProfileImage != null) {
@@ -207,7 +214,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                         ],),
                       padding: EdgeInsets.all(8),
                       child: Text(
-                        ''
+                          kDateFormatBD.format(widget.userModel.personalInfo.dateOfBirth??"Choose Date"),
                       ),
                     ),
                   ),
