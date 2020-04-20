@@ -51,7 +51,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
   var _phoneEditingController = TextEditingController();
 
   List<DropdownMenuItem<String>> _industryExpertiseList = [];
-  String _selectedIndustryExpertiseDropDownItem = "";
+  String _selectedIndustryExpertiseDropDownItem;
 
   @override
   void initState() {
@@ -61,7 +61,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
     _locationEditingController.text = personalInfo.address ?? "";
     _aboutTextEditingController.text = personalInfo.aboutMe ?? "";
     _fullNameTextEditingController.text = personalInfo.fullName ?? "";
-    _selectedIndustryExpertiseDropDownItem = personalInfo.industryExpertise ?? "";
+    _selectedIndustryExpertiseDropDownItem = personalInfo.industryExpertise;
 
     IndustryListRepository()
         .getIndustryList()
