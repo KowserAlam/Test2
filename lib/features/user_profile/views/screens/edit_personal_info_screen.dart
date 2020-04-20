@@ -57,7 +57,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
     // TODO: implement initState
     radioValue = 'one';
     _gender = 'male';
-    _chosenDate = widget.userModel.personalInfo.dateOfBirth ?? DateTime.now();
+    _chosenDate = widget.userModel.personalInfo.dateOfBirth;
     var personalInfo = widget.userModel.personalInfo;
     _fatherNameController.text = personalInfo.fatherName ?? "";
     _motherNameController.text = personalInfo.motherName ??"";
@@ -109,7 +109,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
         "address": _currentAddressController.text,
         "permanent_address" : _permanentAddressController.text,
         "gender": _gender,
-        "date_of_birth": _chosenDate
+        "date_of_birth": _chosenDate.toIso8601String()
       };
 
 //      if (fileProfileImage != null) {
