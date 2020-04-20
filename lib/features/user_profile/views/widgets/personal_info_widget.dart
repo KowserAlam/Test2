@@ -100,7 +100,7 @@ class PersonalInfoWidget extends StatelessWidget {
                 _item(
                     context: context,
                     label: StringUtils.religionText,
-                    value: StringUtils.religionText??""),
+                    value: personalInfo.religion??""),
               ],
             );
           }),

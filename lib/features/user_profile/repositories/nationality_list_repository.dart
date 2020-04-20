@@ -1,12 +1,13 @@
 import 'dart:convert';
 import 'package:dartz/dartz.dart';
+import 'package:p7app/features/user_profile/models/nationality.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
 import 'package:p7app/main_app/failure/error.dart';
 
 class NationalityListRepository{
 
-  Future<Either<AppError,List<String>>> getNationalityList() async{
+  Future<Either<AppError,List<Nationality>>> getNationalityList() async{
     try{
 
       var res = await ApiClient().getRequest(Urls.nationalityListUrl);
@@ -15,7 +16,7 @@ class NationalityListRepository{
         var decodedJson = json.decode(res.body);
         print(decodedJson);
 
-        List<String> list = fromJson(decodedJson);
+        List<Nationality> list = fromJson(decodedJson);
         return Right(list);
       }else{
         return Left(AppError.unknownError);
@@ -29,12 +30,12 @@ class NationalityListRepository{
       return Left(AppError.serverError);
     }
   }
-  List<String> fromJson(json){
-    List<String> list = [];
+  List<Nationality> fromJson(json){
+    List<Nationality> list = [];
 //   List<Map<String,dynamic>> tl = json.cast<Map<String,dynamic>>();
 //    tl.map<String>((e) => e['name']).toList();
     json.forEach((element) {
-      list.add(element['name']);
+      list.add(Nationality.fromJson(element));
     });
     return list;
   }

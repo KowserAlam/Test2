@@ -1,3 +1,4 @@
+import 'package:p7app/features/user_profile/models/religion.dart';
 import 'package:p7app/main_app/flavour/flavour_config.dart';
 
 class UserPersonalInfo {
@@ -90,8 +91,8 @@ class UserPersonalInfo {
     status = json['status'];
     experience = json['experience'];
     qualification = json['qualification'];
-    nationality = json['nationality'];
-    religion = json['religion'];
+    nationality = json['nationality']?.toString();
+    religion = json['religion']?.toString();
     permanentAddress = json['permanent_address'];
   }
 
