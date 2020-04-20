@@ -43,7 +43,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
   File fileProfileImage;
 
   var _fullNameTextEditingController = TextEditingController();
-  var industryExpertiseTextEditingController = TextEditingController();
+//  var industryExpertiseTextEditingController = TextEditingController();
   var _aboutTextEditingController = TextEditingController();
   var _addressEditingController = TextEditingController();
   var _phoneEditingController = TextEditingController();
@@ -52,8 +52,8 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
   var _aboutMeFocusNode = FocusNode();
   var _locationFocusNode = FocusNode();
   var _phoneFocusNode = FocusNode();
-  List<DropdownMenuItem<String>> _industryList = [];
-  String selectedDropDownItem = "";
+  List<DropdownMenuItem<String>> _industryExpertiseList = [];
+  String _selectedIndustryExpertiseDropDownItem = "";
 
   @override
   void initState() {
@@ -62,10 +62,9 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
     _phoneEditingController.text = personalInfo.phone ?? "";
     _addressEditingController.text = personalInfo.address ?? "";
     _aboutTextEditingController.text = personalInfo.aboutMe ?? "";
-    industryExpertiseTextEditingController.text =
-        personalInfo.industryExpertise ?? "";
+//    industryExpertiseTextEditingController.text = personalInfo.industryExpertise ?? "";
     _fullNameTextEditingController.text = personalInfo.fullName ?? "";
-    selectedDropDownItem = personalInfo.industryExpertise??"";
+    _selectedIndustryExpertiseDropDownItem = personalInfo.industryExpertise ?? "";
 
     IndustryListRepository()
         .getIndustryList()
@@ -75,7 +74,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
         BotToast.showText(text: "Unable to load expertise list ");
       }, (r) {
         // right
-        _industryList = r
+        _industryExpertiseList = r
             .map((e) => DropdownMenuItem(
                   key: Key(e),
                   value: e,
@@ -119,19 +118,25 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
       var data = {
         "address": _addressEditingController.text,
         "full_name": _fullNameTextEditingController.text,
-        "industry_expertise": industryExpertiseTextEditingController.text,
+        "industry_expertise": _selectedIndustryExpertiseDropDownItem,
         "about_me": _aboutTextEditingController.text,
         "phone": _phoneEditingController.text,
       };
 
-//      if (fileProfileImage != null) {
-//        data.addAll({'image':getBase64Image()});
-//      }
+      if (fileProfileImage != null) {
+        data.addAll({'image': getBase64Image()});
+      }
 
-      UserProfileRepository()
-          .updateUserBasicInfo(data)
-          .then((personalInfoModel) {
-        userData.personalInfo = personalInfo;
+      dartZ.Either<AppError, UserPersonalInfo> res =
+          await UserProfileRepository().updateUserBasicInfo(data);
+      res.fold((l) {
+        // left
+        print(l);
+      }, (UserPersonalInfo r) {
+        //right
+        userData.personalInfo = r;
+        print(r.fullName);
+        print(userData.personalInfo.fullName);
         userViewModel.userData = userData;
         Navigator.pop(context);
       });
@@ -261,8 +266,13 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
 //            ),
 
             DropdownButtonFormField<String>(
-              onChanged: (value) {},
-              items: _industryList,
+              hint: Text('Tap to select'),
+              value: _selectedIndustryExpertiseDropDownItem,
+              onChanged: (value) {
+                _selectedIndustryExpertiseDropDownItem = value;
+                setState(() {});
+              },
+              items: _industryExpertiseList,
             ),
 
             SizedBox(height: 10),
