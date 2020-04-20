@@ -23,6 +23,7 @@ class Urls {
   static String professionalReferenceSave = "/api/professional/professional_reference_save/";
 
   static String industryListUrl = "/api/industry/";
+  static String genderListUrl = "/api/gender/";
   static String nationalityListUrl = "/api/professional/nationality/";
   static String religionListUrl = "/api/professional/religion/";
 
