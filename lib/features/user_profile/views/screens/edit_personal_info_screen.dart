@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:p7app/features/user_profile/models/user_model.dart';
 import 'package:p7app/features/user_profile/models/user_personal_info.dart';
 import 'package:p7app/features/user_profile/repositories/nationality_list_repository.dart';
+import 'package:p7app/features/user_profile/repositories/religion_list_repository.dart';
 import 'package:p7app/features/user_profile/repositories/user_profile_repository.dart';
 import 'package:p7app/features/user_profile/styles/profile_common_style.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
@@ -50,8 +51,15 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
   String radioValue;
   String _gender;
   DateTime _chosenDate;
+
+  //Nationality
   List<DropdownMenuItem<String>> _nationalityExpertiseList = [];
   String _selectedNationalityDropDownItem;
+
+  //Nationality
+  List<DropdownMenuItem<String>> _religionList = [];
+  String _selectedReligionDropDownItem;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -69,6 +77,25 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
 
     NationalityListRepository()
         .getNationalityList()
+        .then((dartZ.Either<AppError, List<String>> value) {
+      value.fold((l) {
+        // left
+        BotToast.showText(text: "Unable to load expertise list ");
+      }, (r) {
+        // right
+        _nationalityExpertiseList = r
+            .map((e) => DropdownMenuItem(
+          key: Key(e),
+          value: e,
+          child: Text(e ?? ""),
+        ))
+            .toList();
+        setState(() {});
+      });
+    });
+
+    ReligionListRepository()
+        .getReligionList()
         .then((dartZ.Either<AppError, List<String>> value) {
       value.fold((l) {
         // left

@@ -24,6 +24,7 @@ class Urls {
 
   static String industryListUrl = "/api/industry/";
   static String nationalityListUrl = "/api/professional/nationality/";
+  static String religionListUrl = "/api/professional/religion/";
 
 
 
