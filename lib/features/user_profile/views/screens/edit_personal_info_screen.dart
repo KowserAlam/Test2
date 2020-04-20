@@ -1,14 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
+import 'package:p7app/features/user_profile/models/user_model.dart';
+import 'package:p7app/features/user_profile/models/user_personal_info.dart';
+import 'package:p7app/features/user_profile/repositories/user_profile_repository.dart';
 import 'package:p7app/features/user_profile/styles/profile_common_style.dart';
+import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/features/user_profile/views/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:p7app/main_app/util/validator.dart';
 import 'package:p7app/main_app/widgets/common_button.dart';
 import 'package:p7app/main_app/widgets/edit_screen_save_button.dart';
+import 'package:provider/provider.dart';
 
 class EditPersonalInfoScreen extends StatefulWidget {
+  final UserModel userModel;
+  EditPersonalInfoScreen({@required this.userModel});
 
   @override
   _EditPersonalInfoScreenState createState() => _EditPersonalInfoScreenState();
@@ -40,19 +47,55 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
   void initState() {
     // TODO: implement initState
     radioValue = 'one';
+    var personalInfo = widget.userModel.personalInfo;
+    _fatherNameController.text = personalInfo.fatherName ?? "";
+    _motherNameController.text = personalInfo.motherName ??"";
+    _nationalityController.text = personalInfo.nationality ??"";
+
     super.initState();
+  }
+
+
+  _handleSave() async {
+    var isValid = _formKey.currentState.validate();
+
+    if (isValid) {
+      var userViewModel =
+      Provider.of<UserProfileViewModel>(context, listen: false);
+      var userData = userViewModel.userData;
+      UserPersonalInfo personalInfo = userViewModel.userData.personalInfo;
+
+//      personalInfo.address = _addressEditingController.text;
+//      personalInfo.fullName = _fullNameTextEditingController.text;
+//      personalInfo.industryExpertise = industryExpertiseTextEditingController.text;
+//      personalInfo.aboutMe = _aboutTextEditingController.text;
+//      personalInfo.phone = _phoneEditingController.text;
+
+      var data = {
+        "father_name": _fatherNameController.text,
+        "mother_name": _motherNameController.text,
+        "permanent_address": _permanentAddressController.text,
+        //"nationality": _nationalityController.text,
+        //"religion": _nationalityController.text
+      };
+
+//      if (fileProfileImage != null) {
+//        data.addAll({'image':getBase64Image()});
+//      }
+
+      UserProfileRepository()
+          .updateUserBasicInfo(data)
+          .then((personalInfoModel) {
+        userData.personalInfo = personalInfo;
+        userViewModel.userData = userData;
+        Navigator.pop(context);
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
 
-    Function _handleSave = (){
-      if(_formKey.currentState.validate()){
-        print('validated');
-      }else{
-        print('not validated');
-      }
-    };
     //TextStyle
     TextStyle titleFont = TextStyle(fontSize: 15, color: Colors.black, fontWeight: FontWeight.bold);
 
@@ -269,7 +312,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
 
   _showDateOfBirthPicker(context) {
 
-    var initialDate = DateTime.now();
+    var initialDate = widget.userModel.personalInfo.dateOfBirth ?? DateTime.now();
 
     showDialog(
         context: context,

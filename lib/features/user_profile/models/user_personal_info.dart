@@ -14,7 +14,7 @@ class UserPersonalInfo {
   String password;
   String fatherName;
   String motherName;
-  String facebbokId;
+  String facebookId;
   String twitterId;
   String linkedinId;
   DateTime dateOfBirth;
@@ -40,7 +40,7 @@ class UserPersonalInfo {
         this.password,
         this.fatherName,
         this.motherName,
-        this.facebbokId,
+        this.facebookId,
         this.twitterId,
         this.linkedinId,
         this.dateOfBirth,
@@ -69,7 +69,7 @@ class UserPersonalInfo {
     password = json['password'];
     fatherName = json['father_name'];
     motherName = json['mother_name'];
-    facebbokId = json['facebbok_id'];
+    facebookId = json['facebbok_id'];
     twitterId = json['twitter_id'];
     linkedinId = json['linkedin_id'];
     if(json['date_of_birth'] != null){
@@ -98,7 +98,7 @@ class UserPersonalInfo {
     data['password'] = this.password;
     data['father_name'] = this.fatherName;
     data['mother_name'] = this.motherName;
-    data['facebbok_id'] = this.facebbokId;
+    data['facebbok_id'] = this.facebookId;
     data['twitter_id'] = this.twitterId;
     data['linkedin_id'] = this.linkedinId;
     data['date_of_birth'] = this.dateOfBirth.toIso8601String();
