@@ -1,3 +1,4 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -10,7 +11,11 @@ class UrlLauncherHelper {
       bool _canLaunch = await canLaunch(url);
       if (_canLaunch) {
         launchUrl(url);
+      }else{
+        BotToast.showText(text: "Unable to launch");
       }
+    }else{
+      BotToast.showText(text: "Unable to launch");
     }
   }
 }

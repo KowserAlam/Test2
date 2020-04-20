@@ -18,6 +18,7 @@ import 'package:p7app/features/user_profile/views/widgets/member_ship_list_item.
 import 'package:p7app/features/user_profile/views/widgets/personal_info_widget.dart';
 import 'package:p7app/features/user_profile/views/widgets/technical_skill_list_item.dart';
 import 'package:p7app/features/user_profile/views/widgets/user_info_list_item.dart';
+import 'package:p7app/main_app/api_helpers/url_launcher_helper.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
@@ -128,8 +129,6 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
 
   @override
   Widget build(BuildContext context) {
-
-
     var primaryColor = Theme.of(context).primaryColor;
     var titleTextStyle = TextStyle(fontSize: 17, fontWeight: FontWeight.bold);
     var profileHeaderBackgroundColor = Color(0xff08233A);
@@ -179,10 +178,15 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
           decoration: BoxDecoration(
               color: AppTheme.facebookColor,
               borderRadius: BorderRadius.circular(20)),
-          child: Icon(
-            FontAwesomeIcons.facebookF,
-            color: Colors.white,
-            size: 15,
+          child: InkWell(
+            onTap: (){
+              UrlLauncherHelper.launchUrl(Provider.of<UserProfileViewModel>(context, listen: false).userData.personalInfo.facebookId);
+            },
+            child: Icon(
+              FontAwesomeIcons.facebookF,
+              color: Colors.white,
+              size: 15,
+            ),
           ),
         ),
         SizedBox(
@@ -194,10 +198,15 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
           decoration: BoxDecoration(
               color: AppTheme.linkedInColor,
               borderRadius: BorderRadius.circular(20)),
-          child: Icon(
-            FontAwesomeIcons.linkedinIn,
-            color: Colors.white,
-            size: 15,
+          child: InkWell(
+          onTap: (){
+            UrlLauncherHelper.launchUrl(Provider.of<UserProfileViewModel>(context, listen: false).userData.personalInfo.linkedinId);
+          },
+            child: Icon(
+              FontAwesomeIcons.linkedinIn,
+              color: Colors.white,
+              size: 15,
+            ),
           ),
         ),
         SizedBox(
@@ -209,24 +218,34 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
           decoration: BoxDecoration(
               color: AppTheme.twitterColor,
               borderRadius: BorderRadius.circular(20)),
-          child: Icon(
-            FontAwesomeIcons.twitter,
-            color: Colors.white,
-            size: 15,
+          child: InkWell(
+            onTap: (){
+              UrlLauncherHelper.launchUrl(Provider.of<UserProfileViewModel>(context, listen: false).userData.personalInfo.twitterId);
+            },
+            child: Icon(
+              FontAwesomeIcons.twitter,
+              color: Colors.white,
+              size: 15,
+            ),
           ),
         ),
       ],
     );
-    var editButtonHeader = IconButton( 
+    var editButtonHeader = IconButton(
       icon: Icon(
         FontAwesomeIcons.edit,
       ),
       color: profileHeaderFontColor,
       iconSize: 22,
       onPressed: () {
-       var userModel =  Provider.of<UserProfileViewModel>(context, listen: false).userData;
-        Navigator.push(context,
-            CupertinoPageRoute(builder: (context) => ProfileHeaderEditScreen(userModel: userModel,)));
+        var userModel =
+            Provider.of<UserProfileViewModel>(context, listen: false).userData;
+        Navigator.push(
+            context,
+            CupertinoPageRoute(
+                builder: (context) => ProfileHeaderEditScreen(
+                      userModel: userModel,
+                    )));
       },
     );
     var userLocationWidget = Row(
@@ -265,10 +284,19 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
         });
     var designationWidget = Consumer<UserProfileViewModel>(
         builder: (context, userProfileViewModel, _) {
+      var designationText = "";
+      var companyText = "";
+      var experienceInfo = userProfileViewModel.userData.experienceInfo;
+      if (experienceInfo.length > 0) {
+        var exp = experienceInfo.first;
+        designationText = exp.designation;
+        companyText = exp.company;
+      }
+
       return Column(
         children: <Widget>[
           Text(
-            userProfileViewModel.userData.personalInfo.industryExpertise ?? "",
+            designationText,
             style: TextStyle(
                 fontSize: 18,
                 color: profileHeaderFontColor,
@@ -278,7 +306,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
             height: 5,
           ),
           Text(
-            userProfileViewModel.userData.personalInfo.experience ?? "",
+            companyText,
             style: TextStyle(
                 color: profileHeaderFontColor, fontWeight: FontWeight.w100),
           ),
@@ -323,7 +351,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
       var expList = userProfileViewModel.userData.experienceInfo;
       return UserInfoListItem(
         isInEditMode: isInEditModeExperience,
-        onTapEditAction: (){
+        onTapEditAction: () {
           isInEditModeExperience = !isInEditModeExperience;
           setState(() {});
         },
@@ -417,17 +445,15 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
 
       return UserInfoListItem(
         isInEditMode: isInEditModePortfolio,
-        onTapEditAction: (){
+        onTapEditAction: () {
           isInEditModePortfolio = !isInEditModePortfolio;
           setState(() {});
         },
         icon: FontAwesomeIcons.wallet,
         label: StringUtils.projectsText,
         onTapAddNewAction: () {
-            Navigator.push(
-                context,
-                CupertinoPageRoute(
-                    builder: (context) => EditPortfolio()));
+          Navigator.push(context,
+              CupertinoPageRoute(builder: (context) => EditPortfolio()));
         },
         children: List.generate(list.length, (index) {
           var port = list[index];
@@ -435,10 +461,8 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
             isInEditMode: isInEditModePortfolio,
             portfolioInfo: port,
             onTapEdit: () {
-              Navigator.push(
-                    context,
-                    CupertinoPageRoute(
-                        builder: (context) => EditPortfolio()));
+              Navigator.push(context,
+                  CupertinoPageRoute(builder: (context) => EditPortfolio()));
             },
           );
         }),
@@ -450,24 +474,22 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
 
       return UserInfoListItem(
         isInEditMode: isInEditModeCertifications,
-        onTapEditAction: (){
+        onTapEditAction: () {
           isInEditModeCertifications = !isInEditModeCertifications;
           setState(() {});
         },
         icon: FontAwesomeIcons.certificate,
         label: StringUtils.certificationsText,
         onTapAddNewAction: () {
-            Navigator.push(
-                context,
-                CupertinoPageRoute(
-                    builder: (context) => EditCertification()));
+          Navigator.push(context,
+              CupertinoPageRoute(builder: (context) => EditCertification()));
         },
         children: List.generate(list.length, (index) {
           var cer = list[index];
           return CertificationsListItemWidget(
             isInEditMode: isInEditModeCertifications,
             certificationInfo: cer,
-            onTapEdit: (){
+            onTapEdit: () {
               Navigator.push(
                   context,
                   CupertinoPageRoute(
@@ -483,28 +505,24 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
 
       return UserInfoListItem(
         isInEditMode: isInEditModeMembersShip,
-        onTapEditAction: (){
+        onTapEditAction: () {
           isInEditModeMembersShip = !isInEditModeMembersShip;
           setState(() {});
         },
         icon: FontAwesomeIcons.users,
         label: StringUtils.membershipsText,
         onTapAddNewAction: () {
-            Navigator.push(
-                context,
-                CupertinoPageRoute(
-                    builder: (context) => EditMemberShips()));
+          Navigator.push(context,
+              CupertinoPageRoute(builder: (context) => EditMemberShips()));
         },
         children: List.generate(list.length, (index) {
           var memberShip = list[index];
           return MemberShipListItem(
             isInEditMode: isInEditModeMembersShip,
             memberShip: memberShip,
-            onTapEdit: (){
-              Navigator.push(
-                  context,
-                  CupertinoPageRoute(
-                      builder: (context) => EditMemberShips()));
+            onTapEdit: () {
+              Navigator.push(context,
+                  CupertinoPageRoute(builder: (context) => EditMemberShips()));
             },
           );
         }),
@@ -516,24 +534,22 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
 
       return UserInfoListItem(
         isInEditMode: isInEditModeReferences,
-        onTapEditAction: (){
+        onTapEditAction: () {
           isInEditModeReferences = !isInEditModeReferences;
           setState(() {});
         },
         icon: FontAwesomeIcons.bookReader,
         label: StringUtils.referencesText,
         onTapAddNewAction: () {
-            Navigator.push(
-                context,
-                CupertinoPageRoute(
-                    builder: (context) => EditReferenceScreen()));
+          Navigator.push(context,
+              CupertinoPageRoute(builder: (context) => EditReferenceScreen()));
         },
         children: List.generate(referenceList.length, (index) {
           var ref = referenceList[index];
           return ReferencesListItemWidget(
             isInEditMode: isInEditModeReferences,
             referenceData: ref,
-            onTapEdit: (){
+            onTapEdit: () {
               Navigator.push(
                   context,
                   CupertinoPageRoute(
@@ -626,8 +642,6 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                     ///Skill
                     skillsWidget,
                     SizedBox(height: 15),
-
-
 
                     /// Portfolio
                     portfolioWidget,

@@ -11,6 +11,7 @@ import 'package:p7app/main_app/failure/error.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
+import 'package:p7app/main_app/resource/strings_utils.dart';
 
 class UserProfileRepository {
 
@@ -59,15 +60,18 @@ class UserProfileRepository {
 
       }else{
         BotToast.closeAllLoading();
+        BotToast.showText(text: StringUtils.unableToSaveData);
         return Left(AppError.unknownError);
       }
     }  on SocketException catch (e){
       BotToast.closeAllLoading();
+      BotToast.showText(text: StringUtils.unableToSaveData);
       print(e);
       return left(AppError.networkError);
     }
     catch (e) {
       BotToast.closeAllLoading();
+      BotToast.showText(text: StringUtils.unableToSaveData);
       print(e);
       return left(AppError.serverError);
 
