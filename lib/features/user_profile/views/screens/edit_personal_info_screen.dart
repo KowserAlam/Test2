@@ -1,6 +1,7 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
+import 'package:p7app/features/user_profile/models/religion.dart';
 import 'package:p7app/features/user_profile/models/user_model.dart';
 import 'package:p7app/features/user_profile/models/user_personal_info.dart';
 import 'package:p7app/features/user_profile/repositories/nationality_list_repository.dart';
@@ -59,8 +60,8 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
   String _selectedNationalityDropDownItem;
 
   //Nationality
-  List<DropdownMenuItem<String>> _religionList = [];
-  String _selectedReligionDropDownItem;
+  List<DropdownMenuItem<Religion>> _religionList = [];
+  Religion _selectedReligionDropDownItem;
 
   @override
   void initState() {
@@ -96,19 +97,22 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
       });
     });
 
+
+
+
     ReligionListRepository()
         .getReligionList()
-        .then((dartZ.Either<AppError, List<String>> value) {
+        .then((dartZ.Either<AppError, List<Religion>> value) {
       value.fold((l) {
         // left
         BotToast.showText(text: "Unable to load expertise list ");
       }, (r) {
         // right
-        _nationalityExpertiseList = r
+        _religionList = r
             .map((e) => DropdownMenuItem(
-                  key: Key(e),
+                  key: Key(e.name),
                   value: e,
-                  child: Text(e ?? ""),
+                  child: Text(e.name ?? ""),
                 ))
             .toList();
         setState(() {});
@@ -135,7 +139,6 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
         //"nationality": _selectedNationalityDropDownItem,
         //"religion": _selectedReligionDropDownItem,
         "address": _currentAddressController.text,
-        "permanent_address" : _permanentAddressController.text,
         //"gender": _gender,
         //"date_of_birth": _chosenDate
       };
@@ -353,34 +356,15 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                   ),
                   spaceBetweenFields,
                   //Religion
-                  CustomTextFormField(
-                    validator: Validator().nullFieldValidate,
-                    keyboardType: TextInputType.text,
-                    focusNode: _religionFocusNode,
-                    textInputAction: TextInputAction.next,
-                    onFieldSubmitted: (a) {
-//                      FocusScope.of(context)
-//                          .requestFocus(_religionFocusNode);
-                    },
-                    controller: _religionController,
+                  CustomDropdownButtonFormField<Religion>(
                     labelText: StringUtils.religionText,
-                    hintText: StringUtils.religionText,
-                  ),
-
-
-
-
-
-
-                  CustomDropdownButtonFormField<String>(
-                    labelText: StringUtils.nationalityText,
                     hint: Text('Tap to select'),
-                    value: _selectedNationalityDropDownItem,
+                    value: _selectedReligionDropDownItem,
                     onChanged: (value) {
-                      _selectedNationalityDropDownItem = value;
+                      _selectedReligionDropDownItem = value;
                       setState(() {});
                     },
-                    items: _nationalityExpertiseList,
+                    items: _religionList,
                   ),
                   spaceBetweenFields
                 ],
