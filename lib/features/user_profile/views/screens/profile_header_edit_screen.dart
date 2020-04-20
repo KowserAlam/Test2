@@ -50,6 +50,10 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
   var _locationEditingController = TextEditingController();
   var _phoneEditingController = TextEditingController();
 
+  var _facebookEditingController = TextEditingController();
+  var _twitterEditingController = TextEditingController();
+  var _linkedInEditingController = TextEditingController();
+
   List<DropdownMenuItem<String>> _industryExpertiseList = [];
   String _selectedIndustryExpertiseDropDownItem;
 
@@ -62,6 +66,9 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
     _aboutTextEditingController.text = personalInfo.aboutMe ?? "";
     _fullNameTextEditingController.text = personalInfo.fullName ?? "";
     _selectedIndustryExpertiseDropDownItem = personalInfo.industryExpertise;
+    _facebookEditingController.text = personalInfo.facebookId ?? "";
+    _twitterEditingController.text = personalInfo.twitterId ?? "";
+    _linkedInEditingController.text = personalInfo.linkedinId ?? "";
 
     IndustryListRepository()
         .getIndustryList()
@@ -119,6 +126,9 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
         "industry_expertise": _selectedIndustryExpertiseDropDownItem,
         "about_me": _aboutTextEditingController.text,
         "phone": _phoneEditingController.text,
+        "facebbok_id": _facebookEditingController.text,
+        "twitter_id": _twitterEditingController.text,
+        "linkedin_id": _linkedInEditingController.text,
       };
 
       if (fileProfileImage != null) {
@@ -300,7 +310,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
             ),
 
             SizedBox(height: 10),
-            SizedBox(height: 10),
+
 
 //            ///full address
 //            TextFormField(
@@ -320,12 +330,32 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
             ///current location
             CustomTextFormField(
               controller: _locationEditingController,
-//              validator: Validator().nullFieldValidate,
               keyboardType: TextInputType.multiline,
-              maxLines: null,
               labelText: StringUtils.locationText,
               hintText: StringUtils.locationHintText,
             ),
+            SizedBox(height: 10),
+            ///facebook
+            CustomTextFormField(
+              controller: _facebookEditingController,
+              keyboardType: TextInputType.multiline,
+              labelText: StringUtils.facebookTrlText,
+            ),
+            SizedBox(height: 10),
+            ///twitter
+            CustomTextFormField(
+              controller: _twitterEditingController,
+              keyboardType: TextInputType.multiline,
+              labelText: StringUtils.twitterUrlText
+            ),
+            SizedBox(height: 10),
+            ///linkedIn
+            CustomTextFormField(
+              controller: _twitterEditingController,
+              keyboardType: TextInputType.multiline,
+              labelText: StringUtils.linkedUrlText
+            ),
+            SizedBox(height: 10),
           ],
         ),
       ),

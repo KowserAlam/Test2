@@ -284,12 +284,16 @@ class StringUtils {
   static var languagesKnown  = "Languages Known ";
   static var cropImageText  = "Crop Image";
   static var cancelText  = "Cancel";
+  static var facebookTrlText  = "Facebook Id Link";
+  static var twitterUrlText  = "twitter Id Link";
+  static var linkedUrlText  = "LinkedIn Id Link";
 
 
   /// password reset
   static var passwordResetText = "Reset Password";
   static var setNewPasswordText = "Set new password";
   static var resetYourPassword = "Reset your Password";
+  static var unableToSaveData = "Unable to save data";
 
   /// Result Screen
 
