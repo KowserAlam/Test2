@@ -19,8 +19,8 @@ class Urls {
   static String userProfileUrl = "/api/professional/profile";
   static String userProfileUpdateUrlPartial = "/api/professional/profile_update_partial";
   static String userProfileUpdateUrl = "/api/professional/profile_update";
+  static String professionalReference = "/api/professional/professional_reference";
 
-  static String professionalReferenceSave = "/api/professional/professional_reference_save/";
 
   static String industryListUrl = "/api/industry/";
   static String genderListUrl = "/api/gender/";

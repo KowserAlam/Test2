@@ -42,7 +42,7 @@ class ApiClient {
     var completeUrl = _buildUrl(url);
     var headers = await _getHeaders();
     var encodedBody = json.encode(body);
-    return httClient.put(completeUrl, headers: headers, body: encodedBody).timeout(Duration(seconds: 15));
+    return httClient.put(completeUrl, headers: headers, body: encodedBody);
   }
 
   Future<Map<String, String>> _getHeaders() async {
