@@ -43,15 +43,10 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
   File fileProfileImage;
 
   var _fullNameTextEditingController = TextEditingController();
-//  var industryExpertiseTextEditingController = TextEditingController();
   var _aboutTextEditingController = TextEditingController();
-  var _addressEditingController = TextEditingController();
+  var _locationEditingController = TextEditingController();
   var _phoneEditingController = TextEditingController();
-  var _fullNameFocusNode = FocusNode();
-  var _designationFocusNode = FocusNode();
-  var _aboutMeFocusNode = FocusNode();
-  var _locationFocusNode = FocusNode();
-  var _phoneFocusNode = FocusNode();
+
   List<DropdownMenuItem<String>> _industryExpertiseList = [];
   String _selectedIndustryExpertiseDropDownItem = "";
 
@@ -60,9 +55,8 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
     var personalInfo = widget.userModel.personalInfo;
 
     _phoneEditingController.text = personalInfo.phone ?? "";
-    _addressEditingController.text = personalInfo.address ?? "";
+    _locationEditingController.text = personalInfo.address ?? "";
     _aboutTextEditingController.text = personalInfo.aboutMe ?? "";
-//    industryExpertiseTextEditingController.text = personalInfo.industryExpertise ?? "";
     _fullNameTextEditingController.text = personalInfo.fullName ?? "";
     _selectedIndustryExpertiseDropDownItem = personalInfo.industryExpertise ?? "";
 
@@ -116,7 +110,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
 //      personalInfo.phone = _phoneEditingController.text;
 
       var data = {
-        "address": _addressEditingController.text,
+        "current_location": _locationEditingController.text,
         "full_name": _fullNameTextEditingController.text,
         "industry_expertise": _selectedIndustryExpertiseDropDownItem,
         "about_me": _aboutTextEditingController.text,
@@ -249,7 +243,6 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
             ///name
             CustomTextFormField(
               controller: _fullNameTextEditingController,
-              focusNode: _fullNameFocusNode,
               validator: Validator().nullFieldValidate,
               labelText: "Full Name",
               hintText: "eg. Bill Gates",
@@ -318,13 +311,13 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
 //
 //            SizedBox(height: 10),
 
-            ///address
+            ///current location
             CustomTextFormField(
-              controller: _addressEditingController,
+              controller: _locationEditingController,
 //              validator: Validator().nullFieldValidate,
               keyboardType: TextInputType.multiline,
               maxLines: null,
-              labelText: StringUtils.addressText,
+              labelText: StringUtils.locationText,
               hintText: StringUtils.locationHintText,
             ),
           ],

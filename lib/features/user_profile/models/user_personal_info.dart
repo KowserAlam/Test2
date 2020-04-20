@@ -1,5 +1,3 @@
-
-
 import 'package:p7app/main_app/flavour/flavour_config.dart';
 
 class UserPersonalInfo {
@@ -29,38 +27,41 @@ class UserPersonalInfo {
   String nationality;
   String religion;
   String permanentAddress;
+  String currentLocation;
 
-  UserPersonalInfo(
-      {this.id,
-        this.professionalId,
-        this.fullName,
-        this.email,
-        this.phone,
-        this.address,
-        this.aboutMe,
-        this.image,
-        this.password,
-        this.fatherName,
-        this.motherName,
-        this.facebookId,
-        this.twitterId,
-        this.linkedinId,
-        this.dateOfBirth,
-        this.expectedSalaryMin,
-        this.expectedSalaryMax,
-        this.industryExpertise,
-        this.user,
-        this.gender,
-        this.status,
-        this.experience,
-        this.qualification,
-        this.nationality,
-      this.religion,
-      this.permanentAddress});
+  UserPersonalInfo({
+    this.id,
+    this.professionalId,
+    this.fullName,
+    this.email,
+    this.phone,
+    this.address,
+    this.aboutMe,
+    this.image,
+    this.password,
+    this.fatherName,
+    this.motherName,
+    this.facebookId,
+    this.twitterId,
+    this.linkedinId,
+    this.dateOfBirth,
+    this.expectedSalaryMin,
+    this.expectedSalaryMax,
+    this.industryExpertise,
+    this.user,
+    this.gender,
+    this.status,
+    this.experience,
+    this.qualification,
+    this.nationality,
+    this.religion,
+    this.permanentAddress,
+    this.currentLocation,
+  });
 
   UserPersonalInfo.fromJson(Map<String, dynamic> json) {
     String baseUrl = FlavorConfig.instance.values.baseUrl;
-    var imageUlr = json['image'] == null? null: "$baseUrl${json['image']}";
+    var imageUlr = json['image'] == null ? null : "$baseUrl${json['image']}";
 
     id = json['id'];
     professionalId = json['professional_id'];
@@ -76,7 +77,8 @@ class UserPersonalInfo {
     facebookId = json['facebbok_id'];
     twitterId = json['twitter_id'];
     linkedinId = json['linkedin_id'];
-    if(json['date_of_birth'] != null){
+    currentLocation = json['current_location'];
+    if (json['date_of_birth'] != null) {
       dateOfBirth = DateTime.parse(json['date_of_birth']);
     }
 
@@ -118,18 +120,7 @@ class UserPersonalInfo {
     data['nationality'] = this.nationality;
     data['religion'] = this.religion;
     data['permanent_address'] = this.permanentAddress;
+    data['current_location'] = this.currentLocation;
     return data;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
