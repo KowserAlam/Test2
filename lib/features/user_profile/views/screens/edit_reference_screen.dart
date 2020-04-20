@@ -1,23 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:p7app/features/user_profile/models/reference_data.dart';
+import 'package:p7app/features/user_profile/repositories/user_profile_repository.dart';
+import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/features/user_profile/views/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/util/validator.dart';
 import 'package:p7app/main_app/widgets/common_button.dart';
 import 'package:p7app/main_app/widgets/edit_screen_save_button.dart';
+import 'package:provider/provider.dart';
 
 class EditReferenceScreen extends StatefulWidget {
   final ReferenceData referenceData;
-
-
-
-
-  @override
-  _EditReferenceScreenState createState() => _EditReferenceScreenState();
+  final int index;
 
   const EditReferenceScreen({
     this.referenceData,
+    this.index,
   });
+
+  @override
+  _EditReferenceScreenState createState() => _EditReferenceScreenState();
 }
 
 class _EditReferenceScreenState extends State<EditReferenceScreen> {
@@ -36,18 +38,56 @@ class _EditReferenceScreenState extends State<EditReferenceScreen> {
   final _mobileFocusNode = FocusNode();
 
   //widgets
-  var spaceBetweenFields = SizedBox(height: 15,);
+  var spaceBetweenFields = SizedBox(
+    height: 15,
+  );
 
-  _handleSave(){
+  initState() {
+    if (widget.referenceData != null) {
+      _nameController.text = widget.referenceData.name;
+      _currentPositionController.text = widget.referenceData.currentPosition;
+      _emailController.text = widget.referenceData.email;
+      _mobileController.text = widget.referenceData.mobile;
+    }
+    super.initState();
+  }
 
+  _handleSave() {
+    bool isValid = _formKey.currentState.validate();
+    if (isValid) {
+      var referenceData = ReferenceData(
+        referenceId: widget.referenceData?.referenceId,
+        currentPosition: _currentPositionController.text,
+        mobile: _mobileController.text,
+        name: _nameController.text,
+        email: _emailController.text,
+      );
+
+      if (widget.referenceData != null) {
+        /// updating existing data
+
+        Provider.of<UserProfileViewModel>(context, listen: false)
+            .updateReferenceData(referenceData, widget.index)
+            .then((value) {
+          if (value) {
+            Navigator.pop(context);
+          }
+        });
+      } else {
+        /// adding new data
+        Provider.of<UserProfileViewModel>(context, listen: false)
+            .addReferenceData(referenceData)
+            .then((value) {
+          if (value) {
+            Navigator.pop(context);
+          }
+        });
+      }
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-
-
-
-
     var name = CustomTextFormField(
       validator: Validator().nullFieldValidate,
       keyboardType: TextInputType.text,
@@ -55,55 +95,52 @@ class _EditReferenceScreenState extends State<EditReferenceScreen> {
       autofocus: true,
       textInputAction: TextInputAction.next,
       onFieldSubmitted: (a) {
-        FocusScope.of(context)
-            .requestFocus(_currentPositionFocusNode);
+        FocusScope.of(context).requestFocus(_currentPositionFocusNode);
       },
       controller: _nameController,
       labelText: StringUtils.referenceNameText,
       hintText: StringUtils.referenceNameText,
     );
 
-var currentPosition = CustomTextFormField(
-  validator: Validator().nullFieldValidate,
-  focusNode: _currentPositionFocusNode,
-  keyboardType: TextInputType.text,
-  autofocus: true,
-  textInputAction: TextInputAction.next,
-  onFieldSubmitted: (a) {
-    FocusScope.of(context)
-        .requestFocus(_emailFocusNode);
-  },
-  controller: _currentPositionController,
-  labelText: StringUtils.referenceCurrentPositionText,
-  hintText: StringUtils.referenceCurrentPositionText,
-);
-var email = CustomTextFormField(
-  validator: (val)=>Validator().validateEmail(val.trim()),
-  focusNode: _emailFocusNode,
-  keyboardType: TextInputType.emailAddress,
-  autofocus: true,
-  textInputAction: TextInputAction.next,
-  onFieldSubmitted: (a) {
-    FocusScope.of(context)
-        .requestFocus(_mobileFocusNode);
-  },
-  controller: _emailController,
-  labelText: StringUtils.referenceEmailText,
-  hintText: StringUtils.referenceEmailText,
-);
-var mobile = CustomTextFormField(
-  validator: (val)=>Validator().validatePhoneNumber(val.trim()),
-  focusNode: _mobileFocusNode,
-  keyboardType: TextInputType.number,
-  autofocus: true,
-  onFieldSubmitted: (a) {
+    var currentPosition = CustomTextFormField(
+      validator: Validator().nullFieldValidate,
+      focusNode: _currentPositionFocusNode,
+      keyboardType: TextInputType.text,
+      autofocus: true,
+      textInputAction: TextInputAction.next,
+      onFieldSubmitted: (a) {
+        FocusScope.of(context).requestFocus(_emailFocusNode);
+      },
+      controller: _currentPositionController,
+      labelText: StringUtils.referenceCurrentPositionText,
+      hintText: StringUtils.referenceCurrentPositionText,
+    );
+    var email = CustomTextFormField(
+      validator: (val) => Validator().validateEmail(val.trim()),
+      focusNode: _emailFocusNode,
+      keyboardType: TextInputType.emailAddress,
+      autofocus: true,
+      textInputAction: TextInputAction.next,
+      onFieldSubmitted: (a) {
+        FocusScope.of(context).requestFocus(_mobileFocusNode);
+      },
+      controller: _emailController,
+      labelText: StringUtils.referenceEmailText,
+      hintText: StringUtils.referenceEmailText,
+    );
+    var mobile = CustomTextFormField(
+      validator: (val) => Validator().validatePhoneNumber(val.trim()),
+      focusNode: _mobileFocusNode,
+      keyboardType: TextInputType.number,
+      autofocus: true,
+      onFieldSubmitted: (a) {
 //                      FocusScope.of(context)
 //                          .requestFocus(_nationalityFocusNode);
-  },
-  controller: _mobileController,
-  labelText: StringUtils.referenceMobileText,
-  hintText: StringUtils.referenceMobileText,
-);
+      },
+      controller: _mobileController,
+      labelText: StringUtils.referenceMobileText,
+      hintText: StringUtils.referenceMobileText,
+    );
 
     return Scaffold(
       appBar: AppBar(
@@ -129,15 +166,16 @@ var mobile = CustomTextFormField(
                   name,
                   spaceBetweenFields,
                   //Current Position
-                  currentPosition
-                  ,
+                  currentPosition,
                   spaceBetweenFields,
                   //Email
                   email,
                   spaceBetweenFields,
                   //Mobile
                   mobile,
-                  SizedBox(height: 40,),
+                  SizedBox(
+                    height: 40,
+                  ),
                 ],
               ),
             ),

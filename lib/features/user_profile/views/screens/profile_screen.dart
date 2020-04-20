@@ -553,7 +553,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
               Navigator.push(
                   context,
                   CupertinoPageRoute(
-                      builder: (context) => EditReferenceScreen()));
+                      builder: (context) => EditReferenceScreen(referenceData: ref,index: index,)));
             },
           );
         }),

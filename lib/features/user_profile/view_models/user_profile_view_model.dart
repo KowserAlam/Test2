@@ -1,3 +1,4 @@
+import 'package:p7app/features/user_profile/models/reference_data.dart';
 import 'package:p7app/features/user_profile/models/user_model.dart';
 import 'package:p7app/features/user_profile/repositories/user_profile_repository.dart';
 import 'package:p7app/main_app/resource/json_keys.dart';
@@ -90,71 +91,30 @@ class UserProfileViewModel with ChangeNotifier {
       }
     });
   }
-}
 
-//var dummyUserData = UserModel(
-//    displayName: "Bill Gates",
-//    profilePicUrl:
-//        "https://pbs.twimg.com/profile_images/988775660163252226/XpgonN0X_400x400.jpg",
-//    city: "Dhaka, Bangladesh",
-//    designation: "American business magnate",
-//    about: "Experienced Software Engineer with a demonstrated history of working "
-//        "in the computer software industry. Skilled in Microsoft Word, HTML5, "
-//        "CSS3, Bootstrap, PHP, Laravel, MySQL, WordPress, jQuery, and MySQLi. "
-//        "Java, C, C++, C#, Asp.Net MVC, Angularjs, Angular, Strong engineering professional",
-//    email: "bill.gates@microsoft.com",
-//    mobileNumber: "+88010000000000",
-//    personalInfo: PersonalInfo(
-//      currentAddress:
-//          "House 76 (Level 4), Road 4, Block B, Niketan Gulshan 1, Dhaka 1212, Bangladesh",
-//      permanentAddress:
-//          "House 76 (Level 4), Road 4, Block B, Niketan Gulshan 1, Dhaka 1212, Bangladesh",
-//      fatherName: "Father Name",
-//      motherName: "Mother Name",
-//      religion: "Religion",
-//      dateOfBirth: DateTime.now(),
-//      languages: ["Ennglish", "Bangla", "Hindi"],
-//      gender: "Male",
-//      nationality: "Bangladeshi",
-//      maritalStatus: "Single",
-//    ),
-//    experienceList: [
-//      Experience(
-//          id: Uuid().v1(),
-//          organizationName: "Ishraak Solutions",
-//          position: "Software Engineer",
-//          joiningDate: DateTime.now().subtract(
-//            Duration(days: 360 * 50),
-//          ),
-//          role:
-//              "William Henry Gates III is an American business magnate, investor, author, philanthropist, and humanitarian. He is best known as the principal founder of Microsoft Corporatio",
-//          currentlyWorkHere: false,
-//          leavingDate: DateTime.now().subtract(
-//            Duration(days: 360 * 30),
-//          )),
-//      Experience(
-//          id: Uuid().v1(),
-//          organizationName: "Microsoft",
-//          position: "CEO",
-//          joiningDate: DateTime.now().subtract(
-//            Duration(days: 360 * 30),
-//          ),
-//          currentlyWorkHere: true,
-//          role:
-//              "William Henry Gates III is an American business magnate, investor, author, philanthropist, and humanitarian. He is best known as the principal founder of Microsoft Corporatio"),
-//    ],
-//    educationModelList: [
-//      Education(
-//          id: Uuid().v1(),
-//          degree: "Bachelor of Science",
-//          nameOfInstitution: "Howard University",
-//          passingYear: DateTime.now().add(Duration(days: 356 * 80)),
-//          currentlyStudyingHere: false,
-//          gpa: "4.2"),
-//    ],
-//    technicalSkillList: [
-//      TechnicalSkill(
-//          id: Uuid().v1(), level: 4.5, skillName: "Django", isVerified: true),
-//      TechnicalSkill(
-//          id: Uuid().v1(), level: 4.5, skillName: "Python", isVerified: false),
-//    ]);
+  Future<bool> updateReferenceData(ReferenceData referenceData, int index){
+    return UserProfileRepository().updateUserReference(referenceData).then((res){
+      return res.fold((l){
+        print(l);
+        return false;
+      }, (r){
+       userData.referenceData[index] = r;
+       notifyListeners();
+       return true;
+      });
+    });
+  }
+
+  Future<bool> addReferenceData(ReferenceData referenceData){
+    return UserProfileRepository().addUserReference(referenceData).then((res){
+      return res.fold((l){
+        print(l);
+        return false;
+      }, (r){
+        userData.referenceData.add(r);
+        notifyListeners();
+        return true;
+      });
+    });
+  }
+}

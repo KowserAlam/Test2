@@ -14,15 +14,14 @@ class ReferenceData {
 
   ReferenceData.fromJson(Map<String, dynamic> json) {
     referenceId = json['reference_id'];
-    name = json['name'];
+    name = json['name']?.toString();
     currentPosition = json['current_position']?.toString();
-    email = json['email'];
-    mobile = json['mobile'];
+    email = json['email']?.toString();
+    mobile = json['mobile']?.toString();
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['reference_id'] = this.referenceId;
     data['name'] = this.name;
     data['current_position'] = this.currentPosition;
     data['email'] = this.email;
