@@ -90,7 +90,7 @@ class PersonalInfoWidget extends StatelessWidget {
                 _item(
                     context: context,
                     label: StringUtils.permanentAddressText,
-                    value: personalInfo.address??""),
+                    value: personalInfo.permanentAddress??""),
                 //nationality
                 _item(
                     context: context,

@@ -6,6 +6,7 @@ import 'package:p7app/features/user_profile/repositories/user_profile_repository
 import 'package:p7app/features/user_profile/styles/profile_common_style.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/features/user_profile/views/widgets/custom_text_from_field.dart';
+import 'package:p7app/main_app/failure/error.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ import 'package:p7app/main_app/util/validator.dart';
 import 'package:p7app/main_app/widgets/common_button.dart';
 import 'package:p7app/main_app/widgets/edit_screen_save_button.dart';
 import 'package:provider/provider.dart';
+import 'package:dartz/dartz.dart' as dartZ;
 
 class EditPersonalInfoScreen extends StatefulWidget {
   final UserModel userModel;
@@ -50,6 +52,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
     // TODO: implement initState
     radioValue = 'one';
     _gender = 'male';
+    _chosenDate = widget.userModel.personalInfo.dateOfBirth ?? DateTime.now();
     var personalInfo = widget.userModel.personalInfo;
     _fatherNameController.text = personalInfo.fatherName ?? "";
     _motherNameController.text = personalInfo.motherName ??"";
@@ -83,21 +86,27 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
         "mother_name": _motherNameController.text,
         "permanent_address": _permanentAddressController.text,
         //"nationality": _nationalityController.text,
-        "religion": _nationalityController.text,
+        //"religion": _nationalityController.text,
         "address": _currentAddressController.text,
         "permanent_address" : _permanentAddressController.text,
-        //"date_of_birth": _chosenDate,
         "gender": _gender,
+        //"date_of_birth": _chosenDate
       };
 
 //      if (fileProfileImage != null) {
 //        data.addAll({'image':getBase64Image()});
 //      }
 
-      UserProfileRepository()
-          .updateUserBasicInfo(data)
-          .then((personalInfoModel) {
-        userData.personalInfo = personalInfo;
+      dartZ.Either<AppError, UserPersonalInfo> res =
+      await UserProfileRepository().updateUserBasicInfo(data);
+      res.fold((l) {
+        // left
+        print(l);
+      }, (UserPersonalInfo r) {
+        //right
+        userData.personalInfo = r;
+        print(r.fullName);
+        print(userData.personalInfo.fullName);
         userViewModel.userData = userData;
         Navigator.pop(context);
       });
@@ -323,8 +332,6 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
 
   _showDateOfBirthPicker(context) {
 
-    var initialDate = widget.userModel.personalInfo.dateOfBirth ?? DateTime.now();
-
     showDialog(
         context: context,
         builder: (context) {
@@ -340,7 +347,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                       child: CupertinoTheme(
                         data: CupertinoThemeData(brightness: Theme.of(context).brightness),
                         child: CupertinoDatePicker(
-                          initialDateTime: initialDate,
+                          initialDateTime: _chosenDate,
                           mode: CupertinoDatePickerMode.date,
                           onDateTimeChanged: (v){
                             setState(() {
