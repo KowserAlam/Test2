@@ -102,7 +102,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
         BotToast.showText(text: "Unable to load expertise list ");
       }, (r) {
         // right
-        _nationalityExpertiseList = r
+        _religionList = r
             .map((e) => DropdownMenuItem(
           key: Key(e),
           value: e,
@@ -350,20 +350,17 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                   ),
                   spaceBetweenFields,
                   //Religion
-                  CustomTextFormField(
-                    validator: Validator().nullFieldValidate,
-                    keyboardType: TextInputType.text,
-                    focusNode: _religionFocusNode,
-                    textInputAction: TextInputAction.next,
-                    onFieldSubmitted: (a) {
-//                      FocusScope.of(context)
-//                          .requestFocus(_religionFocusNode);
-                    },
-                    controller: _religionController,
+                  CustomDropdownButtonFormField<String>(
                     labelText: StringUtils.religionText,
-                    hintText: StringUtils.religionText,
+                    hint: Text('Tap to select'),
+                    value: _selectedReligionDropDownItem,
+                    onChanged: (value) {
+                      _selectedReligionDropDownItem = value;
+                      setState(() {});
+                    },
+                    items: _religionList,
                   ),
-                  spaceBetweenFields
+                  spaceBetweenFields,
                 ],
               ),
             ),
