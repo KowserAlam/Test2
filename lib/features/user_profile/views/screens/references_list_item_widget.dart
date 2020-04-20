@@ -31,10 +31,20 @@ class ReferencesListItemWidget extends StatelessWidget {
         ),
         title: Text(referenceData.name??""),
         subtitle: Text(referenceData.currentPosition??""),
-        trailing: !isInEditMode?SizedBox():IconButton(
-          icon: Icon(FontAwesomeIcons.edit),
-          onPressed: onTapEdit,
-        ),
+        trailing: !isInEditMode?SizedBox():Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+          IconButton(
+            icon: Icon(FontAwesomeIcons.edit),
+            onPressed: onTapEdit,
+            iconSize: 18,
+          ),
+          IconButton(
+            icon: Icon(FontAwesomeIcons.trash),
+            onPressed: onTapEdit,
+            iconSize: 18,
+          ),
+        ],),
       ),
     );
   }

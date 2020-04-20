@@ -366,6 +366,22 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                     labelText: StringUtils.religionText,
                     hintText: StringUtils.religionText,
                   ),
+
+
+
+
+
+
+                  CustomDropdownButtonFormField<String>(
+                    labelText: StringUtils.nationalityText,
+                    hint: Text('Tap to select'),
+                    value: _selectedNationalityDropDownItem,
+                    onChanged: (value) {
+                      _selectedNationalityDropDownItem = value;
+                      setState(() {});
+                    },
+                    items: _nationalityExpertiseList,
+                  ),
                   spaceBetweenFields
                 ],
               ),
