@@ -5,6 +5,7 @@ import 'package:p7app/features/user_profile/models/nationality.dart';
 import 'package:p7app/features/user_profile/models/religion.dart';
 import 'package:p7app/features/user_profile/models/user_model.dart';
 import 'package:p7app/features/user_profile/models/user_personal_info.dart';
+import 'package:p7app/features/user_profile/repositories/gender_list_repository.dart';
 import 'package:p7app/features/user_profile/repositories/nationality_list_repository.dart';
 import 'package:p7app/features/user_profile/repositories/religion_list_repository.dart';
 import 'package:p7app/features/user_profile/repositories/user_profile_repository.dart';
@@ -51,9 +52,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
   final _permanentAddressFocusNode = FocusNode();
   final _religionFocusNode = FocusNode();
 
-  //Variables
-  String radioValue;
-  String _gender;
+  //Date
   DateTime _chosenDate;
 
   //Nationality
@@ -64,11 +63,13 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
   List<DropdownMenuItem<Religion>> _religionList = [];
   Religion _selectedReligionDropDownItem;
 
+  //Gender
+  List<DropdownMenuItem<String>> _genderList = [];
+  String _selectedGenderDropDownItem;
+
   @override
   void initState() {
     // TODO: implement initState
-    radioValue = 'one';
-    _gender = 'male';
     _chosenDate = widget.userModel.personalInfo.dateOfBirth;
     var personalInfo = widget.userModel.personalInfo;
     _fatherNameController.text = personalInfo.fatherName ?? "";
@@ -93,6 +94,25 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                   value: e,
                   child: Text(e.name ?? ""),
                 ))
+            .toList();
+        setState(() {});
+      });
+    });
+
+    GenderListRepository()
+        .getGenderList()
+        .then((dartZ.Either<AppError, List<String>> value) {
+      value.fold((l) {
+        // left
+        BotToast.showText(text: "Unable to load gender list ");
+      }, (r) {
+        // right
+        _genderList = r
+            .map((e) => DropdownMenuItem(
+          key: Key(e),
+          value: e,
+          child: Text(e ?? ""),
+        ))
             .toList();
         setState(() {});
       });
@@ -140,7 +160,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
         "nationality": _selectedNationalityDropDownItem.id,
         "religion": _selectedReligionDropDownItem.id,
         "address": _currentAddressController.text,
-        //"gender": _gender,
+        "gender": _selectedGenderDropDownItem,
         //"date_of_birth": _chosenDate
       };
 
@@ -173,59 +193,42 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
     TextStyle titleFont = TextStyle(fontSize: 15, color: Colors.black, fontWeight: FontWeight.bold);
 
 
-    void radioButtonChanges(String value) {
-      setState(() {
-        radioValue = value;
-        switch (value) {
-          case 'one':
-            _gender = 'Male';
-            print(_gender);
-            break;
-          case 'two':
-            _gender = 'Female';
-            print(_gender);
-            break;
-          default:
-            _gender = 'Male';
-        }
-      });
-    }
 
     var spaceBetweenFields = SizedBox(height: 15,);
-    var genderSelection = Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: <Widget>[
-        SizedBox(width: 5,),
-        Text('Gender:',style: titleFont,),
-        Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Row(
-              children: <Widget>[
-                Radio(
-                  groupValue: radioValue,
-                  value: 'one',
-                  onChanged: radioButtonChanges,
-                ),
-                Text('Male', style: TextStyle(),),
-              ],
-            ),
-            SizedBox(width: 10,),
-            Row(
-              children: <Widget>[
-                Radio(
-                  groupValue: radioValue,
-                  value: 'two',
-                  onChanged: radioButtonChanges,
-                ),
-                Text('Female', style: TextStyle(),),
-              ],
-            )
-          ],
-        ),
-      ],
-    );
+//    var genderSelection = Row(
+//      mainAxisAlignment: MainAxisAlignment.start,
+//      children: <Widget>[
+//        SizedBox(width: 5,),
+//        Text('Gender:',style: titleFont,),
+//        Row(
+//          mainAxisSize: MainAxisSize.max,
+//          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//          children: <Widget>[
+//            Row(
+//              children: <Widget>[
+//                Radio(
+//                  groupValue: radioValue,
+//                  value: 'one',
+//                  onChanged: radioButtonChanges,
+//                ),
+//                Text('Male', style: TextStyle(),),
+//              ],
+//            ),
+//            SizedBox(width: 10,),
+//            Row(
+//              children: <Widget>[
+//                Radio(
+//                  groupValue: radioValue,
+//                  value: 'two',
+//                  onChanged: radioButtonChanges,
+//                ),
+//                Text('Female', style: TextStyle(),),
+//              ],
+//            )
+//          ],
+//        ),
+//      ],
+//    );
 
     return Scaffold(
       appBar: AppBar(
@@ -282,7 +285,16 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                   ),
                   spaceBetweenFields,
                   //Gender
-                  genderSelection,
+                  CustomDropdownButtonFormField<String>(
+                    labelText: StringUtils.genderText,
+                    hint: Text('Tap to select'),
+                    value: _selectedGenderDropDownItem,
+                    onChanged: (value) {
+                      _selectedGenderDropDownItem = value;
+                      setState(() {});
+                    },
+                    items: _genderList,
+                  ),
                   spaceBetweenFields,
                   //Father's Name
                   CustomTextFormField(
