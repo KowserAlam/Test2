@@ -27,6 +27,7 @@ class UserPersonalInfo {
   String experience;
   String qualification;
   String nationality;
+  String religion;
 
   UserPersonalInfo(
       {this.id,
@@ -52,7 +53,8 @@ class UserPersonalInfo {
         this.status,
         this.experience,
         this.qualification,
-        this.nationality});
+        this.nationality,
+      this.religion});
 
   UserPersonalInfo.fromJson(Map<String, dynamic> json) {
     String baseUrl = FlavorConfig.instance.values.baseUrl;
