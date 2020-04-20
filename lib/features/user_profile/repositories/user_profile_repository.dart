@@ -45,20 +45,22 @@ class UserProfileRepository {
     var authUser = await AuthService.getInstance();
     var professionalId = authUser.getUser().professionalId;
     var url = "${Urls.userProfileUpdateUrlPartial}/$professionalId/";
+
+
     try{
 
       var response = await  ApiClient().putRequest(url,body);
-
       print(response.statusCode);
       print(response.body);
       if(response.statusCode == 200){
         BotToast.closeAllLoading();
-        var data = UserPersonalInfo.fromJson(json.decode(response.body));
+        UserPersonalInfo data = UserPersonalInfo.fromJson(json.decode(response.body));
         return Right(data);
 
       }else{
         BotToast.closeAllLoading();
-        return Left(AppError.unknownError);}
+        return Left(AppError.unknownError);
+      }
     }  on SocketException catch (e){
       BotToast.closeAllLoading();
       print(e);
