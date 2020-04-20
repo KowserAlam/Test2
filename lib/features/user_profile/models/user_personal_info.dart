@@ -27,6 +27,8 @@ class UserPersonalInfo {
   String experience;
   String qualification;
   String nationality;
+  String religion;
+  String permanentAddress;
 
   UserPersonalInfo(
       {this.id,
@@ -38,6 +40,7 @@ class UserPersonalInfo {
         this.aboutMe,
         this.image,
         this.password,
+        this.religion,
         this.fatherName,
         this.motherName,
         this.facebbokId,
@@ -61,8 +64,10 @@ class UserPersonalInfo {
     id = json['id'];
     professionalId = json['professional_id'];
     fullName = json['full_name'];
+    permanentAddress = json['permanent_address'];
     email = json['email'];
     phone = json['phone'];
+    religion = json['religion'];
     address = json['address'];
     aboutMe = json['about_me'];
     image = imageUlr;
@@ -98,9 +103,11 @@ class UserPersonalInfo {
     data['password'] = this.password;
     data['father_name'] = this.fatherName;
     data['mother_name'] = this.motherName;
+    data['religion'] = this.religion;
     data['facebbok_id'] = this.facebbokId;
     data['twitter_id'] = this.twitterId;
     data['linkedin_id'] = this.linkedinId;
+    data['permanent_address'] = this.permanentAddress;
     data['date_of_birth'] = this.dateOfBirth.toIso8601String();
     data['expected_salary_min'] = this.expectedSalaryMin;
     data['expected_salary_max'] = this.expectedSalaryMax;

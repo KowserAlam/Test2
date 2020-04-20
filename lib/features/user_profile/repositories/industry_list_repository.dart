@@ -1,7 +1,5 @@
 import 'dart:convert';
-
 import 'package:dartz/dartz.dart';
-import 'package:dartz/dartz_unsafe.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
 import 'package:p7app/main_app/failure/error.dart';
@@ -12,11 +10,18 @@ class IndustryListRepository{
     try{
 
       var res = await ApiClient().getRequest(Urls.industryListUrl);
-      var decodedJson = json.decode(res.body);
-      print(decodedJson);
 
-      List<String> list = fromJson(decodedJson);
-      return Right(list);
+      if(res.statusCode == 200){
+        var decodedJson = json.decode(res.body);
+        print(decodedJson);
+
+        List<String> list = fromJson(decodedJson);
+        return Right(list);
+      }else{
+        return Left(AppError.unknownError);
+      }
+
+
 
     }catch (e){
       print(e);
