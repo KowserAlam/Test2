@@ -99,11 +99,6 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
       var userData = userViewModel.userData;
       UserPersonalInfo personalInfo = userViewModel.userData.personalInfo;
 
-//      personalInfo.address = _addressEditingController.text;
-//      personalInfo.fullName = _fullNameTextEditingController.text;
-//      personalInfo.industryExpertise = industryExpertiseTextEditingController.text;
-//      personalInfo.aboutMe = _aboutTextEditingController.text;
-//      personalInfo.phone = _phoneEditingController.text;
 
       var data = {
         "father_name": _fatherNameController.text,
@@ -368,7 +363,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                       child: CupertinoTheme(
                         data: CupertinoThemeData(brightness: Theme.of(context).brightness),
                         child: CupertinoDatePicker(
-                          initialDateTime: _chosenDate,
+                          initialDateTime: _chosenDate??DateTime.now(),
                           mode: CupertinoDatePickerMode.date,
                           onDateTimeChanged: (v){
                             setState(() {
