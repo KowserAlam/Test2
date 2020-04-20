@@ -112,6 +112,8 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
       };
 
       if (_chosenDate != null) {
+
+        print(DateFormat().add_yMMMd().format(_chosenDate));
         data.addAll(
             {"date_of_birth": DateFormat().add_yMMMd().format(_chosenDate)});
       }
