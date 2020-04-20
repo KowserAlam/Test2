@@ -11,12 +11,13 @@ class ImageCompressUtil {
   static Future<File> compressImage(File imageFile, int quality) async {
     var uniqueString = Uuid().v1();
     File finalImage = await FlutterImageCompress.compressAndGetFile(
-        imageFile.path,
-        await _getTemporaryDirectory()
-            .then((v) => "${v.path + uniqueString}.jpg"),
-        quality: quality,
-        minHeight: 400,
-        minWidth: 400);
+      imageFile.path,
+      await _getTemporaryDirectory()
+          .then((v) => "${v.path + uniqueString}.jpg"),
+      quality: quality,
+      minHeight: 400,
+      minWidth: 400,
+    );
     return finalImage;
   }
 }
