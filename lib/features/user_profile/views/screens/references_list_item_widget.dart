@@ -45,11 +45,13 @@ class ReferencesListItemWidget extends StatelessWidget {
                     icon: Icon(FontAwesomeIcons.edit),
                     onPressed: onTapEdit,
                     iconSize: 18,
+                    color: Colors.black,
                   ),
                   IconButton(
                     icon: Icon(FontAwesomeIcons.trash),
                     onPressed: onTapDelete,
                     iconSize: 18,
+                    color: Colors.black,
                   ),
                 ],
               ),
