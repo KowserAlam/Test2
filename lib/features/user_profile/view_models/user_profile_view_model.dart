@@ -117,4 +117,17 @@ class UserProfileViewModel with ChangeNotifier {
       });
     });
   }
+
+  Future<bool> deleteReferenceData(ReferenceData referenceData,int index ){
+    return UserProfileRepository().deleteUserReference(referenceData).then((res){
+      return res.fold((l){
+        print(l);
+        return false;
+      }, (r){
+        userData.referenceData.removeAt(index);
+        notifyListeners();
+        return true;
+      });
+    });
+  }
 }

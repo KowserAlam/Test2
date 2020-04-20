@@ -549,6 +549,9 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
           return ReferencesListItemWidget(
             isInEditMode: isInEditModeReferences,
             referenceData: ref,
+            onTapDelete: (){
+              userProfileViewModel.deleteReferenceData(ref, index);
+            },
             onTapEdit: () {
               Navigator.push(
                   context,

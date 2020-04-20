@@ -82,7 +82,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
         .then((dartZ.Either<AppError, List<String>> value) {
       value.fold((l) {
         // left
-        BotToast.showText(text: "Unable to load nationality list ");
+        BotToast.showText(text: "Unable to load expertise list ");
       }, (r) {
         // right
         _nationalityExpertiseList = r
@@ -101,10 +101,10 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
         .then((dartZ.Either<AppError, List<String>> value) {
       value.fold((l) {
         // left
-        BotToast.showText(text: "Unable to load religion list ");
+        BotToast.showText(text: "Unable to load expertise list ");
       }, (r) {
         // right
-        _religionList = r
+        _nationalityExpertiseList = r
             .map((e) => DropdownMenuItem(
                   key: Key(e),
                   value: e,
@@ -272,7 +272,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                         ],),
                       padding: EdgeInsets.all(8),
                       child: Text(
-                        _chosenDate != null? DateFormatUtil.dateFormatYYYMMDD(_chosenDate): ""
+                          kDateFormatBD.format(widget.userModel.personalInfo.dateOfBirth??"Choose Date"),
                       ),
                     ),
                   ),
@@ -353,17 +353,36 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                   ),
                   spaceBetweenFields,
                   //Religion
-                  CustomDropdownButtonFormField<String>(
+                  CustomTextFormField(
+                    validator: Validator().nullFieldValidate,
+                    keyboardType: TextInputType.text,
+                    focusNode: _religionFocusNode,
+                    textInputAction: TextInputAction.next,
+                    onFieldSubmitted: (a) {
+//                      FocusScope.of(context)
+//                          .requestFocus(_religionFocusNode);
+                    },
+                    controller: _religionController,
                     labelText: StringUtils.religionText,
+                    hintText: StringUtils.religionText,
+                  ),
+
+
+
+
+
+
+                  CustomDropdownButtonFormField<String>(
+                    labelText: StringUtils.nationalityText,
                     hint: Text('Tap to select'),
-                    value: _selectedReligionDropDownItem,
+                    value: _selectedNationalityDropDownItem,
                     onChanged: (value) {
-                      _selectedReligionDropDownItem = value;
+                      _selectedNationalityDropDownItem = value;
                       setState(() {});
                     },
-                    items: _religionList,
+                    items: _nationalityExpertiseList,
                   ),
-                  spaceBetweenFields,
+                  spaceBetweenFields
                 ],
               ),
             ),
