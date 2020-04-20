@@ -157,8 +157,8 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
         "father_name": _fatherNameController.text,
         "mother_name": _motherNameController.text,
         "permanent_address": _permanentAddressController.text,
-        "nationality": _selectedNationalityDropDownItem.id,
-        "religion": _selectedReligionDropDownItem.id,
+        "nationality": _selectedNationalityDropDownItem?.id,
+        "religion": _selectedReligionDropDownItem?.id,
         "address": _currentAddressController.text,
         "gender": _selectedGenderDropDownItem,
         //"date_of_birth": _chosenDate
