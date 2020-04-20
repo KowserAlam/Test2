@@ -15,6 +15,7 @@ import 'package:p7app/features/user_profile/views/widgets/custom_text_from_field
 import 'package:p7app/main_app/failure/error.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/util/image_compress_util.dart';
 import 'package:p7app/main_app/util/validator.dart';
 import 'package:p7app/main_app/widgets/edit_screen_save_button.dart';
 import 'package:p7app/main_app/widgets/loader.dart';
@@ -92,7 +93,8 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
   Future getImage() async {
     File image = await ImagePicker.pickImage(source: ImageSource.gallery);
     if (image != null) {
-      _showCropDialog(image);
+      var compressedImage  = await ImageCompressUtil.compressImage(image, 40);
+      _showCropDialog(compressedImage);
     } else {}
   }
 
@@ -188,6 +190,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
                   child: fileProfileImage != null
                       ? Image.file(
                           fileProfileImage,
+                    fit: BoxFit.cover,
                         )
                       : CachedNetworkImage(
                           placeholder: (context, _) => Image.asset(

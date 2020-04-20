@@ -1,12 +1,9 @@
-
 import 'dart:io';
 
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:uuid/uuid.dart';
 
-class ImageCompressUtil{
-
-
+class ImageCompressUtil {
   static Future<Directory> _getTemporaryDirectory() async {
     return Directory.systemTemp;
   }
@@ -22,7 +19,4 @@ class ImageCompressUtil{
         minWidth: 400);
     return finalImage;
   }
-
-
-
 }
