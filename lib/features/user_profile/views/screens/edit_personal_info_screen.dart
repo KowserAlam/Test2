@@ -1,6 +1,7 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
+import 'package:p7app/features/user_profile/models/nationality.dart';
 import 'package:p7app/features/user_profile/models/religion.dart';
 import 'package:p7app/features/user_profile/models/user_model.dart';
 import 'package:p7app/features/user_profile/models/user_personal_info.dart';
@@ -56,8 +57,8 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
   DateTime _chosenDate;
 
   //Nationality
-  List<DropdownMenuItem<String>> _nationalityExpertiseList = [];
-  String _selectedNationalityDropDownItem;
+  List<DropdownMenuItem<Nationality>> _nationalityList = [];
+  Nationality _selectedNationalityDropDownItem;
 
   //Nationality
   List<DropdownMenuItem<Religion>> _religionList = [];
@@ -80,17 +81,17 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
 
     NationalityListRepository()
         .getNationalityList()
-        .then((dartZ.Either<AppError, List<String>> value) {
+        .then((dartZ.Either<AppError, List<Nationality>> value) {
       value.fold((l) {
         // left
-        BotToast.showText(text: "Unable to load expertise list ");
+        BotToast.showText(text: "Unable to load nationality list ");
       }, (r) {
         // right
-        _nationalityExpertiseList = r
+        _nationalityList = r
             .map((e) => DropdownMenuItem(
-                  key: Key(e),
+                  key: Key(e.name),
                   value: e,
-                  child: Text(e ?? ""),
+                  child: Text(e.name ?? ""),
                 ))
             .toList();
         setState(() {});
@@ -105,7 +106,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
         .then((dartZ.Either<AppError, List<Religion>> value) {
       value.fold((l) {
         // left
-        BotToast.showText(text: "Unable to load expertise list ");
+        BotToast.showText(text: "Unable to load religion list ");
       }, (r) {
         // right
         _religionList = r
@@ -136,8 +137,8 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
         "father_name": _fatherNameController.text,
         "mother_name": _motherNameController.text,
         "permanent_address": _permanentAddressController.text,
-        //"nationality": _selectedNationalityDropDownItem,
-        //"religion": _selectedReligionDropDownItem,
+        "nationality": _selectedNationalityDropDownItem.id,
+        "religion": _selectedReligionDropDownItem.id,
         "address": _currentAddressController.text,
         //"gender": _gender,
         //"date_of_birth": _chosenDate
@@ -344,7 +345,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                   ),
                   spaceBetweenFields,
                   //Nationality
-                  CustomDropdownButtonFormField<String>(
+                  CustomDropdownButtonFormField<Nationality>(
                     labelText: StringUtils.nationalityText,
                     hint: Text('Tap to select'),
                     value: _selectedNationalityDropDownItem,
@@ -352,7 +353,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                       _selectedNationalityDropDownItem = value;
                       setState(() {});
                     },
-                    items: _nationalityExpertiseList,
+                    items: _nationalityList,
                   ),
                   spaceBetweenFields,
                   //Religion

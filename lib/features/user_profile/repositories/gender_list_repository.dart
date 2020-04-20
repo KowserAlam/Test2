@@ -6,7 +6,7 @@ import 'package:p7app/main_app/failure/error.dart';
 
 class GenderListRepository{
 
-  Future<Either<AppError,List<String>>> getIndustryList() async{
+  Future<Either<AppError,List<String>>> getGenderList() async{
     try{
 
       var res = await ApiClient().getRequest(Urls.genderListUrl);
@@ -30,12 +30,12 @@ class GenderListRepository{
     }
   }
   List<String> fromJson(json){
-   List<String> list = [];
+    List<String> list = [];
 //   List<Map<String,dynamic>> tl = json.cast<Map<String,dynamic>>();
 //    tl.map<String>((e) => e['name']).toList();
-   json.forEach((element) {
-     list.add(element['name']);
-   });
-   return list;
+    json.forEach((element) {
+      list.add(element['name']);
+    });
+    return list;
   }
 }
