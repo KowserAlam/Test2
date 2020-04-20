@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:p7app/features/user_profile/models/user_model.dart';
 import 'package:p7app/features/user_profile/models/user_personal_info.dart';
 import 'package:p7app/features/user_profile/repositories/nationality_list_repository.dart';
+import 'package:p7app/features/user_profile/repositories/religion_list_repository.dart';
 import 'package:p7app/features/user_profile/repositories/user_profile_repository.dart';
 import 'package:p7app/features/user_profile/styles/profile_common_style.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
@@ -21,7 +22,6 @@ import 'package:dartz/dartz.dart' as dartZ;
 
 class EditPersonalInfoScreen extends StatefulWidget {
   final UserModel userModel;
-
   EditPersonalInfoScreen({@required this.userModel});
 
   @override
@@ -51,15 +51,21 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
   String radioValue;
   String _gender;
   DateTime _chosenDate;
+
+  //Nationality
   List<DropdownMenuItem<String>> _nationalityExpertiseList = [];
   String _selectedNationalityDropDownItem;
+
+  //Nationality
+  List<DropdownMenuItem<String>> _religionList = [];
+  String _selectedReligionDropDownItem;
 
   @override
   void initState() {
     // TODO: implement initState
     radioValue = 'one';
     _gender = 'male';
-    _chosenDate = widget.userModel.personalInfo.dateOfBirth;
+    _chosenDate = widget.userModel.personalInfo.dateOfBirth ?? DateTime.now();
     var personalInfo = widget.userModel.personalInfo;
     _fatherNameController.text = personalInfo.fatherName ?? "";
     _motherNameController.text = personalInfo.motherName ?? "";
@@ -88,17 +94,38 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
       });
     });
 
+    ReligionListRepository()
+        .getReligionList()
+        .then((dartZ.Either<AppError, List<String>> value) {
+      value.fold((l) {
+        // left
+        BotToast.showText(text: "Unable to load expertise list ");
+      }, (r) {
+        // right
+        _nationalityExpertiseList = r
+            .map((e) => DropdownMenuItem(
+          key: Key(e),
+          value: e,
+          child: Text(e ?? ""),
+        ))
+            .toList();
+        setState(() {});
+      });
+    });
+
     super.initState();
   }
+
 
   _handleSave() async {
     var isValid = _formKey.currentState.validate();
 
     if (isValid) {
       var userViewModel =
-          Provider.of<UserProfileViewModel>(context, listen: false);
+      Provider.of<UserProfileViewModel>(context, listen: false);
       var userData = userViewModel.userData;
       UserPersonalInfo personalInfo = userViewModel.userData.personalInfo;
+
 
       var data = {
         "father_name": _fatherNameController.text,
@@ -119,7 +146,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
       }
 
       dartZ.Either<AppError, UserPersonalInfo> res =
-          await UserProfileRepository().updateUserBasicInfo(data);
+      await UserProfileRepository().updateUserBasicInfo(data);
       res.fold((l) {
         // left
         print(l);
@@ -136,9 +163,10 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     //TextStyle
-    TextStyle titleFont = TextStyle(
-        fontSize: 15, color: Colors.black, fontWeight: FontWeight.bold);
+    TextStyle titleFont = TextStyle(fontSize: 15, color: Colors.black, fontWeight: FontWeight.bold);
+
 
     void radioButtonChanges(String value) {
       setState(() {
@@ -158,19 +186,12 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
       });
     }
 
-    var spaceBetweenFields = SizedBox(
-      height: 15,
-    );
+    var spaceBetweenFields = SizedBox(height: 15,);
     var genderSelection = Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
-        SizedBox(
-          width: 5,
-        ),
-        Text(
-          'Gender:',
-          style: titleFont,
-        ),
+        SizedBox(width: 5,),
+        Text('Gender:',style: titleFont,),
         Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -182,15 +203,10 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                   value: 'one',
                   onChanged: radioButtonChanges,
                 ),
-                Text(
-                  'Male',
-                  style: TextStyle(),
-                ),
+                Text('Male', style: TextStyle(),),
               ],
             ),
-            SizedBox(
-              width: 10,
-            ),
+            SizedBox(width: 10,),
             Row(
               children: <Widget>[
                 Radio(
@@ -198,10 +214,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                   value: 'two',
                   onChanged: radioButtonChanges,
                 ),
-                Text(
-                  'Female',
-                  style: TextStyle(),
-                ),
+                Text('Female', style: TextStyle(),),
               ],
             )
           ],
@@ -252,19 +265,13 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                         color: Theme.of(context).backgroundColor,
                         borderRadius: BorderRadius.circular(7),
                         boxShadow: [
-                          BoxShadow(
-                              color: Color(0xff000000).withOpacity(0.2),
-                              blurRadius: 20),
-                          BoxShadow(
-                              color: Color(0xfffafafa).withOpacity(0.2),
-                              blurRadius: 20),
-                        ],
-                      ),
+                          BoxShadow(color: Color(0xff000000).withOpacity(0.2), blurRadius: 20),
+                          BoxShadow(color: Color(0xfffafafa).withOpacity(0.2), blurRadius: 20),
+
+                        ],),
                       padding: EdgeInsets.all(8),
                       child: Text(
-                        kDateFormatBD.format(
-                            widget.userModel.personalInfo.dateOfBirth ??
-                                "Choose Date"),
+                          kDateFormatBD.format(widget.userModel.personalInfo.dateOfBirth??"Choose Date"),
                       ),
                     ),
                   ),
@@ -279,7 +286,8 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                     focusNode: _fatherNameFocusNode,
                     textInputAction: TextInputAction.next,
                     onFieldSubmitted: (a) {
-                      FocusScope.of(context).requestFocus(_motherNameFocusNode);
+                      FocusScope.of(context)
+                          .requestFocus(_motherNameFocusNode);
                     },
                     controller: _fatherNameController,
                     labelText: StringUtils.fatherNameText,
@@ -368,6 +376,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
   }
 
   _showDateOfBirthPicker(context) {
+
     showDialog(
         context: context,
         builder: (context) {
@@ -381,12 +390,11 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                   children: <Widget>[
                     Expanded(
                       child: CupertinoTheme(
-                        data: CupertinoThemeData(
-                            brightness: Theme.of(context).brightness),
+                        data: CupertinoThemeData(brightness: Theme.of(context).brightness),
                         child: CupertinoDatePicker(
-                          initialDateTime: _chosenDate ?? DateTime.now(),
+                          initialDateTime: _chosenDate??DateTime.now(),
                           mode: CupertinoDatePickerMode.date,
-                          onDateTimeChanged: (v) {
+                          onDateTimeChanged: (v){
                             setState(() {
                               _chosenDate = v;
                             });
