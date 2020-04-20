@@ -1,10 +1,13 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 import 'package:p7app/features/user_profile/models/user_model.dart';
 import 'package:p7app/features/user_profile/models/user_personal_info.dart';
+import 'package:p7app/features/user_profile/repositories/nationality_list_repository.dart';
 import 'package:p7app/features/user_profile/repositories/user_profile_repository.dart';
 import 'package:p7app/features/user_profile/styles/profile_common_style.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
+import 'package:p7app/features/user_profile/views/widgets/custom_dropdown_button_form_field.dart';
 import 'package:p7app/features/user_profile/views/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/failure/error.dart';
 import 'package:p7app/main_app/resource/const.dart';
@@ -47,6 +50,8 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
   String radioValue;
   String _gender;
   DateTime _chosenDate;
+  List<DropdownMenuItem<String>> _nationalityExpertiseList = [];
+  String _selectedNationalityDropDownItem;
   @override
   void initState() {
     // TODO: implement initState
@@ -61,6 +66,25 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
     _permanentAddressController.text = personalInfo.permanentAddress ?? "";
     _nationalityController.text = personalInfo.nationality ?? "";
     _religionController.text = personalInfo.religion ?? "";
+
+    NationalityListRepository()
+        .getNationalityList()
+        .then((dartZ.Either<AppError, List<String>> value) {
+      value.fold((l) {
+        // left
+        BotToast.showText(text: "Unable to load expertise list ");
+      }, (r) {
+        // right
+        _nationalityExpertiseList = r
+            .map((e) => DropdownMenuItem(
+          key: Key(e),
+          value: e,
+          child: Text(e ?? ""),
+        ))
+            .toList();
+        setState(() {});
+      });
+    });
 
     super.initState();
   }
@@ -90,7 +114,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
         "address": _currentAddressController.text,
         "permanent_address" : _permanentAddressController.text,
         "gender": _gender,
-        //"date_of_birth": _chosenDate
+        "date_of_birth": _chosenDate
       };
 
 //      if (fileProfileImage != null) {
@@ -283,8 +307,8 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                     textInputAction: TextInputAction.next,
                     keyboardType: TextInputType.text,
                     onFieldSubmitted: (a) {
-                      FocusScope.of(context)
-                          .requestFocus(_nationalityFocusNode);
+//                      FocusScope.of(context)
+//                          .requestFocus(_nationalityFocusNode);
                     },
                     controller: _permanentAddressController,
                     labelText: StringUtils.permanentAddressText,
@@ -292,18 +316,15 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                   ),
                   spaceBetweenFields,
                   //Nationality
-                  CustomTextFormField(
-                    validator: Validator().nullFieldValidate,
-                    focusNode: _nationalityFocusNode,
-                    keyboardType: TextInputType.text,
-                    textInputAction: TextInputAction.next,
-                    onFieldSubmitted: (a) {
-                      FocusScope.of(context)
-                          .requestFocus(_religionFocusNode);
-                    },
-                    controller: _nationalityController,
+                  CustomDropdownButtonFormField<String>(
                     labelText: StringUtils.nationalityText,
-                    hintText: StringUtils.nationalityText,
+                    hint: Text('Tap to select'),
+                    value: _selectedNationalityDropDownItem,
+                    onChanged: (value) {
+                      _selectedNationalityDropDownItem = value;
+                      setState(() {});
+                    },
+                    items: _nationalityExpertiseList,
                   ),
                   spaceBetweenFields,
                   //Religion
