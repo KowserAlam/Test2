@@ -80,7 +80,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
         .then((dartZ.Either<AppError, List<String>> value) {
       value.fold((l) {
         // left
-        BotToast.showText(text: "Unable to load expertise list ");
+        BotToast.showText(text: "Unable to load nationality list ");
       }, (r) {
         // right
         _nationalityExpertiseList = r
@@ -99,7 +99,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
         .then((dartZ.Either<AppError, List<String>> value) {
       value.fold((l) {
         // left
-        BotToast.showText(text: "Unable to load expertise list ");
+        BotToast.showText(text: "Unable to load religion list ");
       }, (r) {
         // right
         _religionList = r
@@ -131,11 +131,11 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
         "father_name": _fatherNameController.text,
         "mother_name": _motherNameController.text,
         "permanent_address": _permanentAddressController.text,
-        "nationality": _selectedNationalityDropDownItem,
-        "religion": _selectedReligionDropDownItem,
+        //"nationality": _selectedNationalityDropDownItem,
+        //"religion": _selectedReligionDropDownItem,
         "address": _currentAddressController.text,
         "permanent_address" : _permanentAddressController.text,
-        "gender": _gender,
+        //"gender": _gender,
         //"date_of_birth": _chosenDate
       };
 
@@ -345,6 +345,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                     onChanged: (value) {
                       _selectedNationalityDropDownItem = value;
                       setState(() {});
+                      print(_selectedNationalityDropDownItem);
                     },
                     items: _nationalityExpertiseList,
                   ),
