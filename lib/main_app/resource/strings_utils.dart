@@ -25,7 +25,7 @@ class StringUtils {
       "Password must be at least 8 characters long with at least one digit and one letter";
   static String passwordDoesNotMatch = "Password doesn't match";
   static String enterValidEmail = 'Enter Valid Email';
-  static String enterValidPhoneNumber = 'Enter Valid Phone Number';
+  static String enterValidPhoneNumber = 'Enter Valid Phone Number (Bangladesh)';
 
   ///
   static String passwordText = "Password";
