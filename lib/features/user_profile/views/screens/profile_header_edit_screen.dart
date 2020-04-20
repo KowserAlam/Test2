@@ -8,7 +8,9 @@ import 'package:p7app/features/user_profile/models/user_model.dart';
 import 'package:p7app/features/user_profile/models/user_personal_info.dart';
 import 'package:p7app/features/user_profile/repositories/industry_list_repository.dart';
 import 'package:p7app/features/user_profile/repositories/user_profile_repository.dart';
+import 'package:p7app/features/user_profile/styles/profile_common_style.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
+import 'package:p7app/features/user_profile/views/widgets/customDropdown_button_form_field.dart';
 import 'package:p7app/features/user_profile/views/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/failure/error.dart';
 import 'package:p7app/main_app/resource/const.dart';
@@ -258,7 +260,8 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
 //              hintText: "eg. Software Engineer",
 //            ),
 
-            DropdownButtonFormField<String>(
+            CustomDropdownButtonFormField<String>(
+              labelText: StringUtils.industryExpertiseText,
               hint: Text('Tap to select'),
               value: _selectedIndustryExpertiseDropDownItem,
               onChanged: (value) {
