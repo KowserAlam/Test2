@@ -43,6 +43,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
   //Variables
   String radioValue;
   String _gender;
+  DateTime _chosenDate;
   @override
   void initState() {
     // TODO: implement initState
@@ -75,8 +76,11 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
         "father_name": _fatherNameController.text,
         "mother_name": _motherNameController.text,
         "permanent_address": _permanentAddressController.text,
-        //"nationality": _nationalityController.text,
-        //"religion": _nationalityController.text
+        "nationality": _nationalityController.text,
+        "religion": _nationalityController.text,
+        "address": _currentAddressController.text,
+        "permanent_address" : _permanentAddressController.text,
+        "date_of_birth": _chosenDate
       };
 
 //      if (fileProfileImage != null) {
@@ -203,7 +207,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                         ],),
                       padding: EdgeInsets.all(8),
                       child: Text(
-                        "DOB",
+                        ''
                       ),
                     ),
                   ),
@@ -331,7 +335,11 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                         child: CupertinoDatePicker(
                           initialDateTime: initialDate,
                           mode: CupertinoDatePickerMode.date,
-                          onDateTimeChanged: (v){},
+                          onDateTimeChanged: (v){
+                            setState(() {
+                              _chosenDate = v;
+                            });
+                          },
                         ),
                       ),
                     ),

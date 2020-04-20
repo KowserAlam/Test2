@@ -28,6 +28,7 @@ class UserPersonalInfo {
   String qualification;
   String nationality;
   String religion;
+  String permanentAddress;
 
   UserPersonalInfo(
       {this.id,
@@ -54,7 +55,8 @@ class UserPersonalInfo {
         this.experience,
         this.qualification,
         this.nationality,
-      this.religion});
+      this.religion,
+      this.permanentAddress});
 
   UserPersonalInfo.fromJson(Map<String, dynamic> json) {
     String baseUrl = FlavorConfig.instance.values.baseUrl;
@@ -87,6 +89,8 @@ class UserPersonalInfo {
     experience = json['experience'];
     qualification = json['qualification'];
     nationality = json['nationality'];
+    religion = json['religion'];
+    permanentAddress = json['permanent_address'];
   }
 
   Map<String, dynamic> toJson() {
@@ -112,6 +116,8 @@ class UserPersonalInfo {
     data['experience'] = this.experience;
     data['qualification'] = this.qualification;
     data['nationality'] = this.nationality;
+    data['religion'] = this.religion;
+    data['permanent_address'] = this.permanentAddress;
     return data;
   }
 }
