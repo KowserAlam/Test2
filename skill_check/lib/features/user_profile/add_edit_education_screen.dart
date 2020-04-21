@@ -82,10 +82,10 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen>
               addEditEducationProvider.currentlyStudyingHere);
 
       if(education == null || index == null){
-        education.skillId = Uuid().v1();
+        education.profSkillId = Uuid().v1();
         addEditEducationProvider.addData(context, education);
       }else{
-        education.skillId = educationModel.skillId;
+        education.profSkillId = educationModel.profSkillId;
 
         addEditEducationProvider.updateData(_scaffoldKey.currentContext, education, index);
       }

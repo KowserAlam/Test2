@@ -54,10 +54,10 @@ class _AddEditTechnicalSkillState extends State<AddEditTechnicalSkill> with Afte
       );
 
       if(education == null || index == null){
-        education.skillId = Uuid().v1();
+        education.profSkillId = Uuid().v1();
         technicalSkillProvider.addData(context, education);
       }else{
-        education.skillId = technicalSkill.skillId;
+        education.profSkillId = technicalSkill.profSkillId;
         technicalSkillProvider.updateData(_scaffoldKey.currentContext, education, index);
       }
 

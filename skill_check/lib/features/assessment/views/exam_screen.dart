@@ -73,9 +73,9 @@ class _ExamScreenState extends State<ExamScreen>
 
     /// fetching question then initializing tab controller  with question  length then starting clock
 
-   print(enrolledExamModel.skillId);
+   print(enrolledExamModel.profSkillId);
     Provider.of<ExamProvider>(context, listen: false)
-        .getQuestionData("${enrolledExamModel.skillId}")
+        .getQuestionData("${enrolledExamModel.profSkillId}")
         .then((length) {
       if (length != null) {
         _tabController = TabController(length: length, vsync: this);
@@ -93,7 +93,7 @@ class _ExamScreenState extends State<ExamScreen>
     submitProvider.isSubmitting = true;
 
     submitProvider
-        .handleSubmit(context, "${enrolledExamModel.skillId}")
+        .handleSubmit(context, "${enrolledExamModel.profSkillId}")
         .then((isSuccess) {
       submitProvider.isSubmitting = false;
       if (isSuccess) {

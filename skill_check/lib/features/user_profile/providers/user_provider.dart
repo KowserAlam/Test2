@@ -61,7 +61,7 @@ class UserProvider with ChangeNotifier {
       _userData.email = right.email;
       _userData.profilePicUrl = right.profilePicUrl;
       _userData.displayName = right.displayName;
-      _userData.skillId = right.skillId;
+      _userData.profSkillId = right.profSkillId;
       _userData.mobileNumber = right.mobileNumber;
       _userData.designation = right.designation;
       _userData.city = right.city;
@@ -129,7 +129,7 @@ var dummyUserData = UserProfileModel(
     ),
     experienceList: [
       Experience(
-          skillId: Uuid().v1(),
+          profSkillId: Uuid().v1(),
           organizationName: "Ishraak Solutions",
           position: "Software Engineer",
           joiningDate: DateTime.now().subtract(
@@ -142,7 +142,7 @@ var dummyUserData = UserProfileModel(
             Duration(days: 360 * 30),
           )),
       Experience(
-          skillId: Uuid().v1(),
+          profSkillId: Uuid().v1(),
           organizationName: "Microsoft",
           position: "CEO",
           joiningDate: DateTime.now().subtract(
@@ -154,7 +154,7 @@ var dummyUserData = UserProfileModel(
     ],
     educationModelList: [
       Education(
-          skillId: Uuid().v1(),
+          profSkillId: Uuid().v1(),
           degree: "Bachelor of Science",
           nameOfInstitution: "Howard University",
           passingYear: DateTime.now().add(Duration(days: 356 * 80)),
@@ -163,7 +163,7 @@ var dummyUserData = UserProfileModel(
     ],
     technicalSkillList: [
       TechnicalSkill(
-          skillId: Uuid().v1(), level: 4.5, skillName: "Django", isVerified: true),
+          profSkillId: Uuid().v1(), level: 4.5, skillName: "Django", isVerified: true),
       TechnicalSkill(
-          skillId: Uuid().v1(), level: 4.5, skillName: "Python", isVerified: false),
+          profSkillId: Uuid().v1(), level: 4.5, skillName: "Python", isVerified: false),
     ]);

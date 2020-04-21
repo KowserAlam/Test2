@@ -218,7 +218,7 @@ class UserProfileRepository {
     BotToast.showLoading();
     var authUser = await AuthService.getInstance();
     var professionalId = authUser.getUser().professionalId;
-    var url = "${Urls.professionalSkillUrl}/${skillInfo.skillId}/";
+    var url = "${Urls.professionalSkillUrl}/${skillInfo.profSkillId}/";
 
     var data = skillInfo.toJson();
     data.addAll({"professional_id": professionalId});
@@ -252,7 +252,7 @@ class UserProfileRepository {
   Future<Either<AppError, bool>> deleteUserSkill(
       SkillInfo skillInfo) async {
     BotToast.showLoading();
-    var url = "${Urls.professionalSkillUrl}/${skillInfo.skillId}/";
+    var url = "${Urls.professionalSkillUrl}/${skillInfo.profSkillId}/";
     var data = {"Is_archived": true};
 
     try {

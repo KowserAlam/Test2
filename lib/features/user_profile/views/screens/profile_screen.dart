@@ -4,7 +4,7 @@ import 'package:p7app/features/user_profile/views/screens/edit_portfolio_screen.
 import 'package:p7app/features/user_profile/views/screens/edit_reference_screen.dart';
 import 'package:p7app/features/user_profile/views/screens/portfolio_list_item_widget.dart';
 import 'package:p7app/features/user_profile/views/screens/certifications_list_item_widget.dart';
-import 'package:p7app/features/user_profile/views/screens/references_list_item_widget.dart';
+import 'package:p7app/features/user_profile/views/widgets/references_list_item_widget.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p7app/features/user_profile/models/member_ship_info.dart';
 import 'package:p7app/features/user_profile/views/screens/add_edit_education_screen.dart';

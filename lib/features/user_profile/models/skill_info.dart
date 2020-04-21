@@ -1,26 +1,27 @@
-
+import 'package:p7app/features/user_profile/models/skill.dart';
 
 class SkillInfo {
-  int skillId;
-  String skillName;
+  int profSkillId;
+  Skill skill;
   int rating;
-  bool verifiedBySkillcheck;
+  bool verifiedBySkillCheck;
 
-  SkillInfo({this.skillId,this.skillName, this.rating, this.verifiedBySkillcheck});
+  SkillInfo({this.profSkillId, this.rating, this.verifiedBySkillCheck,this.skill});
 
   SkillInfo.fromJson(Map<String, dynamic> json) {
-    skillId = json['prof_skill_id'];
-    skillName = json['skill']?.toString();
+    profSkillId = json['prof_skill_id'];
+
+    if (json['skill'] != null) {
+      skill = Skill.fromJson(json['skill']);
+    }
     rating = json['rating'];
-    verifiedBySkillcheck = json['verified_by_skillcheck'];
+    verifiedBySkillCheck = json['verified_by_skillcheck'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['skill'] = this.skillName;
+    data['name_id'] = this.skill?.id;
     data['rating'] = this.rating;
-    data['verified_by_skillcheck'] = this.verifiedBySkillcheck;
-
     return data;
   }
 }

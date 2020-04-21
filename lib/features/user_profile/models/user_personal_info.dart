@@ -66,7 +66,7 @@ class UserPersonalInfo {
   });
 
   UserPersonalInfo.fromJson(Map<String, dynamic> json) {
-    String baseUrl = FlavorConfig.instance.values.baseUrl;
+    String baseUrl = FlavorConfig?.instance?.values?.baseUrl;
     var imageUlr = json['image'] == null ? kDefaultUserImageNetwork : "$baseUrl${json['image']}";
 
     id = json['id'];

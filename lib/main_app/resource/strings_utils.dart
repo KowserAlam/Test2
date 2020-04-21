@@ -288,6 +288,7 @@ class StringUtils {
   static var twitterUrlText  = "twitter Id Link";
   static var linkedUrlText  = "LinkedIn Id Link";
   static var unableToLoadExpertiseListText  = "Unable to load expertise list";
+  static var unableToLoadSkillListText  = "Unable to load skill list";
 
 
   /// password reset

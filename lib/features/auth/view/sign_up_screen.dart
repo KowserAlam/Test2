@@ -105,7 +105,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         onTap: () {
           _handleRegister();
         },
-        label: StringUtils.logInButtonText,
+        label: StringUtils.signUpText,
       ),
     );
     Widget signUpHeader = Container(

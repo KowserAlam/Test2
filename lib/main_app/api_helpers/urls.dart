@@ -20,14 +20,22 @@ class Urls {
   static String userProfileUpdateUrlPartial = "/api/professional/profile_update_partial";
   static String userProfileUpdateUrl = "/api/professional/profile_update";
   static String professionalReference = "/api/professional/professional_reference";
-  static String professionalSkillUrl = "/api/professional/professional_skill/";
-  static String professionalMembershipUrl = "/api/professional/professional_membership/";
+  static String professionalSkillUrl = "/api/professional/professional_skill";
+  static String professionalEducationUrl = "/api/professional/professional_education";
+  static String professionalMembershipUrl = "/api/professional/professional_membership";
 
 
   static String industryListUrl = "/api/industry/";
   static String genderListUrl = "/api/gender/";
   static String nationalityListUrl = "/api/professional/nationality/";
   static String religionListUrl = "/api/professional/religion/";
+  static String skillListUrl = "/api/skill_list/";
+  static String instituteListUrl = "/api/institute/";
+  static String organizationListUrl = "/api/professional/organization/";
+  static String majorListUrl = "/api/professional/major/";
+  static String certificateNameListUrl = "/api/professional/certificate_name/";
+  static String qualificationListUrl = "/api/qualification/";
+  static String experienceListUrl = "/api/experience/";
 
 
 
@@ -47,6 +55,8 @@ class Urls {
   static String signUpEmailCheckUrl = "/api/signup/email";
   static String signUpEmailVerificationUrl = "/api/signup/email-verification";
   static String signUpEmailConfirmPassword = "/api/signup/examinee";
+
+
 
 //  http://p7.ishraak.com/api/job_list/?page=1&page_size=2
   static String jobListUrl = "/api/job_list";

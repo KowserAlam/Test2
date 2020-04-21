@@ -28,7 +28,7 @@ void main() {
             final result = QuestionModel.fromJson(jsonMap["questionListWithAns"].first);
 
             /// assert
-            expect("8",result.skillId.toString() );
+            expect("8",result.profSkillId.toString() );
           });
 
       test(
