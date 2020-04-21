@@ -359,7 +359,7 @@ class UserProfileRepository {
       MembershipInfo membershipInfo) async {
     BotToast.showLoading();
     var url = "${Urls.professionalMembershipUrl}/${membershipInfo.membershipId}/";
-    var data = {"Is_archived": true};
+    var data = {"is_archived": true};
 
     try {
       var response = await ApiClient().putRequest(url, data);
