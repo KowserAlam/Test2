@@ -1,5 +1,6 @@
 import 'package:p7app/features/user_profile/models/religion.dart';
 import 'package:p7app/main_app/flavour/flavour_config.dart';
+import 'package:p7app/main_app/resource/const.dart';
 
 class UserPersonalInfo {
   String id;
@@ -29,6 +30,8 @@ class UserPersonalInfo {
   String religion;
   String permanentAddress;
   String currentLocation;
+  Religion religionObj;
+  Religion nationalityObj;
 
   UserPersonalInfo({
     this.id,
@@ -58,11 +61,12 @@ class UserPersonalInfo {
     this.religion,
     this.permanentAddress,
     this.currentLocation,
+    this.religionObj,
   });
 
   UserPersonalInfo.fromJson(Map<String, dynamic> json) {
     String baseUrl = FlavorConfig.instance.values.baseUrl;
-    var imageUlr = json['image'] == null ? null : "$baseUrl${json['image']}";
+    var imageUlr = json['image'] == null ? kDefaultUserImageNetwork : "$baseUrl${json['image']}";
 
     id = json['id'];
     professionalId = json['professional_id'];
@@ -79,8 +83,16 @@ class UserPersonalInfo {
     twitterId = json['twitter_id'];
     linkedinId = json['linkedin_id'];
     currentLocation = json['current_location'];
+
     if (json['date_of_birth'] != null) {
       dateOfBirth = DateTime.parse(json['date_of_birth']);
+    }
+
+    if (json['religion_obj'] != null) {
+      religionObj = Religion.fromJson(json['religion_obj']);
+    }
+    if (json['nationality_obj'] != null) {
+      religionObj = Religion.fromJson(json['nationality_obj']);
     }
 
     expectedSalaryMin = json['expected_salary_min'];
