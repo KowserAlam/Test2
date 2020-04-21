@@ -49,7 +49,6 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
   var _aboutTextEditingController = TextEditingController();
   var _locationEditingController = TextEditingController();
   var _phoneEditingController = TextEditingController();
-
   var _facebookEditingController = TextEditingController();
   var _twitterEditingController = TextEditingController();
   var _linkedInEditingController = TextEditingController();
@@ -267,14 +266,6 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
             ),
             SizedBox(height: 10),
 
-//            /// Designation
-//            CustomTextFormField(
-//              focusNode: _designationFocusNode,
-//              controller: industryExpertiseTextEditingController,
-//              validator: Validator().nullFieldValidate,
-//              labelText: "Designation",
-//              hintText: "eg. Software Engineer",
-//            ),
 
             CustomDropdownButtonFormField<String>(
               labelText: StringUtils.industryExpertiseText,
@@ -354,7 +345,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
             SizedBox(height: 10),
             ///linkedIn
             CustomTextFormField(
-              controller: _twitterEditingController,
+              controller: _linkedInEditingController,
               keyboardType: TextInputType.multiline,
               labelText: StringUtils.linkedUrlText
             ),
