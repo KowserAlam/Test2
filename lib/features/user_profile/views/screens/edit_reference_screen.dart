@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:p7app/features/user_profile/models/reference_data.dart';
 import 'package:p7app/features/user_profile/repositories/user_profile_repository.dart';
@@ -92,7 +94,7 @@ class _EditReferenceScreenState extends State<EditReferenceScreen> {
       validator: Validator().nullFieldValidate,
       keyboardType: TextInputType.text,
       focusNode: _nameFocusNode,
-      autofocus: true,
+      autovalidate: true,
       textInputAction: TextInputAction.next,
       onFieldSubmitted: (a) {
         FocusScope.of(context).requestFocus(_currentPositionFocusNode);
@@ -103,10 +105,8 @@ class _EditReferenceScreenState extends State<EditReferenceScreen> {
     );
 
     var currentPosition = CustomTextFormField(
-      validator: Validator().nullFieldValidate,
       focusNode: _currentPositionFocusNode,
       keyboardType: TextInputType.text,
-      autofocus: true,
       textInputAction: TextInputAction.next,
       onFieldSubmitted: (a) {
         FocusScope.of(context).requestFocus(_emailFocusNode);
@@ -119,7 +119,7 @@ class _EditReferenceScreenState extends State<EditReferenceScreen> {
       validator: (val) => Validator().validateEmail(val.trim()),
       focusNode: _emailFocusNode,
       keyboardType: TextInputType.emailAddress,
-      autofocus: true,
+      autovalidate: true,
       textInputAction: TextInputAction.next,
       onFieldSubmitted: (a) {
         FocusScope.of(context).requestFocus(_mobileFocusNode);
@@ -129,10 +129,10 @@ class _EditReferenceScreenState extends State<EditReferenceScreen> {
       hintText: StringUtils.referenceEmailText,
     );
     var mobile = CustomTextFormField(
+      autovalidate: true,
       validator: (val) => Validator().validatePhoneNumber(val.trim()),
       focusNode: _mobileFocusNode,
       keyboardType: TextInputType.number,
-      autofocus: true,
       onFieldSubmitted: (a) {
 //                      FocusScope.of(context)
 //                          .requestFocus(_nationalityFocusNode);
