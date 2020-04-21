@@ -34,7 +34,7 @@ class SubmitProvider with ChangeNotifier {
   List<int> getSortedAnsListInInteger(QuestionModel data) {
     List<int> ansList = [];
     data.selectedAnswers.forEach((Answers ans) {
-      ansList.add(int.parse(ans.id));
+      ansList.add(int.parse(ans.skillId));
     });
     ansList.sort();
     return ansList;
@@ -52,10 +52,10 @@ class SubmitProvider with ChangeNotifier {
     questionList.forEach((QuestionModel data) {
       List<int> ansListInInt = getSortedAnsListInInteger(data);
       String ansString = ansListInInt.join(',');
-      data.selectedAnswers.map((Answers ans) => ans.id);
+      data.selectedAnswers.map((Answers ans) => ans.skillId);
       submitQuestionAnsModel.add(
         SubmitQuestionAnsModel(
-            questionIdId: data.id,
+            questionIdId: data.skillId,
             questionText: data.question,
             submittedAnsId: ansString),
       );

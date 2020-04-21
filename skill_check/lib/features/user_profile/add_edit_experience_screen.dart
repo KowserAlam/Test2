@@ -65,10 +65,10 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
       );
 
       if (experienceModel == null || index == null) {
-        exp.id= Uuid().v1();
+        exp.skillId= Uuid().v1();
         addEditProvider.addData(_formKey.currentContext, exp);
       } else {
-        exp.id= experienceModel.id;
+        exp.skillId= experienceModel.skillId;
         addEditProvider.updateData(
             _formKey.currentContext, exp, index);
       }

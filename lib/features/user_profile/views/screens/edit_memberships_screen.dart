@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:p7app/features/user_profile/models/member_ship_info.dart';
 import 'package:p7app/features/user_profile/views/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/util/validator.dart';
@@ -7,6 +8,10 @@ import 'package:p7app/main_app/widgets/common_button.dart';
 import 'package:p7app/main_app/widgets/edit_screen_save_button.dart';
 
 class EditMemberShips extends StatefulWidget {
+  final MembershipInfo membershipInfo;
+  final int index;
+
+  const EditMemberShips({this.membershipInfo, this.index});
   @override
   _EditMemberShipsState createState() => _EditMemberShipsState();
 }
@@ -19,8 +24,6 @@ class _EditMemberShipsState extends State<EditMemberShips> {
   final _orgNameController = TextEditingController();
   final _positionHeldController = TextEditingController();
   final _membershipOngoingController = TextEditingController();
-  final _startDateController = TextEditingController();
-  final _endDateController = TextEditingController();
   final _descriptionController = TextEditingController();
 
 
@@ -28,13 +31,22 @@ class _EditMemberShipsState extends State<EditMemberShips> {
   final _orgNameFocusNode = FocusNode();
   final _positionHeldFocusNode = FocusNode();
   final _membershipOngoingFocusNode = FocusNode();
-  final _startDateFocusNode = FocusNode();
-  final _endDateFocusNode = FocusNode();
   final _descriptionFocusNode = FocusNode();
 
 
   //widgets
   var spaceBetweenFields = SizedBox(height: 15,);
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    if(widget.membershipInfo != null){
+      _orgNameController.text = widget.membershipInfo.orgName;
+      _positionHeldController.text = widget.membershipInfo.positionHeld;
+      _descriptionController.text = widget.membershipInfo.desceription;
+    }
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     Function _handleSave = (){

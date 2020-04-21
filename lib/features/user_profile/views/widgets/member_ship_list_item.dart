@@ -6,10 +6,12 @@ import 'package:p7app/features/user_profile/styles/profile_common_style.dart';
 class MemberShipListItem extends StatelessWidget {
   final MembershipInfo memberShip;
   final Function onTapEdit;
+  final Function onTapDelete;
   final bool isInEditMode;
   MemberShipListItem({
-    @required this.memberShip,this.onTapEdit,this.isInEditMode
-  });
+    Key key,
+    @required this.memberShip,this.onTapEdit,this.isInEditMode,this.onTapDelete
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -28,9 +30,22 @@ class MemberShipListItem extends StatelessWidget {
             child: Icon(FontAwesomeIcons.certificate)),
         title: Text(memberShip.positionHeld??""),
         subtitle: Text(memberShip.orgName??""),
-        trailing: !isInEditMode?SizedBox():IconButton(
-          icon: Icon(FontAwesomeIcons.edit),
-          onPressed: onTapEdit,
+        trailing: !isInEditMode?SizedBox():Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            IconButton(
+              icon: Icon(FontAwesomeIcons.edit),
+              onPressed: onTapEdit,
+              iconSize: 18,
+              color: Colors.black,
+            ),
+            IconButton(
+              icon: Icon(FontAwesomeIcons.trash),
+              onPressed: onTapDelete,
+              iconSize: 18,
+              color: Colors.black,
+            ),
+          ],
         ),
       ),
     );

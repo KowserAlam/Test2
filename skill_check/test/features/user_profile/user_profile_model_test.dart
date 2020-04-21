@@ -46,7 +46,7 @@ main() {
 
 
           /// assert
-          expect(result.id, null);
+          expect(result.skillId, null);
 
         });
 

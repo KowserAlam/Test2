@@ -47,7 +47,7 @@ void main() {
           List<FeaturedExamModel> list = FeaturedExamSearchRepository().jsonFromMap(data);
           //assert
 
-          expect(list[0].id, tID);
+          expect(list[0].skillId, tID);
         });
   });
 }
