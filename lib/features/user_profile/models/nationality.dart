@@ -1,4 +1,6 @@
-class Nationality {
+import 'package:equatable/equatable.dart';
+
+class Nationality extends Equatable{
   int id;
   String name;
 
@@ -15,4 +17,11 @@ class Nationality {
     data['name'] = this.name;
     return data;
   }
+
+  @override
+  // TODO: implement props
+  List<Object> get props => [id,name];
+
+  @override
+  bool get stringify => true;
 }

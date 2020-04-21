@@ -1,10 +1,14 @@
-class Religion {
-  int id;
-  String name;
+import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
 
-  Religion({this.id, this.name});
 
-  Religion.fromJson(Map<String, dynamic> json) {
+class Religion extends Equatable{
+   int id;
+   String name;
+
+   Religion({this.id, this.name});
+
+   Religion.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
   }
@@ -15,4 +19,11 @@ class Religion {
     data['name'] = this.name;
     return data;
   }
+
+  @override
+  // TODO: implement props
+  List<Object> get props => [id,name];
+
+   @override
+   bool get stringify => true;
 }

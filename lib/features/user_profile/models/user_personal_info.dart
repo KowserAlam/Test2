@@ -1,3 +1,4 @@
+import 'package:p7app/features/user_profile/models/nationality.dart';
 import 'package:p7app/features/user_profile/models/religion.dart';
 import 'package:p7app/main_app/flavour/flavour_config.dart';
 import 'package:p7app/main_app/resource/const.dart';
@@ -31,7 +32,7 @@ class UserPersonalInfo {
   String permanentAddress;
   String currentLocation;
   Religion religionObj;
-  Religion nationalityObj;
+  Nationality nationalityObj;
 
   UserPersonalInfo({
     this.id,
@@ -92,7 +93,7 @@ class UserPersonalInfo {
       religionObj = Religion.fromJson(json['religion_obj']);
     }
     if (json['nationality_obj'] != null) {
-      religionObj = Religion.fromJson(json['nationality_obj']);
+      nationalityObj = Nationality.fromJson(json['nationality_obj']);
     }
 
     expectedSalaryMin = json['expected_salary_min'];
