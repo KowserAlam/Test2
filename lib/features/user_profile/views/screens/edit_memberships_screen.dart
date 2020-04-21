@@ -61,7 +61,7 @@ class _EditMemberShipsState extends State<EditMemberShips> {
     bool isValid = _formKey.currentState.validate();
     if (isValid) {
       var membershipInfo = MembershipInfo(
-        membershipId: widget.membershipInfo?.membershipId,
+        //membershipId: widget.membershipInfo?.membershipId,
         //orgName: _orgNameController.text,
         positionHeld: _positionHeldController.text,
         desceription: _descriptionController.text
