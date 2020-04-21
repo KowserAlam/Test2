@@ -11,12 +11,14 @@ class CustomTextFormField extends StatefulWidget {
   final EdgeInsetsGeometry contentPadding;
   final FocusNode focusNode;
   final bool autofocus;
+  final bool autovalidate;
   final TextInputAction textInputAction;
   final ValueChanged<String> onFieldSubmitted;
 
   const CustomTextFormField({
     this.validator,
     this.textInputAction,
+    this.autovalidate = false,
     this.controller,
     this.onFieldSubmitted,
     this.focusNode,
@@ -77,6 +79,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             autofocus: widget.autofocus,
             focusNode: widget.focusNode,
             maxLines: widget.maxLines,
+            autovalidate: widget.autovalidate,
             keyboardType: widget.keyboardType,
             validator: widget.validator,
             controller: widget.controller,
