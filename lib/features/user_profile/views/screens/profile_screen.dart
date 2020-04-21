@@ -1,4 +1,5 @@
 import 'package:after_layout/after_layout.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:p7app/features/user_profile/views/screens/edit_portfolio_screen.dart';
 import 'package:p7app/features/user_profile/views/screens/edit_reference_screen.dart';
 import 'package:p7app/features/user_profile/views/screens/portfolio_list_item_widget.dart';
@@ -146,14 +147,13 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
           builder: (context, userProfileViewModel, s) {
         return ClipRRect(
             borderRadius: BorderRadius.circular(100),
-            child: FadeInImage(
+            child: CachedNetworkImage(
               fit: BoxFit.cover,
-              placeholder: AssetImage(
+              imageUrl: userProfileViewModel.userData.personalInfo.image,
+              placeholder: (context, _) => Image.asset(
                 kDefaultUserImageAsset,
+                fit: BoxFit.cover,
               ),
-              image: NetworkImage(
-                  userProfileViewModel.userData.personalInfo.image ??
-                      kDefaultUserImageNetwork),
             ));
       }),
     );
@@ -179,8 +179,12 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
               color: AppTheme.facebookColor,
               borderRadius: BorderRadius.circular(20)),
           child: InkWell(
-            onTap: (){
-              UrlLauncherHelper.launchUrl(Provider.of<UserProfileViewModel>(context, listen: false).userData.personalInfo.facebookId);
+            onTap: () {
+              UrlLauncherHelper.launchUrl(
+                  Provider.of<UserProfileViewModel>(context, listen: false)
+                      .userData
+                      .personalInfo
+                      .facebookId);
             },
             child: Icon(
               FontAwesomeIcons.facebookF,
@@ -199,9 +203,13 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
               color: AppTheme.linkedInColor,
               borderRadius: BorderRadius.circular(20)),
           child: InkWell(
-          onTap: (){
-            UrlLauncherHelper.launchUrl(Provider.of<UserProfileViewModel>(context, listen: false).userData.personalInfo.linkedinId);
-          },
+            onTap: () {
+              UrlLauncherHelper.launchUrl(
+                  Provider.of<UserProfileViewModel>(context, listen: false)
+                      .userData
+                      .personalInfo
+                      .linkedinId);
+            },
             child: Icon(
               FontAwesomeIcons.linkedinIn,
               color: Colors.white,
@@ -219,8 +227,12 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
               color: AppTheme.twitterColor,
               borderRadius: BorderRadius.circular(20)),
           child: InkWell(
-            onTap: (){
-              UrlLauncherHelper.launchUrl(Provider.of<UserProfileViewModel>(context, listen: false).userData.personalInfo.twitterId);
+            onTap: () {
+              UrlLauncherHelper.launchUrl(
+                  Provider.of<UserProfileViewModel>(context, listen: false)
+                      .userData
+                      .personalInfo
+                      .twitterId);
             },
             child: Icon(
               FontAwesomeIcons.twitter,
@@ -252,7 +264,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
       children: <Widget>[
         Icon(
           FontAwesomeIcons.mapMarkerAlt,
-          size: 15,
+          size: 10,
           color: profileHeaderFontColor,
         ),
         SizedBox(
@@ -549,14 +561,17 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
           return ReferencesListItemWidget(
             isInEditMode: isInEditModeReferences,
             referenceData: ref,
-            onTapDelete: (){
+            onTapDelete: () {
               userProfileViewModel.deleteReferenceData(ref, index);
             },
             onTapEdit: () {
               Navigator.push(
                   context,
                   CupertinoPageRoute(
-                      builder: (context) => EditReferenceScreen(referenceData: ref,index: index,)));
+                      builder: (context) => EditReferenceScreen(
+                            referenceData: ref,
+                            index: index,
+                          )));
             },
           );
         }),
@@ -567,110 +582,108 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
       appBar: AppBar(
         title: Text(StringUtils.profileText),
       ),
-      body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
-        child: Consumer<UserProfileViewModel>(
-            builder: (context, userProfileViewModel, child) {
-          if (userProfileViewModel.userData == null) {
-            return Container(
-              height: MediaQuery.of(context).size.height,
-              child: Center(child: Loader()),
-            );
-          }
-          return Column(
-            children: <Widget>[
-              // profile header
-              Container(
-                height: 350,
-                decoration: BoxDecoration(
-                  color: profileHeaderBackgroundColor,
-                  image: DecorationImage(
-                      image: AssetImage(kUserProfileCoverImageAsset),
-                      fit: BoxFit.cover),
-                ),
-                padding: EdgeInsets.all(8),
-                child: Column(
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        profileImageWidget,
-                        SizedBox(
-                          width: 14,
-                        ),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                height: 8,
-                              ),
-                              displayNameWidget,
-                              SizedBox(height: 3),
-                              emailWidget,
-                              SizedBox(height: 3),
-                              userLocationWidget,
-                            ],
+      body: RefreshIndicator(
+        onRefresh: ,
+        child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
+          child: Consumer<UserProfileViewModel>(
+              builder: (context, userProfileViewModel, child) {
+            if (userProfileViewModel.userData == null) {
+              return Container(
+                height: MediaQuery.of(context).size.height,
+                child: Center(child: Loader()),
+              );
+            }
+            return Column(
+              children: <Widget>[
+                // profile header
+                Container(
+                  decoration: BoxDecoration(
+                    color: profileHeaderBackgroundColor,
+                    image: DecorationImage(
+                        image: AssetImage(kUserProfileCoverImageAsset),
+                        fit: BoxFit.cover),
+                  ),
+                  padding: EdgeInsets.all(8),
+                  child: Column(
+                    children: [
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          profileImageWidget,
+                          SizedBox(
+                            width: 14,
                           ),
-                        ),
-                        editButtonHeader,
-                      ],
-                    ),
-                    Spacer(),
-                    socialIconsWidgets,
-                    SizedBox(
-                      height: 5,
-                    ),
-                    designationWidget,
-                    Spacer(),
-                    aboutMeWidget,
-                  ],
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(height: 8),
+                                displayNameWidget,
+                                SizedBox(height: 3),
+                                emailWidget,
+                                SizedBox(height: 3),
+                                userLocationWidget,
+                              ],
+                            ),
+                          ),
+                          editButtonHeader,
+                        ],
+                      ),
+                      SizedBox(height: 15),
+                      socialIconsWidgets,
+                      SizedBox(height: 5),
+                      designationWidget,
+                      SizedBox(height: 8),
+                      aboutMeWidget,
+                    ],
+                  ),
                 ),
-              ),
-              SizedBox(height: 15),
-              Container(
-                padding: EdgeInsets.all(8),
-                child: Column(
-                  children: [
-                    SizedBox(height: 15),
+                SizedBox(height: 15),
+                Container(
+                  padding: EdgeInsets.all(8),
+                  child: Column(
+                    children: [
+                      SizedBox(height: 15),
 
-                    /// Experience
-                    experienceWidget,
-                    SizedBox(height: 15),
+                      /// Experience
+                      experienceWidget,
+                      SizedBox(height: 15),
 
-                    ///Education
-                    educationWidget,
-                    SizedBox(height: 15),
+                      ///Education
+                      educationWidget,
+                      SizedBox(height: 15),
 
-                    ///Skill
-                    skillsWidget,
-                    SizedBox(height: 15),
+                      ///Skill
+                      skillsWidget,
+                      SizedBox(height: 15),
 
-                    /// Portfolio
-                    portfolioWidget,
-                    SizedBox(height: 15),
+                      /// Portfolio
+                      portfolioWidget,
+                      SizedBox(height: 15),
 
-                    /// Certifications
-                    certificationsWidget,
-                    SizedBox(height: 15),
+                      /// Certifications
+                      certificationsWidget,
+                      SizedBox(height: 15),
 
-                    /// Memberships
-                    membersShipWidget,
-                    SizedBox(height: 15),
+                      /// Memberships
+                      membersShipWidget,
+                      SizedBox(height: 15),
 
-                    /// References
-                    referencesWidget,
-                    SizedBox(height: 15),
+                      /// References
+                      referencesWidget,
+                      SizedBox(height: 15),
 
-                    /// Personal info
-                    personalInfoWidget,
-                    SizedBox(height: 15),
-                  ],
+                      /// Personal info
+                      personalInfoWidget,
+                      SizedBox(height: 15),
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          );
-        }),
+              ],
+            );
+          }),
+        ),
       ),
     );
   }

@@ -147,7 +147,7 @@ class UserProfileRepository {
       ReferenceData referenceData) async {
     BotToast.showLoading();
     var url = "${Urls.professionalReference}/${referenceData.referenceId}/";
-    var data = {"Is_archived": true};
+    var data = {"is_archived": true};
 
     try {
       var response = await ApiClient().putRequest(url, data);
