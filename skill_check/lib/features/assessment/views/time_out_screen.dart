@@ -31,7 +31,7 @@ class _TimeOutScreenState extends State<TimeOutScreen> with AfterLayoutMixin {
     var submitProvider = Provider.of<SubmitProvider>(context,listen: false);
     var questionList = Provider.of<ExamProvider>(context,listen: false).questionList;
     bool isSuccessful = await submitProvider.handleSubmit(
-        context, "${widget.enrolledExamModel.skillId}");
+        context, "${widget.enrolledExamModel.profSkillId}");
 
     if (isSuccessful) {
       Future.delayed(Duration(seconds: 3)).then((_) {

@@ -30,7 +30,7 @@ class TechnicalSkillListItem extends StatelessWidget {
           contentPadding: EdgeInsets.only(left: 5),
           leading: Padding(
             padding: const EdgeInsets.all(7.0),
-            child: skillInfo.verifiedBySkillcheck ?? false
+            child: skillInfo.verifiedBySkillCheck ?? false
                 ? Icon(
               FontAwesomeIcons.checkCircle,
               color: Colors.orange,
@@ -41,7 +41,7 @@ class TechnicalSkillListItem extends StatelessWidget {
             ),
           ),
           title: Text(
-            skillInfo.skillName,
+            skillInfo.skill??"",
             style: Theme.of(context)
                 .textTheme
                 .title

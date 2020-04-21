@@ -52,9 +52,9 @@ class _AddEditTechnicalSkillState extends State<AddEditTechnicalSkill> {
     bool isValid = _formKey.currentState.validate();
     if (isValid) {
       var skillInfo = SkillInfo(
-        skillId: widget.skillInfo?.skillId,
+        profSkillId: widget.skillInfo?.profSkillId,
         rating: rating,
-        skillName: _selectedDropdownSkill?.name,
+        skillId: _selectedDropdownSkill?.name,
       );
 
       if (widget.skillInfo != null) {

@@ -21,6 +21,8 @@ class Urls {
   static String userProfileUpdateUrl = "/api/professional/profile_update";
   static String professionalReference = "/api/professional/professional_reference";
   static String professionalSkillUrl = "/api/professional/professional_skill";
+  static String professionalEducationUrl = "/api/professional/professional_education";
+  static String professionalMembershipUrl = "/api/professional/professional_membership";
 
 
   static String industryListUrl = "/api/industry/";
@@ -28,6 +30,12 @@ class Urls {
   static String nationalityListUrl = "/api/professional/nationality/";
   static String religionListUrl = "/api/professional/religion/";
   static String skillListUrl = "/api/skill_list/";
+  static String instituteListUrl = "/api/institute/";
+  static String organizationListUrl = "/api/professional/organization/";
+  static String majorListUrl = "/api/professional/major/";
+  static String certificateNameListUrl = "/api/professional/certificate_name/";
+  static String qualificationListUrl = "/api/qualification/";
+  static String experienceListUrl = "/api/experience/";
 
 
 

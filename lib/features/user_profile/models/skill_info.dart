@@ -1,26 +1,26 @@
 
 
 class SkillInfo {
-  int skillId;
-  String skillName;
+  int profSkillId;
+  String skillId;
+  String skill;
   int rating;
-  bool verifiedBySkillcheck;
+  bool verifiedBySkillCheck;
 
-  SkillInfo({this.skillId,this.skillName, this.rating, this.verifiedBySkillcheck});
+  SkillInfo({this.profSkillId,this.skillId, this.rating, this.verifiedBySkillCheck});
 
   SkillInfo.fromJson(Map<String, dynamic> json) {
-    skillId = json['prof_skill_id'];
-    skillName = json['skill']?.toString();
+    profSkillId = json['prof_skill_id'];
+    skill = json['skill']?.toString();
+    skillId = json['name_id']?.toString();
     rating = json['rating'];
-    verifiedBySkillcheck = json['verified_by_skillcheck'];
+    verifiedBySkillCheck = json['verified_by_skillcheck'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['skill'] = this.skillName;
+    data['name_id'] = this.skillId;
     data['rating'] = this.rating;
-    data['verified_by_skillcheck'] = this.verifiedBySkillcheck;
-
     return data;
   }
 }
