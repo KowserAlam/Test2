@@ -7,6 +7,7 @@ import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:p7app/main_app/util/date_format_uitl.dart';
 import 'package:provider/provider.dart';
 
 class PersonalInfoWidget extends StatelessWidget {
@@ -64,7 +65,7 @@ class PersonalInfoWidget extends StatelessWidget {
                 _item(
                     context: context,
                     label: StringUtils.dateOfBirthText,
-                    value: kDateFormatBD.format(personalInfo.dateOfBirth??"")),
+                    value: personalInfo.dateOfBirth != null? DateFormatUtil().dateFormat1(personalInfo.dateOfBirth):""),
                 //gender
                 _item(
                     context: context,
