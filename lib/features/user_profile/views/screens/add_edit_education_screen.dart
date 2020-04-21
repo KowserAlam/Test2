@@ -42,13 +42,14 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
   TextEditingController institutionNameController = TextEditingController();
   TextEditingController gpaTextController = TextEditingController();
   TextEditingController degreeTextController = TextEditingController();
-
   var _formKey = GlobalKey<FormState>();
   var _scaffoldKey = GlobalKey<ScaffoldState>();
-
   final FocusNode _institutionNameFocusNode = FocusNode();
   final FocusNode _degreeFocusNode = FocusNode();
   final FocusNode _percentageFocusNode = FocusNode();
+
+  DateTime _enrollDate;
+  DateTime _graduationDate;
 
   _handleSave() {
     var isSuccess = _formKey.currentState.validate();
@@ -97,7 +98,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
         ),
         InkWell(
           onTap: () {
-            _showJoinDatePicker(context);
+            _showEnrollDatePicker(context);
           },
           child: Container(
             width: double.infinity,
@@ -135,7 +136,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
 
         InkWell(
           onTap: () {
-            _showJoinDatePicker(context);
+            _showGraduationDatePicker(context);
           },
           child: Container(
             width: double.infinity,
@@ -225,8 +226,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
     );
   }
 
-  _showJoinDatePicker(context) {
-    var initialDate = DateTime.now();
+  _showEnrollDatePicker(context) {
     showDialog(
         context: context,
         builder: (context) {
@@ -243,7 +243,48 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
                         data: CupertinoThemeData(
                             brightness: Theme.of(context).brightness),
                         child: CupertinoDatePicker(
-                          initialDateTime: initialDate,
+                          initialDateTime: _enrollDate?? DateTime.now(),
+                          mode: CupertinoDatePickerMode.date,
+                          onDateTimeChanged: (v) {},
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Icon(
+                            Icons.done,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                        ),
+                        onTap: () {
+                          Navigator.pop(context);
+                        }),
+                  ],
+                ),
+              ),
+            ),
+          );
+        });
+  }
+  _showGraduationDatePicker(context) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return Center(
+            child: Container(
+              height: MediaQuery.of(context).size.height / 2,
+              width: MediaQuery.of(context).size.width / 1.3,
+              child: Material(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    Expanded(
+                      child: CupertinoTheme(
+                        data: CupertinoThemeData(
+                            brightness: Theme.of(context).brightness),
+                        child: CupertinoDatePicker(
+                          initialDateTime: _enrollDate?? DateTime.now(),
                           mode: CupertinoDatePickerMode.date,
                           onDateTimeChanged: (v) {},
                         ),
