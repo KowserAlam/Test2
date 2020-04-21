@@ -44,6 +44,7 @@ class _AddEditTechnicalSkillState extends State<AddEditTechnicalSkill> {
 
   initState() {
     rating = widget.skillInfo == null ? 0 : widget.skillInfo.rating;
+    _selectedDropdownSkill = widget.skillInfo?.skill;
     _getSkillList();
     super.initState();
   }
@@ -148,7 +149,7 @@ class _AddEditTechnicalSkillState extends State<AddEditTechnicalSkill> {
                 Row(
                   children: <Widget>[
                     RatingBar(
-                      initialRating: 0,
+                      initialRating: rating?.toDouble()??0,
                       direction: Axis.horizontal,
                       itemCount: 5,
                       unratedColor: Colors.grey,

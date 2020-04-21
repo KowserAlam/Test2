@@ -223,6 +223,8 @@ class UserProfileRepository {
     var data = skillInfo.toJson();
     data.addAll({"professional_id": professionalId});
 
+//    print(data);
+
     try {
       var response = await ApiClient().putRequest(url, data);
       print(response.statusCode);
@@ -253,7 +255,7 @@ class UserProfileRepository {
       SkillInfo skillInfo) async {
     BotToast.showLoading();
     var url = "${Urls.professionalSkillUrl}/${skillInfo.profSkillId}/";
-    var data = {"Is_archived": true};
+    var data = {"is_archived": true};
 
     try {
       var response = await ApiClient().putRequest(url, data);
