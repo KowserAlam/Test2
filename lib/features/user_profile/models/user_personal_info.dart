@@ -29,6 +29,8 @@ class UserPersonalInfo {
   String religion;
   String permanentAddress;
   String currentLocation;
+  Religion religionObj;
+  Religion nationalityObj;
 
   UserPersonalInfo({
     this.id,
@@ -58,6 +60,7 @@ class UserPersonalInfo {
     this.religion,
     this.permanentAddress,
     this.currentLocation,
+    this.religionObj,
   });
 
   UserPersonalInfo.fromJson(Map<String, dynamic> json) {
@@ -79,8 +82,16 @@ class UserPersonalInfo {
     twitterId = json['twitter_id'];
     linkedinId = json['linkedin_id'];
     currentLocation = json['current_location'];
+
     if (json['date_of_birth'] != null) {
       dateOfBirth = DateTime.parse(json['date_of_birth']);
+    }
+
+    if (json['religion_obj'] != null) {
+      religionObj = Religion.fromJson(json['religion_obj']);
+    }
+    if (json['nationality_obj'] != null) {
+      religionObj = Religion.fromJson(json['nationality_obj']);
     }
 
     expectedSalaryMin = json['expected_salary_min'];
