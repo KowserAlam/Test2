@@ -81,6 +81,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
     _selectedReligionDropDownItem = personalInfo.religionObj;
     _selectedNationalityDropDownItem = personalInfo.nationalityObj;
     _selectedGenderDropDownItem = personalInfo.gender;
+    _chosenDate = personalInfo.dateOfBirth;
 
     NationalityListRepository()
         .getNationalityList()
@@ -281,7 +282,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                         ],),
                       padding: EdgeInsets.all(8),
                       child: Text(
-                          kDateFormatBD.format(widget.userModel.personalInfo.dateOfBirth??"Choose Date"),
+                          _chosenDate != null?kDateFormatBD.format(_chosenDate): "Choose Date",
                       ),
                     ),
                   ),
@@ -302,11 +303,11 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                   CustomTextFormField(
                     validator: Validator().nullFieldValidate,
                     keyboardType: TextInputType.text,
-                    focusNode: _fatherNameFocusNode,
+                    //focusNode: _fatherNameFocusNode,
                     textInputAction: TextInputAction.next,
                     onFieldSubmitted: (a) {
-                      FocusScope.of(context)
-                          .requestFocus(_motherNameFocusNode);
+//                      FocusScope.of(context)
+//                          .requestFocus(_motherNameFocusNode);
                     },
                     controller: _fatherNameController,
                     labelText: StringUtils.fatherNameText,
@@ -316,12 +317,12 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                   //Mother's Name
                   CustomTextFormField(
                     validator: Validator().nullFieldValidate,
-                    focusNode: _motherNameFocusNode,
+                    //focusNode: _motherNameFocusNode,
                     keyboardType: TextInputType.text,
                     textInputAction: TextInputAction.next,
                     onFieldSubmitted: (a) {
-                      FocusScope.of(context)
-                          .requestFocus(_currentAddressFocusNode);
+//                      FocusScope.of(context)
+//                          .requestFocus(_currentAddressFocusNode);
                     },
                     controller: _motherNameController,
                     labelText: StringUtils.motherNameText,
@@ -331,12 +332,12 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                   //Current Address
                   CustomTextFormField(
                     validator: Validator().nullFieldValidate,
-                    focusNode: _currentAddressFocusNode,
+                    //focusNode: _currentAddressFocusNode,
                     textInputAction: TextInputAction.next,
                     keyboardType: TextInputType.text,
                     onFieldSubmitted: (a) {
-                      FocusScope.of(context)
-                          .requestFocus(_permanentAddressFocusNode);
+//                      FocusScope.of(context)
+//                          .requestFocus(_permanentAddressFocusNode);
                     },
                     controller: _currentAddressController,
                     labelText: StringUtils.currentAddressText,
@@ -346,7 +347,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                   //Permanent Address
                   CustomTextFormField(
                     validator: Validator().nullFieldValidate,
-                    focusNode: _permanentAddressFocusNode,
+                    //focusNode: _permanentAddressFocusNode,
                     textInputAction: TextInputAction.next,
                     keyboardType: TextInputType.text,
                     onFieldSubmitted: (a) {

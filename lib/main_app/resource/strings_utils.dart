@@ -274,11 +274,11 @@ class StringUtils {
   /// Profile Screen *******************
   /// Personal Info
 
-  static var fatherNameText = "Father name";
-  static var motherNameText = "Mother name";
+  static var fatherNameText = "Father Name";
+  static var motherNameText = "Mother Name";
   static var dateOfBirthText = "Date of Birth";
-  static var permanentAddressText = "Permanent address";
-  static var currentAddressText = "Current address";
+  static var permanentAddressText = "Permanent Address";
+  static var currentAddressText = "Current Address";
   static var religionText = "Religion";
   static var genderText = "Gender";
   static var nationalityText = "Nationality";
