@@ -37,7 +37,8 @@ class _EditMemberShipsState extends State<EditMemberShips> {
   final _descriptionFocusNode = FocusNode();
 
   //values
-  DateTime _startDate, _endDate;
+  DateTime _startDate;
+  DateTime  _endDate;
 
   //widgets
   var spaceBetweenFields = SizedBox(height: 15,);
