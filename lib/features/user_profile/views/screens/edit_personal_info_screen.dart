@@ -77,8 +77,10 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
     _nationalityController.text = personalInfo.nationality ?? "";
     _currentAddressController.text = personalInfo.address ?? "";
     _permanentAddressController.text = personalInfo.permanentAddress ?? "";
-    _nationalityController.text = personalInfo.nationality ?? "";
-    _religionController.text = personalInfo.religion ?? "";
+
+    _selectedReligionDropDownItem = personalInfo.religionObj;
+    _selectedNationalityDropDownItem = personalInfo.nationalityObj;
+    _selectedGenderDropDownItem = personalInfo.gender;
 
     NationalityListRepository()
         .getNationalityList()

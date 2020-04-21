@@ -95,12 +95,12 @@ class PersonalInfoWidget extends StatelessWidget {
                 _item(
                     context: context,
                     label: StringUtils.nationalityText,
-                    value: personalInfo.nationality??""),
+                    value: personalInfo.nationalityObj?.name??""),
                 //religion
                 _item(
                     context: context,
                     label: StringUtils.religionText,
-                    value: personalInfo.religion??""),
+                    value: personalInfo.religionObj?.name??""),
               ],
             );
           }),
