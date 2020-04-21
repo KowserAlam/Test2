@@ -259,6 +259,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                       Text(
                         StringUtils.dateOfBirthText,
                         textAlign: TextAlign.left,
+                        style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ],
                   ),
