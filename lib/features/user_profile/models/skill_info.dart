@@ -10,9 +10,8 @@ class SkillInfo {
 
   SkillInfo.fromJson(Map<String, dynamic> json) {
     profSkillId = json['prof_skill_id'];
-
-    if (json['skill'] != null) {
-      skill = Skill.fromJson(json['skill']);
+    if (json['skill_obj'] != null) {
+      skill = Skill.fromJson(json['skill_obj']);
     }
     rating = json['rating'];
     verifiedBySkillCheck = json['verified_by_skillcheck'];
