@@ -41,7 +41,7 @@ class TechnicalSkillListItem extends StatelessWidget {
             ),
           ),
           title: Text(
-            skillInfo.skill??"",
+            skillInfo?.skill?.name??"",
             style: Theme.of(context)
                 .textTheme
                 .title

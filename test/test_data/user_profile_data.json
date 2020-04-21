@@ -2,121 +2,80 @@
   "personal_info": {
     "id": "c8eb21a2-0bb6-46ec-add6-0de5336e1723",
     "professional_id": null,
-    "full_name": "shofi",
+    "full_name": "Sheikh Shofiullah",
     "email": "shofi@ishraak.com",
     "phone": "01940469959",
-    "address": null,
-    "about_me": null,
-    "image": null,
-    "terms_and_condition_status": true,
-    "password": "pbkdf2_sha256$180000$kOXQcDfnrT9w$sNxPnGUAH3slWwsXhJMjfMXDB8qud7ZPIYMjEZZ/w7I=",
-    "signup_verification_code": "",
-    "father_name": "M.A.Jabbar",
-    "mother_name": "Mirjadi Sebrina Flora",
-    "facebbok_id": null,
-    "twitter_id": null,
-    "linkedin_id": null,
-    "date_of_birth": "2020-04-11",
-    "expected_salary_min": "20000.00",
-    "expected_salary_max": "50000.00",
-    "permanent_address": null,
-    "industry_expertise": null,
+    "address": "Current address",
+    "about_me": "This is about me",
+    "image": "/media/52655454-c891-4cad-b3c9-81b1ee0a0258-professional.jpg",
+    "job_alert_status": false,
+    "father_name": "Father nam",
+    "mother_name": "Mother name",
+    "facebbok_id": "https://facebook.com/shofizone/",
+    "twitter_id": "",
+    "linkedin_id": "",
+    "date_of_birth": "2011-10-17",
+    "expected_salary_min": null,
+    "expected_salary_max": null,
+    "permanent_address": "Nai",
+    "current_location": "Current address",
+    "industry_expertise": "Software & ITES",
     "user": 39,
-    "gender": null,
+    "gender": "Male",
     "status": null,
     "experience": null,
     "qualification": null,
-    "nationality": null,
-    "religion": null
-  },
-  "edu_info": [
-    {
-      "education_id": 1,
-      "qualification": "Hsc",
-      "institution": null,
-      "cgpa": null,
-      "major": null,
-      "enrolled_date": null,
-      "graduation_date": null
+    "nationality": 2,
+    "religion": 1,
+    "religion_obj": {
+      "id": 1,
+      "name": "Ishlam",
+      "created_date": "2020-04-20T11:36:01.708604+06:00"
     },
-    {
-      "education_id": 2,
-      "qualification": null,
-      "institution": null,
-      "cgpa": "5.00",
-      "major": null,
-      "enrolled_date": null,
-      "graduation_date": null
+    "nationality_obj": {
+      "id": 2,
+      "name": "Bangladesh",
+      "created_date": "2020-04-20T15:00:15.240205+06:00"
     }
-  ],
+  },
+  "edu_info": [],
   "skill_info": [
     {
-      "prof_skill_id": 1,
-      "skill": 1,
-      "rating": 0,
-      "verified_by_skillcheck": false
-    },
-    {
       "prof_skill_id": 2,
-      "skill": 2,
-      "rating": 0,
+      "skill": {
+        "id": 1,
+        "name": "Python",
+        "created_date": "2020-04-05T19:50:17+06:00"
+      },
+      "rating": 5,
       "verified_by_skillcheck": false
     }
   ],
-  "experience_info": [
-    {
-      "experience_id": 1,
-      "company": "infolytyx",
-      "designation": "system analyst",
-      "Started_date": null,
-      "end_date": null
-    }
-  ],
-  "portfolio_info": [
-    {
-      "portfolio_id": 1,
-      "name": "machine god",
-      "image": null,
-      "description": "hello hello"
-    }
-  ],
-  "membership_info": [
-    {
-      "membership_id": 1,
-      "org_name": 1,
-      "position_held": "member",
-      "membership_ongoing": false,
-      "Start_date": null,
-      "end_date": null,
-      "desceription": null
-    }
-  ],
-  "certification_info": [
-    {
-      "certification_id": 1,
-      "certification_name": 2,
-      "organization_name": 2,
-      "has_expiry_period": true,
-      "issue_date": null,
-      "expiry_date": null,
-      "credential_id": null,
-      "credential_url": null
-    }
-  ],
+  "experience_info": [],
+  "portfolio_info": [],
+  "membership_info": [],
+  "certification_info": [],
   "reference_data": [
     {
-      "reference_id": 1,
-      "name": "robertson",
-      "current_position": null,
-      "email": null,
-      "mobile": null
+      "reference_id": 2,
+      "name": "saiful 2",
+      "current_position": "1",
+      "email": "nai@email.com",
+      "mobile": "01718545454"
     },
     {
-      "reference_id": 2,
-      "name": "robert",
-      "current_position": null,
-      "email": null,
-      "mobile": null
+      "reference_id": 3,
+      "name": "Robertson 2",
+      "current_position": "Software Engineer",
+      "email": "robart@email.com",
+      "mobile": "01600002322"
+    },
+    {
+      "reference_id": 8,
+      "name": "qweqwe",
+      "current_position": "qweqwe",
+      "email": "qweqwe@email.com",
+      "mobile": "0171844444"
     }
   ]
 }
