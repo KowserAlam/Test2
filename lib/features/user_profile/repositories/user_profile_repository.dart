@@ -257,8 +257,7 @@ class UserProfileRepository {
     BotToast.showLoading();
     var url = "${Urls.professionalSkillUrl}/${skillInfo.profSkillId}/";
     var data = {
-      "is_archived": true,
-      "name_id" : skillInfo.skill?.id
+      "is_archived": true
     };
 
     try {
