@@ -19,7 +19,6 @@ import 'package:uuid/uuid.dart';
 class AddEditEducationScreen extends StatefulWidget {
   final EduInfo educationModel;
   final int index;
-
   AddEditEducationScreen({
     this.educationModel,
     this.index,
@@ -73,6 +72,11 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen>
 
   @override
   Widget build(BuildContext context) {
+
+    var passingYear = Column();
+
+
+
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: Theme.of(context).backgroundColor,
@@ -149,32 +153,11 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen>
                     SizedBox(
                       height: 16
                     ),
+                    Text(
+                      StringUtils.passingYearText,
+                      textAlign: TextAlign.left,
+                      style: TextStyle(fontWeight: FontWeight.bold),
 
-                    Row(
-                      children: <Widget>[
-                        Text(
-                          StringUtils.passingYearText,
-                          textAlign: TextAlign.left,
-                        ),
-                        Spacer(),
-                        InkWell(
-                          onTap: () {
-
-                          },
-                          child: Text(
-                            StringUtils.currentlyStudyingHereText,
-                            softWrap: true,
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                        Checkbox(
-                          value:
-                              false,
-                          onChanged: (v) {
-
-                          },
-                        ),
-                      ],
                     ),
                     SizedBox(
                       height: 8,
