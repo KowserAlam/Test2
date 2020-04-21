@@ -54,7 +54,7 @@ class _AddEditTechnicalSkillState extends State<AddEditTechnicalSkill> {
       var skillInfo = SkillInfo(
         profSkillId: widget.skillInfo?.profSkillId,
         rating: rating,
-        skillId: _selectedDropdownSkill?.name,
+        skill: _selectedDropdownSkill,
       );
 
       if (widget.skillInfo != null) {
