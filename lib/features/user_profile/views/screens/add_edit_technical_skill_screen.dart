@@ -32,7 +32,7 @@ class _AddEditTechnicalSkillState extends State<AddEditTechnicalSkill> {
   var _scaffoldKey = GlobalKey<ScaffoldState>();
 
   //Values
-  double rating;
+  int rating;
 
 
 
@@ -42,7 +42,8 @@ class _AddEditTechnicalSkillState extends State<AddEditTechnicalSkill> {
       var skillInfo = SkillInfo(
         skillId: widget.skillInfo?.skillId,
         rating: rating,
-        skill: _skillTextEditingController.text
+        skillName: _skillTextEditingController.text,
+        verifiedBySkillcheck: true
       );
 
       if (widget.skillInfo != null) {
@@ -71,7 +72,7 @@ class _AddEditTechnicalSkillState extends State<AddEditTechnicalSkill> {
   @override
   void initState() {
     // TODO: implement initState
-    rating = widget.skillInfo == null? 0.0 : widget.skillInfo.rating;
+    rating = widget.skillInfo == null? 0 : widget.skillInfo.rating;
     super.initState();
   }
 
@@ -121,8 +122,7 @@ class _AddEditTechnicalSkillState extends State<AddEditTechnicalSkill> {
                 Row(
                   children: <Widget>[
                     RatingBar(
-                      initialRating:
-                    0.0,
+                      initialRating: 0,
                       direction: Axis.horizontal,
                       allowHalfRating: true,
                       itemCount: 5,
@@ -134,7 +134,7 @@ class _AddEditTechnicalSkillState extends State<AddEditTechnicalSkill> {
                       ),
                       onRatingUpdate: (value) {
                         setState(() {
-                          rating = value;
+                          rating = value.round();
                         });
                       },
                     ),

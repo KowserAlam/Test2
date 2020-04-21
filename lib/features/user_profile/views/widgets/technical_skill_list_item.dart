@@ -41,13 +41,14 @@ class TechnicalSkillListItem extends StatelessWidget {
             ),
           ),
           title: Text(
-            skillInfo.skill,
+            skillInfo.skillName,
             style: Theme.of(context)
                 .textTheme
                 .title
                 .apply(color: Theme.of(context).primaryColor),
           ),
-          trailing: !isInEditMode?
+          trailing:
+          !isInEditMode?
           Wrap(
             children: List.generate(5, (int index) {
               var iconData = Icons.star_border;
@@ -65,7 +66,8 @@ class TechnicalSkillListItem extends StatelessWidget {
                 color: Colors.orange,
               );
             }),
-          ): Row(
+          ):
+          Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               IconButton(
