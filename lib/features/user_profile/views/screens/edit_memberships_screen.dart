@@ -39,7 +39,7 @@ class _EditMemberShipsState extends State<EditMemberShips> {
 
   //values
   DateTime _startDate;
-  DateTime  _endDate;
+  DateTime _endDate;
 
   //widgets
   var spaceBetweenFields = SizedBox(height: 15,);
@@ -62,7 +62,7 @@ class _EditMemberShipsState extends State<EditMemberShips> {
     if (isValid) {
       var membershipInfo = MembershipInfo(
         membershipId: widget.membershipInfo?.membershipId,
-        orgName: _orgNameController.text,
+        //orgName: _orgNameController.text,
         positionHeld: _positionHeldController.text,
         desceription: _descriptionController.text
       );

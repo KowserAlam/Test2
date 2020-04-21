@@ -1,3 +1,5 @@
+import 'package:p7app/main_app/util/date_format_uitl.dart';
+
 class MembershipInfo {
   int membershipId;
   String orgName;
@@ -36,8 +38,8 @@ class MembershipInfo {
     data['org_name'] = this.orgName;
     data['position_held'] = this.positionHeld;
     data['membership_ongoing'] = this.membershipOngoing;
-    data['Start_date'] = this.startDate.toIso8601String();
-    data['end_date'] = this.endDate.toIso8601String();
+    data['Start_date'] = this.startDate != null? DateFormatUtil.dateFormatYYYMMDD(this.startDate): null;
+    data['end_date'] = this.endDate != null? DateFormatUtil.dateFormatYYYMMDD(this.endDate): null;
     data['desceription'] = this.desceription;
     return data;
   }
