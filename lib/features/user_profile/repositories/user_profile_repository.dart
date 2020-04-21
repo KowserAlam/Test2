@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:p7app/features/user_profile/models/reference_data.dart';
+import 'package:p7app/features/user_profile/models/skill_info.dart';
 import 'package:p7app/features/user_profile/models/user_model.dart';
 import 'package:p7app/features/user_profile/models/user_personal_info.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
@@ -147,6 +148,110 @@ class UserProfileRepository {
       ReferenceData referenceData) async {
     BotToast.showLoading();
     var url = "${Urls.professionalReference}/${referenceData.referenceId}/";
+    var data = {"Is_archived": true};
+
+    try {
+      var response = await ApiClient().putRequest(url, data);
+      print(response.statusCode);
+      print(response.body);
+      if (response.statusCode == 200) {
+        BotToast.closeAllLoading();
+        return Right(true);
+      } else {
+        BotToast.closeAllLoading();
+        BotToast.showText(text: StringUtils.unableToSaveData);
+        return Left(AppError.unknownError);
+      }
+    } on SocketException catch (e) {
+      BotToast.closeAllLoading();
+      BotToast.showText(text: StringUtils.unableToSaveData);
+      print(e);
+      return left(AppError.networkError);
+    } catch (e) {
+      BotToast.closeAllLoading();
+      BotToast.showText(text: StringUtils.unableToSaveData);
+      print(e);
+      return left(AppError.serverError);
+    }
+  }
+
+  Future<Either<AppError, SkillInfo>> addUserSkill(
+      SkillInfo skillInfo) async {
+    BotToast.showLoading();
+    var authUser = await AuthService.getInstance();
+    var professionalId = authUser.getUser().professionalId;
+    var url = "${Urls.professionalSkillUrl}/";
+
+    var data = skillInfo.toJson();
+    data.addAll({"professional_id": professionalId});
+
+
+    try {
+      var response = await ApiClient().postRequest(url, data);
+      print(response.statusCode);
+      print(response.body);
+      if (response.statusCode == 200) {
+        BotToast.closeAllLoading();
+        SkillInfo data = SkillInfo.fromJson(json.decode(response.body));
+        return Right(data);
+      } else {
+        BotToast.closeAllLoading();
+        BotToast.showText(text: StringUtils.unableToSaveData);
+        return Left(AppError.unknownError);
+      }
+    } on SocketException catch (e) {
+      BotToast.closeAllLoading();
+      BotToast.showText(text: StringUtils.unableToSaveData);
+      print(e);
+      return left(AppError.networkError);
+    } catch (e) {
+      BotToast.closeAllLoading();
+      BotToast.showText(text: StringUtils.unableToSaveData);
+      print(e);
+      return left(AppError.serverError);
+    }
+  }
+
+  Future<Either<AppError, SkillInfo>> updateUserSkill(
+      SkillInfo skillInfo) async {
+    BotToast.showLoading();
+    var authUser = await AuthService.getInstance();
+    var professionalId = authUser.getUser().professionalId;
+    var url = "${Urls.professionalSkillUrl}/${skillInfo.skillId}/";
+
+    var data = skillInfo.toJson();
+    data.addAll({"professional_id": professionalId});
+
+    try {
+      var response = await ApiClient().putRequest(url, data);
+      print(response.statusCode);
+      print(response.body);
+      if (response.statusCode == 200) {
+        BotToast.closeAllLoading();
+        SkillInfo data = SkillInfo.fromJson(json.decode(response.body));
+        return Right(data);
+      } else {
+        BotToast.closeAllLoading();
+        BotToast.showText(text: StringUtils.unableToSaveData);
+        return Left(AppError.unknownError);
+      }
+    } on SocketException catch (e) {
+      BotToast.closeAllLoading();
+      BotToast.showText(text: StringUtils.unableToSaveData);
+      print(e);
+      return left(AppError.networkError);
+    } catch (e) {
+      BotToast.closeAllLoading();
+      BotToast.showText(text: StringUtils.unableToSaveData);
+      print(e);
+      return left(AppError.serverError);
+    }
+  }
+
+  Future<Either<AppError, bool>> deleteUserSkill(
+      SkillInfo skillInfo) async {
+    BotToast.showLoading();
+    var url = "${Urls.professionalSkillUrl}/${skillInfo.skillId}/";
     var data = {"Is_archived": true};
 
     try {

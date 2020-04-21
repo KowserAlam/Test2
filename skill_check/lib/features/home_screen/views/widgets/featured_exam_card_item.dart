@@ -161,7 +161,7 @@ class FeaturedExamCardItem extends StatelessWidget {
                               onTap: () {
                                 Provider.of<DashboardScreenProvider>(context,listen: false)
                                     .enrollExam(
-                                        examId: featuredExamModel.id.toString(),
+                                        examId: featuredExamModel.skillId.toString(),
                                         index: index);
 
                                 Navigator.pop(context);

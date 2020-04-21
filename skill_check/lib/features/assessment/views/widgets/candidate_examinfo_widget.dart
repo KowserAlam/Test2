@@ -94,7 +94,7 @@ class CandidateExamInfoWidget extends StatelessWidget {
           overflow: TextOverflow.ellipsis,
         ),
         Text(
-          "${enrolledExamModel.id}",
+          "${enrolledExamModel.skillId}",
           style: kCandidateInfoTextStyle,
         ),
       ],
@@ -129,7 +129,7 @@ class CandidateExamInfoWidget extends StatelessWidget {
             style: kCandidateInfoTextBoldStyle,
           ),
           Text(
-            "${dashboardScreenProvider.dashBoardData.user.id}",
+            "${dashboardScreenProvider.dashBoardData.user.skillId}",
             style: kCandidateInfoTextStyle,
           ),
         ],

@@ -1,4 +1,5 @@
 import 'package:p7app/features/user_profile/models/reference_data.dart';
+import 'package:p7app/features/user_profile/models/skill_info.dart';
 import 'package:p7app/features/user_profile/models/user_model.dart';
 import 'package:p7app/features/user_profile/repositories/user_profile_repository.dart';
 import 'package:p7app/main_app/resource/json_keys.dart';
@@ -92,6 +93,8 @@ class UserProfileViewModel with ChangeNotifier {
     });
   }
 
+
+  //Reference
   Future<bool> updateReferenceData(ReferenceData referenceData, int index){
     return UserProfileRepository().updateUserReference(referenceData).then((res){
       return res.fold((l){
@@ -125,6 +128,48 @@ class UserProfileViewModel with ChangeNotifier {
         return false;
       }, (r){
         userData.referenceData.removeAt(index);
+        notifyListeners();
+        return true;
+      });
+    });
+  }
+
+
+
+  //Skill
+  Future<bool> addSkillData(SkillInfo skillInfo){
+    return UserProfileRepository().addUserSkill(skillInfo).then((res){
+      return res.fold((l){
+        print(l);
+        return false;
+      }, (r){
+        userData.skillInfo.add(r);
+        notifyListeners();
+        return true;
+      });
+    });
+  }
+
+  Future<bool> updateSkillData(SkillInfo skillInfo, int index){
+    return UserProfileRepository().updateUserSkill(skillInfo).then((res){
+      return res.fold((l){
+        print(l);
+        return false;
+      }, (r){
+        userData.skillInfo[index] = r;
+        notifyListeners();
+        return true;
+      });
+    });
+  }
+
+  Future<bool> deleteSkillData(SkillInfo skillInfo,int index ){
+    return UserProfileRepository().deleteUserSkill(skillInfo).then((res){
+      return res.fold((l){
+        print(l);
+        return false;
+      }, (r){
+        userData.skillInfo.removeAt(index);
         notifyListeners();
         return true;
       });

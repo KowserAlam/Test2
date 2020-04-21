@@ -27,26 +27,52 @@ class _AddEditTechnicalSkillState extends State<AddEditTechnicalSkill> {
 
   _AddEditTechnicalSkillState(this.technicalSkill, this.index);
 
-  TextEditingController _textEditingController = TextEditingController();
+  TextEditingController _skillTextEditingController = TextEditingController();
   var _formKey = GlobalKey<FormState>();
   var _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  //Values
+  double rating;
 
 
 
   _handleSave() {
-    var isSuccess = _formKey.currentState.validate();
-
-    if (isSuccess) {
- 
-
-      var education = SkillInfo(
-        skill: _textEditingController.text,
-        rating: 0,
+    bool isValid = _formKey.currentState.validate();
+    if (isValid) {
+      var skillInfo = SkillInfo(
+        skillId: widget.skillInfo?.skillId,
+        rating: rating,
+        skill: _skillTextEditingController.text
       );
 
-      Navigator.pop(context);
+      if (widget.skillInfo != null) {
+        /// updating existing data
 
+        Provider.of<UserProfileViewModel>(context, listen: false)
+            .updateSkillData(skillInfo, widget.index)
+            .then((value) {
+          if (value) {
+            Navigator.pop(context);
+          }
+        });
+      } else {
+        /// adding new data
+        Provider.of<UserProfileViewModel>(context, listen: false)
+            .addSkillData(skillInfo)
+            .then((value) {
+          if (value) {
+            Navigator.pop(context);
+          }
+        });
+      }
     }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    rating = widget.skillInfo == null? 0.0 : widget.skillInfo.rating;
+    super.initState();
   }
 
   @override
@@ -77,7 +103,7 @@ class _AddEditTechnicalSkillState extends State<AddEditTechnicalSkill> {
                     builder: (context, technicalSkillProvider, _) {
                   return CustomTextFormField(
                     validator: Validator().nullFieldValidate,
-                    controller: _textEditingController,
+                    controller: _skillTextEditingController,
                     labelText: StringUtils.skillNameText,
                     hintText: StringUtils.skillNameExample,
                   );
@@ -106,15 +132,17 @@ class _AddEditTechnicalSkillState extends State<AddEditTechnicalSkill> {
                         Icons.star,
                         color: Colors.amber,
                       ),
-                      onRatingUpdate: (rating) {
-
+                      onRatingUpdate: (value) {
+                        setState(() {
+                          rating = value;
+                        });
                       },
                     ),
                     Spacer(),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                        " 0.0",
+                        rating.toString(),
                         style: Theme.of(context).textTheme.display1,
                       ),
                     ),

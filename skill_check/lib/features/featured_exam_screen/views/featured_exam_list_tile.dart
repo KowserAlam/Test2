@@ -110,7 +110,7 @@ class FeaturedExamListTile extends StatelessWidget {
                               onTap: () {
                                 Provider.of<DashboardScreenProvider>(context,listen: false)
                                     .enrollExam(
-                                  examId: featuredExamModel.id.toString(),
+                                  examId: featuredExamModel.skillId.toString(),
                                 );
                                 Navigator.pop(context);
                               },

@@ -1,13 +1,15 @@
 
 
 class SkillInfo {
+  int skillId;
   String skill;
-  int rating;
+  double rating;
   bool verifiedBySkillcheck;
 
-  SkillInfo({this.skill, this.rating, this.verifiedBySkillcheck});
+  SkillInfo({this.skillId,this.skill, this.rating, this.verifiedBySkillcheck});
 
   SkillInfo.fromJson(Map<String, dynamic> json) {
+    skillId = json['prof_skill_id'];
     skill = json['skill']?.toString();
     rating = json['rating'];
     verifiedBySkillcheck = json['verified_by_skillcheck'];

@@ -6,13 +6,14 @@ import 'package:p7app/features/user_profile/styles/profile_common_style.dart';
 
 class TechnicalSkillListItem extends StatelessWidget {
   final SkillInfo skillInfo;
-  final Function onTap;
+  final Function onTapEdit;
+  final Function onTapDelete;
+  final bool isInEditMode;
 
   TechnicalSkillListItem({
-    @required this.skillInfo,
-    @required this.onTap,
-
-  });
+    Key key,
+    @required this.skillInfo, this.onTapDelete, this.onTapEdit, this.isInEditMode
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,49 +24,46 @@ class TechnicalSkillListItem extends StatelessWidget {
         borderRadius: BorderRadius.circular(5),
         boxShadow: ProfileCommonStyle.boxShadow,
       ),
-      child: InkWell(
-        onTap: onTap,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-          child: ListTile(
-            contentPadding: EdgeInsets.only(left: 5),
-            leading: Padding(
-              padding: const EdgeInsets.all(7.0),
-              child: skillInfo.verifiedBySkillcheck ?? false
-                  ? Icon(
-                FontAwesomeIcons.checkCircle,
-                color: Colors.orange,
-              )
-                  : Icon(
-                FontAwesomeIcons.circle,
-                color: Colors.orange,
-              ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+        child: ListTile(
+          contentPadding: EdgeInsets.only(left: 5),
+          leading: Padding(
+            padding: const EdgeInsets.all(7.0),
+            child: skillInfo.verifiedBySkillcheck ?? false
+                ? Icon(
+              FontAwesomeIcons.checkCircle,
+              color: Colors.orange,
+            )
+                : Icon(
+              FontAwesomeIcons.circle,
+              color: Colors.orange,
             ),
-            title: Text(
-              skillInfo.skill,
-              style: Theme.of(context)
-                  .textTheme
-                  .title
-                  .apply(color: Theme.of(context).primaryColor),
-            ),
-            trailing: Wrap(
-              children: List.generate(5, (int index) {
-                var iconData = Icons.star_border;
+          ),
+          title: Text(
+            skillInfo.skill,
+            style: Theme.of(context)
+                .textTheme
+                .title
+                .apply(color: Theme.of(context).primaryColor),
+          ),
+          trailing: Wrap(
+            children: List.generate(5, (int index) {
+              var iconData = Icons.star_border;
 
-                if (skillInfo.rating > index) {
-                  iconData = Icons.star;
-                }
+              if (skillInfo.rating > index) {
+                iconData = Icons.star;
+              }
 
-                if (skillInfo.rating > index && skillInfo.rating < index + 1) {
-                  iconData = Icons.star_half;
-                }
-                return Icon(
-                  iconData,
-                  size: 17,
-                  color: Colors.orange,
-                );
-              }),
-            ),
+              if (skillInfo.rating > index && skillInfo.rating < index + 1) {
+                iconData = Icons.star_half;
+              }
+              return Icon(
+                iconData,
+                size: 17,
+                color: Colors.orange,
+              );
+            }),
           ),
         ),
       ),

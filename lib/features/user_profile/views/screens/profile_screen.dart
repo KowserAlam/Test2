@@ -413,6 +413,11 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
       var list = userProfileViewModel.userData.skillInfo;
 
       return UserInfoListItem(
+        isInEditMode: isInEditModeSkill,
+        onTapEditAction: () {
+          isInEditModeSkill = !isInEditModeSkill;
+          setState(() {});
+        },
         icon: FontAwesomeIcons.brain,
         label: StringUtils.professionalSkillText,
         onTapAddNewAction: () {
@@ -424,15 +429,16 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
         children: List.generate(list.length, (index) {
           var skill = list[index];
           return TechnicalSkillListItem(
+            isInEditMode: isInEditModeSkill,
             skillInfo: skill,
-            onTap: () {
+            onTapDelete: (){
+              userProfileViewModel.deleteSkillData(skill, index);
+            },
+            onTapEdit: () {
               Navigator.push(
                   context,
                   CupertinoPageRoute(
-                      builder: (context) => AddEditTechnicalSkill(
-                            index: index,
-                            skillInfo: skill,
-                          )));
+                      builder: (context) => AddEditTechnicalSkill(skillInfo: skill,index: index,)));
             },
           );
         }),
@@ -524,6 +530,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
               Navigator.push(context,
                   CupertinoPageRoute(builder: (context) => EditMemberShips()));
             },
+            onTapDelete: (){},
           );
         }),
       );
