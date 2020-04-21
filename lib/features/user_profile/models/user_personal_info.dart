@@ -1,5 +1,6 @@
 import 'package:p7app/features/user_profile/models/religion.dart';
 import 'package:p7app/main_app/flavour/flavour_config.dart';
+import 'package:p7app/main_app/resource/const.dart';
 
 class UserPersonalInfo {
   String id;
@@ -65,7 +66,7 @@ class UserPersonalInfo {
 
   UserPersonalInfo.fromJson(Map<String, dynamic> json) {
     String baseUrl = FlavorConfig.instance.values.baseUrl;
-    var imageUlr = json['image'] == null ? null : "$baseUrl${json['image']}";
+    var imageUlr = json['image'] == null ? kDefaultUserImageNetwork : "$baseUrl${json['image']}";
 
     id = json['id'];
     professionalId = json['professional_id'];

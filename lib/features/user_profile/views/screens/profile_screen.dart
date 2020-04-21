@@ -149,7 +149,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
             borderRadius: BorderRadius.circular(100),
             child: CachedNetworkImage(
               fit: BoxFit.cover,
-              imageUrl: userProfileViewModel.userData.personalInfo.image??kDefaultUserImageNetwork,
+              imageUrl: userProfileViewModel.userData.personalInfo.image,
               placeholder: (context, _) => Image.asset(
                 kDefaultUserImageAsset,
                 fit: BoxFit.cover,
