@@ -228,7 +228,7 @@ class _EditMemberShipsState extends State<EditMemberShips> {
 
                   InkWell(
                     onTap: () {
-                      _showEndDatePicker(context);
+                      _showEndDatePicker();
                     },
                     child: Container(
                       width: double.infinity,
@@ -256,10 +256,7 @@ class _EditMemberShipsState extends State<EditMemberShips> {
     );
   }
 
-  _showEndDatePicker(context) {
-
-
-
+  _showEndDatePicker() {
     showDialog(
         context: context,
         builder: (context) {
@@ -275,7 +272,7 @@ class _EditMemberShipsState extends State<EditMemberShips> {
                       child: CupertinoTheme(
                         data: CupertinoThemeData(brightness: Theme.of(context).brightness),
                         child: CupertinoDatePicker(
-                          initialDateTime: _endDate??DateTime.now(),
+                          initialDateTime: _endDate ?? DateTime.now(),
                           mode: CupertinoDatePickerMode.date,
                           onDateTimeChanged: (v){
                             setState(() {
