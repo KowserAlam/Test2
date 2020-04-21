@@ -272,7 +272,7 @@ class _EditMemberShipsState extends State<EditMemberShips> {
                       child: CupertinoTheme(
                         data: CupertinoThemeData(brightness: Theme.of(context).brightness),
                         child: CupertinoDatePicker(
-                          initialDateTime: initialDate,
+                          initialDateTime: _endDate??DateTime.now(),
                           mode: CupertinoDatePickerMode.date,
                           onDateTimeChanged: (v){
                             setState(() {
@@ -302,7 +302,6 @@ class _EditMemberShipsState extends State<EditMemberShips> {
   }
   _showStartDatePicker(context) {
 
-    var initialDate = DateTime.now();
 
     showDialog(
         context: context,
@@ -319,7 +318,7 @@ class _EditMemberShipsState extends State<EditMemberShips> {
                       child: CupertinoTheme(
                         data: CupertinoThemeData(brightness: Theme.of(context).brightness),
                         child: CupertinoDatePicker(
-                          initialDateTime: initialDate,
+                          initialDateTime: _startDate??DateTime.now(),
                           mode: CupertinoDatePickerMode.date,
                           onDateTimeChanged: (v){
                             setState(() {
