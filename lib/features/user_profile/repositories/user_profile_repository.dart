@@ -256,7 +256,10 @@ class UserProfileRepository {
       SkillInfo skillInfo) async {
     BotToast.showLoading();
     var url = "${Urls.professionalSkillUrl}/${skillInfo.profSkillId}/";
-    var data = {"is_archived": true};
+    var data = {
+      "is_archived": true,
+      "name_id" : skillInfo.skill?.id
+    };
 
     try {
       var response = await ApiClient().putRequest(url, data);
@@ -390,13 +393,13 @@ class UserProfileRepository {
 
 
   Future<Either<AppError, EduInfo>> addUserEducation(
-      MembershipInfo membershipInfo) async {
+      EduInfo eduInfo) async {
     BotToast.showLoading();
     var authUser = await AuthService.getInstance();
     var professionalId = authUser.getUser().professionalId;
     var url = "${Urls.professionalEducationUrl}/";
 
-    var data = membershipInfo.toJson();
+    var data = eduInfo.toJson();
     data.addAll({"professional_id": professionalId});
 
 
@@ -426,14 +429,14 @@ class UserProfileRepository {
     }
   }
 
-  Future<Either<AppError, MembershipInfo>> updateUserEducation(
-      MembershipInfo membershipInfo) async {
+  Future<Either<AppError, EduInfo>> updateUserEducation(
+      EduInfo eduInfo) async {
     BotToast.showLoading();
     var authUser = await AuthService.getInstance();
     var professionalId = authUser.getUser().professionalId;
-    var url = "${Urls.professionalEducationUrl}/${membershipInfo.membershipId}/";
+    var url = "${Urls.professionalEducationUrl}/${eduInfo.educationId}/";
 
-    var data = membershipInfo.toJson();
+    var data = eduInfo.toJson();
     data.addAll({"professional_id": professionalId});
 
     try {
@@ -442,7 +445,7 @@ class UserProfileRepository {
       print(response.body);
       if (response.statusCode == 200) {
         BotToast.closeAllLoading();
-        MembershipInfo data = MembershipInfo.fromJson(json.decode(response.body));
+        EduInfo data = EduInfo.fromJson(json.decode(response.body));
         return Right(data);
       } else {
         BotToast.closeAllLoading();

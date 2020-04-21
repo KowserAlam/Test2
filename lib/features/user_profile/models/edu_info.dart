@@ -1,5 +1,6 @@
 class EduInfo {
   String qualification;
+  String educationId;
   String institution;
   String cgpa;
   String major;
@@ -15,6 +16,7 @@ class EduInfo {
         this.graduationDate});
 
   EduInfo.fromJson(Map<String, dynamic> json) {
+    educationId = json['education_id'];
     qualification = json['qualification'];
     institution = json['institution'];
     cgpa = json['cgpa'];
