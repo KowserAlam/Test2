@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:p7app/features/user_profile/models/member_ship_info.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/features/user_profile/views/widgets/custom_text_from_field.dart';
+import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/util/validator.dart';
 import 'package:p7app/main_app/widgets/common_button.dart';
@@ -35,6 +36,8 @@ class _EditMemberShipsState extends State<EditMemberShips> {
   final _membershipOngoingFocusNode = FocusNode();
   final _descriptionFocusNode = FocusNode();
 
+  //values
+  DateTime _startDate, _endDate;
 
   //widgets
   var spaceBetweenFields = SizedBox(height: 15,);
@@ -46,6 +49,8 @@ class _EditMemberShipsState extends State<EditMemberShips> {
       _orgNameController.text = widget.membershipInfo.orgName;
       _positionHeldController.text = widget.membershipInfo.positionHeld;
       _descriptionController.text = widget.membershipInfo.desceription;
+      //_startDate = widget.membershipInfo.startDate ==null?null : widget.membershipInfo.startDate;
+      //_endDate = widget.membershipInfo.endDate==null?null : widget.membershipInfo.endDate;
     }
     super.initState();
   }
@@ -199,7 +204,7 @@ class _EditMemberShipsState extends State<EditMemberShips> {
                         ],),
                       padding: EdgeInsets.all(8),
                       child: Text(
-                        "SD",
+                        _startDate != null? kDateFormatBD.format(_startDate): 'Choose Date',
                       ),
                     ),
                   ),
@@ -234,7 +239,7 @@ class _EditMemberShipsState extends State<EditMemberShips> {
                         ],),
                       padding: EdgeInsets.all(8),
                       child: Text(
-                        "ED",
+                        _startDate != null? kDateFormatBD.format(_endDate): 'Choose Date',
                       ),
                     ),
                   ),
@@ -269,7 +274,11 @@ class _EditMemberShipsState extends State<EditMemberShips> {
                         child: CupertinoDatePicker(
                           initialDateTime: initialDate,
                           mode: CupertinoDatePickerMode.date,
-                          onDateTimeChanged: (v){},
+                          onDateTimeChanged: (v){
+                            setState(() {
+                              _endDate = v;
+                            });
+                          },
                         ),
                       ),
                     ),
@@ -312,7 +321,11 @@ class _EditMemberShipsState extends State<EditMemberShips> {
                         child: CupertinoDatePicker(
                           initialDateTime: initialDate,
                           mode: CupertinoDatePickerMode.date,
-                          onDateTimeChanged: (v){},
+                          onDateTimeChanged: (v){
+                            setState(() {
+                              _startDate = v;
+                            });
+                          },
                         ),
                       ),
                     ),
