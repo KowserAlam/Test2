@@ -19,6 +19,7 @@ import 'package:uuid/uuid.dart';
 class AddEditEducationScreen extends StatefulWidget {
   final EduInfo educationModel;
   final int index;
+
   AddEditEducationScreen({
     this.educationModel,
     this.index,
@@ -29,8 +30,7 @@ class AddEditEducationScreen extends StatefulWidget {
       _AddEditEducationScreenState(educationModel, index);
 }
 
-class _AddEditEducationScreenState extends State<AddEditEducationScreen>
-    with AfterLayoutMixin {
+class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
   final EduInfo educationModel;
   final int index;
 
@@ -50,32 +50,134 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen>
   final FocusNode _degreeFocusNode = FocusNode();
   final FocusNode _percentageFocusNode = FocusNode();
 
-  @override
-  void afterFirstLayout(BuildContext context) {
-
-  }
-
   _handleSave() {
     var isSuccess = _formKey.currentState.validate();
 
     if (isSuccess) {
-
-
       var education = EduInfo(
-          institution: institutionNameController.text,
-          cgpa: gpaTextController.text,
-          qualification: degreeTextController.text,);
+        institution: institutionNameController.text,
+        cgpa: gpaTextController.text,
+        qualification: degreeTextController.text,
+      );
       Navigator.pop(context);
-
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    var spaceBetween = SizedBox(
+      height: 15,
+    );
 
-    var passingYear = Column();
+    var nameOfInstitution = CustomTextFormField(
+      validator: Validator().nullFieldValidate,
+      focusNode: _institutionNameFocusNode,
+      autofocus: true,
+      textInputAction: TextInputAction.next,
+      onFieldSubmitted: (a) {
+        FocusScope.of(_scaffoldKey.currentContext)
+            .requestFocus(_degreeFocusNode);
+      },
+      controller: institutionNameController,
+      labelText: StringUtils.nameOfOInstitutionText,
+      hintText: StringUtils.nameOfOInstitutionHintText,
+    );
 
+    var enrolledDate = Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(height: 16),
+        Text(
+          StringUtils.enrollDate,
+          textAlign: TextAlign.left,
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        SizedBox(
+          height: 8,
+        ),
+        InkWell(
+          onTap: () {
+            _showJoinDatePicker(context);
+          },
+          child: Container(
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: Theme.of(context).backgroundColor,
+              borderRadius: BorderRadius.circular(7),
+              boxShadow: [
+                BoxShadow(
+                    color: Color(0xff000000).withOpacity(0.2), blurRadius: 20),
+                BoxShadow(
+                    color: Color(0xfffafafa).withOpacity(0.2), blurRadius: 20),
+              ],
+            ),
+            padding: EdgeInsets.all(8),
+            child: Text(
+              "",
+            ),
+          ),
+        ),
+      ],
+    );
+    var graduationDate = Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        /// passingYear
+        SizedBox(height: 16),
+        Text(
+          StringUtils.graduationDate,
+          textAlign: TextAlign.left,
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        SizedBox(
+          height: 8,
+        ),
 
+        InkWell(
+          onTap: () {
+            _showJoinDatePicker(context);
+          },
+          child: Container(
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: Theme.of(context).backgroundColor,
+              borderRadius: BorderRadius.circular(7),
+              boxShadow: [
+                BoxShadow(
+                    color: Color(0xff000000).withOpacity(0.2), blurRadius: 20),
+                BoxShadow(
+                    color: Color(0xfffafafa).withOpacity(0.2), blurRadius: 20),
+              ],
+            ),
+            padding: EdgeInsets.all(8),
+            child: Text(
+              "",
+            ),
+          ),
+        ),
+      ],
+    );
+    var degree =  CustomTextFormField(
+      validator: Validator().nullFieldValidate,
+      focusNode: _degreeFocusNode,
+      autofocus: true,
+      textInputAction: TextInputAction.next,
+      onFieldSubmitted: (a) {
+        FocusScope.of(_scaffoldKey.currentContext)
+            .requestFocus(_percentageFocusNode);
+      },
+      controller: degreeTextController,
+      labelText: StringUtils.nameOfODegreeText,
+      hintText: StringUtils.nameOfODegreeHintText,
+    );
+    var cgpa =  CustomTextFormField(
+      controller: gpaTextController,
+      focusNode: _percentageFocusNode,
+      keyboardType: TextInputType.number,
+      maxLines: null,
+      labelText: StringUtils.gpaText,
+      hintText: StringUtils.gpaHintText,
+    );
 
     return Scaffold(
       key: _scaffoldKey,
@@ -103,86 +205,16 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen>
                     SizedBox(
                       height: 10,
                     ),
-
-                    /// nameOfOInstitutionText
-
-                    CustomTextFormField(
-                      validator: Validator().nullFieldValidate,
-                      focusNode: _institutionNameFocusNode,
-                      autofocus: true,
-                      textInputAction: TextInputAction.next,
-                      onFieldSubmitted: (a) {
-                        FocusScope.of(_scaffoldKey.currentContext)
-                            .requestFocus(_degreeFocusNode);
-                      },
-                      controller: institutionNameController,
-                      labelText: StringUtils.nameOfOInstitutionText,
-                      hintText: StringUtils.nameOfOInstitutionHintText,
-                    ),
-                    SizedBox(height: 15),
+                    nameOfInstitution,
+                    spaceBetween,
                     ///Degree
-
-                    CustomTextFormField(
-                      validator: Validator().nullFieldValidate,
-                      focusNode: _degreeFocusNode,
-                      autofocus: true,
-                      textInputAction: TextInputAction.next,
-                      onFieldSubmitted: (a) {
-                        FocusScope.of(_scaffoldKey.currentContext)
-                            .requestFocus(_percentageFocusNode);
-                      },
-                      controller: degreeTextController,
-                      labelText: StringUtils.nameOfODegreeText,
-                      hintText: StringUtils.nameOfODegreeHintText,
-                    ),
-
+                    degree,
                     SizedBox(height: 15),
-
                     /// gpaText
-
-                    CustomTextFormField(
-                      controller: gpaTextController,
-                      focusNode: _percentageFocusNode,
-                      keyboardType: TextInputType.number,
-                      maxLines: null,
-                      labelText: StringUtils.gpaText,
-                      hintText: StringUtils.gpaHintText,
-                    ),
-
-                    /// passingYear
-                    SizedBox(
-                      height: 16
-                    ),
-                    Text(
-                      StringUtils.passingYearText,
-                      textAlign: TextAlign.left,
-                      style: TextStyle(fontWeight: FontWeight.bold),
-
-                    ),
-                    SizedBox(
-                      height: 8,
-                    ),
-
-                    InkWell(
-                      onTap: () {
-                        _showJoinDatePicker(context);
-                      },
-                      child: Container(
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).backgroundColor,
-                          borderRadius: BorderRadius.circular(7),
-                          boxShadow: [
-                            BoxShadow(color: Color(0xff000000).withOpacity(0.2), blurRadius: 20),
-                            BoxShadow(color: Color(0xfffafafa).withOpacity(0.2), blurRadius: 20),
-
-                          ],),
-                        padding: EdgeInsets.all(8),
-                        child: Text(
-                         "",
-                        ),
-                      ),
-                    ),
+                    cgpa ,
+                    enrolledDate,
+                    spaceBetween,
+                    graduationDate,
                   ],
                 ),
               ),
@@ -194,7 +226,6 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen>
   }
 
   _showJoinDatePicker(context) {
-
     var initialDate = DateTime.now();
     showDialog(
         context: context,
@@ -214,7 +245,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen>
                         child: CupertinoDatePicker(
                           initialDateTime: initialDate,
                           mode: CupertinoDatePickerMode.date,
-                          onDateTimeChanged: (v){},
+                          onDateTimeChanged: (v) {},
                         ),
                       ),
                     ),

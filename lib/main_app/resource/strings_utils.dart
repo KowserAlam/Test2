@@ -214,7 +214,8 @@ class StringUtils {
   static String nameOfODegreeHintText = "eg. Bachelor of Science";
   static String gpaText = "Percentage/CGPA";
   static String gpaHintText = "eg. 4.0";
-  static String passingYearText = "Passing Year";
+  static String enrollDate = "Enrolled Date";
+  static String graduationDate = "Graduation Date";
   static String currentlyStudyingHereText = "I'm currently studying here";
   static String startingDateText = "Starting Date";
 
