@@ -1,3 +1,4 @@
+import 'package:p7app/features/user_profile/models/member_ship_info.dart';
 import 'package:p7app/features/user_profile/models/reference_data.dart';
 import 'package:p7app/features/user_profile/models/skill_info.dart';
 import 'package:p7app/features/user_profile/models/user_model.dart';
@@ -170,6 +171,47 @@ class UserProfileViewModel with ChangeNotifier {
         return false;
       }, (r){
         userData.skillInfo.removeAt(index);
+        notifyListeners();
+        return true;
+      });
+    });
+  }
+
+
+  //Membership
+  Future<bool> addMembershipData(MembershipInfo membershipInfo){
+    return UserProfileRepository().addUserMembership(membershipInfo).then((res){
+      return res.fold((l){
+        print(l);
+        return false;
+      }, (r){
+        userData.membershipInfo.add(r);
+        notifyListeners();
+        return true;
+      });
+    });
+  }
+
+  Future<bool> updateMembershipData(MembershipInfo membershipInfo, int index){
+    return UserProfileRepository().updateUserMembership(membershipInfo).then((res){
+      return res.fold((l){
+        print(l);
+        return false;
+      }, (r){
+        userData.membershipInfo[index] = r;
+        notifyListeners();
+        return true;
+      });
+    });
+  }
+
+  Future<bool> deleteMembershipData(MembershipInfo membershipInfo,int index ){
+    return UserProfileRepository().deleteUserMembership(membershipInfo).then((res){
+      return res.fold((l){
+        print(l);
+        return false;
+      }, (r){
+        userData.membershipInfo.removeAt(index);
         notifyListeners();
         return true;
       });

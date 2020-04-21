@@ -517,7 +517,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
         }),
       );
     });
-    var membersShipWidget = Consumer<UserProfileViewModel>(
+    var memberShipWidget = Consumer<UserProfileViewModel>(
         builder: (context, userProfileViewModel, _) {
       List<MembershipInfo> list = userProfileViewModel.userData.membershipInfo;
 
@@ -540,9 +540,9 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
             memberShip: memberShip,
             onTapEdit: () {
               Navigator.push(context,
-                  CupertinoPageRoute(builder: (context) => EditMemberShips()));
+                  CupertinoPageRoute(builder: (context) => EditMemberShips(membershipInfo: memberShip, index: index,)));
             },
-            onTapDelete: (){},
+            onTapDelete: (){userProfileViewModel.deleteMembershipData(memberShip, index);},
           );
         }),
       );
@@ -677,7 +677,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                       SizedBox(height: 15),
 
                       /// Memberships
-                      membersShipWidget,
+                      memberShipWidget,
                       SizedBox(height: 15),
 
                       /// References

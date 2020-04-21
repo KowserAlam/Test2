@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:p7app/features/user_profile/models/member_ship_info.dart';
+import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/features/user_profile/views/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/util/validator.dart';
 import 'package:p7app/main_app/widgets/common_button.dart';
 import 'package:p7app/main_app/widgets/edit_screen_save_button.dart';
+import 'package:provider/provider.dart';
 
 class EditMemberShips extends StatefulWidget {
   final MembershipInfo membershipInfo;
@@ -47,15 +49,42 @@ class _EditMemberShipsState extends State<EditMemberShips> {
     }
     super.initState();
   }
+
+  _handleSave() {
+    bool isValid = _formKey.currentState.validate();
+    if (isValid) {
+      var membershipInfo = MembershipInfo(
+        membershipId: widget.membershipInfo?.membershipId,
+        orgName: _orgNameController.text,
+        positionHeld: _positionHeldController.text,
+        desceription: _descriptionController.text
+      );
+
+      if (widget.membershipInfo != null) {
+        /// updating existing data
+
+        Provider.of<UserProfileViewModel>(context, listen: false)
+            .updateMembershipData(membershipInfo, widget.index)
+            .then((value) {
+          if (value) {
+            Navigator.pop(context);
+          }
+        });
+      } else {
+        /// adding new data
+        Provider.of<UserProfileViewModel>(context, listen: false)
+            .addMembershipData(membershipInfo)
+            .then((value) {
+          if (value) {
+            Navigator.pop(context);
+          }
+        });
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    Function _handleSave = (){
-      if(_formKey.currentState.validate()){
-        print('validated');
-      }else{
-        print('not validated');
-      }
-    };
 
     return Scaffold(
       appBar: AppBar(
