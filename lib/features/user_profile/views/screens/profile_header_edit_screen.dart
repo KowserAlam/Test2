@@ -75,7 +75,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
         .then((dartZ.Either<AppError, List<String>> value) {
       value.fold((l) {
         // left
-        BotToast.showText(text: "Unable to load expertise list ");
+        BotToast.showText(text: StringUtils.salary);
       }, (r) {
         // right
         _industryExpertiseList = r
