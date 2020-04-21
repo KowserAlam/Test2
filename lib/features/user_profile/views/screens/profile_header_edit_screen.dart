@@ -75,7 +75,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
         .then((dartZ.Either<AppError, List<String>> value) {
       value.fold((l) {
         // left
-        BotToast.showText(text: "Unable to load expertise list ");
+        BotToast.showText(text: StringUtils.unableToLoadExpertiseListText);
       }, (r) {
         // right
         _industryExpertiseList = r
@@ -94,7 +94,10 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
   String getBase64Image() {
     List<int> imageBytes = fileProfileImage.readAsBytesSync();
 //    print(imageBytes);
-    return base64Encode(imageBytes);
+    var img = "data:image/jpg;base64,"+base64Encode(imageBytes);
+
+    print(img);
+    return img;
   }
 
   Future getImage() async {
