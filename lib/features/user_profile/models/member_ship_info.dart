@@ -3,8 +3,8 @@ class MembershipInfo {
   String orgName;
   String positionHeld;
   bool membershipOngoing;
-  String startDate;
-  String endDate;
+  DateTime startDate;
+  DateTime endDate;
   String desceription;
 
   MembershipInfo(
@@ -21,8 +21,12 @@ class MembershipInfo {
     orgName = json['org_name']?.toString();
     positionHeld = json['position_held']?.toString();
     membershipOngoing = json['membership_ongoing'];
-    startDate = json['Start_date'];
-    endDate = json['end_date'];
+    if (json['Start_date'] != null) {
+      startDate = DateTime.parse(json['Start_date']);
+    }
+    if (json['end_date'] != null) {
+      endDate = DateTime.parse(json['end_date']);
+    }
     desceription = json['desceription'];
   }
 
@@ -32,8 +36,8 @@ class MembershipInfo {
     data['org_name'] = this.orgName;
     data['position_held'] = this.positionHeld;
     data['membership_ongoing'] = this.membershipOngoing;
-    data['Start_date'] = this.startDate;
-    data['end_date'] = this.endDate;
+    data['Start_date'] = this.startDate.toIso8601String();
+    data['end_date'] = this.endDate.toIso8601String();
     data['desceription'] = this.desceription;
     return data;
   }
