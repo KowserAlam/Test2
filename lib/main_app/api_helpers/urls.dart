@@ -48,6 +48,8 @@ class Urls {
   static String signUpEmailVerificationUrl = "/api/signup/email-verification";
   static String signUpEmailConfirmPassword = "/api/signup/examinee";
 
+
+
 //  http://p7.ishraak.com/api/job_list/?page=1&page_size=2
   static String jobListUrl = "/api/job_list";
 
