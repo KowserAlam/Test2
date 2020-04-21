@@ -49,8 +49,8 @@ class _EditMemberShipsState extends State<EditMemberShips> {
       _orgNameController.text = widget.membershipInfo.orgName;
       _positionHeldController.text = widget.membershipInfo.positionHeld;
       _descriptionController.text = widget.membershipInfo.desceription;
-      _startDate = widget.membershipInfo.startDate ==null?null : widget.membershipInfo.startDate;
-      _endDate = widget.membershipInfo.endDate==null?null : widget.membershipInfo.endDate;
+      _startDate =  widget.membershipInfo.startDate;
+      _endDate =  widget.membershipInfo.endDate;
     }
     super.initState();
   }
@@ -255,7 +255,7 @@ class _EditMemberShipsState extends State<EditMemberShips> {
 
   _showEndDatePicker(context) {
 
-    var initialDate = DateTime.now();
+
 
     showDialog(
         context: context,
