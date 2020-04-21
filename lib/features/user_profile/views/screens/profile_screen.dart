@@ -583,7 +583,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
         title: Text(StringUtils.profileText),
       ),
       body: RefreshIndicator(
-        onRefresh: ,
+        onRefresh: (){},
         child: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
           child: Consumer<UserProfileViewModel>(
