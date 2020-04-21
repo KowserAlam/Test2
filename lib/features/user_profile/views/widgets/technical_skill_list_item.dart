@@ -47,7 +47,8 @@ class TechnicalSkillListItem extends StatelessWidget {
                 .title
                 .apply(color: Theme.of(context).primaryColor),
           ),
-          trailing: Wrap(
+          trailing: !isInEditMode?
+          Wrap(
             children: List.generate(5, (int index) {
               var iconData = Icons.star_border;
 
@@ -64,6 +65,22 @@ class TechnicalSkillListItem extends StatelessWidget {
                 color: Colors.orange,
               );
             }),
+          ): Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              IconButton(
+                icon: Icon(FontAwesomeIcons.edit),
+                onPressed: onTapEdit,
+                iconSize: 18,
+                color: Colors.black,
+              ),
+              IconButton(
+                icon: Icon(FontAwesomeIcons.trash),
+                onPressed: onTapDelete,
+                iconSize: 18,
+                color: Colors.black,
+              ),
+            ],
           ),
         ),
       ),
