@@ -242,7 +242,7 @@ class _EditMemberShipsState extends State<EditMemberShips> {
                         ],),
                       padding: EdgeInsets.all(8),
                       child: Text(
-                        _startDate != null? kDateFormatBD.format(_endDate): 'Choose Date',
+                        _endDate != null? kDateFormatBD.format(_endDate): 'Choose Date',
                       ),
                     ),
                   ),
