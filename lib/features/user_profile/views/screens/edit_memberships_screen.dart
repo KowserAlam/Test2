@@ -5,6 +5,7 @@ import 'package:p7app/features/user_profile/view_models/user_profile_view_model.
 import 'package:p7app/features/user_profile/views/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/util/date_format_uitl.dart';
 import 'package:p7app/main_app/util/validator.dart';
 import 'package:p7app/main_app/widgets/common_button.dart';
 import 'package:p7app/main_app/widgets/edit_screen_save_button.dart';
@@ -207,7 +208,7 @@ class _EditMemberShipsState extends State<EditMemberShips> {
                         ],),
                       padding: EdgeInsets.all(8),
                       child: Text(
-                        _startDate != null? kDateFormatBD.format(_startDate): 'Choose Date',
+                        _startDate != null? DateFormatUtil().dateFormat1(_startDate): 'Choose Date',
                       ),
                     ),
                   ),
