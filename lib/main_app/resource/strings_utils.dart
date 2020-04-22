@@ -274,8 +274,8 @@ class StringUtils {
   /// Profile Screen *******************
   /// Personal Info
 
-  static var fatherNameText = "Father Name";
-  static var motherNameText = "Mother Name";
+  static var fatherNameText = "Father's Name";
+  static var motherNameText = "Mother's Name";
   static var dateOfBirthText = "Date of Birth";
   static var permanentAddressText = "Permanent Address";
   static var currentAddressText = "Current Address";
@@ -285,9 +285,9 @@ class StringUtils {
   static var languagesKnown  = "Languages Known ";
   static var cropImageText  = "Crop Image";
   static var cancelText  = "Cancel";
-  static var facebookTrlText  = "Facebook Id Link";
-  static var twitterUrlText  = "Twitter Id Link";
-  static var linkedUrlText  = "LinkedIn Id Link";
+  static var facebookTrlText  = "Facebook";
+  static var twitterUrlText  = "Twitter";
+  static var linkedUrlText  = "LinkedIn";
   static var unableToLoadExpertiseListText  = "Unable to load expertise list";
   static var unableToLoadSkillListText  = "Unable to load skill list";
 

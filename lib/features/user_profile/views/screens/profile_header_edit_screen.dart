@@ -222,7 +222,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
                   getImage();
                 },
                 icon: Icon(
-                  FontAwesomeIcons.camera,
+                  FontAwesomeIcons.pencilAlt,
                   color: Theme.of(context).primaryColor,
                   size: 20,
                 ),
@@ -255,22 +255,22 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
             CustomTextFormField(
               controller: _fullNameTextEditingController,
               validator: Validator().nullFieldValidate,
-              labelText: "Full Name",
+              labelText: StringUtils.nameText,
               hintText: "eg. Bill Gates",
             ),
             SizedBox(height: 10),
 
 
-            CustomDropdownButtonFormField<String>(
-              labelText: StringUtils.industryExpertiseText,
-              hint: Text('Tap to select'),
-              value: _selectedIndustryExpertiseDropDownItem,
-              onChanged: (value) {
-                _selectedIndustryExpertiseDropDownItem = value;
-                setState(() {});
-              },
-              items: _industryExpertiseList,
-            ),
+//            CustomDropdownButtonFormField<String>(
+//              labelText: StringUtils.industryExpertiseText,
+//              hint: Text('Tap to select'),
+//              value: _selectedIndustryExpertiseDropDownItem,
+//              onChanged: (value) {
+//                _selectedIndustryExpertiseDropDownItem = value;
+//                setState(() {});
+//              },
+//              items: _industryExpertiseList,
+//            ),
 
             SizedBox(height: 10),
 
@@ -279,7 +279,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
               controller: _aboutTextEditingController,
               validator: Validator().nullFieldValidate,
               keyboardType: TextInputType.multiline,
-              maxLines: null,
+              maxLines: 5,
               labelText: StringUtils.aboutMeText,
               hintText: StringUtils.aboutHintText,
             ),
@@ -292,8 +292,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
               controller: _phoneEditingController,
               validator: Validator().validatePhoneNumber,
               keyboardType: TextInputType.phone,
-              maxLines: null,
-              labelText: StringUtils.phoneText,
+              labelText: StringUtils.mobileText,
               hintText: StringUtils.phoneHintText,
             ),
 
