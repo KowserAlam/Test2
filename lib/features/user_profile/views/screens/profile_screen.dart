@@ -185,8 +185,9 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                   var link =
                       userProfileViewModel.userData.personalInfo.facebookId;
                   if (link != null) {
+                    if(link.isNotEmpty)
                     UrlLauncherHelper.launchUrl(
-                        StringUtils.facebookBaseUrl + link);
+                        "https://"+StringUtils.facebookBaseUrl + link);
                   }
                 },
                 child: Icon(
@@ -210,8 +211,9 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                   var link =
                       userProfileViewModel.userData.personalInfo.linkedinId;
                   if (link != null) {
+                    if(link.isNotEmpty)
                     UrlLauncherHelper.launchUrl(
-                        StringUtils.linkedBaseUrl + link);
+                        "https://"+StringUtils.linkedBaseUrl + link);
                   }
                 },
                 child: Icon(
@@ -232,11 +234,11 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                   borderRadius: BorderRadius.circular(20)),
               child: InkWell(
                 onTap: () {
-                  var link =
-                      userProfileViewModel.userData.personalInfo.twitterId;
+                  var link = userProfileViewModel.userData.personalInfo.twitterId;
                   if (link != null) {
+                    if(link.isNotEmpty)
                     UrlLauncherHelper.launchUrl(
-                        StringUtils.twitterBaeUrl + link);
+                        "https://"+ StringUtils.twitterBaeUrl + link);
                   }
                 },
                 child: Icon(
