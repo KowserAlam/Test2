@@ -19,13 +19,13 @@ class StringUtils {
 
   static String invalidEmail = "Invalid Email";
   static String invalidCode = "Invalid Code";
-  static String thisFieldIsRequired = "This field is Required";
+  static String thisFieldIsRequired = "This Field Is Required";
   static String invalidPassword = "Invalid Password";
   static String passwordMustBeEight =
       "Password must be at least 8 characters long with at least one digit and one letter";
   static String passwordDoesNotMatch = "Password doesn't match";
   static String enterValidEmail = 'Enter Valid Email';
-  static String enterValidPhoneNumber = 'Enter Valid Phone Number (Bangladesh)';
+  static String enterValidPhoneNumber = 'Enter Valid Phone Number';
 
   ///
   static String passwordText = "Password";
