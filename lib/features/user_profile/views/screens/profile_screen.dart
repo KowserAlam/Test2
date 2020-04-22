@@ -169,79 +169,86 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                 color: profileHeaderFontColor),
           );
         });
-    var socialIconsWidgets = Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-          constraints: BoxConstraints(
-              minHeight: 25, maxHeight: 25, minWidth: 25, maxWidth: 25),
-          decoration: BoxDecoration(
-              color: AppTheme.facebookColor,
-              borderRadius: BorderRadius.circular(20)),
-          child: InkWell(
-            onTap: () {
-              UrlLauncherHelper.launchUrl(
-                  Provider.of<UserProfileViewModel>(context, listen: false)
-                      .userData
-                      .personalInfo
-                      .facebookId);
-            },
-            child: Icon(
-              FontAwesomeIcons.facebookF,
-              color: Colors.white,
-              size: 15,
+    var socialIconsWidgets = Consumer<UserProfileViewModel>(
+      builder: (context, userProfileViewModel, _) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              constraints: BoxConstraints(
+                  minHeight: 25, maxHeight: 25, minWidth: 25, maxWidth: 25),
+              decoration: BoxDecoration(
+                  color: AppTheme.facebookColor,
+                  borderRadius: BorderRadius.circular(20)),
+              child: InkWell(
+                onTap: () {
+                  var link =
+                      userProfileViewModel.userData.personalInfo.facebookId;
+                  if (link != null) {
+                    UrlLauncherHelper.launchUrl(
+                        StringUtils.facebookBaseUrl + link);
+                  }
+                },
+                child: Icon(
+                  FontAwesomeIcons.facebookF,
+                  color: Colors.white,
+                  size: 15,
+                ),
+              ),
             ),
-          ),
-        ),
-        SizedBox(
-          width: 8,
-        ),
-        Container(
-          constraints: BoxConstraints(
-              minHeight: 25, maxHeight: 25, minWidth: 25, maxWidth: 25),
-          decoration: BoxDecoration(
-              color: AppTheme.linkedInColor,
-              borderRadius: BorderRadius.circular(20)),
-          child: InkWell(
-            onTap: () {
-              UrlLauncherHelper.launchUrl(
-                  Provider.of<UserProfileViewModel>(context, listen: false)
-                      .userData
-                      .personalInfo
-                      .linkedinId);
-            },
-            child: Icon(
-              FontAwesomeIcons.linkedinIn,
-              color: Colors.white,
-              size: 15,
+            SizedBox(
+              width: 8,
             ),
-          ),
-        ),
-        SizedBox(
-          width: 8,
-        ),
-        Container(
-          constraints: BoxConstraints(
-              minHeight: 25, maxHeight: 25, minWidth: 25, maxWidth: 25),
-          decoration: BoxDecoration(
-              color: AppTheme.twitterColor,
-              borderRadius: BorderRadius.circular(20)),
-          child: InkWell(
-            onTap: () {
-              UrlLauncherHelper.launchUrl(
-                  Provider.of<UserProfileViewModel>(context, listen: false)
-                      .userData
-                      .personalInfo
-                      .twitterId);
-            },
-            child: Icon(
-              FontAwesomeIcons.twitter,
-              color: Colors.white,
-              size: 15,
+            Container(
+              constraints: BoxConstraints(
+                  minHeight: 25, maxHeight: 25, minWidth: 25, maxWidth: 25),
+              decoration: BoxDecoration(
+                  color: AppTheme.linkedInColor,
+                  borderRadius: BorderRadius.circular(20)),
+              child: InkWell(
+                onTap: () {
+                  var link =
+                      userProfileViewModel.userData.personalInfo.linkedinId;
+                  if (link != null) {
+                    UrlLauncherHelper.launchUrl(
+                        StringUtils.linkedBaseUrl + link);
+                  }
+                },
+                child: Icon(
+                  FontAwesomeIcons.linkedinIn,
+                  color: Colors.white,
+                  size: 15,
+                ),
+              ),
             ),
-          ),
-        ),
-      ],
+            SizedBox(
+              width: 8,
+            ),
+            Container(
+              constraints: BoxConstraints(
+                  minHeight: 25, maxHeight: 25, minWidth: 25, maxWidth: 25),
+              decoration: BoxDecoration(
+                  color: AppTheme.twitterColor,
+                  borderRadius: BorderRadius.circular(20)),
+              child: InkWell(
+                onTap: () {
+                  var link =
+                      userProfileViewModel.userData.personalInfo.twitterId;
+                  if (link != null) {
+                    UrlLauncherHelper.launchUrl(
+                        StringUtils.twitterBaeUrl + link);
+                  }
+                },
+                child: Icon(
+                  FontAwesomeIcons.twitter,
+                  color: Colors.white,
+                  size: 15,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
     );
     var editButtonHeader = IconButton(
       icon: Icon(
@@ -443,14 +450,17 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
           return TechnicalSkillListItem(
             isInEditMode: isInEditModeSkill,
             skillInfo: skill,
-            onTapDelete: (){
+            onTapDelete: () {
               userProfileViewModel.deleteSkillData(skill, index);
             },
             onTapEdit: () {
               Navigator.push(
                   context,
                   CupertinoPageRoute(
-                      builder: (context) => AddEditTechnicalSkill(skillInfo: skill,index: index,)));
+                      builder: (context) => AddEditTechnicalSkill(
+                            skillInfo: skill,
+                            index: index,
+                          )));
             },
           );
         }),
@@ -539,10 +549,17 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
             isInEditMode: isInEditModeMembersShip,
             memberShip: memberShip,
             onTapEdit: () {
-              Navigator.push(context,
-                  CupertinoPageRoute(builder: (context) => EditMemberShips(membershipInfo: memberShip, index: index,)));
+              Navigator.push(
+                  context,
+                  CupertinoPageRoute(
+                      builder: (context) => EditMemberShips(
+                            membershipInfo: memberShip,
+                            index: index,
+                          )));
             },
-            onTapDelete: (){userProfileViewModel.deleteMembershipData(memberShip, index);},
+            onTapDelete: () {
+              userProfileViewModel.deleteMembershipData(memberShip, index);
+            },
           );
         }),
       );

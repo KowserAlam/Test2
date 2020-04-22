@@ -286,8 +286,11 @@ class StringUtils {
   static var cropImageText  = "Crop Image";
   static var cancelText  = "Cancel";
   static var facebookTrlText  = "Facebook";
+  static var facebookBaseUrl  = "facebook.com/";
   static var twitterUrlText  = "Twitter";
+  static var twitterBaeUrl  = "twitter.com/";
   static var linkedUrlText  = "LinkedIn";
+  static var linkedBaseUrl  = "linkedin.com/in/";
   static var unableToLoadExpertiseListText  = "Unable to load expertise list";
   static var unableToLoadSkillListText  = "Unable to load skill list";
 

@@ -242,7 +242,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
   /// Information From Fields
   _buildInformationFields() {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.symmetric(vertical: 16,horizontal: 12),
       child: Form(
         key: _formKey,
         child: Column(
@@ -323,20 +323,23 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
               controller: _facebookEditingController,
               keyboardType: TextInputType.multiline,
               labelText: StringUtils.facebookTrlText,
+              prefix: Text(StringUtils.facebookBaseUrl),
             ),
             SizedBox(height: 10),
             ///twitter
             CustomTextFormField(
               controller: _twitterEditingController,
               keyboardType: TextInputType.multiline,
-              labelText: StringUtils.twitterUrlText
+              labelText: StringUtils.twitterUrlText,
+              prefix: Text(StringUtils.twitterBaeUrl),
             ),
             SizedBox(height: 10),
             ///linkedIn
             CustomTextFormField(
               controller: _linkedInEditingController,
               keyboardType: TextInputType.multiline,
-              labelText: StringUtils.linkedUrlText
+              labelText: StringUtils.linkedUrlText,
+              prefix: Text(StringUtils.linkedBaseUrl),
             ),
             SizedBox(height: 10),
           ],

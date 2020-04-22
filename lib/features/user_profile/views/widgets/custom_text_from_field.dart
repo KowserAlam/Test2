@@ -14,9 +14,11 @@ class CustomTextFormField extends StatefulWidget {
   final bool autovalidate;
   final TextInputAction textInputAction;
   final ValueChanged<String> onFieldSubmitted;
+  final Widget prefix;
 
   const CustomTextFormField({
     this.validator,
+    this.prefix,
     this.textInputAction,
     this.autovalidate = false,
     this.controller,
@@ -85,6 +87,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             controller: widget.controller,
             textInputAction: widget.textInputAction,
             decoration: InputDecoration(
+              prefix: widget.prefix,
               border: InputBorder.none,
               contentPadding: widget.contentPadding,
               focusedBorder: OutlineInputBorder(
