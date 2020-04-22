@@ -8,7 +8,6 @@ class IndustryListRepository{
 
   Future<Either<AppError,List<String>>> getIndustryList() async{
     try{
-
       var res = await ApiClient().getRequest(Urls.industryListUrl);
 
       if(res.statusCode == 200){
@@ -20,19 +19,14 @@ class IndustryListRepository{
       }else{
         return Left(AppError.unknownError);
       }
-
-
-
     }catch (e){
       print(e);
-
       return Left(AppError.serverError);
     }
   }
+
   List<String> fromJson(json){
    List<String> list = [];
-//   List<Map<String,dynamic>> tl = json.cast<Map<String,dynamic>>();
-//    tl.map<String>((e) => e['name']).toList();
    json.forEach((element) {
      list.add(element['name']);
    });
