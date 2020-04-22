@@ -184,7 +184,7 @@ class UserProfileRepository {
     var professionalId = authUser.getUser().professionalId;
     var url = "${Urls.professionalSkillUrl}/";
 
-    var data = skillInfo.toJson();
+    var data = skillInfo.toJsonCreateNew();
     data.addAll({"professional_id": professionalId});
 
 

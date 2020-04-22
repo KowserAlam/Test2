@@ -272,7 +272,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
         ),
         Selector<UserProfileViewModel, String>(
             selector: (_, userProfileViewModel) =>
-                userProfileViewModel.userData.personalInfo.address,
+                userProfileViewModel.userData.personalInfo.currentLocation,
             builder: (context, String data, _) {
               return Text(
                 data ?? "",

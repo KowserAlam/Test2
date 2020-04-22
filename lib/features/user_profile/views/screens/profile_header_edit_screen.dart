@@ -61,7 +61,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
     var personalInfo = widget.userModel.personalInfo;
 
     _phoneEditingController.text = personalInfo.phone ?? "";
-    _locationEditingController.text = personalInfo.address ?? "";
+    _locationEditingController.text = personalInfo.currentLocation ?? "";
     _aboutTextEditingController.text = personalInfo.aboutMe ?? "";
     _fullNameTextEditingController.text = personalInfo.fullName ?? "";
     _selectedIndustryExpertiseDropDownItem = personalInfo.industryExpertise;
@@ -116,11 +116,6 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
       var userData = userViewModel.userData;
       UserPersonalInfo personalInfo = userViewModel.userData.personalInfo;
 
-//      personalInfo.address = _addressEditingController.text;
-//      personalInfo.fullName = _fullNameTextEditingController.text;
-//      personalInfo.industryExpertise = industryExpertiseTextEditingController.text;
-//      personalInfo.aboutMe = _aboutTextEditingController.text;
-//      personalInfo.phone = _phoneEditingController.text;
 
       var data = {
         "current_location": _locationEditingController.text,
@@ -145,9 +140,8 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
       }, (UserPersonalInfo r) {
         //right
         userData.personalInfo = r;
-        print(r.fullName);
         print(userData.personalInfo.fullName);
-        userViewModel.userData = userData;
+        userViewModel.userPersonalInfo = r;
         Navigator.pop(context);
       });
     }
