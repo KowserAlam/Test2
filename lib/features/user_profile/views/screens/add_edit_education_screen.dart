@@ -2,6 +2,7 @@ import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:p7app/features/user_profile/models/edu_info.dart';
 import 'package:p7app/features/user_profile/models/institution.dart';
 import 'package:p7app/features/user_profile/repositories/institution_list_repository.dart';
+import 'package:p7app/features/user_profile/repositories/user_profile_repository.dart';
 import 'package:p7app/features/user_profile/styles/profile_common_style.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/features/user_profile/views/widgets/common_date_picker_widget.dart';
@@ -46,6 +47,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
   var _scaffoldKey = GlobalKey<ScaffoldState>();
   DateTime _enrollDate;
   DateTime _graduationDate;
+   Institution selectedInstitute;
 
   var autoCompleteTextKey = GlobalKey<AutoCompleteTextFieldState<Institution>>();
   final _institutionListStreamController = BehaviorSubject<List<Institution>>();
@@ -64,7 +66,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
   }
 
   dispose(){
-
+_institutionListStreamController.close();
     super.dispose();
   }
 
@@ -90,9 +92,20 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
       var education = EduInfo(
         institution: institutionNameController.text,
         cgpa: gpaTextController.text,
-        qualification: degreeTextController.text,
+//        qualification: degreeTextController.text,
+        enrolledDate: _enrollDate,
+        graduationDate: _graduationDate,
       );
-      Navigator.pop(context);
+
+      UserProfileRepository().addUserEducation(education).then((value){
+        value.fold((l){
+          //error
+        }, (r){
+          // right
+          Navigator.pop(context);
+        });
+      });
+
     }
   }
 
@@ -107,6 +120,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
         builder: (context, AsyncSnapshot<List<Institution>> snapshot) {
           if (snapshot.hasData)
             return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text("  " + StringUtils.nameOfOInstitutionText ?? "",
                     style: TextStyle(fontWeight: FontWeight.bold)),
@@ -135,15 +149,18 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
                     itemSorter: (Institution a, Institution b) =>
                         a.name.compareTo(b.name),
                     key: autoCompleteTextKey,
-                    itemBuilder:
-                        (BuildContext context, Institution suggestion) {
-                      print(suggestion);
+                    itemBuilder: (BuildContext context, Institution suggestion) {
                       return ListTile(
                         title: Text(suggestion.name ?? ""),
                       );
                     },
+                    clearOnSubmit: false,
                     itemSubmitted: (Institution data) {
-                      print(data);
+                      selectedInstitute = data;
+                      institutionNameController.text = data.name;
+                      setState(() {
+
+                      });
                     },
                   ),
                 ),
@@ -186,7 +203,6 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
       },
     );
     var degree = CustomTextFormField(
-      validator: Validator().nullFieldValidate,
       controller: degreeTextController,
       labelText: StringUtils.nameOfODegreeText,
       hintText: StringUtils.nameOfODegreeHintText,
