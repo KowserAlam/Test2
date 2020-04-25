@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:p7app/main_app/util/validator.dart';
 
-class CustomTextFormField extends StatefulWidget {
+class CustomTextFormField extends StatelessWidget {
   final Function validator;
   final TextEditingController controller;
   final String labelText;
@@ -31,37 +31,16 @@ class CustomTextFormField extends StatefulWidget {
     this.contentPadding =
         const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
     this.maxLines = 1,
+
   });
-
-  @override
-  _CustomTextFormFieldState createState() => _CustomTextFormFieldState();
-}
-
-class _CustomTextFormFieldState extends State<CustomTextFormField> {
-
-//  String errorText;
-//
-//  String handleValidation(String s) {
-//    if (widget.validator != null) {
-//      errorText = widget.validator(widget.controller?.text);
-//      setState(() {});
-//
-//      return "";
-//    } else {
-//      errorText = null;
-//      return "";
-//    }
-//  }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(
-          "  " + widget.labelText ?? "",
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
+        Text("  " + labelText ?? "",
+            style: TextStyle(fontWeight: FontWeight.bold)),
         SizedBox(
           height: 5,
         ),
@@ -77,21 +56,20 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             ],
           ),
           child: TextFormField(
-
-            onFieldSubmitted: widget.onFieldSubmitted,
-            autofocus: widget.autofocus,
-            focusNode: widget.focusNode,
-            maxLines: widget.maxLines,
-            autovalidate: widget.autovalidate,
-            keyboardType: widget.keyboardType,
-            validator: widget.validator,
-            controller: widget.controller,
-            textInputAction: widget.textInputAction,
+            onFieldSubmitted: onFieldSubmitted,
+            autofocus: autofocus,
+            focusNode: focusNode,
+            maxLines: maxLines,
+            autovalidate: autovalidate,
+            keyboardType: keyboardType,
+            validator: validator,
+            controller: controller,
+            textInputAction: textInputAction,
             decoration: InputDecoration(
-              prefix: widget.prefix,
+              prefix: prefix,
               border: InputBorder.none,
-              hintText: widget.hintText,
-              contentPadding: widget.contentPadding,
+              hintText: hintText,
+              contentPadding: contentPadding,
               focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(7),
                   borderSide:

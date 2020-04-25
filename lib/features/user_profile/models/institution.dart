@@ -11,7 +11,7 @@ class Institution extends Equatable{
 
    Institution.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    name = json['name'];
+    name = json['name']?.toString();
   }
 
   Map<String, dynamic> toJson() {
@@ -27,4 +27,11 @@ class Institution extends Equatable{
 
    @override
    bool get stringify => true;
+
+   @override
+   String toString() {
+     return 'Institution{id: $id, name: $name}';
+   }
+
+
 }

@@ -7,9 +7,9 @@ import 'package:p7app/main_app/api_helpers/urls.dart';
 import 'package:p7app/main_app/failure/error.dart';
 
 class InstitutionListRepository {
-  Future<Either<AppError, List<Institution>>> getReligionList() async {
+  Future<Either<AppError, List<Institution>>> getList() async {
     try {
-      var res = await ApiClient().getRequest(Urls.religionListUrl);
+      var res = await ApiClient().getRequest(Urls.instituteListUrl);
 
       if (res.statusCode == 200) {
         var decodedJson = json.decode(res.body);
