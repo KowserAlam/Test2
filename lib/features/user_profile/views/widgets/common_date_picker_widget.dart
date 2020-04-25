@@ -8,12 +8,16 @@ class CommonDatePickerWidget extends StatelessWidget {
   final DateTime date;
   final Function(DateTime) onDateTimeChanged;
   final Function onTapDateClear;
+  final DateTime minDate;
+  final DateTime maxDate;
 
   const CommonDatePickerWidget({
     @required this.label,
     @required this.date,
     @required this.onDateTimeChanged,
     this.onTapDateClear,
+    this.maxDate,
+    this.minDate
   });
 
   @override
@@ -77,8 +81,8 @@ class CommonDatePickerWidget extends StatelessWidget {
   }
 
   _showDatePicker(context) {
-    var miniDate = DateTime.now().subtract(Duration(days: 360 * 100));
-    var maxDate = DateTime.now().add(Duration(days: 360 * 10));
+    var _miniDate = maxDate?? DateTime.now().subtract(Duration(days: 360 * 100));
+    var _maxDate = minDate??DateTime.now().add(Duration(days: 360 * 10));
 
     onDateTimeChanged(DateTime.now());
 
@@ -98,12 +102,12 @@ class CommonDatePickerWidget extends StatelessWidget {
                         data: CupertinoThemeData(
                             brightness: Theme.of(context).brightness),
                         child: CupertinoDatePicker(
-                          maximumDate: maxDate,
-                          minimumDate: miniDate,
+                          maximumDate: _maxDate,
+                          minimumDate: _miniDate,
                           initialDateTime: date ?? DateTime.now(),
                           mode: CupertinoDatePickerMode.date,
                           onDateTimeChanged: (v){
-                            if(v.year >= miniDate.year && v.year <= maxDate.year) {
+                            if(v.year >= _miniDate.year && v.year <= _maxDate.year) {
                               onDateTimeChanged(v);
                             }
                           },
