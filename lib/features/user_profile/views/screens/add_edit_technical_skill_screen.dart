@@ -1,4 +1,5 @@
 import 'package:after_layout/after_layout.dart';
+import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:p7app/features/user_profile/models/skill.dart';
 import 'package:p7app/features/user_profile/models/skill_info.dart';
@@ -30,6 +31,7 @@ class AddEditTechnicalSkill extends StatefulWidget {
 class _AddEditTechnicalSkillState extends State<AddEditTechnicalSkill> {
   final SkillInfo technicalSkill;
   final int index;
+  List<Skill> searchList;
 
   _AddEditTechnicalSkillState(this.technicalSkill, this.index);
 
@@ -41,6 +43,14 @@ class _AddEditTechnicalSkillState extends State<AddEditTechnicalSkill> {
 
   //Values
   int rating;
+
+  AutoCompleteTextField searchTextField = AutoCompleteTextField<Skill>(
+    style: TextStyle(color: Colors.black, fontSize: 16),
+    decoration: InputDecoration(
+      suffixIcon: Icon(Icons.search),
+      hintText: "Search your skills.",
+    ),
+  );
 
   initState() {
     rating = widget.skillInfo == null ? 0 : widget.skillInfo.rating;
@@ -90,6 +100,8 @@ class _AddEditTechnicalSkillState extends State<AddEditTechnicalSkill> {
         BotToast.showText(text: StringUtils.unableToLoadSkillListText);
       }, (r) {
         // right
+        print(r);
+        searchList = r;
         skillList = r
             .map((e) => DropdownMenuItem<Skill>(
                   key: Key(e.name),

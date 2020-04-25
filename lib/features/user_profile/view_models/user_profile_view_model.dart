@@ -1,3 +1,4 @@
+import 'package:p7app/features/user_profile/models/certification_info.dart';
 import 'package:p7app/features/user_profile/models/member_ship_info.dart';
 import 'package:p7app/features/user_profile/models/reference_data.dart';
 import 'package:p7app/features/user_profile/models/skill_info.dart';
@@ -219,6 +220,46 @@ class UserProfileViewModel with ChangeNotifier {
         return false;
       }, (r){
         userData.membershipInfo.removeAt(index);
+        notifyListeners();
+        return true;
+      });
+    });
+  }
+
+  //Certification
+  Future<bool> addCertificationData(CertificationInfo certificationInfo){
+    return UserProfileRepository().addUserCertification(certificationInfo).then((res){
+      return res.fold((l){
+        print(l);
+        return false;
+      }, (r){
+        userData.certificationInfo.add(r);
+        notifyListeners();
+        return true;
+      });
+    });
+  }
+
+  Future<bool> updateCertificationData(CertificationInfo certificationInfo, int index){
+    return UserProfileRepository().updateUserCertification(certificationInfo).then((res){
+      return res.fold((l){
+        print(l);
+        return false;
+      }, (r){
+        userData.certificationInfo[index] = r;
+        notifyListeners();
+        return true;
+      });
+    });
+  }
+
+  Future<bool> deleteCertificationData(CertificationInfo certificationInfo,int index ){
+    return UserProfileRepository().deleteUserCertification(certificationInfo).then((res){
+      return res.fold((l){
+        print(l);
+        return false;
+      }, (r){
+        userData.certificationInfo.removeAt(index);
         notifyListeners();
         return true;
       });
