@@ -90,9 +90,9 @@ _institutionListStreamController.close();
 
     if (isSuccess) {
       var education = EduInfo(
-        institution: institutionNameController.text,
+        institution: selectedInstitute.id?.toString(),
         cgpa: gpaTextController.text,
-//        qualification: degreeTextController.text,
+        qualification: degreeTextController.text,
         enrolledDate: _enrollDate,
         graduationDate: _graduationDate,
       );
