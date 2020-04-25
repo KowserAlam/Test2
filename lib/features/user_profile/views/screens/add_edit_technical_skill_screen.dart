@@ -1,6 +1,7 @@
 import 'package:after_layout/after_layout.dart';
 import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:bot_toast/bot_toast.dart';
+import 'package:flutter/services.dart';
 import 'package:p7app/features/user_profile/models/skill.dart';
 import 'package:p7app/features/user_profile/models/skill_info.dart';
 import 'package:p7app/features/user_profile/repositories/skill_list_repository.dart';
@@ -31,30 +32,60 @@ class AddEditTechnicalSkill extends StatefulWidget {
 class _AddEditTechnicalSkillState extends State<AddEditTechnicalSkill> {
   final SkillInfo technicalSkill;
   final int index;
-  List<Skill> searchList;
+  bool loading;
+  static List<Skill> searchList;
+  static TextEditingController searchController = new TextEditingController();
+  TextEditingController ratingController = new TextEditingController();
+
 
   _AddEditTechnicalSkillState(this.technicalSkill, this.index);
 
-  TextEditingController _skillTextEditingController = TextEditingController();
   var _formKey = GlobalKey<FormState>();
   var _scaffoldKey = GlobalKey<ScaffoldState>();
   List<DropdownMenuItem<Skill>> skillList = [];
-  Skill _selectedDropdownSkill;
+  static Skill _selectedSkill;
+  static GlobalKey<AutoCompleteTextFieldState<Skill>> key = new GlobalKey();
 
-  //Values
-  int rating;
 
   AutoCompleteTextField searchTextField = AutoCompleteTextField<Skill>(
     style: TextStyle(color: Colors.black, fontSize: 16),
-    decoration: InputDecoration(
-      suffixIcon: Icon(Icons.search),
+    decoration: InputDecoration.collapsed(
       hintText: "Search your skills.",
     ),
+    itemBuilder: (context, skill) {
+      return Container(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 2),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Text(skill.name,
+              style: TextStyle(
+                  fontSize: 16.0
+              ),),
+          ],
+        ),
+      );
+    },
+    key:  key,
+    clearOnSubmit: false,
+    controller: searchController,
+    itemFilter: (skill, query){
+      return skill.name.toLowerCase().startsWith(query.toLowerCase());
+    },
+    itemSorter: (a,b){
+      return a.name.compareTo(b.name);
+    },
+    itemSubmitted: (skill){
+      searchController.text = skill.name;
+      _selectedSkill = skill;
+    },
+    suggestions: searchList,
   );
 
+
   initState() {
-    rating = widget.skillInfo == null ? 0 : widget.skillInfo.rating;
-    _selectedDropdownSkill = widget.skillInfo?.skill;
+    loading = true;
+    ratingController.text = widget.skillInfo == null ? "" : widget.skillInfo.rating.toString();
     _getSkillList();
     super.initState();
   }
@@ -64,8 +95,8 @@ class _AddEditTechnicalSkillState extends State<AddEditTechnicalSkill> {
     if (isValid) {
       var skillInfo = SkillInfo(
         profSkillId: widget.skillInfo?.profSkillId,
-        rating: rating,
-        skill: _selectedDropdownSkill,
+        rating: int.parse(ratingController.text),
+        skill: _selectedSkill,
       );
 
       if (widget.skillInfo != null) {
@@ -91,27 +122,25 @@ class _AddEditTechnicalSkillState extends State<AddEditTechnicalSkill> {
     }
   }
 
-  _getSkillList() {
-    SkillListRepository()
+  _getSkillList() async{
+    await (SkillListRepository()
         .getSkillList()
         .then((dartZ.Either<AppError, List<Skill>> value) {
       value.fold((l) {
         // left
         BotToast.showText(text: StringUtils.unableToLoadSkillListText);
       }, (r) {
-        // right
-        print(r);
+        // right;
         searchList = r;
-        skillList = r
-            .map((e) => DropdownMenuItem<Skill>(
-                  key: Key(e.name),
-                  value: e,
-                  child: Text(e.name ?? ""),
-                ))
-            .toList();
+        print(searchList.length);
+        print(searchList);
         setState(() {});
       });
-    });
+    })).then((a){loading = false;
+    if(widget.skillInfo != null){
+      searchController.text = widget.skillInfo.skill.name;
+    }
+    setState(() {});});
   }
 
   @override
@@ -138,54 +167,30 @@ class _AddEditTechnicalSkillState extends State<AddEditTechnicalSkill> {
                 SizedBox(
                   height: 20,
                 ),
-                CustomDropdownButtonFormField<Skill>(
-                  labelText: StringUtils.skillNameText,
-                  hint: Text('Tap to select'),
-                  value: _selectedDropdownSkill,
-                  onChanged: (value) {
-                    _selectedDropdownSkill = value;
-                    setState(() {});
-                  },
-                  items: skillList,
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Text(
-                  StringUtils.expertiseLevel,
-                  style: Theme.of(context).textTheme.title,
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                Row(
-                  children: <Widget>[
-                    RatingBar(
-                      initialRating: rating?.toDouble()??0,
-                      direction: Axis.horizontal,
-                      itemCount: 5,
-                      unratedColor: Colors.grey,
-                      itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                      itemBuilder: (context, _) => Icon(
-                        Icons.star,
-                        color: Colors.amber,
-                      ),
-                      onRatingUpdate: (value) {
-                        setState(() {
-                          rating = value.round();
-                        });
-                      },
-                    ),
-                    Spacer(),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        "${rating ?? ""}",
-                        style: Theme.of(context).textTheme.display1,
-                      ),
-                    ),
+              loading?SizedBox():Container(
+                padding: EdgeInsets.symmetric(horizontal: 8),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).backgroundColor,
+                  borderRadius: BorderRadius.circular(7),
+                  boxShadow: [
+                    BoxShadow(
+                        color: Color(0xff000000).withOpacity(0.2), blurRadius: 20),
+                    BoxShadow(
+                        color: Color(0xfffafafa).withOpacity(0.2), blurRadius: 20),
                   ],
                 ),
+                child: searchTextField,
+              ),
+                SizedBox(
+                  height: 50,
+                ),
+                CustomTextFormField(
+                  keyboardType: TextInputType.number,
+                  controller: ratingController,
+                  validator: Validator().expertiseFieldValidate,
+                  labelText: StringUtils.expertiseLevel,
+                ),
+                SizedBox(height: 30,)
               ],
             ),
           ),

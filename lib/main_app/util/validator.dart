@@ -55,4 +55,19 @@ class Validator {
     else
       return null;
   }
+
+  String expertiseFieldValidate(String value){
+    int x;
+    if(value.isEmpty){
+      return StringUtils.thisFieldIsRequired;
+    }else {
+      x = int.parse(value);
+      if(x >=0 && x <11){
+        return null;
+      }else{
+        return StringUtils.valueWithinRange;
+      }
+    }
+  }
+
 }

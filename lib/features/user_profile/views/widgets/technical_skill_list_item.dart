@@ -48,40 +48,26 @@ class TechnicalSkillListItem extends StatelessWidget {
                 .apply(color: Theme.of(context).primaryColor),
           ),
           trailing:
-          !isInEditMode?
-          Wrap(
-            children: List.generate(5, (int index) {
-              var iconData = Icons.star_border;
-
-              if (skillInfo.rating > index) {
-                iconData = Icons.star;
-              }
-
-              if (skillInfo.rating > index && skillInfo.rating < index + 1) {
-                iconData = Icons.star_half;
-              }
-              return Icon(
-                iconData,
-                size: 17,
-                color: Colors.orange,
-              );
-            }),
-          ):
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              IconButton(
+              Text(skillInfo.rating == null?"N/A":skillInfo.rating.toString()+"/10", style: Theme.of(context)
+                  .textTheme
+                  .title
+                  .apply(color: Theme.of(context).primaryColor),),
+              isInEditMode?SizedBox(width: 5,):SizedBox(),
+              isInEditMode?IconButton(
                 icon: Icon(FontAwesomeIcons.edit),
                 onPressed: onTapEdit,
                 iconSize: 18,
                 color: Colors.black,
-              ),
-              IconButton(
+              ):SizedBox(),
+              isInEditMode?IconButton(
                 icon: Icon(FontAwesomeIcons.trash),
                 onPressed: onTapDelete,
                 iconSize: 18,
                 color: Colors.black,
-              ),
+              ):SizedBox(),
             ],
           ),
         ),

@@ -20,6 +20,7 @@ class StringUtils {
   static String invalidEmail = "Invalid Email";
   static String invalidCode = "Invalid Code";
   static String thisFieldIsRequired = "This Field Is Required";
+  static String valueWithinRange = "Please enter a value within 0-10";
   static String invalidPassword = "Invalid Password";
   static String passwordMustBeEight =
       "Password must be at least 8 characters long with at least one digit and one letter";
@@ -241,7 +242,7 @@ class StringUtils {
 
   static var skillNameText = "Name of Skill";
   static var skillNameExample = "eg. Python";
-  static var expertiseLevel = "Expertise level";
+  static var expertiseLevel = "Expertise level:";
 
   /// Verify Screen
 
