@@ -30,6 +30,7 @@ class AddEditTechnicalSkill extends StatefulWidget {
 class _AddEditTechnicalSkillState extends State<AddEditTechnicalSkill> {
   final SkillInfo technicalSkill;
   final int index;
+  List<Skill> searchList;
 
   _AddEditTechnicalSkillState(this.technicalSkill, this.index);
 
@@ -90,6 +91,8 @@ class _AddEditTechnicalSkillState extends State<AddEditTechnicalSkill> {
         BotToast.showText(text: StringUtils.unableToLoadSkillListText);
       }, (r) {
         // right
+        print(r);
+        searchList = r;
         skillList = r
             .map((e) => DropdownMenuItem<Skill>(
                   key: Key(e.name),

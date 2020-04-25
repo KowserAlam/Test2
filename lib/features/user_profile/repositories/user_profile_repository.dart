@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:p7app/features/user_profile/models/certification_info.dart';
 import 'package:p7app/features/user_profile/models/edu_info.dart';
 import 'package:p7app/features/user_profile/models/member_ship_info.dart';
 import 'package:p7app/features/user_profile/models/reference_data.dart';
@@ -73,6 +74,7 @@ class UserProfileRepository {
     }
   }
 
+  //Reference
   Future<Either<AppError, ReferenceData>> addUserReference(
       ReferenceData referenceData) async {
     BotToast.showLoading();
@@ -177,6 +179,7 @@ class UserProfileRepository {
     }
   }
 
+  //Skills
   Future<Either<AppError, SkillInfo>> addUserSkill(
       SkillInfo skillInfo) async {
     BotToast.showLoading();
@@ -285,6 +288,8 @@ class UserProfileRepository {
     }
   }
 
+
+  //Membership
   Future<Either<AppError, MembershipInfo>> addUserMembership(
       MembershipInfo membershipInfo) async {
     BotToast.showLoading();
@@ -391,6 +396,7 @@ class UserProfileRepository {
 
 
 
+  //Education
   Future<Either<AppError, EduInfo>> addUserEducation(
       EduInfo eduInfo) async {
     BotToast.showLoading();
@@ -468,6 +474,111 @@ class UserProfileRepository {
       MembershipInfo membershipInfo) async {
     BotToast.showLoading();
     var url = "${Urls.professionalEducationUrl}/${membershipInfo.membershipId}/";
+    var data = {"is_archived": true};
+
+    try {
+      var response = await ApiClient().putRequest(url, data);
+      print(response.statusCode);
+      print(response.body);
+      if (response.statusCode == 200) {
+        BotToast.closeAllLoading();
+        return Right(true);
+      } else {
+        BotToast.closeAllLoading();
+        BotToast.showText(text: StringUtils.unableToSaveData);
+        return Left(AppError.unknownError);
+      }
+    } on SocketException catch (e) {
+      BotToast.closeAllLoading();
+      BotToast.showText(text: StringUtils.unableToSaveData);
+      print(e);
+      return left(AppError.networkError);
+    } catch (e) {
+      BotToast.closeAllLoading();
+      BotToast.showText(text: StringUtils.unableToSaveData);
+      print(e);
+      return left(AppError.serverError);
+    }
+  }
+
+  //Certification
+  Future<Either<AppError, CertificationInfo>> addUserCertification(
+      CertificationInfo certificationInfo) async {
+    BotToast.showLoading();
+    var authUser = await AuthService.getInstance();
+    var professionalId = authUser.getUser().professionalId;
+    var url = "${Urls.professionalCertificationUrl}/";
+
+    var data = certificationInfo.toJson();
+    data.addAll({"professional_id": professionalId});
+
+
+    try {
+      var response = await ApiClient().postRequest(url, data);
+      print(response.statusCode);
+      print(response.body);
+      if (response.statusCode == 200) {
+        BotToast.closeAllLoading();
+        CertificationInfo data = CertificationInfo.fromJson(json.decode(response.body));
+        return Right(data);
+      } else {
+        BotToast.closeAllLoading();
+        BotToast.showText(text: StringUtils.unableToSaveData);
+        return Left(AppError.unknownError);
+      }
+    } on SocketException catch (e) {
+      BotToast.closeAllLoading();
+      BotToast.showText(text: StringUtils.unableToSaveData);
+      print(e);
+      return left(AppError.networkError);
+    } catch (e) {
+      BotToast.closeAllLoading();
+      BotToast.showText(text: StringUtils.unableToSaveData);
+      print(e);
+      return left(AppError.serverError);
+    }
+  }
+
+  Future<Either<AppError, CertificationInfo>> updateUserCertification(
+      CertificationInfo certificationInfo) async {
+    BotToast.showLoading();
+    var authUser = await AuthService.getInstance();
+    var professionalId = authUser.getUser().professionalId;
+    var url = "${Urls.professionalCertificationUrl}/${certificationInfo.certificationId}/";
+
+    var data = certificationInfo.toJson();
+    data.addAll({"professional_id": professionalId});
+
+    try {
+      var response = await ApiClient().putRequest(url, data);
+      print(response.statusCode);
+      print(response.body);
+      if (response.statusCode == 200) {
+        BotToast.closeAllLoading();
+        CertificationInfo data = CertificationInfo.fromJson(json.decode(response.body));
+        return Right(data);
+      } else {
+        BotToast.closeAllLoading();
+        BotToast.showText(text: StringUtils.unableToSaveData);
+        return Left(AppError.unknownError);
+      }
+    } on SocketException catch (e) {
+      BotToast.closeAllLoading();
+      BotToast.showText(text: StringUtils.unableToSaveData);
+      print(e);
+      return left(AppError.networkError);
+    } catch (e) {
+      BotToast.closeAllLoading();
+      BotToast.showText(text: StringUtils.unableToSaveData);
+      print(e);
+      return left(AppError.serverError);
+    }
+  }
+
+  Future<Either<AppError, bool>> deleteUserCertification(
+      CertificationInfo certificationInfo) async {
+    BotToast.showLoading();
+    var url = "${Urls.professionalCertificationUrl}/${certificationInfo.certificationId}/";
     var data = {"is_archived": true};
 
     try {

@@ -23,8 +23,6 @@ class SkillListRepository{
         return Left(AppError.unknownError);
       }
 
-
-
     }catch (e){
       print(e);
 
