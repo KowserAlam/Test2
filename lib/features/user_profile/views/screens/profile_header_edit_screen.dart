@@ -295,20 +295,21 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
             SizedBox(height: 10),
 
 
-//            ///full address
-//            TextFormField(
-//              style: Theme.of(context).textTheme.title,
-//              controller: _fullAddressEditingController,
-//              validator: Validator().nullFieldValidate,
-//              keyboardType: TextInputType.multiline,
-//              maxLines: null,
-//              decoration: InputDecoration(
-//                labelText: StringsEn.addressText,
-//                hintText: StringsEn.addressHintText,
-//              ),
-//            ),
-//
-//            SizedBox(height: 10),
+            CustomTextFormField(
+
+              keyboardType: TextInputType.multiline,
+              labelText: StringUtils.currentCompany,
+              hintText: StringUtils.currentCompanyHint,
+            ),
+            SizedBox(height: 10),
+
+            CustomTextFormField(
+
+              keyboardType: TextInputType.multiline,
+              labelText: StringUtils.currentPosition,
+              hintText: StringUtils.currentPositionHint,
+            ),
+            SizedBox(height: 10),
 
             ///current location
             CustomTextFormField(

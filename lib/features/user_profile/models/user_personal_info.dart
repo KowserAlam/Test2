@@ -31,6 +31,8 @@ class UserPersonalInfo {
   String religion;
   String permanentAddress;
   String currentLocation;
+  String currentCompany;
+  String currentPosition;
   Religion religionObj;
   Nationality nationalityObj;
 
@@ -63,6 +65,8 @@ class UserPersonalInfo {
     this.permanentAddress,
     this.currentLocation,
     this.religionObj,
+    this.currentCompany,
+    this.currentPosition,
   });
 
   UserPersonalInfo.fromJson(Map<String, dynamic> json) {

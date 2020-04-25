@@ -305,19 +305,15 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
         });
     var designationWidget = Consumer<UserProfileViewModel>(
         builder: (context, userProfileViewModel, _) {
-      var designationText = "";
-      var companyText = "";
-      var experienceInfo = userProfileViewModel.userData.experienceInfo;
-      if (experienceInfo.length > 0) {
-        var exp = experienceInfo.first;
-        designationText = exp.designation;
-        companyText = exp.company;
-      }
+
+         var position = userProfileViewModel.userData.personalInfo.currentPosition;
+         var company = userProfileViewModel.userData.personalInfo.currentCompany;
 
       return Column(
         children: <Widget>[
+          position == null? SizedBox():
           Text(
-            designationText,
+            position,
             style: TextStyle(
                 fontSize: 18,
                 color: profileHeaderFontColor,
@@ -326,13 +322,15 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
           SizedBox(
             height: 5,
           ),
+          company == null? SizedBox():
           Text(
-            companyText,
+            company,
             style: TextStyle(
                 color: profileHeaderFontColor, fontWeight: FontWeight.w100),
           ),
         ],
       );
+
     });
     var aboutMeWidget = Column(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -360,7 +358,6 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                   return Text(
                     data,
                     textAlign: TextAlign.left,
-                    maxLines: 8,
                   );
                 }),
           ),

@@ -209,7 +209,7 @@ class StringUtils {
   /// Add or Edit New Education
 
   static String nameOfOInstitutionText = "Name of Institution";
-  static String nameOfOInstitutionHintText = "eg. Ishraak Solutions";
+  static String nameOfOInstitutionHintText = "eg. ABC Institution";
   static String nameOfODegreeText = "Degree";
   static String nameOfODegreeHintText = "eg. Bachelor of Science";
   static String gpaText = "Percentage/CGPA";
@@ -218,6 +218,7 @@ class StringUtils {
   static String graduationDate = "Graduation Date";
   static String currentlyStudyingHereText = "I'm currently studying here";
   static String startingDateText = "Starting Date";
+  static String chooseDateText = "Choose Date";
 
   /// login screen
 
@@ -255,8 +256,8 @@ class StringUtils {
   /// Edit Profile Screen Texts
   /// [ProfileHeaderEditScreen]
 
-  static var fullNameText = "Full Name";
-  static var fullNameHintText = "eg. Bill Gates";
+  static var fullNameText = "Name";
+  static var fullNameHintText = "eg. John Doe";
   static var designationText = "Designation";
   static var designationHintText = "eg. Software Engineer";
   static var aboutHintText = " ...";
@@ -265,10 +266,14 @@ class StringUtils {
   static var phoneHintText = "+8801XXXXXXXX";
   static var addressText = "Address";
   static var addressHintText =
-      "eg. House 76 (Level 4), Road 4, Block B, Niketan Gulshan 1, Dhaka 1212, Bangladesh";
+      "";
 
   static var locationText = "Location";
-  static var locationHintText = "Dhaka, Bangladesh";
+  static var currentCompany = "Current Company";
+  static var currentCompanyHint = "eg. ABC Corporation";
+  static var currentPosition = "Current Position";
+  static var currentPositionHint =  "eg. Software Engineer";
+  static var locationHintText = "eg. Dhaka, Bangladesh";
   static var editText = "Edit";
 
   /// Profile Screen *******************

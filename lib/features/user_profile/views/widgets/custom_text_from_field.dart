@@ -77,6 +77,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             ],
           ),
           child: TextFormField(
+
             onFieldSubmitted: widget.onFieldSubmitted,
             autofocus: widget.autofocus,
             focusNode: widget.focusNode,
@@ -89,6 +90,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             decoration: InputDecoration(
               prefix: widget.prefix,
               border: InputBorder.none,
+              hintText: widget.hintText,
               contentPadding: widget.contentPadding,
               focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(7),
