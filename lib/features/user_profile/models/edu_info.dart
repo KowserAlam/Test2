@@ -1,3 +1,6 @@
+import 'package:p7app/main_app/util/date_format_uitl.dart';
+import 'package:p7app/main_app/util/date_time_extension.dart';
+
 class EduInfo {
   String qualification;
   String educationId;
@@ -36,8 +39,8 @@ class EduInfo {
     data['institution'] = this.institution;
     data['cgpa'] = this.cgpa;
     data['major'] = this.major;
-    data['enrolled_date'] = this.enrolledDate;
-    data['graduation_date'] = this.graduationDate;
+    data['enrolled_date'] = this.enrolledDate.toYYYMMDDString;
+    data['graduation_date'] = this.graduationDate?.toYYYMMDDString;
     return data;
   }
 
