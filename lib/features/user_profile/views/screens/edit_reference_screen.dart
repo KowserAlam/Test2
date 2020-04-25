@@ -94,7 +94,6 @@ class _EditReferenceScreenState extends State<EditReferenceScreen> {
       validator: Validator().nullFieldValidate,
       keyboardType: TextInputType.text,
       focusNode: _nameFocusNode,
-      autovalidate: true,
       textInputAction: TextInputAction.next,
       onFieldSubmitted: (a) {
         FocusScope.of(context).requestFocus(_currentPositionFocusNode);
@@ -119,7 +118,6 @@ class _EditReferenceScreenState extends State<EditReferenceScreen> {
       validator: (val) => Validator().validateEmail(val.trim()),
       focusNode: _emailFocusNode,
       keyboardType: TextInputType.emailAddress,
-      autovalidate: true,
       textInputAction: TextInputAction.next,
       onFieldSubmitted: (a) {
         FocusScope.of(context).requestFocus(_mobileFocusNode);
@@ -129,7 +127,6 @@ class _EditReferenceScreenState extends State<EditReferenceScreen> {
       hintText: StringUtils.referenceEmailText,
     );
     var mobile = CustomTextFormField(
-      autovalidate: true,
       validator: (val) => Validator().validatePhoneNumber(val.trim()),
       focusNode: _mobileFocusNode,
       keyboardType: TextInputType.number,

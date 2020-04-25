@@ -19,13 +19,13 @@ class StringUtils {
 
   static String invalidEmail = "Invalid Email";
   static String invalidCode = "Invalid Code";
-  static String thisFieldIsRequired = "This field is Required";
+  static String thisFieldIsRequired = "This Field Is Required";
   static String invalidPassword = "Invalid Password";
   static String passwordMustBeEight =
       "Password must be at least 8 characters long with at least one digit and one letter";
   static String passwordDoesNotMatch = "Password doesn't match";
   static String enterValidEmail = 'Enter Valid Email';
-  static String enterValidPhoneNumber = 'Enter Valid Phone Number (Bangladesh)';
+  static String enterValidPhoneNumber = 'Enter Valid Phone Number';
 
   ///
   static String passwordText = "Password";
@@ -274,8 +274,8 @@ class StringUtils {
   /// Profile Screen *******************
   /// Personal Info
 
-  static var fatherNameText = "Father Name";
-  static var motherNameText = "Mother Name";
+  static var fatherNameText = "Father's Name";
+  static var motherNameText = "Mother's Name";
   static var dateOfBirthText = "Date of Birth";
   static var permanentAddressText = "Permanent Address";
   static var currentAddressText = "Current Address";
@@ -285,9 +285,12 @@ class StringUtils {
   static var languagesKnown  = "Languages Known ";
   static var cropImageText  = "Crop Image";
   static var cancelText  = "Cancel";
-  static var facebookTrlText  = "Facebook Id Link";
-  static var twitterUrlText  = "Twitter Id Link";
-  static var linkedUrlText  = "LinkedIn Id Link";
+  static var facebookTrlText  = "Facebook";
+  static var facebookBaseUrl  = "facebook.com/";
+  static var twitterUrlText  = "Twitter";
+  static var twitterBaeUrl  = "twitter.com/";
+  static var linkedUrlText  = "LinkedIn";
+  static var linkedBaseUrl  = "linkedin.com/in/";
   static var unableToLoadExpertiseListText  = "Unable to load expertise list";
   static var unableToLoadSkillListText  = "Unable to load skill list";
 

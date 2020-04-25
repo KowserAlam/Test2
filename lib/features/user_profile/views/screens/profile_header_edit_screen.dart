@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:after_layout/after_layout.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dartz/dartz.dart' as dartZ;
@@ -8,9 +7,7 @@ import 'package:p7app/features/user_profile/models/user_model.dart';
 import 'package:p7app/features/user_profile/models/user_personal_info.dart';
 import 'package:p7app/features/user_profile/repositories/industry_list_repository.dart';
 import 'package:p7app/features/user_profile/repositories/user_profile_repository.dart';
-import 'package:p7app/features/user_profile/styles/profile_common_style.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
-import 'package:p7app/features/user_profile/views/widgets/custom_dropdown_button_form_field.dart';
 import 'package:p7app/features/user_profile/views/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/failure/error.dart';
 import 'package:p7app/main_app/resource/const.dart';
@@ -23,7 +20,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_crop/image_crop.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
 
 class ProfileHeaderEditScreen extends StatefulWidget {
@@ -61,7 +57,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
     var personalInfo = widget.userModel.personalInfo;
 
     _phoneEditingController.text = personalInfo.phone ?? "";
-    _locationEditingController.text = personalInfo.address ?? "";
+    _locationEditingController.text = personalInfo.currentLocation ?? "";
     _aboutTextEditingController.text = personalInfo.aboutMe ?? "";
     _fullNameTextEditingController.text = personalInfo.fullName ?? "";
     _selectedIndustryExpertiseDropDownItem = personalInfo.industryExpertise;
@@ -116,11 +112,6 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
       var userData = userViewModel.userData;
       UserPersonalInfo personalInfo = userViewModel.userData.personalInfo;
 
-//      personalInfo.address = _addressEditingController.text;
-//      personalInfo.fullName = _fullNameTextEditingController.text;
-//      personalInfo.industryExpertise = industryExpertiseTextEditingController.text;
-//      personalInfo.aboutMe = _aboutTextEditingController.text;
-//      personalInfo.phone = _phoneEditingController.text;
 
       var data = {
         "current_location": _locationEditingController.text,
@@ -145,9 +136,8 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
       }, (UserPersonalInfo r) {
         //right
         userData.personalInfo = r;
-        print(r.fullName);
         print(userData.personalInfo.fullName);
-        userViewModel.userData = userData;
+        userViewModel.userPersonalInfo = r;
         Navigator.pop(context);
       });
     }
@@ -228,7 +218,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
                   getImage();
                 },
                 icon: Icon(
-                  FontAwesomeIcons.camera,
+                  FontAwesomeIcons.pencilAlt,
                   color: Theme.of(context).primaryColor,
                   size: 20,
                 ),
@@ -252,7 +242,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
   /// Information From Fields
   _buildInformationFields() {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.symmetric(vertical: 16,horizontal: 12),
       child: Form(
         key: _formKey,
         child: Column(
@@ -261,22 +251,22 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
             CustomTextFormField(
               controller: _fullNameTextEditingController,
               validator: Validator().nullFieldValidate,
-              labelText: "Full Name",
+              labelText: StringUtils.nameText,
               hintText: "eg. Bill Gates",
             ),
             SizedBox(height: 10),
 
 
-            CustomDropdownButtonFormField<String>(
-              labelText: StringUtils.industryExpertiseText,
-              hint: Text('Tap to select'),
-              value: _selectedIndustryExpertiseDropDownItem,
-              onChanged: (value) {
-                _selectedIndustryExpertiseDropDownItem = value;
-                setState(() {});
-              },
-              items: _industryExpertiseList,
-            ),
+//            CustomDropdownButtonFormField<String>(
+//              labelText: StringUtils.industryExpertiseText,
+//              hint: Text('Tap to select'),
+//              value: _selectedIndustryExpertiseDropDownItem,
+//              onChanged: (value) {
+//                _selectedIndustryExpertiseDropDownItem = value;
+//                setState(() {});
+//              },
+//              items: _industryExpertiseList,
+//            ),
 
             SizedBox(height: 10),
 
@@ -285,7 +275,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
               controller: _aboutTextEditingController,
               validator: Validator().nullFieldValidate,
               keyboardType: TextInputType.multiline,
-              maxLines: null,
+              maxLines: 5,
               labelText: StringUtils.aboutMeText,
               hintText: StringUtils.aboutHintText,
             ),
@@ -298,8 +288,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
               controller: _phoneEditingController,
               validator: Validator().validatePhoneNumber,
               keyboardType: TextInputType.phone,
-              maxLines: null,
-              labelText: StringUtils.phoneText,
+              labelText: StringUtils.mobileText,
               hintText: StringUtils.phoneHintText,
             ),
 
@@ -334,20 +323,23 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
               controller: _facebookEditingController,
               keyboardType: TextInputType.multiline,
               labelText: StringUtils.facebookTrlText,
+              prefix: Text(StringUtils.facebookBaseUrl),
             ),
             SizedBox(height: 10),
             ///twitter
             CustomTextFormField(
               controller: _twitterEditingController,
               keyboardType: TextInputType.multiline,
-              labelText: StringUtils.twitterUrlText
+              labelText: StringUtils.twitterUrlText,
+              prefix: Text(StringUtils.twitterBaeUrl),
             ),
             SizedBox(height: 10),
             ///linkedIn
             CustomTextFormField(
               controller: _linkedInEditingController,
               keyboardType: TextInputType.multiline,
-              labelText: StringUtils.linkedUrlText
+              labelText: StringUtils.linkedUrlText,
+              prefix: Text(StringUtils.linkedBaseUrl),
             ),
             SizedBox(height: 10),
           ],

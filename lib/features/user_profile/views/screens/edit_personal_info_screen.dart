@@ -259,6 +259,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                       Text(
                         StringUtils.dateOfBirthText,
                         textAlign: TextAlign.left,
+                        style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ],
                   ),
@@ -301,7 +302,6 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                   spaceBetweenFields,
                   //Father's Name
                   CustomTextFormField(
-                    validator: Validator().nullFieldValidate,
                     keyboardType: TextInputType.text,
                     //focusNode: _fatherNameFocusNode,
                     textInputAction: TextInputAction.next,
@@ -316,8 +316,6 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                   spaceBetweenFields,
                   //Mother's Name
                   CustomTextFormField(
-                    validator: Validator().nullFieldValidate,
-                    //focusNode: _motherNameFocusNode,
                     keyboardType: TextInputType.text,
                     textInputAction: TextInputAction.next,
                     onFieldSubmitted: (a) {
@@ -331,8 +329,6 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                   spaceBetweenFields,
                   //Current Address
                   CustomTextFormField(
-                    validator: Validator().nullFieldValidate,
-                    //focusNode: _currentAddressFocusNode,
                     textInputAction: TextInputAction.next,
                     keyboardType: TextInputType.text,
                     onFieldSubmitted: (a) {

@@ -18,20 +18,18 @@ class UserModel {
   List<CertificationInfo> certificationInfo;
   List<ReferenceData> referenceData;
 
-  UserModel(
-      {this.personalInfo,
-        this.eduInfo,
-        this.skillInfo,
-        this.experienceInfo,
-        this.portfolioInfo,
-        this.membershipInfo,
-        this.certificationInfo,
-        this.referenceData});
+  UserModel({
+    this.personalInfo,
+    this.eduInfo,
+    this.skillInfo,
+    this.experienceInfo,
+    this.portfolioInfo,
+    this.membershipInfo,
+    this.certificationInfo,
+    this.referenceData,
+  });
 
   UserModel.fromJson(Map<String, dynamic> json) {
-
-
-
     personalInfo = json['personal_info'] != null
         ? new UserPersonalInfo.fromJson(json['personal_info'])
         : null;

@@ -3,6 +3,7 @@ import 'package:p7app/features/user_profile/models/member_ship_info.dart';
 import 'package:p7app/features/user_profile/models/reference_data.dart';
 import 'package:p7app/features/user_profile/models/skill_info.dart';
 import 'package:p7app/features/user_profile/models/user_model.dart';
+import 'package:p7app/features/user_profile/models/user_personal_info.dart';
 import 'package:p7app/features/user_profile/repositories/user_profile_repository.dart';
 import 'package:p7app/main_app/resource/json_keys.dart';
 import 'package:flutter/foundation.dart';
@@ -41,6 +42,11 @@ class UserProfileViewModel with ChangeNotifier {
 
   set userData(UserModel value) {
     _userData = value;
+    notifyListeners();
+  }
+
+  set userPersonalInfo(UserPersonalInfo value) {
+    _userData.personalInfo = value;
     notifyListeners();
   }
 
@@ -151,6 +157,7 @@ class UserProfileViewModel with ChangeNotifier {
       });
     });
   }
+
 
   Future<bool> updateSkillData(SkillInfo skillInfo, int index){
     return UserProfileRepository().updateUserSkill(skillInfo).then((res){
