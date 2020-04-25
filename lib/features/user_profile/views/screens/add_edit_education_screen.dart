@@ -1,22 +1,14 @@
-import 'dart:ui';
-
-import 'package:after_layout/after_layout.dart';
+import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:p7app/features/user_profile/models/edu_info.dart';
-import 'package:p7app/features/user_profile/models/user_model.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/features/user_profile/views/widgets/common_date_picker_widget.dart';
 import 'package:p7app/features/user_profile/views/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
-import 'package:p7app/main_app/util/date_format_uitl.dart';
 import 'package:p7app/main_app/util/validator.dart';
-import 'package:p7app/main_app/widgets/button_with_primary_fill_color.dart';
 import 'package:p7app/main_app/widgets/edit_screen_save_button.dart';
-import 'package:p7app/main_app/widgets/rectangular_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:uuid/uuid.dart';
 
 class AddEditEducationScreen extends StatefulWidget {
   final EduInfo educationModel;
@@ -47,7 +39,6 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
   var _formKey = GlobalKey<FormState>();
   var _scaffoldKey = GlobalKey<ScaffoldState>();
 
-
   DateTime _enrollDate;
   DateTime _graduationDate;
 
@@ -72,7 +63,6 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
 
     var nameOfInstitution = CustomTextFormField(
       validator: Validator().nullFieldValidate,
-      textInputAction: TextInputAction.next,
       controller: institutionNameController,
       labelText: StringUtils.nameOfOInstitutionText,
       hintText: StringUtils.nameOfOInstitutionHintText,
@@ -80,7 +70,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
     var enrolledDate = CommonDatePickerWidget(
       date: _enrollDate,
       label: StringUtils.enrollDate,
-      onTapDateClear: (){
+      onTapDateClear: () {
         setState(() {
           _enrollDate = null;
         });
@@ -94,7 +84,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
     var graduationDate = CommonDatePickerWidget(
       date: _graduationDate,
       label: StringUtils.graduationDate,
-      onTapDateClear: (){
+      onTapDateClear: () {
         setState(() {
           _graduationDate = null;
         });
@@ -107,8 +97,6 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
     );
     var degree = CustomTextFormField(
       validator: Validator().nullFieldValidate,
-
-      textInputAction: TextInputAction.next,
       controller: degreeTextController,
       labelText: StringUtils.nameOfODegreeText,
       hintText: StringUtils.nameOfODegreeHintText,
@@ -142,6 +130,14 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
+                    AutoCompleteTextField<String>(
+                      itemFilter: (String suggestion, String query) {},
+                      suggestions: [],
+                      itemSorter: (String a, String b) {},
+                      key: null,
+                      itemBuilder: (BuildContext context, String suggestion) {},
+                      itemSubmitted: (String data) {},
+                    ),
                     SizedBox(
                       height: 10,
                     ),
