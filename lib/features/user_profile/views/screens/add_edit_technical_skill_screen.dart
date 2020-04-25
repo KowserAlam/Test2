@@ -1,4 +1,5 @@
 import 'package:after_layout/after_layout.dart';
+import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:p7app/features/user_profile/models/skill.dart';
 import 'package:p7app/features/user_profile/models/skill_info.dart';
@@ -42,6 +43,14 @@ class _AddEditTechnicalSkillState extends State<AddEditTechnicalSkill> {
 
   //Values
   int rating;
+
+  AutoCompleteTextField searchTextField = AutoCompleteTextField<Skill>(
+    style: TextStyle(color: Colors.black, fontSize: 16),
+    decoration: InputDecoration(
+      suffixIcon: Icon(Icons.search),
+      hintText: "Search your skills.",
+    ),
+  );
 
   initState() {
     rating = widget.skillInfo == null ? 0 : widget.skillInfo.rating;
