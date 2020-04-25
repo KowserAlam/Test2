@@ -46,9 +46,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
   TextEditingController degreeTextController = TextEditingController();
   var _formKey = GlobalKey<FormState>();
   var _scaffoldKey = GlobalKey<ScaffoldState>();
-  final FocusNode _institutionNameFocusNode = FocusNode();
-  final FocusNode _degreeFocusNode = FocusNode();
-  final FocusNode _percentageFocusNode = FocusNode();
+
 
   DateTime _enrollDate;
   DateTime _graduationDate;
@@ -74,18 +72,11 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
 
     var nameOfInstitution = CustomTextFormField(
       validator: Validator().nullFieldValidate,
-      focusNode: _institutionNameFocusNode,
-      autofocus: true,
       textInputAction: TextInputAction.next,
-      onFieldSubmitted: (a) {
-        FocusScope.of(_scaffoldKey.currentContext)
-            .requestFocus(_degreeFocusNode);
-      },
       controller: institutionNameController,
       labelText: StringUtils.nameOfOInstitutionText,
       hintText: StringUtils.nameOfOInstitutionHintText,
     );
-
     var enrolledDate = CommonDatePickerWidget(
       date: _enrollDate,
       label: StringUtils.enrollDate,
@@ -100,7 +91,6 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
         });
       },
     );
-
     var graduationDate = CommonDatePickerWidget(
       date: _graduationDate,
       label: StringUtils.graduationDate,
@@ -117,22 +107,14 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
     );
     var degree = CustomTextFormField(
       validator: Validator().nullFieldValidate,
-      focusNode: _degreeFocusNode,
-      autofocus: true,
+
       textInputAction: TextInputAction.next,
-      onFieldSubmitted: (a) {
-        FocusScope.of(_scaffoldKey.currentContext)
-            .requestFocus(_percentageFocusNode);
-      },
       controller: degreeTextController,
       labelText: StringUtils.nameOfODegreeText,
       hintText: StringUtils.nameOfODegreeHintText,
     );
     var cgpa = CustomTextFormField(
       controller: gpaTextController,
-      focusNode: _percentageFocusNode,
-      keyboardType: TextInputType.number,
-      maxLines: null,
       labelText: StringUtils.gpaText,
       hintText: StringUtils.gpaHintText,
     );

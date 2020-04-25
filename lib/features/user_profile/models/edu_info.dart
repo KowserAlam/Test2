@@ -4,8 +4,8 @@ class EduInfo {
   String institution;
   String cgpa;
   String major;
-  String enrolledDate;
-  String graduationDate;
+  DateTime enrolledDate;
+  DateTime graduationDate;
 
   EduInfo(
       {this.qualification,
@@ -19,10 +19,15 @@ class EduInfo {
     educationId = json['education_id'];
     qualification = json['qualification'];
     institution = json['institution'];
-    cgpa = json['cgpa'];
+    cgpa = json['cgpa']?.toString();
     major = json['major'];
-    enrolledDate = json['enrolled_date'];
-    graduationDate = json['graduation_date'];
+
+    if(json['enrolled_date'] != null){
+      enrolledDate = DateTime.parse(json['enrolled_date']);
+    }
+    if(json['graduation_date'] != null){
+      graduationDate = DateTime.parse(json['graduation_date']);
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -35,4 +40,7 @@ class EduInfo {
     data['graduation_date'] = this.graduationDate;
     return data;
   }
+
+
 }
+
