@@ -295,7 +295,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                   spaceBetweenFields,
                   //Permanent Address
                   CustomTextFormField(
-                    validator: Validator().nullFieldValidate,
+                    //validator: Validator().nullFieldValidate,
                     //focusNode: _permanentAddressFocusNode,
                     textInputAction: TextInputAction.next,
                     keyboardType: TextInputType.text,
