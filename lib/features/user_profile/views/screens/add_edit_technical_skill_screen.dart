@@ -90,34 +90,48 @@ class _AddEditTechnicalSkillState extends State<AddEditTechnicalSkill> {
     super.initState();
   }
 
+  bool correctInput(String input){
+    int x = 0;
+    for(int i =0; i<searchList.length; i++){
+      if(input == searchList[i].name) {
+        x++;
+      }
+    }
+    if(x==0){return false;}else {return true;};
+  }
+
   _handleSave() {
     bool isValid = _formKey.currentState.validate();
     if (isValid) {
-      var skillInfo = SkillInfo(
-        profSkillId: widget.skillInfo?.profSkillId,
-        rating: int.parse(ratingController.text),
-        skill: _selectedSkill,
-      );
+      if(correctInput(searchController.text)){
+        var skillInfo = SkillInfo(
+          profSkillId: widget.skillInfo?.profSkillId,
+          rating: int.parse(ratingController.text),
+          skill: _selectedSkill,
+        );
 
-      if (widget.skillInfo != null) {
-        /// updating existing data
+        if (widget.skillInfo != null) {
+          /// updating existing data
 
-        Provider.of<UserProfileViewModel>(context, listen: false)
-            .updateSkillData(skillInfo, widget.index)
-            .then((value) {
-          if (value) {
-            Navigator.pop(context);
-          }
-        });
-      } else {
-        /// adding new data
-        Provider.of<UserProfileViewModel>(context, listen: false)
-            .addSkillData(skillInfo)
-            .then((value) {
-          if (value) {
-            Navigator.pop(context);
-          }
-        });
+          Provider.of<UserProfileViewModel>(context, listen: false)
+              .updateSkillData(skillInfo, widget.index)
+              .then((value) {
+            if (value) {
+              Navigator.pop(context);
+            }
+          });
+        } else {
+          /// adding new data
+          Provider.of<UserProfileViewModel>(context, listen: false)
+              .addSkillData(skillInfo)
+              .then((value) {
+            if (value) {
+              Navigator.pop(context);
+            }
+          });
+        }
+      }else{
+        BotToast.showText(text: StringUtils.enterValidSkillText);
       }
     }
   }
