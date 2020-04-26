@@ -58,16 +58,20 @@ class Validator {
 
   String expertiseFieldValidate(String value){
     int x;
-    Pattern pattern = r'[0-9]';
+    Pattern pattern = r'([0-9]{1,2})\.?([0-9]{2})?';
     RegExp regex = new RegExp(pattern);
     if(value.isEmpty){
       return StringUtils.thisFieldIsRequired;
     }else {
-      x = int.parse(value);
-      if(x >=0 && x <11){
-        return null;
+      if(!regex.hasMatch(value)){
+        return StringUtils.twoDecimal;
       }else{
-        return StringUtils.valueWithinRange;
+        x = int.parse(value);
+        if(x >=0 && x <11){
+          return null;
+        }else{
+          return StringUtils.valueWithinRange;
+        }
       }
     }
   }

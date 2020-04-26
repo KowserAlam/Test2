@@ -11,6 +11,7 @@ import 'package:p7app/features/user_profile/repositories/religion_list_repositor
 import 'package:p7app/features/user_profile/repositories/user_profile_repository.dart';
 import 'package:p7app/features/user_profile/styles/profile_common_style.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
+import 'package:p7app/features/user_profile/views/widgets/common_date_picker_widget.dart';
 import 'package:p7app/features/user_profile/views/widgets/custom_dropdown_button_form_field.dart';
 import 'package:p7app/features/user_profile/views/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/failure/error.dart';
@@ -198,40 +199,6 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
 
 
     var spaceBetweenFields = SizedBox(height: 15,);
-//    var genderSelection = Row(
-//      mainAxisAlignment: MainAxisAlignment.start,
-//      children: <Widget>[
-//        SizedBox(width: 5,),
-//        Text('Gender:',style: titleFont,),
-//        Row(
-//          mainAxisSize: MainAxisSize.max,
-//          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//          children: <Widget>[
-//            Row(
-//              children: <Widget>[
-//                Radio(
-//                  groupValue: radioValue,
-//                  value: 'one',
-//                  onChanged: radioButtonChanges,
-//                ),
-//                Text('Male', style: TextStyle(),),
-//              ],
-//            ),
-//            SizedBox(width: 10,),
-//            Row(
-//              children: <Widget>[
-//                Radio(
-//                  groupValue: radioValue,
-//                  value: 'two',
-//                  onChanged: radioButtonChanges,
-//                ),
-//                Text('Female', style: TextStyle(),),
-//              ],
-//            )
-//          ],
-//        ),
-//      ],
-//    );
 
     return Scaffold(
       appBar: AppBar(
@@ -254,38 +221,19 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   //Date of Birth
-                  Row(
-                    children: <Widget>[
-                      Text(
-                        StringUtils.dateOfBirthText,
-                        textAlign: TextAlign.left,
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 8,
-                  ),
-
-                  InkWell(
-                    onTap: () {
-                      _showDateOfBirthPicker(context);
+                  CommonDatePickerWidget(
+                    label: StringUtils.dateOfBirthText,
+                    date: _chosenDate,
+                    onDateTimeChanged: (v){
+                      setState(() {
+                        _chosenDate = v;
+                      });
                     },
-                    child: Container(
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).backgroundColor,
-                        borderRadius: BorderRadius.circular(7),
-                        boxShadow: [
-                          BoxShadow(color: Color(0xff000000).withOpacity(0.2), blurRadius: 20),
-                          BoxShadow(color: Color(0xfffafafa).withOpacity(0.2), blurRadius: 20),
-
-                        ],),
-                      padding: EdgeInsets.all(8),
-                      child: Text(
-                          _chosenDate != null?kDateFormatBD.format(_chosenDate): "Choose Date",
-                      ),
-                    ),
+                    onTapDateClear: (){
+                      setState(() {
+                        _chosenDate = null;
+                      });
+                    },
                   ),
                   spaceBetweenFields,
                   //Gender
