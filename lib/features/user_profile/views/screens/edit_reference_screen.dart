@@ -28,16 +28,10 @@ class _EditReferenceScreenState extends State<EditReferenceScreen> {
   final _formKey = GlobalKey<FormState>();
 
   //TextEditingController
-  final _nameController = TextEditingController();
-  final _currentPositionController = TextEditingController();
-  final _emailController = TextEditingController();
-  final _mobileController = TextEditingController();
+  final _descriptionController = TextEditingController();
 
   //FocusNodes
-  final _nameFocusNode = FocusNode();
-  final _currentPositionFocusNode = FocusNode();
-  final _emailFocusNode = FocusNode();
-  final _mobileFocusNode = FocusNode();
+  final _descriptionFocusNode = FocusNode();
 
   //widgets
   var spaceBetweenFields = SizedBox(
@@ -46,10 +40,7 @@ class _EditReferenceScreenState extends State<EditReferenceScreen> {
 
   initState() {
     if (widget.referenceData != null) {
-      _nameController.text = widget.referenceData.name;
-      _currentPositionController.text = widget.referenceData.currentPosition;
-      _emailController.text = widget.referenceData.email;
-      _mobileController.text = widget.referenceData.mobile;
+      _descriptionController.text = widget.referenceData.description;
     }
     super.initState();
   }
@@ -59,10 +50,7 @@ class _EditReferenceScreenState extends State<EditReferenceScreen> {
     if (isValid) {
       var referenceData = ReferenceData(
         referenceId: widget.referenceData?.referenceId,
-        currentPosition: _currentPositionController.text,
-        mobile: _mobileController.text,
-        name: _nameController.text,
-        email: _emailController.text,
+        description: _descriptionController.text,
       );
 
       if (widget.referenceData != null) {
@@ -90,54 +78,19 @@ class _EditReferenceScreenState extends State<EditReferenceScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var name = CustomTextFormField(
+    var description = CustomTextFormField(
       validator: Validator().nullFieldValidate,
       keyboardType: TextInputType.text,
-      focusNode: _nameFocusNode,
+      focusNode: _descriptionFocusNode,
       textInputAction: TextInputAction.next,
       onFieldSubmitted: (a) {
-        FocusScope.of(context).requestFocus(_currentPositionFocusNode);
+
       },
-      controller: _nameController,
-      labelText: StringUtils.referenceNameText,
-      hintText: StringUtils.referenceNameText,
+      controller: _descriptionController,
+      labelText: StringUtils.referenceDescriptionText,
+      hintText: StringUtils.referenceDescriptionText,
     );
 
-    var currentPosition = CustomTextFormField(
-      focusNode: _currentPositionFocusNode,
-      keyboardType: TextInputType.text,
-      textInputAction: TextInputAction.next,
-      onFieldSubmitted: (a) {
-        FocusScope.of(context).requestFocus(_emailFocusNode);
-      },
-      controller: _currentPositionController,
-      labelText: StringUtils.referenceCurrentPositionText,
-      hintText: StringUtils.referenceCurrentPositionText,
-    );
-    var email = CustomTextFormField(
-      validator: (val) => Validator().validateEmail(val.trim()),
-      focusNode: _emailFocusNode,
-      keyboardType: TextInputType.emailAddress,
-      textInputAction: TextInputAction.next,
-      onFieldSubmitted: (a) {
-        FocusScope.of(context).requestFocus(_mobileFocusNode);
-      },
-      controller: _emailController,
-      labelText: StringUtils.referenceEmailText,
-      hintText: StringUtils.referenceEmailText,
-    );
-    var mobile = CustomTextFormField(
-      validator: (val) => Validator().validatePhoneNumber(val.trim()),
-      focusNode: _mobileFocusNode,
-      keyboardType: TextInputType.number,
-      onFieldSubmitted: (a) {
-//                      FocusScope.of(context)
-//                          .requestFocus(_nationalityFocusNode);
-      },
-      controller: _mobileController,
-      labelText: StringUtils.referenceMobileText,
-      hintText: StringUtils.referenceMobileText,
-    );
 
     return Scaffold(
       appBar: AppBar(
@@ -160,16 +113,8 @@ class _EditReferenceScreenState extends State<EditReferenceScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   //Name
-                  name,
+                  description,
                   spaceBetweenFields,
-                  //Current Position
-                  currentPosition,
-                  spaceBetweenFields,
-                  //Email
-                  email,
-                  spaceBetweenFields,
-                  //Mobile
-                  mobile,
                   SizedBox(
                     height: 40,
                   ),

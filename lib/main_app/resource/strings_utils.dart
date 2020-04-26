@@ -164,10 +164,8 @@ class StringUtils {
   static String saveText = "Save";
 
   //Reference Edit Screen
-  static var referenceNameText = "Name";
-  static var referenceCurrentPositionText = "Current Position";
-  static var referenceEmailText = "Email";
-  static var referenceMobileText = "Mobile No";
+  static var referenceDescriptionText = "Description";
+
 
   //Membership Edit Screen
   static var membershipOrgNameText = "Organization Name";
@@ -301,6 +299,7 @@ class StringUtils {
   static var unableToLoadExpertiseListText  = "Unable to load expertise list";
   static var unableToLoadSkillListText  = "Unable to load skill list";
   static var enterValidSkillText  = "Please enter a valid skill";
+  static var previouslyAddedSkillText  = "You have already added this skill before";
 
 
   /// password reset

@@ -22,8 +22,9 @@ import 'package:dartz/dartz.dart' as dartZ;
 class AddEditTechnicalSkill extends StatefulWidget {
   final SkillInfo skillInfo;
   final int index;
+  final List<SkillInfo> previouslyAddedSkills;
 
-  AddEditTechnicalSkill({this.skillInfo, this.index});
+  AddEditTechnicalSkill({this.skillInfo, this.index,this.previouslyAddedSkills});
 
   @override
   _AddEditTechnicalSkillState createState() =>
@@ -100,6 +101,16 @@ class _AddEditTechnicalSkillState extends State<AddEditTechnicalSkill> {
     }
     if(x==0){return false;}else {return true;};
   }
+
+//  bool sameSkill(String input){
+//    int x = 0;
+//    for(int i =0; i<widget.previouslyAddedSkills.length; i++){
+//      if(input == widget.previouslyAddedSkills[i].skill.name) {
+//        x++;
+//      }
+//    }
+//    if(x==0){return false;}else {return true;};
+//  }
 
   _handleSave() {
     bool isValid = _formKey.currentState.validate();
