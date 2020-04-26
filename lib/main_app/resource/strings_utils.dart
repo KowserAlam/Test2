@@ -164,10 +164,8 @@ class StringUtils {
   static String saveText = "Save";
 
   //Reference Edit Screen
-  static var referenceNameText = "Name";
-  static var referenceCurrentPositionText = "Current Position";
-  static var referenceEmailText = "Email";
-  static var referenceMobileText = "Mobile No";
+  static var referenceDescriptionText = "Description";
+
 
   //Membership Edit Screen
   static var membershipOrgNameText = "Organization Name";
