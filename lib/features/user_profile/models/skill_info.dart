@@ -13,7 +13,7 @@ class SkillInfo {
     if (json['skill_obj'] != null) {
       skill = Skill.fromJson(json['skill_obj']);
     }
-    rating = (json['rating']).toDouble();
+    rating = double.parse (json['rating']?.toString()??0.0);
     verifiedBySkillCheck = json['verified_by_skillcheck'];
   }
 
