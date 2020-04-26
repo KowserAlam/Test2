@@ -3,7 +3,7 @@ import 'package:p7app/features/user_profile/models/skill.dart';
 class SkillInfo {
   int profSkillId;
   Skill skill;
-  int rating;
+  double rating;
   bool verifiedBySkillCheck;
 
   SkillInfo({this.profSkillId, this.rating, this.verifiedBySkillCheck,this.skill});
@@ -13,7 +13,7 @@ class SkillInfo {
     if (json['skill_obj'] != null) {
       skill = Skill.fromJson(json['skill_obj']);
     }
-    rating = json['rating'];
+    rating = (json['rating'] as num).toDouble();
     verifiedBySkillCheck = json['verified_by_skillcheck'];
   }
 
