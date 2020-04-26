@@ -27,6 +27,7 @@ class StringUtils {
   static String passwordDoesNotMatch = "Password doesn't match";
   static String enterValidEmail = 'Enter Valid Email';
   static String enterValidPhoneNumber = 'Enter Valid Phone Number';
+  static String twoDecimal = "Please enter a value within 0-9 and with two decimal values max";
 
   ///
   static String passwordText = "Password";

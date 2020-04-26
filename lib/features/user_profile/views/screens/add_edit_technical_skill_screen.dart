@@ -14,6 +14,7 @@ import 'package:p7app/main_app/util/validator.dart';
 import 'package:p7app/main_app/widgets/edit_screen_save_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:p7app/main_app/widgets/loader.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 import 'package:dartz/dartz.dart' as dartZ;
@@ -86,7 +87,7 @@ class _AddEditTechnicalSkillState extends State<AddEditTechnicalSkill> {
   initState() {
     loading = true;
     ratingController.text = widget.skillInfo == null ? "" : widget.skillInfo.rating.toString();
-    _getSkillList();
+    //_getSkillList();
     super.initState();
   }
 
@@ -181,20 +182,34 @@ class _AddEditTechnicalSkillState extends State<AddEditTechnicalSkill> {
                 SizedBox(
                   height: 20,
                 ),
-              loading?SizedBox():Container(
-                padding: EdgeInsets.symmetric(horizontal: 8),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).backgroundColor,
-                  borderRadius: BorderRadius.circular(7),
-                  boxShadow: [
-                    BoxShadow(
-                        color: Color(0xff000000).withOpacity(0.2), blurRadius: 20),
-                    BoxShadow(
-                        color: Color(0xfffafafa).withOpacity(0.2), blurRadius: 20),
-                  ],
+//              loading?SizedBox():Container(
+//                padding: EdgeInsets.symmetric(horizontal: 8),
+//                decoration: BoxDecoration(
+//                  color: Theme.of(context).backgroundColor,
+//                  borderRadius: BorderRadius.circular(7),
+//                  boxShadow: [
+//                    BoxShadow(
+//                        color: Color(0xff000000).withOpacity(0.2), blurRadius: 20),
+//                    BoxShadow(
+//                        color: Color(0xfffafafa).withOpacity(0.2), blurRadius: 20),
+//                  ],
+//                ),
+//                child: searchTextField,
+//              ),
+                FutureBuilder<dartZ.Either<AppError, List<Skill>>>(
+                  future: SkillListRepository().getSkillList(),
+                  builder: (BuildContext context, AsyncSnapshot<dartZ.Either<AppError, List<Skill>>> snapshot){
+                    if(snapshot.hasData){
+                      return snapshot.data.fold((l){
+                        return SizedBox();
+                      }, (r){
+                        searchList = r;
+                        return searchTextField;
+                      });
+                    };
+                    return Loader();
+                  },
                 ),
-                child: searchTextField,
-              ),
                 SizedBox(
                   height: 50,
                 ),
