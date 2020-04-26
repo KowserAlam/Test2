@@ -273,8 +273,8 @@ class StringUtils {
   static var locationText = "Location";
   static var currentCompany = "Current Company";
   static var currentCompanyHint = "eg. ABC Corporation";
-  static var currentPosition = "Current Position";
-  static var currentPositionHint =  "eg. Software Engineer";
+  static var currentDesignation = "Current Designation";
+  static var currentDesignationHint =  "eg. Software Engineer";
   static var locationHintText = "eg. Dhaka, Bangladesh";
   static var editText = "Edit";
 

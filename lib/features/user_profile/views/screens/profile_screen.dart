@@ -306,7 +306,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
     var designationWidget = Consumer<UserProfileViewModel>(
         builder: (context, userProfileViewModel, _) {
 
-         var position = userProfileViewModel.userData.personalInfo.currentPosition;
+         var position = userProfileViewModel.userData.personalInfo.currentDesignation;
          var company = userProfileViewModel.userData.personalInfo.currentCompany;
 
       return Column(

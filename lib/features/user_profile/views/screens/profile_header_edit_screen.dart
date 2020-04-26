@@ -48,6 +48,8 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
   var _facebookEditingController = TextEditingController();
   var _twitterEditingController = TextEditingController();
   var _linkedInEditingController = TextEditingController();
+  var _currentCompanyEditingController = TextEditingController();
+  var _currentDesignationEditingController = TextEditingController();
 
   List<DropdownMenuItem<String>> _industryExpertiseList = [];
   String _selectedIndustryExpertiseDropDownItem;
@@ -64,6 +66,9 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
     _facebookEditingController.text = personalInfo.facebookId ?? "";
     _twitterEditingController.text = personalInfo.twitterId ?? "";
     _linkedInEditingController.text = personalInfo.linkedinId ?? "";
+    _currentCompanyEditingController.text = personalInfo.currentCompany ?? "";
+    _currentDesignationEditingController.text =
+        personalInfo.currentDesignation ?? "";
 
     IndustryListRepository()
         .getIndustryList()
@@ -89,7 +94,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
   String getBase64Image() {
     List<int> imageBytes = fileProfileImage.readAsBytesSync();
 //    print(imageBytes);
-    var img = "data:image/jpg;base64,"+base64Encode(imageBytes);
+    var img = "data:image/jpg;base64," + base64Encode(imageBytes);
 
     print(img);
     return img;
@@ -98,7 +103,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
   Future getImage() async {
     File image = await ImagePicker.pickImage(source: ImageSource.gallery);
     if (image != null) {
-      var compressedImage  = await ImageCompressUtil.compressImage(image, 40);
+      var compressedImage = await ImageCompressUtil.compressImage(image, 40);
       _showCropDialog(compressedImage);
     } else {}
   }
@@ -112,7 +117,6 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
       var userData = userViewModel.userData;
       UserPersonalInfo personalInfo = userViewModel.userData.personalInfo;
 
-
       var data = {
         "current_location": _locationEditingController.text,
         "full_name": _fullNameTextEditingController.text,
@@ -122,6 +126,8 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
         "facebbok_id": _facebookEditingController.text,
         "twitter_id": _twitterEditingController.text,
         "linkedin_id": _linkedInEditingController.text,
+        "current_designation": _currentDesignationEditingController.text,
+        "current_company": _currentCompanyEditingController.text,
       };
 
       if (fileProfileImage != null) {
@@ -192,7 +198,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
                   child: fileProfileImage != null
                       ? Image.file(
                           fileProfileImage,
-                    fit: BoxFit.cover,
+                          fit: BoxFit.cover,
                         )
                       : CachedNetworkImage(
                           placeholder: (context, _) => Image.asset(
@@ -242,7 +248,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
   /// Information From Fields
   _buildInformationFields() {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16,horizontal: 12),
+      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
       child: Form(
         key: _formKey,
         child: Column(
@@ -255,7 +261,6 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
               hintText: "eg. Bill Gates",
             ),
             SizedBox(height: 10),
-
 
 //            CustomDropdownButtonFormField<String>(
 //              labelText: StringUtils.industryExpertiseText,
@@ -294,20 +299,21 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
 
             SizedBox(height: 10),
 
-
+            /// company
             CustomTextFormField(
-
+              controller: _currentCompanyEditingController,
               keyboardType: TextInputType.multiline,
               labelText: StringUtils.currentCompany,
               hintText: StringUtils.currentCompanyHint,
             ),
             SizedBox(height: 10),
 
+            /// designation
             CustomTextFormField(
-
+              controller: _currentDesignationEditingController,
               keyboardType: TextInputType.multiline,
-              labelText: StringUtils.currentPosition,
-              hintText: StringUtils.currentPositionHint,
+              labelText: StringUtils.currentDesignation,
+              hintText: StringUtils.currentDesignationHint,
             ),
             SizedBox(height: 10),
 
@@ -319,6 +325,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
               hintText: StringUtils.locationHintText,
             ),
             SizedBox(height: 10),
+
             ///facebook
             CustomTextFormField(
               controller: _facebookEditingController,
@@ -327,6 +334,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
               prefix: Text(StringUtils.facebookBaseUrl),
             ),
             SizedBox(height: 10),
+
             ///twitter
             CustomTextFormField(
               controller: _twitterEditingController,
@@ -335,6 +343,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
               prefix: Text(StringUtils.twitterBaeUrl),
             ),
             SizedBox(height: 10),
+
             ///linkedIn
             CustomTextFormField(
               controller: _linkedInEditingController,
