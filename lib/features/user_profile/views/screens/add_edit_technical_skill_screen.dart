@@ -182,20 +182,6 @@ class _AddEditTechnicalSkillState extends State<AddEditTechnicalSkill> {
                 SizedBox(
                   height: 20,
                 ),
-//              loading?SizedBox():Container(
-//                padding: EdgeInsets.symmetric(horizontal: 8),
-//                decoration: BoxDecoration(
-//                  color: Theme.of(context).backgroundColor,
-//                  borderRadius: BorderRadius.circular(7),
-//                  boxShadow: [
-//                    BoxShadow(
-//                        color: Color(0xff000000).withOpacity(0.2), blurRadius: 20),
-//                    BoxShadow(
-//                        color: Color(0xfffafafa).withOpacity(0.2), blurRadius: 20),
-//                  ],
-//                ),
-//                child: searchTextField,
-//              ),
                 FutureBuilder<dartZ.Either<AppError, List<Skill>>>(
                   future: SkillListRepository().getSkillList(),
                   builder: (BuildContext context, AsyncSnapshot<dartZ.Either<AppError, List<Skill>>> snapshot){
@@ -204,7 +190,19 @@ class _AddEditTechnicalSkillState extends State<AddEditTechnicalSkill> {
                         return SizedBox();
                       }, (r){
                         searchList = r;
-                        return searchTextField;
+                        return Container(
+                            padding: EdgeInsets.symmetric(horizontal: 8),
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).backgroundColor,
+                              borderRadius: BorderRadius.circular(7),
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Color(0xff000000).withOpacity(0.2), blurRadius: 20),
+                                BoxShadow(
+                                    color: Color(0xfffafafa).withOpacity(0.2), blurRadius: 20),
+                              ],
+                            ),
+                            child: searchTextField);
                       });
                     };
                     return Loader();

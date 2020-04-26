@@ -1,5 +1,3 @@
-
-
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/util/validator.dart';
 import 'package:test/test.dart';
