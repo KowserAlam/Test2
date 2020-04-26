@@ -332,7 +332,10 @@ class StringUtils {
 static const String unspecifiedText = "Unspecified";
 static const String deadlineText = "Deadline";
 static const String applyText = "Apply";
+static const String appliedText = "Applied";
 static const String jobListText = "Job List";
+static const String successfullyAppliedText = "Successfully Applied";
+static const String savedText = "Saved";
 
 
 ///Job Details
@@ -358,4 +361,5 @@ static const String applicationDeadline = 'Deadline: ';
 static const String requiredSkills = 'Skill Requirement';
 static const String benefitSectionTitle = 'Benefits';
 static const String jobSource = 'Job Source';
+static const String doYouWantToApplyText = 'Do you want to apply?';
 }
