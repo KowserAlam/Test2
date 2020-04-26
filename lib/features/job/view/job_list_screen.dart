@@ -79,12 +79,12 @@ class _JobListScreenState extends State<JobListScreen> with AfterLayoutMixin {
 
                   return JobListTileWidget(
                     job,
-                    onTap: (){
+                    onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => JobDetails(
-                            jobModel: job,
-                            index: index,
-                          )));
+                                jobModel: job,
+                                index: index,
+                              )));
                     },
                     onFavorite: () {
                       homeViewModel.addToFavorite(job.jobId, index);
@@ -92,8 +92,7 @@ class _JobListScreenState extends State<JobListScreen> with AfterLayoutMixin {
                     onApply: job.isApplied
                         ? null
                         : () {
-
-                            _showApplyForJobDialog(job,index);
+                            _showApplyForJobDialog(job, index);
                           },
                   );
                 });
@@ -112,14 +111,15 @@ class _JobListScreenState extends State<JobListScreen> with AfterLayoutMixin {
             actions: [
               RawMaterialButton(
                 onPressed: () {
-                 Navigator.pop(context);
+                  Navigator.pop(context);
                 },
                 child: Text(StringUtils.noText),
               ),
               RawMaterialButton(
                 onPressed: () {
-                  Provider.of<JobListViewModel>(context, listen: false).applyForJob(jobModel.jobId, index);
-
+                  Provider.of<JobListViewModel>(context, listen: false)
+                      .applyForJob(jobModel.jobId, index);
+                  Navigator.pop(context);
                 },
                 child: Text(StringUtils.yesText),
               ),
