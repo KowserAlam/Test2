@@ -38,6 +38,12 @@ class Urls {
   static String qualificationListUrl = "/api/qualification/";
   static String experienceListUrl = "/api/experience/";
 
+  static String favouriteJobAddUrl = "/api/favourite_job_add/";
+  static String applyJobOnlineUrl = "/api/apply_online_job_add/";
+
+
+
+  /// skill check
 
   static String examListUrl = "/registration/index";
   static String questionListUrl = "/api/question-list";

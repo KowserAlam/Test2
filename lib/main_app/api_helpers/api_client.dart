@@ -55,7 +55,7 @@ class ApiClient {
       'Accept': 'application/json',
     };
 
-    if (token != null) headers.addAll({HttpHeaders.authorizationHeader: token});
+    if (token != null) headers.addAll({HttpHeaders.authorizationHeader: "Bearer $token"});
     return headers;
   }
 
