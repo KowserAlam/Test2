@@ -107,7 +107,7 @@ class _AddEditTechnicalSkillState extends State<AddEditTechnicalSkill> {
       if(correctInput(searchController.text)){
         var skillInfo = SkillInfo(
           profSkillId: widget.skillInfo?.profSkillId,
-          rating: int.parse(ratingController.text),
+          rating: double.parse(ratingController.text),
           skill: _selectedSkill,
         );
 

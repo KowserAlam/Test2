@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:p7app/features/user_profile/models/user_model.dart';
 import 'package:p7app/features/user_profile/repositories/industry_list_repository.dart';
 
-import 'test_data/dataReader.dart';
+import '../test_data/dataReader.dart';
 
 
 

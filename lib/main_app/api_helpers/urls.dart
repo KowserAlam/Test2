@@ -39,9 +39,6 @@ class Urls {
   static String experienceListUrl = "/api/experience/";
 
 
-
-
-
   static String examListUrl = "/registration/index";
   static String questionListUrl = "/api/question-list";
   static String submitUrl = "/api/exam-paper/submit";
@@ -57,53 +54,7 @@ class Urls {
   static String signUpEmailVerificationUrl = "/api/signup/email-verification";
   static String signUpEmailConfirmPassword = "/api/signup/examinee";
 
-
-
 //  http://p7.ishraak.com/api/job_list/?page=1&page_size=2
   static String jobListUrl = "/api/job_list";
-
-  /// http://{BASE_URL}/api/featured-examlist/{USER_ID}?page={PAGE_NUMBER}&q={QUERY_TEXT}
-//  static String featuredExamListUrl = baseUrl + "/api/featured-examlist";
-
-  /// http://{BASE_URL}/api/enrolled-examlist/{USER_ID}?page={PAGE_NUMBER}
-  /// http://{BASE_URL}/api/enrolled-examlist/{USER_ID}?page={PAGE_NUMBER}&q={QUERY_TEXT}
-  /// http://192.168.1.143/api/enrolled-examlist/1?q=man&page=1
-//  static String examEnrollUrl = baseUrl + "/api/exam-enroll/";
-
-  /// http://{BASE_URL}/api/recent-examlist/{USER_ID}?page={PAGE_NUMBER}&q={QUERY_TEXT}
-  ///http://192.168.1.143/api/recent-examlist/1?page=1&q=python
-//  static String recentExamListUrl = baseUrl + "/api/recent-examlist";
-
-  /// Search Urls
-  /// http://{BASE_URL}/api/featured-examlist/{USER_ID}?page={PAGE_NUMBER}&q={QUERY_TEXT}
-//  static String searchFeaturedExamUrl = baseUrl + "/api/featured-examlist";
-
-//  static String searchFeaturedExamUrl = baseUrl + "/api/featured-examlist-search";
-
-  /// enroll exam list
-  /// http://{BASE_URL}/api/enrolled-examlist/{USER_ID}?page={PAGE_NUMBER}&q={QUERY_TEXT}
-//  static String enrolledExamListUrl = baseUrl + "/api/enrolled-examlist";
-
-  ///User Profile Api
-  ///http://dev.ishraak.com:8080/api/app-user/2
-  ///http://{BASE_URL}/api/app-user/{USER_ID}
-//  static String userProfileUrl = baseUrl + "/api/app-user";
-//
-//  static String examListUrl = baseUrl + "/registration/index";
-//  static String questionListUrl = baseUrl + "/question/list";
-//  static String submitUrl = baseUrl + "/exam/submit";
-
-//  Future<bool> checkInternetConnectivity()async{
-//
-//    bool result = await DataConnectionChecker().hasConnection;
-//    if(result == true) {
-//      print('Active Internet Connection !');
-//    } else {
-//      print('No internet!');
-//      print(DataConnectionChecker().lastTryResults);
-//    }
-//
-//    return result;
-//  }
 
 }
