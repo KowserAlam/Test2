@@ -22,14 +22,10 @@ main(){
             () {
           // arrange
           var data = json.decode(responseJsonSuccess);
-
 //      print(data[JsonKeys.data][JsonKeys.enrolledExamList]);
-
           //act
           var list = InstitutionListRepository().fromJson(data);
-
           //assert
-
           expect(list.length, 3);
         });
 
