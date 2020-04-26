@@ -48,6 +48,8 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
   var _facebookEditingController = TextEditingController();
   var _twitterEditingController = TextEditingController();
   var _linkedInEditingController = TextEditingController();
+  var _currentCompanyEditingController = TextEditingController();
+  var _currentDesignationEditingController = TextEditingController();
 
   List<DropdownMenuItem<String>> _industryExpertiseList = [];
   String _selectedIndustryExpertiseDropDownItem;
@@ -64,6 +66,8 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
     _facebookEditingController.text = personalInfo.facebookId ?? "";
     _twitterEditingController.text = personalInfo.twitterId ?? "";
     _linkedInEditingController.text = personalInfo.linkedinId ?? "";
+    _currentCompanyEditingController.text = personalInfo.currentCompany ?? "";
+    _currentDesignationEditingController.text = personalInfo.currentDesignation ?? "";
 
     IndustryListRepository()
         .getIndustryList()
@@ -122,6 +126,8 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
         "facebbok_id": _facebookEditingController.text,
         "twitter_id": _twitterEditingController.text,
         "linkedin_id": _linkedInEditingController.text,
+        "current_designation": _currentDesignationEditingController.text,
+        "current_company": _currentDesignationEditingController.text,
       };
 
       if (fileProfileImage != null) {
@@ -306,8 +312,8 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
             CustomTextFormField(
 
               keyboardType: TextInputType.multiline,
-              labelText: StringUtils.currentPosition,
-              hintText: StringUtils.currentPositionHint,
+              labelText: StringUtils.currentDesignation,
+              hintText: StringUtils.currentDesignationHint,
             ),
             SizedBox(height: 10),
 

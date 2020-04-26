@@ -32,7 +32,7 @@ class UserPersonalInfo {
   String permanentAddress;
   String currentLocation;
   String currentCompany;
-  String currentPosition;
+  String currentDesignation;
   Religion religionObj;
   Nationality nationalityObj;
 
@@ -66,7 +66,7 @@ class UserPersonalInfo {
     this.currentLocation,
     this.religionObj,
     this.currentCompany,
-    this.currentPosition,
+    this.currentDesignation,
   });
 
   UserPersonalInfo.fromJson(Map<String, dynamic> json) {
@@ -88,6 +88,9 @@ class UserPersonalInfo {
     twitterId = json['twitter_id'];
     linkedinId = json['linkedin_id'];
     currentLocation = json['current_location'];
+    currentCompany = json['current_company'];
+    currentDesignation = json['current_designation'];
+
 
     if (json['date_of_birth'] != null) {
       dateOfBirth = DateTime.parse(json['date_of_birth']);
