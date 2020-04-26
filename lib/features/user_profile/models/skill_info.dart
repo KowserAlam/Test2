@@ -13,7 +13,7 @@ class SkillInfo {
     if (json['skill_obj'] != null) {
       skill = Skill.fromJson(json['skill_obj']);
     }
-    rating = (json['rating'] as num).toDouble();
+    rating = (json['rating']).toDouble();
     verifiedBySkillCheck = json['verified_by_skillcheck'];
   }
 
@@ -26,7 +26,7 @@ class SkillInfo {
 
   Map<String, dynamic> toJsonCreateNew() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['name_id'] = this.skill?.id;
+    data['skill_name_id'] = this.skill?.id;
     data['rating'] = this.rating;
     return data;
   }
