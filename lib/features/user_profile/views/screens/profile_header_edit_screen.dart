@@ -127,7 +127,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
         "twitter_id": _twitterEditingController.text,
         "linkedin_id": _linkedInEditingController.text,
         "current_designation": _currentDesignationEditingController.text,
-        "current_company": _currentDesignationEditingController.text,
+        "current_company": _currentCompanyEditingController.text,
       };
 
       if (fileProfileImage != null) {
@@ -302,7 +302,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
 
 
             CustomTextFormField(
-
+              controller: _currentDesignationEditingController,
               keyboardType: TextInputType.multiline,
               labelText: StringUtils.currentCompany,
               hintText: StringUtils.currentCompanyHint,
@@ -310,7 +310,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
             SizedBox(height: 10),
 
             CustomTextFormField(
-
+              controller: _currentCompanyEditingController,
               keyboardType: TextInputType.multiline,
               labelText: StringUtils.currentDesignation,
               hintText: StringUtils.currentDesignationHint,
