@@ -31,7 +31,7 @@ class Urls {
   static String nationalityListUrl = "/api/professional/nationality/";
   static String religionListUrl = "/api/professional/religion/";
   static String skillListUrl = "/api/skill_list/";
-  static String instituteListUrl = "/api/institute/";
+  static String instituteListUrl = "/api/professional/institute/";
   static String organizationListUrl = "/api/professional/organization/";
   static String majorListUrl = "/api/professional/major/";
   static String certificateNameListUrl = "/api/professional/certificate_name/";

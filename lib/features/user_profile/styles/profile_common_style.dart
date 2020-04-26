@@ -8,4 +8,9 @@ class ProfileCommonStyle{
     BoxShadow(
         color: Color(0xfffafafa).withOpacity(0.2), blurRadius: 5),
   ];
+
+  static focusedBorder(context) => OutlineInputBorder(
+  borderRadius: BorderRadius.circular(7),
+  borderSide:
+  BorderSide(color: Theme.of(context).primaryColor));
  }

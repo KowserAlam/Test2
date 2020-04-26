@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "name": "Military Institute of Science and Technology (MIST)",
+    "created_date": "2020-04-21T11:10:47.834207+06:00"
+  },
+  {
+    "id": 2,
+    "name": "East West University",
+    "created_date": "2020-04-21T11:12:13.049970+06:00"
+  },
+  {
+    "id": 3,
+    "name": "University of Information Technology & Sciences",
+    "created_date": "2020-04-21T11:12:37.122623+06:00"
+  }
+]

@@ -1,20 +1,21 @@
-import 'dart:ui';
-
-import 'package:after_layout/after_layout.dart';
+import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:p7app/features/user_profile/models/edu_info.dart';
-import 'package:p7app/features/user_profile/models/user_model.dart';
+import 'package:p7app/features/user_profile/models/institution.dart';
+import 'package:p7app/features/user_profile/repositories/institution_list_repository.dart';
+import 'package:p7app/features/user_profile/repositories/user_profile_repository.dart';
+import 'package:p7app/features/user_profile/styles/profile_common_style.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
+import 'package:p7app/features/user_profile/views/widgets/common_date_picker_widget.dart';
 import 'package:p7app/features/user_profile/views/widgets/custom_text_from_field.dart';
+import 'package:p7app/main_app/failure/error.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/util/validator.dart';
-import 'package:p7app/main_app/widgets/button_with_primary_fill_color.dart';
 import 'package:p7app/main_app/widgets/edit_screen_save_button.dart';
-import 'package:p7app/main_app/widgets/rectangular_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:uuid/uuid.dart';
+import 'package:dartz/dartz.dart' as dartZ;
+import 'package:rxdart/rxdart.dart';
 
 class AddEditEducationScreen extends StatefulWidget {
   final EduInfo educationModel;
@@ -44,23 +45,67 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
   TextEditingController degreeTextController = TextEditingController();
   var _formKey = GlobalKey<FormState>();
   var _scaffoldKey = GlobalKey<ScaffoldState>();
-  final FocusNode _institutionNameFocusNode = FocusNode();
-  final FocusNode _degreeFocusNode = FocusNode();
-  final FocusNode _percentageFocusNode = FocusNode();
-
   DateTime _enrollDate;
   DateTime _graduationDate;
+   Institution selectedInstitute;
+
+  var autoCompleteTextKey = GlobalKey<AutoCompleteTextFieldState<Institution>>();
+  final _institutionListStreamController = BehaviorSubject<List<Institution>>();
+
+  initState() {
+    if (widget.educationModel != null) {
+      _enrollDate = widget.educationModel.enrolledDate;
+      _graduationDate = widget.educationModel.graduationDate;
+      institutionNameController.text = widget.educationModel.institution ?? "";
+      gpaTextController.text = widget.educationModel.cgpa ?? "";
+      degreeTextController.text = widget.educationModel.qualification ?? "";
+    }
+
+    _initRepos();
+    super.initState();
+  }
+
+  dispose(){
+_institutionListStreamController.close();
+    super.dispose();
+  }
+
+  _initRepos() async {
+    dartZ.Either<AppError, List<Institution>> res =
+        await InstitutionListRepository().getList();
+    res.fold((l) {
+      // error
+      print(l);
+    }, (List<Institution> r) {
+      print(r);
+      _institutionListStreamController.sink.add(r);
+//      setState(() {
+//        _institutionList = r;
+//      });
+    });
+  }
 
   _handleSave() {
     var isSuccess = _formKey.currentState.validate();
 
     if (isSuccess) {
       var education = EduInfo(
-        institution: institutionNameController.text,
+        institution: selectedInstitute.id?.toString(),
         cgpa: gpaTextController.text,
         qualification: degreeTextController.text,
+        enrolledDate: _enrollDate,
+        graduationDate: _graduationDate,
       );
-      Navigator.pop(context);
+
+      UserProfileRepository().addUserEducation(education).then((value){
+        value.fold((l){
+          //error
+        }, (r){
+          // right
+          Navigator.pop(context);
+        });
+      });
+
     }
   }
 
@@ -70,112 +115,100 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
       height: 15,
     );
 
-    var nameOfInstitution = CustomTextFormField(
-      validator: Validator().nullFieldValidate,
-      focusNode: _institutionNameFocusNode,
-      autofocus: true,
-      textInputAction: TextInputAction.next,
-      onFieldSubmitted: (a) {
-        FocusScope.of(_scaffoldKey.currentContext)
-            .requestFocus(_degreeFocusNode);
-      },
-      controller: institutionNameController,
-      labelText: StringUtils.nameOfOInstitutionText,
-      hintText: StringUtils.nameOfOInstitutionHintText,
-    );
+    var nameOfInstitution = StreamBuilder<List<Institution>>(
+        stream: _institutionListStreamController.stream,
+        builder: (context, AsyncSnapshot<List<Institution>> snapshot) {
+          if (snapshot.hasData)
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text("  " + StringUtils.nameOfOInstitutionText ?? "",
+                    style: TextStyle(fontWeight: FontWeight.bold)),
+                SizedBox(
+                  height: 5,
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).backgroundColor,
+                    borderRadius: BorderRadius.circular(7),
+                    boxShadow: ProfileCommonStyle.boxShadow,
+                  ),
+                  child: AutoCompleteTextField<Institution>(
+                    decoration: InputDecoration(
+                      hintText: StringUtils.nameOfOInstitutionHintText,
+                      border: InputBorder.none,
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                      focusedBorder: ProfileCommonStyle.focusedBorder(context),
+                    ),
+                    controller: institutionNameController,
+                    itemFilter: (Institution suggestion, String query) =>
+                        suggestion.name
+                            .toLowerCase()
+                            .startsWith(query.toLowerCase()),
+                    suggestions: snapshot.data,
+                    itemSorter: (Institution a, Institution b) =>
+                        a.name.compareTo(b.name),
+                    key: autoCompleteTextKey,
+                    itemBuilder: (BuildContext context, Institution suggestion) {
+                      return ListTile(
+                        title: Text(suggestion.name ?? ""),
+                      );
+                    },
+                    clearOnSubmit: false,
+                    itemSubmitted: (Institution data) {
+                      selectedInstitute = data;
+                      institutionNameController.text = data.name;
+                      setState(() {
 
-    var enrolledDate = Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(height: 16),
-        Text(
-          StringUtils.enrollDate,
-          textAlign: TextAlign.left,
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-        SizedBox(
-          height: 8,
-        ),
-        InkWell(
-          onTap: () {
-            _showEnrollDatePicker(context);
-          },
-          child: Container(
-            width: double.infinity,
-            decoration: BoxDecoration(
-              color: Theme.of(context).backgroundColor,
-              borderRadius: BorderRadius.circular(7),
-              boxShadow: [
-                BoxShadow(
-                    color: Color(0xff000000).withOpacity(0.2), blurRadius: 20),
-                BoxShadow(
-                    color: Color(0xfffafafa).withOpacity(0.2), blurRadius: 20),
+                      });
+                    },
+                  ),
+                ),
               ],
-            ),
-            padding: EdgeInsets.all(8),
-            child: Text(
-              "",
-            ),
-          ),
-        ),
-      ],
-    );
-    var graduationDate = Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        /// passingYear
-        SizedBox(height: 16),
-        Text(
-          StringUtils.graduationDate,
-          textAlign: TextAlign.left,
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-        SizedBox(
-          height: 8,
-        ),
+            );
 
-        InkWell(
-          onTap: () {
-            _showGraduationDatePicker(context);
-          },
-          child: Container(
-            width: double.infinity,
-            decoration: BoxDecoration(
-              color: Theme.of(context).backgroundColor,
-              borderRadius: BorderRadius.circular(7),
-              boxShadow: [
-                BoxShadow(
-                    color: Color(0xff000000).withOpacity(0.2), blurRadius: 20),
-                BoxShadow(
-                    color: Color(0xfffafafa).withOpacity(0.2), blurRadius: 20),
-              ],
-            ),
-            padding: EdgeInsets.all(8),
-            child: Text(
-              "",
-            ),
-          ),
-        ),
-      ],
-    );
-    var degree =  CustomTextFormField(
-      validator: Validator().nullFieldValidate,
-      focusNode: _degreeFocusNode,
-      autofocus: true,
-      textInputAction: TextInputAction.next,
-      onFieldSubmitted: (a) {
-        FocusScope.of(_scaffoldKey.currentContext)
-            .requestFocus(_percentageFocusNode);
+          return CustomTextFormField(
+            validator: Validator().nullFieldValidate,
+            controller: institutionNameController,
+            labelText: StringUtils.nameOfOInstitutionText,
+            hintText: StringUtils.nameOfOInstitutionHintText,
+          );
+        });
+    var enrolledDate = CommonDatePickerWidget(
+      date: _enrollDate,
+      label: StringUtils.enrollDate,
+      onTapDateClear: () {
+        setState(() {
+          _enrollDate = null;
+        });
       },
+      onDateTimeChanged: (v) {
+        setState(() {
+          _enrollDate = v;
+        });
+      },
+    );
+    var graduationDate = CommonDatePickerWidget(
+      date: _graduationDate,
+      label: StringUtils.graduationDate,
+      onTapDateClear: () {
+        setState(() {
+          _graduationDate = null;
+        });
+      },
+      onDateTimeChanged: (v) {
+        setState(() {
+          _graduationDate = v;
+        });
+      },
+    );
+    var degree = CustomTextFormField(
       controller: degreeTextController,
       labelText: StringUtils.nameOfODegreeText,
       hintText: StringUtils.nameOfODegreeHintText,
     );
-    var cgpa =  CustomTextFormField(
+    var cgpa = CustomTextFormField(
       controller: gpaTextController,
-      focusNode: _percentageFocusNode,
-      keyboardType: TextInputType.number,
-      maxLines: null,
       labelText: StringUtils.gpaText,
       hintText: StringUtils.gpaHintText,
     );
@@ -208,11 +241,13 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
                     ),
                     nameOfInstitution,
                     spaceBetween,
+
                     ///Degree
                     degree,
                     SizedBox(height: 15),
+
                     /// gpaText
-                    cgpa ,
+                    cgpa,
                     enrolledDate,
                     spaceBetween,
                     graduationDate,
@@ -224,88 +259,5 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
         ),
       ),
     );
-  }
-
-  _showEnrollDatePicker(context) {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return Center(
-            child: Container(
-              height: MediaQuery.of(context).size.height / 2,
-              width: MediaQuery.of(context).size.width / 1.3,
-              child: Material(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    Expanded(
-                      child: CupertinoTheme(
-                        data: CupertinoThemeData(
-                            brightness: Theme.of(context).brightness),
-                        child: CupertinoDatePicker(
-                          initialDateTime: _enrollDate?? DateTime.now(),
-                          mode: CupertinoDatePickerMode.date,
-                          onDateTimeChanged: (v) {},
-                        ),
-                      ),
-                    ),
-                    InkWell(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Icon(
-                            Icons.done,
-                            color: Theme.of(context).primaryColor,
-                          ),
-                        ),
-                        onTap: () {
-                          Navigator.pop(context);
-                        }),
-                  ],
-                ),
-              ),
-            ),
-          );
-        });
-  }
-  _showGraduationDatePicker(context) {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return Center(
-            child: Container(
-              height: MediaQuery.of(context).size.height / 2,
-              width: MediaQuery.of(context).size.width / 1.3,
-              child: Material(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    Expanded(
-                      child: CupertinoTheme(
-                        data: CupertinoThemeData(
-                            brightness: Theme.of(context).brightness),
-                        child: CupertinoDatePicker(
-                          initialDateTime: _enrollDate?? DateTime.now(),
-                          mode: CupertinoDatePickerMode.date,
-                          onDateTimeChanged: (v) {},
-                        ),
-                      ),
-                    ),
-                    InkWell(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Icon(
-                            Icons.done,
-                            color: Theme.of(context).primaryColor,
-                          ),
-                        ),
-                        onTap: () {
-                          Navigator.pop(context);
-                        }),
-                  ],
-                ),
-              ),
-            ),
-          );
-        });
   }
 }
