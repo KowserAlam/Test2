@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:bot_toast/bot_toast.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/cupertino.dart';
@@ -7,6 +9,7 @@ import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
 import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/failure/error.dart';
+import 'package:p7app/main_app/resource/strings_utils.dart';
 
 class JobListViewModel with ChangeNotifier {
   List<JobModel> _jobList = [];
@@ -87,32 +90,68 @@ class JobListViewModel with ChangeNotifier {
     }
   }
 
-  applyForJob(String jobId, int index,{ApiClient apiClient}) async {
+  Future<bool> applyForJob(String jobId, int index,
+      {ApiClient apiClient}) async {
     BotToast.showLoading();
-    var userId = await AuthService.getInstance().then((value) => value.getUser().userId);
+    var userId =
+        await AuthService.getInstance().then((value) => value.getUser().userId);
     var body = {'user_id': userId, 'job_id': jobId};
 
     try {
-      ApiClient client =  apiClient?? ApiClient();
+      ApiClient client = apiClient ?? ApiClient();
       var res = await client.postRequest(Urls.applyJobOnlineUrl, body);
+      print(res.body);
 
-      if(res.statusCode == 200){
+      if (res.statusCode == 200) {
         BotToast.closeAllLoading();
+        BotToast.showText(
+            text: StringUtils.successfullyAppliedText,
+            duration: Duration(seconds: 2));
+        _jobList[index].isApplied = true;
+        notifyListeners();
         return true;
-      }else{
+      } else {
         BotToast.closeAllLoading();
+        BotToast.showText(text: StringUtils.unableToSaveData);
         return false;
       }
     } catch (e) {
       BotToast.closeAllLoading();
+      BotToast.showText(text: StringUtils.unableToSaveData);
       print(e);
 
       return false;
     }
   }
 
-  addToFavorite() {
-    var body = {};
-    ApiClient().postRequest(Urls.favouriteJobAddUrl, body);
+  Future<bool> addToFavorite(String jobId, int index, {ApiClient apiClient}) async {
+    BotToast.showLoading();
+    var userId =
+        await AuthService.getInstance().then((value) => value.getUser().userId);
+    var body = {'user_id': userId, 'job_id': jobId};
+
+    try {
+      ApiClient client = apiClient ?? ApiClient();
+      var res = await client.postRequest(Urls.favouriteJobAddUrl, body);
+      print(res.body);
+
+      if (res.statusCode == 200) {
+        BotToast.closeAllLoading();
+
+        _jobList[index].status =  !_jobList[index].status ;
+        notifyListeners();
+        return true;
+      } else {
+        BotToast.closeAllLoading();
+        BotToast.showText(text: StringUtils.unableToSaveData);
+        return false;
+      }
+    } catch (e) {
+      BotToast.closeAllLoading();
+      BotToast.showText(text: StringUtils.unableToSaveData);
+      print(e);
+
+      return false;
+    }
   }
 }
