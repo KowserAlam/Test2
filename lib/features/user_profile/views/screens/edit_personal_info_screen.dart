@@ -60,12 +60,17 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
   List<DropdownMenuItem<Nationality>> _nationalityList = [];
   Nationality _selectedNationalityDropDownItem;
 
-  //Nationality
+  //Religion
   List<DropdownMenuItem<Religion>> _religionList = [];
   Religion _selectedReligionDropDownItem;
 
   //Gender
-  List<DropdownMenuItem<String>> _genderList = [];
+  List<DropdownMenuItem<String>> _genderList = [
+    new DropdownMenuItem(value: 'Male',child: Text('Male'),),
+    new DropdownMenuItem(value: 'Female',child: Text('Female'),),
+    new DropdownMenuItem(value: null,child: Text('Prefer not to share'),),
+    new DropdownMenuItem(value: 'Any',child: Text('Any'),)
+  ];
   String _selectedGenderDropDownItem;
 
   @override
@@ -81,7 +86,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
 
     _selectedReligionDropDownItem = personalInfo.religionObj;
     _selectedNationalityDropDownItem = personalInfo.nationalityObj;
-    _selectedGenderDropDownItem = personalInfo.gender;
+    //_selectedGenderDropDownItem = personalInfo.gender;
     _chosenDate = personalInfo.dateOfBirth;
 
     NationalityListRepository()
@@ -103,24 +108,24 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
       });
     });
 
-    GenderListRepository()
-        .getGenderList()
-        .then((dartZ.Either<AppError, List<String>> value) {
-      value.fold((l) {
-        // left
-        BotToast.showText(text: "Unable to load gender list ");
-      }, (r) {
-        // right
-        _genderList = r
-            .map((e) => DropdownMenuItem(
-          key: Key(e),
-          value: e,
-          child: Text(e ?? ""),
-        ))
-            .toList();
-        setState(() {});
-      });
-    });
+//    GenderListRepository()
+//        .getGenderList()
+//        .then((dartZ.Either<AppError, List<String>> value) {
+//      value.fold((l) {
+//        // left
+//        BotToast.showText(text: "Unable to load gender list ");
+//      }, (r) {
+//        // right
+//        _genderList = r
+//            .map((e) => DropdownMenuItem(
+//          key: Key(e),
+//          value: e,
+//          child: Text(e ?? ""),
+//        ))
+//            .toList();
+//        setState(() {});
+//      });
+//    });
 
 
 

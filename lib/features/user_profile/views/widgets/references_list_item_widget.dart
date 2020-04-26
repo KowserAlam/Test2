@@ -34,27 +34,27 @@ class ReferencesListItemWidget extends StatelessWidget {
           color: Theme.of(context).backgroundColor,
           child: Icon(FontAwesomeIcons.user),
         ),
-//        title: Text(referenceData.name ?? ""),
+        title: Text(referenceData.description ?? ""),
 //        subtitle: Text(referenceData.currentPosition ?? ""),
-//        trailing: !isInEditMode
-//            ? SizedBox()
-//            : Row(
-//                mainAxisSize: MainAxisSize.min,
-//                children: [
-//                  IconButton(
-//                    icon: Icon(FontAwesomeIcons.edit),
-//                    onPressed: onTapEdit,
-//                    iconSize: 18,
-//                    color: Colors.black,
-//                  ),
-//                  IconButton(
-//                    icon: Icon(FontAwesomeIcons.trash),
-//                    onPressed: onTapDelete,
-//                    iconSize: 18,
-//                    color: Colors.black,
-//                  ),
-//                ],
-//              ),
+        trailing: !isInEditMode
+            ? SizedBox()
+            : Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  IconButton(
+                    icon: Icon(FontAwesomeIcons.edit),
+                    onPressed: onTapEdit,
+                    iconSize: 18,
+                    color: Colors.black,
+                  ),
+                  IconButton(
+                    icon: Icon(FontAwesomeIcons.trash),
+                    onPressed: onTapDelete,
+                    iconSize: 18,
+                    color: Colors.black,
+                  ),
+                ],
+              ),
       ),
     );
   }
