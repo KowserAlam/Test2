@@ -11,18 +11,22 @@ import 'package:p7app/main_app/util/date_format_uitl.dart';
 class JobListTileWidget extends StatefulWidget {
   final JobModel jobModel;
   final Function onTap;
+  final Function onApply;
+  final Function onFavorite;
 
-  JobListTileWidget(this.jobModel, {this.onTap});
+  JobListTileWidget(this.jobModel, {this.onTap, this.onFavorite, this.onApply});
 
   @override
   _JobListTileWidgetState createState() => _JobListTileWidgetState();
 }
 
 class _JobListTileWidgetState extends State<JobListTileWidget> {
-  bool heart;
+
 
   @override
   Widget build(BuildContext context) {
+    bool isFavorite = widget.jobModel.status;
+
     String publishDateText = widget.jobModel.createdDate == null
         ? StringUtils.unspecifiedText
         : DateFormatUtil()
@@ -46,7 +50,7 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
       decoration: BoxDecoration(
         color: scaffoldBackgroundColor,
       ),
-      child:Image.asset(kImagePlaceHolderAsset),
+      child: Image.asset(kImagePlaceHolderAsset),
     ); //That pointless fruit logo
     var jobTitle = Text(
       widget.jobModel.title ?? "",
@@ -83,37 +87,45 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
       borderRadius: BorderRadius.circular(20),
       child: InkWell(
         borderRadius: BorderRadius.circular(20),
-      onTap: () {
-        if (heart == false) {
-          heart = true;
-        } else {
-          heart = false;
-        }
-        setState(() {});
-      },
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Icon(
-          heart == true? FontAwesomeIcons.solidHeart:FontAwesomeIcons.heart,
-          color: heart == true ? AppTheme.orange : AppTheme.grey,
-          size: 22,
-        ),
-      ),
-    ),);
-    var applyButton = Container(
-      child: Container(
-        padding: EdgeInsets.symmetric(vertical: 8, horizontal: 15),
-        decoration: BoxDecoration(
-          color: Theme.of(context).accentColor,
-          borderRadius: BorderRadius.circular(5),
-        ),
-        child: Text(
-          StringUtils.applyText,
-          style: TextStyle(
-              fontSize: 15, color: Colors.white, fontWeight: FontWeight.w600),
+        onTap: widget.onFavorite,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Icon(
+            isFavorite
+                ? FontAwesomeIcons.solidHeart
+                : FontAwesomeIcons.heart,
+            color: isFavorite? AppTheme.orange : AppTheme.grey,
+            size: 22,
+          ),
         ),
       ),
     );
+
+    var applyButton = Material(
+      color: widget.jobModel.isApplied
+          ? Colors.grey
+          : Theme.of(context).accentColor,
+      borderRadius: BorderRadius.circular(5),
+      child: InkWell(
+        onTap: widget.onApply,
+        borderRadius: BorderRadius.circular(5),
+        child: Container(
+          height: 30,
+          width: 65,
+          alignment: Alignment.center,
+//          padding: EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+
+          child: Text(
+            widget.jobModel.isApplied
+                ? StringUtils.appliedText
+                : StringUtils.applyText,
+            style: TextStyle(
+                fontSize: 15, color: Colors.white, fontWeight: FontWeight.w600),
+          ),
+        ),
+      ),
+    );
+
     var jobType = Row(
       children: <Widget>[
         Icon(
@@ -134,15 +146,11 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
     );
     var publishDateWidget = Row(
       children: <Widget>[
-        Icon(
-          FeatherIcons.clock,
-          size: iconSize,
-          color: subtitleColor
-        ),
+        Icon(FeatherIcons.clock, size: iconSize, color: subtitleColor),
         SizedBox(width: 5),
         Text(
           deadLineText,
-          style: TextStyle(color: subtitleColor,fontWeight: FontWeight.w100),
+          style: TextStyle(color: subtitleColor, fontWeight: FontWeight.w100),
         ),
       ],
     );
@@ -156,17 +164,12 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
         SizedBox(width: 5),
         Text(
           publishDateText,
-          style: TextStyle(color: subtitleColor,fontWeight: FontWeight.w100),
+          style: TextStyle(color: subtitleColor, fontWeight: FontWeight.w100),
         ),
       ],
     );
     return GestureDetector(
-      onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => JobDetails(
-                  jobModel: widget.jobModel,
-                )));
-      },
+      onTap: widget.onTap,
       child: Container(
         decoration: BoxDecoration(color: scaffoldBackgroundColor,
 //        borderRadius: BorderRadius.circular(5),
@@ -203,9 +206,7 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
               ),
             ),
             //Job Title
-            SizedBox(
-              height: 1
-            ),
+            SizedBox(height: 1),
             Container(
               padding: EdgeInsets.all(8),
               color: backgroundColor,

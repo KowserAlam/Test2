@@ -25,34 +25,39 @@ class JobModel {
   String division;
   String district;
   List<String> jobSkills;
+  bool isApplied;
+  bool status;
 
-  JobModel(
-      {this.jobId,
-        this.title,
-        this.jobLocation,
-        this.salaryMin,
-        this.salaryMax,
-        this.vacancy,
-        this.applicationDeadline,
-        this.descriptions,
-        this.responsibilities,
-        this.education,
-        this.salary,
-        this.otherBenefits,
-        this.rawContent,
-        this.webAddress,
-        this.termsAndCondition,
-        this.createdDate,
-        this.industry,
-        this.employmentStatus,
-        this.experience,
-        this.qualification,
-        this.gender,
-        this.currency,
-        this.companyName,
-        this.division,
-        this.district,
-        this.jobSkills});
+  JobModel({
+    this.jobId,
+    this.title,
+    this.jobLocation,
+    this.salaryMin,
+    this.salaryMax,
+    this.vacancy,
+    this.applicationDeadline,
+    this.descriptions,
+    this.responsibilities,
+    this.education,
+    this.isApplied,
+    this.salary,
+    this.otherBenefits,
+    this.rawContent,
+    this.webAddress,
+    this.termsAndCondition,
+    this.createdDate,
+    this.industry,
+    this.employmentStatus,
+    this.experience,
+    this.qualification,
+    this.gender,
+    this.currency,
+    this.companyName,
+    this.division,
+    this.district,
+    this.jobSkills,
+    this.status,
+  });
 
   JobModel.fromJson(Map<String, dynamic> json) {
     jobId = json['job_id'];
@@ -81,7 +86,9 @@ class JobModel {
     division = json['division'];
     district = json['district'];
     jobSkills = json['job_skills']?.cast<String>();
- 
+
+    isApplied = json['is_applied'] == null ? false : (json['is_applied'] == "Yes" ? true : false);
+    status = json['status'] == null ? false : (json['status'] == "Yes" ? true : false);
   }
 
   Map<String, dynamic> toJson() {
