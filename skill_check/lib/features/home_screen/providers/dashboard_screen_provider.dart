@@ -99,7 +99,7 @@ class DashboardScreenProvider with ChangeNotifier {
             examName: featuredExamModel.examName,
             examCode: featuredExamModel.examCode,
             examDurationMinutes: featuredExamModel.examDurationMinutes,
-            id: featuredExamModel.id,
+            profSkillId: featuredExamModel.profSkillId,
             instruction: featuredExamModel.instruction));
     notifyListeners();
   }

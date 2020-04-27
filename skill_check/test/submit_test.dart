@@ -16,8 +16,8 @@ main() {
   test("getSubmitAnsModel Test, Should return 2",(){
     SubmitProvider submitProvider = SubmitProvider();
     var questionList = [
-      QuestionModel(question: "Test Question 1",options: [Answers(name: "Optioin 1",id: "123")],id: "123",selectedAnswers: [Answers(name: "Optioin 1",id: "123")]),
-      QuestionModel(question: "Test Question 1",options: [Answers(name: "Optioin 1",id: "123")],id: "123",selectedAnswers: [Answers(name: "Optioin 1",id: "123")]),
+      QuestionModel(question: "Test Question 1",options: [Answers(name: "Optioin 1",profSkillId: "123")],profSkillId: "123",selectedAnswers: [Answers(name: "Optioin 1",profSkillId: "123")]),
+      QuestionModel(question: "Test Question 1",options: [Answers(name: "Optioin 1",profSkillId: "123")],profSkillId: "123",selectedAnswers: [Answers(name: "Optioin 1",profSkillId: "123")]),
     ];
 
     SubmitAnsModel actualValue =  submitProvider.getSubmitAnsModel(regId: "123",userId: "123", questionList:questionList);
@@ -37,7 +37,7 @@ main() {
   test("getSortedAnsListInInteger Test, giving [3,1]  Should return [1,3]",(){
     SubmitProvider submitProvider = SubmitProvider();
 
-    List<int> actualValue =  submitProvider.getSortedAnsListInInteger(QuestionModel(selectedAnswers: [Answers(id: "3",name: "data"),Answers(id: "1",name: "data")]));
+    List<int> actualValue =  submitProvider.getSortedAnsListInInteger(QuestionModel(selectedAnswers: [Answers(profSkillId: "3",name: "data"),Answers(profSkillId: "1",name: "data")]));
     expect(actualValue, [1,3]);
 
   });

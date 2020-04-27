@@ -39,7 +39,7 @@ class Validator {
   }
 
   String validatePhoneNumber(String value) {
-    Pattern pattern = r'^[+]*[s\./0-9]*$';
+    Pattern pattern = r'\+?(88)?0?1[56789][0-9]{8}\b';
     RegExp regex = new RegExp(pattern);
     if (!regex.hasMatch(value))
       return StringUtils.enterValidPhoneNumber;
@@ -55,4 +55,25 @@ class Validator {
     else
       return null;
   }
+
+  String expertiseFieldValidate(String value){
+    double x;
+    Pattern pattern = r'^([0-9]{1,2})+(\.[0-9]{1,2})?$';
+    RegExp regex = new RegExp(pattern);
+    if(value.isEmpty){
+      return StringUtils.thisFieldIsRequired;
+    }else {
+      if(!regex.hasMatch(value)){
+        return StringUtils.twoDecimal;
+      }else{
+        x = double.parse(value);
+        if(x >=0 && x <11){
+          return null;
+        }else{
+          return StringUtils.valueWithinRange;
+        }
+      }
+    }
+  }
+
 }

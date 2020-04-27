@@ -48,7 +48,7 @@ class DashBoardUserSection extends StatelessWidget {
       child: Consumer<DashboardScreenProvider>(
           builder: (context, dashboardScreenProvider, child) {
         return Text(
-          "ID: ${dashboardScreenProvider.dashBoardData.user.id ?? ""}",
+          "ID: ${dashboardScreenProvider.dashBoardData.user.profSkillId ?? ""}",
           style: Theme.of(context).textTheme.title,
         );
       }),

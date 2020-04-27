@@ -1,4 +1,5 @@
 import 'package:after_layout/after_layout.dart';
+import 'package:p7app/features/job/view/job_details.dart';
 import 'package:p7app/features/job/view_model/job_list_view_model.dart';
 import 'package:p7app/features/job/models/job.dart';
 import 'package:p7app/features/job/view/widgets/job_list_tile_widget.dart';
@@ -16,19 +17,20 @@ class JobListScreen extends StatefulWidget {
   _JobListScreenState createState() => _JobListScreenState();
 }
 
-class _JobListScreenState extends State<JobListScreen> with AfterLayoutMixin{
-
+class _JobListScreenState extends State<JobListScreen> with AfterLayoutMixin {
   ScrollController _scrollController = ScrollController();
 
   @override
   void afterFirstLayout(BuildContext context) {
-    var jobListViewModel = Provider.of<JobListViewModel>(context,listen: false);
+    var jobListViewModel =
+        Provider.of<JobListViewModel>(context, listen: false);
     jobListViewModel.getJobList();
 
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
-          _scrollController.position.maxScrollExtent &&
-          jobListViewModel.hasMoreData && !jobListViewModel.isFetchingData) {
+              _scrollController.position.maxScrollExtent &&
+          jobListViewModel.hasMoreData &&
+          !jobListViewModel.isFetchingData) {
         jobListViewModel.getMoreData();
       }
     });
@@ -47,32 +49,82 @@ class _JobListScreenState extends State<JobListScreen> with AfterLayoutMixin{
         appBar: AppBar(
           title: Text(StringUtils.jobListText),
           actions: [
-            IconButton(icon: Icon(Icons.search),onPressed: (){},)
+            IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () {},
+            )
           ],
         ),
-        drawer: Drawer(child: AppDrawer(routeName: 'job_list',)),
-        body: Consumer<JobListViewModel>(builder: (BuildContext context, homeViewModel, Widget child) {
-          var jobList = homeViewModel.jobList;
-          print(jobList.length);
-          return ListView.builder(
-            padding: EdgeInsets.symmetric(vertical: 4),
-            controller: _scrollController,
-            itemCount: jobList.length+1,
+        drawer: Drawer(
+            child: AppDrawer(
+          routeName: 'job_list',
+        )),
+        body: Consumer<JobListViewModel>(
+          builder: (BuildContext context, homeViewModel, Widget child) {
+            var jobList = homeViewModel.jobList;
+            print(jobList.length);
+            return ListView.builder(
+                padding: EdgeInsets.symmetric(vertical: 4),
+                controller: _scrollController,
+                itemCount: jobList.length + 1,
 //              separatorBuilder: (context,index)=>Divider(),
-              itemBuilder: (context,index){
-                if(index == jobList.length){
-                  return homeViewModel.isFetchingData?Padding(padding: EdgeInsets.all(15),child: Loader()):SizedBox();
-                }
+                itemBuilder: (context, index) {
+                  if (index == jobList.length) {
+                    return homeViewModel.isFetchingData
+                        ? Padding(padding: EdgeInsets.all(15), child: Loader())
+                        : SizedBox();
+                  }
 
-            JobModel job = jobList[index];
+                  JobModel job = jobList[index];
 
-
-            return JobListTileWidget(job);
-          });
-        },),
+                  return JobListTileWidget(
+                    job,
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => JobDetails(
+                                jobModel: job,
+                                index: index,
+                              )));
+                    },
+                    onFavorite: () {
+                      homeViewModel.addToFavorite(job.jobId, index);
+                    },
+                    onApply: job.isApplied
+                        ? null
+                        : () {
+                            _showApplyForJobDialog(job, index);
+                          },
+                  );
+                });
+          },
+        ),
       ),
     );
   }
 
-
+  _showApplyForJobDialog(JobModel jobModel, int index) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text(StringUtils.doYouWantToApplyText),
+            actions: [
+              RawMaterialButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text(StringUtils.noText),
+              ),
+              RawMaterialButton(
+                onPressed: () {
+                  Provider.of<JobListViewModel>(context, listen: false)
+                      .applyForJob(jobModel.jobId, index);
+                  Navigator.pop(context);
+                },
+                child: Text(StringUtils.yesText),
+              ),
+            ],
+          );
+        });
+  }
 }

@@ -5,18 +5,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p7app/features/job/models/job.dart';
+import 'package:p7app/features/job/view_model/job_list_view_model.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/decorations.dart';
 import 'package:p7app/main_app/util/date_format_uitl.dart';
 import 'package:p7app/main_app/widgets/custom_Button.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
-import 'package:p7app/main_app/widgets/gredient_buton.dart';
+import 'package:p7app/main_app/widgets/common_button.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class JobDetails extends StatefulWidget {
   final JobModel jobModel;
-  JobDetails({@required this.jobModel});
+  final int index;
+  JobDetails({@required this.jobModel, @required this.index});
   @override
   _JobDetailsState createState() => _JobDetailsState();
 }
@@ -50,7 +53,64 @@ class _JobDetailsState extends State<JobDetails> {
     double sectionIconSize = 20;
     Color clockIconColor = Colors.orange;
 
+    bool isFavorite = widget.jobModel.status;
+    bool isApplied = widget.jobModel.isApplied;
+
     //Widgets
+    var heartButton = Material(
+      color: Colors.transparent,
+      borderRadius: BorderRadius.circular(20),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(20),
+        onTap: (){
+          Provider.of<JobListViewModel>(context, listen: false).addToFavorite(widget.jobModel.jobId, widget.index).then((value){
+           setState(() {
+             isFavorite = !isFavorite;
+           });
+          });
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(5.0),
+          child: Icon(
+            isFavorite
+                ? FontAwesomeIcons.solidHeart
+                : FontAwesomeIcons.heart,
+            color:  isFavorite? AppTheme.orange : AppTheme.grey,
+            size: 22,
+          ),
+        ),
+      ),
+    );
+    var applyButton = Material(
+      color: widget.jobModel.isApplied
+          ? Colors.grey
+          : Theme.of(context).accentColor,
+      borderRadius: BorderRadius.circular(5),
+      child: InkWell(
+        onTap: isApplied?null:(){
+          Provider.of<JobListViewModel>(context, listen: false).applyForJob(widget.jobModel.jobId, widget.index).then((value){
+            setState(() {
+              isApplied = value;
+            });
+          });
+        },
+        borderRadius: BorderRadius.circular(5),
+        child: Container(
+          height: 30,
+          width: 65,
+          alignment: Alignment.center,
+//          padding: EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+
+          child: Text(
+            isApplied
+                ? StringUtils.appliedText
+                : StringUtils.applyText,
+            style: TextStyle(
+                fontSize: 15, color: Colors.white, fontWeight: FontWeight.w600),
+          ),
+        ),
+      ),
+    );
     var spaceBetweenSections = SizedBox(height: 30,);
     var dividerUpperSide = Container(
       child: Row(
@@ -79,7 +139,7 @@ class _JobDetailsState extends State<JobDetails> {
                           ? widget.jobModel.title
                           : StringUtils.unspecifiedText, style: headerTextStyle,),),
                     ),
-                    FaIcon(FontAwesomeIcons.heart,size: 18,)
+                    heartButton,
                   ],
                 ),
                 SizedBox(height: 10,),
@@ -347,20 +407,7 @@ class _JobDetailsState extends State<JobDetails> {
                 : StringUtils.unspecifiedText, style: topSideDescriptionFontStyle,),
           ],
         ),
-        Container(
-          padding: EdgeInsets.symmetric(vertical: 8, horizontal: 15),
-          decoration: BoxDecoration(
-            color: Theme.of(context).accentColor,
-            borderRadius: BorderRadius.circular(5),
-          ),
-          child: Center(
-            child: Text(
-              StringUtils.applyButtonText,
-              style: TextStyle(
-                  fontSize: 14, color: Colors.white, fontWeight: FontWeight.w600),
-            ),
-          ),
-        )
+        applyButton,
       ],
     );
 
