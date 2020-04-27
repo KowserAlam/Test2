@@ -1,3 +1,4 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:p7app/features/user_profile/models/certification_info.dart';
@@ -6,6 +7,7 @@ import 'package:p7app/features/user_profile/views/widgets/common_date_picker_wid
 import 'package:p7app/features/user_profile/views/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/util/date_format_uitl.dart';
 import 'package:p7app/main_app/util/validator.dart';
 import 'package:p7app/main_app/widgets/common_button.dart';
 import 'package:p7app/main_app/widgets/edit_screen_save_button.dart';
@@ -14,10 +16,12 @@ import 'package:provider/provider.dart';
 class EditCertification extends StatefulWidget {
   final CertificationInfo certificationInfo;
   final int index;
+  final List<CertificationInfo> previouslyAddedCertificates;
 
   const EditCertification({
     this.certificationInfo ,
     this.index,
+    this.previouslyAddedCertificates
   });
   @override
   _EditCertificationState createState() => _EditCertificationState();
@@ -41,6 +45,15 @@ class _EditCertificationState extends State<EditCertification> {
   final _credentialIdFocusNode = FocusNode();
   final _credentialUrlFocusNode = FocusNode();
 
+  bool sameSkill(String input){
+    int x = 0;
+    for(int i =0; i<widget.previouslyAddedCertificates.length; i++){
+      if(input == widget.previouslyAddedCertificates[i].certificationName) {
+        x++;
+      }
+    }
+    if(x==0){return true;}else {return false;};
+  }
 
   _handleSave() {
     bool isValid = _formKey.currentState.validate();
@@ -52,29 +65,45 @@ class _EditCertificationState extends State<EditCertification> {
         credentialUrl: _credentialUrlController.text,
         credentialId: _credentialIdController.text,
         hasExpiryPeriod: hasExpiryDate,
-        expiryDate: kDateFormatBD.format(_expirydate),
-        issueDate: kDateFormatBD.format(_issueDate),
+        issueDate: _issueDate,
+        expiryDate:  _expirydate
       );
 
       if (widget.certificationInfo != null) {
         /// updating existing data
-
-        Provider.of<UserProfileViewModel>(context, listen: false)
-            .updateCertificationData(certificationData, widget.index)
-            .then((value) {
-          if (value) {
-            Navigator.pop(context);
-          }
-        });
+        if(_certificationNameController.text == widget.certificationInfo.certificationName){
+          Provider.of<UserProfileViewModel>(context, listen: false)
+              .updateCertificationData(certificationData, widget.index)
+              .then((value) {
+            if (value) {
+              Navigator.pop(context);
+            }
+          });
+        }else{
+          if(sameSkill(_certificationNameController.text)){
+            Provider.of<UserProfileViewModel>(context, listen: false)
+                .updateCertificationData(certificationData, widget.index)
+                .then((value) {
+              if (value) {
+                Navigator.pop(context);
+              }
+            });
+          }else{BotToast.showText(text: StringUtils.previouslyAddedCertificateText);}
+        }
       } else {
         /// adding new data
-        Provider.of<UserProfileViewModel>(context, listen: false)
-            .addCertificationData(certificationData)
-            .then((value) {
-          if (value) {
-            Navigator.pop(context);
-          }
-        });
+        if(sameSkill(_certificationNameController.text)){
+          Provider.of<UserProfileViewModel>(context, listen: false)
+              .addCertificationData(certificationData)
+              .then((value) {
+            if (value) {
+              Navigator.pop(context);
+            }
+          });
+        }else{
+
+        }
+        
       }
     }
   }
@@ -84,10 +113,13 @@ class _EditCertificationState extends State<EditCertification> {
     // TODO: implement initState
     hasExpiryDate = false;
     if(widget.certificationInfo != null){
-      _certificationNameController.text = widget.certificationInfo.certificationName;
-      _organizationNameController.text = widget.certificationInfo.organizationName;
-      _credentialIdController.text = widget.certificationInfo.credentialId;
-      _credentialUrlController.text = widget.certificationInfo.credentialUrl;
+      _certificationNameController.text = widget.certificationInfo.certificationName?? "";
+      _organizationNameController.text = widget.certificationInfo.organizationName?? "";
+      _credentialIdController.text = widget.certificationInfo.credentialId?? "";
+      _credentialUrlController.text = widget.certificationInfo.credentialUrl?? "";
+      _issueDate = widget.certificationInfo.issueDate??null;
+      _expirydate = widget.certificationInfo.expiryDate??null;
+      hasExpiryDate = widget.certificationInfo.hasExpiryPeriod??false;
     }
     super.initState();
   }
@@ -226,101 +258,5 @@ class _EditCertificationState extends State<EditCertification> {
         ),
       ),
     );
-  }
-
-  _showIssueDatePicker(context) {
-
-    var initialDate = DateTime.now();
-
-    showDialog(
-        context: context,
-        builder: (context) {
-          return Center(
-            child: Container(
-              height: MediaQuery.of(context).size.height / 2,
-              width: MediaQuery.of(context).size.width / 1.3,
-              child: Material(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    Expanded(
-                      child: CupertinoTheme(
-                        data: CupertinoThemeData(brightness: Theme.of(context).brightness),
-                        child: CupertinoDatePicker(
-                          initialDateTime: initialDate,
-                          mode: CupertinoDatePickerMode.date,
-                          onDateTimeChanged: (v){
-                            setState(() {
-                              _issueDate = v;
-                            });
-                          },
-                        ),
-                      ),
-                    ),
-                    InkWell(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Icon(
-                            Icons.done,
-                            color: Theme.of(context).primaryColor,
-                          ),
-                        ),
-                        onTap: () {
-                          Navigator.pop(context);
-                        }),
-                  ],
-                ),
-              ),
-            ),
-          );
-        });
-  }
-
-  _showExpiryDatePicker(context) {
-
-    var initialDate = DateTime.now();
-
-    showDialog(
-        context: context,
-        builder: (context) {
-          return Center(
-            child: Container(
-              height: MediaQuery.of(context).size.height / 2,
-              width: MediaQuery.of(context).size.width / 1.3,
-              child: Material(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    Expanded(
-                      child: CupertinoTheme(
-                        data: CupertinoThemeData(brightness: Theme.of(context).brightness),
-                        child: CupertinoDatePicker(
-                          initialDateTime: initialDate,
-                          mode: CupertinoDatePickerMode.date,
-                          onDateTimeChanged: (v){
-                            setState(() {
-                              _expirydate = v;
-                            });
-                          },
-                        ),
-                      ),
-                    ),
-                    InkWell(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Icon(
-                            Icons.done,
-                            color: Theme.of(context).primaryColor,
-                          ),
-                        ),
-                        onTap: () {
-                          Navigator.pop(context);
-                        }),
-                  ],
-                ),
-              ),
-            ),
-          );
-        });
   }
 }

@@ -6,10 +6,11 @@ import 'package:p7app/features/user_profile/styles/common_style_text_field.dart'
 class CertificationsListItemWidget extends StatelessWidget {
   final CertificationInfo certificationInfo;
   final Function onTapEdit;
+  final Function onTapDelete;
   final bool isInEditMode;
   const CertificationsListItemWidget({
     Key key,
-    this.certificationInfo,this.isInEditMode,this.onTapEdit
+    this.certificationInfo,this.isInEditMode,this.onTapEdit,this.onTapDelete
   }) : super(key: key);
 
   @override
@@ -31,9 +32,22 @@ class CertificationsListItemWidget extends StatelessWidget {
             child: Icon(FontAwesomeIcons.certificate)),
         title: Text(certificationInfo.certificationName??""),
         subtitle: Text(certificationInfo.organizationName??""),
-        trailing: !isInEditMode?SizedBox():IconButton(
-          icon: Icon(FontAwesomeIcons.edit),
-          onPressed: onTapEdit,
+        trailing: !isInEditMode?SizedBox():Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            IconButton(
+              icon: Icon(FontAwesomeIcons.edit),
+              onPressed: onTapEdit,
+              iconSize: 18,
+              color: Colors.black,
+            ),
+            IconButton(
+              icon: Icon(FontAwesomeIcons.trash),
+              onPressed: onTapDelete,
+              iconSize: 18,
+              color: Colors.black,
+            ),
+          ],
         ),
       ),
     );

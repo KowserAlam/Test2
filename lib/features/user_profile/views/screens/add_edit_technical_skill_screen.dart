@@ -45,7 +45,7 @@ class _AddEditTechnicalSkillState extends State<AddEditTechnicalSkill> {
   var _formKey = GlobalKey<FormState>();
   var _scaffoldKey = GlobalKey<ScaffoldState>();
   List<DropdownMenuItem<Skill>> skillList = [];
-  static Skill _selectedSkill, _updatedSkill;
+  static Skill _selectedSkill;
   static GlobalKey<AutoCompleteTextFieldState<Skill>> key = new GlobalKey();
 
 
@@ -55,6 +55,7 @@ class _AddEditTechnicalSkillState extends State<AddEditTechnicalSkill> {
     loading = true;
     ratingController.text = widget.skillInfo == null ? "" : widget.skillInfo.rating.toString();
     searchController.text = widget.skillInfo == null ? "" : widget.skillInfo.skill.name;
+    _selectedSkill = widget.skillInfo.skill;
     //_getSkillList();
     super.initState();
   }
@@ -105,13 +106,13 @@ class _AddEditTechnicalSkillState extends State<AddEditTechnicalSkill> {
           var updatedSKill = SkillInfo(
             profSkillId: widget.skillInfo?.profSkillId,
             rating: double.parse(ratingController.text),
-            skill: _updatedSkill,
+            skill: _selectedSkill,
           );
           print('Updating');
           print(updatedSKill.skill.name);
 
           /// updating existing data
-          if(sameSkill(searchController.text)){
+          if(updatedSKill.skill == widget.skillInfo.skill){
             Provider.of<UserProfileViewModel>(context, listen: false)
                 .updateSkillData(updatedSKill, widget.index)
                 .then((value) {
@@ -120,7 +121,17 @@ class _AddEditTechnicalSkillState extends State<AddEditTechnicalSkill> {
               }
             });
           }else{
-            BotToast.showText(text: StringUtils.previouslyAddedSkillText);
+            if(sameSkill(searchController.text)){
+              Provider.of<UserProfileViewModel>(context, listen: false)
+                  .updateSkillData(updatedSKill, widget.index)
+                  .then((value) {
+                if (value) {
+                  Navigator.pop(context);
+                }
+              });
+            }else{
+              BotToast.showText(text: StringUtils.previouslyAddedSkillText);
+            }
           }
 
         }
@@ -208,7 +219,6 @@ class _AddEditTechnicalSkillState extends State<AddEditTechnicalSkill> {
                                 print(skill);
                                 searchController.text = skill.name;
                                 _selectedSkill = skill;
-                                _updatedSkill = skill;
                               },
                               suggestions: r,
                             ));

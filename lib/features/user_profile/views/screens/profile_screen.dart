@@ -510,18 +510,21 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
         label: StringUtils.certificationsText,
         onTapAddNewAction: () {
           Navigator.push(context,
-              CupertinoPageRoute(builder: (context) => EditCertification()));
+              CupertinoPageRoute(builder: (context) => EditCertification(previouslyAddedCertificates: list,)));
         },
         children: List.generate(list.length, (index) {
           var cer = list[index];
           return CertificationsListItemWidget(
             isInEditMode: isInEditModeCertifications,
             certificationInfo: cer,
+              onTapDelete: () {
+                userProfileViewModel.deleteCertificationData(cer, index);
+              },
             onTapEdit: () {
               Navigator.push(
                   context,
                   CupertinoPageRoute(
-                      builder: (context) => EditCertification()));
+                      builder: (context) => EditCertification(certificationInfo: cer, index: index,previouslyAddedCertificates: list,)));
             },
           );
         }),
