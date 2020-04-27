@@ -84,7 +84,7 @@ class UserPersonalInfo {
     password = json['password'];
     fatherName = json['father_name'];
     motherName = json['mother_name'];
-    facebookId = json['facebbok_id'];
+    facebookId = json['facebook_id'];
     twitterId = json['twitter_id'];
     linkedinId = json['linkedin_id'];
     currentLocation = json['current_location'];
