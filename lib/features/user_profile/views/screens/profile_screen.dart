@@ -487,6 +487,9 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
           var port = list[index];
           return PortfolioListItemWidget(
             isInEditMode: isInEditModePortfolio,
+            onTapDelete: (){
+              userProfileViewModel.deletePortfolio(port, index) ;
+            },
             portfolioInfo: port,
             onTapEdit: () {
               Navigator.push(context,

@@ -9,10 +9,11 @@ class PortfolioListItemWidget extends StatelessWidget {
   final PortfolioInfo portfolioInfo;
   final Function onTapEdit;
   final bool isInEditMode;
+  final Function onTapDelete;
 
   const PortfolioListItemWidget({
     Key key,
-    @required this.portfolioInfo,this.onTapEdit,this.isInEditMode
+    @required this.portfolioInfo,this.onTapEdit,this.isInEditMode,this.onTapDelete
   }) : super(key: key);
 
   @override
@@ -40,9 +41,24 @@ class PortfolioListItemWidget extends StatelessWidget {
         ),
         title: Text(portfolioInfo.name ?? ""),
         subtitle: Text(portfolioInfo.description??""),
-        trailing: !isInEditMode?SizedBox():IconButton(
-          icon: Icon(FontAwesomeIcons.edit),
-          onPressed: onTapEdit,
+        trailing:  !isInEditMode
+            ? SizedBox()
+            : Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            IconButton(
+              icon: Icon(FontAwesomeIcons.edit),
+              onPressed: onTapEdit,
+              iconSize: 18,
+              color: Colors.black,
+            ),
+            IconButton(
+              icon: Icon(FontAwesomeIcons.trash),
+              onPressed: onTapDelete,
+              iconSize: 18,
+              color: Colors.black,
+            ),
+          ],
         ),
       ),
     );

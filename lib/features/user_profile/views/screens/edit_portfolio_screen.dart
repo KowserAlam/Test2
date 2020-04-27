@@ -26,7 +26,7 @@ class EditPortfolio extends StatefulWidget {
   _EditPortfolioState createState() => _EditPortfolioState();
 
   const EditPortfolio({
-  this.portfolioInfo,
+    this.portfolioInfo,
     this.index,
   });
 }
@@ -50,14 +50,13 @@ class _EditPortfolioState extends State<EditPortfolio> {
     height: 15,
   );
 
-  initState(){
-
-    if(widget.portfolioInfo != null){}
-    _portfolioDescriptionController.text = widget.portfolioInfo.description;
-    _portfolioNameController.text = widget.portfolioInfo.name;
+  initState() {
+    if (widget.portfolioInfo != null) {}
+    _portfolioDescriptionController.text =
+        widget.portfolioInfo?.description ?? "";
+    _portfolioNameController.text = widget.portfolioInfo?.name ?? "";
     super.initState();
   }
-
 
   String getBase64Image() {
     List<int> imageBytes = fileImage.readAsBytesSync();
@@ -76,46 +75,53 @@ class _EditPortfolioState extends State<EditPortfolio> {
     } else {}
   }
 
-   _handleSave () async{
+  _handleSave() async {
     if (_formKey.currentState.validate()) {
-      var userProviderViewModel = Provider.of<UserProfileViewModel>(context,listen: false);
+      var userProviderViewModel =
+          Provider.of<UserProfileViewModel>(context, listen: false);
       var authUser = await AuthService.getInstance();
       var professionalId = authUser.getUser().professionalId;
+
       var data = {
-        "name":_portfolioNameController.text,
-        "description":_portfolioDescriptionController.text,
+        "name": _portfolioNameController.text,
+        "description": _portfolioDescriptionController.text,
         "professional_id": professionalId
       };
-      
-      if(fileImage != null){
-        data.addAll({
-          "image":getBase64Image()
-        });
+
+      if (fileImage != null) {
+        data.addAll({"image": getBase64Image()});
       }
 
-      if(widget.portfolioInfo == null){
+      if (widget.portfolioInfo == null) {
         //add new item
 
-      }else{
+        userProviderViewModel
+            .createPortfolio(
+            data: data)
+            .then((value) {
+          if (value) {
+            Navigator.pop(context);
+          }
+        });
+
+      } else {
         // update existing item
-userProviderViewModel.updatePortfolio(data: data, index: widget.index, portfolioId: widget.portfolioInfo.portfolioId.toString()).then((value){
- if(value){
-   Navigator.pop(context);
- }
-});
-
-
-
+        userProviderViewModel
+            .updatePortfolio(
+                data: data,
+                index: widget.index,
+                portfolioId: widget.portfolioInfo.portfolioId.toString())
+            .then((value) {
+          if (value) {
+            Navigator.pop(context);
+          }
+        });
       }
-
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
-
-
     var portfolioImage = Center(
       child: Stack(
         children: <Widget>[
@@ -198,10 +204,14 @@ userProviderViewModel.updatePortfolio(data: data, index: widget.index, portfolio
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  SizedBox(height: 10,),
+                  SizedBox(
+                    height: 10,
+                  ),
                   portfolioImage,
                   //Name
-                  SizedBox(height: 10,),
+                  SizedBox(
+                    height: 10,
+                  ),
                   CustomTextFormField(
                     validator: Validator().nullFieldValidate,
                     keyboardType: TextInputType.text,

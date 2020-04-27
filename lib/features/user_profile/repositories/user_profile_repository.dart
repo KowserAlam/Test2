@@ -633,6 +633,70 @@ class UserProfileRepository {
       return left(AppError.serverError);
     }
   }
+
+  Future<Either<AppError, PortfolioInfo>> createPortfolioInfo(
+      Map<String, dynamic> data) async {
+    BotToast.showLoading();
+
+    var url = "${Urls.professionalPortfolioUrl}/";
+    try {
+      var response = await ApiClient().postRequest(url, data);
+      print(response.statusCode);
+      print(response.body);
+      if (response.statusCode == 200) {
+        BotToast.closeAllLoading();
+        PortfolioInfo port =
+        PortfolioInfo.fromJson(json.decode(response.body));
+        return Right(port);
+      } else {
+        BotToast.closeAllLoading();
+        BotToast.showText(text: StringUtils.unableToSaveData);
+        return Left(AppError.unknownError);
+      }
+    } on SocketException catch (e) {
+      BotToast.closeAllLoading();
+      BotToast.showText(text: StringUtils.unableToSaveData);
+      print(e);
+      return left(AppError.networkError);
+    } catch (e) {
+      BotToast.closeAllLoading();
+      BotToast.showText(text: StringUtils.unableToSaveData);
+      print(e);
+      return left(AppError.serverError);
+    }
+  }
+
+  Future<Either<AppError, bool>> deletePortfolio(
+      PortfolioInfo portfolio) async {
+    BotToast.showLoading();
+    var url =
+        "${Urls.professionalCertificationUrl}/${portfolio.portfolioId}/";
+    var data = {"is_archived": true};
+
+    try {
+      var response = await ApiClient().putRequest(url, data);
+      print(response.statusCode);
+      print(response.body);
+      if (response.statusCode == 200) {
+        BotToast.closeAllLoading();
+        return Right(true);
+      } else {
+        BotToast.closeAllLoading();
+        BotToast.showText(text: StringUtils.unableToSaveData);
+        return Left(AppError.unknownError);
+      }
+    } on SocketException catch (e) {
+      BotToast.closeAllLoading();
+      BotToast.showText(text: StringUtils.unableToSaveData);
+      print(e);
+      return left(AppError.networkError);
+    } catch (e) {
+      BotToast.closeAllLoading();
+      BotToast.showText(text: StringUtils.unableToSaveData);
+      print(e);
+      return left(AppError.serverError);
+    }
+  }
 }
 
 //var dummyData = """ {

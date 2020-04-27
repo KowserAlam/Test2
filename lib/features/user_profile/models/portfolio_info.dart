@@ -10,7 +10,7 @@ class PortfolioInfo {
 
   PortfolioInfo.fromJson(Map<String, dynamic> json) {
     String baseUrl = FlavorConfig?.instance?.values?.baseUrl;
-    portfolioId = json['portfolio_id'];
+    portfolioId = json['id'];
     name = json['name'];
 
     if(json['image'] != null){
@@ -22,7 +22,7 @@ class PortfolioInfo {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['portfolio_id'] = this.portfolioId;
+    data['id'] = this.portfolioId;
     data['name'] = this.name;
     data['image'] = this.image;
     data['description'] = this.description;

@@ -267,6 +267,18 @@ class UserProfileViewModel with ChangeNotifier {
     });
   }
 
+  Future<bool> createPortfolio({ @required Map<String,dynamic> data}){
+    return UserProfileRepository().createPortfolioInfo(data).then((res){
+      return res.fold((l){
+        print(l);
+        return false;
+      }, (r){
+        userData.portfolioInfo.add(r);
+        notifyListeners();
+        return true;
+      });
+    });
+  }
   Future<bool> updatePortfolio({ @required Map<String,dynamic> data,@required   int index,@required  String portfolioId}){
     return UserProfileRepository().updateUserPortfolioInfo(data,portfolioId).then((res){
       return res.fold((l){
@@ -279,4 +291,17 @@ class UserProfileViewModel with ChangeNotifier {
       });
     });
   }
+  Future<bool> deletePortfolio(PortfolioInfo portfolioInfo,int index ){
+    return UserProfileRepository().deletePortfolio(portfolioInfo).then((res){
+      return res.fold((l){
+        print(l);
+        return false;
+      }, (r){
+        userData.portfolioInfo.removeAt(index);
+        notifyListeners();
+        return true;
+      });
+    });
+  }
+
 }
