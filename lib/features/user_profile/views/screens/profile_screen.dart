@@ -442,7 +442,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
           Navigator.push(
               context,
               CupertinoPageRoute(
-                  builder: (context) => AddEditTechnicalSkill()));
+                  builder: (context) => AddEditTechnicalSkill(previouslyAddedSkills: list,)));
         },
         children: List.generate(list.length, (index) {
           var skill = list[index];
@@ -459,6 +459,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                       builder: (context) => AddEditTechnicalSkill(
                             skillInfo: skill,
                             index: index,
+                            previouslyAddedSkills: list,
                           )));
             },
           );

@@ -49,45 +49,46 @@ class _AddEditTechnicalSkillState extends State<AddEditTechnicalSkill> {
   static GlobalKey<AutoCompleteTextFieldState<Skill>> key = new GlobalKey();
 
 
-  AutoCompleteTextField searchTextField = AutoCompleteTextField<Skill>(
-    style: TextStyle(color: Colors.black, fontSize: 16),
-    decoration: InputDecoration.collapsed(
-      hintText: "Search your skills.",
-    ),
-    itemBuilder: (context, skill) {
-      return Container(
-        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 2),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Text(skill.name,
-              style: TextStyle(
-                  fontSize: 16.0
-              ),),
-          ],
-        ),
-      );
-    },
-    key:  key,
-    clearOnSubmit: false,
-    controller: searchController,
-    itemFilter: (skill, query){
-      return skill.name.toLowerCase().startsWith(query.toLowerCase());
-    },
-    itemSorter: (a,b){
-      return a.name.compareTo(b.name);
-    },
-    itemSubmitted: (skill){
-      searchController.text = skill.name;
-      _selectedSkill = skill;
-    },
-    suggestions: searchList,
-  );
+//  AutoCompleteTextField searchTextField = AutoCompleteTextField<Skill>(
+//    style: TextStyle(color: Colors.black, fontSize: 16),
+//    decoration: InputDecoration.collapsed(
+//      hintText: "Search your skills.",
+//    ),
+//    itemBuilder: (context, skill) {
+//      return Container(
+//        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 2),
+//        child: Row(
+//          mainAxisAlignment: MainAxisAlignment.start,
+//          children: <Widget>[
+//            Text(skill.name,
+//              style: TextStyle(
+//                  fontSize: 16.0
+//              ),),
+//          ],
+//        ),
+//      );
+//    },
+//    key:  key,
+//    clearOnSubmit: false,
+//    controller: searchController,
+//    itemFilter: (skill, query){
+//      return skill.name.toLowerCase().startsWith(query.toLowerCase());
+//    },
+//    itemSorter: (a,b){
+//      return a.name.compareTo(b.name);
+//    },
+//    itemSubmitted: (skill){
+//      searchController.text = skill.name;
+//      _selectedSkill = skill;
+//    },
+//    suggestions: searchList,
+//  );
 
 
   initState() {
     loading = true;
     ratingController.text = widget.skillInfo == null ? "" : widget.skillInfo.rating.toString();
+    searchController.text = widget.skillInfo == null ? "" : widget.skillInfo.skill.name;
     //_getSkillList();
     super.initState();
   }
@@ -102,15 +103,15 @@ class _AddEditTechnicalSkillState extends State<AddEditTechnicalSkill> {
     if(x==0){return false;}else {return true;};
   }
 
-//  bool sameSkill(String input){
-//    int x = 0;
-//    for(int i =0; i<widget.previouslyAddedSkills.length; i++){
-//      if(input == widget.previouslyAddedSkills[i].skill.name) {
-//        x++;
-//      }
-//    }
-//    if(x==0){return false;}else {return true;};
-//  }
+  bool sameSkill(String input){
+    int x = 0;
+    for(int i =0; i<widget.previouslyAddedSkills.length; i++){
+      if(input == widget.previouslyAddedSkills[i].skill.name) {
+        x++;
+      }
+    }
+    if(x==0){return false;}else {return true;};
+  }
 
   _handleSave() {
     bool isValid = _formKey.currentState.validate();
@@ -213,7 +214,40 @@ class _AddEditTechnicalSkillState extends State<AddEditTechnicalSkill> {
                                     color: Color(0xfffafafa).withOpacity(0.2), blurRadius: 20),
                               ],
                             ),
-                            child: searchTextField);
+                            child: AutoCompleteTextField<Skill>(
+                              style: TextStyle(color: Colors.black, fontSize: 16),
+                              decoration: InputDecoration.collapsed(
+                                hintText: "Search your skills.",
+                              ),
+                              itemBuilder: (context, skill) {
+                                return Container(
+                                  padding: EdgeInsets.symmetric(vertical: 5, horizontal: 2),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: <Widget>[
+                                      Text(skill.name,
+                                        style: TextStyle(
+                                            fontSize: 16.0
+                                        ),),
+                                    ],
+                                  ),
+                                );
+                              },
+                              key:  key,
+                              clearOnSubmit: false,
+                              controller: searchController,
+                              itemFilter: (skill, query){
+                                return skill.name.toLowerCase().startsWith(query.toLowerCase());
+                              },
+                              itemSorter: (a,b){
+                                return a.name.compareTo(b.name);
+                              },
+                              itemSubmitted: (skill){
+                                searchController.text = skill.name;
+                                _selectedSkill = skill;
+                              },
+                              suggestions: r,
+                            ));
                       });
                     };
                     return Loader();
