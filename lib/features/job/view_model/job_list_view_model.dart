@@ -48,19 +48,21 @@ class JobListViewModel with ChangeNotifier {
     _pageCount = 1;
   }
 
-  getJobList() async {
+  Future<bool> getJobList() async {
     isFetchingData = true;
     Either<AppError, List<JobModel>> result =
         await _jobListRepository.fetchJobList();
-    result.fold((l) {
+    return result.fold((l) {
       isFetchingData = false;
       _checkHasMoreData();
       print(l);
+      return false;
     }, (List<JobModel> list) {
       isFetchingData = false;
       _jobList = list;
       notifyListeners();
       _checkHasMoreData();
+      return true;
     });
   }
 

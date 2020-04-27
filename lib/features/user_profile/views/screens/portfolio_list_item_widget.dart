@@ -39,7 +39,7 @@ class PortfolioListItemWidget extends StatelessWidget {
           fit: BoxFit.cover,
         ),
         title: Text(portfolioInfo.name ?? ""),
-        subtitle: Text(portfolioInfo.description),
+        subtitle: Text(portfolioInfo.description??""),
         trailing: !isInEditMode?SizedBox():IconButton(
           icon: Icon(FontAwesomeIcons.edit),
           onPressed: onTapEdit,

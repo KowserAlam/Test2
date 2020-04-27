@@ -63,39 +63,42 @@ class _JobListScreenState extends State<JobListScreen> with AfterLayoutMixin {
           builder: (BuildContext context, homeViewModel, Widget child) {
             var jobList = homeViewModel.jobList;
             print(jobList.length);
-            return ListView.builder(
-                padding: EdgeInsets.symmetric(vertical: 4),
-                controller: _scrollController,
-                itemCount: jobList.length + 1,
+            return RefreshIndicator(
+              onRefresh: ()async=> Provider.of<JobListViewModel>(context, listen: false).getJobList(),
+              child: ListView.builder(
+                  padding: EdgeInsets.symmetric(vertical: 4),
+                  controller: _scrollController,
+                  itemCount: jobList.length + 1,
 //              separatorBuilder: (context,index)=>Divider(),
-                itemBuilder: (context, index) {
-                  if (index == jobList.length) {
-                    return homeViewModel.isFetchingData
-                        ? Padding(padding: EdgeInsets.all(15), child: Loader())
-                        : SizedBox();
-                  }
+                  itemBuilder: (context, index) {
+                    if (index == jobList.length) {
+                      return homeViewModel.isFetchingData
+                          ? Padding(padding: EdgeInsets.all(15), child: Loader())
+                          : SizedBox();
+                    }
 
-                  JobModel job = jobList[index];
+                    JobModel job = jobList[index];
 
-                  return JobListTileWidget(
-                    job,
-                    onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => JobDetails(
-                                jobModel: job,
-                                index: index,
-                              )));
-                    },
-                    onFavorite: () {
-                      homeViewModel.addToFavorite(job.jobId, index);
-                    },
-                    onApply: job.isApplied
-                        ? null
-                        : () {
-                            _showApplyForJobDialog(job, index);
-                          },
-                  );
-                });
+                    return JobListTileWidget(
+                      job,
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => JobDetails(
+                                  jobModel: job,
+                                  index: index,
+                                )));
+                      },
+                      onFavorite: () {
+                        homeViewModel.addToFavorite(job.jobId, index);
+                      },
+                      onApply: job.isApplied
+                          ? null
+                          : () {
+                              _showApplyForJobDialog(job, index);
+                            },
+                    );
+                  }),
+            );
           },
         ),
       ),
