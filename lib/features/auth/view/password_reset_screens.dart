@@ -28,6 +28,7 @@ class _PasswordResetScreensState extends State<PasswordResetScreens> {
 
     return Scaffold(
       key: _scaffoldKey,
+      appBar: AppBar(title: Text(StringUtils.passwordResetText),),
       body: Column(
         children: <Widget>[
           Expanded(
