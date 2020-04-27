@@ -490,7 +490,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
             portfolioInfo: port,
             onTapEdit: () {
               Navigator.push(context,
-                  CupertinoPageRoute(builder: (context) => EditPortfolio()));
+                  CupertinoPageRoute(builder: (context) => EditPortfolio(portfolioInfo: port,)));
             },
           );
         }),

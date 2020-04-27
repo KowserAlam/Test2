@@ -1,3 +1,5 @@
+import 'package:p7app/main_app/flavour/flavour_config.dart';
+
 class PortfolioInfo {
   int portfolioId;
   String name;
@@ -7,9 +9,14 @@ class PortfolioInfo {
   PortfolioInfo({this.portfolioId, this.name, this.image, this.description});
 
   PortfolioInfo.fromJson(Map<String, dynamic> json) {
+    String baseUrl = FlavorConfig?.instance?.values?.baseUrl;
     portfolioId = json['portfolio_id'];
     name = json['name'];
-    image = json['image'];
+
+    if(json['image'] != null){
+      image = "$baseUrl${json['image']}";
+    }
+
     description = json['description'];
   }
 

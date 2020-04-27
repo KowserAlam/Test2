@@ -96,7 +96,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
 //    print(imageBytes);
     var img = "data:image/jpg;base64," + base64Encode(imageBytes);
 
-    print(img);
+//    print(img);
     return img;
   }
 
@@ -453,4 +453,6 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
 
     debugPrint('$file');
   }
+
+
 }

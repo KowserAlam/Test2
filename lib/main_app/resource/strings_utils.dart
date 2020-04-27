@@ -275,6 +275,7 @@ class StringUtils {
   static var currentDesignationHint =  "eg. Software Engineer";
   static var locationHintText = "eg. Dhaka, Bangladesh";
   static var editText = "Edit";
+  static var portfolioText = "Portfolio";
 
   /// Profile Screen *******************
   /// Personal Info
