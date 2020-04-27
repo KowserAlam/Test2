@@ -605,13 +605,8 @@ class UserProfileRepository {
   Future<Either<AppError, PortfolioInfo>> updateUserPortfolioInfo(
       Map<String, dynamic> data, String portfolioId) async {
     BotToast.showLoading();
-    var authUser = await AuthService.getInstance();
-    var professionalId = authUser.getUser().professionalId;
+
     var url = "${Urls.professionalPortfolioUrl}/$portfolioId/";
-
-    Map<String,dynamic> exData = {"professional_id": professionalId};
-    data.addAll(exData);
-
     try {
       var response = await ApiClient().putRequest(url, data);
       print(response.statusCode);
