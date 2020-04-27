@@ -182,6 +182,7 @@ class StringUtils {
   static var certificationExpiryDateText = "Expiry Date";
   static var certificationCredentialIdText = "Credential Id";
   static var certificationCredentialUrlText = "Credential URL";
+  static var previouslyAddedCertificateText  = "You have already added this certificate before";
 
   //Portfolio Edit Screen
   static var portfolioNameText = "Name";

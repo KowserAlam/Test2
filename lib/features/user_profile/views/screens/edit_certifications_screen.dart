@@ -1,3 +1,4 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:p7app/features/user_profile/models/certification_info.dart';
@@ -15,10 +16,12 @@ import 'package:provider/provider.dart';
 class EditCertification extends StatefulWidget {
   final CertificationInfo certificationInfo;
   final int index;
+  final List<CertificationInfo> previouslyAddedCertificates;
 
   const EditCertification({
     this.certificationInfo ,
     this.index,
+    this.previouslyAddedCertificates
   });
   @override
   _EditCertificationState createState() => _EditCertificationState();
@@ -42,6 +45,15 @@ class _EditCertificationState extends State<EditCertification> {
   final _credentialIdFocusNode = FocusNode();
   final _credentialUrlFocusNode = FocusNode();
 
+  bool sameSkill(String input){
+    int x = 0;
+    for(int i =0; i<widget.previouslyAddedCertificates.length; i++){
+      if(input == widget.previouslyAddedCertificates[i].certificationName) {
+        x++;
+      }
+    }
+    if(x==0){return true;}else {return false;};
+  }
 
   _handleSave() {
     bool isValid = _formKey.currentState.validate();
@@ -54,27 +66,44 @@ class _EditCertificationState extends State<EditCertification> {
         credentialId: _credentialIdController.text,
         hasExpiryPeriod: hasExpiryDate,
         issueDate: _issueDate,
+        expiryDate:  _expirydate
       );
 
       if (widget.certificationInfo != null) {
         /// updating existing data
-
-        Provider.of<UserProfileViewModel>(context, listen: false)
-            .updateCertificationData(certificationData, widget.index)
-            .then((value) {
-          if (value) {
-            Navigator.pop(context);
-          }
-        });
+        if(_certificationNameController.text == widget.certificationInfo.certificationName){
+          Provider.of<UserProfileViewModel>(context, listen: false)
+              .updateCertificationData(certificationData, widget.index)
+              .then((value) {
+            if (value) {
+              Navigator.pop(context);
+            }
+          });
+        }else{
+          if(sameSkill(_certificationNameController.text)){
+            Provider.of<UserProfileViewModel>(context, listen: false)
+                .updateCertificationData(certificationData, widget.index)
+                .then((value) {
+              if (value) {
+                Navigator.pop(context);
+              }
+            });
+          }else{BotToast.showText(text: StringUtils.previouslyAddedCertificateText);}
+        }
       } else {
         /// adding new data
-        Provider.of<UserProfileViewModel>(context, listen: false)
-            .addCertificationData(certificationData)
-            .then((value) {
-          if (value) {
-            Navigator.pop(context);
-          }
-        });
+        if(sameSkill(_certificationNameController.text)){
+          Provider.of<UserProfileViewModel>(context, listen: false)
+              .addCertificationData(certificationData)
+              .then((value) {
+            if (value) {
+              Navigator.pop(context);
+            }
+          });
+        }else{
+
+        }
+        
       }
     }
   }
@@ -89,7 +118,8 @@ class _EditCertificationState extends State<EditCertification> {
       _credentialIdController.text = widget.certificationInfo.credentialId?? "";
       _credentialUrlController.text = widget.certificationInfo.credentialUrl?? "";
       _issueDate = widget.certificationInfo.issueDate??null;
-      hasExpiryDate = false;
+      _expirydate = widget.certificationInfo.expiryDate??null;
+      hasExpiryDate = widget.certificationInfo.hasExpiryPeriod??false;
     }
     super.initState();
   }
