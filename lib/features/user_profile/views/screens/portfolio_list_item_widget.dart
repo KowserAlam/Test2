@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p7app/features/user_profile/models/portfolio_info.dart';
-import 'package:p7app/features/user_profile/styles/profile_common_style.dart';
+import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
 import 'package:p7app/main_app/resource/const.dart';
 
 class PortfolioListItemWidget extends StatelessWidget {
@@ -22,7 +22,7 @@ class PortfolioListItemWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: Theme.of(context).backgroundColor,
         borderRadius: BorderRadius.circular(5),
-        boxShadow: ProfileCommonStyle.boxShadow,
+        boxShadow: CommonStyleTextField.boxShadow,
       ),
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: ListTile(

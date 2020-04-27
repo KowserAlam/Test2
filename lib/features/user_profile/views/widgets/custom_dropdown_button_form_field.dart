@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:p7app/features/user_profile/styles/profile_common_style.dart';
+import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
 
 class CustomDropdownButtonFormField<T> extends StatelessWidget {
   final String labelText;
@@ -36,7 +36,7 @@ class CustomDropdownButtonFormField<T> extends StatelessWidget {
           decoration: BoxDecoration(
             color: Theme.of(context).backgroundColor,
             borderRadius: BorderRadius.circular(7),
-            boxShadow: ProfileCommonStyle.boxShadow,
+            boxShadow: CommonStyleTextField.boxShadow,
           ),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8),

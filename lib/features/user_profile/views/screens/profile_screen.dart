@@ -11,7 +11,7 @@ import 'package:p7app/features/user_profile/views/screens/add_edit_education_scr
 import 'package:p7app/features/user_profile/views/screens/add_edit_experience_screen.dart';
 import 'package:p7app/features/user_profile/views/screens/add_edit_technical_skill_screen.dart';
 import 'package:p7app/features/user_profile/views/screens/profile_header_edit_screen.dart';
-import 'package:p7app/features/user_profile/styles/profile_common_style.dart';
+import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/features/user_profile/views/widgets/educations_list_item.dart';
 import 'package:p7app/features/user_profile/views/widgets/experience_list_item.dart';
@@ -347,7 +347,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
           decoration: BoxDecoration(
             color: Theme.of(context).backgroundColor,
 //            borderRadius: BorderRadius.circular(5),
-            boxShadow: ProfileCommonStyle.boxShadow,
+            boxShadow: CommonStyleTextField.boxShadow,
           ),
           child: Padding(
             padding: const EdgeInsets.all(8.0),

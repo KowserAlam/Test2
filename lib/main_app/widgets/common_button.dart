@@ -4,22 +4,23 @@ import 'package:flutter/material.dart';
 class CommonButton extends StatelessWidget {
   final String label;
   final Function onTap;
+  
   /// width could be null
   /// default width 135 for large device and 115 for mobile device
   final double width;
-  const CommonButton({@required this.label, @required this.onTap,this.width});
+  final double height;
+  const CommonButton({@required this.label, @required this.onTap,this.width = 115,this.height = 60});
 
   @override
   Widget build(BuildContext context) {
-    var height = MediaQuery.of(context).size.height;
-    var width = MediaQuery.of(context).size.width;
+
     return Material(
       borderRadius: BorderRadius.circular(40.0),
       color: Colors.transparent,
       elevation: onTap == null ? 0:5.0,
       child: Container(
-        height: height*0.07,
-        width: width??(115),
+        width: width,
+        height: height,
         decoration: BoxDecoration(
           color: onTap == null ? Colors.grey:null,
           borderRadius: BorderRadius.circular(40.0),

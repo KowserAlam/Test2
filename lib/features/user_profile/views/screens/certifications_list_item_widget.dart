@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p7app/features/user_profile/models/certification_info.dart';
-import 'package:p7app/features/user_profile/styles/profile_common_style.dart';
+import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
 
 class CertificationsListItemWidget extends StatelessWidget {
   final CertificationInfo certificationInfo;
@@ -19,7 +19,7 @@ class CertificationsListItemWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: Theme.of(context).backgroundColor,
         borderRadius: BorderRadius.circular(5),
-        boxShadow: ProfileCommonStyle.boxShadow,
+        boxShadow: CommonStyleTextField.boxShadow,
       ),
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: ListTile(

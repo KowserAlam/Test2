@@ -3,7 +3,7 @@ import 'package:p7app/features/user_profile/models/edu_info.dart';
 import 'package:p7app/features/user_profile/models/institution.dart';
 import 'package:p7app/features/user_profile/repositories/institution_list_repository.dart';
 import 'package:p7app/features/user_profile/repositories/user_profile_repository.dart';
-import 'package:p7app/features/user_profile/styles/profile_common_style.dart';
+import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/features/user_profile/views/widgets/common_date_picker_widget.dart';
 import 'package:p7app/features/user_profile/views/widgets/custom_text_from_field.dart';
@@ -131,14 +131,14 @@ _institutionListStreamController.close();
                   decoration: BoxDecoration(
                     color: Theme.of(context).backgroundColor,
                     borderRadius: BorderRadius.circular(7),
-                    boxShadow: ProfileCommonStyle.boxShadow,
+                    boxShadow: CommonStyleTextField.boxShadow,
                   ),
                   child: AutoCompleteTextField<Institution>(
                     decoration: InputDecoration(
                       hintText: StringUtils.nameOfOInstitutionHintText,
                       border: InputBorder.none,
                       contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                      focusedBorder: ProfileCommonStyle.focusedBorder(context),
+                      focusedBorder: CommonStyleTextField.focusedBorder(context),
                     ),
                     controller: institutionNameController,
                     itemFilter: (Institution suggestion, String query) =>

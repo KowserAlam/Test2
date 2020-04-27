@@ -5,28 +5,40 @@ import 'package:flutter/foundation.dart';
 import 'package:rxdart/rxdart.dart';
 
 
-class PasswordResetProvider with ChangeNotifier{
+class PasswordResetViewModel with ChangeNotifier{
 
   bool _isBusyEmail = false;
   bool _isBusyVerifyCode = false;
   bool _isBusyNewPassword = false;
   String _emailErrorText = "";
-
-  var _inputStream = PublishSubject<String>();
   bool _isCodeResend = false;
   bool _isValidCode = true;
   bool _isObscureConfirmPassword = true;
   bool _isObscurePassword = true;
   bool _isBusyConfirmation = false;
   bool _passwordResetMethodIsEmail = true;
+  String _email;
 
+
+  String get email => _email;
+
+  set email(String value) {
+    _email = value;
+  }
+
+
+  String get emailErrorText => _emailErrorText;
+
+  set emailErrorText(String value) {
+    _emailErrorText = value;
+  }
 
   bool get passwordResetMethodIsEmail => _passwordResetMethodIsEmail;
 
   set passwordResetMethodIsEmail(bool value) {
     _passwordResetMethodIsEmail = value;
     notifyListeners();
-    _inputStream.addError("");
+
   }
 
   bool get isObscureConfirmPassword => _isObscureConfirmPassword;
@@ -83,19 +95,18 @@ class PasswordResetProvider with ChangeNotifier{
     notifyListeners();
   }
 
-  /// Handle SignUp Email Stream
-  Stream<String> get inputStream =>
-      _inputStream.stream.transform(_passwordResetMethodIsEmail?performEmailValidation:performPhoneValidation);
 
-  Function(String) get inputSink => _inputStream.sink.add;
-
-  String get emailErrorText => _emailErrorText ?? null;
+  validateEmailLocal(String email){
+    emailErrorText = Validator().validateEmail(email);
+    _email = email;
+    notifyListeners();
+  }
 
 
 
   @override
   void dispose() {
-    _inputStream.close();
+
     super.dispose();
   }
 

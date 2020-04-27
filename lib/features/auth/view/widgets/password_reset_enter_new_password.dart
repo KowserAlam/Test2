@@ -46,7 +46,7 @@ class _PasswordRestEnterNewPasswordState extends State<PasswordRestEnterNewPassw
                   SizedBox(
                     height: 20,
                   ),
-                  Consumer<PasswordResetProvider>(builder: (context, signUpProvider, _) {
+                  Consumer<PasswordResetViewModel>(builder: (context, signUpProvider, _) {
                     return TextFormField(
                       autofocus: true,
                       focusNode: _passwordFocus,
@@ -80,7 +80,7 @@ class _PasswordRestEnterNewPasswordState extends State<PasswordRestEnterNewPassw
                     height: 20,
                   ),
                   Center(
-                    child: Consumer<PasswordResetProvider>(
+                    child: Consumer<PasswordResetViewModel>(
                         builder: (context, passwordResetProvider, _) {
                           return TextFormField(
 //                            obscureText: signUpProvider.isObscureConfirmPassword,
@@ -121,7 +121,7 @@ class _PasswordRestEnterNewPasswordState extends State<PasswordRestEnterNewPassw
                   SizedBox(
                     height: 20,
                   ),
-                  Consumer<PasswordResetProvider>(builder: (context, passwordResetProvider, _) {
+                  Consumer<PasswordResetViewModel>(builder: (context, passwordResetProvider, _) {
                     return Center(
                       child: passwordResetProvider.isBusyConfirmation
                           ? Loader()

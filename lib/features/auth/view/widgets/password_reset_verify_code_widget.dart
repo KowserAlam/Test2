@@ -23,7 +23,7 @@ class _PasswordResetVerifyCodeWidgetState
   final FocusNode _codeFocusNode = FocusNode();
 
   _handleVerify() async {
-    var passwordResetProvider = Provider.of<PasswordResetProvider>(context);
+    var passwordResetProvider = Provider.of<PasswordResetViewModel>(context);
 
     if (true) {
       /// on success navigating to next page
@@ -50,7 +50,7 @@ class _PasswordResetVerifyCodeWidgetState
               fontSize: 16,
             ),
           ),
-          Consumer<PasswordResetProvider>(
+          Consumer<PasswordResetViewModel>(
               builder: (context, passwordResetProvider, _) {
             return Text(
               passwordResetProvider.passwordResetMethodIsEmail?"example@email.com":"+8801XXXXXXXXXXXX",
@@ -81,7 +81,7 @@ class _PasswordResetVerifyCodeWidgetState
           SizedBox(
             width: 5,
           ),
-          Consumer<PasswordResetProvider>(
+          Consumer<PasswordResetViewModel>(
               builder: (context, passwordResetProvider, _) {
             if (passwordResetProvider.isCodeResend) {
               return Text(StringUtils.resendText,

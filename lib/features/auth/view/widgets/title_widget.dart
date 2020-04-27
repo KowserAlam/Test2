@@ -10,33 +10,15 @@ class TitleWidget extends StatelessWidget {
   Widget build(BuildContext context) {
 
   return Container(
+    alignment: Alignment.center,
       height: 50,
-//      margin: EdgeInsets.symmetric(horizontal: 8),
-      decoration: BoxDecoration(
-          color: Colors.grey[200], borderRadius: BorderRadius.circular(5)),
-      child: Row(
-        children: <Widget>[
-          Container(
-            height: 50,
-            width: 50,
-            child: Icon(
-              Icons.edit,
-              color: Colors.black54,
-            ),
-          ),
-          Container(
-              height: 50,
-              padding: EdgeInsets.only(top: 15),
-              child: Text(
-                labelText,
-                style: TextStyle(
-                    color: Colors.black54,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 17),
-              )),
-        ],
-      ),
-    );
+      padding: EdgeInsets.only(top: 15),
+      child: Text(
+        labelText,
+        style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 17),
+      ));
 
   }
 }
