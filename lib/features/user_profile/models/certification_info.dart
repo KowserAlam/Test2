@@ -1,3 +1,5 @@
+import 'package:p7app/main_app/util/method_extension.dart';
+
 class CertificationInfo {
   int certificationId;
   String certificationName;
@@ -39,8 +41,8 @@ class CertificationInfo {
     data['certificate_name'] = this.certificationName;
     data['organization'] = this.organizationName;
     data['has_expiry_period'] = this.hasExpiryPeriod;
-    data['issue_date'] = this.issueDate;
-    data['expiry_date'] = this.expiryDate;
+    data['issue_date'] = this.issueDate.toYYYMMDDString;
+    data['expiry_date'] = this.expiryDate.toYYYMMDDString;
     data['credential_id'] = this.credentialId;
     data['credential_url'] = this.credentialUrl;
     return data;
