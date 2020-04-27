@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:p7app/features/user_profile/models/certification_info.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
+import 'package:p7app/features/user_profile/views/widgets/common_date_picker_widget.dart';
 import 'package:p7app/features/user_profile/views/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
@@ -93,48 +94,7 @@ class _EditCertificationState extends State<EditCertification> {
 
   @override
   Widget build(BuildContext context) {
-    var spaceBetweenFields = SizedBox(height: 15,);
-    var expirydate = Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Row(
-          children: <Widget>[
-            Text(
-                StringUtils.certificationExpiryDateText,
-                textAlign: TextAlign.left,
-                style: TextStyle(fontWeight: FontWeight.bold)
-            ),
-          ],
-        ),
-        SizedBox(
-          height: 8,
-        ),
-
-        InkWell(
-          onTap: () {
-            _showExpiryDatePicker(context);
-          },
-          child: Container(
-            width: double.infinity,
-            height: 50,
-            decoration: BoxDecoration(
-              color: Theme.of(context).backgroundColor,
-              borderRadius: BorderRadius.circular(7),
-              boxShadow: [
-                BoxShadow(color: Color(0xff000000).withOpacity(0.2), blurRadius: 20),
-                BoxShadow(color: Color(0xfffafafa).withOpacity(0.2), blurRadius: 20),
-              ],),
-            padding: EdgeInsets.all(8),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[Text(
-                "Expiry Date",
-              )],
-            ),
-          ),
-        ),
-      ],
-    );
+    var spaceBetweenFields = SizedBox(height: 15,);;
     return Scaffold(
       appBar: AppBar(
         title: Text('Cetification'),
@@ -172,7 +132,7 @@ class _EditCertificationState extends State<EditCertification> {
                   spaceBetweenFields,
                   //Organization Name
                   CustomTextFormField(
-                    validator: Validator().nullFieldValidate,
+                    //validator: Validator().nullFieldValidate,
                     keyboardType: TextInputType.text,
                     focusNode: _organizationNameFocusNode,
                     textInputAction: TextInputAction.next,
@@ -187,7 +147,7 @@ class _EditCertificationState extends State<EditCertification> {
                   //Credential Id
                   spaceBetweenFields,
                   CustomTextFormField(
-                    validator: Validator().nullFieldValidate,
+                    //validator: Validator().nullFieldValidate,
                     keyboardType: TextInputType.text,
                     focusNode: _credentialIdFocusNode,
                     textInputAction: TextInputAction.next,
@@ -202,7 +162,7 @@ class _EditCertificationState extends State<EditCertification> {
                   spaceBetweenFields,
                   //Credential URL
                   CustomTextFormField(
-                    validator: Validator().nullFieldValidate,
+                    //validator: Validator().nullFieldValidate,
                     keyboardType: TextInputType.text,
                     focusNode: _credentialUrlFocusNode,
                     textInputAction: TextInputAction.next,
@@ -215,37 +175,15 @@ class _EditCertificationState extends State<EditCertification> {
                     hintText: StringUtils.certificationCredentialUrlText,
                   ),
                   spaceBetweenFields,
-                  Row(
-                    children: <Widget>[
-                      Text(
-                        StringUtils.joiningDateText,
-                        textAlign: TextAlign.left,
-                        style: TextStyle(fontWeight: FontWeight.bold)
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 8,
-                  ),
-
-                  InkWell(
-                    onTap: () {
-                      _showIssueDatePicker(context);
+                  CommonDatePickerWidget(
+                    label: StringUtils.certificationIssueDateText,
+                    date: _issueDate,
+                    onDateTimeChanged: (v){
+                      setState(() {_issueDate = v;});
                     },
-                    child: Container(
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).backgroundColor,
-                        borderRadius: BorderRadius.circular(7),
-                        boxShadow: [
-                          BoxShadow(color: Color(0xff000000).withOpacity(0.2), blurRadius: 20),
-                          BoxShadow(color: Color(0xfffafafa).withOpacity(0.2), blurRadius: 20),
-                        ],),
-                      padding: EdgeInsets.all(8),
-                      child: Text(
-                        "Issue Date",
-                      ),
-                    ),
+                    onTapDateClear: (){
+                      setState(() {_issueDate = null;});
+                    },
                   ),
                   Row(
                     mainAxisSize: MainAxisSize.max,
@@ -271,7 +209,16 @@ class _EditCertificationState extends State<EditCertification> {
                     ],
                   ),
                   spaceBetweenFields,
-                  hasExpiryDate?expirydate:SizedBox(),
+                  hasExpiryDate?CommonDatePickerWidget(
+                    label: StringUtils.certificationExpiryDateText,
+                    date: _expirydate,
+                    onDateTimeChanged: (v){
+                      setState(() {_expirydate = v;});
+                    },
+                    onTapDateClear: (){
+                      setState(() {_expirydate = null;});
+                    },
+                  ):SizedBox(),
                 ],
               ),
             ),
