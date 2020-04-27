@@ -51,20 +51,14 @@ main() {
   });
 
   group("Error message check", () {
-
     test("When request succes, should return ture", () async{
       String message = "message";
       var data = {'email':message};
       when(client.postRequest(Urls.passwordResetUrl, {"email": "email"}))
           .thenAnswer((_) async => http.Response(json.encode(data), 403));
       bool res = await passwordResetViewModel.sendResetPasswordLink(apiClient: client);
-
       expect(passwordResetViewModel.emailErrorText, message);
     });
-
-
-
-
   });
 
 
