@@ -58,6 +58,7 @@ main() {
       when(client.postRequest(Urls.passwordResetUrl, {"email": "email"}))
           .thenAnswer((_) async => http.Response(json.encode(data), 403));
       bool res = await passwordResetViewModel.sendResetPasswordLink(apiClient: client);
+
       expect(passwordResetViewModel.emailErrorText, message);
     });
 
