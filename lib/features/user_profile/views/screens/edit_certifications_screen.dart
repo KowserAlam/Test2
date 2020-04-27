@@ -6,6 +6,7 @@ import 'package:p7app/features/user_profile/views/widgets/common_date_picker_wid
 import 'package:p7app/features/user_profile/views/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/util/date_format_uitl.dart';
 import 'package:p7app/main_app/util/validator.dart';
 import 'package:p7app/main_app/widgets/common_button.dart';
 import 'package:p7app/main_app/widgets/edit_screen_save_button.dart';
@@ -52,8 +53,7 @@ class _EditCertificationState extends State<EditCertification> {
         credentialUrl: _credentialUrlController.text,
         credentialId: _credentialIdController.text,
         hasExpiryPeriod: hasExpiryDate,
-        expiryDate: kDateFormatBD.format(_expirydate),
-        issueDate: kDateFormatBD.format(_issueDate),
+        issueDate: _issueDate,
       );
 
       if (widget.certificationInfo != null) {
@@ -84,10 +84,12 @@ class _EditCertificationState extends State<EditCertification> {
     // TODO: implement initState
     hasExpiryDate = false;
     if(widget.certificationInfo != null){
-      _certificationNameController.text = widget.certificationInfo.certificationName;
-      _organizationNameController.text = widget.certificationInfo.organizationName;
-      _credentialIdController.text = widget.certificationInfo.credentialId;
-      _credentialUrlController.text = widget.certificationInfo.credentialUrl;
+      _certificationNameController.text = widget.certificationInfo.certificationName?? "";
+      _organizationNameController.text = widget.certificationInfo.organizationName?? "";
+      _credentialIdController.text = widget.certificationInfo.credentialId?? "";
+      _credentialUrlController.text = widget.certificationInfo.credentialUrl?? "";
+      _issueDate = widget.certificationInfo.issueDate??null;
+      hasExpiryDate = false;
     }
     super.initState();
   }
@@ -226,101 +228,5 @@ class _EditCertificationState extends State<EditCertification> {
         ),
       ),
     );
-  }
-
-  _showIssueDatePicker(context) {
-
-    var initialDate = DateTime.now();
-
-    showDialog(
-        context: context,
-        builder: (context) {
-          return Center(
-            child: Container(
-              height: MediaQuery.of(context).size.height / 2,
-              width: MediaQuery.of(context).size.width / 1.3,
-              child: Material(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    Expanded(
-                      child: CupertinoTheme(
-                        data: CupertinoThemeData(brightness: Theme.of(context).brightness),
-                        child: CupertinoDatePicker(
-                          initialDateTime: initialDate,
-                          mode: CupertinoDatePickerMode.date,
-                          onDateTimeChanged: (v){
-                            setState(() {
-                              _issueDate = v;
-                            });
-                          },
-                        ),
-                      ),
-                    ),
-                    InkWell(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Icon(
-                            Icons.done,
-                            color: Theme.of(context).primaryColor,
-                          ),
-                        ),
-                        onTap: () {
-                          Navigator.pop(context);
-                        }),
-                  ],
-                ),
-              ),
-            ),
-          );
-        });
-  }
-
-  _showExpiryDatePicker(context) {
-
-    var initialDate = DateTime.now();
-
-    showDialog(
-        context: context,
-        builder: (context) {
-          return Center(
-            child: Container(
-              height: MediaQuery.of(context).size.height / 2,
-              width: MediaQuery.of(context).size.width / 1.3,
-              child: Material(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    Expanded(
-                      child: CupertinoTheme(
-                        data: CupertinoThemeData(brightness: Theme.of(context).brightness),
-                        child: CupertinoDatePicker(
-                          initialDateTime: initialDate,
-                          mode: CupertinoDatePickerMode.date,
-                          onDateTimeChanged: (v){
-                            setState(() {
-                              _expirydate = v;
-                            });
-                          },
-                        ),
-                      ),
-                    ),
-                    InkWell(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Icon(
-                            Icons.done,
-                            color: Theme.of(context).primaryColor,
-                          ),
-                        ),
-                        onTap: () {
-                          Navigator.pop(context);
-                        }),
-                  ],
-                ),
-              ),
-            ),
-          );
-        });
   }
 }
