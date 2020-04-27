@@ -1,12 +1,16 @@
 import 'dart:async';
+import 'dart:convert';
 
+import 'package:bot_toast/bot_toast.dart';
+import 'package:p7app/main_app/api_helpers/api_client.dart';
+import 'package:p7app/main_app/api_helpers/urls.dart';
+import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/util/validator.dart';
 import 'package:flutter/foundation.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:http/http.dart' as http;
 
-
-class PasswordResetViewModel with ChangeNotifier{
-
+class PasswordResetViewModel with ChangeNotifier {
   bool _isBusyEmail = false;
   bool _isBusyVerifyCode = false;
   bool _isBusyNewPassword = false;
@@ -19,13 +23,11 @@ class PasswordResetViewModel with ChangeNotifier{
   bool _passwordResetMethodIsEmail = true;
   String _email;
 
-
   String get email => _email;
 
   set email(String value) {
     _email = value;
   }
-
 
   String get emailErrorText => _emailErrorText;
 
@@ -38,7 +40,6 @@ class PasswordResetViewModel with ChangeNotifier{
   set passwordResetMethodIsEmail(bool value) {
     _passwordResetMethodIsEmail = value;
     notifyListeners();
-
   }
 
   bool get isObscureConfirmPassword => _isObscureConfirmPassword;
@@ -81,6 +82,7 @@ class PasswordResetViewModel with ChangeNotifier{
     _isBusyNewPassword = value;
     notifyListeners();
   }
+
   bool get isObscurePassword => _isObscurePassword;
 
   set isObscurePassword(bool value) {
@@ -95,42 +97,63 @@ class PasswordResetViewModel with ChangeNotifier{
     notifyListeners();
   }
 
-
-  validateEmailLocal(String email){
+  validateEmailLocal(String email) {
     emailErrorText = Validator().validateEmail(email);
     _email = email;
     notifyListeners();
   }
 
+  Future<bool> sendResetPasswordLink() async {
+    isBusyEmail = true;
+    var url = Urls.passwordResetUrl;
+    var body = {"email": _email};
 
+    try {
+      http.Response res = await ApiClient().postRequest(url, body);
+      print(res.statusCode);
+      print(res.body);
+      if (res.statusCode == 200) {
+        isBusyEmail = false;
+        return true;
+      }
+      else{
+        var data = json.decode(res.body);
+        _emailErrorText =data['email'].toString()??StringUtils.somethingIsWrong;
+
+        isBusyEmail = false;
+        return false;
+      }
+    } catch (e) {
+      isBusyEmail = false;
+      print(e);
+
+//      BotToast.showText(text: null);
+      return false;
+    }
+  }
 
   @override
   void dispose() {
-
     super.dispose();
   }
-
-
-
 }
-
 
 /// performing user input validations
 final performEmailValidation = StreamTransformer<String, String>.fromHandlers(
     handleData: (email, sink) async {
-      String result = Validator().validateEmail(email);
-      if (result == null) {
-        sink.add(email);
-      } else {
-        sink.addError(result);
-      }
-    });
+  String result = Validator().validateEmail(email);
+  if (result == null) {
+    sink.add(email);
+  } else {
+    sink.addError(result);
+  }
+});
 final performPhoneValidation = StreamTransformer<String, String>.fromHandlers(
     handleData: (value, sink) async {
-      String result = Validator().validatePhoneNumber(value);
-      if (result == null) {
-        sink.add(value);
-      } else {
-        sink.addError(result);
-      }
-    });
+  String result = Validator().validatePhoneNumber(value);
+  if (result == null) {
+    sink.add(value);
+  } else {
+    sink.addError(result);
+  }
+});

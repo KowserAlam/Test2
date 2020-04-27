@@ -111,7 +111,8 @@ class _PasswordResetEmailWidgetState extends State<PasswordResetEmailWidget> {
   }
 
   _handleEmailSubmit(String email, context) async {
-    if (true) {
+    var isSuccess =  await Provider.of<PasswordResetViewModel>(context,listen: false).sendResetPasswordLink();
+    if (isSuccess) {
       widget.onSuccessCallBack();
     }
   }
