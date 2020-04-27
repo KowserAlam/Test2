@@ -14,7 +14,7 @@ class PasswordResetViewModel with ChangeNotifier {
   bool _isBusyEmail = false;
   bool _isBusyVerifyCode = false;
   bool _isBusyNewPassword = false;
-  String _emailErrorText = "";
+  String _emailErrorText;
   bool _isCodeResend = false;
   bool _isValidCode = true;
   bool _isObscureConfirmPassword = true;
@@ -103,13 +103,14 @@ class PasswordResetViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<bool> sendResetPasswordLink() async {
+  Future<bool> sendResetPasswordLink({ApiClient apiClient}) async {
+    var client = apiClient ?? ApiClient();
     isBusyEmail = true;
     var url = Urls.passwordResetUrl;
     var body = {"email": _email};
 
     try {
-      http.Response res = await ApiClient().postRequest(url, body);
+      http.Response res = await client.postRequest(url, body);
       print(res.statusCode);
       print(res.body);
       if (res.statusCode == 200) {
@@ -118,8 +119,7 @@ class PasswordResetViewModel with ChangeNotifier {
       }
       else{
         var data = json.decode(res.body);
-        _emailErrorText =data['email'].toString()??StringUtils.somethingIsWrong;
-
+        _emailErrorText =data['email']?.toString()??StringUtils.somethingIsWrong;
         isBusyEmail = false;
         return false;
       }
@@ -132,10 +132,6 @@ class PasswordResetViewModel with ChangeNotifier {
     }
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
 }
 
 /// performing user input validations
