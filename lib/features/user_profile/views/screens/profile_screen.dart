@@ -517,6 +517,9 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
           return CertificationsListItemWidget(
             isInEditMode: isInEditModeCertifications,
             certificationInfo: cer,
+              onTapDelete: () {
+                userProfileViewModel.deleteCertificationData(cer, index);
+              },
             onTapEdit: () {
               Navigator.push(
                   context,

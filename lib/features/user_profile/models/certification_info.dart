@@ -3,8 +3,8 @@ class CertificationInfo {
   String certificationName;
   String organizationName;
   bool hasExpiryPeriod;
-  String issueDate;
-  String expiryDate;
+  DateTime issueDate;
+  DateTime expiryDate;
   String credentialId;
   String credentialUrl;
 
@@ -19,19 +19,23 @@ class CertificationInfo {
         this.credentialUrl});
 
   CertificationInfo.fromJson(Map<String, dynamic> json) {
-    certificationId = json['certification_id'];
+    certificationId = json['id'];
     certificationName = json['certificate_name']?.toString();
     organizationName = json['organization']?.toString();
     hasExpiryPeriod = json['has_expiry_period'];
-    issueDate = json['issue_date'];
-    expiryDate = json['expiry_date'];
     credentialId = json['credential_id'];
     credentialUrl = json['credential_url'];
+    if(json['issue_date'] != null){
+      issueDate = DateTime.parse(json['issue_date']);
+    };
+    if(json['expiry_date'] != null){
+      expiryDate = DateTime.parse(json['expiry_date']);
+    }
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['certification_id'] = this.certificationId;
+    data['id'] = this.certificationId;
     data['certificate_name'] = this.certificationName;
     data['organization'] = this.organizationName;
     data['has_expiry_period'] = this.hasExpiryPeriod;

@@ -68,8 +68,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
   List<DropdownMenuItem<String>> _genderList = [
     new DropdownMenuItem(value: 'Male',child: Text('Male'),),
     new DropdownMenuItem(value: 'Female',child: Text('Female'),),
-    new DropdownMenuItem(value: null,child: Text('Prefer not to share'),),
-    new DropdownMenuItem(value: 'Any',child: Text('Any'),)
+    new DropdownMenuItem(value: null,child: Text('Prefer not to share'),)
   ];
   String _selectedGenderDropDownItem;
 
