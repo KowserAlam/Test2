@@ -267,7 +267,7 @@ class UserProfileViewModel with ChangeNotifier {
     });
   }
 
-  Future<bool> updatePortfolio({ @required Map<String,dynamic> data,  int index, String portfolioId}){
+  Future<bool> updatePortfolio({ @required Map<String,dynamic> data,@required   int index,@required  String portfolioId}){
     return UserProfileRepository().updateUserPortfolioInfo(data,portfolioId).then((res){
       return res.fold((l){
         print(l);

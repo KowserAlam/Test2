@@ -609,7 +609,8 @@ class UserProfileRepository {
     var professionalId = authUser.getUser().professionalId;
     var url = "${Urls.professionalPortfolioUrl}/$portfolioId/";
 
-    data.addAll({"professional_id": professionalId});
+    Map<String,dynamic> exData = {"professional_id": professionalId};
+    data.addAll(exData);
 
     try {
       var response = await ApiClient().putRequest(url, data);

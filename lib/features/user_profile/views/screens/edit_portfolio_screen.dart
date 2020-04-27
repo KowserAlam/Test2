@@ -19,12 +19,14 @@ import 'package:provider/provider.dart';
 
 class EditPortfolio extends StatefulWidget {
   final PortfolioInfo portfolioInfo;
+  final int index;
 
   @override
   _EditPortfolioState createState() => _EditPortfolioState();
 
   const EditPortfolio({
-    @required this.portfolioInfo,
+  this.portfolioInfo,
+    this.index,
   });
 }
 
@@ -92,7 +94,11 @@ class _EditPortfolioState extends State<EditPortfolio> {
 
       }else{
         // update existing item
-
+userProviderViewModel.updatePortfolio(data: data, index: widget.index, portfolioId: widget.portfolioInfo.portfolioId.toString()).then((value){
+ if(value){
+   Navigator.pop(context);
+ }
+});
 
 
 
