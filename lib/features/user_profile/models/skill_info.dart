@@ -19,7 +19,7 @@ class SkillInfo {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['name'] = this.skill?.id;
+    data['skill_name_id'] = this.skill?.id;
     data['rating'] = this.rating;
     return data;
   }

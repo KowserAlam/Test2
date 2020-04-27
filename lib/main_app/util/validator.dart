@@ -58,7 +58,7 @@ class Validator {
 
   String expertiseFieldValidate(String value){
     double x;
-    Pattern pattern = r'^([0-9]{1,2})+(\.[0-9]+)?$';
+    Pattern pattern = r'^([0-9]{1,2})+(\.[0-9]{1,2})?$';
     RegExp regex = new RegExp(pattern);
     if(value.isEmpty){
       return StringUtils.thisFieldIsRequired;
