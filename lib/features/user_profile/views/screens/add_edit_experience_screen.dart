@@ -1,6 +1,10 @@
+import 'dart:math';
+
 import 'package:after_layout/after_layout.dart';
+import 'package:bot_toast/bot_toast.dart';
 import 'package:p7app/features/user_profile/models/experience_info.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
+import 'package:p7app/features/user_profile/views/widgets/common_date_picker_widget.dart';
 import 'package:p7app/features/user_profile/views/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/util/validator.dart';
@@ -27,6 +31,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
   final ExperienceInfo experienceModel;
   final int index;
   bool currentLyWorkingHere = false;
+  DateTime _joiningDate, _leavingDate;
 
   _AddNewExperienceScreenState(this.experienceModel, this.index);
 
@@ -38,17 +43,35 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
   var _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
+  void initState() {
+    // TODO: implement initState
+    organizationNameController.text = widget.experienceInfoModel.organizationName;
+    positionNameController.text = widget.experienceInfoModel.organizationName??"";
+    super.initState();
+  }
+
+  @override
   void afterFirstLayout(BuildContext context) {
 
   }
 
   _handleSave() {
     var isSuccess = _formKey.currentState.validate();
+    if(isSuccess){
+      //Form validated
+      if(_joiningDate != null && _leavingDate != null){
+        if(_joiningDate.isBefore(_leavingDate)){
+          var experienceInfo = ExperienceInfo();
+        }else{BotToast.showText(text: StringUtils.joiningLeavingDateLogic);}
+      }else{
 
+      }
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    var spaceBetweenSections = SizedBox(height: 20,);
     return WillPopScope(
       onWillPop: () async {
 
@@ -84,20 +107,18 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
                         hintText: StringUtils.nameOfOrganizationEg,
                         labelText: StringUtils.nameOfOrganizationText,
                       ),
-                      SizedBox(height: 15),
+                      spaceBetweenSections,
 
                       /// Position
-
                       CustomTextFormField(
-                        validator: Validator().nullFieldValidate,
+                        //validator: Validator().nullFieldValidate,
                         controller: positionNameController,
                         labelText: StringUtils.positionText,
                         hintText: StringUtils.positionTextEg,
                       ),
-                      SizedBox(height: 15),
+                      spaceBetweenSections,
 
                       /// Role
-
                       CustomTextFormField(
                         controller: roleNameController,
                         keyboardType: TextInputType.multiline,
@@ -109,106 +130,35 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
                       ),
 
                       /// Joining Date
-                      SizedBox(
-                        height: 16,
-                      ),
-
-                      Row(
-                        children: <Widget>[
-                          Text(
-                            StringUtils.joiningDateText,
-                            textAlign: TextAlign.left,
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 8,
-                      ),
-
-                      InkWell(
-                        onTap: () {
-                          _showJoinDatePicker(context);
+                      CommonDatePickerWidget(
+                        label: StringUtils.joiningDateText,
+                        date: _joiningDate,
+                        onDateTimeChanged: (v){
+                          setState(() {
+                            _joiningDate = v;
+                          });
                         },
-                        child: Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).backgroundColor,
-                            borderRadius: BorderRadius.circular(7),
-                            boxShadow: [
-                              BoxShadow(color: Color(0xff000000).withOpacity(0.2), blurRadius: 20),
-                              BoxShadow(color: Color(0xfffafafa).withOpacity(0.2), blurRadius: 20),
-
-                            ],),
-                          padding: EdgeInsets.all(8),
-                          child: Text(
-                            "JD",
-                          ),
-                        ),
+                        onTapDateClear: (){
+                          setState(() {
+                            _joiningDate = null;
+                          });
+                        },
                       ),
-                      SizedBox(height: 10,),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: <Widget>[
 
-                          InkWell(
-                            onTap: () {
-
-                            },
-                            child: Text(
-                              StringUtils.currentlyWorkingHereText,
-                              softWrap: true,
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                          Checkbox(
-                            value:false,
-                            onChanged: (v) {
-
-                            },
-                          ),
-                        ],
-                      ),
                       /// Leaving Date
-
-                      Text(
-                        StringUtils.leavingDateText,
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                            color:
-                                currentLyWorkingHere
-                                    ? Colors.grey
-                                    : null),
-                      ),
-
-                      SizedBox(
-                        height: 8,
-                      ),
-
-                      InkWell(
-                        onTap:  !currentLyWorkingHere
-                            ? () {
-                                _showLeavingDatePicker(context);
-                              }
-                            : null,
-                        child: Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).backgroundColor,
-                            borderRadius: BorderRadius.circular(7),
-                            boxShadow: [
-                              BoxShadow(color: Color(0xff000000).withOpacity(0.2), blurRadius: 20),
-                              BoxShadow(color: Color(0xfffafafa).withOpacity(0.2), blurRadius: 20),
-
-                            ],),
-                          padding: EdgeInsets.all(8),
-                          child: Text(
-                          "leavingDate",
-                            style: TextStyle(
-                                color: currentLyWorkingHere
-                                    ? Colors.grey
-                                    : null),
-                          ),
-                        ),
+                      CommonDatePickerWidget(
+                        label: StringUtils.leavingDateText,
+                        date: _leavingDate,
+                        onDateTimeChanged: (v){
+                          setState(() {
+                            _leavingDate = v;
+                          });
+                        },
+                        onTapDateClear: (){
+                          setState(() {
+                            _leavingDate = null;
+                          });
+                        },
                       ),
                     ],
                   ),

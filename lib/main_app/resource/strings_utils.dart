@@ -204,6 +204,8 @@ class StringUtils {
   static String joiningDateText = "Joining Date";
   static String leavingDateText = "Leaving Date";
   static String currentlyWorkingHereText = "Currently working here";
+  static String joining = "Currently working here";
+  static String joiningLeavingDateLogic = "Please make sure your joining date occurs before your leaving date";
 
 
 

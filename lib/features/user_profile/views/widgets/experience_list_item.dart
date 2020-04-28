@@ -44,7 +44,7 @@ class ExperienceListItem extends StatelessWidget {
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(experienceInfoModel.company),
+            Text(experienceInfoModel.organizationName),
             Text(
               date,
               style: TextStyle(fontSize: 12),
