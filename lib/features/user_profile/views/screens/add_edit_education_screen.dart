@@ -1,11 +1,13 @@
 import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:p7app/features/user_profile/models/edu_info.dart';
 import 'package:p7app/features/user_profile/models/institution.dart';
+import 'package:p7app/features/user_profile/repositories/degree_list_repository.dart';
 import 'package:p7app/features/user_profile/repositories/institution_list_repository.dart';
 import 'package:p7app/features/user_profile/repositories/user_profile_repository.dart';
 import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/features/user_profile/views/widgets/common_date_picker_widget.dart';
+import 'package:p7app/features/user_profile/views/widgets/custom_dropdown_button_form_field.dart';
 import 'package:p7app/features/user_profile/views/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/failure/error.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
@@ -47,9 +49,10 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
   var _scaffoldKey = GlobalKey<ScaffoldState>();
   DateTime _enrollDate;
   DateTime _graduationDate;
-   Institution selectedInstitute;
+  Institution selectedInstitute;
 
-  var autoCompleteTextKey = GlobalKey<AutoCompleteTextFieldState<Institution>>();
+  var autoCompleteTextKey =
+      GlobalKey<AutoCompleteTextFieldState<Institution>>();
   final _institutionListStreamController = BehaviorSubject<List<Institution>>();
 
   initState() {
@@ -65,8 +68,8 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
     super.initState();
   }
 
-  dispose(){
-_institutionListStreamController.close();
+  dispose() {
+    _institutionListStreamController.close();
     super.dispose();
   }
 
@@ -97,15 +100,14 @@ _institutionListStreamController.close();
         graduationDate: _graduationDate,
       );
 
-      UserProfileRepository().addUserEducation(education).then((value){
-        value.fold((l){
+      UserProfileRepository().addUserEducation(education).then((value) {
+        value.fold((l) {
           //error
-        }, (r){
+        }, (r) {
           // right
           Navigator.pop(context);
         });
       });
-
     }
   }
 
@@ -137,8 +139,10 @@ _institutionListStreamController.close();
                     decoration: InputDecoration(
                       hintText: StringUtils.nameOfOInstitutionHintText,
                       border: InputBorder.none,
-                      contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                      focusedBorder: CommonStyleTextField.focusedBorder(context),
+                      contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 5),
+                      focusedBorder:
+                          CommonStyleTextField.focusedBorder(context),
                     ),
                     controller: institutionNameController,
                     itemFilter: (Institution suggestion, String query) =>
@@ -149,7 +153,8 @@ _institutionListStreamController.close();
                     itemSorter: (Institution a, Institution b) =>
                         a.name.compareTo(b.name),
                     key: autoCompleteTextKey,
-                    itemBuilder: (BuildContext context, Institution suggestion) {
+                    itemBuilder:
+                        (BuildContext context, Institution suggestion) {
                       return ListTile(
                         title: Text(suggestion.name ?? ""),
                       );
@@ -158,9 +163,7 @@ _institutionListStreamController.close();
                     itemSubmitted: (Institution data) {
                       selectedInstitute = data;
                       institutionNameController.text = data.name;
-                      setState(() {
-
-                      });
+                      setState(() {});
                     },
                   ),
                 ),
@@ -202,11 +205,17 @@ _institutionListStreamController.close();
         });
       },
     );
-    var degree = CustomTextFormField(
-      controller: degreeTextController,
-      labelText: StringUtils.nameOfODegreeText,
-      hintText: StringUtils.nameOfODegreeHintText,
-    );
+    var degree = FutureBuilder(
+      future: DegreeListRepository().getList(),
+      builder: (context,snap){
+        return SizedBox();
+      return CustomDropdownButtonFormField(
+        labelText: StringUtils.nameOfODegreeText,
+        value: null,
+        items: [],
+        onChanged: null,
+      );
+    },);
     var cgpa = CustomTextFormField(
       controller: gpaTextController,
       labelText: StringUtils.gpaText,
