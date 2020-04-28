@@ -1,7 +1,9 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:p7app/features/user_profile/models/member_ship_info.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
+import 'package:p7app/features/user_profile/views/widgets/common_date_picker_widget.dart';
 import 'package:p7app/features/user_profile/views/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
@@ -22,19 +24,18 @@ class EditMemberShips extends StatefulWidget {
 
 class _EditMemberShipsState extends State<EditMemberShips> {
   final _formKey = GlobalKey<FormState>();
+  bool _membershipOngoing = false;
 
 
   //TextEditingController
   final _orgNameController = TextEditingController();
   final _positionHeldController = TextEditingController();
-  final _membershipOngoingController = TextEditingController();
   final _descriptionController = TextEditingController();
 
 
   //FocusNodes
   final _orgNameFocusNode = FocusNode();
   final _positionHeldFocusNode = FocusNode();
-  final _membershipOngoingFocusNode = FocusNode();
   final _descriptionFocusNode = FocusNode();
 
   //values
@@ -53,6 +54,7 @@ class _EditMemberShipsState extends State<EditMemberShips> {
       _descriptionController.text = widget.membershipInfo.description;
       _startDate =  widget.membershipInfo.startDate;
       _endDate =  widget.membershipInfo.endDate;
+      _membershipOngoing = widget.membershipInfo.membershipOngoing??false;
     }
     super.initState();
   }
@@ -60,32 +62,72 @@ class _EditMemberShipsState extends State<EditMemberShips> {
   _handleSave() {
     bool isValid = _formKey.currentState.validate();
     if (isValid) {
-      var membershipInfo = MembershipInfo(
-        //membershipId: widget.membershipInfo?.membershipId,
-        orgName: _orgNameController.text,
-        //positionHeld: _positionHeldController.text,
-        //description: _descriptionController.text
-      );
+      if(_startDate!=null && _endDate != null){
+        if(_startDate.isBefore(_endDate)){
+          var membershipInfo = MembershipInfo(
+              membershipId: widget.membershipInfo?.membershipId,
+              orgName: _orgNameController.text,
+              positionHeld: _positionHeldController.text,
+              description: _descriptionController.text,
+              membershipOngoing: _membershipOngoing,
+              startDate: _startDate,
+              endDate: !_membershipOngoing?_endDate:null,
+          );
 
-      if (widget.membershipInfo != null) {
-        /// updating existing data
+          if (widget.membershipInfo != null) {
+            /// updating existing data
 
-        Provider.of<UserProfileViewModel>(context, listen: false)
-            .updateMembershipData(membershipInfo, widget.index)
-            .then((value) {
-          if (value) {
-            Navigator.pop(context);
+            Provider.of<UserProfileViewModel>(context, listen: false)
+                .updateMembershipData(membershipInfo, widget.index)
+                .then((value) {
+              if (value) {
+                Navigator.pop(context);
+              }
+            });
+          } else {
+            /// adding new data
+            Provider.of<UserProfileViewModel>(context, listen: false)
+                .addMembershipData(membershipInfo)
+                .then((value) {
+              if (value) {
+                Navigator.pop(context);
+              }
+            });
           }
-        });
-      } else {
-        /// adding new data
-        Provider.of<UserProfileViewModel>(context, listen: false)
-            .addMembershipData(membershipInfo)
-            .then((value) {
-          if (value) {
-            Navigator.pop(context);
-          }
-        });
+        }else{
+          BotToast.showText(text: "Please make sure your starting date occurs before your ending date");
+        }
+      }else{
+        var membershipInfo = MembershipInfo(
+          membershipId: widget.membershipInfo?.membershipId,
+          orgName: _orgNameController.text,
+          positionHeld: _positionHeldController.text,
+          description: _descriptionController.text,
+          membershipOngoing: _membershipOngoing,
+          startDate: _startDate,
+          endDate: _endDate
+        );
+
+        if (widget.membershipInfo != null) {
+          /// updating existing data
+
+          Provider.of<UserProfileViewModel>(context, listen: false)
+              .updateMembershipData(membershipInfo, widget.index)
+              .then((value) {
+            if (value) {
+              Navigator.pop(context);
+            }
+          });
+        } else {
+          /// adding new data
+          Provider.of<UserProfileViewModel>(context, listen: false)
+              .addMembershipData(membershipInfo)
+              .then((value) {
+            if (value) {
+              Navigator.pop(context);
+            }
+          });
+        }
       }
     }
   }
@@ -121,10 +163,10 @@ class _EditMemberShipsState extends State<EditMemberShips> {
                     keyboardType: TextInputType.text,
                     focusNode: _orgNameFocusNode,
                     autofocus: true,
-                    textInputAction: TextInputAction.next,
+                    //textInputAction: TextInputAction.next,
                     onFieldSubmitted: (a) {
-                      FocusScope.of(context)
-                          .requestFocus(_positionHeldFocusNode);
+//                      FocusScope.of(context)
+//                          .requestFocus(_positionHeldFocusNode);
                     },
                     controller: _orgNameController,
                     labelText: StringUtils.membershipOrgNameText,
@@ -133,39 +175,23 @@ class _EditMemberShipsState extends State<EditMemberShips> {
                   spaceBetweenFields,
                   //Position Held
                   CustomTextFormField(
-                    validator: Validator().nullFieldValidate,
+                    //validator: Validator().nullFieldValidate,
                     focusNode: _positionHeldFocusNode,
                     keyboardType: TextInputType.text,
                     autofocus: true,
-                    textInputAction: TextInputAction.next,
+                    //textInputAction: TextInputAction.next,
                     onFieldSubmitted: (a) {
-                      FocusScope.of(context)
-                          .requestFocus(_membershipOngoingFocusNode);
+//                      FocusScope.of(context)
+//                          .requestFocus(_descriptionFocusNode);
                     },
                     controller: _positionHeldController,
                     labelText: StringUtils.membershipPositionHeldText,
                     hintText: StringUtils.membershipPositionHeldText,
                   ),
                   spaceBetweenFields,
-                  //Ongoing
-                  CustomTextFormField(
-                    validator: Validator().nullFieldValidate,
-                    focusNode: _membershipOngoingFocusNode,
-                    keyboardType: TextInputType.text,
-                    autofocus: true,
-                    textInputAction: TextInputAction.next,
-                    onFieldSubmitted: (a) {
-                      FocusScope.of(context)
-                          .requestFocus(_descriptionFocusNode);
-                    },
-                    controller: _membershipOngoingController,
-                    labelText: StringUtils.membershipOngoingText,
-                    hintText: StringUtils.membershipOngoingText,
-                  ),
-                  spaceBetweenFields,
                   //Description
                   CustomTextFormField(
-                    validator: Validator().nullFieldValidate,
+                    //validator: Validator().nullFieldValidate,
                     maxLines: null,
                     focusNode: _descriptionFocusNode,
                     keyboardType: TextInputType.text,
@@ -180,74 +206,56 @@ class _EditMemberShipsState extends State<EditMemberShips> {
                   ),
                   spaceBetweenFields,
                   //Start Date
-                  Row(
-                    children: <Widget>[
-                      Text(
-                        StringUtils.membershipStartDateText,
-                        textAlign: TextAlign.left,
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 8,
-                  ),
-
-                  InkWell(
-                    onTap: () {
-                      _showStartDatePicker(context);
+                  CommonDatePickerWidget(
+                    label: StringUtils.startingDateText,
+                    date: _startDate,
+                    onDateTimeChanged: (v){setState(() {
+                      _startDate = v;
+                    });},
+                    onTapDateClear: (){
+                      setState(() {
+                        _startDate = null;
+                      });
                     },
-                    child: Container(
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).backgroundColor,
-                        borderRadius: BorderRadius.circular(7),
-                        boxShadow: [
-                          BoxShadow(color: Color(0xff000000).withOpacity(0.2), blurRadius: 20),
-                          BoxShadow(color: Color(0xfffafafa).withOpacity(0.2), blurRadius: 20),
-
-                        ],),
-                      padding: EdgeInsets.all(8),
-                      child: Text(
-                        _startDate != null? DateFormatUtil().dateFormat1(_startDate): 'Choose Date',
-                      ),
-                    ),
+                  ),
+                  //End Date
+                  !_membershipOngoing?CommonDatePickerWidget(
+                    label: StringUtils.membershipEndDateText,
+                    date: _endDate,
+                    onDateTimeChanged: (v){setState(() {
+                      _endDate = v;
+                    });},
+                    onTapDateClear: (){
+                      setState(() {
+                        _endDate = null;
+                      });
+                    },
+                  ):SizedBox(),
+                  //Membership Ongoing
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      Row(
+                        children: <Widget>[
+                          Checkbox(
+                            value: _membershipOngoing,
+                            onChanged: (bool newValue){
+                              if(newValue){
+                                _membershipOngoing = newValue;
+                                setState(() {});
+                              }else{
+                                _membershipOngoing = newValue;
+                                setState(() {});
+                              }
+                            },
+                          ),
+                          Text('Membership ongoing'),
+                        ],
+                      )
+                    ],
                   ),
                   spaceBetweenFields,
-
-                  //End Date
-                  Row(
-                    children: <Widget>[
-                      Text(
-                        StringUtils.membershipEndDateText,
-                        textAlign: TextAlign.left,
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 8,
-                  ),
-
-                  InkWell(
-                    onTap: () {
-                      _showEndDatePicker();
-                    },
-                    child: Container(
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).backgroundColor,
-                        borderRadius: BorderRadius.circular(7),
-                        boxShadow: [
-                          BoxShadow(color: Color(0xff000000).withOpacity(0.2), blurRadius: 20),
-                          BoxShadow(color: Color(0xfffafafa).withOpacity(0.2), blurRadius: 20),
-
-                        ],),
-                      padding: EdgeInsets.all(8),
-                      child: Text(
-                        _endDate != null? kDateFormatBD.format(_endDate): 'Choose Date',
-                      ),
-                    ),
-                  ),
-                  spaceBetweenFields
                 ],
               ),
             ),
@@ -255,96 +263,5 @@ class _EditMemberShipsState extends State<EditMemberShips> {
         ),
       ),
     );
-  }
-
-  _showEndDatePicker() {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return Center(
-            child: Container(
-              height: MediaQuery.of(context).size.height / 2,
-              width: MediaQuery.of(context).size.width / 1.3,
-              child: Material(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    Expanded(
-                      child: CupertinoTheme(
-                        data: CupertinoThemeData(brightness: Theme.of(context).brightness),
-                        child: CupertinoDatePicker(
-                          initialDateTime: _endDate ?? DateTime.now(),
-                          mode: CupertinoDatePickerMode.date,
-                          onDateTimeChanged: (v){
-                            setState(() {
-                              _endDate = v;
-                            });
-                          },
-                        ),
-                      ),
-                    ),
-                    InkWell(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Icon(
-                            Icons.done,
-                            color: Theme.of(context).primaryColor,
-                          ),
-                        ),
-                        onTap: () {
-                          Navigator.pop(context);
-                        }),
-                  ],
-                ),
-              ),
-            ),
-          );
-        });
-  }
-  _showStartDatePicker(context) {
-
-
-    showDialog(
-        context: context,
-        builder: (context) {
-          return Center(
-            child: Container(
-              height: MediaQuery.of(context).size.height / 2,
-              width: MediaQuery.of(context).size.width / 1.3,
-              child: Material(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    Expanded(
-                      child: CupertinoTheme(
-                        data: CupertinoThemeData(brightness: Theme.of(context).brightness),
-                        child: CupertinoDatePicker(
-                          initialDateTime: _startDate??DateTime.now(),
-                          mode: CupertinoDatePickerMode.date,
-                          onDateTimeChanged: (v){
-                            setState(() {
-                              _startDate = v;
-                            });
-                          },
-                        ),
-                      ),
-                    ),
-                    InkWell(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Icon(
-                            Icons.done,
-                            color: Theme.of(context).primaryColor,
-                          ),
-                        ),
-                        onTap: () {
-                          Navigator.pop(context);
-                        }),
-                  ],
-                ),
-              ),
-            ),
-          );
-        });
   }
 }
