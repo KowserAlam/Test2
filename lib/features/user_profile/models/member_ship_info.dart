@@ -19,12 +19,12 @@ class MembershipInfo {
         this.description});
 
   MembershipInfo.fromJson(Map<String, dynamic> json) {
-    membershipId = json['membership_id'];
+    membershipId = json['id'];
     orgName = json['organization']?.toString();
     positionHeld = json['position_held']?.toString();
     membershipOngoing = json['membership_ongoing'];
     if (json['start_date'] != null) {
-      startDate = DateTime.parse(json['Start_date']);
+      startDate = DateTime.parse(json['start_date']);
     }
     if (json['end_date'] != null) {
       endDate = DateTime.parse(json['end_date']);
@@ -34,7 +34,7 @@ class MembershipInfo {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['membership_id'] = this.membershipId;
+    data['id'] = this.membershipId;
     data['organization'] = this.orgName;
     data['position_held'] = this.positionHeld;
     data['membership_ongoing'] = this.membershipOngoing;
