@@ -2,17 +2,18 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p7app/features/user_profile/models/portfolio_info.dart';
-import 'package:p7app/features/user_profile/styles/profile_common_style.dart';
+import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
 import 'package:p7app/main_app/resource/const.dart';
 
 class PortfolioListItemWidget extends StatelessWidget {
   final PortfolioInfo portfolioInfo;
   final Function onTapEdit;
   final bool isInEditMode;
+  final Function onTapDelete;
 
   const PortfolioListItemWidget({
     Key key,
-    @required this.portfolioInfo,this.onTapEdit,this.isInEditMode
+    @required this.portfolioInfo,this.onTapEdit,this.isInEditMode,this.onTapDelete
   }) : super(key: key);
 
   @override
@@ -22,7 +23,7 @@ class PortfolioListItemWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: Theme.of(context).backgroundColor,
         borderRadius: BorderRadius.circular(5),
-        boxShadow: ProfileCommonStyle.boxShadow,
+        boxShadow: CommonStyleTextField.boxShadow,
       ),
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: ListTile(
@@ -39,10 +40,25 @@ class PortfolioListItemWidget extends StatelessWidget {
           fit: BoxFit.cover,
         ),
         title: Text(portfolioInfo.name ?? ""),
-        subtitle: Text(portfolioInfo.description),
-        trailing: !isInEditMode?SizedBox():IconButton(
-          icon: Icon(FontAwesomeIcons.edit),
-          onPressed: onTapEdit,
+        subtitle: Text(portfolioInfo.description??""),
+        trailing:  !isInEditMode
+            ? SizedBox()
+            : Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            IconButton(
+              icon: Icon(FontAwesomeIcons.edit),
+              onPressed: onTapEdit,
+              iconSize: 18,
+              color: Colors.black,
+            ),
+            IconButton(
+              icon: Icon(FontAwesomeIcons.trash),
+              onPressed: onTapDelete,
+              iconSize: 18,
+              color: Colors.black,
+            ),
+          ],
         ),
       ),
     );

@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:p7app/features/user_profile/models/certification_info.dart';
 import 'package:p7app/features/user_profile/models/edu_info.dart';
 import 'package:p7app/features/user_profile/models/member_ship_info.dart';
+import 'package:p7app/features/user_profile/models/portfolio_info.dart';
 import 'package:p7app/features/user_profile/models/reference_data.dart';
 import 'package:p7app/features/user_profile/models/skill_info.dart';
 import 'package:p7app/features/user_profile/models/user_model.dart';
@@ -84,7 +85,6 @@ class UserProfileRepository {
 
     var data = referenceData.toJson();
     data.addAll({"professional_id": professionalId});
-
 
     try {
       var response = await ApiClient().postRequest(url, data);
@@ -180,8 +180,7 @@ class UserProfileRepository {
   }
 
   //Skills
-  Future<Either<AppError, SkillInfo>> addUserSkill(
-      SkillInfo skillInfo) async {
+  Future<Either<AppError, SkillInfo>> addUserSkill(SkillInfo skillInfo) async {
     BotToast.showLoading();
     var authUser = await AuthService.getInstance();
     var professionalId = authUser.getUser().professionalId;
@@ -189,7 +188,6 @@ class UserProfileRepository {
 
     var data = skillInfo.toJsonCreateNew();
     data.addAll({"professional_id": professionalId});
-
 
     try {
       var response = await ApiClient().postRequest(url, data);
@@ -255,118 +253,9 @@ class UserProfileRepository {
     }
   }
 
-  Future<Either<AppError, bool>> deleteUserSkill(
-      SkillInfo skillInfo) async {
+  Future<Either<AppError, bool>> deleteUserSkill(SkillInfo skillInfo) async {
     BotToast.showLoading();
     var url = "${Urls.professionalSkillUrl}/${skillInfo.profSkillId}/";
-    var data = {
-      "is_archived": true
-    };
-
-    try {
-      var response = await ApiClient().putRequest(url, data);
-      print(response.statusCode);
-      print(response.body);
-      if (response.statusCode == 200) {
-        BotToast.closeAllLoading();
-        return Right(true);
-      } else {
-        BotToast.closeAllLoading();
-        BotToast.showText(text: StringUtils.unableToSaveData);
-        return Left(AppError.unknownError);
-      }
-    } on SocketException catch (e) {
-      BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToSaveData);
-      print(e);
-      return left(AppError.networkError);
-    } catch (e) {
-      BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToSaveData);
-      print(e);
-      return left(AppError.serverError);
-    }
-  }
-
-
-  //Membership
-  Future<Either<AppError, MembershipInfo>> addUserMembership(
-      MembershipInfo membershipInfo) async {
-    BotToast.showLoading();
-    var authUser = await AuthService.getInstance();
-    var professionalId = authUser.getUser().professionalId;
-    var url = "${Urls.professionalMembershipUrl}/";
-
-    var data = membershipInfo.toJson();
-    data.addAll({"professional_id": professionalId});
-
-
-    try {
-      var response = await ApiClient().postRequest(url, data);
-      print(response.statusCode);
-      print(response.body);
-      if (response.statusCode == 200) {
-        BotToast.closeAllLoading();
-        MembershipInfo data = MembershipInfo.fromJson(json.decode(response.body));
-        return Right(data);
-      } else {
-        BotToast.closeAllLoading();
-        BotToast.showText(text: StringUtils.unableToSaveData);
-        return Left(AppError.unknownError);
-      }
-    } on SocketException catch (e) {
-      BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToSaveData);
-      print(e);
-      return left(AppError.networkError);
-    } catch (e) {
-      BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToSaveData);
-      print(e);
-      return left(AppError.serverError);
-    }
-  }
-
-  Future<Either<AppError, MembershipInfo>> updateUserMembership(
-      MembershipInfo membershipInfo) async {
-    BotToast.showLoading();
-    var authUser = await AuthService.getInstance();
-    var professionalId = authUser.getUser().professionalId;
-    var url = "${Urls.professionalMembershipUrl}/${membershipInfo.membershipId}/";
-
-    var data = membershipInfo.toJson();
-    data.addAll({"professional_id": professionalId});
-
-    try {
-      var response = await ApiClient().putRequest(url, data);
-      print(response.statusCode);
-      print(response.body);
-      if (response.statusCode == 200) {
-        BotToast.closeAllLoading();
-        MembershipInfo data = MembershipInfo.fromJson(json.decode(response.body));
-        return Right(data);
-      } else {
-        BotToast.closeAllLoading();
-        BotToast.showText(text: StringUtils.unableToSaveData);
-        return Left(AppError.unknownError);
-      }
-    } on SocketException catch (e) {
-      BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToSaveData);
-      print(e);
-      return left(AppError.networkError);
-    } catch (e) {
-      BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToSaveData);
-      print(e);
-      return left(AppError.serverError);
-    }
-  }
-
-  Future<Either<AppError, bool>> deleteUserMembership(
-      MembershipInfo membershipInfo) async {
-    BotToast.showLoading();
-    var url = "${Urls.professionalMembershipUrl}/${membershipInfo.membershipId}/";
     var data = {"is_archived": true};
 
     try {
@@ -394,11 +283,116 @@ class UserProfileRepository {
     }
   }
 
+  //Membership
+  Future<Either<AppError, MembershipInfo>> addUserMembership(
+      MembershipInfo membershipInfo) async {
+    BotToast.showLoading();
+    var authUser = await AuthService.getInstance();
+    var professionalId = authUser.getUser().professionalId;
+    var url = "${Urls.professionalMembershipUrl}/";
 
+    var data = membershipInfo.toJson();
+    data.addAll({"professional_id": professionalId});
+
+    try {
+      var response = await ApiClient().postRequest(url, data);
+      print(response.statusCode);
+      print(response.body);
+      if (response.statusCode == 200) {
+        BotToast.closeAllLoading();
+        MembershipInfo data =
+            MembershipInfo.fromJson(json.decode(response.body));
+        return Right(data);
+      } else {
+        BotToast.closeAllLoading();
+        BotToast.showText(text: StringUtils.unableToSaveData);
+        return Left(AppError.unknownError);
+      }
+    } on SocketException catch (e) {
+      BotToast.closeAllLoading();
+      BotToast.showText(text: StringUtils.unableToSaveData);
+      print(e);
+      return left(AppError.networkError);
+    } catch (e) {
+      BotToast.closeAllLoading();
+      BotToast.showText(text: StringUtils.unableToSaveData);
+      print(e);
+      return left(AppError.serverError);
+    }
+  }
+
+  Future<Either<AppError, MembershipInfo>> updateUserMembership(
+      MembershipInfo membershipInfo) async {
+    BotToast.showLoading();
+    var authUser = await AuthService.getInstance();
+    var professionalId = authUser.getUser().professionalId;
+    var url =
+        "${Urls.professionalMembershipUrl}/${membershipInfo.membershipId}/";
+
+    var data = membershipInfo.toJson();
+    data.addAll({"professional_id": professionalId});
+
+    try {
+      var response = await ApiClient().putRequest(url, data);
+      print(response.statusCode);
+      print(response.body);
+      if (response.statusCode == 200) {
+        BotToast.closeAllLoading();
+        MembershipInfo data =
+            MembershipInfo.fromJson(json.decode(response.body));
+        return Right(data);
+      } else {
+        BotToast.closeAllLoading();
+        BotToast.showText(text: StringUtils.unableToSaveData);
+        return Left(AppError.unknownError);
+      }
+    } on SocketException catch (e) {
+      BotToast.closeAllLoading();
+      BotToast.showText(text: StringUtils.unableToSaveData);
+      print(e);
+      return left(AppError.networkError);
+    } catch (e) {
+      BotToast.closeAllLoading();
+      BotToast.showText(text: StringUtils.unableToSaveData);
+      print(e);
+      return left(AppError.serverError);
+    }
+  }
+
+  Future<Either<AppError, bool>> deleteUserMembership(
+      MembershipInfo membershipInfo) async {
+    BotToast.showLoading();
+    var url =
+        "${Urls.professionalMembershipUrl}/${membershipInfo.membershipId}/";
+    var data = {"is_archived": true};
+
+    try {
+      var response = await ApiClient().putRequest(url, data);
+      print(response.statusCode);
+      print(response.body);
+      if (response.statusCode == 200) {
+        BotToast.closeAllLoading();
+        return Right(true);
+      } else {
+        BotToast.closeAllLoading();
+        BotToast.showText(text: StringUtils.unableToSaveData);
+        return Left(AppError.unknownError);
+      }
+    } on SocketException catch (e) {
+      BotToast.closeAllLoading();
+      BotToast.showText(text: StringUtils.unableToSaveData);
+      print(e);
+      return left(AppError.networkError);
+    } catch (e) {
+      BotToast.closeAllLoading();
+      BotToast.showText(text: StringUtils.unableToSaveData);
+      print(e);
+      return left(AppError.serverError);
+    }
+  }
 
   //Education
-  Future<Either<AppError, EduInfo>> addUserEducation(
-      EduInfo eduInfo) async {
+  Future<Either<AppError, EduInfo>> addUserEducation(EduInfo eduInfo) async {
     BotToast.showLoading();
     var authUser = await AuthService.getInstance();
     var professionalId = authUser.getUser().professionalId;
@@ -406,7 +400,6 @@ class UserProfileRepository {
 
     var data = eduInfo.toJson();
     data.addAll({"professional_id": professionalId});
-
 
     try {
       var response = await ApiClient().postRequest(url, data);
@@ -434,8 +427,7 @@ class UserProfileRepository {
     }
   }
 
-  Future<Either<AppError, EduInfo>> updateUserEducation(
-      EduInfo eduInfo) async {
+  Future<Either<AppError, EduInfo>> updateUserEducation(EduInfo eduInfo) async {
     BotToast.showLoading();
     var authUser = await AuthService.getInstance();
     var professionalId = authUser.getUser().professionalId;
@@ -473,7 +465,8 @@ class UserProfileRepository {
   Future<Either<AppError, bool>> deleteUserEducation(
       MembershipInfo membershipInfo) async {
     BotToast.showLoading();
-    var url = "${Urls.professionalEducationUrl}/${membershipInfo.membershipId}/";
+    var url =
+        "${Urls.professionalEducationUrl}/${membershipInfo.membershipId}/";
     var data = {"is_archived": true};
 
     try {
@@ -512,14 +505,14 @@ class UserProfileRepository {
     var data = certificationInfo.toJson();
     data.addAll({"professional_id": professionalId});
 
-
     try {
       var response = await ApiClient().postRequest(url, data);
       print(response.statusCode);
       print(response.body);
       if (response.statusCode == 200) {
         BotToast.closeAllLoading();
-        CertificationInfo data = CertificationInfo.fromJson(json.decode(response.body));
+        CertificationInfo data =
+            CertificationInfo.fromJson(json.decode(response.body));
         return Right(data);
       } else {
         BotToast.closeAllLoading();
@@ -544,7 +537,8 @@ class UserProfileRepository {
     BotToast.showLoading();
     var authUser = await AuthService.getInstance();
     var professionalId = authUser.getUser().professionalId;
-    var url = "${Urls.professionalCertificationUrl}/${certificationInfo.certificationId}/";
+    var url =
+        "${Urls.professionalCertificationUrl}/${certificationInfo.certificationId}/";
 
     var data = certificationInfo.toJson();
     data.addAll({"professional_id": professionalId});
@@ -555,7 +549,8 @@ class UserProfileRepository {
       print(response.body);
       if (response.statusCode == 200) {
         BotToast.closeAllLoading();
-        CertificationInfo data = CertificationInfo.fromJson(json.decode(response.body));
+        CertificationInfo data =
+            CertificationInfo.fromJson(json.decode(response.body));
         return Right(data);
       } else {
         BotToast.closeAllLoading();
@@ -578,7 +573,104 @@ class UserProfileRepository {
   Future<Either<AppError, bool>> deleteUserCertification(
       CertificationInfo certificationInfo) async {
     BotToast.showLoading();
-    var url = "${Urls.professionalCertificationUrl}/${certificationInfo.certificationId}/";
+    var url =
+        "${Urls.professionalCertificationUrl}/${certificationInfo.certificationId}/";
+    var data = {"is_archived": true};
+
+    try {
+      var response = await ApiClient().putRequest(url, data);
+      print(response.statusCode);
+      print(response.body);
+      if (response.statusCode == 200) {
+        BotToast.closeAllLoading();
+        return Right(true);
+      } else {
+        BotToast.closeAllLoading();
+        BotToast.showText(text: StringUtils.unableToSaveData);
+        return Left(AppError.unknownError);
+      }
+    } on SocketException catch (e) {
+      BotToast.closeAllLoading();
+      BotToast.showText(text: StringUtils.unableToSaveData);
+      print(e);
+      return left(AppError.networkError);
+    } catch (e) {
+      BotToast.closeAllLoading();
+      BotToast.showText(text: StringUtils.unableToSaveData);
+      print(e);
+      return left(AppError.serverError);
+    }
+  }
+
+  Future<Either<AppError, PortfolioInfo>> updateUserPortfolioInfo(
+      Map<String, dynamic> data, String portfolioId) async {
+    BotToast.showLoading();
+
+    var url = "${Urls.professionalPortfolioUrl}/$portfolioId/";
+    try {
+      var response = await ApiClient().putRequest(url, data);
+      print(response.statusCode);
+      print(response.body);
+      if (response.statusCode == 200) {
+        BotToast.closeAllLoading();
+        PortfolioInfo port =
+        PortfolioInfo.fromJson(json.decode(response.body));
+        return Right(port);
+      } else {
+        BotToast.closeAllLoading();
+        BotToast.showText(text: StringUtils.unableToSaveData);
+        return Left(AppError.unknownError);
+      }
+    } on SocketException catch (e) {
+      BotToast.closeAllLoading();
+      BotToast.showText(text: StringUtils.unableToSaveData);
+      print(e);
+      return left(AppError.networkError);
+    } catch (e) {
+      BotToast.closeAllLoading();
+      BotToast.showText(text: StringUtils.unableToSaveData);
+      print(e);
+      return left(AppError.serverError);
+    }
+  }
+
+  Future<Either<AppError, PortfolioInfo>> createPortfolioInfo(
+      Map<String, dynamic> data) async {
+    BotToast.showLoading();
+
+    var url = "${Urls.professionalPortfolioUrl}/";
+    try {
+      var response = await ApiClient().postRequest(url, data);
+      print(response.statusCode);
+      print(response.body);
+      if (response.statusCode == 200) {
+        BotToast.closeAllLoading();
+        PortfolioInfo port =
+        PortfolioInfo.fromJson(json.decode(response.body));
+        return Right(port);
+      } else {
+        BotToast.closeAllLoading();
+        BotToast.showText(text: StringUtils.unableToSaveData);
+        return Left(AppError.unknownError);
+      }
+    } on SocketException catch (e) {
+      BotToast.closeAllLoading();
+      BotToast.showText(text: StringUtils.unableToSaveData);
+      print(e);
+      return left(AppError.networkError);
+    } catch (e) {
+      BotToast.closeAllLoading();
+      BotToast.showText(text: StringUtils.unableToSaveData);
+      print(e);
+      return left(AppError.serverError);
+    }
+  }
+
+  Future<Either<AppError, bool>> deletePortfolio(
+      PortfolioInfo portfolio) async {
+    BotToast.showLoading();
+    var url =
+        "${Urls.professionalCertificationUrl}/${portfolio.portfolioId}/";
     var data = {"is_archived": true};
 
     try {
@@ -606,7 +698,6 @@ class UserProfileRepository {
     }
   }
 }
-
 
 //var dummyData = """ {
 //    "personal_info": {

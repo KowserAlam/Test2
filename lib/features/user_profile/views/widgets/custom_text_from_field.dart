@@ -15,10 +15,12 @@ class CustomTextFormField extends StatelessWidget {
   final TextInputAction textInputAction;
   final ValueChanged<String> onFieldSubmitted;
   final Widget prefix;
+  final Function onChanged;
 
   const CustomTextFormField({
     this.validator,
     this.prefix,
+    this.onChanged,
     this.textInputAction,
     this.autovalidate = false,
     this.controller,
@@ -56,6 +58,7 @@ class CustomTextFormField extends StatelessWidget {
             ],
           ),
           child: TextFormField(
+            onChanged: onChanged,
             onFieldSubmitted: onFieldSubmitted,
             autofocus: autofocus,
             focusNode: focusNode,

@@ -1,32 +1,45 @@
 import 'dart:async';
+import 'dart:convert';
 
+import 'package:bot_toast/bot_toast.dart';
+import 'package:p7app/main_app/api_helpers/api_client.dart';
+import 'package:p7app/main_app/api_helpers/urls.dart';
+import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/util/validator.dart';
 import 'package:flutter/foundation.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:http/http.dart' as http;
 
-
-class PasswordResetProvider with ChangeNotifier{
-
+class PasswordResetViewModel with ChangeNotifier {
   bool _isBusyEmail = false;
   bool _isBusyVerifyCode = false;
   bool _isBusyNewPassword = false;
-  String _emailErrorText = "";
-
-  var _inputStream = PublishSubject<String>();
+  String _emailErrorText;
   bool _isCodeResend = false;
   bool _isValidCode = true;
   bool _isObscureConfirmPassword = true;
   bool _isObscurePassword = true;
   bool _isBusyConfirmation = false;
   bool _passwordResetMethodIsEmail = true;
+  String _email;
 
+  String get email => _email;
+
+  set email(String value) {
+    _email = value;
+  }
+
+  String get emailErrorText => _emailErrorText;
+
+  set emailErrorText(String value) {
+    _emailErrorText = value;
+  }
 
   bool get passwordResetMethodIsEmail => _passwordResetMethodIsEmail;
 
   set passwordResetMethodIsEmail(bool value) {
     _passwordResetMethodIsEmail = value;
     notifyListeners();
-    _inputStream.addError("");
   }
 
   bool get isObscureConfirmPassword => _isObscureConfirmPassword;
@@ -69,6 +82,7 @@ class PasswordResetProvider with ChangeNotifier{
     _isBusyNewPassword = value;
     notifyListeners();
   }
+
   bool get isObscurePassword => _isObscurePassword;
 
   set isObscurePassword(bool value) {
@@ -83,43 +97,59 @@ class PasswordResetProvider with ChangeNotifier{
     notifyListeners();
   }
 
-  /// Handle SignUp Email Stream
-  Stream<String> get inputStream =>
-      _inputStream.stream.transform(_passwordResetMethodIsEmail?performEmailValidation:performPhoneValidation);
-
-  Function(String) get inputSink => _inputStream.sink.add;
-
-  String get emailErrorText => _emailErrorText ?? null;
-
-
-
-  @override
-  void dispose() {
-    _inputStream.close();
-    super.dispose();
+  validateEmailLocal(String email) {
+    emailErrorText = Validator().validateEmail(email);
+    _email = email;
+    notifyListeners();
   }
 
+  Future<bool> sendResetPasswordLink({ApiClient apiClient}) async {
+    var client = apiClient ?? ApiClient();
+    isBusyEmail = true;
+    var url = Urls.passwordResetUrl;
+    var body = {"email": _email};
 
+    try {
+      http.Response res = await client.postRequest(url, body);
+      print(res.statusCode);
+      print(res.body);
+      if (res.statusCode == 200) {
+        isBusyEmail = false;
+        return true;
+      }
+      else{
+        var data = json.decode(res.body);
+        _emailErrorText =data['email']?.toString()??StringUtils.somethingIsWrong;
+        isBusyEmail = false;
+        return false;
+      }
+    } catch (e) {
+      isBusyEmail = false;
+      print(e);
+
+//      BotToast.showText(text: null);
+      return false;
+    }
+  }
 
 }
-
 
 /// performing user input validations
 final performEmailValidation = StreamTransformer<String, String>.fromHandlers(
     handleData: (email, sink) async {
-      String result = Validator().validateEmail(email);
-      if (result == null) {
-        sink.add(email);
-      } else {
-        sink.addError(result);
-      }
-    });
+  String result = Validator().validateEmail(email);
+  if (result == null) {
+    sink.add(email);
+  } else {
+    sink.addError(result);
+  }
+});
 final performPhoneValidation = StreamTransformer<String, String>.fromHandlers(
     handleData: (value, sink) async {
-      String result = Validator().validatePhoneNumber(value);
-      if (result == null) {
-        sink.add(value);
-      } else {
-        sink.addError(result);
-      }
-    });
+  String result = Validator().validatePhoneNumber(value);
+  if (result == null) {
+    sink.add(value);
+  } else {
+    sink.addError(result);
+  }
+});

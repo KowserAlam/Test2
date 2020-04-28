@@ -28,7 +28,7 @@ class P7App extends StatelessWidget {
       ChangeNotifierProvider(create: (context) => LoginViewModel()),
       ChangeNotifierProvider(create: (context) => SignUpViewModel()),
       ChangeNotifierProvider(create: (context) => JobListViewModel()),
-      ChangeNotifierProvider(create: (context) => PasswordResetProvider()),
+      ChangeNotifierProvider(create: (context) => PasswordResetViewModel()),
       ChangeNotifierProvider(create: (context) => UserProfileViewModel()),
       ChangeNotifierProvider(create: (context) => SignUpViewModel()),
     ];

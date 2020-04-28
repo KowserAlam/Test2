@@ -2,9 +2,7 @@ class ReferenceData {
   int referenceId;
   String description;
 
-  ReferenceData(
-      {this.referenceId,
-        this.description});
+  ReferenceData({this.referenceId, this.description});
 
   ReferenceData.fromJson(Map<String, dynamic> json) {
     referenceId = json['id'];

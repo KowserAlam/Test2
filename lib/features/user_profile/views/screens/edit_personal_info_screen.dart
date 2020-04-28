@@ -9,7 +9,7 @@ import 'package:p7app/features/user_profile/repositories/gender_list_repository.
 import 'package:p7app/features/user_profile/repositories/nationality_list_repository.dart';
 import 'package:p7app/features/user_profile/repositories/religion_list_repository.dart';
 import 'package:p7app/features/user_profile/repositories/user_profile_repository.dart';
-import 'package:p7app/features/user_profile/styles/profile_common_style.dart';
+import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/features/user_profile/views/widgets/common_date_picker_widget.dart';
 import 'package:p7app/features/user_profile/views/widgets/custom_dropdown_button_form_field.dart';

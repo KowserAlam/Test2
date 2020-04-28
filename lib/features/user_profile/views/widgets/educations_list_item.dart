@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
-import 'package:p7app/features/user_profile/styles/profile_common_style.dart';
+import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
 
 import '../screens/add_edit_education_screen.dart';
 
@@ -27,7 +27,7 @@ class EducationsListItem extends StatelessWidget {
       decoration: BoxDecoration(
         color: backgroundColor,
         borderRadius: BorderRadius.circular(5),
-        boxShadow: ProfileCommonStyle.boxShadow,
+        boxShadow: CommonStyleTextField.boxShadow,
       ),
       child: ListTile(
         contentPadding: EdgeInsets.only(left: 5),

@@ -278,6 +278,7 @@ class StringUtils {
   static var currentDesignationHint =  "eg. Software Engineer";
   static var locationHintText = "eg. Dhaka, Bangladesh";
   static var editText = "Edit";
+  static var portfolioText = "Portfolio";
 
   /// Profile Screen *******************
   /// Personal Info
@@ -310,6 +311,7 @@ class StringUtils {
   static var setNewPasswordText = "Set new password";
   static var resetYourPassword = "Reset your Password";
   static var unableToSaveData = "Unable to save data";
+  static var aPasswordRestLinkHasBeenSentToText = "A password reset email has been sent to";
 
   /// Result Screen
 

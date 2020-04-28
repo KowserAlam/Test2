@@ -1,5 +1,6 @@
 import 'package:p7app/features/user_profile/models/certification_info.dart';
 import 'package:p7app/features/user_profile/models/member_ship_info.dart';
+import 'package:p7app/features/user_profile/models/portfolio_info.dart';
 import 'package:p7app/features/user_profile/models/reference_data.dart';
 import 'package:p7app/features/user_profile/models/skill_info.dart';
 import 'package:p7app/features/user_profile/models/user_model.dart';
@@ -265,4 +266,42 @@ class UserProfileViewModel with ChangeNotifier {
       });
     });
   }
+
+  Future<bool> createPortfolio({ @required Map<String,dynamic> data}){
+    return UserProfileRepository().createPortfolioInfo(data).then((res){
+      return res.fold((l){
+        print(l);
+        return false;
+      }, (r){
+        userData.portfolioInfo.add(r);
+        notifyListeners();
+        return true;
+      });
+    });
+  }
+  Future<bool> updatePortfolio({ @required Map<String,dynamic> data,@required   int index,@required  String portfolioId}){
+    return UserProfileRepository().updateUserPortfolioInfo(data,portfolioId).then((res){
+      return res.fold((l){
+        print(l);
+        return false;
+      }, (r){
+        userData.portfolioInfo[index] = r;
+        notifyListeners();
+        return true;
+      });
+    });
+  }
+  Future<bool> deletePortfolio(PortfolioInfo portfolioInfo,int index ){
+    return UserProfileRepository().deletePortfolio(portfolioInfo).then((res){
+      return res.fold((l){
+        print(l);
+        return false;
+      }, (r){
+        userData.portfolioInfo.removeAt(index);
+        notifyListeners();
+        return true;
+      });
+    });
+  }
+
 }

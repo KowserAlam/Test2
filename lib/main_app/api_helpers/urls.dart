@@ -13,7 +13,7 @@ class Urls {
   /// new
   static String loginUrl = "/api/sign_in/";
   static String signUpUrl = "/api/professional/create_with_user/";
-  static String passwordResetUrl = "api/professional/password_reset/";
+  static String passwordResetUrl = "/api/professional/password_reset/";
   static String dashboardUrl = "/api/app-dashboard";
 
   static String userProfileUrl = "/api/professional/profile";
@@ -24,6 +24,8 @@ class Urls {
   static String professionalEducationUrl = "/api/professional/professional_education";
   static String professionalMembershipUrl = "/api/professional/professional_membership";
   static String professionalCertificationUrl = "/api/professional/professional_certification";
+  static String professionalPortfolioUrl = " /api/professional/professional_portfolio";
+
 
 
   static String industryListUrl = "/api/industry/";
