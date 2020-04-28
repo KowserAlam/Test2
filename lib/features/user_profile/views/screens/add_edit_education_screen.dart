@@ -205,6 +205,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
         });
       },
     );
+
     var degree = FutureBuilder(
       future: DegreeListRepository().getList(),
       builder: (context,snap){
