@@ -39,6 +39,7 @@ dependencies:
   equatable: ^1.1.1
   autocomplete_textfield: ^1.7.3
   device_id: ^0.2.0
+  connectivity: ^0.4.8+2
 
 
 
