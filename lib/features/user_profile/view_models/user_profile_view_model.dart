@@ -267,8 +267,9 @@ class UserProfileViewModel with ChangeNotifier {
     });
   }
 
-  Future<bool> createPortfolio({ @required Map<String,dynamic> data}){
-    return UserProfileRepository().createPortfolioInfo(data).then((res){
+  Future<bool> addPortfolioInfo({ @required Map<String,dynamic> data, UserProfileRepository userProfileRepository})async{
+    var repository = userProfileRepository ?? UserProfileRepository();
+    var res = await repository.createPortfolioInfo(data);
       return res.fold((l){
         print(l);
         return false;
@@ -277,7 +278,7 @@ class UserProfileViewModel with ChangeNotifier {
         notifyListeners();
         return true;
       });
-    });
+
   }
   Future<bool> updatePortfolio({ @required Map<String,dynamic> data,@required   int index,@required  String portfolioId}){
     return UserProfileRepository().updateUserPortfolioInfo(data,portfolioId).then((res){
@@ -292,8 +293,9 @@ class UserProfileViewModel with ChangeNotifier {
     });
   }
 
-  Future<bool> deletePortfolio(PortfolioInfo portfolioInfo,int index ){
-    return UserProfileRepository().deletePortfolio(portfolioInfo).then((res){
+  Future<bool> deletePortfolio(PortfolioInfo portfolioInfo,int index ,{UserProfileRepository userProfileRepository}){
+    var repository = userProfileRepository ?? UserProfileRepository();
+    return repository.deletePortfolio(portfolioInfo).then((res){
       return res.fold((l){
         print(l);
         return false;

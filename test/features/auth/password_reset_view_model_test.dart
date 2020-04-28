@@ -32,8 +32,10 @@ main() {
 
     test("When request succes, should return ture", () async{
       var data = {'status':"ok"};
+
           when(client.postRequest(Urls.passwordResetUrl, {"email": "email"}))
         .thenAnswer((_) async => http.Response(json.encode(data), 200));
+
      bool res = await passwordResetViewModel.sendResetPasswordLink(apiClient: client);
       expect(res, true);
     });

@@ -96,7 +96,7 @@ class _EditPortfolioState extends State<EditPortfolio> {
         //add new item
 
         userProviderViewModel
-            .createPortfolio(
+            .addPortfolioInfo(
             data: data)
             .then((value) {
           if (value) {

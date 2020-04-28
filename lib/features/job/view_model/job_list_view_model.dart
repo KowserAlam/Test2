@@ -126,6 +126,8 @@ class JobListViewModel with ChangeNotifier {
     }
   }
 
+
+
   Future<bool> addToFavorite(String jobId, int index, {ApiClient apiClient}) async {
     BotToast.showLoading();
     var userId =
