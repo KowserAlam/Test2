@@ -8,6 +8,7 @@ class CustomTextFormField extends StatelessWidget {
   final String hintText;
   final TextInputType keyboardType;
   final int maxLines;
+  final int minLines;
   final EdgeInsetsGeometry contentPadding;
   final FocusNode focusNode;
   final bool autofocus;
@@ -29,6 +30,7 @@ class CustomTextFormField extends StatelessWidget {
     this.autofocus = false,
     this.labelText,
     this.hintText,
+    this.minLines,
     this.keyboardType,
     this.contentPadding =
         const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -58,6 +60,7 @@ class CustomTextFormField extends StatelessWidget {
             ],
           ),
           child: TextFormField(
+            minLines: minLines,
             onChanged: onChanged,
             onFieldSubmitted: onFieldSubmitted,
             autofocus: autofocus,

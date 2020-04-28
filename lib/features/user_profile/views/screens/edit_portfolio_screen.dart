@@ -230,7 +230,7 @@ class _EditPortfolioState extends State<EditPortfolio> {
                   //Name
                   CustomTextFormField(
                     keyboardType: TextInputType.text,
-                    maxLines: 8,
+                    minLines: 8,
                     focusNode: _portfolioDescriptionFocusNode,
                     textInputAction: TextInputAction.done,
                     onFieldSubmitted: (a) {

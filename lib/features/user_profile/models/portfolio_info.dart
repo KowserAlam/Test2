@@ -11,13 +11,13 @@ class PortfolioInfo {
   PortfolioInfo.fromJson(Map<String, dynamic> json) {
     String baseUrl = FlavorConfig?.instance?.values?.baseUrl;
     portfolioId = json['id'];
-    name = json['name'];
+    name = json['name']?.toString();
 
     if(json['image'] != null){
       image = "$baseUrl${json['image']}";
     }
 
-    description = json['description'];
+    description = json['description']?.toString();
   }
 
   Map<String, dynamic> toJson() {

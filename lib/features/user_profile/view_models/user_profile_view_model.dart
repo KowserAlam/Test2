@@ -291,6 +291,7 @@ class UserProfileViewModel with ChangeNotifier {
       });
     });
   }
+
   Future<bool> deletePortfolio(PortfolioInfo portfolioInfo,int index ){
     return UserProfileRepository().deletePortfolio(portfolioInfo).then((res){
       return res.fold((l){

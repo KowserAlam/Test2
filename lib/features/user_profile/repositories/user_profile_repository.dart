@@ -670,7 +670,7 @@ class UserProfileRepository {
       PortfolioInfo portfolio) async {
     BotToast.showLoading();
     var url =
-        "${Urls.professionalCertificationUrl}/${portfolio.portfolioId}/";
+        "${Urls.professionalPortfolioUrl}/${portfolio.portfolioId}/";
     var data = {"is_archived": true};
 
     try {
