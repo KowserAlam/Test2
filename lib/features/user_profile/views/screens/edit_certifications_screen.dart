@@ -217,6 +217,7 @@ class _EditCertificationState extends State<EditCertification> {
                       setState(() {_issueDate = null;});
                     },
                   ),
+                  //Has Expiry Date
                   Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.end,
@@ -241,6 +242,7 @@ class _EditCertificationState extends State<EditCertification> {
                     ],
                   ),
                   spaceBetweenFields,
+                  //ExpiryDate
                   hasExpiryDate?CommonDatePickerWidget(
                     label: StringUtils.certificationExpiryDateText,
                     date: _expirydate,
