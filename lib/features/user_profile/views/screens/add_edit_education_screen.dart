@@ -1,8 +1,10 @@
 import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:p7app/features/user_profile/models/edu_info.dart';
 import 'package:p7app/features/user_profile/models/institution.dart';
+import 'package:p7app/features/user_profile/models/major.dart';
 import 'package:p7app/features/user_profile/repositories/degree_list_repository.dart';
 import 'package:p7app/features/user_profile/repositories/institution_list_repository.dart';
+import 'package:p7app/features/user_profile/repositories/major_subject_list_repository.dart';
 import 'package:p7app/features/user_profile/repositories/user_profile_repository.dart';
 import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
@@ -15,6 +17,7 @@ import 'package:p7app/main_app/util/validator.dart';
 import 'package:p7app/main_app/widgets/edit_screen_save_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:p7app/main_app/widgets/loader.dart';
 import 'package:provider/provider.dart';
 import 'package:dartz/dartz.dart' as dartZ;
 import 'package:rxdart/rxdart.dart';
@@ -51,17 +54,25 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
   DateTime _graduationDate;
   Institution selectedInstitute;
 
+String selectedDegree;
+MajorSubject selectedMajorSubject;
+
   var autoCompleteTextKey =
       GlobalKey<AutoCompleteTextFieldState<Institution>>();
   final _institutionListStreamController = BehaviorSubject<List<Institution>>();
 
   initState() {
     if (widget.educationModel != null) {
+
+       selectedInstitute = widget.educationModel.institutionObj;
       _enrollDate = widget.educationModel.enrolledDate;
       _graduationDate = widget.educationModel.graduationDate;
-      institutionNameController.text = widget.educationModel.institution ?? "";
+      institutionNameController.text = selectedInstitute?.name ?? widget.educationModel.institutionText ?? "";
       gpaTextController.text = widget.educationModel.cgpa ?? "";
-      degreeTextController.text = widget.educationModel.qualification ?? "";
+      selectedDegree = widget.educationModel.degree;
+      selectedMajorSubject = widget.educationModel.major;
+      _enrollDate = widget.educationModel.enrolledDate;
+      _graduationDate = widget.educationModel.graduationDate;
     }
 
     _initRepos();
@@ -92,22 +103,49 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
     var isSuccess = _formKey.currentState.validate();
 
     if (isSuccess) {
+      var userProfileViewModel = Provider.of<UserProfileViewModel>(context,listen: false);
+
+      var insId = selectedInstitute?.id;
+
+      if(selectedInstitute != null){
+        if(selectedInstitute.name != institutionNameController.text){
+          insId = null;
+        }
+      }
+
       var education = EduInfo(
-        institution: selectedInstitute.id?.toString(),
+        educationId: widget.educationModel?.educationId,
+        institutionId: insId,
         cgpa: gpaTextController.text,
-        qualification: degreeTextController.text,
+        degree: selectedDegree,
+        major: selectedMajorSubject,
         enrolledDate: _enrollDate,
         graduationDate: _graduationDate,
+        institutionText: institutionNameController.text,
+
       );
 
-      UserProfileRepository().addUserEducation(education).then((value) {
-        value.fold((l) {
-          //error
-        }, (r) {
-          // right
-          Navigator.pop(context);
+
+      if(widget.educationModel == null){
+        // add new
+        userProfileViewModel.addEduInfo(education).then((value){
+          if(value){
+            Navigator.pop(context);
+          }
         });
-      });
+      }else{
+        // update existing
+        userProfileViewModel.updateEduInfo(education,index).then((value){
+          if(value){
+            Navigator.pop(context);
+          }
+        });
+
+
+      }
+
+
+
     }
   }
 
@@ -177,6 +215,77 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
             hintText: StringUtils.nameOfOInstitutionHintText,
           );
         });
+
+
+    var degree = FutureBuilder<dartZ.Either<AppError, List<String>>>(
+      future: DegreeListRepository().getList(),
+      builder:
+          (context, AsyncSnapshot<dartZ.Either<AppError, List<String>>> snap) {
+        if (snap.hasData) {
+          return snap.data.fold((l) {
+            return SizedBox();
+          }, (r) {
+            var items = r
+                .map((e) => DropdownMenuItem<String>(
+                      key: Key(e),
+                      value: e,
+                      child: Text(e ?? ""),
+                    ))
+                .toList();
+
+            return CustomDropdownButtonFormField<String>(
+              labelText: StringUtils.nameOfODegreeText,
+              hint: Text(StringUtils.tapToSelectText),
+              value: selectedDegree,
+              items: items,
+              onChanged: (v){
+                selectedDegree = v;
+                setState(() {
+
+                });
+
+              },
+            );
+          });
+        }else{
+          return Loader();
+        }
+      },
+    );
+    var major = FutureBuilder<dartZ.Either<AppError, List<MajorSubject>>>(
+      future: MajorSubListListRepository().getList(),
+      builder:
+          (context, AsyncSnapshot<dartZ.Either<AppError, List<MajorSubject>>> snap) {
+        if (snap.hasData) {
+          return snap.data.fold((l) {
+            return SizedBox();
+          }, (r) {
+            var items = r
+                .map((e) => DropdownMenuItem<MajorSubject>(
+                      key: Key(e.name),
+                      value: e,
+                      child: Text(e.name ?? ""),
+                    ))
+                .toList();
+
+            return CustomDropdownButtonFormField<MajorSubject>(
+              labelText: StringUtils.majorDateText,
+              hint: Text(StringUtils.tapToSelectText),
+              value: selectedMajorSubject,
+              items: items,
+              onChanged: (v){
+                selectedMajorSubject = v;
+                setState(() {
+
+                });
+              },
+            );
+          });
+        }else{
+          return Loader();
+        }
+      },
+    );
     var enrolledDate = CommonDatePickerWidget(
       date: _enrollDate,
       label: StringUtils.enrollDate,
@@ -205,18 +314,6 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
         });
       },
     );
-
-    var degree = FutureBuilder(
-      future: DegreeListRepository().getList(),
-      builder: (context,snap){
-        return SizedBox();
-      return CustomDropdownButtonFormField(
-        labelText: StringUtils.nameOfODegreeText,
-        value: null,
-        items: [],
-        onChanged: null,
-      );
-    },);
     var cgpa = CustomTextFormField(
       controller: gpaTextController,
       labelText: StringUtils.gpaText,
@@ -254,6 +351,8 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
 
                     ///Degree
                     degree,
+                    SizedBox(height: 15),
+                    major,
                     SizedBox(height: 15),
 
                     /// gpaText

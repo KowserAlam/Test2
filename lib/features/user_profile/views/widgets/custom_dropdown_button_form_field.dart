@@ -5,7 +5,7 @@ class CustomDropdownButtonFormField<T> extends StatelessWidget {
   final String labelText;
   final Widget hint;
   final  T value;
-  final  Function onChanged;
+  final ValueChanged<T> onChanged;
   final List<DropdownMenuItem<T>> items;
 
   CustomDropdownButtonFormField({

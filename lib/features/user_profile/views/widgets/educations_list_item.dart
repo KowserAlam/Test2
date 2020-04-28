@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
+import 'package:p7app/main_app/util/date_format_uitl.dart';
 
 import '../screens/add_edit_education_screen.dart';
 
@@ -12,15 +13,20 @@ class EducationsListItem extends StatelessWidget {
   final EduInfo eduInfoModel;
   final int index;
   final bool isInEditMode;
+  final Function onTapEdit;
+  final Function onTapDelete;
 
   EducationsListItem(
       {@required this.eduInfoModel,
       @required this.index,
+      this.onTapDelete,
+      this.onTapEdit,
       this.isInEditMode = false});
 
   @override
   Widget build(BuildContext context) {
     var backgroundColor = Theme.of(context).backgroundColor;
+    String date = eduInfoModel.graduationDate != null ? DateFormatUtil.formatDate(eduInfoModel.graduationDate):"";
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       margin: EdgeInsets.only(bottom: 8),
@@ -44,28 +50,35 @@ class EducationsListItem extends StatelessWidget {
           ),
         ),
         title: Text(
-          eduInfoModel.institution ?? "",
+          eduInfoModel.institutionObj?.name ??
+              eduInfoModel.institutionText ??
+              "",
         ),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(eduInfoModel.qualification ?? ""),
-            Text(eduInfoModel.graduationDate ?? ""),
+            Text(eduInfoModel.degree ?? ""),
+            Text(date),
           ],
         ),
         trailing: !isInEditMode
             ? null
-            : IconButton(
-                icon: Icon(FontAwesomeIcons.edit),
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      CupertinoPageRoute(
-                          builder: (context) => AddEditEducationScreen(
-                                educationModel: eduInfoModel,
-                                index: index,
-                              )));
-                },
+            : Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  IconButton(
+                    icon: Icon(FontAwesomeIcons.edit),
+                    onPressed: onTapEdit,
+                    iconSize: 18,
+                    color: Colors.black,
+                  ),
+                  IconButton(
+                    icon: Icon(FontAwesomeIcons.trash),
+                    onPressed: onTapDelete,
+                    iconSize: 18,
+                    color: Colors.black,
+                  ),
+                ],
               ),
       ),
     );

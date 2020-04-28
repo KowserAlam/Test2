@@ -27,6 +27,7 @@ class UserProfileRepository {
       debugPrint(professionalId);
       var url = "${Urls.userProfileUrl}/$professionalId";
       var response = await ApiClient().getRequest(url);
+      print(response.statusCode);
       var mapJson = json.decode(response.body);
 //      var mapJson = json.decode(dummyData);
       var userModel = UserModel.fromJson(mapJson);
@@ -463,10 +464,10 @@ class UserProfileRepository {
   }
 
   Future<Either<AppError, bool>> deleteUserEducation(
-      MembershipInfo membershipInfo) async {
+      EduInfo edInfo) async {
     BotToast.showLoading();
     var url =
-        "${Urls.professionalEducationUrl}/${membershipInfo.membershipId}/";
+        "${Urls.professionalEducationUrl}/${edInfo.educationId}/";
     var data = {"is_archived": true};
 
     try {

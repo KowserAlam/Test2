@@ -84,7 +84,7 @@ class CommonDatePickerWidget extends StatelessWidget {
     var _miniDate = maxDate?? DateTime.now().subtract(Duration(days: 360 * 100));
     var _maxDate = minDate??DateTime.now().add(Duration(days: 360 * 10));
 
-    onDateTimeChanged(DateTime.now());
+    onDateTimeChanged( date ?? DateTime.now());
 
     showDialog(
         context: context,

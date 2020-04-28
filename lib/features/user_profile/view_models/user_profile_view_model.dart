@@ -1,4 +1,5 @@
 import 'package:p7app/features/user_profile/models/certification_info.dart';
+import 'package:p7app/features/user_profile/models/edu_info.dart';
 import 'package:p7app/features/user_profile/models/member_ship_info.dart';
 import 'package:p7app/features/user_profile/models/portfolio_info.dart';
 import 'package:p7app/features/user_profile/models/reference_data.dart';
@@ -307,4 +308,42 @@ class UserProfileViewModel with ChangeNotifier {
     });
   }
 
+
+  Future<bool> addEduInfo(EduInfo eduInfo){
+    return UserProfileRepository().addUserEducation(eduInfo).then((res){
+      return res.fold((l){
+        print(l);
+        return false;
+      }, (r){
+        userData.eduInfo.add(r);
+        notifyListeners();
+        return true;
+      });
+    });
+  }
+
+  Future<bool> updateEduInfo(EduInfo eduInfo,int index){
+    return UserProfileRepository().updateUserEducation(eduInfo).then((res){
+      return res.fold((l){
+        print(l);
+        return false;
+      }, (r){
+        userData.eduInfo[index] = r;
+        notifyListeners();
+        return true;
+      });
+    });
+  }
+  Future<bool> deleteEduInfo(EduInfo eduInfo,int index){
+    return UserProfileRepository().deleteUserEducation(eduInfo).then((res){
+      return res.fold((l){
+        print(l);
+        return false;
+      }, (r){
+        userData.eduInfo.removeAt(index);
+        notifyListeners();
+        return true;
+      });
+    });
+  }
 }

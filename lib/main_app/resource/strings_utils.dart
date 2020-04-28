@@ -221,6 +221,7 @@ class StringUtils {
   static String currentlyStudyingHereText = "I'm currently studying here";
   static String startingDateText = "Starting Date";
   static String chooseDateText = "Choose Date";
+  static String majorDateText = "Major";
 
   /// login screen
 
@@ -361,6 +362,7 @@ static const String yearsOfExperience = 'Experience: ';
 static const String jobLocation = 'Location: ';
 static const String salary = 'Salary: ';
 static const String gender = 'Gender: ';
+static const String tapToSelectText = 'Tap to select';
 static const String applicationDeadline = 'Deadline: ';
 static const String requiredSkills = 'Skill Requirement';
 static const String benefitSectionTitle = 'Benefits';

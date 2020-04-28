@@ -422,6 +422,15 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
             eduInfoModel: eduList[i],
             index: i,
             isInEditMode: isInEditModeEducation,
+            onTapDelete: (){
+              Provider.of<UserProfileViewModel>(context,listen: false).deleteEduInfo(eduList[i], i);
+            },
+            onTapEdit: (){
+              Navigator.push(
+                  context,
+                  CupertinoPageRoute(
+                      builder: (context) => AddEditEducationScreen(educationModel: eduList[i],index: i,)));
+            },
           );
         }),
       );

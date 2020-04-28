@@ -154,7 +154,7 @@ packages:
       name: dartz
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.8.9"
+    version: "0.9.0"
   device_id:
     dependency: "direct main"
     description:
@@ -215,7 +215,7 @@ packages:
       name: flutter_image_compress
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.6.5+1"
+    version: "0.6.7"
   flutter_launcher_icons:
     dependency: "direct dev"
     description:
@@ -288,7 +288,7 @@ packages:
       name: http
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.12.0+4"
+    version: "0.12.1"
   http_multi_server:
     dependency: transitive
     description:
@@ -519,7 +519,7 @@ packages:
       name: provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.0.5"
+    version: "4.0.5+1"
   pub_semver:
     dependency: transitive
     description:
