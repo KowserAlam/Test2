@@ -165,6 +165,7 @@ class StringUtils {
 
   //Reference Edit Screen
   static var referenceDescriptionText = "Description";
+  static var referenceAppbarText = "Reference";
 
 
   //Membership Edit Screen
@@ -244,6 +245,7 @@ class StringUtils {
   static var skillNameText = "Name of Skill";
   static var skillNameExample = "eg. Python";
   static var expertiseLevel = "Expertise level:";
+  static var searchSkillText = "Search your skill";
 
   /// Verify Screen
 
