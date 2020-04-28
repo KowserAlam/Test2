@@ -50,7 +50,7 @@ class _EditMemberShipsState extends State<EditMemberShips> {
     if(widget.membershipInfo != null){
       _orgNameController.text = widget.membershipInfo.orgName;
       _positionHeldController.text = widget.membershipInfo.positionHeld;
-      _descriptionController.text = widget.membershipInfo.desceription;
+      _descriptionController.text = widget.membershipInfo.description;
       _startDate =  widget.membershipInfo.startDate;
       _endDate =  widget.membershipInfo.endDate;
     }
@@ -62,9 +62,9 @@ class _EditMemberShipsState extends State<EditMemberShips> {
     if (isValid) {
       var membershipInfo = MembershipInfo(
         //membershipId: widget.membershipInfo?.membershipId,
-        //orgName: _orgNameController.text,
-        positionHeld: _positionHeldController.text,
-        desceription: _descriptionController.text
+        orgName: _orgNameController.text,
+        //positionHeld: _positionHeldController.text,
+        //description: _descriptionController.text
       );
 
       if (widget.membershipInfo != null) {

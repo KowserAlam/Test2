@@ -190,7 +190,7 @@ class _AddEditTechnicalSkillState extends State<AddEditTechnicalSkill> {
                             child: AutoCompleteTextField<Skill>(
                               style: TextStyle(color: Colors.black, fontSize: 16),
                               decoration: InputDecoration.collapsed(
-                                hintText: "Search your skills.",
+                                hintText: StringUtils.searchSkillText,
                               ),
                               itemBuilder: (context, skill) {
                                 return Container(
@@ -239,7 +239,7 @@ class _AddEditTechnicalSkillState extends State<AddEditTechnicalSkill> {
                       child: TextField(
                         style: TextStyle(color: Colors.black, fontSize: 16),
                         decoration: InputDecoration.collapsed(
-                          hintText: "Search your skills.",
+                          hintText: StringUtils.searchSkillText,
                         ),
                         controller: searchController,
                       ),
