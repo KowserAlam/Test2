@@ -5,6 +5,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:p7app/features/user_profile/models/certification_info.dart';
 import 'package:p7app/features/user_profile/models/edu_info.dart';
+import 'package:p7app/features/user_profile/models/experience_info.dart';
 import 'package:p7app/features/user_profile/models/member_ship_info.dart';
 import 'package:p7app/features/user_profile/models/portfolio_info.dart';
 import 'package:p7app/features/user_profile/models/reference_data.dart';
@@ -602,6 +603,116 @@ class UserProfileRepository {
     }
   }
 
+
+  //Experience
+  Future<Either<AppError, ExperienceInfo>> addUserExperience(
+      ExperienceInfo experienceInfo) async {
+    BotToast.showLoading();
+    var authUser = await AuthService.getInstance();
+    var professionalId = authUser.getUser().professionalId;
+    var url = "${Urls.professionalExperienceUrl}/";
+
+    var data = experienceInfo.toJson();
+    data.addAll({"professional_id": professionalId});
+
+    try {
+      var response = await ApiClient().postRequest(url, data);
+      print(response.statusCode);
+      print(response.body);
+      if (response.statusCode == 200) {
+        BotToast.closeAllLoading();
+        ExperienceInfo data =
+        ExperienceInfo.fromJson(json.decode(response.body));
+        return Right(data);
+      } else {
+        BotToast.closeAllLoading();
+        BotToast.showText(text: StringUtils.unableToSaveData);
+        return Left(AppError.unknownError);
+      }
+    } on SocketException catch (e) {
+      BotToast.closeAllLoading();
+      BotToast.showText(text: StringUtils.unableToSaveData);
+      print(e);
+      return left(AppError.networkError);
+    } catch (e) {
+      BotToast.closeAllLoading();
+      BotToast.showText(text: StringUtils.unableToSaveData);
+      print(e);
+      return left(AppError.serverError);
+    }
+  }
+
+  Future<Either<AppError, ExperienceInfo>> updateUserExperience(
+      ExperienceInfo experienceInfo) async {
+    BotToast.showLoading();
+    var authUser = await AuthService.getInstance();
+    var professionalId = authUser.getUser().professionalId;
+    var url =
+        "${Urls.professionalExperienceUrl}/${experienceInfo.experienceId}/";
+
+    var data = experienceInfo.toJson();
+    data.addAll({"professional_id": professionalId});
+
+    try {
+      var response = await ApiClient().putRequest(url, data);
+      print(response.statusCode);
+      print(response.body);
+      if (response.statusCode == 200) {
+        BotToast.closeAllLoading();
+        ExperienceInfo data =
+        ExperienceInfo.fromJson(json.decode(response.body));
+        return Right(data);
+      } else {
+        BotToast.closeAllLoading();
+        BotToast.showText(text: StringUtils.unableToSaveData);
+        return Left(AppError.unknownError);
+      }
+    } on SocketException catch (e) {
+      BotToast.closeAllLoading();
+      BotToast.showText(text: StringUtils.unableToSaveData);
+      print(e);
+      return left(AppError.networkError);
+    } catch (e) {
+      BotToast.closeAllLoading();
+      BotToast.showText(text: StringUtils.unableToSaveData);
+      print(e);
+      return left(AppError.serverError);
+    }
+  }
+
+  Future<Either<AppError, bool>> deleteUserExperience(
+      ExperienceInfo experienceInfo) async {
+    BotToast.showLoading();
+    var url =
+        "${Urls.professionalExperienceUrl}/${experienceInfo.experienceId}/";
+    var data = {"is_archived": true};
+
+    try {
+      var response = await ApiClient().putRequest(url, data);
+      print(response.statusCode);
+      print(response.body);
+      if (response.statusCode == 200) {
+        BotToast.closeAllLoading();
+        return Right(true);
+      } else {
+        BotToast.closeAllLoading();
+        BotToast.showText(text: StringUtils.unableToSaveData);
+        return Left(AppError.unknownError);
+      }
+    } on SocketException catch (e) {
+      BotToast.closeAllLoading();
+      BotToast.showText(text: StringUtils.unableToSaveData);
+      print(e);
+      return left(AppError.networkError);
+    } catch (e) {
+      BotToast.closeAllLoading();
+      BotToast.showText(text: StringUtils.unableToSaveData);
+      print(e);
+      return left(AppError.serverError);
+    }
+  }
+
+  //Portfolio
   Future<Either<AppError, PortfolioInfo>> updateUserPortfolioInfo(
       Map<String, dynamic> data, String portfolioId) async {
     BotToast.showLoading();
