@@ -9,9 +9,10 @@ import 'package:p7app/main_app/resource/const.dart';
 class ExperienceListItem extends StatelessWidget {
   final ExperienceInfo experienceInfoModel;
   final Function onTapEdit;
+  final Function onTapDelete;
   final bool isInEditMode;
 
-  ExperienceListItem({this.experienceInfoModel, this.onTapEdit,this.isInEditMode});
+  ExperienceListItem({this.experienceInfoModel, this.onTapEdit,this.isInEditMode,this.onTapDelete});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class ExperienceListItem extends StatelessWidget {
     var backgroundColor = Theme.of(context).backgroundColor;
 
 
-    String startDate = experienceInfoModel.startedDate != null ?  "${DateFormat().add_yMMMd().format(experienceInfoModel.startedDate)} " :"";
+    String startDate = experienceInfoModel.startDate != null ?  "${DateFormat().add_yMMMd().format(experienceInfoModel.startDate)} " :"";
    String date = "$startDate"
         "- ${experienceInfoModel.endDate == null ? "Ongoing" : DateFormat().add_yMMMd().format(experienceInfoModel.endDate)}";
 
@@ -51,10 +52,23 @@ class ExperienceListItem extends StatelessWidget {
             ),
           ],
         ),
-        trailing: !isInEditMode?SizedBox():IconButton(
-          icon: Icon(FontAwesomeIcons.edit),
-          onPressed: onTapEdit,
-        ),
+          trailing: !isInEditMode?SizedBox():Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              IconButton(
+                icon: Icon(FontAwesomeIcons.edit),
+                onPressed: onTapEdit,
+                iconSize: 18,
+                color: Colors.black,
+              ),
+              IconButton(
+                icon: Icon(FontAwesomeIcons.trash),
+                onPressed: onTapDelete,
+                iconSize: 18,
+                color: Colors.black,
+              ),
+            ],
+          ),
       ),
     );
   }
