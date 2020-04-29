@@ -383,7 +383,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
           Navigator.push(
               context,
               CupertinoPageRoute(
-                  builder: (context) => AddNewExperienceScreen()));
+                  builder: (context) => AddNewExperienceScreen(previouslyAddedExp: expList)));
         },
         children: List.generate(expList.length, (int index) {
           var exp = expList[index];
@@ -397,7 +397,11 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                       builder: (context) => AddNewExperienceScreen(
                             index: index,
                             experienceInfoModel: exp,
+                        previouslyAddedExp: expList,
                           )));
+            },
+            onTapDelete: () {
+              userProfileViewModel.deleteExperienceData(exp, index);
             },
           );
         }),

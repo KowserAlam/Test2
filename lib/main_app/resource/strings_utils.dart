@@ -156,7 +156,7 @@ class StringUtils {
   static var membershipsText = "Memberships";
   static var otherText = "Other";
   static var referencesText = "References";
-  static var personalInfoText = "Personal Informations";
+  static var personalInfoText = "Personal Information";
   static var editPersonalInfoText = "Edit Personal Information";
   static var contactText = "Contact";
 
@@ -206,6 +206,7 @@ class StringUtils {
   static String currentlyWorkingHereText = "Currently working here";
   static String joining = "Currently working here";
   static String joiningLeavingDateLogic = "Please make sure your joining date occurs before your leaving date";
+  static String sameExperience = "You\'ve already added this skill before.";
 
 
 

@@ -1,25 +1,31 @@
 import 'dart:math';
 
 import 'package:after_layout/after_layout.dart';
+import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:p7app/features/user_profile/models/experience_info.dart';
+import 'package:p7app/features/user_profile/repositories/organization_list_repository.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/features/user_profile/views/widgets/common_date_picker_widget.dart';
 import 'package:p7app/features/user_profile/views/widgets/custom_text_from_field.dart';
+import 'package:p7app/main_app/failure/error.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/util/validator.dart';
 import 'package:p7app/main_app/widgets/edit_screen_save_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:dartz/dartz.dart' as dartZ;
+
 
 
 class AddNewExperienceScreen extends StatefulWidget {
   final ExperienceInfo experienceInfoModel;
   final int index;
+  final List<ExperienceInfo> previouslyAddedExp;
 
 
-  AddNewExperienceScreen({this.experienceInfoModel, this.index,});
+  AddNewExperienceScreen({this.experienceInfoModel, this.index,this.previouslyAddedExp});
 
   @override
   _AddNewExperienceScreenState createState() =>
@@ -32,12 +38,15 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
   final int index;
   bool currentLyWorkingHere = false;
   DateTime _joiningDate, _leavingDate;
+  static GlobalKey<AutoCompleteTextFieldState<String>> key = new GlobalKey();
+  String _selectedCompanyId;
+  int _experienceId;
 
   _AddNewExperienceScreenState(this.experienceModel, this.index);
 
   TextEditingController organizationNameController = TextEditingController();
   TextEditingController positionNameController = TextEditingController();
-  TextEditingController roleNameController = TextEditingController();
+
 
   var _formKey = GlobalKey<FormState>();
   var _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -45,8 +54,14 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
   @override
   void initState() {
     // TODO: implement initState
-    organizationNameController.text = widget.experienceInfoModel.organizationName;
-    positionNameController.text = widget.experienceInfoModel.organizationName??"";
+    if(widget.experienceInfoModel != null){
+      organizationNameController.text = widget.experienceInfoModel.organizationName??"";
+      positionNameController.text = widget.experienceInfoModel.designation??"";
+      _joiningDate = widget.experienceInfoModel.startDate;
+      _leavingDate = widget.experienceInfoModel.endDate;
+      _selectedCompanyId = widget.experienceInfoModel.organizationId??null;
+      _experienceId = widget.experienceInfoModel.experienceId??null;
+    }
     super.initState();
   }
 
@@ -55,16 +70,104 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
 
   }
 
+  bool sameExperience(String input){
+    int x = 0;
+    for(int i =0; i<widget.previouslyAddedExp.length; i++){
+      if(input == widget.previouslyAddedExp[i].organizationName) {
+        x++;
+      }
+    }
+    if(x==0){return true;}else {return false;};
+  }
+
   _handleSave() {
     var isSuccess = _formKey.currentState.validate();
     if(isSuccess){
       //Form validated
-      if(_joiningDate != null && _leavingDate != null){
-        if(_joiningDate.isBefore(_leavingDate)){
-          var experienceInfo = ExperienceInfo();
-        }else{BotToast.showText(text: StringUtils.joiningLeavingDateLogic);}
-      }else{
+      if(_selectedCompanyId != null){
+        if(organizationNameController.text != _selectedCompanyId){
+          _selectedCompanyId = null;
+          setState(() {
 
+          });
+        }
+      }
+      var experienceInfo = ExperienceInfo(
+          experienceId: widget.experienceInfoModel?.experienceId,
+          organizationName: organizationNameController.text,
+          designation: positionNameController.text,
+          organizationId: _selectedCompanyId,
+          startDate: _joiningDate,
+          endDate: _leavingDate
+      );
+      if(organizationNameController.text != widget.experienceInfoModel.organizationName){
+        if(sameExperience(organizationNameController.text)){
+          if(_joiningDate != null && _leavingDate != null){
+            if(_joiningDate.isBefore(_leavingDate)){
+              //Date is ok
+              if(_selectedCompanyId != null){
+                if(organizationNameController.text != _selectedCompanyId){
+                  _selectedCompanyId = null;
+                  setState(() {
+
+                  });
+                }
+              }
+              var experienceInfo = ExperienceInfo(
+                  experienceId: widget.experienceInfoModel?.experienceId,
+                  organizationName: organizationNameController.text,
+                  designation: positionNameController.text,
+                  organizationId: _selectedCompanyId,
+                  startDate: _joiningDate,
+                  endDate: _leavingDate
+              );
+              if (widget.experienceInfoModel != null) {
+                /// updating existing data
+                print('Updating');
+                Provider.of<UserProfileViewModel>(context, listen: false)
+                    .updateExperienceData(experienceInfo, widget.index)
+                    .then((value) {
+                  if (value) {
+                    Navigator.pop(context);
+                  }
+                });
+              } else {
+                /// adding new data
+                Provider.of<UserProfileViewModel>(context, listen: false)
+                    .addExperienceData(experienceInfo)
+                    .then((value) {
+                  if (value) {
+                    Navigator.pop(context);
+                  }
+                });
+              }
+            }else{BotToast.showText(text: StringUtils.joiningLeavingDateLogic);}
+          }else{
+
+            if (widget.experienceInfoModel != null) {
+              /// updating existing data
+              print('Updating');
+              Provider.of<UserProfileViewModel>(context, listen: false)
+                  .updateExperienceData(experienceInfo, widget.index)
+                  .then((value) {
+                if (value) {
+                  Navigator.pop(context);
+                }
+              });
+            } else {
+              /// adding new data
+              Provider.of<UserProfileViewModel>(context, listen: false)
+                  .addExperienceData(experienceInfo)
+                  .then((value) {
+                if (value) {
+                  Navigator.pop(context);
+                }
+              });
+            }
+          }
+        }else{
+          BotToast.showText(text: StringUtils.sameExperience);
+        }
       }
     }
   }
@@ -100,13 +203,86 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      ///Name
-                      CustomTextFormField(
-                        validator: Validator().nullFieldValidate,
-                        controller: organizationNameController,
-                        hintText: StringUtils.nameOfOrganizationEg,
-                        labelText: StringUtils.nameOfOrganizationText,
-                      ),
+                      ///Organization Name
+                      FutureBuilder<dartZ.Either<AppError, List<String>>>(
+                          future: CompanyListRepository().getCompanyList(),
+                          builder: (BuildContext context, AsyncSnapshot<dartZ.Either<AppError, List<String>>> snapshot){
+                          if(snapshot.hasData){
+                            return snapshot.data.fold((l){
+                              print("no data");
+                              return SizedBox();
+                            }, (r){
+                                return Container(
+                                    padding: EdgeInsets.symmetric(horizontal: 8),
+                                    decoration: BoxDecoration(
+                                      color: Theme.of(context).backgroundColor,
+                                      borderRadius: BorderRadius.circular(7),
+                                      boxShadow: [
+                                        BoxShadow(
+                                            color: Color(0xff000000).withOpacity(0.2), blurRadius: 20),
+                                        BoxShadow(
+                                            color: Color(0xfffafafa).withOpacity(0.2), blurRadius: 20),
+                                      ],
+                                    ),
+                                    child: AutoCompleteTextField<String>(
+                                      style: TextStyle(color: Colors.black, fontSize: 16),
+                                      decoration: InputDecoration.collapsed(
+                                        hintText: StringUtils.searchSkillText,
+                                      ),
+                                      itemBuilder: (context, orgName) {
+                                        return Container(
+                                          padding: EdgeInsets.symmetric(vertical: 5, horizontal: 2),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            children: <Widget>[
+                                              Text(orgName,
+                                                style: TextStyle(
+                                                    fontSize: 16.0
+                                                ),),
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                      key:  key,
+                                      clearOnSubmit: false,
+                                      controller: organizationNameController,
+                                      itemFilter: (orgName, query){
+                                        return orgName.toLowerCase().startsWith(query.toLowerCase());
+                                      },
+                                      itemSorter: (a,b){
+                                        return a.compareTo(b);
+                                      },
+                                      itemSubmitted: (orgName){
+                                        organizationNameController.text = orgName;
+                                        _selectedCompanyId = orgName;
+                                        print(_selectedCompanyId);
+                                      },
+                                      suggestions: r,
+                                    ));
+                              });
+                            };
+                            return Container(
+                              padding: EdgeInsets.symmetric(horizontal: 8),
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).backgroundColor,
+                                borderRadius: BorderRadius.circular(7),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Color(0xff000000).withOpacity(0.2), blurRadius: 20),
+                                  BoxShadow(
+                                      color: Color(0xfffafafa).withOpacity(0.2), blurRadius: 20),
+                                ],
+                              ),
+                              child: TextField(
+                                style: TextStyle(color: Colors.black, fontSize: 16),
+                                decoration: InputDecoration.collapsed(
+                                  hintText: StringUtils.searchSkillText,
+                                ),
+                                controller: organizationNameController,
+                              ),
+                            );
+                          },
+                    ),
                       spaceBetweenSections,
 
                       /// Position
@@ -117,17 +293,6 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
                         hintText: StringUtils.positionTextEg,
                       ),
                       spaceBetweenSections,
-
-                      /// Role
-                      CustomTextFormField(
-                        controller: roleNameController,
-                        keyboardType: TextInputType.multiline,
-                        maxLines: null,
-                        labelText: StringUtils.roleText,
-                        hintText: StringUtils.roleTextEg,
-                        contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 10),
-                      ),
 
                       /// Joining Date
                       CommonDatePickerWidget(
@@ -152,6 +317,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
                         onDateTimeChanged: (v){
                           setState(() {
                             _leavingDate = v;
+                            print(_leavingDate);
                           });
                         },
                         onTapDateClear: (){
@@ -171,93 +337,6 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
     );
   }
 
-  _showJoinDatePicker(context) {
-
-    var initialDate = DateTime.now();
-
-    showDialog(
-        context: context,
-        builder: (context) {
-          return Center(
-            child: Container(
-              height: MediaQuery.of(context).size.height / 2,
-              width: MediaQuery.of(context).size.width / 1.3,
-              child: Material(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    Expanded(
-                      child: CupertinoTheme(
-                        data: CupertinoThemeData(brightness: Theme.of(context).brightness),
-                        child: CupertinoDatePicker(
-                          initialDateTime: initialDate,
-                          mode: CupertinoDatePickerMode.date,
-                          onDateTimeChanged: (v){},
-                        ),
-                      ),
-                    ),
-                    InkWell(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Icon(
-                            Icons.done,
-                            color: Theme.of(context).primaryColor,
-                          ),
-                        ),
-                        onTap: () {
-                          Navigator.pop(context);
-                        }),
-                  ],
-                ),
-              ),
-            ),
-          );
-        });
-  }
-
-  _showLeavingDatePicker(context) {
-
-    var initialDate = DateTime.now();
-
-    showDialog(
-        context: context,
-        builder: (context) {
-          return Center(
-            child: Container(
-              height: MediaQuery.of(context).size.height / 2,
-              width: MediaQuery.of(context).size.width / 1.3,
-              child: Material(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    Expanded(
-                      child: CupertinoTheme(
-                        data: CupertinoThemeData(brightness: Theme.of(context).brightness),
-                        child: CupertinoDatePicker(
-                          initialDateTime: initialDate,
-                          mode: CupertinoDatePickerMode.date,
-                          onDateTimeChanged: (v){},
-                        ),
-                      ),
-                    ),
-                    InkWell(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Icon(
-                            Icons.done,
-                            color: Theme.of(context).primaryColor,
-                          ),
-                        ),
-                        onTap: () {
-                          Navigator.pop(context);
-                        }),
-                  ],
-                ),
-              ),
-            ),
-          );
-        });
-  }
 }
 
 class ErrorWidget extends StatelessWidget {
