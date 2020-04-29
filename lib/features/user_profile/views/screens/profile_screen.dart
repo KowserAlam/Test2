@@ -271,28 +271,32 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                     )));
       },
     );
-    var userLocationWidget = Row(
-      children: <Widget>[
-        Icon(
-          FontAwesomeIcons.mapMarkerAlt,
-          size: 10,
-          color: profileHeaderFontColor,
-        ),
-        SizedBox(
-          width: 3,
-        ),
-        Selector<UserProfileViewModel, String>(
-            selector: (_, userProfileViewModel) =>
-                userProfileViewModel.userData.personalInfo.currentLocation,
-            builder: (context, String data, _) {
-              return Text(
+    var userLocationWidget =       Selector<UserProfileViewModel, String>(
+        selector: (_, userProfileViewModel) =>
+        userProfileViewModel.userData.personalInfo.currentLocation,
+        builder: (context, String data, _) {
+
+          if(data == null){
+            return SizedBox();
+          }
+          return Row(
+            children: <Widget>[
+              Icon(
+                FontAwesomeIcons.mapMarkerAlt,
+                size: 10,
+                color: profileHeaderFontColor,
+              ),
+              SizedBox(
+                width: 3,
+              ),
+              Text(
                 data ?? "",
                 style: TextStyle(
                     color: profileHeaderFontColor, fontWeight: FontWeight.w100),
-              );
-            }),
-      ],
-    );
+              ),
+            ],
+          );
+        });
     var emailWidget = Selector<UserProfileViewModel, String>(
         selector: (_, userProfileViewModel) =>
             userProfileViewModel.userData.personalInfo.email,

@@ -130,6 +130,8 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
         "current_company": _currentCompanyEditingController.text,
       };
 
+
+
       if (fileProfileImage != null) {
         data.addAll({'image': getBase64Image()});
       }
@@ -278,9 +280,9 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
             ///about
             CustomTextFormField(
               controller: _aboutTextEditingController,
-              validator: Validator().nullFieldValidate,
               keyboardType: TextInputType.multiline,
-              maxLines: 5,
+              minLines: 3,
+              maxLines: 8,
               labelText: StringUtils.aboutMeText,
               hintText: StringUtils.aboutHintText,
             ),

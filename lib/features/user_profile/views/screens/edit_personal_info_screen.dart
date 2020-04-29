@@ -75,7 +75,6 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
   @override
   void initState() {
     // TODO: implement initState
-    _chosenDate = widget.userModel.personalInfo.dateOfBirth;
     var personalInfo = widget.userModel.personalInfo;
     _fatherNameController.text = personalInfo.fatherName ?? "";
     _motherNameController.text = personalInfo.motherName ?? "";
@@ -83,8 +82,8 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
     _currentAddressController.text = personalInfo.address ?? "";
     _permanentAddressController.text = personalInfo.permanentAddress ?? "";
 
-    _selectedReligionDropDownItem = personalInfo.religionObj;
-    _selectedNationalityDropDownItem = personalInfo.nationalityObj;
+    _selectedReligionDropDownItem = personalInfo.religionObj?? null;
+    _selectedNationalityDropDownItem = personalInfo.nationalityObj?? null;
     //_selectedGenderDropDownItem = personalInfo.gender;
     _chosenDate = personalInfo.dateOfBirth;
 
@@ -93,7 +92,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
         .then((dartZ.Either<AppError, List<Nationality>> value) {
       value.fold((l) {
         // left
-        BotToast.showText(text: "Unable to load nationality list ");
+        BotToast.showText(text: StringUtils.unableToFetchList);
       }, (r) {
         // right
         _nationalityList = r
@@ -107,24 +106,6 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
       });
     });
 
-//    GenderListRepository()
-//        .getGenderList()
-//        .then((dartZ.Either<AppError, List<String>> value) {
-//      value.fold((l) {
-//        // left
-//        BotToast.showText(text: "Unable to load gender list ");
-//      }, (r) {
-//        // right
-//        _genderList = r
-//            .map((e) => DropdownMenuItem(
-//          key: Key(e),
-//          value: e,
-//          child: Text(e ?? ""),
-//        ))
-//            .toList();
-//        setState(() {});
-//      });
-//    });
 
 
 
@@ -134,7 +115,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
         .then((dartZ.Either<AppError, List<Religion>> value) {
       value.fold((l) {
         // left
-        BotToast.showText(text: "Unable to load religion list ");
+        BotToast.showText(text: StringUtils.unableToFetchList);
       }, (r) {
         // right
         _religionList = r
@@ -169,8 +150,8 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
         "religion": _selectedReligionDropDownItem?.id,
         "address": _currentAddressController.text,
         "gender": _selectedGenderDropDownItem,
-        //"date_of_birth": _chosenDate
       };
+
 
       if (_chosenDate != null) {
         print(DateFormatUtil.dateFormatYYYMMDD(_chosenDate));
@@ -243,7 +224,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                   //Gender
                   CustomDropdownButtonFormField<String>(
                     labelText: StringUtils.genderText,
-                    hint: Text('Tap to select'),
+                    hint: Text(StringUtils.tapToSelectText),
                     value: _selectedGenderDropDownItem,
                     onChanged: (value) {
                       _selectedGenderDropDownItem = value;
@@ -310,7 +291,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                   //Nationality
                   CustomDropdownButtonFormField<Nationality>(
                     labelText: StringUtils.nationalityText,
-                    hint: Text('Tap to select'),
+                    hint: Text(StringUtils.tapToSelectText),
                     value: _selectedNationalityDropDownItem,
                     onChanged: (value) {
                       _selectedNationalityDropDownItem = value;
@@ -322,7 +303,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                   //Religion
                   CustomDropdownButtonFormField<Religion>(
                     labelText: StringUtils.religionText,
-                    hint: Text('Tap to select'),
+                    hint: Text(StringUtils.tapToSelectText),
                     value: _selectedReligionDropDownItem,
                     onChanged: (value) {
                       _selectedReligionDropDownItem = value;
