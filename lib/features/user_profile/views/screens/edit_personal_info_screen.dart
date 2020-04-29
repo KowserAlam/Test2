@@ -152,6 +152,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
         "gender": _selectedGenderDropDownItem,
       };
 
+
       if (_chosenDate != null) {
         print(DateFormatUtil.dateFormatYYYMMDD(_chosenDate));
         data.addAll(

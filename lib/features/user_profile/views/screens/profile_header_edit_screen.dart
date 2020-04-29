@@ -130,6 +130,8 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
         "current_company": _currentCompanyEditingController.text,
       };
 
+
+
       if (fileProfileImage != null) {
         data.addAll({'image': getBase64Image()});
       }
