@@ -28,8 +28,8 @@ class Urls {
   static String professionalExperienceUrl = "/api/professional/professional_work_experience";
 
 
-
   static String industryListUrl = "/api/industry/";
+  static String companyListUrl = "/api/company/";
   static String genderListUrl = "/api/gender/";
   static String nationalityListUrl = "/api/professional/nationality/";
   static String religionListUrl = "/api/professional/religion/";

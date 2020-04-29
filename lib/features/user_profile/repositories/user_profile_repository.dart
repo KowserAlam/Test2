@@ -650,6 +650,7 @@ class UserProfileRepository {
     var professionalId = authUser.getUser().professionalId;
     var url =
         "${Urls.professionalExperienceUrl}/${experienceInfo.experienceId}/";
+    print(url);
 
     var data = experienceInfo.toJson();
     data.addAll({"professional_id": professionalId});
