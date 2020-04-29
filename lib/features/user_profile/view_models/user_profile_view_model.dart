@@ -348,7 +348,6 @@ class UserProfileViewModel with ChangeNotifier {
     });
   }
 
-
   //Experience
   Future<bool> addExperienceData(ExperienceInfo experienceInfo){
     return UserProfileRepository().addUserExperience(experienceInfo).then((res){
