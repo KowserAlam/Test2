@@ -156,7 +156,7 @@ class StringUtils {
   static var membershipsText = "Memberships";
   static var otherText = "Other";
   static var referencesText = "References";
-  static var personalInfoText = "Personal Informations";
+  static var personalInfoText = "Personal Information";
   static var editPersonalInfoText = "Edit Personal Information";
   static var contactText = "Contact";
 
