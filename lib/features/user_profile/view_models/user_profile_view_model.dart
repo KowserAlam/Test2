@@ -1,5 +1,6 @@
 import 'package:p7app/features/user_profile/models/certification_info.dart';
 import 'package:p7app/features/user_profile/models/edu_info.dart';
+import 'package:p7app/features/user_profile/models/experience_info.dart';
 import 'package:p7app/features/user_profile/models/member_ship_info.dart';
 import 'package:p7app/features/user_profile/models/portfolio_info.dart';
 import 'package:p7app/features/user_profile/models/reference_data.dart';
@@ -346,4 +347,46 @@ class UserProfileViewModel with ChangeNotifier {
       });
     });
   }
+
+
+  //Experience
+  Future<bool> addExperienceData(ExperienceInfo experienceInfo){
+    return UserProfileRepository().addUserExperience(experienceInfo).then((res){
+      return res.fold((l){
+        print(l);
+        return false;
+      }, (r){
+        userData.experienceInfo.add(r);
+        notifyListeners();
+        return true;
+      });
+    });
+  }
+
+  Future<bool> updateExperienceData(ExperienceInfo experienceInfo, int index){
+    return UserProfileRepository().updateUserExperience(experienceInfo).then((res){
+      return res.fold((l){
+        print(l);
+        return false;
+      }, (r){
+        userData.experienceInfo[index] = r;
+        notifyListeners();
+        return true;
+      });
+    });
+  }
+
+  Future<bool> deleteExperienceData(ExperienceInfo experienceInfo,int index ){
+    return UserProfileRepository().deleteUserExperience(experienceInfo).then((res){
+      return res.fold((l){
+        print(l);
+        return false;
+      }, (r){
+        userData.experienceInfo.removeAt(index);
+        notifyListeners();
+        return true;
+      });
+    });
+  }
+
 }
