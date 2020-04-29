@@ -35,7 +35,7 @@ class _EditReferenceScreenState extends State<EditReferenceScreen> {
 
   //widgets
   var spaceBetweenFields = SizedBox(
-    height: 15,
+    height: 15
   );
 
   initState() {
@@ -78,17 +78,18 @@ class _EditReferenceScreenState extends State<EditReferenceScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+
     var description = CustomTextFormField(
       validator: Validator().nullFieldValidate,
-      keyboardType: TextInputType.text,
+      keyboardType: TextInputType.multiline,
       focusNode: _descriptionFocusNode,
-      textInputAction: TextInputAction.next,
-      onFieldSubmitted: (a) {
-
-      },
+      textInputAction: TextInputAction.done,
       controller: _descriptionController,
       labelText: StringUtils.referenceDescriptionText,
       hintText: StringUtils.referenceDescriptionText,
+      minLines: 5,
+      maxLines: 12,
     );
 
 
