@@ -118,7 +118,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
       UserPersonalInfo personalInfo = userViewModel.userData.personalInfo;
 
       var data = {
-        "current_location": _locationEditingController.text,
+        "current_location": _locationEditingController.text.isEmpty?null:_locationEditingController.text,
         "full_name": _fullNameTextEditingController.text,
         "industry_expertise": _selectedIndustryExpertiseDropDownItem,
         "about_me": _aboutTextEditingController.text,
@@ -126,8 +126,8 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
         "facebbok_id": _facebookEditingController.text,
         "twitter_id": _twitterEditingController.text,
         "linkedin_id": _linkedInEditingController.text,
-        "current_designation": _currentDesignationEditingController.text,
-        "current_company": _currentCompanyEditingController.text,
+        "current_designation": _currentDesignationEditingController.text.isEmpty?null:_currentDesignationEditingController.text,
+        "current_company": _currentCompanyEditingController.text.isEmpty?null:_currentCompanyEditingController.text,
       };
 
 

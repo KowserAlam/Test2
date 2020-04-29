@@ -14,6 +14,7 @@ import 'package:p7app/features/user_profile/models/user_model.dart';
 import 'package:p7app/features/user_profile/models/user_personal_info.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/auth_service/auth_service.dart';
+import 'package:p7app/main_app/auth_service/auth_user_model.dart';
 import 'package:p7app/main_app/failure/error.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
 import 'package:dartz/dartz.dart';
@@ -43,6 +44,19 @@ class UserProfileRepository {
     }
   }
 
+  _updateLocalInfo(UserPersonalInfo user,String imageUrl)async{
+
+    AuthUserModel authUserModel = await AuthService.getInstance().then((value) => value.getUser());
+    authUserModel.email = user.email;
+    authUserModel.fullName = user.fullName;
+    authUserModel.professionalImage = imageUrl;
+
+    var authService = await AuthService.getInstance();
+    authService.saveUser( authUserModel.toJson());
+
+
+  }
+
   Future<Either<AppError, UserPersonalInfo>> updateUserBasicInfo(
       Map<String, dynamic> body) async {
     BotToast.showLoading();
@@ -56,8 +70,10 @@ class UserProfileRepository {
       print(response.body);
       if (response.statusCode == 200) {
         BotToast.closeAllLoading();
+        var decodedJson = json.decode(response.body);
         UserPersonalInfo data =
-            UserPersonalInfo.fromJson(json.decode(response.body));
+            UserPersonalInfo.fromJson(decodedJson);
+        _updateLocalInfo(data,decodedJson['image']);
         return Right(data);
       } else {
         BotToast.closeAllLoading();

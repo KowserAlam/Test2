@@ -97,10 +97,10 @@ class UserPersonalInfo {
     }
 
     if (json['religion_obj'] != null) {
-      religionObj = Religion.fromJson(json['religion_obj']);
+      religionObj = json['religion_obj']['id'] == null? null:Religion.fromJson(json['religion_obj']);
     }
     if (json['nationality_obj'] != null) {
-      nationalityObj = Nationality.fromJson(json['nationality_obj']);
+      nationalityObj = json['nationality_obj']['id'] == null? null:Nationality.fromJson(json['nationality_obj']);
     }
 
     expectedSalaryMin = json['expected_salary_min'];

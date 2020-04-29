@@ -1,3 +1,4 @@
+import 'package:p7app/main_app/flavour/flavour_config.dart';
 import 'package:p7app/main_app/resource/json_keys.dart';
 
 class AuthUserModel {
@@ -19,7 +20,12 @@ class AuthUserModel {
     userId = json['user_id'].toString();
     fullName = json['full_name'];
     professionalId = json['professional_id'];
-    professionalImage = json['professional_image'];
+
+    if(json['professional_image'] != null){
+      var baseUrl = FlavorConfig?.instance?.values?.baseUrl;
+      professionalImage =baseUrl+json['professional_image'];
+    }
+
   }
 
   Map<String, dynamic> toJson() {

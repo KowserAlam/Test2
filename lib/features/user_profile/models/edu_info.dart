@@ -33,13 +33,21 @@ class EduInfo {
     institutionId = json['institution_id'];
     institutionText = json['institution_text'];
     cgpa = json['cgpa'];
-    major = json['major_obj'] != null ? new MajorSubject.fromJson(json['major_obj']) : null;
-    majorText = json['major_text'];
-    enrolledDate = json['enrolled_date'] == null? null : DateTime.parse(json['enrolled_date']);
-    graduationDate = json['graduation_date'] == null? null : DateTime.parse(json['graduation_date']);
-    institutionObj = json['institution_obj'] != null
-        ? new Institution.fromJson(json['institution_obj'])
+    major = json['major_obj'] != null
+        ? new MajorSubject.fromJson(json['major_obj'])
         : null;
+    majorText = json['major_text'];
+    enrolledDate = json['enrolled_date'] == null
+        ? null
+        : DateTime.parse(json['enrolled_date']);
+    graduationDate = json['graduation_date'] == null
+        ? null
+        : DateTime.parse(json['graduation_date']);
+    if (json['institution_obj'] != null) {
+      institutionObj = json['institution_obj']['id'] != null
+          ? new Institution.fromJson(json['institution_obj'])
+          : null;
+    }
   }
 
   Map<String, dynamic> toJson() {
