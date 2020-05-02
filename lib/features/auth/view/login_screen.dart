@@ -360,13 +360,9 @@ class _LoginScreenState extends State<LoginScreen> {
           forgotPasswordWidget,
           SizedBox(height: 5),
           signInButton,
-          SizedBox(
-            height: 20,
-          ),
+          SizedBox(height: 20),
           socialLogin,
-          SizedBox(
-            height: 20,
-          ),
+          SizedBox(height: 20),
           registerText,
         ],
       ),
@@ -388,9 +384,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        SizedBox(
-                          height: 0,
-                        ),
+                        SizedBox(height: 0),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -401,9 +395,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             welcomeBackText,
                             SizedBox(height: 10),
                             loginForm,
-                            SizedBox(
-                              height: 50,
-                            ),
+                            SizedBox(height: 30),
                             AppVersionWidgetLowerCase()
                           ],
                         ),
