@@ -80,6 +80,29 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
     if(x==0){return true;}else {return false;};
   }
 
+  void updateExp(ExperienceInfo experienceInfo){
+    print('Updating');
+    Provider.of<UserProfileViewModel>(context, listen: false)
+        .updateExperienceData(experienceInfo, widget.index)
+        .then((value) {
+      if (value) {
+        Navigator.pop(context);
+      }
+    });
+  }
+
+  void addExp(ExperienceInfo experienceInfo){
+    /// adding new data
+    print('Adding');
+    Provider.of<UserProfileViewModel>(context, listen: false)
+        .addExperienceData(experienceInfo)
+        .then((value) {
+      if (value) {
+        Navigator.pop(context);
+      }
+    });
+  }
+
   _handleSave() {
     var isSuccess = _formKey.currentState.validate();
     if(isSuccess){
@@ -100,76 +123,36 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
           startDate: _joiningDate,
           endDate: _leavingDate
       );
-      if(organizationNameController.text != widget.experienceInfoModel.organizationName){
-        if(sameExperience(organizationNameController.text)){
-          if(_joiningDate != null && _leavingDate != null){
-            if(_joiningDate.isBefore(_leavingDate)){
-              //Date is ok
-              if(_selectedCompanyId != null){
-                if(organizationNameController.text != _selectedCompanyId){
-                  _selectedCompanyId = null;
-                  setState(() {
-
-                  });
-                }
-              }
-              var experienceInfo = ExperienceInfo(
-                  experienceId: widget.experienceInfoModel?.experienceId,
-                  organizationName: organizationNameController.text,
-                  designation: positionNameController.text,
-                  organizationId: _selectedCompanyId,
-                  startDate: _joiningDate,
-                  endDate: _leavingDate
-              );
-              if (widget.experienceInfoModel != null) {
-                /// updating existing data
-                print('Updating');
-                Provider.of<UserProfileViewModel>(context, listen: false)
-                    .updateExperienceData(experienceInfo, widget.index)
-                    .then((value) {
-                  if (value) {
-                    Navigator.pop(context);
-                  }
-                });
-              } else {
-                /// adding new data
-                Provider.of<UserProfileViewModel>(context, listen: false)
-                    .addExperienceData(experienceInfo)
-                    .then((value) {
-                  if (value) {
-                    Navigator.pop(context);
-                  }
-                });
-              }
-            }else{BotToast.showText(text: StringUtils.joiningLeavingDateLogic);}
-          }else{
-
-            if (widget.experienceInfoModel != null) {
-              /// updating existing data
-              print('Updating');
-              Provider.of<UserProfileViewModel>(context, listen: false)
-                  .updateExperienceData(experienceInfo, widget.index)
-                  .then((value) {
-                if (value) {
-                  Navigator.pop(context);
-                }
-              });
-            } else {
-              /// adding new data
-              Provider.of<UserProfileViewModel>(context, listen: false)
-                  .addExperienceData(experienceInfo)
-                  .then((value) {
-                if (value) {
-                  Navigator.pop(context);
-                }
-              });
+      if(_joiningDate != null && _leavingDate != null){
+        if(_joiningDate.isBefore(_leavingDate)){
+          if(widget.experienceInfoModel != null){
+            if(widget.experienceInfoModel.organizationName != organizationNameController.text){
+              if(sameExperience(organizationNameController.text)){
+                updateExp(experienceInfo);
+              }else{BotToast.showText(text: StringUtils.sameExperience);}
             }
+          }else{
+            if(sameExperience(organizationNameController.text)){
+              addExp(experienceInfo);
+            }else{BotToast.showText(text: StringUtils.sameExperience);}
           }
         }else{
-          BotToast.showText(text: StringUtils.sameExperience);
+          BotToast.showText(text: StringUtils.joiningLeavingDateLogic);
+        }
+    }else{
+        if(widget.experienceInfoModel != null){
+          if(widget.experienceInfoModel.organizationName != organizationNameController.text){
+            if(sameExperience(organizationNameController.text)){
+              updateExp(experienceInfo);
+            }else{BotToast.showText(text: StringUtils.sameExperience);}
+          }
+        }else{
+          if(sameExperience(organizationNameController.text)){
+            addExp(experienceInfo);
+          }else{BotToast.showText(text: StringUtils.sameExperience);}
         }
       }
-    }
+  }
   }
 
   @override

@@ -26,14 +26,14 @@ class _RootState extends State<Root> {
 
     getAuthStatus().then((AuthUserModel user) {
       if (user != null) {
-        Future.delayed(Duration(seconds: 1)).then((_) {
+        Future.delayed(Duration(seconds: 2)).then((_) {
           Navigator.pushAndRemoveUntil(
               context,
               CupertinoPageRoute(builder: (context) => JobListScreen()),
               (Route<dynamic> route) => false);
         });
       } else {
-        Future.delayed(Duration(seconds: 2)).then((_) {
+        Future.delayed(Duration(seconds: 1)).then((_) {
           Navigator.pushAndRemoveUntil(
               context,
               CupertinoPageRoute(builder: (context) => LoginScreen()),
@@ -72,6 +72,19 @@ class _RootState extends State<Root> {
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
+    var appLogoText = Column(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        Container(
+          width: width*0.3,
+          child: Hero(tag: kDefaultLogo,child: Image.asset(kDefaultLogo,fit: BoxFit.cover,)),
+        ),
+        Container(
+          width: width*0.5,
+          child: Image.asset(kDefaultLogoText,fit: BoxFit.cover,),
+        ),
+      ],
+    );
     return Scaffold(
       backgroundColor: Colors.white,
       body: Container(
@@ -83,10 +96,10 @@ class _RootState extends State<Root> {
           children: <Widget>[
             SizedBox(),
             SizedBox(),
+            SizedBox(),
             appLogoText,
             SizedBox(),
             Container(width: 150,child: ishraakLogo,),
-            SizedBox(),
             AppVersionWidgetLowerCase()
           ],
         ),

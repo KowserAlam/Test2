@@ -138,36 +138,34 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Widget _loginEmail(context) {
     var loginProvider = Provider.of<LoginViewModel>(context);
-    return Center(
-      child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 10),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(40),
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey[200],
-              spreadRadius: 3,
-              blurRadius: 10,
-              offset: Offset(1,1)
-            )
-          ]
-        ),
-        child: Center(
-          child: TextFormField(
-            keyboardType: TextInputType.emailAddress,
-            focusNode: _emailFocus,
-            textInputAction: TextInputAction.next,
-            controller: _emailTextController,
-            decoration: kEmailInputDecoration,
-            onSaved: (val) => loginProvider.email = val.trim(),
-            validator: (val)=>Validator().validateEmail(val.trim()),
-            onFieldSubmitted: (s) {
-              _emailFocus.unfocus();
-              FocusScope.of(_scaffoldKey.currentState.context)
-                  .requestFocus(_passwordFocus);
-            },
-          ),
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 10),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(40),
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey[200],
+            spreadRadius: 3,
+            blurRadius: 10,
+            offset: Offset(1,1)
+          )
+        ]
+      ),
+      child: Center(
+        child: TextFormField(
+          keyboardType: TextInputType.emailAddress,
+          focusNode: _emailFocus,
+          textInputAction: TextInputAction.next,
+          controller: _emailTextController,
+          decoration: kEmailInputDecoration,
+          onSaved: (val) => loginProvider.email = val.trim(),
+          validator: (val)=>Validator().validateEmail(val.trim()),
+          onFieldSubmitted: (s) {
+            _emailFocus.unfocus();
+            FocusScope.of(_scaffoldKey.currentState.context)
+                .requestFocus(_passwordFocus);
+          },
         ),
       ),
     );
