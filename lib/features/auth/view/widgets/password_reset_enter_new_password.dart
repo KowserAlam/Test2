@@ -57,7 +57,7 @@ class _PasswordRestEnterNewPasswordState extends State<PasswordRestEnterNewPassw
                         FocusScope.of(context)
                             .requestFocus(_confirmPasswordFocus);
                       },
-                      decoration: kPasswordInputDecoration(
+                      decoration: InputDecoration(
                           suffixIcon: IconButton(
                             icon: !signUpProvider.isObscurePassword
                                 ? Icon(
@@ -91,7 +91,7 @@ class _PasswordRestEnterNewPasswordState extends State<PasswordRestEnterNewPassw
                               _confirmPasswordFocus.unfocus();
 //                              _handleSignUp(context);
                             },
-                            decoration: kPasswordInputDecoration(
+                            decoration: InputDecoration(
                                 hintText: StringUtils.confirmPasswordText,
                                 suffixIcon: IconButton(
                                   icon: !passwordResetProvider.isObscureConfirmPassword

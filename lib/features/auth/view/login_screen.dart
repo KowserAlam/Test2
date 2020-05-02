@@ -158,7 +158,21 @@ class _LoginScreenState extends State<LoginScreen> {
           focusNode: _emailFocus,
           textInputAction: TextInputAction.next,
           controller: _emailTextController,
-          decoration: kEmailInputDecoration,
+          decoration: InputDecoration(
+//    contentPadding: EdgeInsets.zero,
+              hintText: StringUtils.emailText,
+              border: InputBorder.none,
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: Colors.lightBlueAccent,
+                  width: 1.6,
+                ),
+                borderRadius: BorderRadius.circular(40),
+              ),
+              //border: InputBorder.none,
+              prefixIcon: Icon(
+                Icons.person_outline,
+              )),
           onSaved: (val) => loginProvider.email = val.trim(),
           validator: (val)=>Validator().validateEmail(val.trim()),
           onFieldSubmitted: (s) {
@@ -198,7 +212,30 @@ class _LoginScreenState extends State<LoginScreen> {
               onFieldSubmitted: (s) {
                 _handleLogin(_scaffoldKey.currentState.context);
               },
-              decoration: kPasswordInputDecoration(
+              decoration: InputDecoration(
+                  errorMaxLines: 2,
+                  hintText: StringUtils.passwordText,
+                  hintStyle: TextStyle(
+                    fontSize: 16.0,
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.lightBlueAccent,
+                      width: 1.6,
+                    ),
+                    borderRadius: BorderRadius.circular(40),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.transparent,
+                      width: 1.6,
+                    ),
+                    borderRadius: BorderRadius.circular(40),
+                  ),
+                  border: InputBorder.none,
+                  prefixIcon: Icon(
+                    Icons.lock,
+                  ),
                   suffixIcon: IconButton(
                     icon: !isObscure
                         ? Icon(
