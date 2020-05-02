@@ -1,6 +1,7 @@
 import 'package:p7app/features/auth/view/password_reset_screens.dart';
 import 'package:p7app/features/auth/view/sign_up_screen.dart';
 import 'package:p7app/features/auth/provider/login_view_model.dart';
+import 'package:p7app/features/auth/view/widgets/custom_text_field_rounded.dart';
 import 'package:p7app/main_app/flavour/flavor_banner.dart';
 import 'package:p7app/main_app/root.dart';
 import 'package:p7app/main_app/resource/const.dart';
@@ -47,65 +48,8 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
-  Widget _buildForm(context) {
-    return Container(
-      child: Form(
-        key: _formKey,
-        child: Column(
-          children: <Widget>[
-            _successfulSignUorLoginText(),
-            SizedBox(height: 15),
-            _loginEmail(context),
-            SizedBox(height: 15),
-            _loginPassword(context),
-            SizedBox(height: 5),
-            _forgotPasswordWidget(context),
-            SizedBox(height: 5),
-            Consumer<LoginViewModel>(
-                builder: (BuildContext context, loginProvider, Widget child) {
-                  if (loginProvider.isBusyLogin) {
-                    return Loader();
-                  }
-                  return _signInButton(context);
-                }),
-            SizedBox(height: 10),
-            _connectUsing(),
-            SizedBox(height: 10,),
-            _registerText(),
 
-          ],
-        ),
-      ),
-    );
-  }
-  Widget signInHeader = Container(
-    height: 50,
-//      margin: EdgeInsets.symmetric(horizontal: 8),
-    decoration: BoxDecoration(
-        color: Colors.grey[200], borderRadius: BorderRadius.circular(5)),
-    child: Row(
-      children: <Widget>[
-        Container(
-          height: 50,
-          width: 50,
-          child: Icon(
-            Icons.edit,
-            color: Colors.black54,
-          ),
-        ),
-        Container(
-            height: 50,
-            padding: EdgeInsets.only(top: 15),
-            child: Text(
-              StringUtils.signInText,
-              style: TextStyle(
-                  color: Colors.black54,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 17),
-            )),
-      ],
-    ),
-  );
+
   Widget _successfulSignUorLoginText() {
     return Consumer<LoginViewModel>(
         builder: (BuildContext context, loginProvider, Widget child) {
@@ -136,61 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget _loginEmail(context) {
-    var loginProvider = Provider.of<LoginViewModel>(context);
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 10),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(40),
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey[200],
-            spreadRadius: 3,
-            blurRadius: 10,
-            offset: Offset(1,1)
-          )
-        ]
-      ),
-      child: Center(
-        child: TextFormField(
-          keyboardType: TextInputType.emailAddress,
-          focusNode: _emailFocus,
-          textInputAction: TextInputAction.next,
-          controller: _emailTextController,
-          decoration: InputDecoration(
-//    contentPadding: EdgeInsets.zero,
-              hintText: StringUtils.emailText,
-              border: InputBorder.none,
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: Colors.lightBlueAccent,
-                  width: 1.6,
-                ),
-                borderRadius: BorderRadius.circular(40),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: Colors.transparent,
-                  width: 1.6,
-                ),
-                borderRadius: BorderRadius.circular(40),
-              ),
-              //border: InputBorder.none,
-              prefixIcon: Icon(
-                Icons.person_outline,
-              )),
-          onSaved: (val) => loginProvider.email = val.trim(),
-          validator: (val)=>Validator().validateEmail(val.trim()),
-          onFieldSubmitted: (s) {
-            _emailFocus.unfocus();
-            FocusScope.of(_scaffoldKey.currentState.context)
-                .requestFocus(_passwordFocus);
-          },
-        ),
-      ),
-    );
-  }
+
 
   Widget _loginPassword(context) {
     return Consumer<LoginViewModel>(
@@ -370,71 +260,6 @@ class _LoginScreenState extends State<LoginScreen> {
         ],
       ));
 
-  Widget _tabLayout(context) {
-    double topPadding = MediaQuery.of(context).size.height / 30;
-    return Container(
-      child: Row(
-        children: <Widget>[
-          Expanded(
-            flex: 4,
-            child: Center(
-              child: Container(
-                width: 400,
-                padding: EdgeInsets.fromLTRB(16, topPadding, 16, 0),
-                child: Column(
-                  children: <Widget>[
-                    SizedBox(height: 10),
-                    _logoSection(160),
-                    signInHeader,
-                    _buildForm(context),
-                    SizedBox(height: 10),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 6,
-            child: Container(
-              height: MediaQuery.of(context).size.height,
-              padding: EdgeInsets.all(16),
-              child: Image.asset(kLoginBG, fit: BoxFit.contain),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _mobileLayout(context) {
-    var height = MediaQuery.of(context).size.height;
-    var width = MediaQuery.of(context).size.width;
-    return Padding(
-      padding: EdgeInsets.fromLTRB(16, 15, 16, 8),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          SizedBox(height: 0,),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.max,
-            children: <Widget>[
-              _logoSection(height*0.085),
-              SizedBox(height: 10),
-              _welcomeBackText(),
-              SizedBox(height: 10),
-              _buildForm(context),
-              SizedBox(height: 50,),
-              AppVersionWidgetLowerCase()
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
   Widget _connectUsing(){
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -506,6 +331,91 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double topPadding = MediaQuery.of(context).size.height / 30;
+    var height = MediaQuery.of(context).size.height;
+
+    var email = CustomTextFieldRounded(
+      keyboardType: TextInputType.emailAddress,
+      focusNode: _emailFocus,
+      textInputAction: TextInputAction.next,
+      controller: _emailTextController,
+      hintText: StringUtils.emailText,
+      prefixIcon: Icon(
+          Icons.person_outline,
+        ),
+      onChanged: (v){
+
+      },
+      onSubmitted: (s) {
+        _emailFocus.unfocus();
+        FocusScope.of(_scaffoldKey.currentState.context)
+            .requestFocus(_passwordFocus);
+      },
+    );
+    var password = Consumer<LoginViewModel>(builder: (context,signViewModel,_){
+      bool isObscure = signViewModel.isObscurePassword;
+      return CustomTextFieldRounded(
+        focusNode: _passwordFocus,
+        textInputAction: TextInputAction.done,
+        prefixIcon: Icon(
+          Icons.lock,
+        ),
+        suffixIcon: IconButton(
+          icon: !isObscure
+              ? Icon(
+            Icons.visibility,
+          )
+              : Icon(
+            Icons.visibility_off,
+            color: Theme.of(context).textTheme.body1.color,
+          ),
+          onPressed: () {
+            signViewModel.isObscurePassword = !isObscure;
+          },
+        ),
+        obscureText: signViewModel.isObscurePassword,
+        controller: _passwordTextController,
+        hintText: StringUtils.passwordText,
+        onSubmitted: (s) {
+          _handleLogin(_scaffoldKey.currentState.context);
+        },
+      );
+    },);
+
+    var  loginForm= Container(
+      child: Form(
+        key: _formKey,
+        child: Column(
+          children: <Widget>[
+            _successfulSignUorLoginText(),
+            SizedBox(height: 15),
+            email,
+            SizedBox(height: 15),
+            _loginPassword(context),
+            password,
+            SizedBox(height: 5),
+            _forgotPasswordWidget(context),
+            SizedBox(height: 5),
+            Consumer<LoginViewModel>(
+                builder: (BuildContext context, loginProvider, Widget child) {
+                  if (loginProvider.isBusyLogin) {
+                    return Loader();
+                  }
+                  return _signInButton(context);
+                }),
+            SizedBox(height: 10),
+            _connectUsing(),
+            SizedBox(height: 10,),
+            _registerText(),
+
+          ],
+        ),
+      ),
+    );
+
+
+
+
     return FlavorBanner(
       child: Scaffold(
         backgroundColor: Theme.of(context).backgroundColor,
@@ -515,9 +425,63 @@ class _LoginScreenState extends State<LoginScreen> {
             child: LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
                 if (constraints.maxWidth < 720) {
-                  return _mobileLayout(_scaffoldKey.currentState.context);
+                  // mobile layout
+                  return Padding(
+                    padding: EdgeInsets.fromLTRB(16, 15, 16, 8),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        SizedBox(height: 0,),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.max,
+                          children: <Widget>[
+                            _logoSection(height*0.085),
+                            SizedBox(height: 10),
+                            _welcomeBackText(),
+                            SizedBox(height: 10),
+                            loginForm,
+                            SizedBox(height: 50,),
+                            AppVersionWidgetLowerCase()
+                          ],
+                        ),
+                      ],
+                    ),
+                  );
                 } else {
-                  return _tabLayout(_scaffoldKey.currentState.context);
+                  return Container(
+                    child: Row(
+                      children: <Widget>[
+                        Expanded(
+                          flex: 4,
+                          child: Center(
+                            child: Container(
+                              width: 400,
+                              padding: EdgeInsets.fromLTRB(16, topPadding, 16, 0),
+                              child: Column(
+                                children: <Widget>[
+                                  SizedBox(height: 10),
+                                  _logoSection(160),
+                                  loginForm,
+                                  SizedBox(height: 10),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 6,
+                          child: Container(
+                            height: MediaQuery.of(context).size.height,
+                            padding: EdgeInsets.all(16),
+                            child: Image.asset(kLoginBG, fit: BoxFit.contain),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
                 }
               },
             ),

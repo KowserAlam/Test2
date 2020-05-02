@@ -1,0 +1,114 @@
+import 'package:flutter/material.dart';
+
+class CustomTextFieldRounded extends StatelessWidget {
+  final Function validator;
+  final TextEditingController controller;
+  final String labelText;
+  final String hintText;
+  final TextInputType keyboardType;
+  final int maxLines;
+  final int minLines;
+  final EdgeInsetsGeometry contentPadding;
+  final FocusNode focusNode;
+  final bool autofocus;
+  final bool autovalidate;
+  final bool obscureText;
+  final TextInputAction textInputAction;
+  final ValueChanged<String> onSubmitted;
+  final Widget prefix;
+  final Widget prefixIcon;
+  final Widget suffixIcon;
+  final Function onChanged;
+
+  const CustomTextFieldRounded({
+    this.validator,
+    this.prefix,
+    this.prefixIcon,
+    this.suffixIcon,
+    this.onChanged,
+    this.textInputAction,
+    this.autovalidate = false,
+    this.controller,
+    this.onSubmitted,
+    this.focusNode,
+    this.autofocus = false,
+    this.labelText,
+    this.hintText,
+    this.minLines,
+    this.keyboardType ,
+    this.contentPadding ,
+    this.obscureText ,
+    this.maxLines = 1,
+
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    double circularRadius = 35;
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text("   ${labelText?? ""}",
+              style: TextStyle(fontWeight: FontWeight.bold)),
+          SizedBox(
+            height: 5,
+          ),
+          Container(
+            decoration: BoxDecoration(
+              color: Theme.of(context).backgroundColor,
+              borderRadius: BorderRadius.circular(circularRadius),
+              boxShadow: [
+                BoxShadow(
+                    color: Colors.grey[200],
+                    spreadRadius: 3,
+                    blurRadius: 10,
+                    offset: Offset(1,1)
+                )
+              ],
+            ),
+            child: TextField(
+
+              minLines: minLines,
+              onChanged: onChanged,
+              onSubmitted: onSubmitted,
+              autofocus: autofocus,
+              focusNode: focusNode,
+              maxLines: maxLines,
+              keyboardType: keyboardType,
+              controller: controller,
+              textInputAction: textInputAction,
+              obscureText:obscureText,
+              decoration: InputDecoration(
+
+                suffixIcon:suffixIcon,
+                prefixIcon: prefixIcon,
+                prefix: prefix,
+                border: InputBorder.none,
+                hintText: hintText,
+                contentPadding: contentPadding,
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Colors.lightBlueAccent,
+                    width: 1.6,
+                  ),
+                  borderRadius: BorderRadius.circular(40),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Colors.transparent,
+                    width: 1.6,
+                  ),
+                  borderRadius: BorderRadius.circular(40),
+                ),
+
+              ),
+            ),
+          ),
+//        errorText != null ? Text('') : SizedBox(),
+        ],
+      ),
+    );
+  }
+}
