@@ -8,7 +8,7 @@ import 'package:p7app/main_app/app_theme/comon_styles.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/util/validator.dart';
 import 'package:p7app/main_app/widgets/app_version_widget_small.dart';
-import 'package:p7app/main_app/widgets/gredient_buton.dart';
+import 'package:p7app/main_app/widgets/common_button.dart';
 import 'package:p7app/main_app/widgets/loader.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -138,36 +138,34 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Widget _loginEmail(context) {
     var loginProvider = Provider.of<LoginViewModel>(context);
-    return Center(
-      child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 10),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(40),
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey[200],
-              spreadRadius: 3,
-              blurRadius: 10,
-              offset: Offset(1,1)
-            )
-          ]
-        ),
-        child: Center(
-          child: TextFormField(
-            keyboardType: TextInputType.emailAddress,
-            focusNode: _emailFocus,
-            textInputAction: TextInputAction.next,
-            controller: _emailTextController,
-            decoration: kEmailInputDecoration,
-            onSaved: (val) => loginProvider.email = val.trim(),
-            validator: (val)=>Validator().validateEmail(val.trim()),
-            onFieldSubmitted: (s) {
-              _emailFocus.unfocus();
-              FocusScope.of(_scaffoldKey.currentState.context)
-                  .requestFocus(_passwordFocus);
-            },
-          ),
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 10),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(40),
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey[200],
+            spreadRadius: 3,
+            blurRadius: 10,
+            offset: Offset(1,1)
+          )
+        ]
+      ),
+      child: Center(
+        child: TextFormField(
+          keyboardType: TextInputType.emailAddress,
+          focusNode: _emailFocus,
+          textInputAction: TextInputAction.next,
+          controller: _emailTextController,
+          decoration: kEmailInputDecoration,
+          onSaved: (val) => loginProvider.email = val.trim(),
+          validator: (val)=>Validator().validateEmail(val.trim()),
+          onFieldSubmitted: (s) {
+            _emailFocus.unfocus();
+            FocusScope.of(_scaffoldKey.currentState.context)
+                .requestFocus(_passwordFocus);
+          },
         ),
       ),
     );

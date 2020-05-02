@@ -1,4 +1,6 @@
-import 'package:p7app/features/user_profile/edit_profile_screen.dart';
+
+import 'package:p7app/features/user_profile/models/reference_data.dart';
+import 'package:p7app/features/user_profile/views/screens/profile_header_edit_screen.dart';
 
 class StringUtils {
   /// login screen
@@ -17,13 +19,15 @@ class StringUtils {
 
   static String invalidEmail = "Invalid Email";
   static String invalidCode = "Invalid Code";
-  static String thisFieldIsRequired = "This field is Required";
+  static String thisFieldIsRequired = "This Field Is Required";
+  static String valueWithinRange = "Please enter a value within 0-10";
   static String invalidPassword = "Invalid Password";
   static String passwordMustBeEight =
       "Password must be at least 8 characters long with at least one digit and one letter";
   static String passwordDoesNotMatch = "Password doesn't match";
   static String enterValidEmail = 'Enter Valid Email';
   static String enterValidPhoneNumber = 'Enter Valid Phone Number';
+  static String twoDecimal = "Please enter a value within 0-9 and with two decimal values max";
 
   ///
   static String passwordText = "Password";
@@ -139,6 +143,7 @@ class StringUtils {
   static String editProfileText = "EDIT PROFILE";
   static String aboutText = "About";
   static String aboutMeText = "About Me";
+  static String industryExpertiseText  = "Industry Expertise";
 
   static String contactInfoText = "Contact info";
 
@@ -151,12 +156,39 @@ class StringUtils {
   static var membershipsText = "Memberships";
   static var otherText = "Other";
   static var referencesText = "References";
-  static var personalInfoText = "Personal Informations";
+  static var personalInfoText = "Personal Information";
   static var editPersonalInfoText = "Edit Personal Information";
   static var contactText = "Contact";
 
 
   static String saveText = "Save";
+
+  //Reference Edit Screen
+  static var referenceDescriptionText = "Description";
+  static var referenceAppbarText = "Reference";
+
+
+  //Membership Edit Screen
+  static var membershipOrgNameText = "Organization Name";
+  static var membershipPositionHeldText = "Position Held";
+  static var membershipOngoingText = "Ongoing";
+  static var membershipStartDateText = "Start Date";
+  static var membershipEndDateText = "End Date";
+  static var membershipDescriptionText = "Description";
+
+  //Certifications Edit Screen
+  static var certificationNameText = "Certification Name";
+  static var certificationOrganizationNameText = "Organization Name";
+  static var certificationIssueDateText = "Issue Date";
+  static var certificationExpiryDateText = "Expiry Date";
+  static var certificationCredentialIdText = "Credential Id";
+  static var certificationCredentialUrlText = "Credential URL";
+  static var previouslyAddedCertificateText  = "You have already added this certificate before";
+
+  //Portfolio Edit Screen
+  static var portfolioNameText = "Name";
+  static var portfolioImageText = "Upload Image";
+  static var portfolioDescriptionText = "Description";
 
   ///SharedPreferences key Strings
 
@@ -172,18 +204,27 @@ class StringUtils {
   static String joiningDateText = "Joining Date";
   static String leavingDateText = "Leaving Date";
   static String currentlyWorkingHereText = "Currently working here";
+  static String joining = "Currently working here";
+  static String joiningLeavingDateLogic = "Please make sure your joining date occurs before your leaving date";
+  static String sameExperience = "You\'ve already added this skill before.";
+
+
+
 
   /// Add or Edit New Education
 
   static String nameOfOInstitutionText = "Name of Institution";
-  static String nameOfOInstitutionHintText = "eg. Ishraak Solutions";
+  static String nameOfOInstitutionHintText = "eg. ABC Institution";
   static String nameOfODegreeText = "Degree";
   static String nameOfODegreeHintText = "eg. Bachelor of Science";
   static String gpaText = "Percentage/CGPA";
   static String gpaHintText = "eg. 4.0";
-  static String passingYearText = "Passing Year";
+  static String enrollDate = "Enrolled Date";
+  static String graduationDate = "Graduation Date";
   static String currentlyStudyingHereText = "I'm currently studying here";
   static String startingDateText = "Starting Date";
+  static String chooseDateText = "Choose Date";
+  static String majorDateText = "Major";
 
   /// login screen
 
@@ -207,7 +248,8 @@ class StringUtils {
 
   static var skillNameText = "Name of Skill";
   static var skillNameExample = "eg. Python";
-  static var expertiseLevel = "Expertise level";
+  static var expertiseLevel = "Expertise level:";
+  static var searchSkillText = "Search your skill";
 
   /// Verify Screen
 
@@ -219,42 +261,61 @@ class StringUtils {
   static var verify = "Verify";
 
   /// Edit Profile Screen Texts
-  /// [EditProfileScreen]
+  /// [ProfileHeaderEditScreen]
 
-  static var fullNameText = "Full Name";
-  static var fullNameHintText = "eg. Bill Gates";
+  static var fullNameText = "Name";
+  static var fullNameHintText = "eg. John Doe";
   static var designationText = "Designation";
   static var designationHintText = "eg. Software Engineer";
   static var aboutHintText = " ...";
   static var phoneText = "Phone";
   static var mobileText = "Mobile";
   static var phoneHintText = "+8801XXXXXXXX";
-  static var addressText = "Full Address";
+  static var addressText = "Address";
   static var addressHintText =
-      "eg. House 76 (Level 4), Road 4, Block B, Niketan Gulshan 1, Dhaka 1212, Bangladesh";
+      "";
 
   static var locationText = "Location";
-  static var locationHintText = "Dhaka, Bangladesh";
+  static var currentCompany = "Current Company";
+  static var currentCompanyHint = "eg. ABC Corporation";
+  static var currentDesignation = "Current Designation";
+  static var currentDesignationHint =  "eg. Software Engineer";
+  static var locationHintText = "eg. Dhaka, Bangladesh";
   static var editText = "Edit";
+  static var portfolioText = "Portfolio";
 
   /// Profile Screen *******************
   /// Personal Info
 
-  static var fatherNameText = "Father name";
-  static var motherNameText = "Mother name";
+  static var fatherNameText = "Father's Name";
+  static var motherNameText = "Mother's Name";
   static var dateOfBirthText = "Date of Birth";
-  static var permanentAddersText = "Permanent adders";
-  static var currentAddersText = "Current adders";
+  static var permanentAddressText = "Permanent Address";
+  static var currentAddressText = "Current Address";
   static var religionText = "Religion";
   static var genderText = "Gender";
   static var nationalityText = "Nationality";
   static var languagesKnown  = "Languages Known ";
+  static var cropImageText  = "Crop Image";
+  static var cancelText  = "Cancel";
+  static var facebookTrlText  = "Facebook";
+  static var facebookBaseUrl  = "facebook.com/";
+  static var twitterUrlText  = "Twitter";
+  static var twitterBaeUrl  = "twitter.com/";
+  static var linkedUrlText  = "LinkedIn";
+  static var linkedBaseUrl  = "linkedin.com/in/";
+  static var unableToLoadExpertiseListText  = "Unable to load expertise list";
+  static var unableToLoadSkillListText  = "Unable to load skill list";
+  static var enterValidSkillText  = "Please enter a valid skill";
+  static var previouslyAddedSkillText  = "You have already added this skill before";
 
 
   /// password reset
   static var passwordResetText = "Reset Password";
   static var setNewPasswordText = "Set new password";
   static var resetYourPassword = "Reset your Password";
+  static var unableToSaveData = "Unable to save data";
+  static var aPasswordRestLinkHasBeenSentToText = "A password reset email has been sent to";
 
   /// Result Screen
 
@@ -279,7 +340,10 @@ class StringUtils {
 static const String unspecifiedText = "Unspecified";
 static const String deadlineText = "Deadline";
 static const String applyText = "Apply";
+static const String appliedText = "Applied";
 static const String jobListText = "Job List";
+static const String successfullyAppliedText = "Successfully Applied";
+static const String savedText = "Saved";
 
 
 ///Job Details
@@ -301,8 +365,10 @@ static const String yearsOfExperience = 'Experience: ';
 static const String jobLocation = 'Location: ';
 static const String salary = 'Salary: ';
 static const String gender = 'Gender: ';
+static const String tapToSelectText = 'Tap to select';
 static const String applicationDeadline = 'Deadline: ';
 static const String requiredSkills = 'Skill Requirement';
 static const String benefitSectionTitle = 'Benefits';
 static const String jobSource = 'Job Source';
+static const String doYouWantToApplyText = 'Do you want to apply?';
 }

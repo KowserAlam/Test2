@@ -59,6 +59,14 @@ class AppTheme {
       buttonTheme: ButtonThemeData(buttonColor: colorPrimary),
       scaffoldBackgroundColor: lightBG,
       textTheme: GoogleFonts.robotoTextTheme(),
+    appBarTheme: AppBarTheme(
+      textTheme: TextTheme(
+        title: TextStyle(
+          fontSize: 16.0,
+          fontWeight: FontWeight.w800,
+        ),
+      ),
+    ),
   );
 
   static ThemeData darkTheme = ThemeData(

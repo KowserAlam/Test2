@@ -7,7 +7,7 @@ import 'package:p7app/main_app/resource/json_keys.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/util/validator.dart';
 import 'package:p7app/main_app/widgets/app_logo.dart';
-import 'package:p7app/main_app/widgets/gredient_buton.dart';
+import 'package:p7app/main_app/widgets/common_button.dart';
 import 'package:p7app/main_app/widgets/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -46,7 +46,7 @@ class _PasswordRestEnterNewPasswordState extends State<PasswordRestEnterNewPassw
                   SizedBox(
                     height: 20,
                   ),
-                  Consumer<PasswordResetProvider>(builder: (context, signUpProvider, _) {
+                  Consumer<PasswordResetViewModel>(builder: (context, signUpProvider, _) {
                     return TextFormField(
                       autofocus: true,
                       focusNode: _passwordFocus,
@@ -80,7 +80,7 @@ class _PasswordRestEnterNewPasswordState extends State<PasswordRestEnterNewPassw
                     height: 20,
                   ),
                   Center(
-                    child: Consumer<PasswordResetProvider>(
+                    child: Consumer<PasswordResetViewModel>(
                         builder: (context, passwordResetProvider, _) {
                           return TextFormField(
 //                            obscureText: signUpProvider.isObscureConfirmPassword,
@@ -121,7 +121,7 @@ class _PasswordRestEnterNewPasswordState extends State<PasswordRestEnterNewPassw
                   SizedBox(
                     height: 20,
                   ),
-                  Consumer<PasswordResetProvider>(builder: (context, passwordResetProvider, _) {
+                  Consumer<PasswordResetViewModel>(builder: (context, passwordResetProvider, _) {
                     return Center(
                       child: passwordResetProvider.isBusyConfirmation
                           ? Loader()

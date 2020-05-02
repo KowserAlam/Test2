@@ -1,10 +1,11 @@
 import 'package:p7app/features/auth/provider/password_reset_provider.dart';
 import 'package:p7app/features/auth/view/login_screen.dart';
 import 'package:p7app/features/auth/view/widgets/title_widget.dart';
+import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
 
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
-import 'package:p7app/main_app/widgets/gredient_buton.dart';
+import 'package:p7app/main_app/widgets/common_button.dart';
 import 'package:p7app/main_app/widgets/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -31,7 +32,7 @@ class _PasswordResetEmailWidgetState extends State<PasswordResetEmailWidget> {
         tag: kDefaultLogo,
         child: Image.asset(
           kDefaultLogo,
-          width: 150,
+          width: 100,
           fit: BoxFit.contain,
         ),
       ),
@@ -39,7 +40,9 @@ class _PasswordResetEmailWidgetState extends State<PasswordResetEmailWidget> {
   }
 
   Widget _titleText() {
-    return  TitleWidget(labelText: StringUtils.passwordResetText,);
+    return TitleWidget(
+      labelText: StringUtils.passwordResetText,
+    );
   }
 
   Widget _inputTypeSelectionItemWidget(
@@ -61,7 +64,7 @@ class _PasswordResetEmailWidgetState extends State<PasswordResetEmailWidget> {
         ],
       );
 
-  Widget _passwordResetMethodWidget(context) => Consumer<PasswordResetProvider>(
+  Widget _passwordResetMethodWidget(context) => Consumer<PasswordResetViewModel>(
           builder: (context, passwordResetProvider, _) {
         return Row(
           children: <Widget>[
@@ -91,74 +94,25 @@ class _PasswordResetEmailWidgetState extends State<PasswordResetEmailWidget> {
         );
       });
 
-  Widget _email(context) {
-    return Center(
-      child: Consumer<PasswordResetProvider>(
-          builder: (context, passwordResetProvider, _) {
-
-        var hintText = passwordResetProvider.passwordResetMethodIsEmail
-            ? StringUtils.emailText
-            : StringUtils.phoneText;
-        var iconPrefix = passwordResetProvider.passwordResetMethodIsEmail
-            ? Icons.mail
-            : Icons.phone_android;
-        var keyboardType = passwordResetProvider.passwordResetMethodIsEmail
-            ? TextInputType.emailAddress
-            : TextInputType.phone;
-
-        return StreamBuilder<String>(
-            stream: passwordResetProvider.inputStream,
-            builder: (context, snapshot) {
-              return TextField(
-                keyboardType: keyboardType,
-                onChanged: passwordResetProvider.inputSink,
-                focusNode: _emailFocus,
-                textInputAction: TextInputAction.done,
-                onSubmitted: (email) {
-                  _handleEmailSubmit(email, context);
-                },
-                controller: _emailTextController,
-                decoration: InputDecoration(
-                    errorText:
-                        snapshot.error == null ? null : "  ${snapshot.error}",
-                    contentPadding: EdgeInsets.zero,
-                    errorStyle: TextStyle(fontSize: 15),
-                    hintText: hintText,
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.grey,
-                        width: 1.6,
-                      ),
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                    prefixIcon: Icon(
-                      iconPrefix,
-                    )),
-              );
-            });
-      }),
-    );
-  }
-
-  Widget _proceedButton() {
-    var passwordResetProvider = Provider.of<PasswordResetProvider>(context);
+  Widget _proceedButton({String errorText}) {
+    var passwordResetProvider = Provider.of<PasswordResetViewModel>(context);
     return Center(
       child: passwordResetProvider.isBusyEmail
           ? Loader()
           : CommonButton(
-              onTap: () {
+              width: 230,
+              height: 50,
+              onTap: errorText != null? null: () {
                 _handleEmailSubmit(_emailTextController.text, context);
               },
-              label: StringUtils.proceedText,
+              label: StringUtils.passwordResetText,
             ),
     );
   }
 
   _handleEmailSubmit(String email, context) async {
-    if (true) {
+    var isSuccess =  await Provider.of<PasswordResetViewModel>(context,listen: false).sendResetPasswordLink();
+    if (isSuccess) {
       widget.onSuccessCallBack();
     }
   }
@@ -167,22 +121,82 @@ class _PasswordResetEmailWidgetState extends State<PasswordResetEmailWidget> {
   Widget build(BuildContext context) {
     double width =
         MediaQuery.of(context).size.width > 720 ? 500 : double.infinity;
+
+    var passwordResetProvider = Provider.of<PasswordResetViewModel>(context);
+    var hintText = passwordResetProvider.passwordResetMethodIsEmail
+        ? StringUtils.emailText
+        : StringUtils.phoneText;
+    var iconPrefix = passwordResetProvider.passwordResetMethodIsEmail
+        ? Icons.mail
+        : Icons.phone_android;
+    var keyboardType = passwordResetProvider.passwordResetMethodIsEmail
+        ? TextInputType.emailAddress
+        : TextInputType.phone;
+
     return Center(
       child: Container(
         width: width,
         child: ListView(
-          padding: EdgeInsets.all(8.0),
+          padding: EdgeInsets.all(20),
           physics: BouncingScrollPhysics(),
           shrinkWrap: true,
           children: <Widget>[
             _logoSection(),
             SizedBox(height: 10),
             _titleText(),
-            SizedBox(height: 24),
-            _passwordResetMethodWidget(context),
-            _email(context),
             SizedBox(height: 20),
-            _proceedButton(),
+            Consumer<PasswordResetViewModel>(
+                builder: (context, passwordResetViewModel ,_) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Container(
+                        decoration: BoxDecoration(
+                            boxShadow: CommonStyleTextField.boxShadow,
+                            borderRadius:
+                                CommonStyleTextField.borderRadiusRound,
+                            color: Theme.of(context).backgroundColor),
+                        child: TextField(
+                          keyboardType: keyboardType,
+                          onChanged: passwordResetViewModel.validateEmailLocal,
+                          focusNode: _emailFocus,
+                          textInputAction: TextInputAction.done,
+                          onSubmitted: (email) {
+                            _handleEmailSubmit(email, context);
+                          },
+                          controller: _emailTextController,
+                          decoration: InputDecoration(
+                              contentPadding: const EdgeInsets.symmetric(
+                                  horizontal: 16, vertical: 16),
+                              hintText: hintText,
+                              focusedBorder:
+                                  CommonStyleTextField.focusedBorderRound(
+                                      context),
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(25),
+                                  borderSide: BorderSide(
+                                      color:
+                                          Theme.of(context).backgroundColor)),
+                              border: InputBorder.none,
+                              prefixIcon: Icon(
+                                iconPrefix,
+                              )),
+                        ),
+                      ),
+                      if (passwordResetViewModel.emailErrorText != null)
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8, left: 40),
+                          child: Text(
+                            " ${passwordResetViewModel.emailErrorText}",
+                            style: TextStyle(color: Colors.red),
+                          ),
+                        ),
+                      SizedBox(height: 20),
+                      _proceedButton(errorText: passwordResetViewModel.emailErrorText),
+                    ],
+                  );
+                }),
+            SizedBox(height: 20),
           ],
         ),
       ),

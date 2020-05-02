@@ -1,90 +1,45 @@
 name: p7app
 description: A new Flutter application for Project Seven.
 
-version: 1.0.22+1
+
+version: 1.0.36+11
+
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.6.0 <3.0.0"
+
 
 dependencies:
   flutter:
     sdk: flutter
 
-
-  #  Dev tools -> different size of screen preview ###############
   device_preview: ^0.4.4
-
-
-  #  Default icons asset for Cupertino widgets
   cupertino_icons: ^0.1.3
-
-  #A mixture between dependency injection and state management
-  provider: ^4.0.4
-
-  #  The Font Awesome Icon pack available as Flutter Icons.
-  font_awesome_flutter: ^8.8.0
+  provider: ^4.0.5+1
+  font_awesome_flutter: ^8.8.1
   flutter_feather_icons: ^1.0.3
-
-  # reactiveX api for asynchronous programming.
   rxdart: ^0.24.0
-
-
-  #   checks for internet by opening a socket to a list of specified addresses,
-  #  data_connection_checker: ^0.3.4
-
-  #  A composable, cross-platform, Future-based API for making HTTP requests.
-  http: ^0.12.0+4
-
-  #  Execute code after the first layout of your widget has been performed,
+  http: ^0.12.1
   after_layout: ^1.0.7+2
-
-  #providing a persistent store for simple data
-  shared_preferences: ^0.5.6+3
-  #internationalization and localization facilities --> used for DateFormat
+  shared_preferences: ^0.5.7
   intl: ^0.16.1
-
-
-  #  track page view widget index
   page_view_indicators: ^1.3.1
-
-  #  rating bar -> Used for star rating
   flutter_rating_bar: ^3.0.1+1
-
-  #  Unique id generator
   uuid: ^2.0.4
-
-  #  Image Cropper
   image_crop: ^0.3.2
-
-  #   peak image form gallery and take capture image using camera
-  image_picker: ^0.6.4
-
-  #  Modal Progress hud (Heads Up Display) to show progress on to of screen
-  modal_progress_hud: ^0.1.3
-
-  #  Html formatting
+  image_picker: ^0.6.5+2
   flutter_html: ^0.11.1
-
-  #  keep screen always weak
-  wakelock:
-
-  #  to retrieve information about app
-  package_info: ^0.4.0+16
-
-  #  Functional programming in Dart
-  dartz: 0.8.8
-
-  #  JSON serialization and deserialization.
-#  json_annotation: ^2.0.0
-
-  #A package to include fonts from fonts.google.com
-  google_fonts: ^0.4.3
-
-  #  flutter toast library!
-  bot_toast: ^2.4.0
-
-  #URL launcher
-  url_launcher: ^5.4.2
+  package_info: ^0.4.0+17
+  dartz: ^0.9.0
+  google_fonts: ^1.0.0
+  bot_toast: ^2.4.1
+  url_launcher: ^5.4.5
+  cached_network_image: ^2.1.0+1
+  flutter_image_compress: ^0.6.7
+  equatable: ^1.1.1
+  autocomplete_textfield: ^1.7.3
+  device_id: ^0.2.0
+  connectivity: ^0.4.8+2
 
 
 
@@ -107,7 +62,7 @@ dev_dependencies:
   test:
   #  mockito used for mocking
   mockito: 4.1.0
-  flutter_launcher_icons: ^0.7.4
+  flutter_launcher_icons: ^0.7.5
 
 flutter_icons:
   android: "launcher_icon"

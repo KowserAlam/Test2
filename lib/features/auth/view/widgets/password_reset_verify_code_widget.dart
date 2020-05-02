@@ -1,7 +1,7 @@
 import 'package:p7app/features/auth/provider/password_reset_provider.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
-import 'package:p7app/main_app/widgets/gredient_buton.dart';
+import 'package:p7app/main_app/widgets/common_button.dart';
 import 'package:p7app/main_app/widgets/loader.dart';
 import 'package:p7app/main_app/widgets/verification_code_input.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +23,7 @@ class _PasswordResetVerifyCodeWidgetState
   final FocusNode _codeFocusNode = FocusNode();
 
   _handleVerify() async {
-    var passwordResetProvider = Provider.of<PasswordResetProvider>(context);
+    var passwordResetProvider = Provider.of<PasswordResetViewModel>(context);
 
     if (true) {
       /// on success navigating to next page
@@ -50,7 +50,7 @@ class _PasswordResetVerifyCodeWidgetState
               fontSize: 16,
             ),
           ),
-          Consumer<PasswordResetProvider>(
+          Consumer<PasswordResetViewModel>(
               builder: (context, passwordResetProvider, _) {
             return Text(
               passwordResetProvider.passwordResetMethodIsEmail?"example@email.com":"+8801XXXXXXXXXXXX",
@@ -81,7 +81,7 @@ class _PasswordResetVerifyCodeWidgetState
           SizedBox(
             width: 5,
           ),
-          Consumer<PasswordResetProvider>(
+          Consumer<PasswordResetViewModel>(
               builder: (context, passwordResetProvider, _) {
             if (passwordResetProvider.isCodeResend) {
               return Text(StringUtils.resendText,

@@ -22,7 +22,7 @@ import 'package:skill_check/main_app/util/strings_utils.dart';
 import 'package:skill_check/main_app/util/cosnt_style.dart';
 
 import 'package:skill_check/main_app/widgets/custom_alert_dialog.dart';
-import 'package:skill_check/main_app/widgets/gredient_buton.dart';
+import 'package:skill_check/main_app/widgets/common_button.dart';
 import 'package:skill_check/main_app/widgets/loader.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -73,9 +73,9 @@ class _ExamScreenState extends State<ExamScreen>
 
     /// fetching question then initializing tab controller  with question  length then starting clock
 
-   print(enrolledExamModel.id);
+   print(enrolledExamModel.profSkillId);
     Provider.of<ExamProvider>(context, listen: false)
-        .getQuestionData("${enrolledExamModel.id}")
+        .getQuestionData("${enrolledExamModel.profSkillId}")
         .then((length) {
       if (length != null) {
         _tabController = TabController(length: length, vsync: this);
@@ -93,7 +93,7 @@ class _ExamScreenState extends State<ExamScreen>
     submitProvider.isSubmitting = true;
 
     submitProvider
-        .handleSubmit(context, "${enrolledExamModel.id}")
+        .handleSubmit(context, "${enrolledExamModel.profSkillId}")
         .then((isSuccess) {
       submitProvider.isSubmitting = false;
       if (isSuccess) {

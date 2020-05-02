@@ -34,9 +34,16 @@ class ApiClient {
     var completeUrl = _buildUrl(url);
     var headers = await _getHeaders();
     var encodedBody = json.encode(body);
-    return httClient.post(completeUrl, headers: headers, body: encodedBody).timeout(Duration(seconds: 15));
+    return httClient.post(completeUrl, headers: headers, body: encodedBody);
   }
-  
+
+  Future<http.Response> putRequest(
+      String url, Map<String, dynamic> body,{Duration timeout}) async {
+    var completeUrl = _buildUrl(url);
+    var headers = await _getHeaders();
+    var encodedBody = json.encode(body);
+    return httClient.put(completeUrl, headers: headers, body: encodedBody);
+  }
 
   Future<Map<String, String>> _getHeaders() async {
     var token = await AuthService.getInstance()
@@ -48,8 +55,9 @@ class ApiClient {
       'Accept': 'application/json',
     };
 
-    if (token != null) headers.addAll({HttpHeaders.authorizationHeader: token});
+    if (token != null) headers.addAll({HttpHeaders.authorizationHeader: "Bearer $token"});
     return headers;
+
   }
 
   _buildUrl(String partialUrl) {

@@ -1,16 +1,81 @@
 {
-  "status": "success",
-  "code": 200,
-  "data": {
-    "user": {
-      "name": "Shofi",
-      "mobile_number": "",
+  "personal_info": {
+    "id": "c8eb21a2-0bb6-46ec-add6-0de5336e1723",
+    "professional_id": null,
+    "full_name": "Sheikh Shofiullah",
+    "email": "shofi@ishraak.com",
+    "phone": "01940469959",
+    "address": "Current address",
+    "about_me": "This is about me",
+    "image": "/media/52655454-c891-4cad-b3c9-81b1ee0a0258-professional.jpg",
+    "job_alert_status": false,
+    "father_name": "Father nam",
+    "mother_name": "Mother name",
+    "facebbok_id": "https://facebook.com/shofizone/",
+    "twitter_id": "",
+    "linkedin_id": "",
+    "date_of_birth": "2011-10-17",
+    "expected_salary_min": null,
+    "expected_salary_max": null,
+    "permanent_address": "Nai",
+    "current_location": "Current address",
+    "industry_expertise": "Software & ITES",
+    "user": 39,
+    "gender": "Male",
+    "status": null,
+    "experience": null,
+    "qualification": null,
+    "nationality": 2,
+    "religion": 1,
+    "religion_obj": {
+      "id": 1,
+      "name": "Ishlam",
+      "created_date": "2020-04-20T11:36:01.708604+06:00"
+    },
+    "nationality_obj": {
       "id": 2,
-      "profile_pic_url": "https://icon-library.net/images/default-user-icon/default-user-icon-4.jpg",
-      "email": "shofi@ishraak.com",
-      "address": "",
-      "about": "Entrepreneur and businessman Bill Gates and his business partner Paul Allen founded and built the world's largest software business, Microsoft, through technological innovation, keen business strategy and aggressive business tactics. In the process, Gates became one of the richest men in the world.",
-      "city": "Dhaka"
+      "name": "Bangladesh",
+      "created_date": "2020-04-20T15:00:15.240205+06:00"
     }
-  }
+  },
+  "edu_info": [],
+  "skill_info": [
+    {
+      "prof_skill_id": 2,
+      "skill": {
+        "id": 1,
+        "name": "Python",
+        "created_date": "2020-04-05T19:50:17+06:00"
+      },
+      "rating": 5,
+      "verified_by_skillcheck": false
+    }
+  ],
+  "experience_info": [],
+  "portfolio_info": [],
+  "membership_info": [],
+  "certification_info": [],
+  "reference_data": [
+    {
+      "reference_id": 2,
+      "name": "saiful 2",
+      "current_position": "1",
+      "email": "nai@email.com",
+      "mobile": "01718545454"
+    },
+    {
+      "reference_id": 3,
+      "name": "Robertson 2",
+      "current_position": "Software Engineer",
+      "email": "robart@email.com",
+      "mobile": "01600002322"
+    },
+    {
+      "reference_id": 8,
+      "name": "qweqwe",
+      "current_position": "qweqwe",
+      "email": "qweqwe@email.com",
+      "mobile": "0171844444"
+    }
+  ]
 }
