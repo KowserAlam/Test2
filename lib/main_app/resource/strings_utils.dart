@@ -161,6 +161,7 @@ class StringUtils {
   static var personalInfoText = "Personal Information";
   static var editPersonalInfoText = "Edit Personal Information";
   static var contactText = "Contact";
+  static var contactInfo = "Contact Info";
 
 
   static String saveText = "Save";
