@@ -14,6 +14,8 @@ class StringUtils {
   static String loginUnsuccessfulMessage = "Login unsuccessful";
   static String checkInternetConnectionMessage = "Check Internet Connection";
   static String forgotPassword = "Forgot Password ?";
+  static String welcomeBack = "Welcome back!";
+  static String loginToYourExistingAccount = "Login to your existing account";
 
   /// Validator
 

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class CustomTextFieldRounded extends StatelessWidget {
-  final Function validator;
   final TextEditingController controller;
   final String labelText;
   final String hintText;
@@ -19,9 +18,10 @@ class CustomTextFieldRounded extends StatelessWidget {
   final Widget prefixIcon;
   final Widget suffixIcon;
   final Function onChanged;
+  final String errorText;
 
   const CustomTextFieldRounded({
-    this.validator,
+    this.errorText,
     this.prefix,
     this.prefixIcon,
     this.suffixIcon,
@@ -35,26 +35,25 @@ class CustomTextFieldRounded extends StatelessWidget {
     this.labelText,
     this.hintText,
     this.minLines,
-    this.keyboardType ,
-    this.contentPadding ,
-    this.obscureText ,
+    this.keyboardType,
+    this.contentPadding,
+    this.obscureText = false,
     this.maxLines = 1,
-
   });
 
   @override
   Widget build(BuildContext context) {
     double circularRadius = 35;
+    bool hasError = errorText != null;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text("   ${labelText?? ""}",
+          if(labelText != null)
+          Text("   ${labelText ?? ""}",
               style: TextStyle(fontWeight: FontWeight.bold)),
-          SizedBox(
-            height: 5,
-          ),
+          SizedBox(height: 5),
           Container(
             decoration: BoxDecoration(
               color: Theme.of(context).backgroundColor,
@@ -64,12 +63,10 @@ class CustomTextFieldRounded extends StatelessWidget {
                     color: Colors.grey[200],
                     spreadRadius: 3,
                     blurRadius: 10,
-                    offset: Offset(1,1)
-                )
+                    offset: Offset(1, 1))
               ],
             ),
             child: TextField(
-
               minLines: minLines,
               onChanged: onChanged,
               onSubmitted: onSubmitted,
@@ -79,10 +76,9 @@ class CustomTextFieldRounded extends StatelessWidget {
               keyboardType: keyboardType,
               controller: controller,
               textInputAction: textInputAction,
-              obscureText:obscureText,
+              obscureText: obscureText,
               decoration: InputDecoration(
-
-                suffixIcon:suffixIcon,
+                suffixIcon: suffixIcon,
                 prefixIcon: prefixIcon,
                 prefix: prefix,
                 border: InputBorder.none,
@@ -90,23 +86,30 @@ class CustomTextFieldRounded extends StatelessWidget {
                 contentPadding: contentPadding,
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(
-                    color: Colors.lightBlueAccent,
+                    color: Theme.of(context).primaryColor,
                     width: 1.6,
                   ),
-                  borderRadius: BorderRadius.circular(40),
+                  borderRadius: BorderRadius.circular(circularRadius),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(
-                    color: Colors.transparent,
+                    color:hasError?Colors.red: Colors.transparent,
                     width: 1.6,
                   ),
-                  borderRadius: BorderRadius.circular(40),
+                  borderRadius: BorderRadius.circular(circularRadius),
                 ),
-
               ),
             ),
           ),
-//        errorText != null ? Text('') : SizedBox(),
+          errorText == null
+              ? Text("")
+              : Padding(
+                  padding: const EdgeInsets.only(left: 38, top: 8),
+                  child: Text(
+                    errorText,
+                    style: TextStyle(color: Colors.red),
+                  ),
+                ),
         ],
       ),
     );
