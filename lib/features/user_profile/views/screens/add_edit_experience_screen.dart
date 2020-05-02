@@ -126,30 +126,44 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
       if(_joiningDate != null && _leavingDate != null){
         if(_joiningDate.isBefore(_leavingDate)){
           if(widget.experienceInfoModel != null){
+            print('1');
             if(widget.experienceInfoModel.organizationName != organizationNameController.text){
+              print('1.1');
               if(sameExperience(organizationNameController.text)){
+                print('1.2');
                 updateExp(experienceInfo);
-              }else{BotToast.showText(text: StringUtils.sameExperience);}
+              }else{print('1.3');BotToast.showText(text: StringUtils.sameExperience);}
+            }else{
+              print('1.4');
+              updateExp(experienceInfo);
             }
           }else{
+            print('1.5');
             if(sameExperience(organizationNameController.text)){
               addExp(experienceInfo);
-            }else{BotToast.showText(text: StringUtils.sameExperience);}
+            }else{print('1.6');BotToast.showText(text: StringUtils.sameExperience);}
           }
         }else{
-          BotToast.showText(text: StringUtils.joiningLeavingDateLogic);
+          print('1.5');BotToast.showText(text: StringUtils.joiningLeavingDateLogic);
         }
     }else{
         if(widget.experienceInfoModel != null){
+          print('2');
           if(widget.experienceInfoModel.organizationName != organizationNameController.text){
+            print('2.1');
             if(sameExperience(organizationNameController.text)){
+              print('2.2');
               updateExp(experienceInfo);
-            }else{BotToast.showText(text: StringUtils.sameExperience);}
+            }else{print('2.3');BotToast.showText(text: StringUtils.sameExperience);}
+          }else{
+            print('2.4');
+            updateExp(experienceInfo);
           }
         }else{
           if(sameExperience(organizationNameController.text)){
+            print('2.5');
             addExp(experienceInfo);
-          }else{BotToast.showText(text: StringUtils.sameExperience);}
+          }else{print('2.6');BotToast.showText(text: StringUtils.sameExperience);}
         }
       }
   }
