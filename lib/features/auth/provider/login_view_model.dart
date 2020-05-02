@@ -10,6 +10,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:http/http.dart' as http;
 import 'package:p7app/main_app/resource/json_keys.dart';
 import 'package:flutter/material.dart';
+import 'package:p7app/main_app/util/validator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginViewModel with ChangeNotifier {
@@ -18,6 +19,24 @@ class LoginViewModel with ChangeNotifier {
   String _password = "";
   bool _isBusyLogin = false;
   bool _isFromSuccessfulSignUp = false;
+  String _errorTextEmail;
+  String _errorTextPassword;
+  String _message;
+
+
+  String get message => _message;
+
+  String get errorTextEmail => _errorTextEmail;
+
+  set errorTextEmail(String value) {
+    _errorTextEmail = value;
+  }
+
+  String get errorTextPassword => _errorTextPassword;
+
+  set errorTextPassword(String value) {
+    _errorTextPassword = value;
+  }
 
   bool get isFromSuccessfulSignUp => _isFromSuccessfulSignUp;
 
@@ -54,6 +73,30 @@ class LoginViewModel with ChangeNotifier {
     notifyListeners();
   }
 
+  clearMessage(){
+    _message = null;
+    notifyListeners();
+  }
+   bool validate(){
+    validateEmailLocal(_email);
+    validatePasswordLocal(_password);
+    return errorTextEmail == null && errorTextPassword == null;
+
+  }
+  validateEmailLocal(String val) {
+    errorTextEmail = Validator().validateEmail(val?.trim());
+    _email = val;
+    _message = null;
+    notifyListeners();
+  }
+
+  validatePasswordLocal(String val) {
+    errorTextPassword = Validator().validatePassword(val);
+    _password = val?.trim();
+    _message = null;
+    notifyListeners();
+  }
+
   Future<bool> loginWithEmailAndPassword() async {
     isBusyLogin = true;
     var body = {
@@ -71,20 +114,27 @@ class LoginViewModel with ChangeNotifier {
       if (response.statusCode == 200) {
         Map<String, dynamic> decodedJson = jsonDecode(response.body);
         _saveAuthData(decodedJson);
+        clearMessage();
         return true;
       } else {
         var decodedJson = jsonDecode(response.body);
-        var message = decodedJson['detail'] ?? "";
-        BotToast.showText(text: message);
+        var m = decodedJson['detail']?.toString() ?? "";
+        _message = m;
+        notifyListeners();
+        BotToast.showText(text: m);
         return false;
       }
     } on SocketException catch (e) {
       isBusyLogin = false;
+      BotToast.showText(text: StringUtils.checkInternetConnectionMessage);
+      _message = StringUtils.checkInternetConnectionMessage;
+      notifyListeners();
       print(e);
       return false;
     } catch (e) {
       print(e);
       isBusyLogin = false;
+      BotToast.showText(text: StringUtils.somethingIsWrong);
       return false;
     }
   }
@@ -107,4 +157,6 @@ class LoginViewModel with ChangeNotifier {
     var prf = await SharedPreferences.getInstance();
     prf.remove(JsonKeys.user);
   }
+
+
 }
