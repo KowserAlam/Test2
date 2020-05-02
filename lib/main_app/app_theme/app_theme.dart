@@ -52,6 +52,7 @@ class AppTheme {
   var fontFamily = GoogleFonts.roboto().fontFamily;
 
   static ThemeData lightTheme = ThemeData(
+    visualDensity: VisualDensity.adaptivePlatformDensity,
       brightness: Brightness.light,
       backgroundColor: lightScaffoldColor,
       primaryColor: colorPrimary,
@@ -70,6 +71,7 @@ class AppTheme {
   );
 
   static ThemeData darkTheme = ThemeData(
+    visualDensity: VisualDensity.adaptivePlatformDensity,
     brightness: Brightness.dark,
     errorColor: darkErrorColor,
     backgroundColor: darkBG,
