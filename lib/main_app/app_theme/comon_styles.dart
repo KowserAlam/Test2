@@ -53,28 +53,9 @@ var kEmailInputDecoration = InputDecoration(
     prefixIcon: Icon(
       Icons.person_outline,
     ));
-var kFullNameInputDecoration = InputDecoration(
-    contentPadding: EdgeInsets.zero,
-    hintText: StringUtils.labelTextFullName,
-    hintStyle: TextStyle(
-      fontSize: 16.0,
-    ),
-    enabledBorder: OutlineInputBorder(
-      borderSide: BorderSide(
-        color: Colors.grey,
-        width: 1.6,
-      ),
-      borderRadius: BorderRadius.circular(5.0),
-    ),
-    border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(5.0),
-    ),
-    prefixIcon: Icon(
-      Icons.person,
-    ));
 
 InputDecoration kPasswordInputDecoration({suffixIcon, hintText}) => InputDecoration(
-  errorMaxLines: 3,
+    errorMaxLines: 3,
     hintText: hintText??StringUtils.passwordText,
     hintStyle: TextStyle(
       fontSize: 16.0,
@@ -100,3 +81,25 @@ InputDecoration kPasswordInputDecoration({suffixIcon, hintText}) => InputDecorat
       Icons.lock,
     ),
     suffixIcon: suffixIcon);
+
+var kFullNameInputDecoration = InputDecoration(
+    contentPadding: EdgeInsets.zero,
+    hintText: StringUtils.labelTextFullName,
+    hintStyle: TextStyle(
+      fontSize: 16.0,
+    ),
+    enabledBorder: OutlineInputBorder(
+      borderSide: BorderSide(
+        color: Colors.grey,
+        width: 1.6,
+      ),
+      borderRadius: BorderRadius.circular(5.0),
+    ),
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(5.0),
+    ),
+    prefixIcon: Icon(
+      Icons.person,
+    ));
+
+
