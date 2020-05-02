@@ -42,14 +42,17 @@ var kEmailInputDecoration = InputDecoration(
     ),
     borderRadius: BorderRadius.circular(40),
   ),
-  enabledBorder: OutlineInputBorder(
-    borderSide: BorderSide(
-      color: Colors.transparent,
-      width: 1.6,
+
+//  enabledBorder: OutlineInputBorder(
+//    borderSide: BorderSide(
+//      color: Colors.transparent,
+//      width: 1.6,
+//    ),
+//    borderRadius: BorderRadius.circular(40),
+////  ),
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(40),
     ),
-    borderRadius: BorderRadius.circular(40),
-  ),
-    //border: InputBorder.none,
     prefixIcon: Icon(
       Icons.person_outline,
     ));
