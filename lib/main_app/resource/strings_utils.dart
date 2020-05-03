@@ -350,6 +350,8 @@ static const String appliedText = "Applied";
 static const String jobListText = "Job List";
 static const String successfullyAppliedText = "Successfully Applied";
 static const String savedText = "Saved";
+static const String typeToSearch = "Type to search";
+static const String noJobsFound = "No jobs found";
 
 
 ///Job Details

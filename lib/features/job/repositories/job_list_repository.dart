@@ -5,6 +5,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart';
 import 'package:p7app/features/job/models/job.dart';
+import 'package:p7app/features/job/models/job_list_filters.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
 import 'package:p7app/main_app/failure/error.dart';
@@ -18,32 +19,16 @@ class JobListRepository {
   int count;
   bool next;
 
-  Future<Either<AppError, List<JobModel>>> fetchJobList({
-    int page = 1,
-    int page_size = 15,
-    String searchQuery='',
-    String location='',
-    String category='',
-    String location_from_homepage='',
-    String keyword_from_homepage='',
-    String skill='',
-    String salaryMin='',
-    String salaryMax='',
-    String experienceMin='',
-    String experienceMax='',
-    String datePosted='',
-    String gender='',
-    String qualification='',
-    String sort='',
-  }) async {
+  Future<Either<AppError, List<JobModel>>> fetchJobList(
+      JobListFilters filters) async {
+    var _filters =
+        "?page=${filters.page}&q=${filters.searchQuery}&location=${filters.location}&category=${filters.category}"
+        "&location_from_homepage=${filters.location_from_homepage}&keyword_from_homepage=${filters.keyword_from_homepage}"
+        "&skill=${filters.skill}&salaryMin=${filters.salaryMin}&salaryMax=${filters.salaryMin}&experienceMin=${filters.experienceMin}"
+        "&experienceMax=${filters.experienceMax}&datePosted=${filters.datePosted}&gender=${filters.gender}"
+        "&qualification=${filters.qualification}&sort=${filters.sort}&page_size=${filters.page_size}";
 
-    var filters = "?page=$page&q=$searchQuery&location=$location&category=$category"
-        "&location_from_homepage=$location_from_homepage&keyword_from_homepage=$keyword_from_homepage"
-        "&skill=$skill&salaryMin=$salaryMin&salaryMax=$salaryMin&experienceMin=$experienceMin"
-        "&experienceMax=$experienceMax&datePosted=$datePosted&gender=$gender"
-        "&qualification=$qualification&sort=$sort&page_size=$page_size";
-
-    var url = "${Urls.jobListUrl}${filters}";
+    var url = "${Urls.jobListUrl}${_filters}";
 
     try {
       var response = await ApiClient().getRequest(url);
@@ -58,13 +43,11 @@ class JobListRepository {
         BotToast.showText(text: StringUtils.somethingIsWrong);
         return Left(AppError.serverError);
       }
-    } on SocketException catch (e){
+    } on SocketException catch (e) {
       print(e);
       BotToast.showText(text: StringUtils.checkInternetConnectionMessage);
       return Left(AppError.networkError);
-    }
-
-    catch (e) {
+    } catch (e) {
       print(e);
       BotToast.showText(text: StringUtils.somethingIsWrong);
       return Left(AppError.serverError);

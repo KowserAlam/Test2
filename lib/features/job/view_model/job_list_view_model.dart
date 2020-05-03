@@ -4,35 +4,63 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:p7app/features/job/models/job.dart';
+import 'package:p7app/features/job/models/job_list_filters.dart';
 import 'package:p7app/features/job/repositories/job_list_repository.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
 import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/failure/error.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/util/debouncer.dart';
 import 'package:rxdart/rxdart.dart';
 
 class JobListViewModel with ChangeNotifier {
   List<JobModel> _jobList = [];
   bool _isFetchingData = false;
+  bool _isFetchingMoreData = false;
   bool _hasMoreData = false;
   int _pageCount = 1;
   JobListRepository _jobListRepository = JobListRepository();
-  var _searchQueryController = PublishSubject<String>();
+  JobListFilters _jobListFilters = JobListFilters();
+  Debouncer _debouncer = Debouncer(milliseconds: 800);
+  bool _isInSearchMode = false;
+  int _totalJobCount = 0;
 
 
-  JobListViewModel(){
-_searchQueryController.debounceTime(Duration(milliseconds: 500)).listen((event) {
-  print(event);
-  getJobList(searchQuery: event);
-});
+  int get totalJobCount => _totalJobCount;
+
+  set totalJobCount(int value) {
+    _totalJobCount = value;
+    notifyListeners();
+  }
+
+  bool get isFetchingMoreData => _isFetchingMoreData;
+
+  set isFetchingMoreData(bool value) {
+    _isFetchingMoreData = value;
+    notifyListeners();
   }
 
   /// ##########################
   /// methods
   /// #########################
- Stream<String> get searchQueryStream => _searchQueryController.stream;
- Function(String) get searchQuerySink => _searchQueryController.sink.add;
+
+  toggleIsInSearchMode() {
+    _isInSearchMode = !_isInSearchMode;
+    if(!_isInSearchMode){
+      _jobListFilters.searchQuery = '';
+      getJobList();
+    }
+    notifyListeners();
+  }
+
+  addSearchQuery(String query) {
+    _debouncer.run(() {
+      _jobListFilters.searchQuery = query;
+      debugPrint("Searching for: $query");
+      getJobList();
+    });
+  }
 
   void incrementPageCount() {
     _pageCount++;
@@ -42,27 +70,18 @@ _searchQueryController.debounceTime(Duration(milliseconds: 500)).listen((event) 
     _pageCount = 1;
   }
 
-  Future<bool> getJobList({
-    int page = 1,
-    int page_size = 15,
-    String searchQuery = '',
-    String location = '',
-    String category = '',
-    String location_from_homepage = '',
-    String keyword_from_homepage = '',
-    String skill = '',
-    String salaryMin = '',
-    String salaryMax = '',
-    String experienceMin = '',
-    String experienceMax = '',
-    String datePosted = '',
-    String gender = '',
-    String qualification = '',
-    String sort = '',
-  }) async {
+  Future<bool> refresh() async{
+    _jobListFilters = JobListFilters();
+    _pageCount = 1;
+    notifyListeners();
+    return getJobList();
+  }
+
+  Future<bool> getJobList() async {
     isFetchingData = true;
+    totalJobCount = 0;
     Either<AppError, List<JobModel>> result =
-        await _jobListRepository.fetchJobList();
+        await _jobListRepository.fetchJobList(_jobListFilters);
     return result.fold((l) {
       isFetchingData = false;
       _checkHasMoreData();
@@ -71,43 +90,28 @@ _searchQueryController.debounceTime(Duration(milliseconds: 500)).listen((event) 
     }, (List<JobModel> list) {
       isFetchingData = false;
       _jobList = list;
+      _totalJobCount = _jobListRepository.count;
       notifyListeners();
       _checkHasMoreData();
       return true;
     });
   }
 
-  getMoreData({
-    int page = 1,
-    int page_size = 15,
-    String searchQuery = '',
-    String location = '',
-    String category = '',
-    String location_from_homepage = '',
-    String keyword_from_homepage = '',
-    String skill = '',
-    String salaryMin = '',
-    String salaryMax = '',
-    String experienceMin = '',
-    String experienceMax = '',
-    String datePosted = '',
-    String gender = '',
-    String qualification = '',
-    String sort = '',
-  }) async {
-    isFetchingData = true;
+  getMoreData() async {
+    isFetchingMoreData = true;
     debugPrint('Getting more jobs');
     hasMoreData = true;
     incrementPageCount();
+    _jobListFilters.page = _pageCount;
     Either<AppError, List<JobModel>> result =
-        await _jobListRepository.fetchJobList(page: _pageCount);
+        await _jobListRepository.fetchJobList(_jobListFilters);
     result.fold((l) {
-      isFetchingData = false;
+      isFetchingMoreData = false;
       _checkHasMoreData();
       print(l);
     }, (List<JobModel> list) {
       _jobList.addAll(list);
-      _isFetchingData = false;
+      _isFetchingMoreData = false;
       _checkHasMoreData();
     });
   }
@@ -186,6 +190,15 @@ _searchQueryController.debounceTime(Duration(milliseconds: 500)).listen((event) 
     }
   }
 
+  resetState() {
+    _jobList = [];
+    _isFetchingData = false;
+    _hasMoreData = false;
+    _pageCount = 1;
+    _jobListRepository = JobListRepository();
+    _jobListFilters = JobListFilters();
+  }
+
   /// ##########################
   /// getter setters
   /// #########################
@@ -209,5 +222,11 @@ _searchQueryController.debounceTime(Duration(milliseconds: 500)).listen((event) 
   set hasMoreData(bool value) {
     _hasMoreData = value;
     notifyListeners();
+  }
+
+  bool get isInSearchMode => _isInSearchMode;
+
+  set isInSearchMode(bool value) {
+    _isInSearchMode = value;
   }
 }
