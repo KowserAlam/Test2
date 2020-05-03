@@ -11,8 +11,11 @@ class Validator {
     Pattern pattern =
         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
     RegExp regex = new RegExp(pattern);
-    if (!regex.hasMatch(value))
-      return StringUtils.invalidEmail;
+
+    if (value.isEmpty) {
+      return StringUtils.pleaseEnterEmailText;
+    }else if (!regex.hasMatch(value))
+      return StringUtils.pleaseEnterAValidEmailText;
     else
       return null;
   }
@@ -26,6 +29,14 @@ class Validator {
     } else if (!_passwordRegExp.hasMatch(value)) {
       return StringUtils.passwordMustBeEight;
     } else {
+      return null;
+    }
+  }
+
+  String validateEmptyPassword(String value) {
+    if (value.isEmpty) {
+      return StringUtils.pleaseEnterPasswordText;
+    }  else {
       return null;
     }
   }
