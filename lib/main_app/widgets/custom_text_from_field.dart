@@ -43,6 +43,7 @@ class CustomTextFormField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
+        if(labelText != null)
         Text("  " + labelText ?? "",
             style: TextStyle(fontWeight: FontWeight.bold)),
         SizedBox(
