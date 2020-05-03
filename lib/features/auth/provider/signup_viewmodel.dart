@@ -88,7 +88,7 @@ class SignUpViewModel with ChangeNotifier {
   }
 
   validateMobileLocal(String val) {
-    errorTextPassword = Validator().nullFieldValidate(val);
+    errorTextMobile = Validator().validatePhoneNumber(val);
     _mobile = val?.trim();
     _message = null;
     notifyListeners();

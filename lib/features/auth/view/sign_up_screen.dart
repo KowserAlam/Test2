@@ -194,7 +194,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               Consumer<SignUpViewModel>(
                 builder: (context, signUpModel, _) {
                   return CustomTextFieldRounded(
-                    errorText: signUpModel.errorTextEmail,
+                    errorText: signUpModel.errorTextMobile,
                     keyboardType: TextInputType.number,
                     focusNode: _mobileFocusNode,
                     textInputAction: TextInputAction.next,
