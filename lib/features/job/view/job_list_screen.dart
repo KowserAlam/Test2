@@ -103,6 +103,7 @@ class _JobListScreenState extends State<JobListScreen>
                 Expanded(
                   child: ListView(
                     physics: AlwaysScrollableScrollPhysics(),
+                    controller: _scrollController,
                     children: [
 
 
@@ -122,7 +123,7 @@ class _JobListScreenState extends State<JobListScreen>
                               padding: EdgeInsets.symmetric(vertical: 4),
                               physics: NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
-                              controller: _scrollController,
+
                               itemCount: jobList.length + 1,
 //              separatorBuilder: (context,index)=>Divider(),
                               itemBuilder: (context, index) {
