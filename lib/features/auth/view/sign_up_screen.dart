@@ -1,5 +1,6 @@
 import 'package:p7app/features/auth/provider/login_view_model.dart';
 import 'package:p7app/features/auth/provider/signup_viewmodel.dart';
+import 'package:p7app/features/auth/view/widgets/custom_text_field_rounded.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/util/validator.dart';
@@ -18,6 +19,7 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
   bool _checkboxValue = false;
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   TextEditingController _nameEditingController = TextEditingController();
   TextEditingController _emailEditingController = TextEditingController();
@@ -179,73 +181,51 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               //Email
               SizedBox(height: 25),
-              Container(
-                padding: EdgeInsets.only(left: 15),
-                margin: EdgeInsets.symmetric(horizontal: 10),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(40),
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.grey[200],
-                          spreadRadius: 3,
-                          blurRadius: 10,
-                          offset: Offset(1,1)
-                      )
-                    ]
-                ),
-                child: Center(
-                  child: TextFormField(
+              Consumer<SignUpViewModel>(
+                builder: (context, signUpModel, _) {
+                  return CustomTextFieldRounded(
+                    errorText: signUpModel.errorTextEmail,
                     keyboardType: TextInputType.emailAddress,
-                    textInputAction: TextInputAction.next,
                     focusNode: _emailFocusNode,
-                    onFieldSubmitted: (v){
-                      _mobileFocusNode.requestFocus();
-                    },
-                    validator: Validator().validateEmail,
-                    controller: _emailEditingController,
-                    decoration: InputDecoration.collapsed(
-                      hintText: StringUtils.emailText,
-                      hintStyle: TextStyle(color: Colors.grey),
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(height: 25),
-              //Mobile TextField
-
-              Container(
-                padding: EdgeInsets.only(left: 15),
-                margin: EdgeInsets.symmetric(horizontal: 10),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(40),
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.grey[200],
-                          spreadRadius: 3,
-                          blurRadius: 10,
-                          offset: Offset(1,1)
-                      )
-                    ]
-                ),
-                child: Center(
-                  child: TextFormField(
-                    keyboardType: TextInputType.phone,
                     textInputAction: TextInputAction.next,
-                    validator: Validator().nullFieldValidate,
-                    focusNode: _mobileFocusNode,
-                    onFieldSubmitted: (v){
-                      _passwordFocusNode.requestFocus();
-                    },
-                    controller: _mobileEditingController,
-                    decoration: InputDecoration.collapsed(
-                      hintText: StringUtils.mobileText,
-                      hintStyle: TextStyle(color: Colors.grey),
+                    controller: _emailEditingController,
+                    hintText: StringUtils.emailText,
+                    prefixIcon: Icon(
+                      Icons.person_outline,
                     ),
-                  ),
-                ),
+                    onChanged: signUpModel.validateEmailLocal,
+                    onSubmitted: (s) {
+                      _emailFocusNode.unfocus();
+                      FocusScope.of(_scaffoldKey.currentState.context)
+                          .requestFocus(_mobileFocusNode);
+                    },
+                  );
+                },
               ),
+
+            //Mobile TextField
+            SizedBox(height: 25),
+            Consumer<SignUpViewModel>(
+              builder: (context, signUpModel, _) {
+                return CustomTextFieldRounded(
+                  errorText: signUpModel.errorTextEmail,
+                  keyboardType: TextInputType.emailAddress,
+                  focusNode: _emailFocusNode,
+                  textInputAction: TextInputAction.next,
+                  controller: _emailEditingController,
+                  hintText: StringUtils.emailText,
+                  prefixIcon: Icon(
+                    Icons.person_outline,
+                  ),
+                  onChanged: signUpModel.validateEmailLocal,
+                  onSubmitted: (s) {
+                    _emailFocusNode.unfocus();
+                    FocusScope.of(_scaffoldKey.currentState.context)
+                        .requestFocus(_mobileFocusNode);
+                  },
+                );
+              },
+            ),
               SizedBox(height: 25),
               //Password TextField
               Container(

@@ -17,8 +17,55 @@ class SignUpViewModel with ChangeNotifier {
   bool _isObscurePassword;
   bool _isObscureConfirmPassword;
   bool _isBusy = false;
+  String _errorTextEmail;
+  String _errorTextPassword;
+  String _errorTextMobile;
+  String _message;
+  String _email = "";
+  String _password = "";
 
   String _errorText = "";
+
+  //Email getter setter validation
+  set errorTextEmail(String value) {
+    _errorTextEmail = value;
+  }
+  String get errorTextEmail => _errorTextEmail;
+
+  validateEmailLocal(String val) {
+    errorTextEmail = Validator().validateEmail(val?.trim());
+    _email = val;
+    _message = null;
+    notifyListeners();
+  }
+
+  //Password getter setter validation
+  String get errorTextPassword => _errorTextPassword;
+
+  set errorTextPassword(String value) {
+    _errorTextPassword = value;
+  }
+
+  validatePasswordLocal(String val) {
+    errorTextPassword = Validator().validatePassword(val);
+    _password = val?.trim();
+    _message = null;
+    notifyListeners();
+  }
+
+  //Mobile getter setter validation
+  String get errorTextMobile => _errorTextMobile;
+
+  set errorTextMobile(String value) {
+    _errorTextMobile = value;
+  }
+
+  validateMobileLocal(String val) {
+    errorTextPassword = Validator().nullFieldValidate(val);
+    _password = val?.trim();
+    _message = null;
+    notifyListeners();
+  }
 
   bool get isObscurePassword => _isObscurePassword ?? true;
 
