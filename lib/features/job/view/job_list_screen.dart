@@ -1,5 +1,7 @@
 import 'package:after_layout/after_layout.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:p7app/features/job/view/job_details.dart';
+import 'package:p7app/features/job/view/job_list_search_screen.dart';
 import 'package:p7app/features/job/view_model/job_list_view_model.dart';
 import 'package:p7app/features/job/models/job.dart';
 import 'package:p7app/features/job/view/widgets/job_list_tile_widget.dart';
@@ -52,7 +54,7 @@ class _JobListScreenState extends State<JobListScreen> with AfterLayoutMixin {
             IconButton(
               icon: Icon(Icons.search),
               onPressed: () {
-                Provider.of<JobListViewModel>(context,listen: false).enableSearchMode();
+                Navigator.of(context).push(CupertinoPageRoute(builder: (context)=>JobListSearchScreen()));
               },
             )
           ],

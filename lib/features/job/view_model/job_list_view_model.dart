@@ -10,51 +10,30 @@ import 'package:p7app/main_app/api_helpers/urls.dart';
 import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/failure/error.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:rxdart/rxdart.dart';
 
 class JobListViewModel with ChangeNotifier {
   List<JobModel> _jobList = [];
-  List<JobModel> get jobList => _jobList;
   bool _isFetchingData = false;
   bool _hasMoreData = false;
   int _pageCount = 1;
   JobListRepository _jobListRepository = JobListRepository();
-  bool _isInSearchMode = false;
+  var _searchQueryController = PublishSubject<String>();
 
 
-  bool get isInSearchMode => _isInSearchMode;
-
-  set isInSearchMode(bool value) {
-    _isInSearchMode = value;
+  JobListViewModel(){
+_searchQueryController.debounceTime(Duration(milliseconds: 500)).listen((event) {
+  print(event);
+  getJobList(searchQuery: event);
+});
   }
 
-  set jobList(List<JobModel> value) {
-    _jobList = value;
-    notifyListeners();
-  }
+  /// ##########################
+  /// methods
+  /// #########################
+ Stream<String> get searchQueryStream => _searchQueryController.stream;
+ Function(String) get searchQuerySink => _searchQueryController.sink.add;
 
-  bool get isFetchingData => _isFetchingData;
-
-  set isFetchingData(bool value) {
-    _isFetchingData = value;
-    notifyListeners();
-  }
-
-  bool get hasMoreData => _hasMoreData;
-
-  set hasMoreData(bool value) {
-    _hasMoreData = value;
-    notifyListeners();
-  }
-
-  enableSearchMode(){
-    _isInSearchMode = true;
-    notifyListeners();
-}
-
-  disableSearchMode(){
-    _isInSearchMode = false;
-    notifyListeners();
-  }
   void incrementPageCount() {
     _pageCount++;
   }
@@ -63,7 +42,24 @@ class JobListViewModel with ChangeNotifier {
     _pageCount = 1;
   }
 
-  Future<bool> getJobList() async {
+  Future<bool> getJobList({
+    int page = 1,
+    int page_size = 15,
+    String searchQuery = '',
+    String location = '',
+    String category = '',
+    String location_from_homepage = '',
+    String keyword_from_homepage = '',
+    String skill = '',
+    String salaryMin = '',
+    String salaryMax = '',
+    String experienceMin = '',
+    String experienceMax = '',
+    String datePosted = '',
+    String gender = '',
+    String qualification = '',
+    String sort = '',
+  }) async {
     isFetchingData = true;
     Either<AppError, List<JobModel>> result =
         await _jobListRepository.fetchJobList();
@@ -81,7 +77,24 @@ class JobListViewModel with ChangeNotifier {
     });
   }
 
-  getMoreData() async {
+  getMoreData({
+    int page = 1,
+    int page_size = 15,
+    String searchQuery = '',
+    String location = '',
+    String category = '',
+    String location_from_homepage = '',
+    String keyword_from_homepage = '',
+    String skill = '',
+    String salaryMin = '',
+    String salaryMax = '',
+    String experienceMin = '',
+    String experienceMax = '',
+    String datePosted = '',
+    String gender = '',
+    String qualification = '',
+    String sort = '',
+  }) async {
     isFetchingData = true;
     debugPrint('Getting more jobs');
     hasMoreData = true;
@@ -141,7 +154,8 @@ class JobListViewModel with ChangeNotifier {
     }
   }
 
-  Future<bool> addToFavorite(String jobId, int index, {ApiClient apiClient}) async {
+  Future<bool> addToFavorite(String jobId, int index,
+      {ApiClient apiClient}) async {
     BotToast.showLoading();
     var userId =
         await AuthService.getInstance().then((value) => value.getUser().userId);
@@ -155,7 +169,7 @@ class JobListViewModel with ChangeNotifier {
       if (res.statusCode == 200) {
         BotToast.closeAllLoading();
 
-        _jobList[index].status =  !_jobList[index].status ;
+        _jobList[index].status = !_jobList[index].status;
         notifyListeners();
         return true;
       } else {
@@ -170,5 +184,30 @@ class JobListViewModel with ChangeNotifier {
 
       return false;
     }
+  }
+
+  /// ##########################
+  /// getter setters
+  /// #########################
+
+  List<JobModel> get jobList => _jobList;
+
+  set jobList(List<JobModel> value) {
+    _jobList = value;
+    notifyListeners();
+  }
+
+  bool get isFetchingData => _isFetchingData;
+
+  set isFetchingData(bool value) {
+    _isFetchingData = value;
+    notifyListeners();
+  }
+
+  bool get hasMoreData => _hasMoreData;
+
+  set hasMoreData(bool value) {
+    _hasMoreData = value;
+    notifyListeners();
   }
 }

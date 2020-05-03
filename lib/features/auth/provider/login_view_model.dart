@@ -77,6 +77,7 @@ class LoginViewModel with ChangeNotifier {
     _errorMessage = null;
     notifyListeners();
   }
+
    bool validate(){
     validateEmailLocal(_email);
     validatePasswordLocal(_password);
