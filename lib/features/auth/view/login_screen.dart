@@ -204,7 +204,7 @@ class _LoginScreenState extends State<LoginScreen> {
           focusNode: _passwordFocus,
           textInputAction: TextInputAction.done,
           prefixIcon: Icon(
-            Icons.lock,
+            Icons.lock
           ),
           suffixIcon: IconButton(
             icon: !isObscure

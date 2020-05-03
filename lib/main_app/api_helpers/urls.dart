@@ -64,6 +64,10 @@ class Urls {
   static String signUpEmailConfirmPassword = "/api/signup/examinee";
 
 //  http://p7.ishraak.com/api/job_list/?page=1&page_size=2
+/// http://dev.ishraak.com/api/job_list/?page=1&q=job&location=&category=
+  /// &location_from_homepage=&keyword_from_homepage=&skill=&salaryMin=
+  /// &salaryMax=&experienceMin=&experienceMax=null&datePosted=&gender=
+  /// &qualification=&sort=&page_size=10
   static String jobListUrl = "/api/job_list";
 
 }

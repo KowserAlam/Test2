@@ -51,7 +51,9 @@ class _JobListScreenState extends State<JobListScreen> with AfterLayoutMixin {
           actions: [
             IconButton(
               icon: Icon(Icons.search),
-              onPressed: () {},
+              onPressed: () {
+                Provider.of<JobListViewModel>(context,listen: false).enableSearchMode();
+              },
             )
           ],
         ),
@@ -59,14 +61,15 @@ class _JobListScreenState extends State<JobListScreen> with AfterLayoutMixin {
             child: AppDrawer(
           routeName: 'job_list',
         )),
-        body: Consumer<JobListViewModel>(
-          builder: (BuildContext context, homeViewModel, Widget child) {
-            var jobList = homeViewModel.jobList;
-            print(jobList.length);
-            return RefreshIndicator(
-              onRefresh: ()async=> Provider.of<JobListViewModel>(context, listen: false).getJobList(),
-              child: ListView.builder(
+        body: RefreshIndicator(
+          onRefresh: ()async=> Provider.of<JobListViewModel>(context, listen: false).getJobList(),
+          child: Consumer<JobListViewModel>(
+            builder: (BuildContext context, homeViewModel, Widget child) {
+              var jobList = homeViewModel.jobList;
+              print(jobList.length);
+              return ListView.builder(
                   padding: EdgeInsets.symmetric(vertical: 4),
+                  physics: AlwaysScrollableScrollPhysics(),
                   controller: _scrollController,
                   itemCount: jobList.length + 1,
 //              separatorBuilder: (context,index)=>Divider(),
@@ -97,9 +100,9 @@ class _JobListScreenState extends State<JobListScreen> with AfterLayoutMixin {
                               _showApplyForJobDialog(job, index);
                             },
                     );
-                  }),
-            );
-          },
+                  });
+            },
+          ),
         ),
       ),
     );

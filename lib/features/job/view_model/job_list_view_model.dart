@@ -13,13 +13,19 @@ import 'package:p7app/main_app/resource/strings_utils.dart';
 
 class JobListViewModel with ChangeNotifier {
   List<JobModel> _jobList = [];
-
   List<JobModel> get jobList => _jobList;
-
   bool _isFetchingData = false;
   bool _hasMoreData = false;
   int _pageCount = 1;
   JobListRepository _jobListRepository = JobListRepository();
+  bool _isInSearchMode = false;
+
+
+  bool get isInSearchMode => _isInSearchMode;
+
+  set isInSearchMode(bool value) {
+    _isInSearchMode = value;
+  }
 
   set jobList(List<JobModel> value) {
     _jobList = value;
@@ -40,6 +46,15 @@ class JobListViewModel with ChangeNotifier {
     notifyListeners();
   }
 
+  enableSearchMode(){
+    _isInSearchMode = true;
+    notifyListeners();
+}
+
+  disableSearchMode(){
+    _isInSearchMode = false;
+    notifyListeners();
+  }
   void incrementPageCount() {
     _pageCount++;
   }
@@ -125,8 +140,6 @@ class JobListViewModel with ChangeNotifier {
       return false;
     }
   }
-
-
 
   Future<bool> addToFavorite(String jobId, int index, {ApiClient apiClient}) async {
     BotToast.showLoading();
