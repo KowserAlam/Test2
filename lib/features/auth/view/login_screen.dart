@@ -68,6 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
       var res = await loginProvider.loginWithEmailAndPassword();
 
       if (res) {
+        loginProvider.resetState();
         Navigator.of(context).pushAndRemoveUntil(
             CupertinoPageRoute(builder: (BuildContext context) => Root()),
             (_) => false);
@@ -99,7 +100,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
     var errorMessage =
         Consumer<LoginViewModel>(builder: (context, signViewModel, _) {
-      if (signViewModel.message == null) {
+      if (signViewModel.errorMessage == null) {
         return SizedBox();
       }
       return Container(
@@ -107,7 +108,7 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(
-            signViewModel.message,
+            signViewModel.errorMessage,
             textAlign: TextAlign.center,
             style: TextStyle(color: Colors.red),
           ),

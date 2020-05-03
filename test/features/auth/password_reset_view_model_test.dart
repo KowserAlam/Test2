@@ -23,7 +23,7 @@ main() {
 
     test("Testing with invalid valid email,", () {
       passwordResetViewModel.validateEmailLocal("email");
-      expect(passwordResetViewModel.emailErrorText, StringUtils.invalidEmail);
+      expect(passwordResetViewModel.emailErrorText, StringUtils.pleaseEnterAValidEmailText);
     });
 
   });

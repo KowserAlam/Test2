@@ -21,10 +21,10 @@ class LoginViewModel with ChangeNotifier {
   bool _isFromSuccessfulSignUp = false;
   String _errorTextEmail;
   String _errorTextPassword;
-  String _message;
+  String _errorMessage;
 
 
-  String get message => _message;
+  String get errorMessage => _errorMessage;
 
   String get errorTextEmail => _errorTextEmail;
 
@@ -74,7 +74,7 @@ class LoginViewModel with ChangeNotifier {
   }
 
   clearMessage(){
-    _message = null;
+    _errorMessage = null;
     notifyListeners();
   }
    bool validate(){
@@ -86,14 +86,14 @@ class LoginViewModel with ChangeNotifier {
   validateEmailLocal(String val) {
     errorTextEmail = Validator().validateEmail(val?.trim());
     _email = val;
-    _message = null;
+    _errorMessage = null;
     notifyListeners();
   }
 
   validatePasswordLocal(String val) {
-    errorTextPassword = Validator().validatePassword(val);
+    errorTextPassword = Validator().validateEmptyPassword(val);
     _password = val?.trim();
-    _message = null;
+    _errorMessage = null;
     notifyListeners();
   }
 
@@ -119,7 +119,7 @@ class LoginViewModel with ChangeNotifier {
       } else {
         var decodedJson = jsonDecode(response.body);
         var m = decodedJson['detail']?.toString() ?? "";
-        _message = m;
+        _errorMessage = m;
         notifyListeners();
         BotToast.showText(text: m);
         return false;
@@ -127,7 +127,7 @@ class LoginViewModel with ChangeNotifier {
     } on SocketException catch (e) {
       isBusyLogin = false;
       BotToast.showText(text: StringUtils.checkInternetConnectionMessage);
-      _message = StringUtils.checkInternetConnectionMessage;
+      _errorMessage = StringUtils.checkInternetConnectionMessage;
       notifyListeners();
       print(e);
       return false;
@@ -140,11 +140,15 @@ class LoginViewModel with ChangeNotifier {
   }
 
   resetState() {
-    isObscurePassword = true;
-    email = "";
-    password = "";
-    isBusyLogin = false;
-    isFromSuccessfulSignUp = false;
+    _isObscurePassword = true;
+    _email = "";
+    _password = "";
+    _isBusyLogin = false;
+    _isFromSuccessfulSignUp = false;
+    _errorTextEmail = null;
+    _errorTextEmail = null;
+    _errorMessage = null;
+
   }
 
   _saveAuthData(Map<String, dynamic> data) async {
