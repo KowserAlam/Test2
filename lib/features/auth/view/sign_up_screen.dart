@@ -57,6 +57,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     /// validating form
 
     bool isValid = signUpProvider.validate();
+    if(isValid){print('Validated');}else{print('Not validated');}
 
     if(isValid){
       _fromKey.currentState.save();
@@ -67,6 +68,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         mobile: _mobileEditingController.text,
       ).then((v) {
         if(v){
+          signUpProvider.resetState();
           Navigator.pop(context);
 //          BotToast.showSimpleNotification(title: "Check your email verify account");
           Provider.of<LoginViewModel>(context,listen: false).isFromSuccessfulSignUp = true;

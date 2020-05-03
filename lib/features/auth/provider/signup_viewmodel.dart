@@ -66,7 +66,7 @@ class SignUpViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  //Password getter setter validation
+  //Confirm Password getter setter validation
   String get errorTextConfirmPassword => _errorTextConfirmPassword;
 
   set errorTextConfirmPassword(String value) {
@@ -112,9 +112,10 @@ class SignUpViewModel with ChangeNotifier {
   bool validate(){
     validateEmailLocal(_email);
     validatePasswordLocal(_password);
+    validateConfirmPasswordLocal(_confirmPassword);
     validateMobileLocal(_mobile);
     validateNameLocal(_name);
-    return errorTextEmail == null && errorTextPassword == null;
+    return errorTextEmail == null && errorTextPassword == null && errorTextConfirmPassword == null && errorTextName== null && errorTextMobile == null;
 
   }
 
@@ -179,6 +180,24 @@ class SignUpViewModel with ChangeNotifier {
     }
 
   }
+
+  resetState() {
+    _isObscurePassword = true;
+    _isObscureConfirmPassword = true;
+    _email = "";
+    _password = "";
+    _confirmPassword = "";
+    _name = "";
+    _mobile = "";
+    _isBusy = false;
+    _isFromSuccessfulSignUp = false;
+    _errorTextEmail = null;
+    _errorTextPassword = null;
+    _errorTextConfirmPassword = null;
+    _errorTextMobile = null;
+    _errorTextName = null;
+  }
+
 }
 
 /// performing user input validations
