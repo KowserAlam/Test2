@@ -16,9 +16,111 @@ import 'package:http/http.dart' as http;
 class SignUpViewModel with ChangeNotifier {
   bool _isObscurePassword;
   bool _isObscureConfirmPassword;
+  bool _isFromSuccessfulSignUp = false;
   bool _isBusy = false;
+  String _errorTextEmail;
+  String _errorTextPassword;
+  String _errorTextMobile;
+  String _errorTextName;
+  String _errorTextConfirmPassword;
+  String _message;
+  String _email = "";
+  String _mobile = "";
+  String _name = "";
+  String _password = "";
+  String _confirmPassword = "";
 
   String _errorText = "";
+
+  bool get isFromSuccessfulSignUp => _isFromSuccessfulSignUp;
+
+  set isFromSuccessfulSignUp(bool value) {
+    _isFromSuccessfulSignUp = value;
+    notifyListeners();
+  }
+
+  //Email getter setter validation
+  set errorTextEmail(String value) {
+    _errorTextEmail = value;
+  }
+  String get errorTextEmail => _errorTextEmail;
+
+  validateEmailLocal(String val) {
+    errorTextEmail = Validator().validateEmail(val?.trim());
+    _email = val;
+    _message = null;
+    notifyListeners();
+  }
+
+  //Password getter setter validation
+  String get errorTextPassword => _errorTextPassword;
+
+  set errorTextPassword(String value) {
+    _errorTextPassword = value;
+  }
+
+  validatePasswordLocal(String val) {
+    errorTextPassword = Validator().validatePassword(val);
+    _password = val?.trim();
+    _message = null;
+    notifyListeners();
+  }
+
+  //Confirm Password getter setter validation
+  String get errorTextConfirmPassword => _errorTextConfirmPassword;
+
+  set errorTextConfirmPassword(String value) {
+    _errorTextConfirmPassword = value;
+  }
+
+  validateConfirmPasswordLocal(String val) {
+    errorTextConfirmPassword = Validator().validateConfirmPassword(_password, val);
+    _confirmPassword = val?.trim();
+    _message = null;
+    notifyListeners();
+  }
+
+  //Mobile getter setter validation
+  String get errorTextMobile => _errorTextMobile;
+
+  set errorTextMobile(String value) {
+    _errorTextMobile = value;
+  }
+
+  validateMobileLocal(String val) {
+    errorTextPassword = Validator().nullFieldValidate(val);
+    _mobile = val?.trim();
+    _message = null;
+    notifyListeners();
+  }
+
+  //Name getter setter validation
+  String get errorTextName => _errorTextName;
+
+  set errorTextName(String value) {
+    _errorTextName = value;
+  }
+
+  validateNameLocal(String val) {
+    errorTextName = Validator().nullFieldValidate(val);
+    _name = val?.trim();
+    _message = null;
+    notifyListeners();
+  }
+
+  //Validate
+  bool validate(){
+    validateEmailLocal(_email);
+    validatePasswordLocal(_password);
+    validateConfirmPasswordLocal(_confirmPassword);
+    validateMobileLocal(_mobile);
+    validateNameLocal(_name);
+    return errorTextEmail == null && errorTextPassword == null && errorTextConfirmPassword == null && errorTextName== null && errorTextMobile == null;
+
+  }
+
+
+
 
   bool get isObscurePassword => _isObscurePassword ?? true;
 
@@ -78,6 +180,24 @@ class SignUpViewModel with ChangeNotifier {
     }
 
   }
+
+  resetState() {
+    _isObscurePassword = true;
+    _isObscureConfirmPassword = true;
+    _email = "";
+    _password = "";
+    _confirmPassword = "";
+    _name = "";
+    _mobile = "";
+    _isBusy = false;
+    _isFromSuccessfulSignUp = false;
+    _errorTextEmail = null;
+    _errorTextPassword = null;
+    _errorTextConfirmPassword = null;
+    _errorTextMobile = null;
+    _errorTextName = null;
+  }
+
 }
 
 /// performing user input validations
