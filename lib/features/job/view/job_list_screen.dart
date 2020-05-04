@@ -7,6 +7,7 @@ import 'package:p7app/features/job/view/job_details.dart';
 import 'package:p7app/features/job/view_model/job_list_view_model.dart';
 import 'package:p7app/features/job/models/job.dart';
 import 'package:p7app/features/job/view/widgets/job_list_tile_widget.dart';
+import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
 import 'package:p7app/main_app/flavour/flavor_banner.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
@@ -62,6 +63,9 @@ class _JobListScreenState extends State<JobListScreen>
 
   @override
   Widget build(BuildContext context) {
+    var backgroundColor = Theme.of(context).backgroundColor;
+    var scaffoldBackgroundColor = Theme.of(context).backgroundColor;
+
     return FlavorBanner(
       child:
           Consumer<JobListViewModel>(builder: (context, jobListViewModel, _) {
@@ -106,14 +110,37 @@ class _JobListScreenState extends State<JobListScreen>
                         ),
                       ),
                       Container(
-                          width: double.infinity,
-                          child: Material(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                  '${jobListViewModel.totalJobCount} jobs found'),
-                            ),
-                          ))
+                        margin: EdgeInsets.symmetric(horizontal: 8),
+                        width: double.infinity,
+                        decoration:
+                            BoxDecoration(color: backgroundColor, boxShadow: [
+                          BoxShadow(
+                              color: Colors.black.withOpacity(0.1),
+                              blurRadius: 10),
+                          BoxShadow(
+                              color: Colors.black.withOpacity(0.2),
+                              blurRadius: 10),
+                        ]),
+                        child: Column(
+                          children: [
+                            Container(
+                                height: 40,
+                                child: ListView(
+                                  scrollDirection: Axis.horizontal,
+                                  children: [
+
+
+                                  ],
+                                )),
+                            if (_searchTextEditingController.text.isNotEmpty)
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                    '${jobListViewModel.totalJobCount} ${StringUtils.jobsFoundText}'),
+                              )
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 Expanded(
