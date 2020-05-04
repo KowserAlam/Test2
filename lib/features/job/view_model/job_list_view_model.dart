@@ -56,6 +56,7 @@ class JobListViewModel with ChangeNotifier {
 
   addSearchQuery(String query) {
     _debouncer.run(() {
+      _jobList = [];
       resetPageCounter();
       _jobListFilters.page = _pageCount;
       _jobListFilters.searchQuery = query;
@@ -200,6 +201,7 @@ class JobListViewModel with ChangeNotifier {
     _pageCount = 1;
     _jobListRepository = JobListRepository();
     _jobListFilters = JobListFilters();
+    notifyListeners();
   }
 
   /// ##########################
