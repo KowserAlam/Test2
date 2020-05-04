@@ -19,6 +19,7 @@ class JobListRepository {
 
   Future<Either<AppError, JobListScreenDataModel>> fetchJobList(
       JobListFilters filters) async {
+
     var _filters =
         "?page=${filters.page}&q=${filters.searchQuery}&location=${filters.location}&category=${filters.category}"
         "&location_from_homepage=${filters.location_from_homepage}&keyword_from_homepage=${filters.keyword_from_homepage}"
