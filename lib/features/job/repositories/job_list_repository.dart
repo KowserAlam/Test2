@@ -66,6 +66,7 @@ class JobListRepository {
     }
     return jobList;
   }
+
 }
 
 class JobListScreenDataModel {
