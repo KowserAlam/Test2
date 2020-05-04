@@ -1,4 +1,4 @@
-class JobListFilters {
+class AppliedJobListFilters {
   int page;
   int page_size;
   String searchQuery;
@@ -17,7 +17,7 @@ class JobListFilters {
   String sort;
   bool isApplied;
 
-  JobListFilters({
+  AppliedJobListFilters({
     this.page = 1,
     this.page_size = 15,
     this.searchQuery = '',
@@ -34,6 +34,6 @@ class JobListFilters {
     this.gender = '',
     this.qualification = '',
     this.sort = '',
-    this.isApplied,
+    this.isApplied = true,
   });
 }
