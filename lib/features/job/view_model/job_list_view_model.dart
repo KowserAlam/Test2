@@ -48,7 +48,7 @@ class JobListViewModel with ChangeNotifier {
     _isInSearchMode = !_isInSearchMode;
     resetPageCounter();
     _jobListFilters = JobListFilters();
-    if(!_isInSearchMode){
+    if (!_isInSearchMode) {
       getJobList();
     }
     notifyListeners();
@@ -56,6 +56,8 @@ class JobListViewModel with ChangeNotifier {
 
   addSearchQuery(String query) {
     _debouncer.run(() {
+      resetPageCounter();
+      _jobListFilters.page = _pageCount;
       _jobListFilters.searchQuery = query;
       debugPrint("Searching for: $query");
       getJobList();
@@ -70,7 +72,7 @@ class JobListViewModel with ChangeNotifier {
     _pageCount = 1;
   }
 
-  Future<bool> refresh() async{
+  Future<bool> refresh() async {
     _jobListFilters = JobListFilters();
     _pageCount = 1;
     notifyListeners();
@@ -80,51 +82,48 @@ class JobListViewModel with ChangeNotifier {
   Future<bool> getJobList() async {
     isFetchingData = true;
     totalJobCount = 0;
-    Either<AppError, List<JobModel>> result =
+
+    Either<AppError, JobListScreenDataModel> result =
         await _jobListRepository.fetchJobList(_jobListFilters);
     return result.fold((l) {
+      _hasMoreData = false;
       isFetchingData = false;
-      _checkHasMoreData();
       print(l);
       return false;
-    }, (List<JobModel> list) {
+    }, (JobListScreenDataModel dataModel) {
+      var list = dataModel.jobList;
       isFetchingData = false;
       _jobList = list;
-      _totalJobCount = _jobListRepository.count;
+      _totalJobCount = dataModel.count;
+      _hasMoreData = dataModel.nextPage;
       notifyListeners();
-      _checkHasMoreData();
       return true;
     });
   }
 
   getMoreData() async {
-
-    if(!isFetchingData && !isFetchingMoreData && hasMoreData ){
+    if (!isFetchingData && !isFetchingMoreData && hasMoreData) {
       isFetchingMoreData = true;
       debugPrint('Getting more jobs');
       hasMoreData = true;
       incrementPageCount();
       _jobListFilters.page = _pageCount;
-      Either<AppError, List<JobModel>> result =
-      await _jobListRepository.fetchJobList(_jobListFilters);
+      Either<AppError, JobListScreenDataModel> result =
+          await _jobListRepository.fetchJobList(_jobListFilters);
       result.fold((l) {
         isFetchingMoreData = false;
-        _checkHasMoreData();
+        _hasMoreData = false;
+
         print(l);
-      }, (List<JobModel> list) {
+      }, (JobListScreenDataModel dataModel) {
+        // right
+        var list = dataModel.jobList;
+        _totalJobCount = dataModel.count;
+        _hasMoreData = dataModel.nextPage;
         _jobList.addAll(list);
         _isFetchingMoreData = false;
-        _checkHasMoreData();
+        notifyListeners();
       });
-    }
-
-  }
-
-  _checkHasMoreData() {
-    if (_jobListRepository.next) {
-      hasMoreData = false;
-    } else {
-      hasMoreData = true;
     }
   }
 
@@ -237,6 +236,4 @@ class JobListViewModel with ChangeNotifier {
   set jobListRepository(JobListRepository value) {
     _jobListRepository = value;
   }
-
-
 }
