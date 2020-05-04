@@ -26,6 +26,10 @@ class LocalStorageService {
     return _preferences.setString("${_flavorName}_${key}", value);
 
   }
+
+  Future<bool> remove(String key){
+    return _preferences.remove("${_flavorName}_${key}");
+  }
 }
 
 

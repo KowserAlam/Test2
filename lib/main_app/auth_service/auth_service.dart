@@ -33,8 +33,12 @@ class AuthService {
   Future<bool> saveUser(Map<String,dynamic> data){
     var encodedData = json.encode(data);
     return _localStorageService.saveString(JsonKeys.user,encodedData);
-
   }
+
+  Future<bool> removeUser(){
+    return _localStorageService.remove(JsonKeys.user);
+  }
+
 
 //  Future<bool> checkIfLoggedIn() async {
 //    SharedPreferences localStorage = await SharedPreferences.getInstance();
