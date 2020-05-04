@@ -47,8 +47,9 @@ class JobListViewModel with ChangeNotifier {
 
   toggleIsInSearchMode() {
     _isInSearchMode = !_isInSearchMode;
+    resetPageCounter();
+    _jobListFilters = JobListFilters();
     if(!_isInSearchMode){
-      _jobListFilters.searchQuery = '';
       getJobList();
     }
     notifyListeners();
@@ -229,4 +230,10 @@ class JobListViewModel with ChangeNotifier {
   set isInSearchMode(bool value) {
     _isInSearchMode = value;
   }
+
+  set jobListRepository(JobListRepository value) {
+    _jobListRepository = value;
+  }
+
+
 }

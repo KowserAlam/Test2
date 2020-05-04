@@ -112,7 +112,7 @@ class _JobListScreenState extends State<JobListScreen>
                           padding: const EdgeInsets.all(8.0),
                           child: Loader(),
                         ),
-                      (jobListViewModel.jobList.length == 0)
+                      (jobListViewModel.jobList.length == 0 && jobListViewModel.isFetchingData)
                           ? Center(
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
