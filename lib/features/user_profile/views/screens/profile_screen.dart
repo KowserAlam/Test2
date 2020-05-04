@@ -298,6 +298,35 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
             ],
           );
         });
+
+    var userMobileWidget =       Selector<UserProfileViewModel, String>(
+        selector: (_, userProfileViewModel) =>
+        userProfileViewModel.userData.personalInfo.phone,
+        builder: (context, String data, _) {
+
+          if(data == null){
+            return SizedBox();
+          }
+          return Row(
+            children: <Widget>[
+              Icon(
+                Icons.phone_android,
+                size: 10,
+                color: profileHeaderFontColor,
+              ),
+              SizedBox(
+                width: 3,
+              ),
+              Text(
+                data ?? "",
+                style: TextStyle(
+                    color: profileHeaderFontColor, fontWeight: FontWeight.w100),
+              ),
+            ],
+          );
+        });
+
+
     var emailWidget = Selector<UserProfileViewModel, String>(
         selector: (_, userProfileViewModel) =>
             userProfileViewModel.userData.personalInfo.email,
@@ -699,6 +728,8 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                                 emailWidget,
                                 SizedBox(height: 3),
                                 userLocationWidget,
+                                SizedBox(height: 3),
+                                userMobileWidget,
                               ],
                             ),
                           ),
@@ -721,9 +752,9 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                     children: [
                       SizedBox(height: 15),
 
-                      ///Contact Info
-                      contactInfoWidget,
-                      SizedBox(height: 15,),
+//                      ///Contact Info
+//                      contactInfoWidget,
+//                      SizedBox(height: 15,),
 
                       /// Experience
                       experienceWidget,
