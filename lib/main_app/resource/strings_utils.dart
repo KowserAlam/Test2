@@ -14,12 +14,17 @@ class StringUtils {
   static String loginUnsuccessfulMessage = "Login unsuccessful";
   static String checkInternetConnectionMessage = "Check Internet Connection";
   static String forgotPassword = "Forgot Password ?";
+  static String welcomeBack = "Welcome back!";
+  static String loginToYourExistingAccount = "Login to your existing account";
 
   /// Validator
 
   static String invalidEmail = "Invalid Email";
+  static String pleaseEnterEmailText = "Please enter email";
+  static String pleaseEnterAValidEmailText = "Please enter a valid email";
   static String invalidCode = "Invalid Code";
   static String thisFieldIsRequired = "This Field Is Required";
+  static String pleaseEnterPasswordText = "Please enter password";
   static String valueWithinRange = "Please enter a value within 0-10";
   static String invalidPassword = "Invalid Password";
   static String passwordMustBeEight =
@@ -159,6 +164,7 @@ class StringUtils {
   static var personalInfoText = "Personal Information";
   static var editPersonalInfoText = "Edit Personal Information";
   static var contactText = "Contact";
+  static var contactInfo = "Contact Info";
 
 
   static String saveText = "Save";
@@ -242,7 +248,7 @@ class StringUtils {
   static var signUpWithEmailText = "Signup with email";
   static var emailAlreadyExistText =
       "Email Already exist! Try login or rest password";
-  static var somethingIsWrong = "Something is wrong ! Try again later";
+  static var somethingIsWrong = "Something is wrong ! \nTry again later";
 
   /// AddEditSkill Screen
 
@@ -344,6 +350,8 @@ static const String appliedText = "Applied";
 static const String jobListText = "Job List";
 static const String successfullyAppliedText = "Successfully Applied";
 static const String savedText = "Saved";
+static const String typeToSearch = "Type to search";
+static const String noJobsFound = "No jobs found";
 
 
 ///Job Details

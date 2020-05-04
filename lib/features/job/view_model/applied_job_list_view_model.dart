@@ -5,6 +5,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:p7app/features/job/models/job.dart';
 import 'package:p7app/features/job/models/job_list_filters.dart';
+import 'package:p7app/features/job/repositories/applied_job_list_repository.dart';
 import 'package:p7app/features/job/repositories/job_list_repository.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
@@ -14,14 +15,14 @@ import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/util/debouncer.dart';
 import 'package:rxdart/rxdart.dart';
 
-class JobListViewModel with ChangeNotifier {
+class AppliedJobListViewModel with ChangeNotifier {
   List<JobModel> _jobList = [];
   bool _isFetchingData = false;
   bool _isFetchingMoreData = false;
   bool _hasMoreData = false;
   int _pageCount = 1;
-  JobListRepository _jobListRepository = JobListRepository();
-  JobListFilters _jobListFilters = JobListFilters();
+  AppliedJobListRepository _jobListRepository = AppliedJobListRepository();
+  JobListFilters _jobListFilters = JobListFilters(isApplied: true);
   Debouncer _debouncer = Debouncer(milliseconds: 800);
   bool _isInSearchMode = false;
   int _totalJobCount = 0;
@@ -82,7 +83,7 @@ class JobListViewModel with ChangeNotifier {
     isFetchingData = true;
     totalJobCount = 0;
     Either<AppError, List<JobModel>> result =
-        await _jobListRepository.fetchJobList(_jobListFilters);
+    await _jobListRepository.fetchJobList(_jobListFilters);
     return result.fold((l) {
       isFetchingData = false;
       _checkHasMoreData();
@@ -105,7 +106,7 @@ class JobListViewModel with ChangeNotifier {
     incrementPageCount();
     _jobListFilters.page = _pageCount;
     Either<AppError, List<JobModel>> result =
-        await _jobListRepository.fetchJobList(_jobListFilters);
+    await _jobListRepository.fetchJobList(_jobListFilters);
     result.fold((l) {
       isFetchingMoreData = false;
       _checkHasMoreData();
@@ -129,7 +130,7 @@ class JobListViewModel with ChangeNotifier {
       {ApiClient apiClient}) async {
     BotToast.showLoading();
     var userId =
-        await AuthService.getInstance().then((value) => value.getUser().userId);
+    await AuthService.getInstance().then((value) => value.getUser().userId);
     var body = {'user_id': userId, 'job_id': jobId};
 
     try {
@@ -163,7 +164,7 @@ class JobListViewModel with ChangeNotifier {
       {ApiClient apiClient}) async {
     BotToast.showLoading();
     var userId =
-        await AuthService.getInstance().then((value) => value.getUser().userId);
+    await AuthService.getInstance().then((value) => value.getUser().userId);
     var body = {'user_id': userId, 'job_id': jobId};
 
     try {
@@ -196,7 +197,7 @@ class JobListViewModel with ChangeNotifier {
     _isFetchingData = false;
     _hasMoreData = false;
     _pageCount = 1;
-    _jobListRepository = JobListRepository();
+    _jobListRepository = AppliedJobListRepository();
     _jobListFilters = JobListFilters();
   }
 
@@ -231,7 +232,7 @@ class JobListViewModel with ChangeNotifier {
     _isInSearchMode = value;
   }
 
-  set jobListRepository(JobListRepository value) {
+  set jobListRepository(AppliedJobListRepository value) {
     _jobListRepository = value;
   }
 

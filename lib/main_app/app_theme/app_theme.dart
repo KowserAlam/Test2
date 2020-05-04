@@ -7,7 +7,7 @@ class AppTheme {
   static Color danger = Color(0xffdc3545);
   static Color warning = Color(0xffffc107);
   static Color dark = Color(0xff343a40);
-  static Color light = Color(0xfff8f9fa);
+  static Color lightGrey = Color(0xfff8f9fa);
   static Color primary = Color(0xff007bff);
   static Color grey = Color(0xff6c757d);
 
@@ -52,6 +52,7 @@ class AppTheme {
   var fontFamily = GoogleFonts.roboto().fontFamily;
 
   static ThemeData lightTheme = ThemeData(
+    visualDensity: VisualDensity.adaptivePlatformDensity,
       brightness: Brightness.light,
       backgroundColor: lightScaffoldColor,
       primaryColor: colorPrimary,
@@ -70,6 +71,7 @@ class AppTheme {
   );
 
   static ThemeData darkTheme = ThemeData(
+    visualDensity: VisualDensity.adaptivePlatformDensity,
     brightness: Brightness.dark,
     errorColor: darkErrorColor,
     backgroundColor: darkBG,

@@ -4,6 +4,7 @@ import 'package:p7app/features/user_profile/views/screens/edit_portfolio_screen.
 import 'package:p7app/features/user_profile/views/screens/edit_reference_screen.dart';
 import 'package:p7app/features/user_profile/views/screens/portfolio_list_item_widget.dart';
 import 'package:p7app/features/user_profile/views/screens/certifications_list_item_widget.dart';
+import 'package:p7app/features/user_profile/views/widgets/contact_info_widget.dart';
 import 'package:p7app/features/user_profile/views/widgets/references_list_item_widget.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p7app/features/user_profile/models/member_ship_info.dart';
@@ -297,6 +298,35 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
             ],
           );
         });
+
+    var userMobileWidget =       Selector<UserProfileViewModel, String>(
+        selector: (_, userProfileViewModel) =>
+        userProfileViewModel.userData.personalInfo.phone,
+        builder: (context, String data, _) {
+
+          if(data == null){
+            return SizedBox();
+          }
+          return Row(
+            children: <Widget>[
+              Icon(
+                Icons.phone_android,
+                size: 10,
+                color: profileHeaderFontColor,
+              ),
+              SizedBox(
+                width: 3,
+              ),
+              Text(
+                data ?? "",
+                style: TextStyle(
+                    color: profileHeaderFontColor, fontWeight: FontWeight.w100),
+              ),
+            ],
+          );
+        });
+
+
     var emailWidget = Selector<UserProfileViewModel, String>(
         selector: (_, userProfileViewModel) =>
             userProfileViewModel.userData.personalInfo.email,
@@ -494,6 +524,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
       );
     });
     var personalInfoWidget = PersonalInfoWidget();
+    var contactInfoWidget = ContactInfoWidget();
     var portfolioWidget = Consumer<UserProfileViewModel>(
         builder: (context, userProfileViewModel, _) {
       var list = userProfileViewModel.userData.portfolioInfo;
@@ -697,6 +728,8 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                                 emailWidget,
                                 SizedBox(height: 3),
                                 userLocationWidget,
+                                SizedBox(height: 3),
+                                userMobileWidget,
                               ],
                             ),
                           ),
@@ -718,6 +751,10 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                   child: Column(
                     children: [
                       SizedBox(height: 15),
+
+//                      ///Contact Info
+//                      contactInfoWidget,
+//                      SizedBox(height: 15,),
 
                       /// Experience
                       experienceWidget,

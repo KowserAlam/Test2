@@ -15,7 +15,7 @@ import 'package:p7app/main_app/resource/strings_utils.dart';
 /// &location_from_homepage=&keyword_from_homepage=&skill=&salaryMin=
 /// &salaryMax=&experienceMin=&experienceMax=null&datePosted=&gender=
 /// &qualification=&sort=&page_size=10
-class JobListRepository {
+class AppliedJobListRepository {
   int count;
   bool next;
 
@@ -28,7 +28,7 @@ class JobListRepository {
         "&experienceMax=${filters.experienceMax}&datePosted=${filters.datePosted}&gender=${filters.gender}"
         "&qualification=${filters.qualification}&sort=${filters.sort}&page_size=${filters.page_size}";
 
-    var url = "${Urls.jobListUrl}${_filters}";
+    var url = "${Urls.appliedJobListUrl}";
 
     try {
       var response = await ApiClient().getRequest(url);

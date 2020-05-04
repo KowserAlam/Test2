@@ -64,9 +64,9 @@ class _JobDetailsState extends State<JobDetails> {
         borderRadius: BorderRadius.circular(20),
         onTap: (){
           Provider.of<JobListViewModel>(context, listen: false).addToFavorite(widget.jobModel.jobId, widget.index).then((value){
-           setState(() {
-             isFavorite = !isFavorite;
-           });
+            setState(() {
+              isFavorite = !isFavorite;
+            });
           });
         },
         child: Padding(
@@ -377,7 +377,7 @@ class _JobDetailsState extends State<JobDetails> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         Row(mainAxisAlignment: MainAxisAlignment.center,children: <Widget>[Text(StringUtils.benefitSectionTitle, style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),)],),
-        ],
+      ],
     );
 
     var betweenDividerSection = Row(
@@ -465,7 +465,7 @@ class _JobDetailsState extends State<JobDetails> {
                 Container(
                   padding: EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                      color: Colors.white,
+                    color: Colors.white,
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

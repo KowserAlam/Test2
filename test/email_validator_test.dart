@@ -14,39 +14,39 @@ main(){
 
   });
 
-  test("Invalid Email Testing, Should return Invalid Email",(){
+  test("Invalid Email Testing, Should return pleaseEnterAValidEmailText",(){
 
     Validator validator = Validator();
 
     var actual = validator.validateEmail("shofiishraak.com");
-    expect(actual, StringUtils.invalidEmail);
+    expect(actual, StringUtils.pleaseEnterAValidEmailText);
 
   });
 
-  test("Empty Email Testing, Should return Invalid Email",(){
+  test("Empty Email Testing, Should return ${StringUtils.pleaseEnterEmailText}",(){
 
     Validator validator = Validator();
 
     var actual = validator.validateEmail("");
-    expect(actual, StringUtils.invalidEmail);
+    expect(actual, StringUtils.pleaseEnterEmailText);
 
   });
 
-  test("Invalid Email Testing, Should return Invalid Email",(){
+  test("Invalid Email Testing, Should return ${StringUtils.pleaseEnterAValidEmailText}",(){
 
     Validator validator = Validator();
 
     var actual = validator.validateEmail("sfsdffsdf@");
-    expect(actual, StringUtils.invalidEmail);
+    expect(actual, StringUtils.pleaseEnterAValidEmailText);
 
   });
 
-  test("Invalid Email Testing with white space, Should return Invalid Email",(){
+  test("Invalid Email Testing with white space, Should return ${StringUtils.pleaseEnterAValidEmailText}",(){
 
     Validator validator = Validator();
 
     var actual = validator.validateEmail("sfsdffsd f@");
-    expect(actual, StringUtils.invalidEmail);
+    expect(actual, StringUtils.pleaseEnterAValidEmailText);
 
   });
 

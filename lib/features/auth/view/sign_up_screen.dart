@@ -1,5 +1,6 @@
 import 'package:p7app/features/auth/provider/login_view_model.dart';
 import 'package:p7app/features/auth/provider/signup_viewmodel.dart';
+import 'package:p7app/features/auth/view/widgets/custom_text_field_rounded.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/util/validator.dart';
@@ -7,6 +8,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:p7app/main_app/widgets/common_button.dart';
+import 'package:p7app/main_app/widgets/loader.dart';
 import 'package:provider/provider.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -18,6 +20,7 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
   bool _checkboxValue = false;
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   TextEditingController _nameEditingController = TextEditingController();
   TextEditingController _emailEditingController = TextEditingController();
@@ -43,8 +46,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
     _confirmPasswordEditingController.dispose();
     super.dispose();
   }
-  _handleRegister(){
-    bool isValid = _fromKey.currentState.validate();
+
+
+  _handleRegister(BuildContext context){
+    var signUpProvider = Provider.of<SignUpViewModel>(context, listen: false);
+    if (signUpProvider.isFromSuccessfulSignUp) {
+      signUpProvider.isFromSuccessfulSignUp = false;
+    }
+
+    /// validating form
+
+    bool isValid = signUpProvider.validate();
+    if(isValid){print('Validated');}else{print('Not validated');}
+
     if(isValid){
       _fromKey.currentState.save();
       Provider.of<SignUpViewModel>(context,listen: false).signUpWithEmailPassword(
@@ -54,6 +68,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         mobile: _mobileEditingController.text,
       ).then((v) {
         if(v){
+          signUpProvider.resetState();
           Navigator.pop(context);
 //          BotToast.showSimpleNotification(title: "Check your email verify account");
           Provider.of<LoginViewModel>(context,listen: false).isFromSuccessfulSignUp = true;
@@ -98,44 +113,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
       ]),
     );
 
-    Widget registerButton = Container(
-      height: 50,
-      width: 200,
-      child: CommonButton(
-        onTap: () {
-          _handleRegister();
-        },
-        label: StringUtils.signUpText,
-      ),
-    );
-    Widget signUpHeader = Container(
-      height: 50,
-//      margin: EdgeInsets.symmetric(horizontal: 8),
-      decoration: BoxDecoration(
-          color: Colors.grey[200], borderRadius: BorderRadius.circular(5)),
-      child: Row(
-        children: <Widget>[
-          Container(
+    Widget registerButton = Consumer<SignUpViewModel>(
+        builder: (BuildContext context, signUpProvider, Widget child) {
+          if (signUpProvider.isBusy) {
+            return Loader();
+          }
+          return Container(
             height: 50,
-            width: 50,
-            child: Icon(
-              Icons.edit,
-              color: Colors.black54,
+            width: 200,
+            child: CommonButton(
+              onTap: () {
+                _handleRegister(context);
+              },
+              label: StringUtils.signUpText,
             ),
-          ),
-          Container(
-              height: 50,
-              padding: EdgeInsets.only(top: 15),
-              child: Text(
-                StringUtils.registerAccountText,
-                style: TextStyle(
-                    color: Colors.black54,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 17),
-              )),
-        ],
-      ),
-    );
+          );
+        });
+
+    var spaceBetweenFields = SizedBox(height: 20,);
 
      Widget signUpFrom = Consumer<SignUpViewModel>(
       builder: (context, signUpViewModel, _) {
@@ -144,210 +139,152 @@ class _SignUpScreenState extends State<SignUpScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
+
+              //Name
               SizedBox(height: 25),
-              Container(
-                padding: EdgeInsets.only(left: 15),
-                margin: EdgeInsets.symmetric(horizontal: 10),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(40),
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.grey[200],
-                          spreadRadius: 3,
-                          blurRadius: 10,
-                          offset: Offset(1,1)
-                      )
-                    ]
-                ),
-                child: Center(
-                  child: TextFormField(
+              Consumer<SignUpViewModel>(
+                builder: (context, signUpModel, _) {
+                  return CustomTextFieldRounded(
+                    errorText: signUpModel.errorTextName,
                     keyboardType: TextInputType.text,
-                    textInputAction: TextInputAction.next,
                     focusNode: _nameFocusNode,
-                    onFieldSubmitted: (v){
-                      _emailFocusNode.requestFocus();
-                    },
-                    validator: Validator().nullFieldValidate,
+                    textInputAction: TextInputAction.next,
                     controller: _nameEditingController,
-                    decoration: InputDecoration.collapsed(
-                      hintText: StringUtils.nameText,
-                      hintStyle: TextStyle(color: Colors.grey),
+                    hintText: StringUtils.nameText,
+                    prefixIcon: Icon(
+                      Icons.person_outline,
                     ),
-                  ),
-                ),
+                    onChanged: signUpModel.validateNameLocal,
+                    onSubmitted: (s) {
+                      _nameFocusNode.unfocus();
+                      FocusScope.of(_scaffoldKey.currentState.context)
+                          .requestFocus(_emailFocusNode);
+                    },
+                  );
+                },
               ),
+
+
               //Email
-              SizedBox(height: 25),
-              Container(
-                padding: EdgeInsets.only(left: 15),
-                margin: EdgeInsets.symmetric(horizontal: 10),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(40),
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.grey[200],
-                          spreadRadius: 3,
-                          blurRadius: 10,
-                          offset: Offset(1,1)
-                      )
-                    ]
-                ),
-                child: Center(
-                  child: TextFormField(
+              spaceBetweenFields,
+              Consumer<SignUpViewModel>(
+                builder: (context, signUpModel, _) {
+                  return CustomTextFieldRounded(
+                    errorText: signUpModel.errorTextEmail,
                     keyboardType: TextInputType.emailAddress,
-                    textInputAction: TextInputAction.next,
                     focusNode: _emailFocusNode,
-                    onFieldSubmitted: (v){
-                      _mobileFocusNode.requestFocus();
-                    },
-                    validator: Validator().validateEmail,
+                    textInputAction: TextInputAction.next,
                     controller: _emailEditingController,
-                    decoration: InputDecoration.collapsed(
-                      hintText: StringUtils.emailText,
-                      hintStyle: TextStyle(color: Colors.grey),
+                    hintText: StringUtils.emailText,
+                    prefixIcon: Icon(
+                      Icons.email,
                     ),
-                  ),
-                ),
+                    onChanged: signUpModel.validateEmailLocal,
+                    onSubmitted: (s) {
+                      _emailFocusNode.unfocus();
+                      FocusScope.of(_scaffoldKey.currentState.context)
+                          .requestFocus(_mobileFocusNode);
+                    },
+                  );
+                },
               ),
-              SizedBox(height: 25),
+
               //Mobile TextField
-
-              Container(
-                padding: EdgeInsets.only(left: 15),
-                margin: EdgeInsets.symmetric(horizontal: 10),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(40),
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.grey[200],
-                          spreadRadius: 3,
-                          blurRadius: 10,
-                          offset: Offset(1,1)
-                      )
-                    ]
-                ),
-                child: Center(
-                  child: TextFormField(
-                    keyboardType: TextInputType.phone,
-                    textInputAction: TextInputAction.next,
-                    validator: Validator().nullFieldValidate,
+              spaceBetweenFields,
+              Consumer<SignUpViewModel>(
+                builder: (context, signUpModel, _) {
+                  return CustomTextFieldRounded(
+                    errorText: signUpModel.errorTextMobile,
+                    keyboardType: TextInputType.number,
                     focusNode: _mobileFocusNode,
-                    onFieldSubmitted: (v){
-                      _passwordFocusNode.requestFocus();
-                    },
-                    controller: _mobileEditingController,
-                    decoration: InputDecoration.collapsed(
-                      hintText: StringUtils.mobileText,
-                      hintStyle: TextStyle(color: Colors.grey),
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(height: 25),
-              //Password TextField
-              Container(
-                padding: EdgeInsets.only(left: 15),
-                margin: EdgeInsets.symmetric(horizontal: 10),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(40),
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.grey[200],
-                          spreadRadius: 3,
-                          blurRadius: 10,
-                          offset: Offset(1,1)
-                      )
-                    ]
-                ),
-                child: Center(
-                  child: TextFormField(
-                    keyboardType: TextInputType.visiblePassword,
                     textInputAction: TextInputAction.next,
-                    focusNode: _passwordFocusNode,
-                    onFieldSubmitted: (v){
-                      _confirmPasswordFocusNode.requestFocus();
-
-                    },
-                    validator: Validator().validatePassword,
-                    controller: _passwordEditingController,
-                    obscureText: signUpViewModel.isObscurePassword,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: StringUtils.passwordText,
-                      errorMaxLines: 2,
-                      hintStyle: TextStyle(color: Colors.grey),
-                      suffixIcon: IconButton(
-                        icon: !signUpViewModel.isObscurePassword
-                            ? Icon(
-                          Icons.visibility,
-                        )
-                            : Icon(
-                          Icons.visibility_off,
-                          color: Theme.of(context).textTheme.body1.color,
-                        ),
-                        onPressed: () {
-                          signUpViewModel.isObscurePassword =
-                          !signUpViewModel.isObscurePassword;
-                        },
-                      ),
+                    controller: _mobileEditingController,
+                    hintText: StringUtils.mobileText,
+                    prefixIcon: Icon(
+                      Icons.phone_iphone,
                     ),
-                  ),
-                ),
+                    onChanged: signUpModel.validateMobileLocal,
+                    onSubmitted: (s) {
+                      _mobileFocusNode.unfocus();
+                      FocusScope.of(_scaffoldKey.currentState.context)
+                          .requestFocus(_passwordFocusNode);
+                    },
+                  );
+                },
               ),
-              SizedBox(height: 25),
-              //Confirm Password TextField
-              Container(
-                padding: EdgeInsets.only(left: 15),
-                margin: EdgeInsets.symmetric(horizontal: 10),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(40),
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.grey[200],
-                          spreadRadius: 3,
-                          blurRadius: 10,
-                          offset: Offset(1,1)
-                      )
-                    ]
-                ),
-                child: Center(
-                  child: TextFormField(
-                    keyboardType: TextInputType.visiblePassword,
-                    textInputAction: TextInputAction.done,
-                    validator: (cp)=>Validator().validateConfirmPassword(_passwordEditingController.text, cp),
-                    controller: _confirmPasswordEditingController,
-                    focusNode: _confirmPasswordFocusNode,
-                    onFieldSubmitted: (v){
-                      _confirmPasswordFocusNode.unfocus();
-                      _handleRegister();
-                    },
-                    obscureText: signUpViewModel.isObscurePassword,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: StringUtils.confirmPasswordText,
-                      hintStyle: TextStyle(color: Colors.grey),
-                      suffixIcon: IconButton(
-                        icon: !signUpViewModel.isObscurePassword
-                            ? Icon(
-                          Icons.visibility,
-                        )
-                            : Icon(
-                          Icons.visibility_off,
 
-                        ),
-                        onPressed: () {
-                          signUpViewModel.isObscurePassword =
-                          !signUpViewModel.isObscurePassword;
-                        },
-                      ),
+              //Password TextField
+              spaceBetweenFields,
+              Consumer<SignUpViewModel>(
+                builder: (context, signupViewModel, _) {
+                  bool isObscure = signupViewModel.isObscurePassword;
+                  return CustomTextFieldRounded(
+                    onChanged: signupViewModel.validatePasswordLocal,
+                    errorText: signupViewModel.errorTextPassword,
+                    focusNode: _passwordFocusNode,
+                    textInputAction: TextInputAction.next,
+                    prefixIcon: Icon(
+                      Icons.lock,
                     ),
-                  ),
-                ),
+                    suffixIcon: IconButton(
+                      icon: !isObscure
+                          ? Icon(
+                        Icons.visibility,
+                      )
+                          : Icon(
+                        Icons.visibility_off,
+                        color: Theme.of(context).textTheme.body1.color,
+                      ),
+                      onPressed: () {
+                        signupViewModel.isObscurePassword = !isObscure;
+                      },
+                    ),
+                    obscureText: signupViewModel.isObscurePassword,
+                    controller: _passwordEditingController,
+                    hintText: StringUtils.passwordText,
+                    onSubmitted: (s) {
+                      _confirmPasswordFocusNode.unfocus();
+                      FocusScope.of(_scaffoldKey.currentState.context)
+                          .requestFocus(_confirmPasswordFocusNode);
+                    },
+                  );
+                },
+              ),
+
+              //Confirm Password TextField
+              spaceBetweenFields,
+              Consumer<SignUpViewModel>(
+                builder: (context, signupViewModel, _) {
+                  bool isObscure = signupViewModel.isObscureConfirmPassword;
+                  return CustomTextFieldRounded(
+                    onChanged: signupViewModel.validateConfirmPasswordLocal,
+                    errorText: signupViewModel.errorTextConfirmPassword,
+                    focusNode: _confirmPasswordFocusNode,
+                    textInputAction: TextInputAction.done,
+                    prefixIcon: Icon(
+                      Icons.lock,
+                    ),
+                    suffixIcon: IconButton(
+                      icon: !isObscure
+                          ? Icon(
+                        Icons.visibility,
+                      )
+                          : Icon(
+                        Icons.visibility_off,
+                        color: Theme.of(context).textTheme.body1.color,
+                      ),
+                      onPressed: () {
+                        signupViewModel.isObscureConfirmPassword = !isObscure;
+                      },
+                    ),
+                    obscureText: signupViewModel.isObscureConfirmPassword,
+                    controller: _confirmPasswordEditingController,
+                    hintText: StringUtils.passwordText,
+                    onSubmitted: (s) {
+                      _handleRegister(_scaffoldKey.currentState.context);
+                    },
+                  );
+                },
               ),
               SizedBox(height: 15),
             ],

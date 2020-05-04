@@ -1,0 +1,39 @@
+class AppliedJobListFilters {
+  int page;
+  int page_size;
+  String searchQuery;
+  String location;
+  String category;
+  String location_from_homepage;
+  String keyword_from_homepage;
+  String skill;
+  String salaryMin;
+  String salaryMax;
+  String experienceMin;
+  String experienceMax;
+  String datePosted;
+  String gender;
+  String qualification;
+  String sort;
+  bool isApplied;
+
+  AppliedJobListFilters({
+    this.page = 1,
+    this.page_size = 15,
+    this.searchQuery = '',
+    this.location = '',
+    this.category = '',
+    this.location_from_homepage = '',
+    this.keyword_from_homepage = '',
+    this.skill = '',
+    this.salaryMin = '',
+    this.salaryMax = '',
+    this.experienceMin = '',
+    this.experienceMax = '',
+    this.datePosted = '',
+    this.gender = '',
+    this.qualification = '',
+    this.sort = '',
+    this.isApplied = true,
+  });
+}
