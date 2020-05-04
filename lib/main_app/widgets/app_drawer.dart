@@ -219,6 +219,11 @@ class DrawerListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    var iconColor = color ??
+        (isSelected
+            ? Theme.of(context).primaryColor
+            : (isDarkMode?Colors.grey[200]:Colors.grey[700]));
     return Material(
       color: isSelected
           ? Theme.of(context).scaffoldBackgroundColor
@@ -237,10 +242,7 @@ class DrawerListWidget extends StatelessWidget {
               onTap: onTap,
               leading: Icon(
                 icon,
-                color: color ??
-                    (isSelected
-                        ? Theme.of(context).primaryColor
-                        : Colors.grey[700]),
+                color: iconColor,
               ),
               title: Text(
                 label,
