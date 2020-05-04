@@ -48,7 +48,7 @@ class _JobListScreenState extends State<JobListScreen>
 
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
-              _scrollController.position.maxScrollExtent) {
+          _scrollController.position.maxScrollExtent) {
         jobListViewModel.getMoreData();
       }
     });
@@ -98,14 +98,22 @@ class _JobListScreenState extends State<JobListScreen>
                   Column(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(8,8,8,8),
+                        padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
                         child: CustomTextFormField(
                           controller: _searchTextEditingController,
                           onChanged: jobListViewModel.addSearchQuery,
                           hintText: StringUtils.searchText,
                         ),
                       ),
-                      Material(child: Text('${jobListViewModel.totalJobCount} jobs found'),)
+                      Container(
+                          width: double.infinity,
+                          child: Material(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                  '${jobListViewModel.totalJobCount} jobs found'),
+                            ),
+                          ))
                     ],
                   ),
                 Expanded(
@@ -113,14 +121,13 @@ class _JobListScreenState extends State<JobListScreen>
                     physics: AlwaysScrollableScrollPhysics(),
                     controller: _scrollController,
                     children: [
-
-
                       if (jobListViewModel.isFetchingData)
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Loader(),
                         ),
-                      (jobListViewModel.jobList.length == 0 && !jobListViewModel.isFetchingData)
+                      (jobListViewModel.jobList.length == 0 &&
+                              !jobListViewModel.isFetchingData)
                           ? Center(
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
@@ -131,7 +138,6 @@ class _JobListScreenState extends State<JobListScreen>
                               padding: EdgeInsets.symmetric(vertical: 4),
                               physics: NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
-
                               itemCount: jobList.length + 1,
 //              separatorBuilder: (context,index)=>Divider(),
                               itemBuilder: (context, index) {
@@ -148,14 +154,16 @@ class _JobListScreenState extends State<JobListScreen>
                                 return JobListTileWidget(
                                   job,
                                   onTap: () {
-                                    Navigator.of(context).push(MaterialPageRoute(
-                                        builder: (context) => JobDetails(
-                                              jobModel: job,
-                                              index: index,
-                                            )));
+                                    Navigator.of(context)
+                                        .push(MaterialPageRoute(
+                                            builder: (context) => JobDetails(
+                                                  jobModel: job,
+                                                  index: index,
+                                                )));
                                   },
                                   onFavorite: () {
-                                    jobListViewModel.addToFavorite(job.jobId, index);
+                                    jobListViewModel.addToFavorite(
+                                        job.jobId, index);
                                   },
                                   onApply: job.isApplied
                                       ? null

@@ -45,9 +45,11 @@ class JobListViewModel with ChangeNotifier {
   /// #########################
 
   toggleIsInSearchMode() {
+    _jobList = [];
     _isInSearchMode = !_isInSearchMode;
+    _totalJobCount = 0;
     resetPageCounter();
-    _jobListFilters = JobListFilters();
+//    _jobListFilters = JobListFilters();
     if (!_isInSearchMode) {
       getJobList();
     }
@@ -71,6 +73,7 @@ class JobListViewModel with ChangeNotifier {
 
   void resetPageCounter() {
     _pageCount = 1;
+    _jobListFilters.page = _pageCount;
   }
 
   Future<bool> refresh() async {
