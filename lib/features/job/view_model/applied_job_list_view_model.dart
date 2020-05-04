@@ -232,7 +232,7 @@ class AppliedJobListViewModel with ChangeNotifier {
     _isInSearchMode = value;
   }
 
-  set jobListRepository(JobListRepository value) {
+  set jobListRepository(AppliedJobListRepository value) {
     _jobListRepository = value;
   }
 
