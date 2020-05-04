@@ -3,7 +3,7 @@
 //dev server
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 
-const String kBaseUrDev = "http://54.84.198.57";
+const String kBaseUrDev = "http://54.84.198.57:8081";
 
 ////rashed vai
 //const String kBaseUrDev = "http://192.168.1.51:8000";

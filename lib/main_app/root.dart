@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:p7app/features/job/view/job_list_screen.dart';
+import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/auth_service/auth_user_model.dart';
 import 'package:p7app/features/auth/view/login_screen.dart';
 import 'package:p7app/main_app/repositories/app_info_repository.dart';
@@ -7,6 +8,7 @@ import 'package:p7app/main_app/resource/json_keys.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/app_theme/comon_styles.dart';
+import 'package:p7app/main_app/util/local_storage.dart';
 import 'package:p7app/main_app/widgets/app_version_widget_small.dart';
 import 'package:p7app/main_app/widgets/loader.dart';
 import 'package:flutter/cupertino.dart';
@@ -46,10 +48,9 @@ class _RootState extends State<Root> {
   }
 
   Future<AuthUserModel> getAuthStatus() async {
-    var prf = await SharedPreferences.getInstance();
-    var res = prf.getString(JsonKeys.user);
-    print("User: $res");
-    return res != null ? AuthUserModel.fromJson(jsonDecode(res)) : null;
+    AuthUserModel user = await AuthService.getInstance().then((value) => value.getUser());
+    print("User: $user");
+    return user;
   }
 
   var appLogoText = Column(
