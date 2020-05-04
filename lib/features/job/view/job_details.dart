@@ -31,12 +31,16 @@ class _JobDetailsState extends State<JobDetails> {
     var width = MediaQuery.of(context).size.width;
 
     bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    Color sectionColor = Theme.of(context).backgroundColor;
+    Color summerySectionBorderColor = Colors.grey[300];
+    Color summerySectionColor = !isDarkMode?Colors.grey[200]:Colors.grey[600];
+    Color backgroundColor = !isDarkMode?Colors.grey[200]:Colors.grey[700];
 
     //Styles
     TextStyle headerTextStyle = new TextStyle(fontSize: 18, fontWeight: FontWeight.bold);
     TextStyle sectionTitleFont = TextStyle(fontSize: 17,fontWeight: FontWeight.bold);
     TextStyle descriptionFontStyle = TextStyle(fontSize: 13);
-    TextStyle topSideDescriptionFontStyle = TextStyle(fontSize: 14,color: Colors.grey[600]);
+    TextStyle topSideDescriptionFontStyle = TextStyle(fontSize: 14,color: !isDarkMode?Colors.grey[600]:Colors.grey[500]);
     TextStyle descriptionFontStyleBold = TextStyle(fontSize: 12,fontWeight: FontWeight.bold);
     double fontAwesomeIconSize = 15;
 
@@ -276,8 +280,8 @@ class _JobDetailsState extends State<JobDetails> {
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
               //gradient: isDarkMode?AppTheme.darkLinearGradient:AppTheme.lightLinearGradient,
-              border: Border.all(width: 1, color: Colors.grey[300]),
-              color: Colors.grey[200]
+              border: Border.all(width: 1, color: summerySectionBorderColor),
+              color: summerySectionColor
           ),
           padding: EdgeInsets.all(10),
           child: Column(
@@ -444,13 +448,13 @@ class _JobDetailsState extends State<JobDetails> {
         children: <Widget>[
           Container(
             padding: EdgeInsets.all(10),
-            color: Colors.grey[200],
+            color: backgroundColor,
             child: Column(
               children: <Widget>[
                 Container(
                   padding: EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: sectionColor,
                       borderRadius: BorderRadius.only(topLeft: Radius.circular(3), topRight: Radius.circular(3))
                   ),
                   child: Column(
@@ -465,7 +469,7 @@ class _JobDetailsState extends State<JobDetails> {
                 Container(
                   padding: EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: sectionColor,
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -478,7 +482,7 @@ class _JobDetailsState extends State<JobDetails> {
                 Container(
                   padding: EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: sectionColor,
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -501,7 +505,7 @@ class _JobDetailsState extends State<JobDetails> {
                 Container(
                   padding: EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: sectionColor,
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -515,7 +519,7 @@ class _JobDetailsState extends State<JobDetails> {
                 Container(
                   padding: EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: sectionColor,
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -528,7 +532,7 @@ class _JobDetailsState extends State<JobDetails> {
                 Container(
                   padding: EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: sectionColor,
                     borderRadius: BorderRadius.only(bottomLeft: Radius.circular(3),bottomRight: Radius.circular(3)),
                   ),
                   child: Column(
