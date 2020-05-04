@@ -50,7 +50,7 @@ class Validator {
   }
 
   String validatePhoneNumber(String value) {
-    Pattern pattern = r'\+?(88)?0?1[56789][0-9]{8}\b';
+    Pattern pattern = r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$';
     RegExp regex = new RegExp(pattern);
     if (!regex.hasMatch(value))
       return StringUtils.enterValidPhoneNumber;

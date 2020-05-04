@@ -26,7 +26,6 @@ class JobListViewModel with ChangeNotifier {
   bool _isInSearchMode = false;
   int _totalJobCount = 0;
 
-
   int get totalJobCount => _totalJobCount;
 
   set totalJobCount(int value) {
@@ -99,26 +98,30 @@ class JobListViewModel with ChangeNotifier {
   }
 
   getMoreData() async {
-    isFetchingMoreData = true;
-    debugPrint('Getting more jobs');
-    hasMoreData = true;
-    incrementPageCount();
-    _jobListFilters.page = _pageCount;
-    Either<AppError, List<JobModel>> result =
-        await _jobListRepository.fetchJobList(_jobListFilters);
-    result.fold((l) {
-      isFetchingMoreData = false;
-      _checkHasMoreData();
-      print(l);
-    }, (List<JobModel> list) {
-      _jobList.addAll(list);
-      _isFetchingMoreData = false;
-      _checkHasMoreData();
-    });
+
+    if(!isFetchingData && !isFetchingMoreData && hasMoreData ){
+      isFetchingMoreData = true;
+      debugPrint('Getting more jobs');
+      hasMoreData = true;
+      incrementPageCount();
+      _jobListFilters.page = _pageCount;
+      Either<AppError, List<JobModel>> result =
+      await _jobListRepository.fetchJobList(_jobListFilters);
+      result.fold((l) {
+        isFetchingMoreData = false;
+        _checkHasMoreData();
+        print(l);
+      }, (List<JobModel> list) {
+        _jobList.addAll(list);
+        _isFetchingMoreData = false;
+        _checkHasMoreData();
+      });
+    }
+
   }
 
   _checkHasMoreData() {
-    if (_jobListRepository.next == null) {
+    if (_jobListRepository.next) {
       hasMoreData = false;
     } else {
       hasMoreData = true;

@@ -45,9 +45,7 @@ class _JobListScreenState extends State<JobListScreen>
 
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
-              _scrollController.position.maxScrollExtent &&
-          jobListViewModel.hasMoreData &&
-          !jobListViewModel.isFetchingData) {
+              _scrollController.position.maxScrollExtent) {
         jobListViewModel.getMoreData();
       }
     });
@@ -112,7 +110,7 @@ class _JobListScreenState extends State<JobListScreen>
                           padding: const EdgeInsets.all(8.0),
                           child: Loader(),
                         ),
-                      (jobListViewModel.jobList.length == 0 && jobListViewModel.isFetchingData)
+                      (jobListViewModel.jobList.length == 0 && !jobListViewModel.isFetchingData)
                           ? Center(
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),

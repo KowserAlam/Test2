@@ -16,8 +16,8 @@ import 'package:p7app/main_app/resource/strings_utils.dart';
 /// &salaryMax=&experienceMin=&experienceMax=null&datePosted=&gender=
 /// &qualification=&sort=&page_size=10
 class JobListRepository {
-  int count;
-  bool next;
+  int count = 0;
+  bool next = false;
 
   Future<Either<AppError, List<JobModel>>> fetchJobList(
       JobListFilters filters) async {
@@ -41,7 +41,7 @@ class JobListRepository {
         return Right(jobList);
       } else {
         BotToast.showText(text: StringUtils.somethingIsWrong);
-        return Left(AppError.serverError);
+        return Left(AppError.unknownError);
       }
     } on SocketException catch (e) {
       print(e);
