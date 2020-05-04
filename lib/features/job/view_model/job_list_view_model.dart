@@ -89,6 +89,7 @@ class JobListViewModel with ChangeNotifier {
     return result.fold((l) {
       _hasMoreData = false;
       isFetchingData = false;
+      _totalJobCount = 0;
       print(l);
       return false;
     }, (JobListScreenDataModel dataModel) {
@@ -112,8 +113,10 @@ class JobListViewModel with ChangeNotifier {
       Either<AppError, JobListScreenDataModel> result =
           await _jobListRepository.fetchJobList(_jobListFilters);
       result.fold((l) {
-        isFetchingMoreData = false;
+        _isFetchingMoreData = false;
         _hasMoreData = false;
+        _totalJobCount = 0;
+        notifyListeners();
 
         print(l);
       }, (JobListScreenDataModel dataModel) {

@@ -1,6 +1,8 @@
 
 
 //dev server
+import 'package:p7app/main_app/api_helpers/api_client.dart';
+
 const String kBaseUrDev = "http://54.84.198.57:8081";
 
 ////rashed vai
@@ -11,6 +13,9 @@ const String kBaseUrlProd = "http://100.25.85.115";
 
 class Urls {
   /// new
+  /// Those url should not contain base url
+  /// base url will added by [ApiClient] before sending request
+
   static String loginUrl = "/api/sign_in/";
   static String signUpUrl = "/api/professional/create_with_user/";
   static String passwordResetUrl = "/api/professional/password_reset/";
