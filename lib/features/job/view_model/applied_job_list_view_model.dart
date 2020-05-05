@@ -100,32 +100,32 @@ class AppliedJobListViewModel with ChangeNotifier {
     });
   }
 
-  getMoreData() async {
-    isFetchingMoreData = true;
-    debugPrint('Getting more jobs');
-    hasMoreData = true;
-    incrementPageCount();
-    _jobListFilters.page = _pageCount;
-    Either<AppError, List<JobListModel>> result =
-    await _jobListRepository.fetchJobList(_jobListFilters);
-    result.fold((l) {
-      isFetchingMoreData = false;
-      _checkHasMoreData();
-      print(l);
-    }, (List<JobListModel> list) {
-      _jobList.addAll(list);
-      _isFetchingMoreData = false;
-      _checkHasMoreData();
-    });
-  }
+//  getMoreData() async {
+//    isFetchingMoreData = true;
+//    debugPrint('Getting more jobs');
+//    hasMoreData = true;
+//    incrementPageCount();
+//    _jobListFilters.page = _pageCount;
+//    Either<AppError, List<JobListModel>> result =
+//    await _jobListRepository.fetchJobList(_jobListFilters);
+//    result.fold((l) {
+//      isFetchingMoreData = false;
+//      _checkHasMoreData();
+//      print(l);
+//    }, (List<JobListModel> list) {
+//      _jobList.addAll(list);
+//      _isFetchingMoreData = false;
+//      _checkHasMoreData();
+//    });
+//  }
 
-  _checkHasMoreData() {
-    if (_jobListRepository.next == null) {
-      hasMoreData = false;
-    } else {
-      hasMoreData = true;
-    }
-  }
+//  _checkHasMoreData() {
+//    if (_jobListRepository.next == null) {
+//      hasMoreData = false;
+//    } else {
+//      hasMoreData = true;
+//    }
+//  }
 
 //  Future<bool> applyForJob(String jobId, int index,
 //      {ApiClient apiClient}) async {

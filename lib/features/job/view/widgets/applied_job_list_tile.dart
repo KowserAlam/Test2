@@ -9,19 +9,19 @@ import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/util/date_format_uitl.dart';
 
-class JobListTileWidget extends StatefulWidget {
+class AppliedJobListTileWidget extends StatefulWidget {
   final JobListModel jobListModel;
-  final Function onTap;
-  final Function onApply;
-  final Function onFavorite;
+  //final Function onTap;
+  //final Function onApply;
+  //final Function onFavorite;
 
-  JobListTileWidget(this.jobListModel, {this.onTap, this.onFavorite, this.onApply});
+  AppliedJobListTileWidget(this.jobListModel, );
 
   @override
-  _JobListTileWidgetState createState() => _JobListTileWidgetState();
+  _AppliedJobListTileWidgetState createState() => _AppliedJobListTileWidgetState();
 }
 
-class _JobListTileWidgetState extends State<JobListTileWidget> {
+class _AppliedJobListTileWidgetState extends State<AppliedJobListTileWidget> {
 
 
   @override
@@ -170,7 +170,7 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
 //      ],
 //    );
     return GestureDetector(
-      onTap: widget.onTap,
+      //onTap: widget.onTap,
       child: Container(
         decoration: BoxDecoration(color: scaffoldBackgroundColor,
 //        borderRadius: BorderRadius.circular(5),
