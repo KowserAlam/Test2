@@ -23,16 +23,16 @@ class Company{
         this.createdDate});
 
   Company.fromJson(Map<String, dynamic> json) {
-    name = json['name'];
-    email = json['email'];
-    address = json['address'];
-    companyContactNoOne = json['company_contact_no_one'];
-    contactPerson = json['contact_person'];
-    contactPersonDesignation = json['contact_person_designation'];
-    contactPersonMobileNo = json['contact_person_mobile_no'];
-    contactPersonEmail = json['contact_person_email'];
-    profilePicture = json['profile_picture'];
-    createdDate = json['created_date'];
+    name = json['name']?.toString();
+    email = json['email']?.toString();
+    address = json['address']?.toString();
+    companyContactNoOne = json['company_contact_no_one']?.toString();
+    contactPerson = json['contact_person']?.toString();
+    contactPersonDesignation = json['contact_person_designation']?.toString();
+    contactPersonMobileNo = json['contact_person_mobile_no']?.toString();
+    contactPersonEmail = json['contact_person_email']?.toString();
+    profilePicture = json['profile_picture']?.toString();
+    createdDate = json['created_date']?.toString();
   }
 
   Map<String, dynamic> toJson() {

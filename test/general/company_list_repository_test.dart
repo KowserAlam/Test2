@@ -29,7 +29,7 @@ main(){
 
           //assert
 
-          expect(list.length, 11);
+          expect(list.length, 9);
         });
 
   });

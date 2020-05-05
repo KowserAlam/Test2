@@ -3,6 +3,7 @@
 import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
+import 'package:flutter/foundation.dart';
 import 'package:p7app/features/user_profile/models/company.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
@@ -14,22 +15,22 @@ class CompanyListRepository{
   Future<Either<AppError,List<Company>>> getList({String query}) async{
     try{
 
-      var res = await ApiClient().getRequest(Urls.skillListUrl);
+      var url = "'${Urls.companySearchUrl}/?name=$query";
+      var res = await ApiClient().getRequest(url);
 
       if(res.statusCode == 200){
         var decodedJson = json.decode(res.body);
-        print(decodedJson);
-
+        debugPrint(decodedJson.toString());
         List<Company> list = fromJson(decodedJson);
         return Right(list);
       }else{
         return Left(AppError.unknownError);
       }
 
-    }catch (e){
+    }
+    catch (e){
       print(e);
-
-      return Left(AppError.serverError);
+      return Left(AppError.unknownError);
     }
   }
 
