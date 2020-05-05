@@ -146,8 +146,10 @@ class _AppDrawerState extends State<AppDrawer> {
                   isSelected: false,
                   onTap: () {
                     print('applied jobs');
-                    Navigator.of(context).pushReplacement(CupertinoPageRoute(
-                        builder: (context) => AppliedJobListScreen()));
+                    Navigator.push(
+                        context,
+                        CupertinoPageRoute(
+                            builder: (context) => AppliedJobListScreen()));
                   },
                 ),
                 Divider(height: 1),
