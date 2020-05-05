@@ -17,7 +17,6 @@ import 'package:p7app/main_app/resource/strings_utils.dart';
 /// &salaryMax=&experienceMin=&experienceMax=null&datePosted=&gender=
 /// &qualification=&sort=&page_size=10
 class AppliedJobListRepository {
-  int totalApplied;
 
   Future<Either<AppError, List<JobListModel>>> fetchJobList(
       JobListFilters filters) async {
@@ -28,7 +27,7 @@ class AppliedJobListRepository {
       var response = await ApiClient().getRequest(url);
       debugPrint(url);
       print(response.statusCode);
-//      print(response.body);
+      print(response.body);
       if (response.statusCode == 200) {
         var mapData = json.decode(response.body);
         var jobList = fromJson(mapData);
@@ -44,15 +43,15 @@ class AppliedJobListRepository {
     } catch (e) {
       print(e);
       BotToast.showText(text: StringUtils.somethingIsWrong);
-      return Left(AppError.serverError);
+      return Left(AppError.unknownError);
     }
   }
 
   List<JobListModel> fromJson(Map<String, dynamic> json) {
-    totalApplied = json['total_applied'];;
+
     List<JobListModel> jobList = new List<JobListModel>();
     if (json['applied_jobs'] != null) {
-      json['appplied_jobs'].forEach((v) {
+      json['applied_jobs'].forEach((v) {
         jobList.add(new JobListModel.fromJson(v));
       });
     }
