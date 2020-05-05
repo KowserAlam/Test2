@@ -5,7 +5,6 @@ import 'package:p7app/features/user_profile/models/major.dart';
 import 'package:p7app/features/user_profile/repositories/degree_list_repository.dart';
 import 'package:p7app/features/user_profile/repositories/institution_list_repository.dart';
 import 'package:p7app/features/user_profile/repositories/major_subject_list_repository.dart';
-import 'package:p7app/features/user_profile/repositories/user_profile_repository.dart';
 import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/features/user_profile/views/widgets/common_date_picker_widget.dart';
@@ -63,7 +62,6 @@ MajorSubject selectedMajorSubject;
 
   initState() {
     if (widget.educationModel != null) {
-
        selectedInstitute = widget.educationModel.institutionObj;
       _enrollDate = widget.educationModel.enrolledDate;
       _graduationDate = widget.educationModel.graduationDate;

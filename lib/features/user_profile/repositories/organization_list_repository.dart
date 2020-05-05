@@ -4,7 +4,7 @@ import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
 import 'package:p7app/main_app/failure/error.dart';
 
-class CompanyListRepository{
+class OrganizationListRepository{
 
   Future<Either<AppError,List<String>>> getCompanyList() async{
     try{

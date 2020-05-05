@@ -93,7 +93,6 @@ class AppliedJobListViewModel with ChangeNotifier {
     }, (List<JobListModel> list) {
       //isFetchingData = false;
       _jobList = list;
-      _totalJobCount = _jobListRepository.totalApplied;
       notifyListeners();
       //_checkHasMoreData();
       return true;

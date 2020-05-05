@@ -123,15 +123,15 @@ class _JobListScreenState extends State<JobListScreen>
                         ]),
                         child: Column(
                           children: [
-                            Container(
-                                height: 40,
-                                child: ListView(
-                                  scrollDirection: Axis.horizontal,
-                                  children: [
-
-
-                                  ],
-                                )),
+//                            Container(
+//                                height: 40,
+//                                child: ListView(
+//                                  scrollDirection: Axis.horizontal,
+//                                  children: [
+//
+//
+//                                  ],
+//                                )),
                             if (_searchTextEditingController.text.isNotEmpty)
                               Padding(
                                 padding: const EdgeInsets.all(8.0),

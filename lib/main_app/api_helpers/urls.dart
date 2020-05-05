@@ -49,6 +49,16 @@ class Urls {
   static String favouriteJobAddUrl = "/api/favourite_job_add/";
   static String applyJobOnlineUrl = "/api/apply_online_job_add/";
 
+//  http://p7.ishraak.com/api/job_list/?page=1&page_size=2
+  /// http://dev.ishraak.com/api/job_list/?page=1&q=job&location=&category=
+  /// &location_from_homepage=&keyword_from_homepage=&skill=&salaryMin=
+  /// &salaryMax=&experienceMin=&experienceMax=null&datePosted=&gender=
+  /// &qualification=&sort=&page_size=10
+  static String jobListUrl = "/api/job_list";
+  static String appliedJobListUrl = "/api/applied_jobs";
+  static String companySearchUrl = "/company/search";
+
+
 
 
   /// skill check
@@ -68,12 +78,6 @@ class Urls {
   static String signUpEmailVerificationUrl = "/api/signup/email-verification";
   static String signUpEmailConfirmPassword = "/api/signup/examinee";
 
-//  http://p7.ishraak.com/api/job_list/?page=1&page_size=2
-/// http://dev.ishraak.com/api/job_list/?page=1&q=job&location=&category=
-  /// &location_from_homepage=&keyword_from_homepage=&skill=&salaryMin=
-  /// &salaryMax=&experienceMin=&experienceMax=null&datePosted=&gender=
-  /// &qualification=&sort=&page_size=10
-  static String jobListUrl = "/api/job_list";
-  static String appliedJobListUrl = "/api/applied_jobs";
+
 
 }

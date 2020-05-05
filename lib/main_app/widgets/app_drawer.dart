@@ -2,8 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:p7app/features/auth/provider/login_view_model.dart';
 import 'package:p7app/features/auth/view/login_screen.dart';
 import 'package:p7app/features/config/config_screen.dart';
+import 'package:p7app/features/job/view/applied_job_list_screen.dart';
 import 'package:p7app/features/job/view/job_list_screen.dart';
-import 'file:///G:/Study/Flutter/p7app_repo/lib/features/job/view/applied_job_list_screen.dart';
 import 'package:p7app/features/user_profile/views/screens/profile_screen.dart';
 import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/auth_service/auth_user_model.dart';
@@ -92,6 +92,7 @@ class _AppDrawerState extends State<AppDrawer> {
                         child: CachedNetworkImage(
                           imageUrl:imageUrl,
                           fit: BoxFit.cover,
+                          placeholder:(context,_)=> Image.asset(kDefaultUserImageAsset,fit: BoxFit.cover,),
                         ),
                         borderRadius: BorderRadius.circular(100),
                       ),
@@ -176,7 +177,7 @@ class _AppDrawerState extends State<AppDrawer> {
                 ),
 
                 Divider(
-                  height: 1,
+                  height: 1
                 ),
                 /// ************ sign out
                 DrawerListWidget(
