@@ -21,7 +21,7 @@ class FavoriteJobListRepository {
   Future<Either<AppError, List<JobListModel>>> fetchJobList(
       JobListFilters filters) async {
 
-    var url = "${Urls.appliedJobListUrl}";
+    var url = "${Urls.favouriteJobListUrl}";
 
     try {
       var response = await ApiClient().getRequest(url);
