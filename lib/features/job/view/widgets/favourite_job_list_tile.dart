@@ -9,19 +9,19 @@ import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/util/date_format_uitl.dart';
 
-class AppliedJobListTileWidget extends StatefulWidget {
+class FavoriteJobListTileWidget extends StatefulWidget {
   final JobListModel jobListModel;
   //final Function onTap;
   //final Function onApply;
   //final Function onFavorite;
 
-  AppliedJobListTileWidget(this.jobListModel, );
+  FavoriteJobListTileWidget(this.jobListModel, );
 
   @override
-  _AppliedJobListTileWidgetState createState() => _AppliedJobListTileWidgetState();
+  _FavoriteJobListTileWidgetState createState() => _FavoriteJobListTileWidgetState();
 }
 
-class _AppliedJobListTileWidgetState extends State<AppliedJobListTileWidget> {
+class _FavoriteJobListTileWidgetState extends State<FavoriteJobListTileWidget> {
 
 
   @override
@@ -145,30 +145,30 @@ class _AppliedJobListTileWidgetState extends State<AppliedJobListTileWidget> {
         ),
       ],
     );
-//    var publishDateWidget = Row(
-//      children: <Widget>[
-//        Icon(FeatherIcons.clock, size: iconSize, color: subtitleColor),
-//        SizedBox(width: 5),
-//        Text(
-//          deadLineText,
-//          style: TextStyle(color: subtitleColor, fontWeight: FontWeight.w100),
-//        ),
-//      ],
-//    );
-//    var deadLineWidget = Row(
-//      children: <Widget>[
-//        Icon(
-//          FeatherIcons.calendar,
-//          size: iconSize,
-//          color: subtitleColor,
-//        ),
-//        SizedBox(width: 5),
-//        Text(
-//          publishDateText,
-//          style: TextStyle(color: subtitleColor, fontWeight: FontWeight.w100),
-//        ),
-//      ],
-//    );
+    var publishDateWidget = Row(
+      children: <Widget>[
+        Icon(FeatherIcons.clock, size: iconSize, color: subtitleColor),
+        SizedBox(width: 5),
+        Text(
+          '05/04/19',
+          style: TextStyle(color: subtitleColor, fontWeight: FontWeight.w100),
+        ),
+      ],
+    );
+    var deadLineWidget = Row(
+      children: <Widget>[
+        Icon(
+          FeatherIcons.calendar,
+          size: iconSize,
+          color: subtitleColor,
+        ),
+        SizedBox(width: 5),
+        Text(
+          '15/06/19',
+          style: TextStyle(color: subtitleColor, fontWeight: FontWeight.w100),
+        ),
+      ],
+    );
     return GestureDetector(
       //onTap: widget.onTap,
       child: Container(
@@ -208,18 +208,18 @@ class _AppliedJobListTileWidgetState extends State<AppliedJobListTileWidget> {
             ),
             //Job Title
             SizedBox(height: 1),
-//            Container(
-//              padding: EdgeInsets.all(8),
-//              color: backgroundColor,
-//              child: Row(
-//                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                children: <Widget>[
-//                  deadLineWidget,
-//                  publishDateWidget,
-//                  applyButton,
-//                ],
-//              ),
-//            ),
+            Container(
+              padding: EdgeInsets.all(8),
+              color: backgroundColor,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  deadLineWidget,
+                  publishDateWidget,
+                  //applyButton,
+                ],
+              ),
+            ),
           ],
         ),
       ),

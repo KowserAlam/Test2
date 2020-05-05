@@ -4,7 +4,9 @@ import 'package:p7app/features/auth/view/widgets/custom_text_field_rounded.dart'
 import 'package:p7app/features/job/models/job_list_model.dart';
 import 'package:p7app/features/job/view/job_details.dart';
 import 'package:p7app/features/job/view/widgets/applied_job_list_tile.dart';
+import 'package:p7app/features/job/view/widgets/favourite_job_list_tile.dart';
 import 'package:p7app/features/job/view_model/applied_job_list_view_model.dart';
+import 'package:p7app/features/job/view_model/favourite_job_list_view_model.dart';
 import 'package:p7app/features/job/view_model/job_list_view_model.dart';
 import 'package:p7app/features/job/models/job.dart';
 import 'package:p7app/features/job/view/widgets/job_list_tile_widget.dart';
@@ -17,14 +19,14 @@ import 'package:p7app/main_app/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/widgets/loader.dart';
 import 'package:provider/provider.dart';
 
-class AppliedJobListScreen extends StatefulWidget {
-  AppliedJobListScreen({Key key}) : super(key: key);
+class FavoriteJobListScreen extends StatefulWidget {
+  FavoriteJobListScreen({Key key}) : super(key: key);
 
   @override
-  _AppliedJobListScreenState createState() => _AppliedJobListScreenState();
+  _FavoriteJobListScreenState createState() => _FavoriteJobListScreenState();
 }
 
-class _AppliedJobListScreenState extends State<AppliedJobListScreen>
+class _FavoriteJobListScreenState extends State<FavoriteJobListScreen>
     with AfterLayoutMixin, TickerProviderStateMixin {
   ScrollController _scrollController = ScrollController();
   AnimationController controller;
@@ -43,7 +45,7 @@ class _AppliedJobListScreenState extends State<AppliedJobListScreen>
   @override
   void afterFirstLayout(BuildContext context) {
     var jobListViewModel =
-    Provider.of<AppliedJobListViewModel>(context, listen: false);
+    Provider.of<FavoriteJobListViewModel>(context, listen: false);
     jobListViewModel.getJobList();
 
 //    _scrollController.addListener(() {
@@ -66,13 +68,13 @@ class _AppliedJobListScreenState extends State<AppliedJobListScreen>
   Widget build(BuildContext context) {
     return FlavorBanner(
       child:
-      Consumer<AppliedJobListViewModel>(builder: (context, appliedJobListViewModel, _) {
-        var jobList = appliedJobListViewModel.jobList;
-        var isInSearchMode = appliedJobListViewModel.isInSearchMode;
+      Consumer<FavoriteJobListViewModel>(builder: (context, favoriteJobListViewModel, _) {
+        var jobList = favoriteJobListViewModel.jobList;
+        var isInSearchMode = favoriteJobListViewModel.isInSearchMode;
         debugPrint("${jobList.length}");
         return Scaffold(
           appBar: AppBar(
-            title: Text(StringUtils.appliedJobsText),
+            title: Text(StringUtils.favoriteJobsText),
 //            actions: [
 //              IconButton(
 //                icon: Icon(isInSearchMode ? Icons.close : Icons.search),
@@ -85,7 +87,7 @@ class _AppliedJobListScreenState extends State<AppliedJobListScreen>
           ),
           drawer: Drawer(
               child: AppDrawer(
-                routeName: 'applied_job_list',
+                routeName: 'favorite_job_list',
               )),
           body: RefreshIndicator(
             onRefresh: () async {
@@ -94,12 +96,12 @@ class _AppliedJobListScreenState extends State<AppliedJobListScreen>
             },
             child: Column(
               children: [
-                if (appliedJobListViewModel.isInSearchMode)
+                if (favoriteJobListViewModel.isInSearchMode)
                   Padding(
                     padding: const EdgeInsets.fromLTRB(8,8,8,8),
                     child: CustomTextFormField(
                       controller: _searchTextEditingController,
-                      onChanged: appliedJobListViewModel.addSearchQuery,
+                      onChanged: favoriteJobListViewModel.addSearchQuery,
                       hintText: StringUtils.searchText,
                     ),
                   ),
@@ -110,12 +112,12 @@ class _AppliedJobListScreenState extends State<AppliedJobListScreen>
                     children: [
 
 
-                      if (appliedJobListViewModel.isFetchingData)
+                      if (favoriteJobListViewModel.isFetchingData)
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Loader(),
                         ),
-                      (appliedJobListViewModel.jobList.length == 0 && appliedJobListViewModel.isFetchingData)
+                      (favoriteJobListViewModel.jobList.length == 0 && favoriteJobListViewModel.isFetchingData)
                           ? Center(
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
@@ -131,7 +133,7 @@ class _AppliedJobListScreenState extends State<AppliedJobListScreen>
 //              separatorBuilder: (context,index)=>Divider(),
                           itemBuilder: (context, index) {
                             if (index == jobList.length) {
-                              return appliedJobListViewModel.isFetchingMoreData
+                              return favoriteJobListViewModel.isFetchingMoreData
                                   ? Padding(
                                   padding: EdgeInsets.all(15),
                                   child: Loader())
@@ -140,7 +142,7 @@ class _AppliedJobListScreenState extends State<AppliedJobListScreen>
 
                             JobListModel job = jobList[index];
 
-                            return AppliedJobListTileWidget(
+                            return FavoriteJobListTileWidget(
                               job,
 //                              onTap: () {
 //                                Navigator.of(context).push(MaterialPageRoute(

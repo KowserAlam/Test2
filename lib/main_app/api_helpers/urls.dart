@@ -56,7 +56,9 @@ class Urls {
   /// &qualification=&sort=&page_size=10
   static String jobListUrl = "/api/job_list";
   static String appliedJobListUrl = "/api/applied_jobs";
+  static String favouriteJobListUrl = "/api/favourite_jobs";
   static String companySearchUrl = "/company/search";
+
 
 
 

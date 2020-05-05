@@ -140,23 +140,11 @@ class _AppliedJobListScreenState extends State<AppliedJobListScreen>
 
                             JobListModel job = jobList[index];
 
-                            return AppliedJobListTileWidget(
-                              job,
-//                              onTap: () {
-//                                Navigator.of(context).push(MaterialPageRoute(
-//                                    builder: (context) => JobDetails(
-//                                      jobModel: job,
-//                                      index: index,
-//                                    )));
-//                              },
-//                              onFavorite: () {
-//                                appliedJobListViewModel.addToFavorite(job.jobId, index);
-//                              },
-//                              onApply: job.isApplied
-//                                  ? null
-//                                  : () {
-//                                _showApplyForJobDialog(job, index);
-//                              },
+                            return AppliedJobListTileWidget(job,
+
+                                  () {
+                              appliedJobListViewModel.addToFavorite(job.jobId, index);
+                            },
                             );
                           }),
                     ],
