@@ -16,11 +16,10 @@ import 'package:p7app/main_app/resource/strings_utils.dart';
 /// &salaryMax=&experienceMin=&experienceMax=null&datePosted=&gender=
 /// &qualification=&sort=&page_size=10
 class JobListRepository {
-  int count;
-  bool next;
 
-  Future<Either<AppError, List<JobModel>>> fetchJobList(
+  Future<Either<AppError, JobListScreenDataModel>> fetchJobList(
       JobListFilters filters) async {
+
     var _filters =
         "?page=${filters.page}&q=${filters.searchQuery}&location=${filters.location}&category=${filters.category}"
         "&location_from_homepage=${filters.location_from_homepage}&keyword_from_homepage=${filters.keyword_from_homepage}"
@@ -37,11 +36,16 @@ class JobListRepository {
 //      print(response.body);
       if (response.statusCode == 200) {
         var mapData = json.decode(response.body);
+
         var jobList = fromJson(mapData);
-        return Right(jobList);
+        var dataModel = JobListScreenDataModel(
+            jobList: jobList,
+            count: mapData['count'],
+            nextPage: mapData['next_pages']??false);
+        return Right(dataModel);
       } else {
         BotToast.showText(text: StringUtils.somethingIsWrong);
-        return Left(AppError.serverError);
+        return Left(AppError.unknownError);
       }
     } on SocketException catch (e) {
       print(e);
@@ -55,15 +59,25 @@ class JobListRepository {
   }
 
   List<JobModel> fromJson(Map<String, dynamic> json) {
-    count = json['count'];
-    next = json['next_pages'];
     List<JobModel> jobList = new List<JobModel>();
     if (json['results'] != null) {
       json['results'].forEach((v) {
         jobList.add(new JobModel.fromJson(v));
       });
     }
-
     return jobList;
   }
+
+}
+
+class JobListScreenDataModel {
+  int count;
+  bool nextPage;
+  List<JobModel> jobList;
+
+  JobListScreenDataModel({
+    @required this.count,
+    @required this.nextPage,
+    @required this.jobList,
+  });
 }

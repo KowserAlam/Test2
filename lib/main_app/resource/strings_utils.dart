@@ -379,4 +379,5 @@ static const String requiredSkills = 'Skill Requirement';
 static const String benefitSectionTitle = 'Benefits';
 static const String jobSource = 'Job Source';
 static const String doYouWantToApplyText = 'Do you want to apply?';
+static const String jobsFoundText = 'jobs found';
 }

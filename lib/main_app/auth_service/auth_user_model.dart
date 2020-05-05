@@ -39,4 +39,11 @@ class AuthUserModel {
     data['professional_image'] = this.professionalImage;
     return data;
   }
+
+  @override
+  String toString() {
+    return 'AuthUserModel{refresh: $refresh, accessToken: $accessToken, email: $email, userId: $userId, fullName: $fullName, professionalId: $professionalId, professionalImage: $professionalImage}';
+  }
+
+
 }
