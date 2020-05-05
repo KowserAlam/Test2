@@ -143,6 +143,7 @@ class _AppDrawerState extends State<AppDrawer> {
                   icon: FontAwesomeIcons.checkCircle,
                   isSelected: false,
                   onTap: () {
+                    print('applied jobs');
                     Navigator.of(context).pushReplacement(CupertinoPageRoute(
                         builder: (context) => AppliedJobListScreen()));
                   },
