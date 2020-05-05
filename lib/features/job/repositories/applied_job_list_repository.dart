@@ -49,10 +49,10 @@ class AppliedJobListRepository {
   }
 
   List<JobListModel> fromJson(Map<String, dynamic> json) {
-    totalApplied = json['total_applied'];;
+    totalApplied = json['total_applied'];
     List<JobListModel> jobList = new List<JobListModel>();
     if (json['applied_jobs'] != null) {
-      json['appplied_jobs'].forEach((v) {
+      json['applied_jobs'].forEach((v) {
         jobList.add(new JobListModel.fromJson(v));
       });
     }
