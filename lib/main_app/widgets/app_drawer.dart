@@ -138,6 +138,7 @@ class _AppDrawerState extends State<AppDrawer> {
                 ),
                 Divider(height: 1),
 
+
                 DrawerListWidget(
                   label: StringUtils.appliedJobsText,
                   icon: FontAwesomeIcons.checkCircle,
