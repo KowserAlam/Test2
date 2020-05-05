@@ -16,7 +16,7 @@ import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/util/debouncer.dart';
 import 'package:rxdart/rxdart.dart';
 
-class AppliedJobListViewModel with ChangeNotifier {
+class FavoriteJobListViewModel with ChangeNotifier {
   List<JobListModel> _jobList = [];
   bool _isFetchingData = false;
   bool _isFetchingMoreData = false;
