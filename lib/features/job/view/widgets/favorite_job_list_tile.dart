@@ -145,30 +145,30 @@ class _AppliedJobListTileWidgetState extends State<AppliedJobListTileWidget> {
         ),
       ],
     );
-    var publishDateWidget = Row(
-      children: <Widget>[
-        Icon(FeatherIcons.clock, size: iconSize, color: subtitleColor),
-        SizedBox(width: 5),
-        Text(
-          '01/05/19',
-          style: TextStyle(color: subtitleColor, fontWeight: FontWeight.w100),
-        ),
-      ],
-    );
-    var deadLineWidget = Row(
-      children: <Widget>[
-        Icon(
-          FeatherIcons.calendar,
-          size: iconSize,
-          color: subtitleColor,
-        ),
-        SizedBox(width: 5),
-        Text(
-          '12/26/19',
-          style: TextStyle(color: subtitleColor, fontWeight: FontWeight.w100),
-        ),
-      ],
-    );
+//    var publishDateWidget = Row(
+//      children: <Widget>[
+//        Icon(FeatherIcons.clock, size: iconSize, color: subtitleColor),
+//        SizedBox(width: 5),
+//        Text(
+//          deadLineText,
+//          style: TextStyle(color: subtitleColor, fontWeight: FontWeight.w100),
+//        ),
+//      ],
+//    );
+//    var deadLineWidget = Row(
+//      children: <Widget>[
+//        Icon(
+//          FeatherIcons.calendar,
+//          size: iconSize,
+//          color: subtitleColor,
+//        ),
+//        SizedBox(width: 5),
+//        Text(
+//          publishDateText,
+//          style: TextStyle(color: subtitleColor, fontWeight: FontWeight.w100),
+//        ),
+//      ],
+//    );
     return GestureDetector(
       //onTap: widget.onTap,
       child: Container(
@@ -208,18 +208,18 @@ class _AppliedJobListTileWidgetState extends State<AppliedJobListTileWidget> {
             ),
             //Job Title
             SizedBox(height: 1),
-            Container(
-              padding: EdgeInsets.all(8),
-              color: backgroundColor,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  deadLineWidget,
-                  publishDateWidget,
-                  //applyButton,
-                ],
-              ),
-            ),
+//            Container(
+//              padding: EdgeInsets.all(8),
+//              color: backgroundColor,
+//              child: Row(
+//                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                children: <Widget>[
+//                  deadLineWidget,
+//                  publishDateWidget,
+//                  applyButton,
+//                ],
+//              ),
+//            ),
           ],
         ),
       ),
