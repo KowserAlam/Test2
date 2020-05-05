@@ -6,6 +6,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart';
 import 'package:p7app/features/job/models/job.dart';
 import 'package:p7app/features/job/models/job_list_filters.dart';
+import 'package:p7app/features/job/models/job_list_model.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
 import 'package:p7app/main_app/failure/error.dart';
@@ -16,17 +17,10 @@ import 'package:p7app/main_app/resource/strings_utils.dart';
 /// &salaryMax=&experienceMin=&experienceMax=null&datePosted=&gender=
 /// &qualification=&sort=&page_size=10
 class AppliedJobListRepository {
-  int count;
-  bool next;
+  int totalApplied;
 
-  Future<Either<AppError, List<JobModel>>> fetchJobList(
+  Future<Either<AppError, List<JobListModel>>> fetchJobList(
       JobListFilters filters) async {
-    var _filters =
-        "?page=${filters.page}&q=${filters.searchQuery}&location=${filters.location}&category=${filters.category}"
-        "&location_from_homepage=${filters.location_from_homepage}&keyword_from_homepage=${filters.keyword_from_homepage}"
-        "&skill=${filters.skill}&salaryMin=${filters.salaryMin}&salaryMax=${filters.salaryMin}&experienceMin=${filters.experienceMin}"
-        "&experienceMax=${filters.experienceMax}&datePosted=${filters.datePosted}&gender=${filters.gender}"
-        "&qualification=${filters.qualification}&sort=${filters.sort}&page_size=${filters.page_size}";
 
     var url = "${Urls.appliedJobListUrl}";
 
@@ -54,13 +48,12 @@ class AppliedJobListRepository {
     }
   }
 
-  List<JobModel> fromJson(Map<String, dynamic> json) {
-    count = json['count'];
-    next = json['next_pages'];
-    List<JobModel> jobList = new List<JobModel>();
-    if (json['results'] != null) {
-      json['results'].forEach((v) {
-        jobList.add(new JobModel.fromJson(v));
+  List<JobListModel> fromJson(Map<String, dynamic> json) {
+    totalApplied = json['total_applied'];;
+    List<JobListModel> jobList = new List<JobListModel>();
+    if (json['applied_jobs'] != null) {
+      json['appplied_jobs'].forEach((v) {
+        jobList.add(new JobListModel.fromJson(v));
       });
     }
 
