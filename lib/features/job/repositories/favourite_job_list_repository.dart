@@ -16,7 +16,7 @@ import 'package:p7app/main_app/resource/strings_utils.dart';
 /// &location_from_homepage=&keyword_from_homepage=&skill=&salaryMin=
 /// &salaryMax=&experienceMin=&experienceMax=null&datePosted=&gender=
 /// &qualification=&sort=&page_size=10
-class AppliedJobListRepository {
+class FavoriteJobListRepository {
 
   Future<Either<AppError, List<JobListModel>>> fetchJobList(
       JobListFilters filters) async {
