@@ -1,6 +1,7 @@
 
 
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart';
@@ -15,7 +16,8 @@ class CompanyListRepository{
   Future<Either<AppError,List<Company>>> getList({String query}) async{
     try{
 
-      var url = "'${Urls.companySearchUrl}/?name=$query";
+      var url = "${Urls.companySearchUrl}/?name=$query";
+      debugPrint(url);
       var res = await ApiClient().getRequest(url);
 
       if(res.statusCode == 200){
@@ -27,6 +29,10 @@ class CompanyListRepository{
         return Left(AppError.unknownError);
       }
 
+    }
+    on SocketException catch (e){
+      print(e);
+      return Left(AppError.networkError);
     }
     catch (e){
       print(e);

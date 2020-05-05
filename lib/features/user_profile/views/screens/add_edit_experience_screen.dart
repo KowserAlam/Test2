@@ -42,9 +42,8 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
   final int index;
   bool currentLyWorkingHere = false;
   DateTime _joiningDate, _leavingDate;
-  static GlobalKey<AutoCompleteTextFieldState<Company>>
-      _companyAutocompleteKey = new GlobalKey();
-  var _companyListStreamController = BehaviorSubject<List<Company>>();
+
+
   Company selectedCompany;
   String _selectedCompanyId;
   int _experienceId;
@@ -54,9 +53,12 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
   TextEditingController _companyNameController = TextEditingController();
   TextEditingController positionNameController = TextEditingController();
   Debouncer _debouncer = Debouncer(milliseconds: 400);
-
+  var _companyNameFocusNode = FocusNode();
+  var _companyAutocompleteKey =
+      new GlobalKey<AutoCompleteTextFieldState<Company>>();
   var _formKey = GlobalKey<FormState>();
   var _scaffoldKey = GlobalKey<ScaffoldState>();
+  List<Company> companySuggestion = [];
 
   @override
   void initState() {
@@ -68,12 +70,13 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
           widget.experienceInfoModel.designation ?? "";
       _joiningDate = widget.experienceInfoModel.startDate;
       _leavingDate = widget.experienceInfoModel.endDate;
-      _selectedCompanyId = widget.experienceInfoModel.organizationId ?? null;
+      _selectedCompanyId = widget.experienceInfoModel.companyId;
       _experienceId = widget.experienceInfoModel.experienceId ?? null;
     }
 
     _companyNameController.addListener(() {
       if (_companyNameController.text.length > 3) {
+        _companyAutocompleteKey.currentState.suggestions = [];
         _debouncer.run(() {
           CompanyListRepository()
               .getList(query: _companyNameController.text)
@@ -81,9 +84,17 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
             value.fold((l) {
               //left
               print(l);
-            }, (List<Company>r) {
-              //right
-              _companyListStreamController.sink.add(r);
+              _companyAutocompleteKey.currentState.suggestions = [];
+            }, (List<Company> r) {
+//              //right
+              companySuggestion = r;
+              _companyAutocompleteKey.currentState.updateSuggestions(r);
+              _companyAutocompleteKey.currentState.updateOverlay();
+              _companyAutocompleteKey.currentState.
+
+//            setState(() {
+//
+//            });
             });
           });
         });
@@ -140,16 +151,17 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
       if (_selectedCompanyId != null) {
         if (_companyNameController.text != _selectedCompanyId) {
           _selectedCompanyId = null;
-          setState(() {});
+//          setState(() {});
         }
       }
       var experienceInfo = ExperienceInfo(
           experienceId: widget.experienceInfoModel?.experienceId,
           organizationName: _companyNameController.text,
           designation: positionNameController.text,
-          organizationId: _selectedCompanyId,
+          companyId: selectedCompany?.name ?? _selectedCompanyId,
           startDate: _joiningDate,
           endDate: _leavingDate);
+
       if (_joiningDate != null && _leavingDate != null) {
         if (_joiningDate.isBefore(_leavingDate)) {
           if (widget.experienceInfoModel != null) {
@@ -217,64 +229,50 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
       height: 20,
     );
 
-    var nameOfCompany = StreamBuilder<List<Company>>(
-        stream: _companyListStreamController.stream,
-        builder: (context, AsyncSnapshot<List<Company>> snapshot) {
-          if (snapshot.hasData)
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text("  " + StringUtils.nameOfCompany ?? "",
-                    style: TextStyle(fontWeight: FontWeight.bold)),
-                SizedBox(
-                  height: 5,
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).backgroundColor,
-                    borderRadius: BorderRadius.circular(7),
-                    boxShadow: CommonStyleTextField.boxShadow,
-                  ),
-                  child: AutoCompleteTextField<Company>(
-                    decoration: InputDecoration(
-                      hintText: StringUtils.currentCompanyHint,
-                      border: InputBorder.none,
-                      contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 5),
-                      focusedBorder:
-                          CommonStyleTextField.focusedBorder(context),
-                    ),
-                    controller: _companyNameController,
-                    itemFilter: (Company suggestion, String query) {
-                      return true;
-                    },
-                    suggestions: snapshot.data,
-                    itemSorter: (Company a, Company b) =>
-                        a.name.compareTo(b.name),
-                    key: _companyAutocompleteKey,
-                    itemBuilder: (BuildContext context, Company suggestion) {
-                      return ListTile(
-                        title: Text(suggestion.name ?? ""),
-                      );
-                    },
-                    clearOnSubmit: false,
-                    itemSubmitted: (Company data) {
-                      selectedCompany = data;
-                      _companyNameController.text = data.name;
-                      setState(() {});
-                    },
-                  ),
-                ),
-              ],
-            );
-
-          return CustomTextFormField(
-            validator: Validator().nullFieldValidate,
+    var nameOfCompany = Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text("  " + StringUtils.nameOfCompany ?? "",
+            style: TextStyle(fontWeight: FontWeight.bold)),
+        SizedBox(
+          height: 5,
+        ),
+        Container(
+          decoration: BoxDecoration(
+            color: Theme.of(context).backgroundColor,
+            borderRadius: BorderRadius.circular(7),
+            boxShadow: CommonStyleTextField.boxShadow,
+          ),
+          child: AutoCompleteTextField<Company>(
+            focusNode: _companyNameFocusNode,
+            decoration: InputDecoration(
+              hintText: StringUtils.currentCompanyHint,
+              border: InputBorder.none,
+              contentPadding:
+                  const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              focusedBorder: CommonStyleTextField.focusedBorder(context),
+            ),
             controller: _companyNameController,
-            labelText: StringUtils.nameOfOInstitutionText,
-            hintText: StringUtils.nameOfOInstitutionHintText,
-          );
-        });
+            itemFilter: (Company suggestion, String query) => true,
+            suggestions: companySuggestion,
+            itemSorter: (Company a, Company b) => a.name.compareTo(b.name),
+            key: _companyAutocompleteKey,
+            itemBuilder: (BuildContext context, Company suggestion) {
+              return ListTile(
+                title: Text(suggestion.name ?? ""),
+              );
+            },
+            clearOnSubmit: false,
+            itemSubmitted: (Company data) {
+              selectedCompany = data;
+//                    _companyNameController.text = data.name;
+              _companyAutocompleteKey.currentState.updateSuggestions([]);
+              setState(() {});
+            },
+          ),
+        ),
+      ],
+    );
 
     return WillPopScope(
       onWillPop: () async {

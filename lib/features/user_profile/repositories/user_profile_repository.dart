@@ -670,11 +670,12 @@ class UserProfileRepository {
 
     var data = experienceInfo.toJson();
     data.addAll({"professional_id": professionalId});
+    debugPrint(data.toString());
 
     try {
       var response = await ApiClient().putRequest(url, data);
       print(response.statusCode);
-      print(response.body);
+//      print(response.body);
       if (response.statusCode == 200) {
         BotToast.closeAllLoading();
         ExperienceInfo data =
