@@ -90,7 +90,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
               companySuggestion = r;
               _companyAutocompleteKey.currentState.updateSuggestions(r);
               _companyAutocompleteKey.currentState.updateOverlay();
-              _companyAutocompleteKey.currentState.
+
 
 //            setState(() {
 //
