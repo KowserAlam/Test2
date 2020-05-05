@@ -2,6 +2,7 @@ import 'package:after_layout/after_layout.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:p7app/features/auth/view/widgets/custom_text_field_rounded.dart';
 import 'package:p7app/features/job/view/job_details.dart';
+import 'package:p7app/features/job/view_model/applied_job_list_view_model.dart';
 import 'package:p7app/features/job/view_model/job_list_view_model.dart';
 import 'package:p7app/features/job/models/job.dart';
 import 'package:p7app/features/job/view/widgets/job_list_tile_widget.dart';
@@ -40,17 +41,17 @@ class _AppliedJobListScreenState extends State<AppliedJobListScreen>
   @override
   void afterFirstLayout(BuildContext context) {
     var jobListViewModel =
-    Provider.of<JobListViewModel>(context, listen: false);
+    Provider.of<AppliedJobListViewModel>(context, listen: false);
     jobListViewModel.getJobList();
 
-    _scrollController.addListener(() {
-      if (_scrollController.position.pixels ==
-          _scrollController.position.maxScrollExtent &&
-          jobListViewModel.hasMoreData &&
-          !jobListViewModel.isFetchingData) {
-        jobListViewModel.getMoreData();
-      }
-    });
+//    _scrollController.addListener(() {
+//      if (_scrollController.position.pixels ==
+//          _scrollController.position.maxScrollExtent &&
+//          jobListViewModel.hasMoreData &&
+//          !jobListViewModel.isFetchingData) {
+//        jobListViewModel.getMoreData();
+//      }
+//    });
   }
 
   @override
@@ -69,20 +70,20 @@ class _AppliedJobListScreenState extends State<AppliedJobListScreen>
         debugPrint("${jobList.length}");
         return Scaffold(
           appBar: AppBar(
-            title: Text(StringUtils.jobListText),
-            actions: [
-              IconButton(
-                icon: Icon(isInSearchMode ? Icons.close : Icons.search),
-                onPressed: () {
-                  _searchTextEditingController?.clear();
-                  jobListViewModel.toggleIsInSearchMode();
-                },
-              )
-            ],
+            title: Text(StringUtils.appliedJobsText),
+//            actions: [
+//              IconButton(
+//                icon: Icon(isInSearchMode ? Icons.close : Icons.search),
+//                onPressed: () {
+//                  _searchTextEditingController?.clear();
+//                  jobListViewModel.toggleIsInSearchMode();
+//                },
+//              )
+//            ],
           ),
           drawer: Drawer(
               child: AppDrawer(
-                routeName: 'job_list',
+                routeName: 'applied_job_list',
               )),
           body: RefreshIndicator(
             onRefresh: () async {

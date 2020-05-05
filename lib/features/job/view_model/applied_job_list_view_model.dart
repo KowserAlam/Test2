@@ -5,6 +5,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:p7app/features/job/models/job.dart';
 import 'package:p7app/features/job/models/job_list_filters.dart';
+import 'package:p7app/features/job/models/job_list_model.dart';
 import 'package:p7app/features/job/repositories/applied_job_list_repository.dart';
 import 'package:p7app/features/job/repositories/job_list_repository.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
@@ -16,7 +17,7 @@ import 'package:p7app/main_app/util/debouncer.dart';
 import 'package:rxdart/rxdart.dart';
 
 class AppliedJobListViewModel with ChangeNotifier {
-  List<JobModel> _jobList = [];
+  List<JobListModel> _jobList = [];
   bool _isFetchingData = false;
   bool _isFetchingMoreData = false;
   bool _hasMoreData = false;
@@ -82,19 +83,19 @@ class AppliedJobListViewModel with ChangeNotifier {
   Future<bool> getJobList() async {
     isFetchingData = true;
     totalJobCount = 0;
-    Either<AppError, List<JobModel>> result =
+    Either<AppError, List<JobListModel>> result =
     await _jobListRepository.fetchJobList(_jobListFilters);
     return result.fold((l) {
-      isFetchingData = false;
-      _checkHasMoreData();
+      //isFetchingData = false;
+      //_checkHasMoreData();
       print(l);
       return false;
-    }, (List<JobModel> list) {
-      isFetchingData = false;
+    }, (List<JobListModel> list) {
+      //isFetchingData = false;
       _jobList = list;
-      _totalJobCount = _jobListRepository.count;
+      _totalJobCount = _jobListRepository.totalApplied;
       notifyListeners();
-      _checkHasMoreData();
+      //_checkHasMoreData();
       return true;
     });
   }
@@ -105,13 +106,13 @@ class AppliedJobListViewModel with ChangeNotifier {
     hasMoreData = true;
     incrementPageCount();
     _jobListFilters.page = _pageCount;
-    Either<AppError, List<JobModel>> result =
+    Either<AppError, List<JobListModel>> result =
     await _jobListRepository.fetchJobList(_jobListFilters);
     result.fold((l) {
       isFetchingMoreData = false;
       _checkHasMoreData();
       print(l);
-    }, (List<JobModel> list) {
+    }, (List<JobListModel> list) {
       _jobList.addAll(list);
       _isFetchingMoreData = false;
       _checkHasMoreData();
@@ -126,71 +127,71 @@ class AppliedJobListViewModel with ChangeNotifier {
     }
   }
 
-  Future<bool> applyForJob(String jobId, int index,
-      {ApiClient apiClient}) async {
-    BotToast.showLoading();
-    var userId =
-    await AuthService.getInstance().then((value) => value.getUser().userId);
-    var body = {'user_id': userId, 'job_id': jobId};
+//  Future<bool> applyForJob(String jobId, int index,
+//      {ApiClient apiClient}) async {
+//    BotToast.showLoading();
+//    var userId =
+//    await AuthService.getInstance().then((value) => value.getUser().userId);
+//    var body = {'user_id': userId, 'job_id': jobId};
+//
+//    try {
+//      ApiClient client = apiClient ?? ApiClient();
+//      var res = await client.postRequest(Urls.applyJobOnlineUrl, body);
+//      print(res.body);
+//
+//      if (res.statusCode == 200) {
+//        BotToast.closeAllLoading();
+//        BotToast.showText(
+//            text: StringUtils.successfullyAppliedText,
+//            duration: Duration(seconds: 2));
+//        _jobList[index].isApplied = true;
+//        notifyListeners();
+//        return true;
+//      } else {
+//        BotToast.closeAllLoading();
+//        BotToast.showText(text: StringUtils.unableToSaveData);
+//        return false;
+//      }
+//    } catch (e) {
+//      BotToast.closeAllLoading();
+//      BotToast.showText(text: StringUtils.unableToSaveData);
+//      print(e);
+//
+//      return false;
+//    }
+//  }
 
-    try {
-      ApiClient client = apiClient ?? ApiClient();
-      var res = await client.postRequest(Urls.applyJobOnlineUrl, body);
-      print(res.body);
-
-      if (res.statusCode == 200) {
-        BotToast.closeAllLoading();
-        BotToast.showText(
-            text: StringUtils.successfullyAppliedText,
-            duration: Duration(seconds: 2));
-        _jobList[index].isApplied = true;
-        notifyListeners();
-        return true;
-      } else {
-        BotToast.closeAllLoading();
-        BotToast.showText(text: StringUtils.unableToSaveData);
-        return false;
-      }
-    } catch (e) {
-      BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToSaveData);
-      print(e);
-
-      return false;
-    }
-  }
-
-  Future<bool> addToFavorite(String jobId, int index,
-      {ApiClient apiClient}) async {
-    BotToast.showLoading();
-    var userId =
-    await AuthService.getInstance().then((value) => value.getUser().userId);
-    var body = {'user_id': userId, 'job_id': jobId};
-
-    try {
-      ApiClient client = apiClient ?? ApiClient();
-      var res = await client.postRequest(Urls.favouriteJobAddUrl, body);
-      print(res.body);
-
-      if (res.statusCode == 200) {
-        BotToast.closeAllLoading();
-
-        _jobList[index].status = !_jobList[index].status;
-        notifyListeners();
-        return true;
-      } else {
-        BotToast.closeAllLoading();
-        BotToast.showText(text: StringUtils.unableToSaveData);
-        return false;
-      }
-    } catch (e) {
-      BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToSaveData);
-      print(e);
-
-      return false;
-    }
-  }
+//  Future<bool> addToFavorite(String jobId, int index,
+//      {ApiClient apiClient}) async {
+//    BotToast.showLoading();
+//    var userId =
+//    await AuthService.getInstance().then((value) => value.getUser().userId);
+//    var body = {'user_id': userId, 'job_id': jobId};
+//
+//    try {
+//      ApiClient client = apiClient ?? ApiClient();
+//      var res = await client.postRequest(Urls.favouriteJobAddUrl, body);
+//      print(res.body);
+//
+//      if (res.statusCode == 200) {
+//        BotToast.closeAllLoading();
+//
+//        _jobList[index].status = !_jobList[index].status;
+//        notifyListeners();
+//        return true;
+//      } else {
+//        BotToast.closeAllLoading();
+//        BotToast.showText(text: StringUtils.unableToSaveData);
+//        return false;
+//      }
+//    } catch (e) {
+//      BotToast.closeAllLoading();
+//      BotToast.showText(text: StringUtils.unableToSaveData);
+//      print(e);
+//
+//      return false;
+//    }
+//  }
 
   resetState() {
     _jobList = [];
@@ -205,9 +206,9 @@ class AppliedJobListViewModel with ChangeNotifier {
   /// getter setters
   /// #########################
 
-  List<JobModel> get jobList => _jobList;
+  List<JobListModel> get jobList => _jobList;
 
-  set jobList(List<JobModel> value) {
+  set jobList(List<JobListModel> value) {
     _jobList = value;
     notifyListeners();
   }
@@ -235,6 +236,5 @@ class AppliedJobListViewModel with ChangeNotifier {
   set jobListRepository(AppliedJobListRepository value) {
     _jobListRepository = value;
   }
-
 
 }
