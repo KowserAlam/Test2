@@ -1,0 +1,51 @@
+
+
+import 'dart:convert';
+
+import 'package:dartz/dartz.dart';
+import 'package:p7app/features/user_profile/models/company.dart';
+import 'package:p7app/main_app/api_helpers/api_client.dart';
+import 'package:p7app/main_app/api_helpers/urls.dart';
+import 'package:p7app/main_app/failure/error.dart';
+
+class CompanyListRepository{
+
+
+  Future<Either<AppError,List<Company>>> getList({String query}) async{
+    try{
+
+      var res = await ApiClient().getRequest(Urls.skillListUrl);
+
+      if(res.statusCode == 200){
+        var decodedJson = json.decode(res.body);
+        print(decodedJson);
+
+        List<Company> list = fromJson(decodedJson);
+        return Right(list);
+      }else{
+        return Left(AppError.unknownError);
+      }
+
+    }catch (e){
+      print(e);
+
+      return Left(AppError.serverError);
+    }
+  }
+
+  List<Company> fromJson(json){
+    List<Company> list = [];
+
+    if(json['data'] != null){
+      json['data'].forEach((element) {
+        list.add(Company.fromJson(element));
+      });
+    }
+
+//   List<Map<String,dynamic>> tl = json.cast<Map<String,dynamic>>();
+//    tl.map<String>((e) => e['name']).toList();
+
+    return list;
+  }
+
+}

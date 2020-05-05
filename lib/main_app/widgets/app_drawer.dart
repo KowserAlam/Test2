@@ -92,6 +92,7 @@ class _AppDrawerState extends State<AppDrawer> {
                         child: CachedNetworkImage(
                           imageUrl:imageUrl,
                           fit: BoxFit.cover,
+                          placeholder:(context,_)=> Image.asset(kDefaultUserImageAsset,fit: BoxFit.cover,),
                         ),
                         borderRadius: BorderRadius.circular(100),
                       ),
@@ -174,7 +175,7 @@ class _AppDrawerState extends State<AppDrawer> {
                 ),
 
                 Divider(
-                  height: 1,
+                  height: 1
                 ),
                 /// ************ sign out
                 DrawerListWidget(
