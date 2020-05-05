@@ -13,9 +13,9 @@ class AppliedJobListTileWidget extends StatefulWidget {
   final JobListModel jobListModel;
   //final Function onTap;
   //final Function onApply;
-  //final Function onFavorite;
+  final Function onFavorite;
 
-  AppliedJobListTileWidget(this.jobListModel, );
+  AppliedJobListTileWidget(this.jobListModel,this.onFavorite );
 
   @override
   _AppliedJobListTileWidgetState createState() => _AppliedJobListTileWidgetState();
@@ -26,16 +26,16 @@ class _AppliedJobListTileWidgetState extends State<AppliedJobListTileWidget> {
 
   @override
   Widget build(BuildContext context) {
-    //bool isFavorite = widget.jobModel.status;
+    bool isFavorite = widget.jobListModel.isFavourite;
 
-//    String publishDateText = widget.jobModel.createdDate == null
-//        ? StringUtils.unspecifiedText
-//        : DateFormatUtil()
-//        .dateFormat1(DateTime.parse(widget.jobModel.createdDate));
-//    String deadLineText = widget.jobModel.applicationDeadline == null
-//        ? StringUtils.unspecifiedText
-//        : DateFormatUtil()
-//        .dateFormat1(DateTime.parse(widget.jobModel.applicationDeadline));
+    String publishDateText = widget.jobListModel.createdAt == null
+        ? StringUtils.unspecifiedText
+        : DateFormatUtil()
+        .dateFormat1(DateTime.parse(widget.jobListModel.createdAt));
+    String deadLineText = widget.jobListModel.applicationDeadline == null
+        ? StringUtils.unspecifiedText
+        : DateFormatUtil()
+        .dateFormat1(DateTime.parse(widget.jobListModel.applicationDeadline));
 
     var backgroundColor = Theme.of(context).backgroundColor;
     var scaffoldBackgroundColor = Theme.of(context).scaffoldBackgroundColor;
@@ -83,24 +83,24 @@ class _AppliedJobListTileWidgetState extends State<AppliedJobListTileWidget> {
         ],
       ),
     );
-//    var heartButton = Material(
-//      color: Colors.transparent,
-//      borderRadius: BorderRadius.circular(20),
-//      child: InkWell(
-//        borderRadius: BorderRadius.circular(20),
-//        onTap: widget.onFavorite,
-//        child: Padding(
-//          padding: const EdgeInsets.all(8.0),
-//          child: Icon(
-//            isFavorite
-//                ? FontAwesomeIcons.solidHeart
-//                : FontAwesomeIcons.heart,
-//            color: isFavorite? AppTheme.orange : AppTheme.grey,
-//            size: 22,
-//          ),
-//        ),
-//      ),
-//    );
+    var heartButton = Material(
+      color: Colors.transparent,
+      borderRadius: BorderRadius.circular(20),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(20),
+        onTap: widget.onFavorite,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Icon(
+            isFavorite
+                ? FontAwesomeIcons.solidHeart
+                : FontAwesomeIcons.heart,
+            color: isFavorite? AppTheme.orange : AppTheme.grey,
+            size: 22,
+          ),
+        ),
+      ),
+    );
 
 //    var applyButton = Material(
 //      color: widget.jobModel.isApplied
@@ -150,7 +150,7 @@ class _AppliedJobListTileWidgetState extends State<AppliedJobListTileWidget> {
         Icon(FeatherIcons.clock, size: iconSize, color: subtitleColor),
         SizedBox(width: 5),
         Text(
-          '01/05/19',
+          publishDateText,
           style: TextStyle(color: subtitleColor, fontWeight: FontWeight.w100),
         ),
       ],
@@ -164,7 +164,7 @@ class _AppliedJobListTileWidgetState extends State<AppliedJobListTileWidget> {
         ),
         SizedBox(width: 5),
         Text(
-          '12/26/19',
+          deadLineText,
           style: TextStyle(color: subtitleColor, fontWeight: FontWeight.w100),
         ),
       ],
@@ -202,7 +202,7 @@ class _AppliedJobListTileWidgetState extends State<AppliedJobListTileWidget> {
                         ],
                       )),
                   SizedBox(width: 8),
-                  //heartButton,
+                  heartButton,
                 ],
               ),
             ),
