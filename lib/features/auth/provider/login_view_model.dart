@@ -159,8 +159,8 @@ class LoginViewModel with ChangeNotifier {
   }
 
   signOut() async {
-    var prf = await SharedPreferences.getInstance();
-    prf.remove(JsonKeys.user);
+    var authService = await AuthService.getInstance();
+    authService.removeUser();
   }
 
 

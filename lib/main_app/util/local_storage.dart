@@ -1,10 +1,14 @@
+import 'package:p7app/main_app/flavour/flavour_config.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LocalStorageService {
   static LocalStorageService _instance;
   static SharedPreferences _preferences;
+  static String _flavorName = "";
+
 
   static Future<LocalStorageService> getInstance() async {
+    _flavorName = FlavorConfig.instance.name;
     if (_instance == null) {
       _instance = LocalStorageService();
     }
@@ -15,12 +19,16 @@ class LocalStorageService {
   }
 
   String getString(String key){
-    return  _preferences.getString(key);
+    return  _preferences.getString("${_flavorName}_${key}");
   }
 
   Future<bool> saveString(String key, String value){
-    return _preferences.setString(key, value);
+    return _preferences.setString("${_flavorName}_${key}", value);
 
+  }
+
+  Future<bool> remove(String key){
+    return _preferences.remove("${_flavorName}_${key}");
   }
 }
 
