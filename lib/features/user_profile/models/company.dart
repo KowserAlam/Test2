@@ -1,4 +1,7 @@
-class Company{
+import 'package:equatable/equatable.dart';
+
+// ignore: must_be_immutable
+class Company extends Equatable {
   String name;
   String email;
   String address;
@@ -12,15 +15,15 @@ class Company{
 
   Company(
       {this.name,
-        this.email,
-        this.address,
-        this.companyContactNoOne,
-        this.contactPerson,
-        this.contactPersonDesignation,
-        this.contactPersonMobileNo,
-        this.contactPersonEmail,
-        this.profilePicture,
-        this.createdDate});
+      this.email,
+      this.address,
+      this.companyContactNoOne,
+      this.contactPerson,
+      this.contactPersonDesignation,
+      this.contactPersonMobileNo,
+      this.contactPersonEmail,
+      this.profilePicture,
+      this.createdDate});
 
   Company.fromJson(Map<String, dynamic> json) {
     name = json['name']?.toString();
@@ -49,4 +52,24 @@ class Company{
     data['created_date'] = this.createdDate;
     return data;
   }
+
+  @override
+  String toString() {
+    return name;
+  }
+
+  @override
+  // TODO: implement props
+  List<Object> get props => [
+        name,
+        email,
+        address,
+        companyContactNoOne,
+        contactPerson,
+        contactPersonDesignation,
+        contactPersonMobileNo,
+        contactPersonEmail,
+        profilePicture,
+        createdDate
+      ];
 }
