@@ -56,15 +56,19 @@ class JobListViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  addSearchQuery(String query) {
+  addSearchQueryDebounceTime(String query) {
     _debouncer.run(() {
-      _jobList = [];
-      resetPageCounter();
-      _jobListFilters.page = _pageCount;
-      _jobListFilters.searchQuery = query;
-      debugPrint("Searching for: $query");
-      getJobList();
+      search(query);
     });
+  }
+  
+  search(String query){
+    _jobList = [];
+    resetPageCounter();
+    _jobListFilters.page = _pageCount;
+    _jobListFilters.searchQuery = query;
+    debugPrint("Searching for: $query");
+    getJobList();
   }
 
   void incrementPageCount() {

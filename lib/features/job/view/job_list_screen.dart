@@ -13,6 +13,7 @@ import 'package:p7app/main_app/flavour/flavor_banner.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/widgets/app_drawer.dart';
 import 'package:flutter/material.dart';
+import 'package:p7app/main_app/widgets/custom_text_field.dart';
 import 'package:p7app/main_app/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/widgets/loader.dart';
 import 'package:p7app/main_app/widgets/toggle_app_theme_widget.dart';
@@ -103,9 +104,11 @@ class _JobListScreenState extends State<JobListScreen>
                     children: [
                       Padding(
                         padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
-                        child: CustomTextFormField(
+                        child: CustomTextField(
+                          suffixIcon: IconButton(icon: Icon(Icons.search),onPressed: (){
+                            jobListViewModel.search(_searchTextEditingController.text);
+                          },),
                           controller: _searchTextEditingController,
-                          onChanged: jobListViewModel.addSearchQuery,
                           hintText: StringUtils.searchText,
                         ),
                       ),
