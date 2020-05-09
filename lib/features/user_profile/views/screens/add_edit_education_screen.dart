@@ -69,7 +69,7 @@ MajorSubject selectedMajorSubject;
       institutionNameController.text = selectedInstitute?.name ?? widget.educationModel.institutionText ?? "";
       gpaTextController.text = widget.educationModel.cgpa ?? "";
       selectedDegree = widget.educationModel.degree;
-      selectedMajorSubject = widget.educationModel.major;
+      selectedMajorSubject = widget.educationModel.major??null;
       _enrollDate = widget.educationModel.enrolledDate;
       _graduationDate = widget.educationModel.graduationDate;
     }
@@ -126,6 +126,7 @@ MajorSubject selectedMajorSubject;
           institutionText: institutionNameController.text,
 
         );
+        print("Degree: "+education.degree);
 
 
         if(widget.educationModel == null){
@@ -244,6 +245,7 @@ MajorSubject selectedMajorSubject;
               items: items,
               onChanged: (v){
                 selectedDegree = v;
+                print(selectedDegree);
                 setState(() {
 
                 });
@@ -279,6 +281,7 @@ MajorSubject selectedMajorSubject;
               items: items,
               onChanged: (v){
                 selectedMajorSubject = v;
+                print(v);
                 setState(() {
 
                 });
