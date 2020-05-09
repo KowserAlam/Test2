@@ -1,5 +1,6 @@
 class JobModel {
   String jobId;
+  String slug;
   String title;
   String jobLocation;
   String salaryMin;
@@ -30,6 +31,7 @@ class JobModel {
 
   JobModel({
     this.jobId,
+    this.slug,
     this.title,
     this.jobLocation,
     this.salaryMin,
@@ -61,6 +63,7 @@ class JobModel {
 
   JobModel.fromJson(Map<String, dynamic> json) {
     jobId = json['job_id'];
+    slug = json['slug'];
     title = json['title'];
     jobLocation = json['job_location'];
     salaryMin = json['salary_min'];
@@ -94,6 +97,7 @@ class JobModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['job_id'] = this.jobId;
+    data['slug'] = this.slug;
     data['title'] = this.title;
     data['job_location'] = this.jobLocation;
     data['salary_min'] = this.salaryMin;
