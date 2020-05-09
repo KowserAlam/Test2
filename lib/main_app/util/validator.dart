@@ -5,8 +5,7 @@ class Validator {
   String nullFieldValidate(String value) =>
       value.isEmptyOrNull ? StringUtils.thisFieldIsRequired : null;
 
-  String validateEmailG(String email) =>
-      !email.contains("@") ? StringUtils.invalidEmail : null;
+
 
   String validateEmail(String value) {
     Pattern pattern =

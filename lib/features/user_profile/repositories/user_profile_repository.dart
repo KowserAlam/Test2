@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:logger/logger.dart';
 import 'package:p7app/features/user_profile/models/certification_info.dart';
 import 'package:p7app/features/user_profile/models/edu_info.dart';
 import 'package:p7app/features/user_profile/models/experience_info.dart';
@@ -50,9 +51,12 @@ class UserProfileRepository {
     authUserModel.email = user.email;
     authUserModel.fullName = user.fullName;
     authUserModel.professionalImage = imageUrl;
+    print(authUserModel.professionalId);
 
     var authService = await AuthService.getInstance();
-    authService.saveUser( authUserModel.toJson());
+var data = authUserModel.toJson();
+Logger().i(data);
+    authService.saveUser(data);
 
 
   }

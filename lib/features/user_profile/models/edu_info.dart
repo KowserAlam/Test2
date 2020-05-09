@@ -33,9 +33,12 @@ class EduInfo {
     institutionId = json['institution_id'];
     institutionText = json['institution_text'];
     cgpa = json['cgpa'];
-    major = json['major_obj'] != null
-        ? new MajorSubject.fromJson(json['major_obj'])
-        : null;
+
+    if (json['major_obj'] != null) {
+      major = json['major_obj']['id'] == null
+          ? null
+          : MajorSubject.fromJson(json['major_obj']);
+    }
     majorText = json['major_text'];
     enrolledDate = json['enrolled_date'] == null
         ? null
