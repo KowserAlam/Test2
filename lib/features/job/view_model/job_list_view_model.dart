@@ -45,7 +45,7 @@ class JobListViewModel with ChangeNotifier {
   /// #########################
 
   toggleIsInSearchMode() {
-    _jobList = [];
+//    _jobList = [];
     _isInSearchMode = !_isInSearchMode;
     _totalJobCount = 0;
     resetPageCounter();
