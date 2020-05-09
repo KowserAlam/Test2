@@ -19,14 +19,14 @@ import 'package:p7app/main_app/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/widgets/loader.dart';
 import 'package:provider/provider.dart';
 
-class FavoriteJobListScreen extends StatefulWidget {
-  FavoriteJobListScreen({Key key}) : super(key: key);
+class FavouriteJobListScreen extends StatefulWidget {
+  FavouriteJobListScreen({Key key}) : super(key: key);
 
   @override
-  _FavoriteJobListScreenState createState() => _FavoriteJobListScreenState();
+  _FavouriteJobListScreenState createState() => _FavouriteJobListScreenState();
 }
 
-class _FavoriteJobListScreenState extends State<FavoriteJobListScreen>
+class _FavouriteJobListScreenState extends State<FavouriteJobListScreen>
     with AfterLayoutMixin, TickerProviderStateMixin {
   ScrollController _scrollController = ScrollController();
   AnimationController controller;
@@ -45,7 +45,7 @@ class _FavoriteJobListScreenState extends State<FavoriteJobListScreen>
   @override
   void afterFirstLayout(BuildContext context) {
     var jobListViewModel =
-    Provider.of<FavoriteJobListViewModel>(context, listen: false);
+    Provider.of<FavouriteJobListViewModel>(context, listen: false);
     jobListViewModel.getJobList();
 
 //    _scrollController.addListener(() {
@@ -68,7 +68,7 @@ class _FavoriteJobListScreenState extends State<FavoriteJobListScreen>
   Widget build(BuildContext context) {
     return FlavorBanner(
       child:
-      Consumer<FavoriteJobListViewModel>(builder: (context, favoriteJobListViewModel, _) {
+      Consumer<FavouriteJobListViewModel>(builder: (context, favoriteJobListViewModel, _) {
         var jobList = favoriteJobListViewModel.jobList;
         var isInSearchMode = favoriteJobListViewModel.isInSearchMode;
         debugPrint("${jobList.length}");
@@ -121,7 +121,7 @@ class _FavoriteJobListScreenState extends State<FavoriteJobListScreen>
                           ? Center(
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text(StringUtils.noJobsFound),
+                          child: Text(StringUtils.noFavouriteJobsFound),
                         ),
                       )
                           : ListView.builder(
@@ -154,11 +154,11 @@ class _FavoriteJobListScreenState extends State<FavoriteJobListScreen>
 //                              onFavorite: () {
 //                                appliedJobListViewModel.addToFavorite(job.jobId, index);
 //                              },
-//                              onApply: job.isApplied
-//                                  ? null
-//                                  : () {
-//                                _showApplyForJobDialog(job, index);
-//                              },
+                              job.isApplied
+                                  ? null
+                                  : () {
+                                _showApplyForJobDialog(job, index);
+                              },
                             );
                           }),
                     ],
@@ -172,7 +172,7 @@ class _FavoriteJobListScreenState extends State<FavoriteJobListScreen>
     );
   }
 
-  _showApplyForJobDialog(JobModel jobModel, int index) {
+  _showApplyForJobDialog(JobListModel jobModel, int index) {
     showDialog(
         context: context,
         builder: (context) {

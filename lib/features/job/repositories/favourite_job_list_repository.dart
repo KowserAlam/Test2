@@ -50,8 +50,8 @@ class FavoriteJobListRepository {
   List<JobListModel> fromJson(Map<String, dynamic> json) {
 
     List<JobListModel> jobList = new List<JobListModel>();
-    if (json['applied_jobs'] != null) {
-      json['applied_jobs'].forEach((v) {
+    if (json['bookmarked_jobs'] != null) {
+      json['bookmarked_jobs'].forEach((v) {
         jobList.add(new JobListModel.fromJson(v));
       });
     }

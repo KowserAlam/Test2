@@ -7,6 +7,7 @@ import 'package:p7app/features/job/models/job.dart';
 import 'package:p7app/features/job/models/job_list_filters.dart';
 import 'package:p7app/features/job/models/job_list_model.dart';
 import 'package:p7app/features/job/repositories/applied_job_list_repository.dart';
+import 'package:p7app/features/job/repositories/favourite_job_list_repository.dart';
 import 'package:p7app/features/job/repositories/job_list_repository.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
@@ -16,13 +17,13 @@ import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/util/debouncer.dart';
 import 'package:rxdart/rxdart.dart';
 
-class FavoriteJobListViewModel with ChangeNotifier {
+class FavouriteJobListViewModel with ChangeNotifier {
   List<JobListModel> _jobList = [];
   bool _isFetchingData = false;
   bool _isFetchingMoreData = false;
   bool _hasMoreData = false;
   int _pageCount = 1;
-  AppliedJobListRepository _jobListRepository = AppliedJobListRepository();
+  FavoriteJobListRepository _jobListRepository = FavoriteJobListRepository();
   JobListFilters _jobListFilters = JobListFilters(isApplied: true);
   Debouncer _debouncer = Debouncer(milliseconds: 800);
   bool _isInSearchMode = false;
@@ -197,7 +198,7 @@ class FavoriteJobListViewModel with ChangeNotifier {
     _isFetchingData = false;
     _hasMoreData = false;
     _pageCount = 1;
-    _jobListRepository = AppliedJobListRepository();
+    _jobListRepository = FavoriteJobListRepository();
     _jobListFilters = JobListFilters();
   }
 
@@ -232,7 +233,7 @@ class FavoriteJobListViewModel with ChangeNotifier {
     _isInSearchMode = value;
   }
 
-  set jobListRepository(AppliedJobListRepository value) {
+  set jobListRepository(FavoriteJobListRepository value) {
     _jobListRepository = value;
   }
 

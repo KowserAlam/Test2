@@ -3,6 +3,7 @@ import 'package:p7app/features/auth/provider/login_view_model.dart';
 import 'package:p7app/features/auth/view/login_screen.dart';
 import 'package:p7app/features/config/config_screen.dart';
 import 'package:p7app/features/job/view/applied_job_list_screen.dart';
+import 'package:p7app/features/job/view/favourite_job_list_screen.dart';
 import 'package:p7app/features/job/view/job_list_screen.dart';
 import 'package:p7app/features/user_profile/views/screens/profile_screen.dart';
 import 'package:p7app/main_app/auth_service/auth_service.dart';
@@ -135,6 +136,10 @@ class _AppDrawerState extends State<AppDrawer> {
                   isSelected: false,
                   onTap: () {
                     Navigator.pop(context);
+                    Navigator.push(
+                        context,
+                        CupertinoPageRoute(
+                            builder: (context) => FavouriteJobListScreen()));
                   },
                 ),
                 Divider(height: 1),
@@ -145,7 +150,7 @@ class _AppDrawerState extends State<AppDrawer> {
                   icon: FontAwesomeIcons.checkCircle,
                   isSelected: false,
                   onTap: () {
-                    print('applied jobs');
+                    Navigator.pop(context);
                     Navigator.push(
                         context,
                         CupertinoPageRoute(
