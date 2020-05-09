@@ -1,8 +1,9 @@
 import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/util/method_extension.dart';
 
 class Validator {
   String nullFieldValidate(String value) =>
-      value.isEmpty ? StringUtils.thisFieldIsRequired : null;
+      value.isEmptyOrNull ? StringUtils.thisFieldIsRequired : null;
 
   String validateEmailG(String email) =>
       !email.contains("@") ? StringUtils.invalidEmail : null;
