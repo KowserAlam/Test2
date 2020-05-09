@@ -25,6 +25,13 @@ class JobDetails extends StatefulWidget {
 }
 
 class _JobDetailsState extends State<JobDetails> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    print(widget.jobModel.slug);
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
