@@ -12,10 +12,10 @@ import 'package:p7app/main_app/util/date_format_uitl.dart';
 class FavoriteJobListTileWidget extends StatefulWidget {
   final JobListModel jobListModel;
   //final Function onTap;
-  //final Function onApply;
+  final Function onApply;
   //final Function onFavorite;
 
-  FavoriteJobListTileWidget(this.jobListModel, );
+  FavoriteJobListTileWidget(this.jobListModel, this.onApply );
 
   @override
   _FavoriteJobListTileWidgetState createState() => _FavoriteJobListTileWidgetState();
@@ -26,16 +26,16 @@ class _FavoriteJobListTileWidgetState extends State<FavoriteJobListTileWidget> {
 
   @override
   Widget build(BuildContext context) {
-    //bool isFavorite = widget.jobModel.status;
+    bool isFavorite = widget.jobListModel.isFavourite;
 
-//    String publishDateText = widget.jobModel.createdDate == null
-//        ? StringUtils.unspecifiedText
-//        : DateFormatUtil()
-//        .dateFormat1(DateTime.parse(widget.jobModel.createdDate));
-//    String deadLineText = widget.jobModel.applicationDeadline == null
-//        ? StringUtils.unspecifiedText
-//        : DateFormatUtil()
-//        .dateFormat1(DateTime.parse(widget.jobModel.applicationDeadline));
+    String publishDateText = widget.jobListModel.createdAt == null
+        ? StringUtils.unspecifiedText
+        : DateFormatUtil()
+        .dateFormat1(DateTime.parse(widget.jobListModel.createdAt));
+    String deadLineText = widget.jobListModel.applicationDeadline == null
+        ? StringUtils.unspecifiedText
+        : DateFormatUtil()
+        .dateFormat1(DateTime.parse(widget.jobListModel.applicationDeadline));
 
     var backgroundColor = Theme.of(context).backgroundColor;
     var scaffoldBackgroundColor = Theme.of(context).scaffoldBackgroundColor;
@@ -102,30 +102,30 @@ class _FavoriteJobListTileWidgetState extends State<FavoriteJobListTileWidget> {
 //      ),
 //    );
 
-//    var applyButton = Material(
-//      color: widget.jobModel.isApplied
-//          ? Colors.grey
-//          : Theme.of(context).accentColor,
-//      borderRadius: BorderRadius.circular(5),
-//      child: InkWell(
-//        onTap: widget.onApply,
-//        borderRadius: BorderRadius.circular(5),
-//        child: Container(
-//          height: 30,
-//          width: 65,
-//          alignment: Alignment.center,
-////          padding: EdgeInsets.symmetric(vertical: 6, horizontal: 15),
-//
-//          child: Text(
-//            widget.jobModel.isApplied
-//                ? StringUtils.appliedText
-//                : StringUtils.applyText,
-//            style: TextStyle(
-//                fontSize: 15, color: Colors.white, fontWeight: FontWeight.w600),
-//          ),
-//        ),
-//      ),
-//    );
+    var applyButton = Material(
+      color: widget.jobListModel.isApplied
+          ? Colors.grey
+          : Theme.of(context).accentColor,
+      borderRadius: BorderRadius.circular(5),
+      child: InkWell(
+        onTap: widget.onApply,
+        borderRadius: BorderRadius.circular(5),
+        child: Container(
+          height: 30,
+          width: 65,
+          alignment: Alignment.center,
+//          padding: EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+
+          child: Text(
+            widget.jobListModel.isApplied
+                ? StringUtils.appliedText
+                : StringUtils.applyText,
+            style: TextStyle(
+                fontSize: 15, color: Colors.white, fontWeight: FontWeight.w600),
+          ),
+        ),
+      ),
+    );
 
     var jobType = Row(
       children: <Widget>[
@@ -216,7 +216,7 @@ class _FavoriteJobListTileWidgetState extends State<FavoriteJobListTileWidget> {
                 children: <Widget>[
                   deadLineWidget,
                   publishDateWidget,
-                  //applyButton,
+                  applyButton,
                 ],
               ),
             ),

@@ -6,6 +6,7 @@ import 'package:p7app/features/config/config_provider.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:p7app/features/job/view_model/applied_job_list_view_model.dart';
+import 'package:p7app/features/job/view_model/favourite_job_list_view_model.dart';
 import 'package:p7app/features/job/view_model/job_list_view_model.dart';
 import 'package:provider/provider.dart';
 import 'package:p7app/main_app/root.dart';
@@ -30,6 +31,7 @@ class P7App extends StatelessWidget {
       ChangeNotifierProvider(create: (context) => SignUpViewModel()),
       ChangeNotifierProvider(create: (context) => JobListViewModel()),
       ChangeNotifierProvider(create: (context) => AppliedJobListViewModel()),
+      ChangeNotifierProvider(create: (context) => FavouriteJobListViewModel()),
       ChangeNotifierProvider(create: (context) => PasswordResetViewModel()),
       ChangeNotifierProvider(create: (context) => UserProfileViewModel()),
       ChangeNotifierProvider(create: (context) => SignUpViewModel()),

@@ -119,7 +119,7 @@ class _AppliedJobListScreenState extends State<AppliedJobListScreen>
                           ? Center(
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text(StringUtils.noJobsFound),
+                          child: Text(StringUtils.noAppliedJobsFound),
                         ),
                       )
                           : ListView.builder(
