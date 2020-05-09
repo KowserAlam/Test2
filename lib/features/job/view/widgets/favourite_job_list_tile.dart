@@ -150,7 +150,7 @@ class _FavoriteJobListTileWidgetState extends State<FavoriteJobListTileWidget> {
         Icon(FeatherIcons.clock, size: iconSize, color: subtitleColor),
         SizedBox(width: 5),
         Text(
-          '05/04/19',
+          publishDateText,
           style: TextStyle(color: subtitleColor, fontWeight: FontWeight.w100),
         ),
       ],
@@ -164,13 +164,16 @@ class _FavoriteJobListTileWidgetState extends State<FavoriteJobListTileWidget> {
         ),
         SizedBox(width: 5),
         Text(
-          '15/06/19',
+          deadLineText,
           style: TextStyle(color: subtitleColor, fontWeight: FontWeight.w100),
         ),
       ],
     );
     return GestureDetector(
       //onTap: widget.onTap,
+      onTap: (){
+        print(widget.jobListModel.isApplied);
+      },
       child: Container(
         decoration: BoxDecoration(color: scaffoldBackgroundColor,
 //        borderRadius: BorderRadius.circular(5),
