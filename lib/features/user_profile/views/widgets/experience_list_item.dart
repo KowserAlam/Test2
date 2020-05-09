@@ -40,12 +40,12 @@ class ExperienceListItem extends StatelessWidget {
           width: 55,
         ),
         title: Text(
-          experienceInfoModel.designation,
+          experienceInfoModel.organizationName??"",
         ),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(experienceInfoModel.organizationName),
+            Text(experienceInfoModel.designation??""),
             Text(
               date,
               style: TextStyle(fontSize: 12),

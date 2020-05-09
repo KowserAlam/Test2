@@ -49,8 +49,12 @@ class _RootState extends State<Root> {
   }
 
   Future<AuthUserModel> getAuthStatus() async {
+
     AuthUserModel user = await AuthService.getInstance().then((value) => value.getUser());
-    Logger().i(user.toJson());
+
+    if(user != null){
+      Logger().i(user.toJson());
+    }
     return user;
   }
 
