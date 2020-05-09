@@ -11,7 +11,7 @@ class AuthUserModel {
   String professionalImage;
 
   AuthUserModel(
-      {this.refresh, this.accessToken, this.email, this.userId, this.fullName});
+      {this.refresh, this.accessToken, this.email, this.userId, this.fullName,this.professionalId,this.professionalImage});
 
   AuthUserModel.fromJson(Map<String, dynamic> json) {
     refresh = json['refresh'];
@@ -20,7 +20,6 @@ class AuthUserModel {
     userId = json['user_id'].toString();
     fullName = json['full_name'];
     professionalId = json['professional_id'];
-
     if(json['professional_image'] != null){
       var baseUrl = FlavorConfig?.instance?.values?.baseUrl;
       professionalImage =baseUrl+json['professional_image'];
@@ -35,10 +34,12 @@ class AuthUserModel {
     data['email'] = this.email;
     data['user_id'] = this.userId;
     data['full_name'] = this.fullName;
-    data['professionalId'] = this.professionalId;
+    data['professional_id'] = this.professionalId;
     data['professional_image'] = this.professionalImage;
     return data;
   }
+
+
 
   @override
   String toString() {
