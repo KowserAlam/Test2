@@ -353,6 +353,8 @@ static const String successfullyAppliedText = "Successfully Applied";
 static const String savedText = "Saved";
 static const String typeToSearch = "Type to search";
 static const String noJobsFound = "No jobs found";
+static const String noFavouriteJobsFound = "No favourite jobs found";
+static const String noAppliedJobsFound = "No applied jobs found";
 
 
 ///Job Details
