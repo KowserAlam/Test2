@@ -83,75 +83,65 @@ class _AppliedJobListScreenState extends State<AppliedJobListScreen>
 //              )
 //            ],
           ),
-          drawer: Drawer(
-              child: AppDrawer(
-                routeName: 'applied_job_list',
-              )),
-          body: RefreshIndicator(
-            onRefresh: () async {
-              return Provider.of<JobListViewModel>(context, listen: false)
-                  .refresh();
-            },
-            child: Column(
-              children: [
-                if (appliedJobListViewModel.isInSearchMode)
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(8,8,8,8),
-                    child: CustomTextFormField(
-                      controller: _searchTextEditingController,
-                      onChanged: appliedJobListViewModel.addSearchQuery,
-                      hintText: StringUtils.searchText,
-                    ),
-                  ),
-                Expanded(
-                  child: ListView(
-                    physics: AlwaysScrollableScrollPhysics(),
-                    controller: _scrollController,
-                    children: [
-
-
-                      if (appliedJobListViewModel.isFetchingData)
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Loader(),
-                        ),
-                      (appliedJobListViewModel.jobList.length == 0 && appliedJobListViewModel.isFetchingData)
-                          ? Center(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(StringUtils.noAppliedJobsFound),
-                        ),
-                      )
-                          : ListView.builder(
-                          padding: EdgeInsets.symmetric(vertical: 4),
-                          physics: NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-
-                          itemCount: jobList.length + 1,
-//              separatorBuilder: (context,index)=>Divider(),
-                          itemBuilder: (context, index) {
-                            if (index == jobList.length) {
-                              return appliedJobListViewModel.isFetchingMoreData
-                                  ? Padding(
-                                  padding: EdgeInsets.all(15),
-                                  child: Loader())
-                                  : SizedBox();
-                            }
-
-                            JobListModel job = jobList[index];
-
-                            return AppliedJobListTileWidget(job,
-
-                                  () {
-                              appliedJobListViewModel.addToFavorite(job.jobId, index);
-                            },
-                            );
-                          }),
-                    ],
+          body: Column(
+            children: [
+              if (appliedJobListViewModel.isInSearchMode)
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(8,8,8,8),
+                  child: CustomTextFormField(
+                    controller: _searchTextEditingController,
+                    onChanged: appliedJobListViewModel.addSearchQuery,
+                    hintText: StringUtils.searchText,
                   ),
                 ),
-              ],
-            ),
+              Expanded(
+                child: ListView(
+                  physics: AlwaysScrollableScrollPhysics(),
+                  controller: _scrollController,
+                  children: [
+
+
+                    if (appliedJobListViewModel.isFetchingData)
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Loader(),
+                      ),
+                    (appliedJobListViewModel.jobList.length == 0 && appliedJobListViewModel.isFetchingData)
+                        ? Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(StringUtils.noAppliedJobsFound),
+                      ),
+                    )
+                        : ListView.builder(
+                        padding: EdgeInsets.symmetric(vertical: 4),
+                        physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+
+                        itemCount: jobList.length + 1,
+//              separatorBuilder: (context,index)=>Divider(),
+                        itemBuilder: (context, index) {
+                          if (index == jobList.length) {
+                            return appliedJobListViewModel.isFetchingMoreData
+                                ? Padding(
+                                padding: EdgeInsets.all(15),
+                                child: Loader())
+                                : SizedBox();
+                          }
+
+                          JobListModel job = jobList[index];
+
+                          return AppliedJobListTileWidget(job,
+
+                                () {
+                            appliedJobListViewModel.addToFavorite(job.jobId, index);
+                          },
+                          );
+                        }),
+                  ],
+                ),
+              ),
+            ],
           ),
         );
       }),

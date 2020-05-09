@@ -232,6 +232,7 @@ MajorSubject selectedMajorSubject;
                 .toList();
 
             return CustomDropdownButtonFormField<String>(
+              validator: Validator().nullFieldValidate,
               labelText: StringUtils.nameOfODegreeText,
               hint: Text(StringUtils.tapToSelectText),
               value: selectedDegree,

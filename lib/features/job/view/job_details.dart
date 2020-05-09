@@ -270,7 +270,7 @@ class _JobDetailsState extends State<JobDetails> {
       children: <Widget>[
         Row(
           children: <Widget>[
-            Icon(Icons.list, color: Colors.black,),
+            Icon(Icons.list),
             Text(StringUtils.jobSummeryTitle,style: sectionTitleFont,),
           ],
         ),

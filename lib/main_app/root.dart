@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:logger/logger.dart';
 import 'package:p7app/features/job/view/job_list_screen.dart';
 import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/auth_service/auth_user_model.dart';
@@ -49,7 +50,7 @@ class _RootState extends State<Root> {
 
   Future<AuthUserModel> getAuthStatus() async {
     AuthUserModel user = await AuthService.getInstance().then((value) => value.getUser());
-    print("User: $user");
+    Logger().i(user.toJson());
     return user;
   }
 
