@@ -85,10 +85,6 @@ class _FavouriteJobListScreenState extends State<FavouriteJobListScreen>
 //              )
 //            ],
           ),
-          drawer: Drawer(
-              child: AppDrawer(
-                routeName: 'favorite_job_list',
-              )),
           body: RefreshIndicator(
             onRefresh: () async {
               return Provider.of<JobListViewModel>(context, listen: false)

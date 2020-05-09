@@ -83,10 +83,6 @@ class _AppliedJobListScreenState extends State<AppliedJobListScreen>
 //              )
 //            ],
           ),
-          drawer: Drawer(
-              child: AppDrawer(
-                routeName: 'applied_job_list',
-              )),
           body: RefreshIndicator(
             onRefresh: () async {
               return Provider.of<JobListViewModel>(context, listen: false)
