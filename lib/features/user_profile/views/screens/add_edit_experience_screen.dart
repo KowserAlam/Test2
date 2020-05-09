@@ -3,25 +3,21 @@ import 'dart:math';
 import 'package:after_layout/after_layout.dart';
 import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:bot_toast/bot_toast.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:p7app/features/user_profile/models/company.dart';
 import 'package:p7app/features/user_profile/models/experience_info.dart';
-import 'package:p7app/features/user_profile/models/institution.dart';
 import 'package:p7app/features/user_profile/repositories/company_list_repository.dart';
-import 'package:p7app/features/user_profile/repositories/organization_list_repository.dart';
 import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/features/user_profile/views/widgets/common_date_picker_widget.dart';
 import 'package:p7app/main_app/util/debouncer.dart';
 import 'package:p7app/main_app/widgets/custom_text_from_field.dart';
-import 'package:p7app/main_app/failure/error.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
-import 'package:p7app/main_app/util/validator.dart';
 import 'package:p7app/main_app/widgets/edit_screen_save_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:dartz/dartz.dart' as dartZ;
-import 'package:rxdart/rxdart.dart';
 
 class AddNewExperienceScreen extends StatefulWidget {
   final ExperienceInfo experienceInfoModel;
@@ -36,20 +32,14 @@ class AddNewExperienceScreen extends StatefulWidget {
       _AddNewExperienceScreenState(experienceInfoModel, index);
 }
 
-class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
-    with AfterLayoutMixin {
+class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
   final ExperienceInfo experienceModel;
   final int index;
   bool currentLyWorkingHere = false;
   DateTime _joiningDate, _leavingDate;
-
-
   Company selectedCompany;
   String _selectedCompanyId;
   int _experienceId;
-
-  _AddNewExperienceScreenState(this.experienceModel, this.index);
-
   TextEditingController _companyNameController = TextEditingController();
   TextEditingController positionNameController = TextEditingController();
   Debouncer _debouncer = Debouncer(milliseconds: 400);
@@ -59,6 +49,9 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
   var _formKey = GlobalKey<FormState>();
   var _scaffoldKey = GlobalKey<ScaffoldState>();
   List<Company> companySuggestion = [];
+  String _companyNameErrorText;
+
+  _AddNewExperienceScreenState(this.experienceModel, this.index);
 
   @override
   void initState() {
@@ -91,7 +84,6 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
               _companyAutocompleteKey.currentState.updateSuggestions(r);
               _companyAutocompleteKey.currentState.updateOverlay();
 
-
 //            setState(() {
 //
 //            });
@@ -102,10 +94,6 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
     });
     super.initState();
   }
-
-
-  @override
-  void afterFirstLayout(BuildContext context) {}
 
   bool sameExperience(String input) {
     int x = 0;
@@ -145,8 +133,17 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
     });
   }
 
+  bool validate() {
+    bool isNotEmpty = _companyNameController.text.isNotEmpty;
+    !isNotEmpty
+        ? _companyNameErrorText = StringUtils.thisFieldIsRequired
+        : null;
+    setState(() {});
+    return isNotEmpty;
+  }
+
   _handleSave() {
-    var isSuccess = _formKey.currentState.validate();
+    var isSuccess = validate();
     if (isSuccess) {
       //Form validated
       if (_selectedCompanyId != null) {
@@ -272,7 +269,39 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
             },
           ),
         ),
+        if (_companyNameErrorText != null)
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              _companyNameErrorText,
+              style: TextStyle(color: Colors.red),
+            ),
+          ),
       ],
+    );
+    var name = TypeAheadFormField<Company>(
+
+      textFieldConfiguration: TextFieldConfiguration(
+          style: DefaultTextStyle.of(context)
+              .style
+              .copyWith(fontStyle: FontStyle.italic),
+          decoration: InputDecoration(border: OutlineInputBorder())),
+      suggestionsCallback: (pattern) async {
+        return await CompanyListRepository()
+            .getList(query: pattern)
+            .then((value) => value.fold((l) => <Company>[], (r) => r));
+      },
+      itemBuilder: (context,Company suggestion) {
+        return ListTile(
+          title: Text(suggestion.name),
+        );
+      },
+      onSuggestionSelected: (suggestion) {
+        selectedCompany = suggestion;
+//                    _companyNameController.text = data.name;
+        _companyAutocompleteKey.currentState.updateSuggestions([]);
+        setState(() {});
+      },
     );
 
     return WillPopScope(
@@ -295,94 +324,15 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
           physics: BouncingScrollPhysics(),
           child: Consumer<UserProfileViewModel>(
             builder: (context, addEditExperienceProvider, ch) {
-              return Form(
-                key: _formKey,
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
+              return Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Form(
+                  key: _formKey,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      ///Organization Name
-//                      FutureBuilder<dartZ.Either<AppError, List<String>>>(
-//                          future: CompanyListRepository().getCompanyList(),
-//                          builder: (BuildContext context, AsyncSnapshot<dartZ.Either<AppError, List<String>>> snapshot){
-//                          if(snapshot.hasData){
-//                            return snapshot.data.fold((l){
-//                              print("no data");
-//                              return SizedBox();
-//                            }, (r){
-//                                return Container(
-//                                    padding: EdgeInsets.symmetric(horizontal: 8),
-//                                    decoration: BoxDecoration(
-//                                      color: Theme.of(context).backgroundColor,
-//                                      borderRadius: BorderRadius.circular(7),
-//                                      boxShadow: [
-//                                        BoxShadow(
-//                                            color: Color(0xff000000).withOpacity(0.2), blurRadius: 20),
-//                                        BoxShadow(
-//                                            color: Color(0xfffafafa).withOpacity(0.2), blurRadius: 20),
-//                                      ],
-//                                    ),
-//                                    child: AutoCompleteTextField<String>(
-//                                      style: TextStyle(color: Colors.black, fontSize: 16),
-//                                      decoration: InputDecoration.collapsed(
-//                                        hintText: StringUtils.searchSkillText,
-//                                      ),
-//                                      itemBuilder: (context, orgName) {
-//                                        return Container(
-//                                          padding: EdgeInsets.symmetric(vertical: 5, horizontal: 2),
-//                                          child: Row(
-//                                            mainAxisAlignment: MainAxisAlignment.start,
-//                                            children: <Widget>[
-//                                              Text(orgName,
-//                                                style: TextStyle(
-//                                                    fontSize: 16.0
-//                                                ),),
-//                                            ],
-//                                          ),
-//                                        );
-//                                      },
-//                                      key:  _companyAutocompleteKey,
-//                                      clearOnSubmit: false,
-//                                      controller: organizationNameController,
-//                                      itemFilter: (orgName, query){
-//                                        return orgName.toLowerCase().startsWith(query.toLowerCase());
-//                                      },
-//                                      itemSorter: (a,b){
-//                                        return a.compareTo(b);
-//                                      },
-//                                      itemSubmitted: (orgName){
-//                                        organizationNameController.text = orgName;
-//                                        _selectedCompanyId = orgName;
-//                                        print(_selectedCompanyId);
-//                                      },
-//                                      suggestions: r,
-//                                    ));
-//                              });
-//                            };
-//                            return Container(
-//                              padding: EdgeInsets.symmetric(horizontal: 8),
-//                              decoration: BoxDecoration(
-//                                color: Theme.of(context).backgroundColor,
-//                                borderRadius: BorderRadius.circular(7),
-//                                boxShadow: [
-//                                  BoxShadow(
-//                                      color: Color(0xff000000).withOpacity(0.2), blurRadius: 20),
-//                                  BoxShadow(
-//                                      color: Color(0xfffafafa).withOpacity(0.2), blurRadius: 20),
-//                                ],
-//                              ),
-//                              child: TextField(
-//                                style: TextStyle(color: Colors.black, fontSize: 16),
-//                                decoration: InputDecoration.collapsed(
-//                                  hintText: StringUtils.searchSkillText,
-//                                ),
-//                                controller: organizationNameController,
-//                              ),
-//                            );
-//                          },
-//                    ),
                       nameOfCompany,
+//                      name,
                       spaceBetweenSections,
 
                       /// Position
@@ -391,6 +341,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen>
                         controller: positionNameController,
                         labelText: StringUtils.positionText,
                         hintText: StringUtils.positionTextEg,
+                        autofocus: false,
                       ),
                       spaceBetweenSections,
 
