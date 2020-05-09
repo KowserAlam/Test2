@@ -171,6 +171,10 @@ class _AppliedJobListTileWidgetState extends State<AppliedJobListTileWidget> {
     );
     return GestureDetector(
       //onTap: widget.onTap,
+      onTap: (){
+        print(widget.jobListModel.isApplied);
+        print(widget.jobListModel.isFavourite);
+      },
       child: Container(
         decoration: BoxDecoration(color: scaffoldBackgroundColor,
 //        borderRadius: BorderRadius.circular(5),

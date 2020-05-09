@@ -173,6 +173,7 @@ class _FavoriteJobListTileWidgetState extends State<FavoriteJobListTileWidget> {
       //onTap: widget.onTap,
       onTap: (){
         print(widget.jobListModel.isApplied);
+        print(widget.jobListModel.isFavourite);
       },
       child: Container(
         decoration: BoxDecoration(color: scaffoldBackgroundColor,
