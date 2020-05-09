@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p7app/features/auth/view/widgets/custom_text_field_rounded.dart';
 import 'package:p7app/features/config/config_provider.dart';
+import 'package:p7app/features/job/repositories/job_list_sort_items_repository.dart';
 import 'package:p7app/features/job/view/job_details.dart';
 import 'package:p7app/features/job/view_model/job_list_view_model.dart';
 import 'package:p7app/features/job/models/job.dart';
@@ -105,9 +106,16 @@ class _JobListScreenState extends State<JobListScreen>
                       Padding(
                         padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
                         child: CustomTextField(
-                          suffixIcon: IconButton(icon: Icon(Icons.search),onPressed: (){
-                            jobListViewModel.search(_searchTextEditingController.text);
-                          },),
+                          suffixIcon: IconButton(
+                            icon: Icon(Icons.search),
+                            onPressed: () {
+                              if (_searchTextEditingController
+                                  .text.isNotEmpty) {
+                                jobListViewModel
+                                    .search(_searchTextEditingController.text);
+                              }
+                            },
+                          ),
                           controller: _searchTextEditingController,
                           hintText: StringUtils.searchText,
                         ),
@@ -126,6 +134,7 @@ class _JobListScreenState extends State<JobListScreen>
                         ]),
                         child: Column(
                           children: [
+
 //                            Container(
 //                                height: 40,
 //                                child: ListView(
@@ -135,17 +144,56 @@ class _JobListScreenState extends State<JobListScreen>
 //
 //                                  ],
 //                                )),
-                            if (_searchTextEditingController.text.isNotEmpty)
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                    '${jobListViewModel.totalJobCount} ${StringUtils.jobsFoundText}'),
-                              )
+
+//                            if (_searchTextEditingController.text.isNotEmpty && !jobListViewModel.isFetchingData)
+//                              Padding(
+//                                padding: const EdgeInsets.all(8.0),
+//                                child: Text(
+//                                    '${jobListViewModel.totalJobCount} ${StringUtils.jobsFoundText}'),
+//                              )
                           ],
                         ),
                       ),
                     ],
                   ),
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 8),
+                  width: double.infinity,
+                  decoration:
+                  BoxDecoration(color: backgroundColor, boxShadow: [
+                    BoxShadow(
+                        color: Colors.black.withOpacity(0.1),
+                        blurRadius: 10),
+                    BoxShadow(
+                        color: Colors.black.withOpacity(0.2),
+                        blurRadius: 10),
+                  ]),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+
+                      Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                            child: DropdownButton<String>(
+                              value: jobListViewModel.jobListFilters.sort,
+                              onChanged: jobListViewModel.jobListSortBy,
+                              items: JobListSortItemRepository()
+                                  .getList()
+                                  .map((e) => DropdownMenuItem<String>(
+                                key: Key(e),
+                                value: e,
+                                child: Text(e.isNotEmpty?e:"None"),
+                              )).toList(),
+                            ),
+                          ),
+                        ],
+                      ),
+
+                    ],
+                  ),
+                ),
                 Expanded(
                   child: ListView(
                     physics: AlwaysScrollableScrollPhysics(),

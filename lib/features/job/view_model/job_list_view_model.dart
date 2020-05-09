@@ -40,10 +40,17 @@ class JobListViewModel with ChangeNotifier {
     notifyListeners();
   }
 
+  JobListFilters get jobListFilters => _jobListFilters;
+
   /// ##########################
   /// methods
   /// #########################
 
+  jobListSortBy(String sort){
+    _jobListFilters.sort = sort;
+    notifyListeners();
+    getJobList();
+  }
   toggleIsInSearchMode() {
 //    _jobList = [];
     _isInSearchMode = !_isInSearchMode;

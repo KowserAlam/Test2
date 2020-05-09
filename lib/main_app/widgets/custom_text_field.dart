@@ -31,7 +31,7 @@ class CustomTextField extends StatelessWidget {
     this.minLines,
     this.keyboardType,
     this.contentPadding =
-        const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
     this.maxLines = 1,
 
   });
