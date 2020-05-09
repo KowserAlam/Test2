@@ -1,4 +1,5 @@
 import 'package:autocomplete_textfield/autocomplete_textfield.dart';
+import 'package:bot_toast/bot_toast.dart';
 import 'package:p7app/features/user_profile/models/edu_info.dart';
 import 'package:p7app/features/user_profile/models/institution.dart';
 import 'package:p7app/features/user_profile/models/major.dart';
@@ -101,49 +102,53 @@ MajorSubject selectedMajorSubject;
     var isSuccess = _formKey.currentState.validate();
 
     if (isSuccess) {
-      var userProfileViewModel = Provider.of<UserProfileViewModel>(context,listen: false);
-
-      var insId = selectedInstitute?.id;
-
-      if(selectedInstitute != null){
-        if(selectedInstitute.name != institutionNameController.text){
-          insId = null;
-        }
-      }
-
-      var education = EduInfo(
-        educationId: widget.educationModel?.educationId,
-        institutionId: insId,
-        cgpa: gpaTextController.text,
-        degree: selectedDegree,
-        major: selectedMajorSubject,
-        enrolledDate: _enrollDate,
-        graduationDate: _graduationDate,
-        institutionText: institutionNameController.text,
-
-      );
-
-
-      if(widget.educationModel == null){
-        // add new
-        userProfileViewModel.addEduInfo(education).then((value){
-          if(value){
-            Navigator.pop(context);
-          }
-        });
+      if(selectedDegree == null){
+        BotToast.showText(text: StringUtils.noDegreeChosen);
       }else{
-        // update existing
-        userProfileViewModel.updateEduInfo(education,index).then((value){
-          if(value){
-            Navigator.pop(context);
+        var userProfileViewModel = Provider.of<UserProfileViewModel>(context,listen: false);
+
+        var insId = selectedInstitute?.id;
+
+        if(selectedInstitute != null){
+          if(selectedInstitute.name != institutionNameController.text){
+            insId = null;
           }
-        });
+        }
+
+        var education = EduInfo(
+          educationId: widget.educationModel?.educationId,
+          institutionId: insId,
+          cgpa: gpaTextController.text,
+          degree: selectedDegree,
+          major: selectedMajorSubject,
+          enrolledDate: _enrollDate,
+          graduationDate: _graduationDate,
+          institutionText: institutionNameController.text,
+
+        );
+
+
+        if(widget.educationModel == null){
+          // add new
+          userProfileViewModel.addEduInfo(education).then((value){
+            if(value){
+              Navigator.pop(context);
+            }
+          });
+        }else{
+          // update existing
+          userProfileViewModel.updateEduInfo(education,index).then((value){
+            if(value){
+              Navigator.pop(context);
+            }
+          });
+
+
+        }
+
 
 
       }
-
-
-
     }
   }
 
@@ -317,6 +322,7 @@ MajorSubject selectedMajorSubject;
       controller: gpaTextController,
       labelText: StringUtils.gpaText,
       hintText: StringUtils.gpaHintText,
+      keyboardType: TextInputType.number,
     );
 
     return Scaffold(

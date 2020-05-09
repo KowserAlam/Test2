@@ -231,6 +231,7 @@ class StringUtils {
   static String startingDateText = "Starting Date";
   static String chooseDateText = "Choose Date";
   static String majorDateText = "Major";
+  static String noDegreeChosen = "You need to choose a degree";
 
   /// login screen
 
