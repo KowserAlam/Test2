@@ -1,15 +1,10 @@
 import 'package:after_layout/after_layout.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:p7app/features/auth/view/widgets/custom_text_field_rounded.dart';
-import 'package:p7app/features/config/config_provider.dart';
 import 'package:p7app/features/job/repositories/job_list_sort_items_repository.dart';
 import 'package:p7app/features/job/view/job_details.dart';
 import 'package:p7app/features/job/view_model/job_list_view_model.dart';
 import 'package:p7app/features/job/models/job.dart';
 import 'package:p7app/features/job/view/widgets/job_list_tile_widget.dart';
-import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
-import 'package:p7app/main_app/app_theme/app_theme.dart';
 import 'package:p7app/main_app/flavour/flavor_banner.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/widgets/app_drawer.dart';

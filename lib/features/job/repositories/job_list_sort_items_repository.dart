@@ -1,3 +1,4 @@
+import 'package:meta/meta.dart';
 class JobListSortItemRepository{
   List<String> getList(){
     return [
@@ -7,4 +8,14 @@ class JobListSortItemRepository{
       "Mostly applied"
     ];
   }
+}
+class SortItem{
+ String key;
+ String value;
+
+ SortItem({
+   @required this.key,
+   @required this.value,
+ });
+
 }
