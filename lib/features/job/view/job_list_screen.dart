@@ -179,7 +179,7 @@ class _JobListScreenState extends State<JobListScreen>
                     children: [
                       Row(
                         children: [
-                          Padding(
+                          Container(
                             padding: const EdgeInsets.symmetric(horizontal: 8),
                             child: DropdownButton<SortItem>(
                               value: jobListViewModel.jobListFilters.sort ??

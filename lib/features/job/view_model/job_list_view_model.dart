@@ -79,6 +79,21 @@ class JobListViewModel with ChangeNotifier {
     getJobList();
   }
 
+  applyFilters(JobListFilters filters){
+    _jobList = [];
+    resetPageCounter();
+    _jobListFilters.page = _pageCount;
+    _jobListFilters = filters;
+    getJobList();
+  }
+
+  clearFilters(){
+    resetPageCounter();
+    _jobListFilters.page = _pageCount;
+    _jobListFilters = JobListFilters(searchQuery: _jobListFilters.searchQuery);
+    getJobList();
+  }
+
   void incrementPageCount() {
     _pageCount++;
   }

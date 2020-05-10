@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:p7app/features/user_profile/models/skill.dart';
 import 'package:p7app/features/user_profile/repositories/skill_list_repository.dart';
 import 'package:p7app/main_app/failure/error.dart';
@@ -9,10 +10,10 @@ class JobListFilterWidgetViewModel with ChangeNotifier {
   String _location;
   List<Skill> _skills =[];
   String _jobType;
-  int _experienceMax;
-  int _experienceMin;
-  int _salaryMax;
-  int _salaryMin;
+  double _experienceMax;
+  double _experienceMin;
+  double _salaryMax;
+  double _salaryMin;
   int _gender;
   int _qualification;
 
@@ -53,30 +54,30 @@ class JobListFilterWidgetViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  int get experienceMax => _experienceMax;
+  double get experienceMax => _experienceMax;
 
-  set experienceMax(int value) {
+  set experienceMax(double value) {
     _experienceMax = value;
     notifyListeners();
   }
 
-  int get experienceMin => _experienceMin;
+  double get experienceMin => _experienceMin;
 
-  set experienceMin(int value) {
+  set experienceMin(double value) {
     _experienceMin = value;
     notifyListeners();
   }
 
-  int get salaryMax => _salaryMax;
+  double get salaryMax => _salaryMax;
 
-  set salaryMax(int value) {
+  set salaryMax(double value) {
     _salaryMax = value;
     notifyListeners();
   }
 
-  int get salaryMin => _salaryMin;
+  double get salaryMin => _salaryMin;
 
-  set salaryMin(int value) {
+  set salaryMin(double value) {
     _salaryMin = value;
     notifyListeners();
   }
@@ -106,6 +107,17 @@ class JobListFilterWidgetViewModel with ChangeNotifier {
       print(l);
       return [];
     }, (r) => r);
+  }
+
+  onchangeSalaryRange(RangeValues values){
+    _salaryMax = values.end;
+    _salaryMin = values.start;
+    notifyListeners();
+  }
+  onchangeExperienceRange(RangeValues values){
+    _experienceMax = values.end;
+    _experienceMin = values.start;
+    notifyListeners();
   }
 
 }

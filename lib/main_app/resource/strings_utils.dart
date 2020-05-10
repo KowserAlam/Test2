@@ -152,7 +152,8 @@ class StringUtils {
 
   static String contactInfoText = "Contact info";
 
-  static var experienceText = "Professional Experiences";
+  static var professionalExperienceText = "Professional Experiences";
+  static var experienceText = "Experience";
   static var educationsText = "Educations";
   static var skillsText = "Skills";
   static var skillText = "Skill";
@@ -349,6 +350,7 @@ class StringUtils {
 static const String unspecifiedText = "Unspecified";
 static const String deadlineText = "Deadline";
 static const String applyText = "Apply";
+static const String applyFilterText = "Apply Filter";
 static const String appliedText = "Applied";
 static const String jobListText = "Job List";
 static const String successfullyAppliedText = "Successfully Applied";
@@ -377,6 +379,7 @@ static const String employmentStatus = 'Type: ';
 static const String yearsOfExperience = 'Experience: ';
 static const String jobLocation = 'Location: ';
 static const String salary = 'Salary: ';
+static const String salaryRangeText = 'Salary Range ';
 static const String gender = 'Gender: ';
 static const String tapToSelectText = 'Tap to select';
 static const String applicationDeadline = 'Deadline: ';
