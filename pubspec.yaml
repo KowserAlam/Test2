@@ -43,6 +43,7 @@ dependencies:
   logger: ^0.9.1
   get_it: ^4.0.2
   flutter_typeahead: ^1.8.1
+  searchable_dropdown: ^1.1.3
 
 
 
