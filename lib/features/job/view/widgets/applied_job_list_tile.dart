@@ -174,6 +174,7 @@ class _AppliedJobListTileWidgetState extends State<AppliedJobListTileWidget> {
       onTap: (){
         print(widget.jobListModel.isApplied);
         print(widget.jobListModel.isFavourite);
+        print(widget.jobListModel.slug);
       },
       child: Container(
         decoration: BoxDecoration(color: scaffoldBackgroundColor,
