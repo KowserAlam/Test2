@@ -1,18 +1,16 @@
 import 'package:after_layout/after_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:logger/logger.dart';
 import 'package:p7app/features/job/models/job_list_filters.dart';
 import 'package:p7app/features/job/view_model/job_list_filter_widget_view_model.dart';
 import 'package:p7app/features/job/view_model/job_list_view_model.dart';
 import 'package:p7app/features/user_profile/models/skill.dart';
-import 'package:p7app/features/user_profile/repositories/skill_list_repository.dart';
 import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
 import 'package:p7app/features/user_profile/views/widgets/custom_dropdown_button_form_field.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/widgets/common_button.dart';
 import 'package:provider/provider.dart';
-import 'package:searchable_dropdown/searchable_dropdown.dart';
+
 
 class JobListFilterWidget extends StatefulWidget {
   @override
@@ -57,6 +55,7 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
                 ),
               ))
           .toList();
+
       return Column(
         children: [
           Expanded(
@@ -104,7 +103,7 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
                   onChanged: (value) {
                     jobListFilterWidgetViewModel.selectedSkill = value;
                   },
-                  value: null,
+                  value:  jobListFilterWidgetViewModel.selectedSkill,
                   items: skillDropDownMenuItems,
                 ),
                 spaceBetween,
