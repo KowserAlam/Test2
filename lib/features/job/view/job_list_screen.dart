@@ -1,5 +1,6 @@
 import 'package:after_layout/after_layout.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:p7app/features/job/models/sort_item.dart';
 import 'package:p7app/features/job/repositories/job_list_sort_items_repository.dart';
 import 'package:p7app/features/job/view/job_details.dart';
 import 'package:p7app/features/job/view_model/job_list_view_model.dart';
@@ -171,15 +172,15 @@ class _JobListScreenState extends State<JobListScreen>
                         children: [
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 8),
-                            child: DropdownButton<String>(
-                              value: jobListViewModel.jobListFilters.sort,
+                            child: DropdownButton<SortItem>(
+                              value: jobListViewModel.jobListFilters.sort??SortItem(key: '',value: 'None'),
                               onChanged: jobListViewModel.jobListSortBy,
                               items: JobListSortItemRepository()
                                   .getList()
-                                  .map((e) => DropdownMenuItem<String>(
-                                key: Key(e),
+                                  .map((e) => DropdownMenuItem<SortItem>(
+                                key: Key(e.key),
                                 value: e,
-                                child: Text(e.isNotEmpty?e:"None"),
+                                child: Text(e.value),
                               )).toList(),
                             ),
                           ),

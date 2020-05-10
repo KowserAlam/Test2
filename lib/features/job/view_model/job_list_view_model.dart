@@ -5,6 +5,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:p7app/features/job/models/job.dart';
 import 'package:p7app/features/job/models/job_list_filters.dart';
+import 'package:p7app/features/job/models/sort_item.dart';
 import 'package:p7app/features/job/repositories/job_list_repository.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
@@ -46,7 +47,7 @@ class JobListViewModel with ChangeNotifier {
   /// methods
   /// #########################
 
-  jobListSortBy(String sort){
+  jobListSortBy(SortItem sort){
     _jobListFilters.sort = sort;
     notifyListeners();
     getJobList();

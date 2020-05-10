@@ -1,3 +1,5 @@
+import 'package:p7app/features/job/models/sort_item.dart';
+
 class JobListFilters {
   int page;
   int page_size;
@@ -14,7 +16,7 @@ class JobListFilters {
   String datePosted;
   String gender;
   String qualification;
-  String sort;
+  SortItem sort;
   bool isApplied;
 
   JobListFilters({
@@ -33,7 +35,7 @@ class JobListFilters {
     this.datePosted = '',
     this.gender = '',
     this.qualification = '',
-    this.sort = '',
+    this.sort,
     this.isApplied,
   });
 }
