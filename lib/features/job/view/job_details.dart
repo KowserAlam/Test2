@@ -1,13 +1,16 @@
 import 'dart:math';
 
+import 'package:dartz/dartz.dart' as dartZ;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p7app/features/job/models/job.dart';
+import 'package:p7app/features/job/repositories/job_details_repository.dart';
 import 'package:p7app/features/job/view_model/job_details_view_model.dart';
 import 'package:p7app/features/job/view_model/job_list_view_model.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
+import 'package:p7app/main_app/failure/error.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/decorations.dart';
 import 'package:p7app/main_app/util/date_format_uitl.dart';
@@ -21,34 +24,46 @@ import 'package:url_launcher/url_launcher.dart';
 class JobDetails extends StatefulWidget {
   final JobModel jobModel;
   final int index;
+  final String slug;
 
-  JobDetails({@required this.jobModel, @required this.index});
+  JobDetails({@required this.jobModel, @required this.index, @required this.slug});
 
   @override
   _JobDetailsState createState() => _JobDetailsState();
 }
 
 class _JobDetailsState extends State<JobDetails> {
+  JobModel jobDetails;
+
   @override
   void initState() {
     // TODO: implement initState
-    getDetails();
+//    getDetails();
+    getJobDetails();
     super.initState();
   }
 
-  void getDetails() async {
-    //Provider.of<JobDetailViewModel>(context, listen: false).slug = widget.jobModel.slug;
-    await Provider.of<JobDetailViewModel>(context, listen: false)
-        .getJobDetails();
+//  void getDetails() async {
+//    //Provider.of<JobDetailViewModel>(context, listen: false).slug = widget.jobModel.slug;
+//    await Provider.of<JobDetailViewModel>(context, listen: false)
+//        .getJobDetails();
+//  }
+
+  getJobDetails() async {
+    dartZ.Either<AppError, JobModel> result =
+        await JobDetailsRepository().fetchJobDetails("_slug");
+    return result.fold((l) {
+      print(l);
+    }, (JobModel dataModel) {
+      print(dataModel.title);
+      jobDetails = dataModel;
+      setState(() {});
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    var jobDetailViewModel = Provider.of<JobDetailViewModel>(context);
-    JobModel jobDetails = jobDetailViewModel.JobDetails;
-
-    var height = MediaQuery.of(context).size.height;
-    var width = MediaQuery.of(context).size.width;
+//    var jobDetailViewModel = Provider.of<JobDetailViewModel>(context);
 
     bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     Color sectionColor = Theme.of(context).backgroundColor;
@@ -79,9 +94,7 @@ class _JobDetailsState extends State<JobDetails> {
       );
     }
 
-
-
-    if(jobDetails == null){
+    if (jobDetails == null) {
       return Scaffold(
         appBar: AppBar(
           elevation: 2,
@@ -91,15 +104,18 @@ class _JobDetailsState extends State<JobDetails> {
           ),
           centerTitle: true,
         ),
-        body: Center(child: Loader(),),);
+        body: Center(
+          child: Loader(),
+        ),
+      );
     }
 
     double iconSize = 14;
     double sectionIconSize = 20;
     Color clockIconColor = Colors.orange;
 
-    bool isFavorite = jobDetails?.status??false;
-    bool isApplied = jobDetails?.isApplied??false;
+    bool isFavorite = jobDetails?.status ?? false;
+    bool isApplied = jobDetails?.isApplied ?? false;
 
     //Widgets
     var heartButton = Material(
@@ -646,9 +662,7 @@ class _JobDetailsState extends State<JobDetails> {
         ),
         centerTitle: true,
       ),
-      body: jobDetailViewModel.isFetchingData != null
-          ? Loader()
-          : ListView(
+      body: ListView(
               children: <Widget>[
                 Container(
                   padding: EdgeInsets.all(10),
