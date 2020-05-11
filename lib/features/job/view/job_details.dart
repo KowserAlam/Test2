@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p7app/features/job/models/job.dart';
+import 'package:p7app/features/job/view_model/job_details_view_model.dart';
 import 'package:p7app/features/job/view_model/job_list_view_model.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
 import 'package:p7app/main_app/resource/const.dart';
@@ -13,6 +14,7 @@ import 'package:p7app/main_app/util/date_format_uitl.dart';
 import 'package:p7app/main_app/widgets/custom_Button.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/widgets/common_button.dart';
+import 'package:p7app/main_app/widgets/loader.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -25,8 +27,24 @@ class JobDetails extends StatefulWidget {
 }
 
 class _JobDetailsState extends State<JobDetails> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    getDetails();
+    super.initState();
+  }
+
+  void getDetails() async{
+    //Provider.of<JobDetailViewModel>(context, listen: false).slug = widget.jobModel.slug;
+    await Provider.of<JobDetailViewModel>(context, listen: false).getJobDetails();
+  }
+
   @override
   Widget build(BuildContext context) {
+    var jobDetailViewModel = Provider.of<JobDetailViewModel>(context);
+    JobModel jobDetails = jobDetailViewModel.JobDetails;
+
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
 
@@ -57,8 +75,8 @@ class _JobDetailsState extends State<JobDetails> {
     double sectionIconSize = 20;
     Color clockIconColor = Colors.orange;
 
-    bool isFavorite = widget.jobModel.status;
-    bool isApplied = widget.jobModel.isApplied;
+    bool isFavorite = jobDetails.status;
+    bool isApplied = jobDetails.isApplied;
 
     //Widgets
     var heartButton = Material(
@@ -67,7 +85,7 @@ class _JobDetailsState extends State<JobDetails> {
       child: InkWell(
         borderRadius: BorderRadius.circular(20),
         onTap: (){
-          Provider.of<JobListViewModel>(context, listen: false).addToFavorite(widget.jobModel.jobId, widget.index).then((value){
+          Provider.of<JobListViewModel>(context, listen: false).addToFavorite(jobDetails.jobId, widget.index).then((value){
             setState(() {
               isFavorite = !isFavorite;
             });
@@ -86,13 +104,13 @@ class _JobDetailsState extends State<JobDetails> {
       ),
     );
     var applyButton = Material(
-      color: widget.jobModel.isApplied
+      color: jobDetails.isApplied
           ? Colors.grey
           : Theme.of(context).accentColor,
       borderRadius: BorderRadius.circular(5),
       child: InkWell(
         onTap: isApplied?null:(){
-          Provider.of<JobListViewModel>(context, listen: false).applyForJob(widget.jobModel.jobId, widget.index).then((value){
+          Provider.of<JobListViewModel>(context, listen: false).applyForJob(jobDetails.jobId, widget.index).then((value){
             setState(() {
               isApplied = value;
             });
@@ -139,8 +157,8 @@ class _JobDetailsState extends State<JobDetails> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Flexible(
-                      child: Container(child: Text(widget.jobModel.title != null
-                          ? widget.jobModel.title
+                      child: Container(child: Text(jobDetails.title != null
+                          ? jobDetails.title
                           : StringUtils.unspecifiedText, style: headerTextStyle,),),
                     ),
                     heartButton,
@@ -150,8 +168,8 @@ class _JobDetailsState extends State<JobDetails> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(widget.jobModel.companyName != null
-                        ? widget.jobModel.companyName
+                    Text(jobDetails.companyName != null
+                        ? jobDetails.companyName
                         : StringUtils.unspecifiedText, style: topSideDescriptionFontStyle,),
                     SizedBox(height: 5,),
                     Row(
@@ -162,8 +180,8 @@ class _JobDetailsState extends State<JobDetails> {
                         ),
                         SizedBox(width: 5,),
                         Flexible(
-                          child: Text(widget.jobModel.division != null
-                              ? widget.jobModel.division
+                          child: Text(jobDetails.division != null
+                              ? jobDetails.division
                               : StringUtils.unspecifiedText, style: topSideDescriptionFontStyle,),
                         )
                       ],
@@ -188,8 +206,8 @@ class _JobDetailsState extends State<JobDetails> {
             ],
           ),
           SizedBox(height: 5,),
-          Text(widget.jobModel.descriptions != null
-              ? widget.jobModel.descriptions
+          Text(jobDetails.descriptions != null
+              ? jobDetails.descriptions
               : StringUtils.unspecifiedText, style: descriptionFontStyle,)
         ],
       ),
@@ -206,8 +224,8 @@ class _JobDetailsState extends State<JobDetails> {
             ],
           ),
           SizedBox(height: 5,),
-          Text(widget.jobModel.responsibilities != null
-              ? widget.jobModel.responsibilities
+          Text(jobDetails.responsibilities != null
+              ? jobDetails.responsibilities
               : StringUtils.unspecifiedText, style: descriptionFontStyle,)
         ],
       ),
@@ -224,8 +242,8 @@ class _JobDetailsState extends State<JobDetails> {
             ],
           ),
           SizedBox(height: 5,),
-          Text(widget.jobModel.education != null
-              ? widget.jobModel.education
+          Text(jobDetails.education != null
+              ? jobDetails.education
               : StringUtils.unspecifiedText, style: descriptionFontStyle,)
         ],
       ),
@@ -242,8 +260,8 @@ class _JobDetailsState extends State<JobDetails> {
             ],
           ),
           SizedBox(height: 5,),
-          Text(widget.jobModel.salary != null
-              ? widget.jobModel.salary.toString()
+          Text(jobDetails.salary != null
+              ? jobDetails.salary.toString()
               : StringUtils.unspecifiedText, style: descriptionFontStyle,)
         ],
       ),
@@ -260,8 +278,8 @@ class _JobDetailsState extends State<JobDetails> {
             ],
           ),
           SizedBox(height: 5,),
-          Text(widget.jobModel.otherBenefits != null
-              ? widget.jobModel.otherBenefits
+          Text(jobDetails.otherBenefits != null
+              ? jobDetails.otherBenefits
               : StringUtils.unspecifiedText, style: descriptionFontStyle,)
         ],
       ),
@@ -289,59 +307,59 @@ class _JobDetailsState extends State<JobDetails> {
             children: <Widget>[
               Row(
                 children: <Widget>[
-                  jobSummeryRichText(StringUtils.publishedOn, widget.jobModel.createdDate != null
-                      ? widget.jobModel.createdDate.toString():StringUtils.unspecifiedText)
+                  jobSummeryRichText(StringUtils.publishedOn, jobDetails.createdDate != null
+                      ? jobDetails.createdDate.toString():StringUtils.unspecifiedText)
                 ],
               ),
               SizedBox(height: 5,),
               Row(
                 children: <Widget>[
-                  jobSummeryRichText(StringUtils.vacancy, widget.jobModel.vacancy != null
-                      ? widget.jobModel.vacancy.toString()
+                  jobSummeryRichText(StringUtils.vacancy, jobDetails.vacancy != null
+                      ? jobDetails.vacancy.toString()
                       : StringUtils.unspecifiedText)
                 ],
               ),
               SizedBox(height: 5,),
               Row(
                 children: <Widget>[
-                  jobSummeryRichText(StringUtils.employmentStatus, widget.jobModel.employmentStatus != null
-                      ? widget.jobModel.employmentStatus
+                  jobSummeryRichText(StringUtils.employmentStatus, jobDetails.employmentStatus != null
+                      ? jobDetails.employmentStatus
                       : StringUtils.unspecifiedText)
                 ],
               ),
               SizedBox(height: 5,),
               Row(
                 children: <Widget>[
-                  jobSummeryRichText(StringUtils.yearsOfExperience, widget.jobModel.experience != null
-                      ? widget.jobModel.experience.toString()
+                  jobSummeryRichText(StringUtils.yearsOfExperience, jobDetails.experience != null
+                      ? jobDetails.experience.toString()
                       : StringUtils.unspecifiedText)
                 ],
               ),
               SizedBox(height: 5,),
-              Container(child: jobSummeryRichText(StringUtils.jobLocation, widget.jobModel.jobLocation != null
-                  ? widget.jobModel.jobLocation.toString()
+              Container(child: jobSummeryRichText(StringUtils.jobLocation, jobDetails.jobLocation != null
+                  ? jobDetails.jobLocation.toString()
                   : StringUtils.unspecifiedText),),
               SizedBox(height: 5,),
               Row(
                 children: <Widget>[
-                  jobSummeryRichText(StringUtils.salary, widget.jobModel.salary != null
-                      ? widget.jobModel.salary.toString()
+                  jobSummeryRichText(StringUtils.salary, jobDetails.salary != null
+                      ? jobDetails.salary.toString()
                       : StringUtils.unspecifiedText)
                 ],
               ),
               SizedBox(height: 5,),
               Row(
                 children: <Widget>[
-                  jobSummeryRichText(StringUtils.gender, widget.jobModel.gender != null
-                      ? widget.jobModel.gender.toString()
+                  jobSummeryRichText(StringUtils.gender, jobDetails.gender != null
+                      ? jobDetails.gender.toString()
                       : StringUtils.unspecifiedText)
                 ],
               ),
               SizedBox(height: 5,),
               Row(
                 children: <Widget>[
-                  jobSummeryRichText(StringUtils.applicationDeadline, widget.jobModel.applicationDeadline != null
-                      ? widget.jobModel.applicationDeadline.toString()
+                  jobSummeryRichText(StringUtils.applicationDeadline, jobDetails.applicationDeadline != null
+                      ? jobDetails.applicationDeadline.toString()
                       : StringUtils.unspecifiedText)
                 ],
               ),
@@ -396,9 +414,9 @@ class _JobDetailsState extends State<JobDetails> {
                 color: Colors.grey[500]
             ),
             SizedBox(width: 5,),
-            Text(widget.jobModel.createdDate != null
+            Text(jobDetails.createdDate != null
                 ? DateFormatUtil()
-                .dateFormat1(DateTime.parse(widget.jobModel.createdDate))
+                .dateFormat1(DateTime.parse(jobDetails.createdDate))
                 : StringUtils.unspecifiedText, style: topSideDescriptionFontStyle,),
           ],
         ),
@@ -411,9 +429,9 @@ class _JobDetailsState extends State<JobDetails> {
               color: Colors.grey[500],
             ),
             SizedBox(width: 5,),
-            Text(widget.jobModel.applicationDeadline != null
+            Text(jobDetails.applicationDeadline != null
                 ? DateFormatUtil()
-                .dateFormat1(DateTime.parse(widget.jobModel.applicationDeadline))
+                .dateFormat1(DateTime.parse(jobDetails.applicationDeadline))
                 : StringUtils.unspecifiedText, style: topSideDescriptionFontStyle,),
           ],
         ),
@@ -429,7 +447,7 @@ class _JobDetailsState extends State<JobDetails> {
           children: <Widget>[
             InkWell(
                 onTap: (){
-                  launch(widget.jobModel.webAddress);
+                  launch(jobDetails.webAddress);
                 },
                 child: Text(StringUtils.jobSource, style: TextStyle(fontSize: 15,color: Colors.blueAccent),))
           ],
@@ -444,7 +462,7 @@ class _JobDetailsState extends State<JobDetails> {
         title: Text(StringUtils.jobDetailsAppBarTitle, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
         centerTitle: true,
       ),
-      body: ListView(
+      body: jobDetailViewModel.isFetchingData?Loader():ListView(
         children: <Widget>[
           Container(
             padding: EdgeInsets.all(10),
@@ -529,7 +547,7 @@ class _JobDetailsState extends State<JobDetails> {
                   ),
                 ),
                 SizedBox(height: 2,),
-                Container(
+                jobDetails.webAddress!=null?Container(
                   padding: EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     color: sectionColor,
@@ -538,10 +556,10 @@ class _JobDetailsState extends State<JobDetails> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      widget.jobModel.webAddress!=null?jobSource:null
+                      jobSource
                     ],
                   ),
-                )
+                ):SizedBox()
               ],
             ),
           ),

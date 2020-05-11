@@ -1,5 +1,8 @@
+import 'package:p7app/main_app/flavour/flavour_config.dart';
+
 class JobModel {
   String jobId;
+  String slug;
   String title;
   String jobLocation;
   String salaryMin;
@@ -27,9 +30,11 @@ class JobModel {
   List<String> jobSkills;
   bool isApplied;
   bool status;
+  String profilePicture;
 
   JobModel({
     this.jobId,
+    this.slug,
     this.title,
     this.jobLocation,
     this.salaryMin,
@@ -57,10 +62,14 @@ class JobModel {
     this.district,
     this.jobSkills,
     this.status,
+    this.profilePicture,
   });
 
   JobModel.fromJson(Map<String, dynamic> json) {
+    String baseUrl = FlavorConfig?.instance?.values?.baseUrl;
+
     jobId = json['job_id'];
+    slug = json['slug'];
     title = json['title'];
     jobLocation = json['job_location'];
     salaryMin = json['salary_min'];
@@ -89,11 +98,15 @@ class JobModel {
 
     isApplied = json['is_applied'] == null ? false : (json['is_applied'] == "Yes" ? true : false);
     status = json['status'] == null ? false : (json['status'] == "Yes" ? true : false);
+    if(json['profile_picture'] != null){
+      profilePicture = "$baseUrl${json['profile_picture']}";
+    }
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['job_id'] = this.jobId;
+    data['slug'] = this.slug;
     data['title'] = this.title;
     data['job_location'] = this.jobLocation;
     data['salary_min'] = this.salaryMin;

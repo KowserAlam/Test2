@@ -58,6 +58,7 @@ class Urls {
   /// &salaryMax=&experienceMin=&experienceMax=null&datePosted=&gender=
   /// &qualification=&sort=&page_size=10
   static String jobListUrl = "/api/job_list";
+  static String jobDetailsUrl = "/api/load_job/";
   static String appliedJobListUrl = "/api/applied_jobs";
   static String favouriteJobListUrl = "/api/favourite-jobs";
   static String companySearchUrl = "/company/search";

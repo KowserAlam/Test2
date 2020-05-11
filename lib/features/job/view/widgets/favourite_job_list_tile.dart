@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -51,7 +52,13 @@ class _FavoriteJobListTileWidgetState extends State<FavoriteJobListTileWidget> {
       decoration: BoxDecoration(
         color: scaffoldBackgroundColor,
       ),
-      child: Image.asset(kImagePlaceHolderAsset),
+      child: CachedNetworkImage(
+        placeholder: (context, _) => Image.asset(
+          kImagePlaceHolderAsset,
+          fit: BoxFit.cover,
+        ),
+        imageUrl: widget.jobListModel?.profilePicture ?? "",
+      ),
     ); //That pointless fruit logo
     var jobTitle = Text(
       widget.jobListModel.title ?? "",
