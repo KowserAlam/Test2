@@ -171,6 +171,9 @@ class StringUtils {
 
   static String saveText = "Save";
 
+  //Company List Screen
+  static var companyListText = "Company List";
+
   //Reference Edit Screen
   static var referenceDescriptionText = "Description";
   static var referenceAppbarText = "Reference";
