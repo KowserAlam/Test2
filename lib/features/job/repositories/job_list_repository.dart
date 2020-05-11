@@ -35,7 +35,8 @@ class JobListRepository {
       print(response.statusCode);
 //      print(response.body);
       if (response.statusCode == 200) {
-        var mapData = json.decode(response.body);
+        var mapData = json.decode(utf8.decode(response.bodyBytes));
+
 
         var jobList = fromJson(mapData);
         var dataModel = JobListScreenDataModel(

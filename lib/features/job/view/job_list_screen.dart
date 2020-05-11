@@ -165,41 +165,41 @@ class _JobListScreenState extends State<JobListScreen>
                       ),
                     ],
                   ),
-                Container(
-                  margin: EdgeInsets.symmetric(horizontal: 8),
-                  width: double.infinity,
-                  decoration: BoxDecoration(color: backgroundColor, boxShadow: [
-                    BoxShadow(
-                        color: Colors.black.withOpacity(0.1), blurRadius: 10),
-                    BoxShadow(
-                        color: Colors.black.withOpacity(0.2), blurRadius: 10),
-                  ]),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 8),
-                            child: DropdownButton<SortItem>(
-                              value: jobListViewModel.jobListFilters.sort ??
-                                  SortItem(key: '', value: 'None'),
-                              onChanged: jobListViewModel.jobListSortBy,
-                              items: JobListSortItemRepository()
-                                  .getList()
-                                  .map((e) => DropdownMenuItem<SortItem>(
-                                        key: Key(e.key),
-                                        value: e,
-                                        child: Text(e.value),
-                                      ))
-                                  .toList(),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
+//                Container(
+//                  margin: EdgeInsets.symmetric(horizontal: 8),
+//                  width: double.infinity,
+//                  decoration: BoxDecoration(color: backgroundColor, boxShadow: [
+//                    BoxShadow(
+//                        color: Colors.black.withOpacity(0.1), blurRadius: 10),
+//                    BoxShadow(
+//                        color: Colors.black.withOpacity(0.2), blurRadius: 10),
+//                  ]),
+//                  child: Column(
+//                    crossAxisAlignment: CrossAxisAlignment.start,
+//                    children: [
+//                      Row(
+//                        children: [
+//                          Container(
+//                            padding: const EdgeInsets.symmetric(horizontal: 8),
+//                            child: DropdownButton<SortItem>(
+//                              value: jobListViewModel.jobListFilters.sort ??
+//                                  SortItem(key: '', value: 'None'),
+//                              onChanged: jobListViewModel.jobListSortBy,
+//                              items: JobListSortItemRepository()
+//                                  .getList()
+//                                  .map((e) => DropdownMenuItem<SortItem>(
+//                                        key: Key(e.key),
+//                                        value: e,
+//                                        child: Text(e.value),
+//                                      ))
+//                                  .toList(),
+//                            ),
+//                          ),
+//                        ],
+//                      ),
+//                    ],
+//                  ),
+//                ),
                 Expanded(
                   child: ListView(
                     physics: AlwaysScrollableScrollPhysics(),

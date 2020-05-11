@@ -45,6 +45,9 @@ class Urls {
   static String certificateNameListUrl = "/api/professional/certificate_name/";
   static String qualificationListUrl = "/api/qualification/";
   static String experienceListUrl = "/api/experience/";
+  static String popularJobCategoriesListUrl = "/api/popular_categories/";
+  static String jobTypeListUrl = "/job_type/";
+  static String jobLocationListUrl = "/api/location/";
 
   static String favouriteJobAddUrl = "/api/favourite_job_add/";
   static String applyJobOnlineUrl = "/api/apply_online_job_add/";
