@@ -1,3 +1,5 @@
+import 'package:p7app/main_app/flavour/flavour_config.dart';
+
 class JobModel {
   String jobId;
   String slug;
@@ -28,6 +30,7 @@ class JobModel {
   List<String> jobSkills;
   bool isApplied;
   bool status;
+  String profilePicture;
 
   JobModel({
     this.jobId,
@@ -59,9 +62,12 @@ class JobModel {
     this.district,
     this.jobSkills,
     this.status,
+    this.profilePicture,
   });
 
   JobModel.fromJson(Map<String, dynamic> json) {
+    String baseUrl = FlavorConfig?.instance?.values?.baseUrl;
+
     jobId = json['job_id'];
     slug = json['slug'];
     title = json['title'];
@@ -92,6 +98,9 @@ class JobModel {
 
     isApplied = json['is_applied'] == null ? false : (json['is_applied'] == "Yes" ? true : false);
     status = json['status'] == null ? false : (json['status'] == "Yes" ? true : false);
+    if(json['profile_picture'] != null){
+      profilePicture = "$baseUrl${json['profile_picture']}";
+    }
   }
 
   Map<String, dynamic> toJson() {
