@@ -26,7 +26,6 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
   double experienceMax = 10;
   var _formKey = GlobalKey<FormState>();
 
-
   @override
   void afterFirstLayout(BuildContext context) {
     Provider.of<JobListFilterWidgetViewModel>(context, listen: false)
@@ -49,7 +48,8 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
         category: filterVM.selectedCategory ?? "",
         datePosted: filterVM.selectedDatePosted ?? "",
         gender: filterVM.selectedGender ?? "",
-        job_type: filterVM.selectedJobType ?? "");
+        job_type: filterVM.selectedJobType ?? "",
+        sort: filterVM.selectedSortBy);
 
     jobListViewModel.applyFilters(filter);
     Navigator.pop(context);
@@ -171,7 +171,6 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
                   icon: Icon(FontAwesomeIcons.redo),
                   iconSize: 20,
                   onPressed: () {
-
                     Provider.of<JobListFilterWidgetViewModel>(context,
                             listen: false)
                         .resetState();
@@ -226,7 +225,8 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
                     hint: Text(StringUtils.tapToSelectText),
                     value: jobListFilterWidgetViewModel.selectedSortBy ??
                         SortItem(key: '', value: 'None'),
-                    onChanged: (v) =>jobListFilterWidgetViewModel.selectedSortBy = v,
+                    onChanged: (v) =>
+                        jobListFilterWidgetViewModel.selectedSortBy = v,
                     items: sortByListDropDownMenuItems,
                   ),
                   spaceBetween,
@@ -302,7 +302,8 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
                     labelText: StringUtils.qualificationText,
                     hint: Text(StringUtils.tapToSelectText),
                     onChanged: (value) {
-                      jobListFilterWidgetViewModel.selectedQualification = value;
+                      jobListFilterWidgetViewModel.selectedQualification =
+                          value;
                     },
                     value: jobListFilterWidgetViewModel.selectedQualification,
                     items: qualificationDropDownMenuItems,

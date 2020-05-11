@@ -53,7 +53,6 @@ class P7App extends StatelessWidget {
 
           /// <--- For device preview should be disable before generate apk
           builder: isEnabledDevicePreview ? DevicePreview.appBuilder : null,
-
           /// To Here
 
           debugShowCheckedModeBanner: false,
