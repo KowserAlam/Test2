@@ -18,11 +18,11 @@ extension StringExtenion on String {
       return true;
   }
 
-//  bool get  isNotEmptyOrNull{
-//    if (this != null){
-//      return this.isNotEmpty;
-//    }
-//    else
-//      return false;
-//  }
+  bool get  isNotEmptyOrNull{
+    if (this != null){
+      return this.isNotEmpty;
+    }
+    else
+      return false;
+  }
 }

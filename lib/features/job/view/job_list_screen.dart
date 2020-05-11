@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p7app/features/job/models/sort_item.dart';
 import 'package:p7app/features/job/repositories/job_list_sort_items_repository.dart';
 import 'package:p7app/features/job/view/job_details.dart';
+import 'package:p7app/features/job/view/widgets/filter_preview_widget.dart';
 import 'package:p7app/features/job/view/widgets/job_list_filters_widget.dart';
 import 'package:p7app/features/job/view_model/job_list_view_model.dart';
 import 'package:p7app/features/job/models/job.dart';
@@ -165,41 +166,8 @@ class _JobListScreenState extends State<JobListScreen>
                       ),
                     ],
                   ),
-                Container(
-                  margin: EdgeInsets.symmetric(horizontal: 8),
-                  width: double.infinity,
-                  decoration: BoxDecoration(color: backgroundColor, boxShadow: [
-                    BoxShadow(
-                        color: Colors.black.withOpacity(0.1), blurRadius: 10),
-                    BoxShadow(
-                        color: Colors.black.withOpacity(0.2), blurRadius: 10),
-                  ]),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 8),
-                            child: DropdownButton<SortItem>(
-                              value: jobListViewModel.jobListFilters.sort ??
-                                  SortItem(key: '', value: 'None'),
-                              onChanged: jobListViewModel.jobListSortBy,
-                              items: JobListSortItemRepository()
-                                  .getList()
-                                  .map((e) => DropdownMenuItem<SortItem>(
-                                        key: Key(e.key),
-                                        value: e,
-                                        child: Text(e.value),
-                                      ))
-                                  .toList(),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
+                if(jobListViewModel.isFilterApplied)
+                FilterPreviewWidget(),
                 Expanded(
                   child: ListView(
                     physics: AlwaysScrollableScrollPhysics(),
@@ -293,3 +261,6 @@ class _JobListScreenState extends State<JobListScreen>
         });
   }
 }
+
+
+

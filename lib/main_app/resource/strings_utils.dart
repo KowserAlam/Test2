@@ -167,6 +167,7 @@ class StringUtils {
   static var editPersonalInfoText = "Edit Personal Information";
   static var contactText = "Contact";
   static var contactInfo = "Contact Info";
+  static var qualificationText = "Qualification";
 
 
   static String saveText = "Save";
@@ -391,4 +392,9 @@ static const String benefitSectionTitle = 'Benefits';
 static const String jobSource = 'Job Source';
 static const String doYouWantToApplyText = 'Do you want to apply?';
 static const String jobsFoundText = 'jobs found';
+static const String sortBy = 'Sort By';
+static const String advanceFilterText = "Advance Filter";
+static const String jobCategoryText = "Job Category";
+static const String jobTypeText  = "Job Type";
+static const String datePosted  = "Date Posted";
 }

@@ -14,6 +14,7 @@ import 'package:p7app/main_app/failure/error.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/util/debouncer.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:p7app/main_app/util/method_extension.dart';
 
 class JobListViewModel with ChangeNotifier {
   List<JobModel> _jobList = [];
@@ -47,11 +48,12 @@ class JobListViewModel with ChangeNotifier {
   /// methods
   /// #########################
 
-  jobListSortBy(SortItem sort){
+  jobListSortBy(SortItem sort) {
     _jobListFilters.sort = sort;
     notifyListeners();
     getJobList();
   }
+
   toggleIsInSearchMode() {
 //    _jobList = [];
     _isInSearchMode = !_isInSearchMode;
@@ -69,8 +71,8 @@ class JobListViewModel with ChangeNotifier {
       search(query);
     });
   }
-  
-  search(String query){
+
+  search(String query) {
     _jobList = [];
     resetPageCounter();
     _jobListFilters.page = _pageCount;
@@ -79,7 +81,7 @@ class JobListViewModel with ChangeNotifier {
     getJobList();
   }
 
-  applyFilters(JobListFilters filters){
+  applyFilters(JobListFilters filters) {
     _jobList = [];
     resetPageCounter();
     _jobListFilters.page = _pageCount;
@@ -87,7 +89,7 @@ class JobListViewModel with ChangeNotifier {
     getJobList();
   }
 
-  clearFilters(){
+  clearFilters() {
     resetPageCounter();
     _jobListFilters.page = _pageCount;
     _jobListFilters = JobListFilters(searchQuery: _jobListFilters.searchQuery);
@@ -237,9 +239,98 @@ class JobListViewModel with ChangeNotifier {
     notifyListeners();
   }
 
+  void clearSort(){
+     _jobListFilters.sort = null;
+     notifyListeners();
+     getJobList();
+  }
+  void clearGender(){
+     _jobListFilters.gender = null;
+     notifyListeners();
+  }
+  void clearCategory(){
+     _jobListFilters.category = null;
+    notifyListeners();
+     getJobList();
+  }
+  void clearQualification(){
+     _jobListFilters.qualification = null;
+    notifyListeners();
+     getJobList();
+  }
+  void clearLocation(){
+     _jobListFilters.location = null;
+    notifyListeners();
+     getJobList();
+  }
+  void clearSkill(){
+     _jobListFilters.skill = null;
+    notifyListeners();
+     getJobList();
+  }
+  void clearJobType(){
+     _jobListFilters.job_type = null;
+     notifyListeners();
+     getJobList();
+  }
+  void clearDatePosted(){
+     _jobListFilters.datePosted = null;
+    notifyListeners();
+     getJobList();
+  }
+  void clearSalaryRange(){
+    _jobListFilters.salaryMax = null;
+    _jobListFilters.salaryMin = null;
+    notifyListeners();
+    getJobList();
+  }
+  void clearExperienceRange(){
+    _jobListFilters.experienceMax = null;
+    _jobListFilters.experienceMin = null;
+    notifyListeners();
+    getJobList();
+  }
+
   /// ##########################
   /// getter setters
   /// #########################
+
+  bool get hasSortBy => _jobListFilters.sort != null;
+
+  bool get hasGender => _jobListFilters.gender.isNotEmptyOrNull;
+
+  bool get hasCategory => _jobListFilters.category.isNotEmptyOrNull;
+
+  bool get hasQualification => _jobListFilters.qualification.isNotEmptyOrNull;
+
+  bool get hasLocation => _jobListFilters.location.isNotEmptyOrNull;
+
+  bool get hasSkill => _jobListFilters.skill.isNotEmptyOrNull;
+
+  bool get hasJobType => _jobListFilters.job_type.isNotEmptyOrNull;
+
+  bool get hasDatePosted => _jobListFilters.datePosted.isNotEmptyOrNull;
+
+  bool get hasSalaryRange =>
+      _jobListFilters.salaryMin.isNotEmptyOrNull ||
+      _jobListFilters.salaryMax.isNotEmptyOrNull;
+
+  bool get hasExperienceRange =>
+      _jobListFilters.experienceMin.isNotEmptyOrNull ||
+      _jobListFilters.experienceMax.isNotEmptyOrNull;
+
+  bool get isFilterApplied {
+    return hasGender ||
+        hasCategory ||
+        hasQualification ||
+        hasSortBy ||
+        hasCategory ||
+        hasLocation ||
+        hasJobType ||
+        hasDatePosted ||
+        hasSalaryRange ||
+        hasExperienceRange;
+  }
 
   List<JobModel> get jobList => _jobList;
 
