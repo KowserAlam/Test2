@@ -3,7 +3,7 @@ import 'package:p7app/features/auth/provider/login_view_model.dart';
 import 'package:p7app/features/auth/view/login_screen.dart';
 import 'package:p7app/features/config/config_screen.dart';
 import 'package:p7app/features/job/view/applied_job_list_screen.dart';
-import 'package:p7app/features/job/view/company_list_screen.dart';
+import 'file:///G:/Study/Flutter/p7app_repo/lib/features/user_profile/views/screens/company_list_screen.dart';
 import 'package:p7app/features/job/view/favourite_job_list_screen.dart';
 import 'package:p7app/features/job/view/job_list_screen.dart';
 import 'package:p7app/features/user_profile/views/screens/profile_screen.dart';
