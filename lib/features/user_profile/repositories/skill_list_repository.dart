@@ -30,12 +30,13 @@ class SkillListRepository{
     }
   }
   List<Skill> fromJson(json){
-    List<Skill> list = [];
+    List<Skill> list = [Skill(id: '',name: '')];
 //   List<Map<String,dynamic>> tl = json.cast<Map<String,dynamic>>();
 //    tl.map<String>((e) => e['name']).toList();
     json.forEach((element) {
       list.add(Skill.fromJson(element));
     });
+
     return list;
   }
 }

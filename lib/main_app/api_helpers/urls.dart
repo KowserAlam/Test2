@@ -29,7 +29,7 @@ class Urls {
   static String professionalEducationUrl = "/api/professional/professional_education";
   static String professionalMembershipUrl = "/api/professional/professional_membership";
   static String professionalCertificationUrl = "/api/professional/professional_certification";
-  static String professionalPortfolioUrl = " /api/professional/professional_portfolio";
+  static String professionalPortfolioUrl = "/api/professional/professional_portfolio";
   static String professionalExperienceUrl = "/api/professional/professional_work_experience";
 
 

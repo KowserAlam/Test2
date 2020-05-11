@@ -1,18 +1,20 @@
 import 'package:after_layout/after_layout.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:p7app/features/auth/view/widgets/custom_text_field_rounded.dart';
-import 'package:p7app/features/config/config_provider.dart';
+import 'package:p7app/features/job/models/sort_item.dart';
+import 'package:p7app/features/job/repositories/job_list_sort_items_repository.dart';
 import 'package:p7app/features/job/view/job_details.dart';
+import 'package:p7app/features/job/view/widgets/job_list_filters_widget.dart';
 import 'package:p7app/features/job/view_model/job_list_view_model.dart';
 import 'package:p7app/features/job/models/job.dart';
 import 'package:p7app/features/job/view/widgets/job_list_tile_widget.dart';
-import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
-import 'package:p7app/main_app/app_theme/app_theme.dart';
+import 'package:p7app/features/user_profile/models/skill.dart';
+import 'package:p7app/features/user_profile/repositories/skill_list_repository.dart';
 import 'package:p7app/main_app/flavour/flavor_banner.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/widgets/app_drawer.dart';
 import 'package:flutter/material.dart';
+import 'package:p7app/main_app/widgets/custom_text_field.dart';
 import 'package:p7app/main_app/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/widgets/loader.dart';
 import 'package:p7app/main_app/widgets/toggle_app_theme_widget.dart';
@@ -30,6 +32,7 @@ class _JobListScreenState extends State<JobListScreen>
   ScrollController _scrollController = ScrollController();
   AnimationController controller;
   TextEditingController _searchTextEditingController = TextEditingController();
+  var _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -73,15 +76,21 @@ class _JobListScreenState extends State<JobListScreen>
         var isInSearchMode = jobListViewModel.isInSearchMode;
         debugPrint("${jobList.length}");
         return Scaffold(
+          key: _scaffoldKey,
           appBar: AppBar(
             title: Text(StringUtils.jobListText),
             actions: [
-              ToggleAppThemeWidget(),
               IconButton(
                 icon: Icon(isInSearchMode ? Icons.close : Icons.search),
                 onPressed: () {
                   _searchTextEditingController?.clear();
                   jobListViewModel.toggleIsInSearchMode();
+                },
+              ),
+              IconButton(
+                icon: Icon(Icons.filter_list),
+                onPressed: () {
+                  _scaffoldKey.currentState.openEndDrawer();
                 },
               )
             ],
@@ -90,6 +99,9 @@ class _JobListScreenState extends State<JobListScreen>
               child: AppDrawer(
             routeName: 'job_list',
           )),
+          endDrawer: Drawer(
+            child: JobListFilterWidget(),
+          ),
           body: RefreshIndicator(
             onRefresh: () async {
               _searchTextEditingController?.clear();
@@ -103,9 +115,18 @@ class _JobListScreenState extends State<JobListScreen>
                     children: [
                       Padding(
                         padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
-                        child: CustomTextFormField(
+                        child: CustomTextField(
+                          suffixIcon: IconButton(
+                            icon: Icon(Icons.search),
+                            onPressed: () {
+                              if (_searchTextEditingController
+                                  .text.isNotEmpty) {
+                                jobListViewModel
+                                    .search(_searchTextEditingController.text);
+                              }
+                            },
+                          ),
                           controller: _searchTextEditingController,
-                          onChanged: jobListViewModel.addSearchQuery,
                           hintText: StringUtils.searchText,
                         ),
                       ),
@@ -132,17 +153,53 @@ class _JobListScreenState extends State<JobListScreen>
 //
 //                                  ],
 //                                )),
-                            if (_searchTextEditingController.text.isNotEmpty)
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                    '${jobListViewModel.totalJobCount} ${StringUtils.jobsFoundText}'),
-                              )
+
+//                            if (_searchTextEditingController.text.isNotEmpty && !jobListViewModel.isFetchingData)
+//                              Padding(
+//                                padding: const EdgeInsets.all(8.0),
+//                                child: Text(
+//                                    '${jobListViewModel.totalJobCount} ${StringUtils.jobsFoundText}'),
+//                              )
                           ],
                         ),
                       ),
                     ],
                   ),
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 8),
+                  width: double.infinity,
+                  decoration: BoxDecoration(color: backgroundColor, boxShadow: [
+                    BoxShadow(
+                        color: Colors.black.withOpacity(0.1), blurRadius: 10),
+                    BoxShadow(
+                        color: Colors.black.withOpacity(0.2), blurRadius: 10),
+                  ]),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                            child: DropdownButton<SortItem>(
+                              value: jobListViewModel.jobListFilters.sort ??
+                                  SortItem(key: '', value: 'None'),
+                              onChanged: jobListViewModel.jobListSortBy,
+                              items: JobListSortItemRepository()
+                                  .getList()
+                                  .map((e) => DropdownMenuItem<SortItem>(
+                                        key: Key(e.key),
+                                        value: e,
+                                        child: Text(e.value),
+                                      ))
+                                  .toList(),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
                 Expanded(
                   child: ListView(
                     physics: AlwaysScrollableScrollPhysics(),

@@ -4,10 +4,10 @@ import 'package:p7app/features/user_profile/styles/common_style_text_field.dart'
 class CustomDropdownButtonFormField<T> extends StatelessWidget {
   final String labelText;
   final Widget hint;
-  final  T value;
+  final T value;
   final ValueChanged<T> onChanged;
   final List<DropdownMenuItem<T>> items;
-  FormFieldValidator<T> validator;
+  final FormFieldValidator<T> validator;
 
   CustomDropdownButtonFormField({
     this.validator,
@@ -18,22 +18,16 @@ class CustomDropdownButtonFormField<T> extends StatelessWidget {
     @required this.items,
   });
 
-
-
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-
         Text(
           "  ${labelText ?? ""}",
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
-        SizedBox(
-          height: 5,
-        ),
-
+        SizedBox(height: 5),
         Container(
           decoration: BoxDecoration(
             color: Theme.of(context).backgroundColor,
@@ -57,5 +51,4 @@ class CustomDropdownButtonFormField<T> extends StatelessWidget {
       ],
     );
   }
-
 }

@@ -5,6 +5,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:p7app/features/job/models/job.dart';
 import 'package:p7app/features/job/models/job_list_filters.dart';
+import 'package:p7app/features/job/models/sort_item.dart';
 import 'package:p7app/features/job/repositories/job_list_repository.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
@@ -40,12 +41,19 @@ class JobListViewModel with ChangeNotifier {
     notifyListeners();
   }
 
+  JobListFilters get jobListFilters => _jobListFilters;
+
   /// ##########################
   /// methods
   /// #########################
 
+  jobListSortBy(SortItem sort){
+    _jobListFilters.sort = sort;
+    notifyListeners();
+    getJobList();
+  }
   toggleIsInSearchMode() {
-    _jobList = [];
+//    _jobList = [];
     _isInSearchMode = !_isInSearchMode;
     _totalJobCount = 0;
     resetPageCounter();
@@ -56,15 +64,34 @@ class JobListViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  addSearchQuery(String query) {
+  addSearchQueryDebounceTime(String query) {
     _debouncer.run(() {
-      _jobList = [];
-      resetPageCounter();
-      _jobListFilters.page = _pageCount;
-      _jobListFilters.searchQuery = query;
-      debugPrint("Searching for: $query");
-      getJobList();
+      search(query);
     });
+  }
+  
+  search(String query){
+    _jobList = [];
+    resetPageCounter();
+    _jobListFilters.page = _pageCount;
+    _jobListFilters.searchQuery = query;
+    debugPrint("Searching for: $query");
+    getJobList();
+  }
+
+  applyFilters(JobListFilters filters){
+    _jobList = [];
+    resetPageCounter();
+    _jobListFilters.page = _pageCount;
+    _jobListFilters = filters;
+    getJobList();
+  }
+
+  clearFilters(){
+    resetPageCounter();
+    _jobListFilters.page = _pageCount;
+    _jobListFilters = JobListFilters(searchQuery: _jobListFilters.searchQuery);
+    getJobList();
   }
 
   void incrementPageCount() {

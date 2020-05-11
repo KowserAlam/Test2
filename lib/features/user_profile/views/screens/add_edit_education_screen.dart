@@ -283,7 +283,6 @@ MajorSubject selectedMajorSubject;
                 selectedMajorSubject = v;
                 print(v);
                 setState(() {
-
                 });
               },
             );
