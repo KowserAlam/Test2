@@ -393,4 +393,5 @@ static const String sortBy = 'Sort By';
 static const String advanceFilterText = "Advance Filter";
 static const String jobCategoryText = "Job Category";
 static const String jobTypeText  = "Job Type";
+static const String datePosted  = "Date Posted";
 }

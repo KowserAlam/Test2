@@ -24,6 +24,8 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
   double minSalary = 0;
   double experienceMin = 0;
   double experienceMax = 10;
+  var _formKey = GlobalKey<FormState>();
+
 
   @override
   void afterFirstLayout(BuildContext context) {
@@ -31,9 +33,31 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
         .getAllFilters();
   }
 
+  _handleApply() {
+    var jobListViewModel =
+        Provider.of<JobListViewModel>(context, listen: false);
+    var filterVM =
+        Provider.of<JobListFilterWidgetViewModel>(context, listen: false);
+    var filter = JobListFilters(
+        salaryMax: filterVM.salaryMax?.round()?.toString() ?? "",
+        salaryMin: filterVM.salaryMin?.round()?.toString() ?? "",
+        experienceMax: filterVM.experienceMax?.round()?.toString() ?? "",
+        experienceMin: filterVM.experienceMin?.round()?.toString() ?? "",
+        skill: filterVM.selectedSkill?.id ?? "",
+        location: filterVM.selectedLocation ?? "",
+        qualification: filterVM.selectedQualification ?? "",
+        category: filterVM.selectedCategory ?? "",
+        datePosted: filterVM.selectedDatePosted ?? "",
+        gender: filterVM.selectedGender ?? "",
+        job_type: filterVM.selectedJobType ?? "");
+
+    jobListViewModel.applyFilters(filter);
+    Navigator.pop(context);
+  }
+
   @override
   Widget build(BuildContext context) {
-    var spaceBetween = SizedBox(height: 10);
+    var spaceBetween = SizedBox(height: 15);
 
     var jobListViewModel = Provider.of<JobListViewModel>(context);
 
@@ -110,6 +134,24 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
                 ),
               ))
           .toList();
+      var datePostedDropDownMenuItems =
+          jobListFilterWidgetViewModel.datePostedList
+              .map((e) => DropdownMenuItem<String>(
+                    key: Key(e),
+                    value: e,
+                    child: Text(
+                      e,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ))
+              .toList();
+      var sortByListDropDownMenuItems = jobListFilterWidgetViewModel.sortByList
+          .map((e) => DropdownMenuItem<SortItem>(
+                key: Key(e.key),
+                value: e,
+                child: Text(e.value),
+              ))
+          .toList();
 
       return Column(
         children: [
@@ -124,15 +166,19 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
                     style: Theme.of(context).textTheme.subtitle1,
                   ),
                 ),
+                //reset button
                 IconButton(
                   icon: Icon(FontAwesomeIcons.redo),
                   iconSize: 20,
                   onPressed: () {
+
                     Provider.of<JobListFilterWidgetViewModel>(context,
                             listen: false)
                         .resetState();
+                    _formKey.currentState.reset();
                   },
                 ),
+                // close button
                 IconButton(
                   icon: Icon(FontAwesomeIcons.times),
                   onPressed: () {
@@ -142,10 +188,15 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
               ],
             ),
           ),
+          Divider(
+            height: 1,
+          ),
           Expanded(
-            child: ListView(
-              padding: EdgeInsets.all(8),
-              children: [
+            child: Form(
+              key: _formKey,
+              child: ListView(
+                padding: EdgeInsets.all(8),
+                children: [
 //          Row(
 //            children: [
 //              Text(
@@ -168,114 +219,122 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
 //            ],
 //          ),
 
-                spaceBetween,
-                // sort by
-                CustomDropdownButtonFormField<SortItem>(
-                  labelText: StringUtils.sortBy,
-                  value: jobListViewModel.jobListFilters.sort ??
-                      SortItem(key: '', value: 'None'),
-                  onChanged: jobListViewModel.jobListSortBy,
-                  items: JobListSortItemRepository()
-                      .getList()
-                      .map((e) => DropdownMenuItem<SortItem>(
-                            key: Key(e.key),
-                            value: e,
-                            child: Text(e.value),
-                          ))
-                      .toList(),
-                ),
-                spaceBetween,
-                //job category
-                CustomDropdownButtonFormField<String>(
-                  labelText: StringUtils.jobCategoryText,
-                  hint: Text(StringUtils.tapToSelectText),
-                  onChanged: (value) {
-                    jobListFilterWidgetViewModel.selectedCategory = value;
-                  },
-                  value: jobListFilterWidgetViewModel.selectedCategory,
-                  items: jobCategoriesDropDownMenuItems,
-                ),
-                spaceBetween,
-                //location
-                CustomDropdownButtonFormField<String>(
-                  labelText: StringUtils.locationText,
-                  hint: Text(StringUtils.tapToSelectText),
-                  onChanged: (value) {
-                    jobListFilterWidgetViewModel.selectedLocation = value;
-                  },
-                  value: jobListFilterWidgetViewModel.selectedLocation,
-                  items: locationDropDownMenuItems,
-                ),
-                spaceBetween,
-                //skill
-                CustomDropdownButtonFormField(
-                  labelText: StringUtils.skillText,
-                  hint: Text(StringUtils.tapToSelectText),
-                  onChanged: (value) {
-                    jobListFilterWidgetViewModel.selectedSkill = value;
-                  },
-                  value: jobListFilterWidgetViewModel.selectedSkill,
-                  items: skillDropDownMenuItems,
-                ),
-                spaceBetween,
-                // jobType
-                CustomDropdownButtonFormField(
-                  labelText: StringUtils.jobTypeText,
-                  hint: Text(StringUtils.tapToSelectText),
-                  onChanged: (value) {
-                    jobListFilterWidgetViewModel.selectedJobType = value;
-                  },
-                  value: jobListFilterWidgetViewModel.selectedJobType,
-                  items: jobTypeDropDownMenuItems,
-                ),
-                spaceBetween,
-                // salary range
-                CustomRangeSlider(
-                  labelText: StringUtils.salaryRangeText,
-                  max: maxSalary,
-                  min: minSalary,
-                  values: salaryRange,
-                  onChanged: jobListFilterWidgetViewModel.onchangeSalaryRange,
-                  bottom: Text(
-                      "${salaryRange.start.round()} ৳ - ${salaryRange.end.round()} ৳"),
-                ),
-                spaceBetween,
-                // experience
-                CustomRangeSlider(
-                  labelText: StringUtils.experienceText,
-                  max: experienceMax,
-                  min: experienceMin,
-                  values: experienceRange,
-                  onChanged:
-                      jobListFilterWidgetViewModel.onchangeExperienceRange,
-                  bottom: Text(
-                      "${experienceRange.start.round()} Year - ${experienceRange.end.round()} Year"),
-                ),
-                spaceBetween,
-                //qualification
-                CustomDropdownButtonFormField(
-                  labelText: StringUtils.qualificationText,
-                  hint: Text(StringUtils.tapToSelectText),
-                  onChanged: (value) {
-                    jobListFilterWidgetViewModel.selectedQualification = value;
-                  },
-                  value: jobListFilterWidgetViewModel.selectedQualification,
-                  items: qualificationDropDownMenuItems,
-                ),
-                spaceBetween,
-                //gender
-                CustomDropdownButtonFormField(
-                  labelText: StringUtils.genderText,
-                  hint: Text(StringUtils.tapToSelectText),
-                  onChanged: (value) {
-                    jobListFilterWidgetViewModel.selectedGender = value;
-                  },
-                  value: jobListFilterWidgetViewModel.selectedGender,
-                  items: genderDropDownMenuItems,
-                ),
-                spaceBetween,
-              ],
+                  spaceBetween,
+                  // sort by
+                  CustomDropdownButtonFormField<SortItem>(
+                    labelText: StringUtils.sortBy,
+                    hint: Text(StringUtils.tapToSelectText),
+                    value: jobListFilterWidgetViewModel.selectedSortBy ??
+                        SortItem(key: '', value: 'None'),
+                    onChanged: (v) =>jobListFilterWidgetViewModel.selectedSortBy = v,
+                    items: sortByListDropDownMenuItems,
+                  ),
+                  spaceBetween,
+                  //job category
+                  CustomDropdownButtonFormField<String>(
+                    labelText: StringUtils.jobCategoryText,
+                    hint: Text(StringUtils.tapToSelectText),
+                    onChanged: (value) {
+                      jobListFilterWidgetViewModel.selectedCategory = value;
+                    },
+                    value: jobListFilterWidgetViewModel.selectedCategory,
+                    items: jobCategoriesDropDownMenuItems,
+                  ),
+                  spaceBetween,
+                  //location
+                  CustomDropdownButtonFormField<String>(
+                    labelText: StringUtils.locationText,
+                    hint: Text(StringUtils.tapToSelectText),
+                    onChanged: (value) {
+                      jobListFilterWidgetViewModel.selectedLocation = value;
+                    },
+                    value: jobListFilterWidgetViewModel.selectedLocation,
+                    items: locationDropDownMenuItems,
+                  ),
+                  spaceBetween,
+                  //skill
+                  CustomDropdownButtonFormField(
+                    labelText: StringUtils.skillText,
+                    hint: Text(StringUtils.tapToSelectText),
+                    onChanged: (value) {
+                      jobListFilterWidgetViewModel.selectedSkill = value;
+                    },
+                    value: jobListFilterWidgetViewModel.selectedSkill,
+                    items: skillDropDownMenuItems,
+                  ),
+                  spaceBetween,
+                  // jobType
+                  CustomDropdownButtonFormField(
+                    labelText: StringUtils.jobTypeText,
+                    hint: Text(StringUtils.tapToSelectText),
+                    onChanged: (value) {
+                      jobListFilterWidgetViewModel.selectedJobType = value;
+                    },
+                    value: jobListFilterWidgetViewModel.selectedJobType,
+                    items: jobTypeDropDownMenuItems,
+                  ),
+                  spaceBetween,
+                  // salary range
+                  CustomRangeSlider(
+                    labelText: StringUtils.salaryRangeText,
+                    max: maxSalary,
+                    min: minSalary,
+                    values: salaryRange,
+                    onChanged: jobListFilterWidgetViewModel.onchangeSalaryRange,
+                    bottom: Text(
+                        "${salaryRange.start.round()} ৳ - ${salaryRange.end.round()} ৳"),
+                  ),
+                  spaceBetween,
+                  // experience
+                  CustomRangeSlider(
+                    labelText: StringUtils.experienceText,
+                    max: experienceMax,
+                    min: experienceMin,
+                    values: experienceRange,
+                    onChanged:
+                        jobListFilterWidgetViewModel.onchangeExperienceRange,
+                    bottom: Text(
+                        "${experienceRange.start.round()} Year - ${experienceRange.end.round()} Year"),
+                  ),
+                  spaceBetween,
+                  //qualification
+                  CustomDropdownButtonFormField(
+                    labelText: StringUtils.qualificationText,
+                    hint: Text(StringUtils.tapToSelectText),
+                    onChanged: (value) {
+                      jobListFilterWidgetViewModel.selectedQualification = value;
+                    },
+                    value: jobListFilterWidgetViewModel.selectedQualification,
+                    items: qualificationDropDownMenuItems,
+                  ),
+                  spaceBetween,
+                  //gender
+                  CustomDropdownButtonFormField(
+                    labelText: StringUtils.genderText,
+                    hint: Text(StringUtils.tapToSelectText),
+                    onChanged: (value) {
+                      jobListFilterWidgetViewModel.selectedGender = value;
+                    },
+                    value: jobListFilterWidgetViewModel.selectedGender,
+                    items: genderDropDownMenuItems,
+                  ),
+                  spaceBetween,
+                  CustomDropdownButtonFormField(
+                    labelText: StringUtils.datePosted,
+                    hint: Text(StringUtils.tapToSelectText),
+                    onChanged: (value) {
+                      jobListFilterWidgetViewModel.selectedDatePosted = value;
+                    },
+                    value: jobListFilterWidgetViewModel.selectedDatePosted,
+                    items: datePostedDropDownMenuItems,
+                  ),
+                  spaceBetween,
+                ],
+              ),
             ),
+          ),
+          Divider(
+            height: 1,
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -284,18 +343,7 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
               width: 150,
               circularRadius: 7,
               onTap: () {
-                Provider.of<JobListViewModel>(context, listen: false)
-                    .applyFilters(JobListFilters(
-                        salaryMax: salaryRange?.end?.round()?.toString(),
-                        salaryMin: salaryRange?.start?.round()?.toString(),
-                        experienceMax:
-                            experienceRange?.end?.round()?.toString(),
-                        experienceMin:
-                            experienceRange?.start?.round()?.toString(),
-                        skill: jobListFilterWidgetViewModel.selectedSkill?.id
-                                .toString() ??
-                            ""));
-                Navigator.pop(context);
+                _handleApply();
               },
               label: StringUtils.applyFilterText,
             ),

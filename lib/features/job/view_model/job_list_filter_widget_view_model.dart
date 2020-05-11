@@ -1,6 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:p7app/features/job/models/sort_item.dart';
+import 'package:p7app/features/job/repositories/job_list_sort_items_repository.dart';
 import 'package:p7app/features/job/repositories/job_location_list_repository.dart';
 import 'package:p7app/features/job/repositories/job_type_list_repository.dart';
 import 'package:p7app/features/job/repositories/popular_jobs_categories_list_repository.dart';
@@ -11,7 +13,6 @@ import 'package:p7app/features/user_profile/repositories/skill_list_repository.d
 import 'package:p7app/main_app/failure/error.dart';
 
 class JobListFilterWidgetViewModel with ChangeNotifier {
-
   List<Skill> _skills = [];
   List<String> _locations = [];
   List<String> _jobCategories = [];
@@ -28,10 +29,39 @@ class JobListFilterWidgetViewModel with ChangeNotifier {
   String _selectedGender;
   String _selectedQualification;
   Skill _selectedSkill;
+  String _selectedDatePosted;
+  SortItem _selectedSortBy;
+  List<SortItem> sortByList = JobListSortItemRepository()
+      .getList();
+  
+  List<String> datePostedList = [
+    "Last hour",
+    "Last 24 hour",
+    "Last 7 days",
+    "Last 14 days",
+    "Last 30 days"
+  ];
+
+
+  SortItem get selectedSortBy => _selectedSortBy;
+
+  set selectedSortBy(SortItem value) {
+    _selectedSortBy = value;
+    notifyListeners();
+  }
+
+  String get selectedDatePosted => _selectedDatePosted;
+
+  set selectedDatePosted(String value) {
+    _selectedDatePosted = value;
+    notifyListeners();
+  }
 
   List<String> get locations => _locations;
+
   set locations(List<String> value) {
     _locations = value;
+    notifyListeners();
   }
 
   Skill get selectedSkill => _selectedSkill;
@@ -129,7 +159,6 @@ class JobListFilterWidgetViewModel with ChangeNotifier {
     _qualifications = value;
   }
 
-
   List<String> get genders => _genders;
 
   set genders(List<String> value) {
@@ -192,8 +221,10 @@ class JobListFilterWidgetViewModel with ChangeNotifier {
       return [];
     }, (r) => r);
   }
+
   Future<List<String>> _getGenderList() async {
-    Either<AppError, List<String>> res = await GenderListRepository().getGenderList();
+    Either<AppError, List<String>> res =
+        await GenderListRepository().getGenderList();
     return res.fold((l) {
       print(l);
       return [];
@@ -213,6 +244,7 @@ class JobListFilterWidgetViewModel with ChangeNotifier {
   }
 
   resetState() {
+
     _selectedGender = null;
     _selectedQualification = null;
     _selectedSkill = null;
@@ -220,9 +252,11 @@ class JobListFilterWidgetViewModel with ChangeNotifier {
     _selectedJobType = null;
     _selectedLocation = null;
     _salaryMin = null;
-    _salaryMax  = null;
+    _salaryMax = null;
     _experienceMin = null;
     _experienceMax = null;
-
+    _selectedDatePosted = null;
+    _selectedSortBy = null;
+    notifyListeners();
   }
 }

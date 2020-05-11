@@ -18,24 +18,28 @@ class JobListFilters {
   String qualification;
   SortItem sort;
   bool isApplied;
+  String job_type;
+  String topSkill;
 
   JobListFilters({
     this.page = 1,
     this.page_size = 15,
-    this.searchQuery = '',
-    this.location = '',
-    this.category = '',
+    this.searchQuery,
+    this.location,
+    this.category,
     this.location_from_homepage = '',
     this.keyword_from_homepage = '',
-    this.skill = '',
-    this.salaryMin = '',
-    this.salaryMax = '',
-    this.experienceMin = '',
-    this.experienceMax = '',
-    this.datePosted = '',
-    this.gender = '',
-    this.qualification = '',
+    this.skill,
+    this.salaryMin,
+    this.salaryMax,
+    this.experienceMin,
+    this.experienceMax,
+    this.datePosted,
+    this.gender,
+    this.qualification,
     this.sort,
     this.isApplied,
+    this.job_type,
+    this.topSkill,
   });
 }
