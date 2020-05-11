@@ -23,9 +23,9 @@ class JobListRepository {
     var _filters =
         "?page=${filters.page}&q=${filters.searchQuery}&location=${filters.location}&category=${filters.category}"
         "&location_from_homepage=${filters.location_from_homepage}&keyword_from_homepage=${filters.keyword_from_homepage}"
-        "&skill=${filters.skill}&salaryMin=${filters.salaryMin}&salaryMax=${filters.salaryMin}&experienceMin=${filters.experienceMin}"
+        "&skill=${filters.skill}&salaryMin=${filters.salaryMin}&salaryMax=${filters.salaryMax}&experienceMin=${filters.experienceMin}"
         "&experienceMax=${filters.experienceMax}&datePosted=${filters.datePosted}&gender=${filters.gender}"
-        "&qualification=${filters.qualification}&sort=${filters.sort}&page_size=${filters.page_size}";
+        "&qualification=${filters.qualification}&sort=${filters?.sort?.key??""}&page_size=${filters.page_size}";
 
     var url = "${Urls.jobListUrl}${_filters}";
 

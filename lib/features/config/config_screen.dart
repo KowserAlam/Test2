@@ -20,24 +20,24 @@ class _ConfigScreenState extends State<ConfigScreen> {
       ),
       body: ListView(
         children: <Widget>[
-          ListTile(
-            leading: Icon(
-              FontAwesomeIcons.solidMoon,
-              size: 22,
-            ),
-            title: Text(StringUtils.darkModeText),
-            trailing: Consumer<ConfigProvider>(
-              builder: (context, configProvider,s) {
-                return Switch(
-                  onChanged: (bool value) {
-                    configProvider.toggleThemeChangeEvent();
-                  },
-                  value: configProvider.isDarkModeOn,
-                );
-              }
-            ),
-          ),
-          Divider(height: 2,),
+//          ListTile(
+//            leading: Icon(
+//              FontAwesomeIcons.solidMoon,
+//              size: 22,
+//            ),
+//            title: Text(StringUtils.darkModeText),
+//            trailing: Consumer<ConfigProvider>(
+//              builder: (context, configProvider,s) {
+//                return Switch(
+//                  onChanged: (bool value) {
+//                    configProvider.toggleThemeChangeEvent();
+//                  },
+//                  value: configProvider.isDarkModeOn,
+//                );
+//              }
+//            ),
+//          ),
+//          Divider(height: 2,),
 
           ListTile(
             leading: Icon(

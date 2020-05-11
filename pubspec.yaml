@@ -2,7 +2,7 @@ name: p7app
 description: A new Flutter application for Project Seven.
 
 
-version: 1.0.52+27
+version: 1.0.58+33
 
 
 environment:
@@ -43,6 +43,7 @@ dependencies:
   logger: ^0.9.1
   get_it: ^4.0.2
   flutter_typeahead: ^1.8.1
+  searchable_dropdown: ^1.1.3
 
 
 

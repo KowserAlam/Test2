@@ -3,13 +3,13 @@ import 'package:flutter/cupertino.dart';
 
 
 class Skill extends Equatable{
-   int id;
+   String id;
    String name;
 
    Skill({this.id, this.name});
 
    Skill.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
+    id = json['id']?.toString();
     name = json['name'];
   }
 

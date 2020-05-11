@@ -189,8 +189,9 @@ class _AddEditTechnicalSkillState extends State<AddEditTechnicalSkill> {
                             ),
                             child: AutoCompleteTextField<Skill>(
                               style: TextStyle(color: Colors.black, fontSize: 16),
-                              decoration: InputDecoration.collapsed(
+                              decoration: InputDecoration(
                                 hintText: StringUtils.searchSkillText,
+                                border: InputBorder.none,
                               ),
                               itemBuilder: (context, skill) {
                                 return Container(
@@ -224,25 +225,9 @@ class _AddEditTechnicalSkillState extends State<AddEditTechnicalSkill> {
                             ));
                       });
                     };
-                    return Container(
-                      padding: EdgeInsets.symmetric(horizontal: 8),
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).backgroundColor,
-                        borderRadius: BorderRadius.circular(7),
-                        boxShadow: [
-                          BoxShadow(
-                              color: Color(0xff000000).withOpacity(0.2), blurRadius: 20),
-                          BoxShadow(
-                              color: Color(0xfffafafa).withOpacity(0.2), blurRadius: 20),
-                        ],
-                      ),
-                      child: TextField(
-                        style: TextStyle(color: Colors.black, fontSize: 16),
-                        decoration: InputDecoration.collapsed(
-                          hintText: StringUtils.searchSkillText,
-                        ),
-                        controller: searchController,
-                      ),
+                    return CustomTextFormField(
+                      controller: searchController,
+                      hintText: StringUtils.searchSkillText,
                     );
                   },
                 ),
