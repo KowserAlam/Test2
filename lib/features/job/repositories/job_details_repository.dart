@@ -5,6 +5,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart';
 import 'package:p7app/features/job/models/job.dart';
+import 'package:p7app/features/job/models/job_detail_model.dart';
 import 'package:p7app/features/job/models/job_list_filters.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
@@ -17,11 +18,12 @@ import 'package:p7app/main_app/resource/strings_utils.dart';
 /// &qualification=&sort=&page_size=10
 class JobDetailsRepository {
 
-  Future<Either<AppError, JobListScreenDataModel>> fetchJobList(
+  Future<Either<AppError, JobModel>> fetchJobDetails(
       String slug) async {
 
 
-    var url = "${Urls.jobDetailsUrl}";
+    var url = "/api/load_job/seo-expert-78caf3ac";
+    //var url = "${Urls.jobDetailsUrl}${slug}";
 
     try {
       var response = await ApiClient().getRequest(url);
@@ -31,12 +33,8 @@ class JobDetailsRepository {
       if (response.statusCode == 200) {
         var mapData = json.decode(response.body);
 
-        var jobList = fromJson(mapData);
-        var dataModel = JobListScreenDataModel(
-            jobList: jobList,
-            count: mapData['count'],
-            nextPage: mapData['next_pages']??false);
-        return Right(dataModel);
+        var jobDetails = JobModel.fromJson(mapData);
+        return Right(jobDetails);
       } else {
         BotToast.showText(text: StringUtils.somethingIsWrong);
         return Left(AppError.unknownError);
@@ -52,26 +50,6 @@ class JobDetailsRepository {
     }
   }
 
-  List<JobModel> fromJson(Map<String, dynamic> json) {
-    List<JobModel> jobList = new List<JobModel>();
-    if (json['results'] != null) {
-      json['results'].forEach((v) {
-        jobList.add(new JobModel.fromJson(v));
-      });
-    }
-    return jobList;
-  }
 
-}
 
-class JobListScreenDataModel {
-  int count;
-  bool nextPage;
-  List<JobModel> jobList;
-
-  JobListScreenDataModel({
-    @required this.count,
-    @required this.nextPage,
-    @required this.jobList,
-  });
 }
