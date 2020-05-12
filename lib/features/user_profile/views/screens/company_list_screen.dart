@@ -44,6 +44,9 @@ class _CompanyListScreenState extends State<CompanyListScreen> {
           child: Column(
             children: [
               TextField(
+                decoration: InputDecoration(
+                  hintText: "Enter Company Name",
+                ),
                 controller: _companyNameController,
                 onChanged: (v){
                   if(v.length >2){
