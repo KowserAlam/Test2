@@ -6,17 +6,13 @@ import 'package:p7app/features/user_profile/models/skill.dart';
 import 'package:p7app/features/user_profile/models/skill_info.dart';
 import 'package:p7app/features/user_profile/repositories/skill_list_repository.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
-import 'package:p7app/features/user_profile/views/widgets/custom_dropdown_button_form_field.dart';
 import 'package:p7app/main_app/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/failure/error.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/util/validator.dart';
 import 'package:p7app/main_app/widgets/edit_screen_save_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:p7app/main_app/widgets/loader.dart';
 import 'package:provider/provider.dart';
-import 'package:uuid/uuid.dart';
 import 'package:dartz/dartz.dart' as dartZ;
 
 class AddEditTechnicalSkill extends StatefulWidget {
