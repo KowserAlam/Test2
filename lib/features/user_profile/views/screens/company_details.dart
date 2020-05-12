@@ -134,7 +134,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
       appBar: AppBar(
         title: Text(StringUtils.companyListText),
       ),
-      body: ,
+      body: Container(),
     );
   }
 }
