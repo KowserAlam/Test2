@@ -26,11 +26,10 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class JobDetails extends StatefulWidget {
-  final int index;
   final String slug;
 
 
-  JobDetails({ this.index, @required this.slug});
+  JobDetails({ @required this.slug});
 
   @override
   _JobDetailsState createState() => _JobDetailsState();

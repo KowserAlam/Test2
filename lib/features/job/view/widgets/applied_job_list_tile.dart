@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -176,12 +177,15 @@ class _AppliedJobListTileWidgetState extends State<AppliedJobListTileWidget> {
         ),
       ],
     );
+
+    String slug  = widget.jobListModel.slug;
     return GestureDetector(
       //onTap: widget.onTap,
       onTap: (){
-        print(widget.jobListModel.isApplied);
-        print(widget.jobListModel.isFavourite);
-        print(widget.jobListModel.slug);
+        Navigator.push(
+            context,
+            CupertinoPageRoute(
+                builder: (context) => JobDetails(slug: slug,)));
       },
       child: Container(
         decoration: BoxDecoration(color: scaffoldBackgroundColor,
