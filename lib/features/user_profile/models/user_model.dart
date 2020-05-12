@@ -50,6 +50,12 @@ class UserModel {
       json['experience_info'].forEach((v) {
         experienceInfo.add(new ExperienceInfo.fromJson(v));
       });
+
+      experienceInfo.sort((a,b){
+        if(a.startDate == null || b.startDate == null)
+          return 0;
+        return b.startDate.compareTo(a.startDate);});
+
     }
     if (json['portfolio_info'] != null) {
       portfolioInfo = new List<PortfolioInfo>();
