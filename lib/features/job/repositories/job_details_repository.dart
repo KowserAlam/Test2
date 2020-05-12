@@ -22,8 +22,8 @@ class JobDetailsRepository {
       String slug) async {
 
 
-    var url = "/api/load_job/seo-expert-78caf3ac";
-    //var url = "${Urls.jobDetailsUrl}${slug}";
+    //var url = "/api/load_job/seo-expert-78caf3ac";
+    var url = "${Urls.jobDetailsUrl}${slug}";
 
     try {
       var response = await ApiClient().getRequest(url);

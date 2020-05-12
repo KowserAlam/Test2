@@ -53,6 +53,8 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
   DateTime _enrollDate;
   DateTime _graduationDate;
   Institution selectedInstitute;
+  String enrollDateErrorText;
+  String graduationDateErrorText;
 
 String selectedDegree;
 MajorSubject selectedMajorSubject;
@@ -98,8 +100,20 @@ MajorSubject selectedMajorSubject;
     });
   }
 
+  bool validate(){
+    bool isFormValid = _formKey.currentState.validate();
+    bool isEnrollDateCorrect = false;
+    bool isGraduationDateCorrect = false;
+
+    if(_enrollDate != null && _graduationDate != null){
+      isGraduationDateCorrect =  _graduationDate.isBefore(_enrollDate);
+
+    }
+
+    return isFormValid;
+  }
   _handleSave() {
-    var isSuccess = _formKey.currentState.validate();
+    var isSuccess = validate();
 
     if (isSuccess) {
       if(selectedDegree == null){
@@ -324,6 +338,7 @@ MajorSubject selectedMajorSubject;
       controller: gpaTextController,
       labelText: StringUtils.gpaText,
       hintText: StringUtils.gpaHintText,
+      validator: Validator().numberFieldValidateOptional,
       keyboardType: TextInputType.number,
     );
 

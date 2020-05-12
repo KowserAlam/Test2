@@ -429,7 +429,9 @@ Logger().i(data);
       print(response.body);
       if (response.statusCode == 200) {
         BotToast.closeAllLoading();
+
         EduInfo data = EduInfo.fromJson(json.decode(response.body));
+        data.degree = eduInfo.degree;
         return Right(data);
       } else {
         BotToast.closeAllLoading();

@@ -5,6 +5,7 @@ import 'package:p7app/main_app/util/date_format_uitl.dart';
 
 class CommonDatePickerWidget extends StatelessWidget {
   final String label;
+  final String errorText;
   final DateTime date;
   final Function(DateTime) onDateTimeChanged;
   final Function onTapDateClear;
@@ -17,7 +18,8 @@ class CommonDatePickerWidget extends StatelessWidget {
     @required this.onDateTimeChanged,
     this.onTapDateClear,
     this.maxDate,
-    this.minDate
+    this.minDate,
+    this.errorText
   });
 
   @override
@@ -76,6 +78,14 @@ class CommonDatePickerWidget extends StatelessWidget {
             ),
           ),
         ),
+        if (errorText != null)
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              errorText,
+              style: TextStyle(color: Colors.red),
+            ),
+          ),
       ],
     );
   }
