@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:p7app/features/user_profile/models/company.dart';
@@ -62,9 +63,12 @@ class _CompanyDetailsState extends State<CompanyDetails> {
             decoration: BoxDecoration(
                 border: Border.all(width: 1, color: Colors.grey[300])),
             margin: EdgeInsets.only(right: 10),
-            child: Image.asset(
-              kImagePlaceHolderAsset,
-              fit: BoxFit.cover,
+            child: CachedNetworkImage(
+              placeholder: (context, _) => Image.asset(
+                kImagePlaceHolderAsset,
+                fit: BoxFit.cover,
+              ),
+              imageUrl: companyDetails.profilePicture ?? "",
             ),
           ),
           Flexible(
