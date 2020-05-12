@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:bot_toast/bot_toast.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dartz/dartz.dart' as dartZ;
 import 'package:flutter/cupertino.dart';
@@ -9,7 +10,10 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p7app/features/job/models/job.dart';
 import 'package:p7app/features/job/repositories/job_details_repository.dart';
 import 'package:p7app/features/job/view_model/job_list_view_model.dart';
+import 'package:p7app/main_app/api_helpers/api_client.dart';
+import 'package:p7app/main_app/api_helpers/urls.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
+import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/failure/error.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/decorations.dart';
@@ -25,7 +29,8 @@ class JobDetails extends StatefulWidget {
   final int index;
   final String slug;
 
-  JobDetails({@required this.index, @required this.slug});
+
+  JobDetails({ this.index, @required this.slug});
 
   @override
   _JobDetailsState createState() => _JobDetailsState();
@@ -34,6 +39,7 @@ class JobDetails extends StatefulWidget {
 class _JobDetailsState extends State<JobDetails> {
   JobModel jobDetails;
 
+
   @override
   void initState() {
     // TODO: implement initState
@@ -41,6 +47,38 @@ class _JobDetailsState extends State<JobDetails> {
     print(widget.slug);
     getJobDetails();
     super.initState();
+  }
+
+  Future<bool> addToFavorite(String jobId,
+      {ApiClient apiClient}) async {
+    BotToast.showLoading();
+    var userId =
+        await AuthService.getInstance().then((value) => value.getUser().userId);
+    var body = {'user_id': userId, 'job_id': jobId};
+
+    try {
+      ApiClient client = apiClient ?? ApiClient();
+      var res = await client.postRequest(Urls.favouriteJobAddUrl, body);
+      print(res.body);
+
+      if (res.statusCode == 200) {
+        BotToast.closeAllLoading();
+         Provider.of<JobListViewModel>(context, listen: false)
+            .refresh();
+        setState(() {});
+        return true;
+      } else {
+        BotToast.closeAllLoading();
+        BotToast.showText(text: StringUtils.unableToSaveData);
+        return false;
+      }
+    } catch (e) {
+      BotToast.closeAllLoading();
+      BotToast.showText(text: StringUtils.unableToSaveData);
+      print(e);
+
+      return false;
+    }
   }
 
 //  void getDetails() async {
@@ -115,7 +153,7 @@ class _JobDetailsState extends State<JobDetails> {
     Color clockIconColor = Colors.orange;
 
     bool isFavorite = jobDetails?.status ?? false;
-    bool isApplied = jobDetails?.isApplied ?? false;
+     bool isApplied = jobDetails?.isApplied ?? false;
 
     //Widgets
     var heartButton = Material(
@@ -124,11 +162,11 @@ class _JobDetailsState extends State<JobDetails> {
       child: InkWell(
         borderRadius: BorderRadius.circular(20),
         onTap: () {
-          Provider.of<JobListViewModel>(context, listen: false)
-              .addToFavorite(jobDetails.jobId, widget.index)
+
+          addToFavorite(jobDetails.jobId)
               .then((value) {
+            jobDetails.status = !jobDetails.status;
             setState(() {
-              isFavorite = !isFavorite;
             });
           });
         },
@@ -666,125 +704,125 @@ class _JobDetailsState extends State<JobDetails> {
         centerTitle: true,
       ),
       body: ListView(
+        children: <Widget>[
+          Container(
+            padding: EdgeInsets.all(10),
+            color: backgroundColor,
+            child: Column(
               children: <Widget>[
                 Container(
                   padding: EdgeInsets.all(10),
-                  color: backgroundColor,
+                  decoration: BoxDecoration(
+                      color: sectionColor,
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(3),
+                          topRight: Radius.circular(3))),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Container(
-                        padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                            color: sectionColor,
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(3),
-                                topRight: Radius.circular(3))),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            dividerUpperSide,
-                            SizedBox(
-                              height: 10,
-                            ),
-                          ],
-                        ),
-                      ),
+                      dividerUpperSide,
                       SizedBox(
-                        height: 2,
+                        height: 10,
                       ),
-                      Container(
-                        padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: sectionColor,
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            betweenDividerSection,
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: 2,
-                      ),
-                      Container(
-                        padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: sectionColor,
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            jobSummary,
-                            spaceBetweenSections,
-                            description,
-                            spaceBetweenSections,
-                            responsibilities,
-                            spaceBetweenSections,
-                            requiredSkills,
-                            spaceBetweenSections,
-                            education,
-                            spaceBetweenSections,
-                            benefitsHeader,
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: 2,
-                      ),
-                      Container(
-                        padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: sectionColor,
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            benefits,
-                            SizedBox(
-                              height: 5,
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: 2,
-                      ),
-                      Container(
-                        padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: sectionColor,
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            betweenDividerSection,
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: 2,
-                      ),
-                      jobDetails.webAddress != null
-                          ? Container(
-                              padding: EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                color: sectionColor,
-                                borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(3),
-                                    bottomRight: Radius.circular(3)),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[jobSource],
-                              ),
-                            )
-                          : SizedBox()
                     ],
                   ),
                 ),
+                SizedBox(
+                  height: 2,
+                ),
+                Container(
+                  padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: sectionColor,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      betweenDividerSection,
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 2,
+                ),
+                Container(
+                  padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: sectionColor,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      jobSummary,
+                      spaceBetweenSections,
+                      description,
+                      spaceBetweenSections,
+                      responsibilities,
+                      spaceBetweenSections,
+                      requiredSkills,
+                      spaceBetweenSections,
+                      education,
+                      spaceBetweenSections,
+                      benefitsHeader,
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 2,
+                ),
+                Container(
+                  padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: sectionColor,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      benefits,
+                      SizedBox(
+                        height: 5,
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 2,
+                ),
+                Container(
+                  padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: sectionColor,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      betweenDividerSection,
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 2,
+                ),
+                jobDetails.webAddress != null
+                    ? Container(
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: sectionColor,
+                          borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(3),
+                              bottomRight: Radius.circular(3)),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[jobSource],
+                        ),
+                      )
+                    : SizedBox()
               ],
             ),
+          ),
+        ],
+      ),
     );
   }
 }
