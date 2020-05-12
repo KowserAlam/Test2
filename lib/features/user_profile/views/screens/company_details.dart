@@ -15,6 +15,8 @@ class _CompanyDetailsState extends State<CompanyDetails> {
 
   @override
   Widget build(BuildContext context) {
+    Company companyDetails = widget.company;
+
     bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     Color sectionColor = Theme.of(context).backgroundColor;
     Color summerySectionBorderColor = Colors.grey[300];
@@ -42,6 +44,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
       return Text.rich(
         TextSpan(children: <TextSpan>[
           TextSpan(text: title, style: descriptionFontStyleBold),
+          TextSpan(text: ': ', style: descriptionFontStyleBold),
           TextSpan(text: description, style: descriptionFontStyle),
         ]),
         style: descriptionFontStyle,
@@ -76,8 +79,8 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                     Flexible(
                       child: Container(
                         child: Text(
-                          widget.company.name != null
-                              ? widget.company.name
+                          companyDetails.name != null
+                              ? companyDetails.name
                               : StringUtils.unspecifiedText,
                           style: headerTextStyle,
                         ),
@@ -92,8 +95,8 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      widget.company.email != null
-                          ? widget.company.email
+                      companyDetails.email != null
+                          ? companyDetails.email
                           : StringUtils.unspecifiedText,
                       style: topSideDescriptionFontStyle,
                     ),
@@ -111,8 +114,8 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                         ),
                         Flexible(
                           child: Text(
-                            widget.company.address != null
-                                ? widget.company.address
+                            companyDetails.address != null
+                                ? companyDetails.address
                                 : StringUtils.unspecifiedText,
                             style: topSideDescriptionFontStyle,
                           ),
@@ -128,13 +131,110 @@ class _CompanyDetailsState extends State<CompanyDetails> {
       ),
     );
 
-
+    Widget titleHeader(IconData icon, String title){
+      return Row(
+        children: <Widget>[
+          Icon(icon),
+          Text(
+            title,
+            style: sectionTitleFont,
+          ),
+        ],
+      );
+    }
 
     return Scaffold(
       appBar: AppBar(
         title: Text(StringUtils.companyListText),
       ),
-      body: Container(),
+      body: ListView(
+        children: [
+          Container(
+            padding: EdgeInsets.all(10),
+            color: backgroundColor,
+            child: Column(
+              children: [
+                Container(
+                  padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                      color: sectionColor,
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(3),
+                          topRight: Radius.circular(3))),
+                  child: dividerUpperSide,
+                ),
+                SizedBox(height: 5,),
+                Container(
+                  padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                      color: sectionColor,
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(3),
+                          topRight: Radius.circular(3))),
+                  child: Column(
+                    children: [
+                      titleHeader(Icons.person_outline, "Organization Head"),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            //gradient: isDarkMode?AppTheme.darkLinearGradient:AppTheme.lightLinearGradient,
+                            border: Border.all(width: 1, color: summerySectionBorderColor),
+                            color: summerySectionColor),
+                        padding: EdgeInsets.all(10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: <Widget>[
+                                jobSummeryRichText(
+                                    StringUtils.companyHeadNameText,
+                                    companyDetails.organizationHead != null
+                                        ? companyDetails.organizationHead.toString()
+                                        : StringUtils.unspecifiedText)
+                              ],
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Row(
+                              children: <Widget>[
+                                jobSummeryRichText(
+                                    StringUtils.companyHeadDesignationText,
+                                    companyDetails.organizationHeadDesignation != null
+                                        ? companyDetails.organizationHeadDesignation.toString()
+                                        : StringUtils.unspecifiedText)
+                              ],
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Row(
+                              children: <Widget>[
+                                jobSummeryRichText(
+                                    StringUtils.companyHeadNumberText,
+                                    companyDetails.organizationHeadNumber != null
+                                        ? companyDetails.organizationHeadNumber.toString()
+                                        : StringUtils.unspecifiedText)
+                              ],
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
     );
   }
 }
