@@ -405,6 +405,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
     var experienceWidget = Consumer<UserProfileViewModel>(
         builder: (context, userProfileViewModel, _) {
       var expList = userProfileViewModel.userData.experienceInfo;
+
       return UserInfoListItem(
         isInEditMode: isInEditModeExperience,
         onTapEditAction: () {
@@ -444,6 +445,8 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
     var educationWidget = Consumer<UserProfileViewModel>(
         builder: (context, userProfileViewModel, _) {
       var eduList = userProfileViewModel.userData.eduInfo;
+
+
       return UserInfoListItem(
         isInEditMode: isInEditModeEducation,
         icon: FontAwesomeIcons.university,
