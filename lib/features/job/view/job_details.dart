@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dartz/dartz.dart' as dartZ;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -184,9 +185,12 @@ class _JobDetailsState extends State<JobDetails> {
             decoration: BoxDecoration(
                 border: Border.all(width: 1, color: Colors.grey[300])),
             margin: EdgeInsets.only(right: 10),
-            child: Image.asset(
-              kImagePlaceHolderAsset,
-              fit: BoxFit.cover,
+            child: CachedNetworkImage(
+              placeholder: (context, _) => Image.asset(
+                kImagePlaceHolderAsset,
+                fit: BoxFit.cover,
+              ),
+              imageUrl: jobDetails.profilePicture ?? "",
             ),
           ),
           Flexible(
