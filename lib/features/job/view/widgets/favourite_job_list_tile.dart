@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -179,8 +180,10 @@ class _FavoriteJobListTileWidgetState extends State<FavoriteJobListTileWidget> {
     return GestureDetector(
       //onTap: widget.onTap,
       onTap: (){
-        print(widget.jobListModel.isApplied);
-        print(widget.jobListModel.isFavourite);
+        Navigator.push(
+            context,
+            CupertinoPageRoute(
+                builder: (context) => JobDetails(slug: widget.jobListModel.slug,)));
       },
       child: Container(
         decoration: BoxDecoration(color: scaffoldBackgroundColor,

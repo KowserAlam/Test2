@@ -217,7 +217,6 @@ class _JobListScreenState extends State<JobListScreen>
                                     Navigator.of(context)
                                         .push(MaterialPageRoute(
                                             builder: (context) => JobDetails(
-                                                  index: index,
                                                   slug: job.slug,
                                                 )));
                                   },
