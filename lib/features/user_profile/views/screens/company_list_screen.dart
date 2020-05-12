@@ -1,10 +1,14 @@
 import 'package:autocomplete_textfield/autocomplete_textfield.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:p7app/features/user_profile/models/company.dart';
 import 'package:p7app/features/user_profile/repositories/company_list_repository.dart';
 import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
+import 'package:p7app/features/user_profile/view_models/company_list_view_model.dart';
+import 'package:p7app/features/user_profile/views/screens/company_details.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/util/debouncer.dart';
+import 'package:provider/provider.dart';
 
 
 class CompanyListScreen extends StatefulWidget {
@@ -15,98 +19,20 @@ class CompanyListScreen extends StatefulWidget {
 class _CompanyListScreenState extends State<CompanyListScreen> {
   TextEditingController _companyNameController = TextEditingController();
   Debouncer _debouncer = Debouncer(milliseconds: 400);
-  var _companyAutocompleteKey = new GlobalKey<AutoCompleteTextFieldState<Company>>();
-  List<Company> companySuggestion = [];
-  FocusNode _companyNameFocusNode;
   Company selectedCompany;
-  String _companyNameErrorText;
 
   @override
   void initState() {
     // TODO: implement initState
-    _companyNameController.addListener(() {
-      if (_companyNameController.text.length > 3) {
-        _companyAutocompleteKey.currentState.suggestions = [];
-        _debouncer.run(() {
-          CompanyListRepository()
-              .getList(query: _companyNameController.text)
-              .then((value) {
-            value.fold((l) {
-              //left
-              print(l);
-              _companyAutocompleteKey.currentState.suggestions = [];
-            }, (List<Company> r) {
-//              //right
-              companySuggestion = r;
-              _companyAutocompleteKey.currentState.updateSuggestions(r);
-              _companyAutocompleteKey.currentState.updateOverlay();
-
-//            setState(() {
-//
-//            });
-            });
-          });
-        });
-      }
-    });
+    //updateSuggestion();
     super.initState();
   }
 
+
   @override
   Widget build(BuildContext context) {
-    var nameOfCompany = Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text("  " + StringUtils.nameOfCompany ?? "",
-            style: TextStyle(fontWeight: FontWeight.bold)),
-        SizedBox(
-          height: 5,
-        ),
-        Container(
-          decoration: BoxDecoration(
-            color: Theme.of(context).backgroundColor,
-            borderRadius: BorderRadius.circular(7),
-            boxShadow: CommonStyleTextField.boxShadow,
-          ),
-          child: AutoCompleteTextField<Company>(
-            focusNode: _companyNameFocusNode,
-            decoration: InputDecoration(
-              hintText: StringUtils.currentCompanyHint,
-              border: InputBorder.none,
-              contentPadding:
-              const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-              focusedBorder: CommonStyleTextField.focusedBorder(context),
-            ),
-            controller: _companyNameController,
-            itemFilter: (Company suggestion, String query) => true,
-            suggestions: companySuggestion,
-            itemSorter: (Company a, Company b) => a.name.compareTo(b.name),
-            key: _companyAutocompleteKey,
-            itemBuilder: (BuildContext context, Company suggestion) {
-              return ListTile(
-                title: Text(suggestion.name ?? ""),
-              );
-            },
-            clearOnSubmit: false,
-            itemSubmitted: (Company data) {
-              selectedCompany = data;
-//                    _companyNameController.text = data.name;
-              _companyAutocompleteKey.currentState.updateSuggestions([]);
-              setState(() {});
-            },
-          ),
-        ),
-        if (_companyNameErrorText != null)
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              _companyNameErrorText,
-              style: TextStyle(color: Colors.red),
-            ),
-          ),
-      ],
-    );
-
+    var companyViewModel = Provider.of<CompanyListViewModel>(context);
+    List<Company> companySuggestion = companyViewModel.companyList==null?[]:companyViewModel.companyList;
     return Scaffold(
       appBar: AppBar(
         title: Text(StringUtils.companyListText),
@@ -117,14 +43,34 @@ class _CompanyListScreenState extends State<CompanyListScreen> {
           height: MediaQuery.of(context).size.height,
           child: Column(
             children: [
-              nameOfCompany,
-              Container(
-                height: MediaQuery.of(context).size.height/2,
+              TextField(
+                decoration: InputDecoration(
+                  hintText: "Enter Company Name",
+                ),
+                controller: _companyNameController,
+                onChanged: (v){
+                  if(v.length >2){
+                    companyViewModel.query = v;
+                    companyViewModel.getJobDetails();
+                    print(companyViewModel.companyList.length);
+                  }else{
+                    companyViewModel.resetState();
+                  }
+                },
+              ),
+              Expanded(
                 child: ListView.builder(
-                  itemCount: companySuggestion.length,
-                  itemBuilder: (BuildContext context, int index){
-                    return ListTile(title: Text(companySuggestion[index].name),);
-                  }),
+                    itemCount: companySuggestion.length,
+                    itemBuilder: (BuildContext context, int index){
+                      return GestureDetector(
+                          onTap: (){
+                            Navigator.push(
+                                context,
+                                CupertinoPageRoute(
+                                    builder: (context) => CompanyDetails(company: companySuggestion[index],)));
+                          },
+                          child: ListTile(title: Text(companySuggestion[index].name),));
+                    }),
               )
             ],
           ),

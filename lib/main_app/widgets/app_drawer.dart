@@ -6,6 +6,7 @@ import 'package:p7app/features/job/view/applied_job_list_screen.dart';
 
 import 'package:p7app/features/job/view/favourite_job_list_screen.dart';
 import 'package:p7app/features/job/view/job_list_screen.dart';
+import 'package:p7app/features/user_profile/views/screens/company_list_screen.dart';
 import 'package:p7app/features/user_profile/views/screens/profile_screen.dart';
 import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/auth_service/auth_user_model.dart';
@@ -161,19 +162,19 @@ class _AppDrawerState extends State<AppDrawer> {
 
                 Divider(height: 1),
 
-//
-//                DrawerListWidget(
-//                  label: StringUtils.companyListText,
-//                  icon: FontAwesomeIcons.checkCircle,
-//                  isSelected: false,
-//                  onTap: () {
-//                    Navigator.pop(context);
-//                    Navigator.push(
-//                        context,
-//                        CupertinoPageRoute(
-//                            builder: (context) => CompanyListScreen()));
-//                  },
-//                ),
+
+                DrawerListWidget(
+                  label: StringUtils.companyListText,
+                  icon: FontAwesomeIcons.checkCircle,
+                  isSelected: false,
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.push(
+                        context,
+                        CupertinoPageRoute(
+                            builder: (context) => CompanyListScreen()));
+                  },
+                ),
 
                 Divider(height: 1),
 
