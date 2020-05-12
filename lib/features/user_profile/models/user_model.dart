@@ -42,7 +42,7 @@ class UserModel {
       eduInfo.sort((a,b){
         if(a.enrolledDate == null || b.enrolledDate == null)
           return 0;
-        return a.enrolledDate.compareTo(b.enrolledDate);});
+        return b.enrolledDate.compareTo(a.enrolledDate);});
     }
     if (json['skill_info'] != null) {
       skillInfo = new List<SkillInfo>();
