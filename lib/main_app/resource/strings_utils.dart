@@ -160,10 +160,10 @@ class StringUtils {
   static var skillText = "Skill";
   static var professionalSkillText = "Professional Skills";
   static var projectsText = "Portfolio";
-  static var certificationsText = "Certification";
-  static var membershipsText = "Membership";
+  static var certificationsText = "Certifications";
+  static var membershipsText = "Memberships";
   static var otherText = "Other";
-  static var referencesText = "Reference";
+  static var referencesText = "References";
   static var personalInfoText = "Personal Information";
   static var editPersonalInfoText = "Edit Personal Information";
   static var contactText = "Contact";
