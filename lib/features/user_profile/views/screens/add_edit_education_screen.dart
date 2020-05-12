@@ -56,6 +56,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
   String institutionNameErrorText;
   String enrollDateErrorText;
   String graduationDateErrorText;
+  bool currentLyStudyingHere = false;
 
 String selectedDegree;
 MajorSubject selectedMajorSubject;
@@ -75,6 +76,7 @@ MajorSubject selectedMajorSubject;
       selectedMajorSubject = widget.educationModel.major??null;
       _enrollDate = widget.educationModel.enrolledDate;
       _graduationDate = widget.educationModel.graduationDate;
+      currentLyStudyingHere = widget.educationModel.graduationDate == null;
     }
 
     _initRepos();
@@ -104,15 +106,10 @@ MajorSubject selectedMajorSubject;
   bool validate(){
     bool isFormValid = _formKey.currentState.validate();
     bool isEnrollDateCorrect = _enrollDate != null;
-    bool isGraduationDateCorrect = false;
+    bool isGraduationDateCorrect = (_enrollDate != null && _graduationDate != null) ?!_graduationDate.isBefore(_enrollDate):true;
     institutionNameErrorText = institutionNameController.text.isEmpty? StringUtils.thisFieldIsRequired : null;
      enrollDateErrorText = isEnrollDateCorrect ? null :StringUtils.thisFieldIsRequired;
-
-    if(_enrollDate != null && _graduationDate != null){
-      isGraduationDateCorrect =  !_graduationDate.isBefore(_enrollDate);
-      graduationDateErrorText = StringUtils.graduationDateShouldBeAfterEnrollDate;
-
-    }
+    graduationDateErrorText = isGraduationDateCorrect ? null:StringUtils.graduationDateShouldBeAfterEnrollDate;
     setState(() {
 
     });
@@ -358,6 +355,22 @@ MajorSubject selectedMajorSubject;
       validator: Validator().numberFieldValidateOptional,
       keyboardType: TextInputType.number,
     );
+    var ongoing =    Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Text(StringUtils.currentlyStudyingHereText),
+        Checkbox(
+          onChanged: (bool value) {
+            currentLyStudyingHere = value;
+            if (!currentLyStudyingHere) {
+              _graduationDate = null;
+            }
+            setState(() {});
+          },
+          value: currentLyStudyingHere,
+        ),
+      ],
+    );
 
     return Scaffold(
       key: _scaffoldKey,
@@ -398,6 +411,9 @@ MajorSubject selectedMajorSubject;
                     cgpa,
                     enrolledDate,
                     spaceBetween,
+                    ongoing,
+//                    spaceBetween,
+                  if(!currentLyStudyingHere)
                     graduationDate,
                   ],
                 ),

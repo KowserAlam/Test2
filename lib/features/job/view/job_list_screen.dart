@@ -117,9 +117,17 @@ class _JobListScreenState extends State<JobListScreen>
                       Padding(
                         padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
                         child: CustomTextField(
+                          onSubmitted: (v){
+                            if (_searchTextEditingController
+                                .text.isNotEmpty) {
+                              jobListViewModel
+                                  .search(_searchTextEditingController.text);
+                            }
+                          },
                           suffixIcon: IconButton(
                             icon: Icon(Icons.search),
                             onPressed: () {
+
                               if (_searchTextEditingController
                                   .text.isNotEmpty) {
                                 jobListViewModel

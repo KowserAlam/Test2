@@ -38,6 +38,11 @@ class UserModel {
       json['edu_info'].forEach((v) {
         eduInfo.add(new EduInfo.fromJson(v));
       });
+
+      eduInfo.sort((a,b){
+        if(a.enrolledDate == null || b.enrolledDate == null)
+          return 0;
+        return a.enrolledDate.compareTo(b.enrolledDate);});
     }
     if (json['skill_info'] != null) {
       skillInfo = new List<SkillInfo>();

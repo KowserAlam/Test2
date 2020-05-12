@@ -172,6 +172,7 @@ class StringUtils {
 
 
   static String saveText = "Save";
+  static String ongoingText = "Ongoing";
 
   //Company List Screen
   static var companyListText = "Company List";
