@@ -181,7 +181,7 @@ class JobListViewModel with ChangeNotifier {
         BotToast.showText(
             text: StringUtils.successfullyAppliedText,
             duration: Duration(seconds: 2));
-        _jobList[index].isApplied = true;
+        refresh();
         notifyListeners();
         return true;
       } else {
@@ -213,7 +213,7 @@ class JobListViewModel with ChangeNotifier {
       if (res.statusCode == 200) {
         BotToast.closeAllLoading();
 
-        _jobList[index].status = !_jobList[index].status;
+       refresh();
         notifyListeners();
         return true;
       } else {
