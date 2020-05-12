@@ -45,6 +45,7 @@ class UserModel {
         skillInfo.add(new SkillInfo.fromJson(v));
       });
     }
+
     if (json['experience_info'] != null) {
       experienceInfo = new List<ExperienceInfo>();
       json['experience_info'].forEach((v) {
@@ -55,7 +56,6 @@ class UserModel {
         if(a.startDate == null || b.startDate == null)
           return 0;
         return b.startDate.compareTo(a.startDate);});
-
     }
     if (json['portfolio_info'] != null) {
       portfolioInfo = new List<PortfolioInfo>();

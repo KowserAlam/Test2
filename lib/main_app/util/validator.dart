@@ -68,6 +68,20 @@ class Validator {
       return null;
   }
 
+   String numberFieldValidateOptional(String value){
+    Pattern pattern = r'\+?(88)?0?1[56789][0-9]{8}\b';
+    RegExp regex = new RegExp(pattern);
+    if(value.isEmpty){
+      return null;
+    }
+
+    if (!regex.hasMatch(value))
+      return StringUtils.pleaseEnterDecimalValue;
+    else
+      return null;
+  }
+
+
   String expertiseFieldValidate(String value){
     double x;
     Pattern pattern = r'^([0-9]{1,2})+(\.[0-9]{1,2})?$';

@@ -49,6 +49,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
   var _scaffoldKey = GlobalKey<ScaffoldState>();
   List<Company> companySuggestion = [];
   String _companyNameErrorText;
+  String _joiningDateErrorText;
 
   _AddNewExperienceScreenState(this.experienceModel, this.index);
 
@@ -63,6 +64,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
       _leavingDate = widget.experienceInfoModel.endDate;
       _selectedCompanyId = widget.experienceInfoModel.companyId;
       _experienceId = widget.experienceInfoModel.experienceId ?? null;
+      currentLyWorkingHere = _leavingDate == null ;
     }
 
     _companyNameController.addListener(() {
@@ -133,11 +135,13 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
 
   bool validate() {
     bool isNotEmpty = _companyNameController.text.isNotEmpty;
-    !isNotEmpty
-        ? _companyNameErrorText = StringUtils.thisFieldIsRequired
-        : null;
+    _companyNameErrorText =
+        !isNotEmpty ? StringUtils.thisFieldIsRequired : null;
+    bool isJoiningDateIsNotEmpty = _joiningDate != null;
+    _joiningDateErrorText =
+        !isJoiningDateIsNotEmpty ? StringUtils.thisFieldIsRequired : null;
     setState(() {});
-    return isNotEmpty;
+    return isNotEmpty && isJoiningDateIsNotEmpty;
   }
 
   _handleSave() {
@@ -157,7 +161,9 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
           companyId: selectedCompany?.name ?? _selectedCompanyId,
           startDate: _joiningDate);
 
-      if (!currentLyWorkingHere) experienceInfo.endDate = _leavingDate;
+      if (!currentLyWorkingHere) {
+        experienceInfo.endDate = _leavingDate;
+      }
 
       if (_joiningDate != null && _leavingDate != null) {
         if (_joiningDate.isBefore(_leavingDate)) {
@@ -321,6 +327,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
 
                       /// Joining Date
                       CommonDatePickerWidget(
+                        errorText: _joiningDateErrorText,
                         label: StringUtils.joiningDateText,
                         date: _joiningDate,
                         onDateTimeChanged: (v) {
@@ -342,6 +349,9 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
                           Checkbox(
                             onChanged: (bool value) {
                               currentLyWorkingHere = value;
+                              if (!currentLyWorkingHere) {
+                                _leavingDate = null;
+                              }
                               setState(() {});
                             },
                             value: currentLyWorkingHere,
