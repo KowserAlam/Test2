@@ -53,8 +53,10 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
   DateTime _enrollDate;
   DateTime _graduationDate;
   Institution selectedInstitute;
+  String institutionNameErrorText;
   String enrollDateErrorText;
   String graduationDateErrorText;
+  bool currentLyStudyingHere = false;
 
 String selectedDegree;
 MajorSubject selectedMajorSubject;
@@ -74,6 +76,7 @@ MajorSubject selectedMajorSubject;
       selectedMajorSubject = widget.educationModel.major??null;
       _enrollDate = widget.educationModel.enrolledDate;
       _graduationDate = widget.educationModel.graduationDate;
+      currentLyStudyingHere = widget.educationModel.graduationDate == null;
     }
 
     _initRepos();
@@ -102,15 +105,16 @@ MajorSubject selectedMajorSubject;
 
   bool validate(){
     bool isFormValid = _formKey.currentState.validate();
-    bool isEnrollDateCorrect = false;
-    bool isGraduationDateCorrect = false;
+    bool isEnrollDateCorrect = _enrollDate != null;
+    bool isGraduationDateCorrect = (_enrollDate != null && _graduationDate != null) ?!_graduationDate.isBefore(_enrollDate):true;
+    institutionNameErrorText = institutionNameController.text.isEmpty? StringUtils.thisFieldIsRequired : null;
+     enrollDateErrorText = isEnrollDateCorrect ? null :StringUtils.thisFieldIsRequired;
+    graduationDateErrorText = isGraduationDateCorrect ? null:StringUtils.graduationDateShouldBeAfterEnrollDate;
+    setState(() {
 
-    if(_enrollDate != null && _graduationDate != null){
-      isGraduationDateCorrect =  _graduationDate.isBefore(_enrollDate);
+    });
 
-    }
-
-    return isFormValid;
+    return isFormValid && isEnrollDateCorrect && isGraduationDateCorrect && institutionNameErrorText == null;
   }
   _handleSave() {
     var isSuccess = validate();
@@ -223,6 +227,14 @@ MajorSubject selectedMajorSubject;
                     },
                   ),
                 ),
+                if (institutionNameErrorText != null)
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      institutionNameErrorText,
+                      style: TextStyle(color: Colors.red),
+                    ),
+                  ),
               ],
             );
 
@@ -307,6 +319,7 @@ MajorSubject selectedMajorSubject;
       },
     );
     var enrolledDate = CommonDatePickerWidget(
+      errorText: enrollDateErrorText,
       date: _enrollDate,
       label: StringUtils.enrollDate,
       onTapDateClear: () {
@@ -321,6 +334,7 @@ MajorSubject selectedMajorSubject;
       },
     );
     var graduationDate = CommonDatePickerWidget(
+      errorText: graduationDateErrorText,
       date: _graduationDate,
       label: StringUtils.graduationDate,
       onTapDateClear: () {
@@ -340,6 +354,22 @@ MajorSubject selectedMajorSubject;
       hintText: StringUtils.gpaHintText,
       validator: Validator().numberFieldValidateOptional,
       keyboardType: TextInputType.number,
+    );
+    var ongoing =    Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Text(StringUtils.currentlyStudyingHereText),
+        Checkbox(
+          onChanged: (bool value) {
+            currentLyStudyingHere = value;
+            if (!currentLyStudyingHere) {
+              _graduationDate = null;
+            }
+            setState(() {});
+          },
+          value: currentLyStudyingHere,
+        ),
+      ],
     );
 
     return Scaffold(
@@ -381,6 +411,9 @@ MajorSubject selectedMajorSubject;
                     cgpa,
                     enrolledDate,
                     spaceBetween,
+                    ongoing,
+//                    spaceBetween,
+                  if(!currentLyStudyingHere)
                     graduationDate,
                   ],
                 ),
