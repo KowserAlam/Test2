@@ -184,6 +184,9 @@ class StringUtils {
   static var companyHeadDesignationText = "Designation";
   static var companyHeadNumberText = "Contact Number";
   static var searchLetterCapText = "You need to enter more than two letters";
+  static var postCodeText = "Post Code";
+  static var companyContactText = "Contact";
+  static var companyWebAddressText = "Web Address";
 
   //Reference Edit Screen
   static var referenceDescriptionText = "Description";
