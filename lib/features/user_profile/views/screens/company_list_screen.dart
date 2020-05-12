@@ -23,32 +23,11 @@ class _CompanyListScreenState extends State<CompanyListScreen> {
   @override
   void initState() {
     // TODO: implement initState
-    _companyNameController.addListener(() {
-      if (_companyNameController.text.length > 3) {
-        _debouncer.run(() {
-          CompanyListRepository()
-              .getList(query: _companyNameController.text)
-              .then((value) {
-            value.fold((l) {
-              //left
-              print(l);
-            }, (List<Company> r) {
-//              //right
-              companySuggestion = r;
-              print(companySuggestion.length);
-              //_companyAutocompleteKey.currentState.updateSuggestions(r);
-              //_companyAutocompleteKey.currentState.updateOverlay();
 
-//            setState(() {
-//
-//            });
-            });
-          });
-        });
-      }
-    });
     super.initState();
   }
+
+
 
   @override
   Widget build(BuildContext context) {
