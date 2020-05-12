@@ -53,6 +53,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
   DateTime _enrollDate;
   DateTime _graduationDate;
   Institution selectedInstitute;
+  String institutionNameErrorText;
   String enrollDateErrorText;
   String graduationDateErrorText;
 
@@ -102,15 +103,21 @@ MajorSubject selectedMajorSubject;
 
   bool validate(){
     bool isFormValid = _formKey.currentState.validate();
-    bool isEnrollDateCorrect = false;
+    bool isEnrollDateCorrect = _enrollDate != null;
     bool isGraduationDateCorrect = false;
+    institutionNameErrorText = institutionNameController.text.isEmpty? StringUtils.thisFieldIsRequired : null;
+     enrollDateErrorText = isEnrollDateCorrect ? null :StringUtils.thisFieldIsRequired;
 
     if(_enrollDate != null && _graduationDate != null){
-      isGraduationDateCorrect =  _graduationDate.isBefore(_enrollDate);
+      isGraduationDateCorrect =  !_graduationDate.isBefore(_enrollDate);
+      graduationDateErrorText = StringUtils.graduationDateShouldBeAfterEnrollDate;
 
     }
+    setState(() {
 
-    return isFormValid;
+    });
+
+    return isFormValid && isEnrollDateCorrect && isGraduationDateCorrect && institutionNameErrorText == null;
   }
   _handleSave() {
     var isSuccess = validate();
@@ -223,6 +230,14 @@ MajorSubject selectedMajorSubject;
                     },
                   ),
                 ),
+                if (institutionNameErrorText != null)
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      institutionNameErrorText,
+                      style: TextStyle(color: Colors.red),
+                    ),
+                  ),
               ],
             );
 
@@ -307,6 +322,7 @@ MajorSubject selectedMajorSubject;
       },
     );
     var enrolledDate = CommonDatePickerWidget(
+      errorText: enrollDateErrorText,
       date: _enrollDate,
       label: StringUtils.enrollDate,
       onTapDateClear: () {
@@ -321,6 +337,7 @@ MajorSubject selectedMajorSubject;
       },
     );
     var graduationDate = CommonDatePickerWidget(
+      errorText: graduationDateErrorText,
       date: _graduationDate,
       label: StringUtils.graduationDate,
       onTapDateClear: () {

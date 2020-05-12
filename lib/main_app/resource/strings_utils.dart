@@ -20,7 +20,7 @@ class StringUtils {
   /// Validator
 
   static String invalidEmail = "Invalid Email";
-  static String pleaseEnterDecimalValue = "Please enter decimal value";
+  static String pleaseEnterDecimalValue = "Please enter numeric value";
   static String pleaseEnterEmailText = "Please enter email";
   static String pleaseEnterAValidEmailText = "Please enter a valid email";
   static String invalidCode = "Invalid Code";
@@ -220,6 +220,7 @@ class StringUtils {
   static String joining = "Currently working here";
   static String joiningLeavingDateLogic = "Please make sure your joining date occurs before your leaving date";
   static String sameExperience = "You\'ve already added this skill before.";
+  static String graduationDateShouldBeAfterEnrollDate = "Graduation date should be after enroll date";
 
 
 
