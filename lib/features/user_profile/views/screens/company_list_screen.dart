@@ -57,9 +57,6 @@ class _CompanyListScreenState extends State<CompanyListScreen> {
                     companyViewModel.query = v;
                     companyViewModel.getJobDetails();
                     print(companyViewModel.companyList.length);
-                  }else{
-                    companyViewModel.query = "";
-                    companyViewModel.getJobDetails();
                   }
                 },
               ),
