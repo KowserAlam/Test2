@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:p7app/features/user_profile/models/company.dart';
 import 'package:p7app/features/user_profile/repositories/company_list_repository.dart';
 import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
+import 'package:p7app/features/user_profile/view_models/company_list_view_model.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/util/debouncer.dart';
+import 'package:provider/provider.dart';
 
 
 class CompanyListScreen extends StatefulWidget {
@@ -16,9 +18,7 @@ class _CompanyListScreenState extends State<CompanyListScreen> {
   TextEditingController _companyNameController = TextEditingController();
   Debouncer _debouncer = Debouncer(milliseconds: 400);
   List<Company> companySuggestion = [];
-  FocusNode _companyNameFocusNode;
   Company selectedCompany;
-  String _companyNameErrorText;
 
   @override
   void initState() {
@@ -35,6 +35,7 @@ class _CompanyListScreenState extends State<CompanyListScreen> {
             }, (List<Company> r) {
 //              //right
               companySuggestion = r;
+              print(companySuggestion.length);
               //_companyAutocompleteKey.currentState.updateSuggestions(r);
               //_companyAutocompleteKey.currentState.updateOverlay();
 
@@ -64,14 +65,14 @@ class _CompanyListScreenState extends State<CompanyListScreen> {
               TextField(
                 controller: _companyNameController,
               ),
-              Container(
-                height: MediaQuery.of(context).size.height/2,
-                child: ListView.builder(
-                  itemCount: companySuggestion.length,
-                  itemBuilder: (BuildContext context, int index){
-                    return ListTile(title: Text(companySuggestion[index].name),);
-                  }),
-              )
+//              Container(
+//                height: MediaQuery.of(context).size.height/2,
+//                child: ListView.builder(
+//                  itemCount: companySuggestion.length,
+//                  itemBuilder: (BuildContext context, int index){
+//                    return ListTile(title: Text(companySuggestion[index].name),);
+//                  }),
+//              )
             ],
           ),
         ),

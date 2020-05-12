@@ -13,6 +13,11 @@ class CompanyListViewModel with ChangeNotifier{
   List<Company> companyList;
   bool isFetchingData;
   CompanyListRepository _companyListRepository = CompanyListRepository();
+  String _query;
+
+  set query(String value){
+    _query = value;
+  }
 
 
   Future<bool> getJobDetails() async {
@@ -20,7 +25,7 @@ class CompanyListViewModel with ChangeNotifier{
 
 
     Either<AppError, List<Company>> result =
-    await _companyListRepository.getList();
+    await _companyListRepository.getList(query: _query);
     return result.fold((l) {
       isFetchingData = false;
       print(l);
