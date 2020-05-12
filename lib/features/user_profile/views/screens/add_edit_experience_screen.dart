@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:after_layout/after_layout.dart';
 import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:bot_toast/bot_toast.dart';
-import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:p7app/features/user_profile/models/company.dart';
 import 'package:p7app/features/user_profile/models/experience_info.dart';
 import 'package:p7app/features/user_profile/repositories/company_list_repository.dart';
@@ -55,7 +54,6 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     if (widget.experienceInfoModel != null) {
       _companyNameController.text =
           widget.experienceInfoModel.organizationName ?? "";
@@ -157,8 +155,9 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
           organizationName: _companyNameController.text,
           designation: positionNameController.text,
           companyId: selectedCompany?.name ?? _selectedCompanyId,
-          startDate: _joiningDate,
-          endDate: _leavingDate);
+          startDate: _joiningDate);
+
+      if (!currentLyWorkingHere) experienceInfo.endDate = _leavingDate;
 
       if (_joiningDate != null && _leavingDate != null) {
         if (_joiningDate.isBefore(_leavingDate)) {
@@ -279,30 +278,6 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
           ),
       ],
     );
-    var name = TypeAheadFormField<Company>(
-
-      textFieldConfiguration: TextFieldConfiguration(
-          style: DefaultTextStyle.of(context)
-              .style
-              .copyWith(fontStyle: FontStyle.italic),
-          decoration: InputDecoration(border: OutlineInputBorder())),
-      suggestionsCallback: (pattern) async {
-        return await CompanyListRepository()
-            .getList(query: pattern)
-            .then((value) => value.fold((l) => <Company>[], (r) => r));
-      },
-      itemBuilder: (context,Company suggestion) {
-        return ListTile(
-          title: Text(suggestion.name),
-        );
-      },
-      onSuggestionSelected: (suggestion) {
-        selectedCompany = suggestion;
-//                    _companyNameController.text = data.name;
-        _companyAutocompleteKey.currentState.updateSuggestions([]);
-        setState(() {});
-      },
-    );
 
     return WillPopScope(
       onWillPop: () async {
@@ -332,7 +307,6 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       nameOfCompany,
-//                      name,
                       spaceBetweenSections,
 
                       /// Position
@@ -360,23 +334,38 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
                           });
                         },
                       ),
+                      spaceBetweenSections,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Text(StringUtils.currentlyWorkingHereText),
+                          Checkbox(
+                            onChanged: (bool value) {
+                              currentLyWorkingHere = value;
+                              setState(() {});
+                            },
+                            value: currentLyWorkingHere,
+                          ),
+                        ],
+                      ),
 
                       /// Leaving Date
-                      CommonDatePickerWidget(
-                        label: StringUtils.leavingDateText,
-                        date: _leavingDate,
-                        onDateTimeChanged: (v) {
-                          setState(() {
-                            _leavingDate = v;
-                            print(_leavingDate);
-                          });
-                        },
-                        onTapDateClear: () {
-                          setState(() {
-                            _leavingDate = null;
-                          });
-                        },
-                      ),
+                      if (!currentLyWorkingHere)
+                        CommonDatePickerWidget(
+                          label: StringUtils.leavingDateText,
+                          date: _leavingDate,
+                          onDateTimeChanged: (v) {
+                            setState(() {
+                              _leavingDate = v;
+                              print(_leavingDate);
+                            });
+                          },
+                          onTapDateClear: () {
+                            setState(() {
+                              _leavingDate = null;
+                            });
+                          },
+                        ),
                     ],
                   ),
                 ),

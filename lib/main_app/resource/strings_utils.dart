@@ -152,17 +152,17 @@ class StringUtils {
 
   static String contactInfoText = "Contact info";
 
-  static var professionalExperienceText = "Professional Experiences";
+  static var professionalExperienceText = "Professional Experience";
   static var experienceText = "Experience";
-  static var educationsText = "Educations";
+  static var educationsText = "Education";
   static var skillsText = "Skills";
   static var skillText = "Skill";
   static var professionalSkillText = "Professional Skills";
   static var projectsText = "Portfolio";
-  static var certificationsText = "Certifications";
-  static var membershipsText = "Memberships";
+  static var certificationsText = "Certification";
+  static var membershipsText = "Membership";
   static var otherText = "Other";
-  static var referencesText = "References";
+  static var referencesText = "Reference";
   static var personalInfoText = "Personal Information";
   static var editPersonalInfoText = "Edit Personal Information";
   static var contactText = "Contact";
