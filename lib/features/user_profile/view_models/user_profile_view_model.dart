@@ -318,6 +318,10 @@ class UserProfileViewModel with ChangeNotifier {
         return false;
       }, (r){
         userData.experienceInfo.add(r);
+        userData.experienceInfo.sort((a,b){
+          if(a.startDate == null || b.startDate == null)
+            return 0;
+          return b.startDate.compareTo(a.startDate);});
         notifyListeners();
         return true;
       });
@@ -331,10 +335,11 @@ class UserProfileViewModel with ChangeNotifier {
         return false;
       }, (r){
         userData.experienceInfo[index] = r;
-        userData.eduInfo.sort((a,b){
-          if(a.enrolledDate == null || b.enrolledDate == null)
+        userData.experienceInfo.sort((a,b){
+          if(a.startDate == null || b.startDate == null)
             return 0;
-          return b.enrolledDate.compareTo(a.enrolledDate);});
+          return b.startDate.compareTo(a.startDate);});
+
         notifyListeners();
         return true;
       });
@@ -363,6 +368,10 @@ class UserProfileViewModel with ChangeNotifier {
         return false;
       }, (r){
         userData.eduInfo.add(r);
+        userData.eduInfo.sort((a,b){
+          if(a.enrolledDate == null || b.enrolledDate == null)
+            return 0;
+          return b.enrolledDate.compareTo(a.enrolledDate);});
         notifyListeners();
         return true;
       });

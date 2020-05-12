@@ -58,8 +58,8 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
   String graduationDateErrorText;
   bool currentLyStudyingHere = false;
 
-String selectedDegree;
-MajorSubject selectedMajorSubject;
+  String selectedDegree;
+  MajorSubject selectedMajorSubject;
 
   var autoCompleteTextKey =
       GlobalKey<AutoCompleteTextFieldState<Institution>>();
@@ -67,13 +67,15 @@ MajorSubject selectedMajorSubject;
 
   initState() {
     if (widget.educationModel != null) {
-       selectedInstitute = widget.educationModel.institutionObj;
+      selectedInstitute = widget.educationModel.institutionObj;
       _enrollDate = widget.educationModel.enrolledDate;
       _graduationDate = widget.educationModel.graduationDate;
-      institutionNameController.text = selectedInstitute?.name ?? widget.educationModel.institutionText ?? "";
+      institutionNameController.text = selectedInstitute?.name ??
+          widget.educationModel.institutionText ??
+          "";
       gpaTextController.text = widget.educationModel.cgpa ?? "";
       selectedDegree = widget.educationModel.degree;
-      selectedMajorSubject = widget.educationModel.major??null;
+      selectedMajorSubject = widget.educationModel.major ?? null;
       _enrollDate = widget.educationModel.enrolledDate;
       _graduationDate = widget.educationModel.graduationDate;
       currentLyStudyingHere = widget.educationModel.graduationDate == null;
@@ -103,32 +105,44 @@ MajorSubject selectedMajorSubject;
     });
   }
 
-  bool validate(){
+  bool validate() {
     bool isFormValid = _formKey.currentState.validate();
     bool isEnrollDateCorrect = _enrollDate != null;
-    bool isGraduationDateCorrect = (_enrollDate != null && _graduationDate != null) ?!_graduationDate.isBefore(_enrollDate):true;
-    institutionNameErrorText = institutionNameController.text.isEmpty? StringUtils.thisFieldIsRequired : null;
-     enrollDateErrorText = isEnrollDateCorrect ? null :StringUtils.thisFieldIsRequired;
-    graduationDateErrorText = isGraduationDateCorrect ? null:StringUtils.graduationDateShouldBeAfterEnrollDate;
-    setState(() {
+    bool isGraduationDateCorrect =
+        (_enrollDate != null && _graduationDate != null)
+            ? !_graduationDate.isBefore(_enrollDate)
+            : true;
 
-    });
+    institutionNameErrorText = institutionNameController.text.isEmpty
+        ? StringUtils.thisFieldIsRequired
+        : null;
+    enrollDateErrorText =
+        isEnrollDateCorrect ? null : StringUtils.thisFieldIsRequired;
+    graduationDateErrorText = isGraduationDateCorrect
+        ? null
+        : StringUtils.graduationDateShouldBeAfterEnrollDate;
+    setState(() {});
 
-    return isFormValid && isEnrollDateCorrect && isGraduationDateCorrect && institutionNameErrorText == null;
+    return isFormValid &&
+        isEnrollDateCorrect &&
+        isGraduationDateCorrect &&
+        institutionNameErrorText == null;
   }
+
   _handleSave() {
     var isSuccess = validate();
 
     if (isSuccess) {
-      if(selectedDegree == null){
+      if (selectedDegree == null) {
         BotToast.showText(text: StringUtils.noDegreeChosen);
-      }else{
-        var userProfileViewModel = Provider.of<UserProfileViewModel>(context,listen: false);
+      } else {
+        var userProfileViewModel =
+            Provider.of<UserProfileViewModel>(context, listen: false);
 
         var insId = selectedInstitute?.id;
 
-        if(selectedInstitute != null){
-          if(selectedInstitute.name != institutionNameController.text){
+        if (selectedInstitute != null) {
+          if (selectedInstitute.name != institutionNameController.text) {
             insId = null;
           }
         }
@@ -142,31 +156,24 @@ MajorSubject selectedMajorSubject;
           enrolledDate: _enrollDate,
           graduationDate: _graduationDate,
           institutionText: institutionNameController.text,
-
         );
-        print("Degree: "+education.degree);
+        print("Degree: " + education.degree);
 
-
-        if(widget.educationModel == null){
+        if (widget.educationModel == null) {
           // add new
-          userProfileViewModel.addEduInfo(education).then((value){
-            if(value){
+          userProfileViewModel.addEduInfo(education).then((value) {
+            if (value) {
               Navigator.pop(context);
             }
           });
-        }else{
+        } else {
           // update existing
-          userProfileViewModel.updateEduInfo(education,index).then((value){
-            if(value){
+          userProfileViewModel.updateEduInfo(education, index).then((value) {
+            if (value) {
               Navigator.pop(context);
             }
           });
-
-
         }
-
-
-
       }
     }
   }
@@ -246,7 +253,6 @@ MajorSubject selectedMajorSubject;
           );
         });
 
-
     var degree = FutureBuilder<dartZ.Either<AppError, List<String>>>(
       future: DegreeListRepository().getList(),
       builder:
@@ -269,25 +275,22 @@ MajorSubject selectedMajorSubject;
               hint: Text(StringUtils.tapToSelectText),
               value: selectedDegree,
               items: items,
-              onChanged: (v){
+              onChanged: (v) {
                 selectedDegree = v;
                 print(selectedDegree);
-                setState(() {
-
-                });
-
+                setState(() {});
               },
             );
           });
-        }else{
+        } else {
           return Loader();
         }
       },
     );
     var major = FutureBuilder<dartZ.Either<AppError, List<MajorSubject>>>(
       future: MajorSubListListRepository().getList(),
-      builder:
-          (context, AsyncSnapshot<dartZ.Either<AppError, List<MajorSubject>>> snap) {
+      builder: (context,
+          AsyncSnapshot<dartZ.Either<AppError, List<MajorSubject>>> snap) {
         if (snap.hasData) {
           return snap.data.fold((l) {
             return SizedBox();
@@ -305,15 +308,14 @@ MajorSubject selectedMajorSubject;
               hint: Text(StringUtils.tapToSelectText),
               value: selectedMajorSubject,
               items: items,
-              onChanged: (v){
+              onChanged: (v) {
                 selectedMajorSubject = v;
                 print(v);
-                setState(() {
-                });
+                setState(() {});
               },
             );
           });
-        }else{
+        } else {
           return Loader();
         }
       },
@@ -355,7 +357,7 @@ MajorSubject selectedMajorSubject;
       validator: Validator().numberFieldValidateOptional,
       keyboardType: TextInputType.number,
     );
-    var ongoing =    Row(
+    var ongoing = Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         Text(StringUtils.currentlyStudyingHereText),
@@ -413,8 +415,7 @@ MajorSubject selectedMajorSubject;
                     spaceBetween,
                     ongoing,
 //                    spaceBetween,
-                  if(!currentLyStudyingHere)
-                    graduationDate,
+                    if (!currentLyStudyingHere) graduationDate,
                   ],
                 ),
               ),

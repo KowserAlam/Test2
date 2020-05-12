@@ -296,29 +296,29 @@ class JobListViewModel with ChangeNotifier {
   /// getter setters
   /// #########################
 
-  bool get hasSortBy => _jobListFilters.sort != null;
+  bool get hasSortBy => _jobListFilters.sort?.key?.isNotEmptyOrNotNull??false;
 
-  bool get hasGender => _jobListFilters.gender.isNotEmptyOrNull;
+  bool get hasGender => _jobListFilters.gender.isNotEmptyOrNotNull;
 
-  bool get hasCategory => _jobListFilters.category.isNotEmptyOrNull;
+  bool get hasCategory => _jobListFilters.category.isNotEmptyOrNotNull;
 
-  bool get hasQualification => _jobListFilters.qualification.isNotEmptyOrNull;
+  bool get hasQualification => _jobListFilters.qualification.isNotEmptyOrNotNull;
 
-  bool get hasLocation => _jobListFilters.location.isNotEmptyOrNull;
+  bool get hasLocation => _jobListFilters.location.isNotEmptyOrNotNull;
 
-  bool get hasSkill => _jobListFilters.skill.isNotEmptyOrNull;
+  bool get hasSkill => _jobListFilters.skill.isNotEmptyOrNotNull;
 
-  bool get hasJobType => _jobListFilters.job_type.isNotEmptyOrNull;
+  bool get hasJobType => _jobListFilters.job_type.isNotEmptyOrNotNull;
 
-  bool get hasDatePosted => _jobListFilters.datePosted.isNotEmptyOrNull;
+  bool get hasDatePosted => _jobListFilters.datePosted.isNotEmptyOrNotNull;
 
   bool get hasSalaryRange =>
-      _jobListFilters.salaryMin.isNotEmptyOrNull ||
-      _jobListFilters.salaryMax.isNotEmptyOrNull;
+      _jobListFilters.salaryMin.isNotEmptyOrNotNull ||
+      _jobListFilters.salaryMax.isNotEmptyOrNotNull;
 
   bool get hasExperienceRange =>
-      _jobListFilters.experienceMin.isNotEmptyOrNull ||
-      _jobListFilters.experienceMax.isNotEmptyOrNull;
+      _jobListFilters.experienceMin.isNotEmptyOrNotNull ||
+      _jobListFilters.experienceMax.isNotEmptyOrNotNull;
 
   bool get isFilterApplied {
     return hasGender ||
