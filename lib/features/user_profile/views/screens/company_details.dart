@@ -255,7 +255,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(StringUtils.companyListText),
+        title: Text(StringUtils.companyDetailsText),
       ),
       body: ListView(
         children: [
