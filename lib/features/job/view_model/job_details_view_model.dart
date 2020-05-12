@@ -104,6 +104,8 @@ class JobDetailViewModel with ChangeNotifier{
 //    }
 //  }
 
+
+
   resetState() {
     JobDetails = null;
     isFetchingData = false;

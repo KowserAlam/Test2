@@ -22,11 +22,10 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class JobDetails extends StatefulWidget {
-  final JobModel jobModel;
   final int index;
   final String slug;
 
-  JobDetails({@required this.jobModel, @required this.index, @required this.slug});
+  JobDetails({@required this.index, @required this.slug});
 
   @override
   _JobDetailsState createState() => _JobDetailsState();
@@ -39,6 +38,7 @@ class _JobDetailsState extends State<JobDetails> {
   void initState() {
     // TODO: implement initState
 //    getDetails();
+    print(widget.slug);
     getJobDetails();
     super.initState();
   }
@@ -51,7 +51,7 @@ class _JobDetailsState extends State<JobDetails> {
 
   getJobDetails() async {
     dartZ.Either<AppError, JobModel> result =
-        await JobDetailsRepository().fetchJobDetails("_slug");
+        await JobDetailsRepository().fetchJobDetails(widget.slug);
     return result.fold((l) {
       print(l);
     }, (JobModel dataModel) {
