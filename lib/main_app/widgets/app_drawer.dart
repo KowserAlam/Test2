@@ -165,7 +165,7 @@ class _AppDrawerState extends State<AppDrawer> {
 
                 DrawerListWidget(
                   label: StringUtils.companyListText,
-                  icon: FontAwesomeIcons.checkCircle,
+                  icon: FontAwesomeIcons.briefcase,
                   isSelected: false,
                   onTap: () {
                     Navigator.pop(context);
