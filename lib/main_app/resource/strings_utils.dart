@@ -177,6 +177,14 @@ class StringUtils {
   //Company List Screen
   static var companyListText = "Company List";
 
+  //Company Details Screen
+  static var companyDetailsText = "Company Details";
+  static var companyHeadText = "Company Head";
+  static var companyHeadNameText = "Name";
+  static var companyHeadDesignationText = "Designation";
+  static var companyHeadNumberText = "Contact Number";
+  static var searchLetterCapText = "You need to enter more than two letters";
+
   //Reference Edit Screen
   static var referenceDescriptionText = "Description";
   static var referenceAppbarText = "Reference";
