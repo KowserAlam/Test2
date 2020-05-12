@@ -12,6 +12,7 @@ import 'package:p7app/features/user_profile/views/widgets/custom_dropdown_button
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/widgets/common_button.dart';
 import 'package:provider/provider.dart';
+import 'package:p7app/main_app/util/method_extension.dart';
 
 class JobListFilterWidget extends StatefulWidget {
   @override
@@ -45,7 +46,8 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
         skill: filterVM.selectedSkill?.id ?? "",
         location: filterVM.selectedLocation ?? "",
         qualification: filterVM.selectedQualification ?? "",
-        category: filterVM.selectedCategory ?? "",
+        category: filterVM.selectedCategory.isNotEmptyOrNull ?
+        filterVM.selectedCategory.replaceFirst("&", "%26"):"",
         datePosted: filterVM.selectedDatePosted ?? "",
         gender: filterVM.selectedGender ?? "",
         job_type: filterVM.selectedJobType ?? "",

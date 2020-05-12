@@ -50,6 +50,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
   List<Company> companySuggestion = [];
   String _companyNameErrorText;
   String _joiningDateErrorText;
+  String _leavingDateErrorText;
 
   _AddNewExperienceScreenState(this.experienceModel, this.index);
 
@@ -64,7 +65,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
       _leavingDate = widget.experienceInfoModel.endDate;
       _selectedCompanyId = widget.experienceInfoModel.companyId;
       _experienceId = widget.experienceInfoModel.experienceId ?? null;
-      currentLyWorkingHere = _leavingDate == null ;
+      currentLyWorkingHere = _leavingDate == null;
     }
 
     _companyNameController.addListener(() {
@@ -138,10 +139,13 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
     _companyNameErrorText =
         !isNotEmpty ? StringUtils.thisFieldIsRequired : null;
     bool isJoiningDateIsNotEmpty = _joiningDate != null;
-    _joiningDateErrorText =
-        !isJoiningDateIsNotEmpty ? StringUtils.thisFieldIsRequired : null;
+    bool isLeavingDateIsCorrect =
+        currentLyWorkingHere ? true : _leavingDate != null;
+    _joiningDateErrorText = !isJoiningDateIsNotEmpty ? StringUtils.thisFieldIsRequired : null;
+    _leavingDateErrorText = !isLeavingDateIsCorrect ? StringUtils.thisFieldIsRequired : null;
+
     setState(() {});
-    return isNotEmpty && isJoiningDateIsNotEmpty;
+    return isNotEmpty && isJoiningDateIsNotEmpty && isLeavingDateIsCorrect;
   }
 
   _handleSave() {
@@ -362,6 +366,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
                       /// Leaving Date
                       if (!currentLyWorkingHere)
                         CommonDatePickerWidget(
+                          errorText: _leavingDateErrorText,
                           label: StringUtils.leavingDateText,
                           date: _leavingDate,
                           onDateTimeChanged: (v) {

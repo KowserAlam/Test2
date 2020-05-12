@@ -61,6 +61,7 @@ class JobListViewModel with ChangeNotifier {
     resetPageCounter();
 //    _jobListFilters = JobListFilters();
     if (!_isInSearchMode) {
+      _jobListFilters.searchQuery  = "";
       getJobList();
     }
     notifyListeners();

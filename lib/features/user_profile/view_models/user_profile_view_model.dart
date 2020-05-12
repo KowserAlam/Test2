@@ -331,6 +331,10 @@ class UserProfileViewModel with ChangeNotifier {
         return false;
       }, (r){
         userData.experienceInfo[index] = r;
+        userData.eduInfo.sort((a,b){
+          if(a.enrolledDate == null || b.enrolledDate == null)
+            return 0;
+          return b.enrolledDate.compareTo(a.enrolledDate);});
         notifyListeners();
         return true;
       });
@@ -372,6 +376,10 @@ class UserProfileViewModel with ChangeNotifier {
         return false;
       }, (r){
         userData.eduInfo[index] = r;
+        userData.eduInfo.sort((a,b){
+          if(a.enrolledDate == null || b.enrolledDate == null)
+            return 0;
+          return b.enrolledDate.compareTo(a.enrolledDate);});
         notifyListeners();
         return true;
       });
