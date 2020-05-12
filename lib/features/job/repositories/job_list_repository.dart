@@ -21,11 +21,12 @@ class JobListRepository {
       JobListFilters filters) async {
 
     var _filters =
-        "?page=${filters.page}&q=${filters.searchQuery}&location=${filters.location}&category=${filters.category}"
-        "&location_from_homepage=${filters.location_from_homepage}&keyword_from_homepage=${filters.keyword_from_homepage}"
-        "&skill=${filters.skill}&salaryMin=${filters.salaryMin}&salaryMax=${filters.salaryMax}&experienceMin=${filters.experienceMin}"
-        "&experienceMax=${filters.experienceMax}&datePosted=${filters.datePosted}&gender=${filters.gender}"
-        "&qualification=${filters.qualification}&sort=${filters?.sort?.key??""}&page_size=${filters.page_size}";
+        "?page=${filters.page}&q=${filters.searchQuery??""}&location=${filters.location??""}&category=${filters.category??""}"
+        "&location_from_homepage=${filters.location_from_homepage??""}&keyword_from_homepage=${filters.keyword_from_homepage??""}"
+        "&skill=${filters.skill??""}&salaryMin=${filters.salaryMin??""}&salaryMax=${filters.salaryMax??""}&experienceMin=${filters.experienceMin??""}"
+        "&experienceMax=${filters.experienceMax??""}&datePosted=${filters.datePosted??""}&gender=${filters.gender??""}&job_type=${filters.job_type??""}"
+        "&qualification=${filters.qualification??""}&sort=${filters?.sort?.key??""}"
+        "&page_size=${filters.page_size}&top-skill=${filters.topSkill??""}";
 
     var url = "${Urls.jobListUrl}${_filters}";
 
@@ -35,7 +36,8 @@ class JobListRepository {
       print(response.statusCode);
 //      print(response.body);
       if (response.statusCode == 200) {
-        var mapData = json.decode(response.body);
+        var mapData = json.decode(utf8.decode(response.bodyBytes));
+
 
         var jobList = fromJson(mapData);
         var dataModel = JobListScreenDataModel(
