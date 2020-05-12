@@ -49,15 +49,14 @@ class _JobDetailsState extends State<JobDetails> {
     super.initState();
   }
 
-  Future<bool> addToFavorite(String jobId,
-      {ApiClient apiClient}) async {
+  Future<bool> addToFavorite(String jobId,) async {
     BotToast.showLoading();
     var userId =
         await AuthService.getInstance().then((value) => value.getUser().userId);
     var body = {'user_id': userId, 'job_id': jobId};
 
     try {
-      ApiClient client = apiClient ?? ApiClient();
+      ApiClient client =  ApiClient();
       var res = await client.postRequest(Urls.favouriteJobAddUrl, body);
       print(res.body);
 
@@ -66,6 +65,39 @@ class _JobDetailsState extends State<JobDetails> {
          Provider.of<JobListViewModel>(context, listen: false)
             .refresh();
         setState(() {});
+        return true;
+      } else {
+        BotToast.closeAllLoading();
+        BotToast.showText(text: StringUtils.unableToSaveData);
+        return false;
+      }
+    } catch (e) {
+      BotToast.closeAllLoading();
+      BotToast.showText(text: StringUtils.unableToSaveData);
+      print(e);
+      Provider.of<JobListViewModel>(context, listen: false)
+          .refresh();
+      return false;
+    }
+  }
+
+  Future<bool> applyForJob(String jobId,) async {
+    BotToast.showLoading();
+    var userId =
+    await AuthService.getInstance().then((value) => value.getUser().userId);
+    var body = {'user_id': userId, 'job_id': jobId};
+
+    try {
+      ApiClient client =  ApiClient();
+      var res = await client.postRequest(Urls.applyJobOnlineUrl, body);
+      print(res.body);
+
+      if (res.statusCode == 200) {
+        BotToast.closeAllLoading();
+        BotToast.showText(
+            text: StringUtils.successfullyAppliedText,
+            duration: Duration(seconds: 2));
+
         return true;
       } else {
         BotToast.closeAllLoading();
@@ -187,11 +219,10 @@ class _JobDetailsState extends State<JobDetails> {
         onTap: isApplied
             ? null
             : () {
-                Provider.of<JobListViewModel>(context, listen: false)
-                    .applyForJob(jobDetails.jobId, widget.index)
+                applyForJob(jobDetails.jobId)
                     .then((value) {
                   setState(() {
-                    isApplied = value;
+                    jobDetails.isApplied = value;
                   });
                 });
               },
