@@ -17,20 +17,29 @@ class CompanyListScreen extends StatefulWidget {
 class _CompanyListScreenState extends State<CompanyListScreen> {
   TextEditingController _companyNameController = TextEditingController();
   Debouncer _debouncer = Debouncer(milliseconds: 400);
-  List<Company> companySuggestion = [];
   Company selectedCompany;
 
   @override
   void initState() {
     // TODO: implement initState
-
+    //updateSuggestion();
     super.initState();
   }
 
+  void updateSuggestion(){
+    var companyViewModel =     Provider.of<CompanyListViewModel>(context);
+    _companyNameController.addListener(() {
+      if(_companyNameController.text.length > 2){
+        companyViewModel.query = _companyNameController.text;
 
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    var companyViewModel = Provider.of<CompanyListViewModel>(context);
+    List<Company> companySuggestion = companyViewModel.companyList==null?[]:companyViewModel.companyList;
     return Scaffold(
       appBar: AppBar(
         title: Text(StringUtils.companyListText),
@@ -43,15 +52,28 @@ class _CompanyListScreenState extends State<CompanyListScreen> {
             children: [
               TextField(
                 controller: _companyNameController,
+                onChanged: (v){
+                  if(v.length >2){
+                    companyViewModel.query = v;
+                    companyViewModel.getJobDetails();
+                    print(companyViewModel.companyList.length);
+                  }else{
+                    companyViewModel.query = "";
+                    companyViewModel.getJobDetails();
+                  }
+                },
               ),
-//              Container(
-//                height: MediaQuery.of(context).size.height/2,
-//                child: ListView.builder(
-//                  itemCount: companySuggestion.length,
-//                  itemBuilder: (BuildContext context, int index){
-//                    return ListTile(title: Text(companySuggestion[index].name),);
-//                  }),
-//              )
+              Expanded(
+                child: ListView.builder(
+                    itemCount: companySuggestion.length,
+                    itemBuilder: (BuildContext context, int index){
+                      return GestureDetector(
+                          onTap: (){
+                            print(companySuggestion[index].name);
+                          },
+                          child: ListTile(title: Text(companySuggestion[index].name),));
+                    }),
+              )
             ],
           ),
         ),
