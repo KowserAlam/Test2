@@ -46,7 +46,7 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
         skill: filterVM.selectedSkill?.id ?? "",
         location: filterVM.selectedLocation ?? "",
         qualification: filterVM.selectedQualification ?? "",
-        category: filterVM.selectedCategory.isNotEmptyOrNull ?
+        category: filterVM.selectedCategory.isNotEmptyOrNotNull ?
         filterVM.selectedCategory.replaceFirst("&", "%26"):"",
         datePosted: filterVM.selectedDatePosted ?? "",
         gender: filterVM.selectedGender ?? "",

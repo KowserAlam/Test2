@@ -24,16 +24,16 @@ main(){
   group("StringExtensionTest,isNotEmptyOrNullTest",(){
 
     test("isNotEmptyOrNullTest, should return true", (){
-      var re = StringExtenion("").isNotEmptyOrNull;
+      var re = StringExtenion("").isNotEmptyOrNotNull;
       expect(re, false);
     });
     test("isNotEmptyOrNullTest, should return true", (){
-      var re = StringExtenion(null).isNotEmptyOrNull;
+      var re = StringExtenion(null).isNotEmptyOrNotNull;
       expect(re, false);
     });
 
     test("isNotEmptyOrNullTest,should return false", (){
-      var re = StringExtenion("hi").isNotEmptyOrNull;
+      var re = StringExtenion("hi").isNotEmptyOrNotNull;
       expect(re, true);
     });
   });

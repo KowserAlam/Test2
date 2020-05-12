@@ -18,7 +18,7 @@ extension StringExtenion on String {
       return true;
   }
 
-  bool get  isNotEmptyOrNull{
+  bool get  isNotEmptyOrNotNull{
     if (this != null){
       return this.isNotEmpty;
     }
