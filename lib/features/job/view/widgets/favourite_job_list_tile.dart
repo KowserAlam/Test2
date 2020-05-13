@@ -212,7 +212,7 @@ class _FavoriteJobListTileWidgetState extends State<FavoriteJobListTileWidget> {
                           SizedBox(height: 3),
                           companyName,
                           SizedBox(height: 3),
-                          companyLocation,
+                          widget.jobListModel.jobLocation== null?SizedBox():companyLocation,
                         ],
                       )),
                   SizedBox(width: 8),
