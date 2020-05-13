@@ -553,7 +553,7 @@ class _JobDetailsState extends State<JobDetails> {
                       StringUtils.publishedOn,
                       jobDetails.createdDate != null
                           ? DateFormatUtil
-                          .formatDate(DateTime.parse(jobDetails.createdDate))
+                          .formatDate(jobDetails.createdDate)
                           : StringUtils.unspecifiedText)
                 ],
               ),
@@ -714,7 +714,7 @@ class _JobDetailsState extends State<JobDetails> {
             Text(
               jobDetails.createdDate != null
                   ? DateFormatUtil
-                      .formatDate(DateTime.parse(jobDetails.createdDate))
+                      .formatDate(jobDetails.createdDate)
                   : StringUtils.unspecifiedText,
               style: topSideDescriptionFontStyle,
             ),
@@ -734,7 +734,7 @@ class _JobDetailsState extends State<JobDetails> {
             Text(
               jobDetails.applicationDeadline != null
                   ? DateFormatUtil.formatDate(
-                      DateTime.parse(jobDetails.applicationDeadline))
+                  jobDetails.applicationDeadline)
                   : StringUtils.unspecifiedText,
               style: topSideDescriptionFontStyle,
             ),

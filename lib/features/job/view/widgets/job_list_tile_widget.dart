@@ -31,12 +31,12 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
     String publishDateText = widget.jobModel.createdDate == null
         ? StringUtils.unspecifiedText
         : DateFormatUtil()
-            .dateFormat1(DateTime.parse(widget.jobModel.createdDate));
+            .dateFormat1(widget.jobModel.createdDate);
 
     String deadLineText = widget.jobModel.applicationDeadline == null
         ? StringUtils.unspecifiedText
         : DateFormatUtil()
-            .dateFormat1(DateTime.parse(widget.jobModel.applicationDeadline));
+            .dateFormat1(widget.jobModel.applicationDeadline);
 //    var isDateExpired = widget.jobModel.applicationDeadline
 
     var backgroundColor = Theme.of(context).backgroundColor;
