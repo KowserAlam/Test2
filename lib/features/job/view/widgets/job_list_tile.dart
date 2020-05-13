@@ -224,7 +224,7 @@ class _FavoriteJobListTileWidgetState extends State<FavoriteJobListTileWidget> {
           : (isDateExpired?Colors.grey:Theme.of(context).accentColor),
       borderRadius: BorderRadius.circular(5),
       child: InkWell(
-        onTap: isApplied
+        onTap: isApplied || isDateExpired
             ? null
             : () {
           _showApplyDialog();
