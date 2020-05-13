@@ -146,23 +146,23 @@ class _AppDrawerState extends State<AppDrawer> {
                 ),
                 Divider(height: 1),
 
-
-                DrawerListWidget(
-                  label: StringUtils.appliedJobsText,
-                  icon: FontAwesomeIcons.checkCircle,
-                  isSelected: false,
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.push(
-                        context,
-                        CupertinoPageRoute(
-                            builder: (context) => AppliedJobListScreen()));
-                  },
-                ),
+// skill check
+//                DrawerListWidget(
+//                  label: StringUtils.appliedJobsText,
+//                  icon: FontAwesomeIcons.checkCircle,
+//                  isSelected: false,
+//                  onTap: () {
+//                    Navigator.pop(context);
+//                    Navigator.push(
+//                        context,
+//                        CupertinoPageRoute(
+//                            builder: (context) => AppliedJobListScreen()));
+//                  },
+//                ),
 
                 Divider(height: 1),
 
-
+// company list
                 DrawerListWidget(
                   label: StringUtils.companyListText,
                   icon: FontAwesomeIcons.briefcase,
