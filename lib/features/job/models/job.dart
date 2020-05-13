@@ -81,7 +81,7 @@ class JobModel {
       applicationDeadline = DateTime.parse(json['application_deadline']);
     }
     if(json['created_date'] != null){
-      applicationDeadline = DateTime.parse(json['created_date']);
+      createdDate = DateTime.parse(json['created_date']);
     }
     descriptions = json['descriptions'];
     responsibilities = json['responsibilities'];

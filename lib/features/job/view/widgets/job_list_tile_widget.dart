@@ -22,22 +22,20 @@ class JobListTileWidget extends StatefulWidget {
 }
 
 class _JobListTileWidgetState extends State<JobListTileWidget> {
-
-
   @override
   Widget build(BuildContext context) {
     bool isFavorite = widget.jobModel.status;
 
     String publishDateText = widget.jobModel.createdDate == null
         ? StringUtils.unspecifiedText
-        : DateFormatUtil()
-            .dateFormat1(widget.jobModel.createdDate);
+        : DateFormatUtil().dateFormat1(widget.jobModel.createdDate);
 
     String deadLineText = widget.jobModel.applicationDeadline == null
         ? StringUtils.unspecifiedText
-        : DateFormatUtil()
-            .dateFormat1(widget.jobModel.applicationDeadline);
-//    var isDateExpired = widget.jobModel.applicationDeadline
+        : DateFormatUtil().dateFormat1(widget.jobModel.applicationDeadline);
+    bool isDateExpired = widget.jobModel.applicationDeadline != null
+        ? widget.jobModel.applicationDeadline.isAfter(DateTime.now())
+        : true;
 
     var backgroundColor = Theme.of(context).backgroundColor;
     var scaffoldBackgroundColor = Theme.of(context).scaffoldBackgroundColor;
@@ -46,14 +44,16 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
     double iconSize = 14.0;
 //    bool isTabLayout = MediaQuery.of(context).size.width > kMidDeviceScreenSize;
     var subtitleColor = isDarkMode ? Colors.white : AppTheme.grey;
-
     var companyLogo = Container(
       height: 60,
       width: 60,
       decoration: BoxDecoration(
         color: scaffoldBackgroundColor,
       ),
-      child: CachedNetworkImage(imageUrl: widget.jobModel.profilePicture??"",placeholder: (context,_)=>Image.asset(kCompanyImagePlaceholder),),
+      child: CachedNetworkImage(
+        imageUrl: widget.jobModel.profilePicture ?? "",
+        placeholder: (context, _) => Image.asset(kCompanyImagePlaceholder),
+      ),
     ); //That pointless fruit logo
     var jobTitle = Text(
       widget.jobModel.title ?? "",
@@ -94,22 +94,20 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Icon(
-            isFavorite
-                ? FontAwesomeIcons.solidHeart
-                : FontAwesomeIcons.heart,
-            color: isFavorite? AppTheme.orange : AppTheme.grey,
+            isFavorite ? FontAwesomeIcons.solidHeart : FontAwesomeIcons.heart,
+            color: isFavorite ? AppTheme.orange : AppTheme.grey,
             size: 22,
           ),
         ),
       ),
     );
+
     var applyButton = Material(
-      color: widget.jobModel.isApplied
-          ? Colors.grey
-          : Theme.of(context).accentColor,
+      color: widget.jobModel.isApplied ? Colors.blue[200]
+          : (isDateExpired?Colors.grey:Theme.of(context).accentColor),
       borderRadius: BorderRadius.circular(5),
       child: InkWell(
-        onTap: widget.onApply,
+        onTap: isDateExpired? null:widget.onApply,
         borderRadius: BorderRadius.circular(5),
         child: Container(
           height: 30,
@@ -199,8 +197,7 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
                       SizedBox(height: 3),
                       companyName,
                       SizedBox(height: 3),
-                      if(widget.jobModel.jobLocation != null)
-                      companyLocation,
+                      if (widget.jobModel.jobLocation != null) companyLocation,
                     ],
                   )),
                   SizedBox(width: 8),
