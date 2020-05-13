@@ -113,7 +113,7 @@ class FilterPreviewWidget extends StatelessWidget {
               filterItem(
                   context: context,
                   name: StringUtils.jobTypeText,
-                  value: filters.job_type?.name,
+                  value: filters.jobType?.name,
                   onClear: () {
                     jobListViewModel.clearJobType();
                     jobListFilterWidgetViewModel.selectedJobType = null;

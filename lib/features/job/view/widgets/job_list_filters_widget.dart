@@ -51,7 +51,7 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
         filterVM.selectedCategory.replaceFirst("&", "%26"):"",
         datePosted: filterVM.selectedDatePosted ?? "",
         gender: filterVM.selectedGender ?? "",
-        job_type: filterVM.selectedJobType ?? "",
+        jobType: filterVM.selectedJobType,
         sort: filterVM.selectedSortBy);
 
     jobListViewModel.applyFilters(filter);

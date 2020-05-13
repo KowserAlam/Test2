@@ -19,7 +19,7 @@ class JobListFilters {
   String qualification;
   SortItem sort;
   bool isApplied;
-  JobType job_type;
+  JobType jobType;
   String topSkill;
 
   JobListFilters({
@@ -40,7 +40,7 @@ class JobListFilters {
     this.qualification,
     this.sort,
     this.isApplied,
-    this.job_type,
+    this.jobType,
     this.topSkill,
   });
 }

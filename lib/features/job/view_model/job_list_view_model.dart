@@ -270,7 +270,7 @@ class JobListViewModel with ChangeNotifier {
      getJobList();
   }
   void clearJobType(){
-     _jobListFilters.job_type = null;
+     _jobListFilters.jobType = null;
      notifyListeners();
      getJobList();
   }
@@ -308,7 +308,7 @@ class JobListViewModel with ChangeNotifier {
 
   bool get hasSkill => _jobListFilters.skill.isNotEmptyOrNotNull;
 
-  bool get hasJobType => _jobListFilters.job_type?.id?.isNotEmptyOrNotNull??false;
+  bool get hasJobType => _jobListFilters.jobType?.id?.isNotEmptyOrNotNull??false;
 
   bool get hasDatePosted => _jobListFilters.datePosted.isNotEmptyOrNotNull;
 
