@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -31,10 +32,12 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
         ? StringUtils.unspecifiedText
         : DateFormatUtil()
             .dateFormat1(DateTime.parse(widget.jobModel.createdDate));
+
     String deadLineText = widget.jobModel.applicationDeadline == null
         ? StringUtils.unspecifiedText
         : DateFormatUtil()
             .dateFormat1(DateTime.parse(widget.jobModel.applicationDeadline));
+//    var isDateExpired = widget.jobModel.applicationDeadline
 
     var backgroundColor = Theme.of(context).backgroundColor;
     var scaffoldBackgroundColor = Theme.of(context).scaffoldBackgroundColor;
@@ -50,7 +53,7 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
       decoration: BoxDecoration(
         color: scaffoldBackgroundColor,
       ),
-      child: Image.asset(kImagePlaceHolderAsset),
+      child: CachedNetworkImage(imageUrl: widget.jobModel.profilePicture??"",placeholder: (context,_)=>Image.asset(kCompanyImagePlaceholder),),
     ); //That pointless fruit logo
     var jobTitle = Text(
       widget.jobModel.title ?? "",
@@ -100,7 +103,6 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
         ),
       ),
     );
-
     var applyButton = Material(
       color: widget.jobModel.isApplied
           ? Colors.grey
@@ -125,7 +127,6 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
         ),
       ),
     );
-
     var jobType = Row(
       children: <Widget>[
         Icon(
@@ -144,7 +145,7 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
         ),
       ],
     );
-    var publishDateWidget = Row(
+    var applicationDeadlineWidget = Row(
       children: <Widget>[
         Icon(FeatherIcons.clock, size: iconSize, color: subtitleColor),
         SizedBox(width: 5),
@@ -154,7 +155,7 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
         ),
       ],
     );
-    var deadLineWidget = Row(
+    var createdDateWidget = Row(
       children: <Widget>[
         Icon(
           FeatherIcons.calendar,
@@ -168,6 +169,7 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
         ),
       ],
     );
+
     return GestureDetector(
       onTap: widget.onTap,
       child: Container(
@@ -197,6 +199,7 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
                       SizedBox(height: 3),
                       companyName,
                       SizedBox(height: 3),
+                      if(widget.jobModel.jobLocation != null)
                       companyLocation,
                     ],
                   )),
@@ -213,8 +216,8 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  deadLineWidget,
-                  publishDateWidget,
+                  createdDateWidget,
+                  applicationDeadlineWidget,
                   applyButton,
                 ],
               ),

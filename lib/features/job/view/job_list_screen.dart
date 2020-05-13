@@ -161,22 +161,13 @@ class _JobListScreenState extends State<JobListScreen>
                         ]),
                         child: Column(
                           children: [
-//                            Container(
-//                                height: 40,
-//                                child: ListView(
-//                                  scrollDirection: Axis.horizontal,
-//                                  children: [
-//
-//
-//                                  ],
-//                                )),
 
-//                            if (_searchTextEditingController.text.isNotEmpty && !jobListViewModel.isFetchingData)
-//                              Padding(
-//                                padding: const EdgeInsets.all(8.0),
-//                                child: Text(
-//                                    '${jobListViewModel.totalJobCount} ${StringUtils.jobsFoundText}'),
-//                              )
+                            if (_searchTextEditingController.text.isNotEmpty && !jobListViewModel.isFetchingData)
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                    '${jobListViewModel.totalJobCount} ${StringUtils.jobsFoundText}'),
+                              )
                           ],
                         ),
                       ),

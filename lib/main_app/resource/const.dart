@@ -15,6 +15,7 @@ const String  kIshraakLogo = "assets/images/logo.png";
 const String  kImagePlaceHolderAsset = "assets/images/image_placeholder.png";
 const String  kDefaultLogoText = "assets/images/job_search_logo_text.png";
 const String  kUserProfileCoverImageAsset = "assets/images/user_profile_cover.jpg";
+const String  kCompanyImagePlaceholder = "assets/images/company_placeholder_image.png";
 
 
 
@@ -24,7 +25,7 @@ const double kSmallScreenSize = 480;
 const double kMidDeviceScreenSize = 680;
 const double kLargeDeviceScreenSize = 1080;
 
-/// Date Field
-///  Default format for [DateFormat] class
-final kDateWithTimeFormatBD = DateFormat("dd/MM/yyyy 'at' hh:mm aa");
-final kDateFormatBD = DateFormat("dd/MM/yyyy");
+///// Date Field
+/////  Default format for [DateFormat] class
+//final kDateWithTimeFormatBD = DateFormat("dd/MM/yyyy 'at' hh:mm aa");
+//final kDateFormatBD = DateFormat("dd/MM/yyyy");

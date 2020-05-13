@@ -361,8 +361,8 @@ class _LoginScreenState extends State<LoginScreen> {
           forgotPasswordWidget,
           SizedBox(height: 5),
           signInButton,
-          SizedBox(height: 20),
-          socialLogin,
+//          SizedBox(height: 20),
+//          socialLogin,
           SizedBox(height: 20),
           registerText,
         ],
@@ -373,71 +373,73 @@ class _LoginScreenState extends State<LoginScreen> {
       child: Scaffold(
         backgroundColor: Theme.of(context).backgroundColor,
         key: _scaffoldKey,
-        body: Center(
-          child: SingleChildScrollView(
-            child: LayoutBuilder(
-              builder: (BuildContext context, BoxConstraints constraints) {
-                if (constraints.maxWidth < kMidDeviceScreenSize) {
-                  // mobile layout
-                  return Padding(
-                    padding: EdgeInsets.fromLTRB(16, 15, 16, 8),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        SizedBox(height: 0),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.max,
-                          children: <Widget>[
-                            logo,
-                            SizedBox(height: 10),
-                            welcomeBackText,
-                            SizedBox(height: 10),
-                            loginForm,
-                            SizedBox(height: 30),
-                            AppVersionWidgetLowerCase()
-                          ],
-                        ),
-                      ],
-                    ),
-                  );
-                } else {
-                  return Container(
-                    child: Row(
-                      children: <Widget>[
-                        Expanded(
-                          flex: 4,
-                          child: Center(
-                            child: Container(
-                              width: 400,
-                              padding:
-                                  EdgeInsets.fromLTRB(16, topPadding, 16, 0),
-                              child: Column(
-                                children: <Widget>[
-                                  SizedBox(height: 10),
-                                  logo,
-                                  loginForm,
-                                  SizedBox(height: 10),
-                                ],
+        body: SafeArea(
+          child: Center(
+            child: SingleChildScrollView(
+              child: LayoutBuilder(
+                builder: (BuildContext context, BoxConstraints constraints) {
+                  if (constraints.maxWidth < kMidDeviceScreenSize) {
+                    // mobile layout
+                    return Padding(
+                      padding: EdgeInsets.fromLTRB(16, 15, 16, 8),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          SizedBox(height: 0),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.max,
+                            children: <Widget>[
+                              logo,
+                              SizedBox(height: 10),
+                              welcomeBackText,
+                              SizedBox(height: 10),
+                              loginForm,
+                              SizedBox(height: 30),
+                              AppVersionWidgetLowerCase()
+                            ],
+                          ),
+                        ],
+                      ),
+                    );
+                  } else {
+                    return Container(
+                      child: Row(
+                        children: <Widget>[
+                          Expanded(
+                            flex: 4,
+                            child: Center(
+                              child: Container(
+                                width: 400,
+                                padding:
+                                    EdgeInsets.fromLTRB(16, topPadding, 16, 0),
+                                child: Column(
+                                  children: <Widget>[
+                                    SizedBox(height: 10),
+                                    logo,
+                                    loginForm,
+                                    SizedBox(height: 10),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        Expanded(
-                          flex: 6,
-                          child: Container(
-                            height: MediaQuery.of(context).size.height,
-                            padding: EdgeInsets.all(16),
-                            child: Image.asset(kLoginBG, fit: BoxFit.contain),
+                          Expanded(
+                            flex: 6,
+                            child: Container(
+                              height: MediaQuery.of(context).size.height,
+                              padding: EdgeInsets.all(16),
+                              child: Image.asset(kLoginBG, fit: BoxFit.contain),
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  );
-                }
-              },
+                        ],
+                      ),
+                    );
+                  }
+                },
+              ),
             ),
           ),
         ),

@@ -142,24 +142,26 @@ class _RootState extends State<Root> {
     );
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Container(
-        height: height,
-        width: width,
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            SizedBox(),
-            SizedBox(),
-            SizedBox(),
-            appLogoText,
-            SizedBox(),
-            Container(
-              width: 150,
-              child: ishraakLogo,
-            ),
-            AppVersionWidgetLowerCase()
-          ],
+      body: SafeArea(
+        child: Container(
+          height: height,
+          width: width,
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              SizedBox(),
+              SizedBox(),
+              SizedBox(),
+              appLogoText,
+              SizedBox(),
+              Container(
+                width: 150,
+                child: ishraakLogo,
+              ),
+              AppVersionWidgetLowerCase()
+            ],
+          ),
         ),
       ),
     );
