@@ -81,8 +81,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width;
+
     final topPadding = AppBar().preferredSize.height;
     final primaryColor = Theme.of(context).primaryColor;
 
@@ -324,24 +323,26 @@ class _SignUpScreenState extends State<SignUpScreen> {
     }
 
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              SizedBox(height: topPadding),
-              logo,
-              SizedBox(height: 20),
-              _registerNewAccountText(),
-              signUpFrom,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                SizedBox(height: topPadding),
+                logo,
+                SizedBox(height: 20),
+                _registerNewAccountText(),
+                signUpFrom,
 //              acceptTermAndCondition,
-              SizedBox(height: 30),
-              registerButton,
-              SizedBox(height: 30),
-              backToSignIn,
-              SizedBox(height: 40),
-            ],
+                SizedBox(height: 30),
+                registerButton,
+                SizedBox(height: 30),
+                backToSignIn,
+                SizedBox(height: 40),
+              ],
+            ),
           ),
         ),
       ),

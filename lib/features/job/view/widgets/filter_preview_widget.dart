@@ -4,10 +4,11 @@ import 'package:p7app/features/job/view_model/job_list_view_model.dart';
 import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:provider/provider.dart';
+import 'package:p7app/main_app/util/method_extension.dart';
 
 class FilterPreviewWidget extends StatelessWidget {
   Widget filterItem(
-      {@required String label, BuildContext context, Function onClear}) {
+      {@required String name,@required String value, BuildContext context, Function onClear}) {
     return Container(
         margin: EdgeInsets.only(left: 2, right: 2),
         padding: EdgeInsets.symmetric(horizontal: 8),
@@ -19,7 +20,10 @@ class FilterPreviewWidget extends StatelessWidget {
             color: Theme.of(context).backgroundColor),
         child: Row(
           children: [
-            Text(label ?? ""),
+            Text.rich(TextSpan(children: [
+              TextSpan(text:"${ name ?? ""} : ",style: TextStyle(fontWeight: FontWeight.bold)),
+              TextSpan(text: value ?? "",)
+            ])),
             SizedBox(
               width: 2,
             ),
@@ -43,6 +47,7 @@ class FilterPreviewWidget extends StatelessWidget {
     var backgroundColor = Theme.of(context).backgroundColor;
     var jobListFilterWidgetViewModel = Provider.of<JobListFilterWidgetViewModel>(context);
     return Consumer<JobListViewModel>(builder: (context, jobListViewModel, _) {
+      var filters = jobListViewModel.jobListFilters;
       return Container(
         height: 36,
         width: double.infinity,
@@ -56,89 +61,106 @@ class FilterPreviewWidget extends StatelessWidget {
         child: ListView(
           scrollDirection: Axis.horizontal,
           children: [
+            if (jobListViewModel.hasSortBy)
+              filterItem(
+                  context: context,
+                  name: StringUtils.sortBy,
+                  value: filters.sort?.value,
+                  onClear: () {
+                    jobListViewModel.clearSort();
+                    jobListFilterWidgetViewModel.selectedSortBy = null;
+
+                  }),
             if (jobListViewModel.hasCategory)
               filterItem(
                   context: context,
-                  label: StringUtils.jobCategoryText,
+                  name: StringUtils.jobCategoryText,
+                  value: filters.category.replaceAmpWith26,
                   onClear: () {
                     jobListViewModel.clearCategory();
                     jobListFilterWidgetViewModel.selectedCategory = null;
-
                   }),
+            if (jobListViewModel.hasLocation)
+              filterItem(
+                  context: context,
+                  name: StringUtils.locationText,
+                  value: filters.location,
+                  onClear: () {
+                    jobListViewModel.clearLocation();
+                    jobListFilterWidgetViewModel.selectedLocation = null;
+                  }),
+            if (jobListViewModel.hasSkill)
+              filterItem(
+                  value: filters.skill,
+                  context: context,
+                  name: StringUtils.skillText,
+                  onClear: () {
+                    jobListViewModel.clearSkill();
+                    jobListFilterWidgetViewModel.selectedSkill = null;
+                  }),
+
             if (jobListViewModel.hasExperienceRange)
               filterItem(
                   context: context,
-                  label: StringUtils.experienceText,
+                  name: StringUtils.experienceText,
+                  value: "${filters.experienceMin} - ${filters.experienceMax}",
                   onClear: () {
                     jobListViewModel.clearExperienceRange();
                     jobListFilterWidgetViewModel.experienceMin = null;
                     jobListFilterWidgetViewModel.experienceMax = null;
                   }),
+            if (jobListViewModel.hasJobType)
+              filterItem(
+                  context: context,
+                  name: StringUtils.jobTypeText,
+                  value: filters.job_type,
+                  onClear: () {
+                    jobListViewModel.clearJobType();
+                    jobListFilterWidgetViewModel.selectedJobType = null;
+                  }),
+
             if (jobListViewModel.hasSalaryRange)
               filterItem(
                   context: context,
-                  label: StringUtils.salaryRangeText,
+                  name: StringUtils.salaryRangeText,
+                  value: "${filters.salaryMin} - ${filters.salaryMax}",
                   onClear: () {
                     jobListViewModel.clearSalaryRange();
                     jobListFilterWidgetViewModel.salaryMin = null;
                     jobListFilterWidgetViewModel.salaryMax = null;
                   }),
-            if (jobListViewModel.hasDatePosted)
-              filterItem(
-                  context: context,
-                  label: StringUtils.datePosted,
-                  onClear: () {
-                    jobListViewModel.clearDatePosted();
-                    jobListFilterWidgetViewModel.selectedDatePosted = null;
-                  }),
-            if (jobListViewModel.hasJobType)
-              filterItem(
-                  context: context,
-                  label: StringUtils.jobTypeText,
-                  onClear: () {
-                    jobListViewModel.clearJobType();
-                    jobListFilterWidgetViewModel.selectedJobType = null;
-                  }),
-            if (jobListViewModel.hasLocation)
-              filterItem(
-                  context: context,
-                  label: StringUtils.locationText,
-                  onClear: () {
-                    jobListViewModel.clearLocation();
-                    jobListFilterWidgetViewModel.selectedLocation = null;
-                  }),
-            if (jobListViewModel.hasSortBy)
-              filterItem(
-                  context: context,
-                  label: StringUtils.sortBy,
-                  onClear: () {
-                    jobListViewModel.clearSort();
-                    jobListFilterWidgetViewModel.selectedSortBy = null;
-                  }),
-            if (jobListViewModel.hasGender)
-              filterItem(
-                  context: context,
-                  label: StringUtils.genderText,
-                  onClear: () {
-                    jobListViewModel.clearGender();
-                    jobListFilterWidgetViewModel.selectedGender = null;
-                  }),
-            if (jobListViewModel.hasSkill)
-              filterItem(
-                  context: context,
-                  label: StringUtils.skillText,
-                  onClear: () {
-                    jobListViewModel.clearSkill();
-                    jobListFilterWidgetViewModel.selectedSkill = null;
-                  }),
+
+
+
+
             if (jobListViewModel.hasQualification)
               filterItem(
                   context: context,
-                  label: StringUtils.qualificationText,
+                  value: filters.qualification,
+                  name: StringUtils.qualificationText,
                   onClear: () {
                     jobListViewModel.clearQualification();
                     jobListFilterWidgetViewModel.selectedQualification = null;
                   }),
+            if (jobListViewModel.hasGender)
+              filterItem(
+                  context: context,
+                  name: StringUtils.genderText,
+                  value: filters.gender,
+                  onClear: () {
+                    jobListViewModel.clearGender();
+                    jobListFilterWidgetViewModel.selectedGender = null;
+                  }),
+            if (jobListViewModel.hasDatePosted)
+              filterItem(
+                  context: context,
+                  name: StringUtils.datePosted,
+                  value: filters.datePosted,
+                  onClear: () {
+                    jobListViewModel.clearDatePosted();
+                    jobListFilterWidgetViewModel.selectedDatePosted = null;
+                  }),
+
           ],
         ),
       );

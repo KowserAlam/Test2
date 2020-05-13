@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
 import 'package:p7app/main_app/resource/const.dart';
+import 'package:p7app/main_app/util/date_format_uitl.dart';
 
 class ExperienceListItem extends StatelessWidget {
   final ExperienceInfo experienceInfoModel;
@@ -21,9 +22,9 @@ class ExperienceListItem extends StatelessWidget {
     var backgroundColor = Theme.of(context).backgroundColor;
 
 
-    String startDate = experienceInfoModel.startDate != null ?  "${DateFormat().add_yMMMd().format(experienceInfoModel.startDate)} " :"";
+    String startDate = experienceInfoModel.startDate != null ?  "${DateFormatUtil().dateFormat1(experienceInfoModel.startDate)} " :"";
    String date = "$startDate"
-        "- ${experienceInfoModel.endDate == null ? "Ongoing" : DateFormat().add_yMMMd().format(experienceInfoModel.endDate)}";
+        "- ${experienceInfoModel.endDate == null ? "Ongoing" : DateFormatUtil().dateFormat1(experienceInfoModel.endDate)}";
 
     return Container(
       margin: EdgeInsets.only(bottom: 8),

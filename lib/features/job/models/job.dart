@@ -8,7 +8,7 @@ class JobModel {
   String salaryMin;
   String salaryMax;
   int vacancy;
-  String applicationDeadline;
+  DateTime applicationDeadline;
   String descriptions;
   String responsibilities;
   String education;
@@ -17,7 +17,7 @@ class JobModel {
   String rawContent;
   String webAddress;
   bool termsAndCondition;
-  String createdDate;
+  DateTime createdDate;
   String industry;
   String employmentStatus;
   String experience;
@@ -77,7 +77,12 @@ class JobModel {
     salaryMin = json['salary_min'];
     salaryMax = json['salary_max'];
     vacancy = json['vacancy'];
-    applicationDeadline = json['application_deadline'];
+    if(json['application_deadline'] != null){
+      applicationDeadline = DateTime.parse(json['application_deadline']);
+    }
+    if(json['created_date'] != null){
+      createdDate = DateTime.parse(json['created_date']);
+    }
     descriptions = json['descriptions'];
     responsibilities = json['responsibilities'];
     education = json['education'];
@@ -86,7 +91,6 @@ class JobModel {
     rawContent = json['raw_content'];
     webAddress = json['web_address'];
     termsAndCondition = json['terms_and_condition'];
-    createdDate = json['created_date'];
     industry = json['industry'];
     employmentStatus = json['employment_status'];
     experience = json['experience'];

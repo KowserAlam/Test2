@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -21,20 +22,20 @@ class JobListTileWidget extends StatefulWidget {
 }
 
 class _JobListTileWidgetState extends State<JobListTileWidget> {
-
-
   @override
   Widget build(BuildContext context) {
     bool isFavorite = widget.jobModel.status;
 
     String publishDateText = widget.jobModel.createdDate == null
         ? StringUtils.unspecifiedText
-        : DateFormatUtil()
-            .dateFormat1(DateTime.parse(widget.jobModel.createdDate));
+        : DateFormatUtil().dateFormat1(widget.jobModel.createdDate);
+
     String deadLineText = widget.jobModel.applicationDeadline == null
         ? StringUtils.unspecifiedText
-        : DateFormatUtil()
-            .dateFormat1(DateTime.parse(widget.jobModel.applicationDeadline));
+        : DateFormatUtil().dateFormat1(widget.jobModel.applicationDeadline);
+    bool isDateExpired = widget.jobModel.applicationDeadline != null
+        ? widget.jobModel.applicationDeadline.isAfter(DateTime.now())
+        : true;
 
     var backgroundColor = Theme.of(context).backgroundColor;
     var scaffoldBackgroundColor = Theme.of(context).scaffoldBackgroundColor;
@@ -43,14 +44,16 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
     double iconSize = 14.0;
 //    bool isTabLayout = MediaQuery.of(context).size.width > kMidDeviceScreenSize;
     var subtitleColor = isDarkMode ? Colors.white : AppTheme.grey;
-
     var companyLogo = Container(
       height: 60,
       width: 60,
       decoration: BoxDecoration(
         color: scaffoldBackgroundColor,
       ),
-      child: Image.asset(kImagePlaceHolderAsset),
+      child: CachedNetworkImage(
+        imageUrl: widget.jobModel.profilePicture ?? "",
+        placeholder: (context, _) => Image.asset(kCompanyImagePlaceholder),
+      ),
     ); //That pointless fruit logo
     var jobTitle = Text(
       widget.jobModel.title ?? "",
@@ -91,10 +94,8 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Icon(
-            isFavorite
-                ? FontAwesomeIcons.solidHeart
-                : FontAwesomeIcons.heart,
-            color: isFavorite? AppTheme.orange : AppTheme.grey,
+            isFavorite ? FontAwesomeIcons.solidHeart : FontAwesomeIcons.heart,
+            color: isFavorite ? AppTheme.orange : AppTheme.grey,
             size: 22,
           ),
         ),
@@ -102,12 +103,11 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
     );
 
     var applyButton = Material(
-      color: widget.jobModel.isApplied
-          ? Colors.grey
-          : Theme.of(context).accentColor,
+      color: widget.jobModel.isApplied ? Colors.blue[200]
+          : (isDateExpired?Colors.grey:Theme.of(context).accentColor),
       borderRadius: BorderRadius.circular(5),
       child: InkWell(
-        onTap: widget.onApply,
+        onTap: isDateExpired? null:widget.onApply,
         borderRadius: BorderRadius.circular(5),
         child: Container(
           height: 30,
@@ -125,7 +125,6 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
         ),
       ),
     );
-
     var jobType = Row(
       children: <Widget>[
         Icon(
@@ -144,7 +143,7 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
         ),
       ],
     );
-    var publishDateWidget = Row(
+    var applicationDeadlineWidget = Row(
       children: <Widget>[
         Icon(FeatherIcons.clock, size: iconSize, color: subtitleColor),
         SizedBox(width: 5),
@@ -154,7 +153,7 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
         ),
       ],
     );
-    var deadLineWidget = Row(
+    var createdDateWidget = Row(
       children: <Widget>[
         Icon(
           FeatherIcons.calendar,
@@ -168,6 +167,7 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
         ),
       ],
     );
+
     return GestureDetector(
       onTap: widget.onTap,
       child: Container(
@@ -197,7 +197,7 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
                       SizedBox(height: 3),
                       companyName,
                       SizedBox(height: 3),
-                      companyLocation,
+                      if (widget.jobModel.jobLocation != null) companyLocation,
                     ],
                   )),
                   SizedBox(width: 8),
@@ -213,8 +213,8 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  deadLineWidget,
-                  publishDateWidget,
+                  createdDateWidget,
+                  applicationDeadlineWidget,
                   applyButton,
                 ],
               ),

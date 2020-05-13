@@ -27,9 +27,10 @@ import 'package:url_launcher/url_launcher.dart';
 
 class JobDetails extends StatefulWidget {
   final String slug;
+  final Function onChangeCallBack;
 
 
-  JobDetails({ @required this.slug});
+  JobDetails({ @required this.slug,this.onChangeCallBack});
 
   @override
   _JobDetailsState createState() => _JobDetailsState();
@@ -48,6 +49,11 @@ class _JobDetailsState extends State<JobDetails> {
     super.initState();
   }
 
+  _changeCallBack(){
+    if(widget.onChangeCallBack != null){
+      widget.onChangeCallBack();
+    }
+  }
   Future<bool> addToFavorite(String jobId,) async {
     BotToast.showLoading();
     var userId =
@@ -64,6 +70,8 @@ class _JobDetailsState extends State<JobDetails> {
          Provider.of<JobListViewModel>(context, listen: false)
             .refresh();
         setState(() {});
+        _changeCallBack();
+
         return true;
       } else {
         BotToast.closeAllLoading();
@@ -96,6 +104,7 @@ class _JobDetailsState extends State<JobDetails> {
         BotToast.showText(
             text: StringUtils.successfullyAppliedText,
             duration: Duration(seconds: 2));
+        _changeCallBack();
 
         return true;
       } else {
@@ -227,7 +236,9 @@ class _JobDetailsState extends State<JobDetails> {
 
     bool isFavorite = jobDetails?.status ?? false;
      bool isApplied = jobDetails?.isApplied ?? false;
-
+    bool isDateExpired = jobDetails.applicationDeadline != null
+        ? jobDetails.applicationDeadline.isAfter(DateTime.now())
+        : true;
     //Widgets
     var heartButton = Material(
       color: Colors.transparent,
@@ -253,7 +264,7 @@ class _JobDetailsState extends State<JobDetails> {
         ),
       ),
     );
-    var applyButton = Material(
+    var applyButtonOld = Material(
       color: isApplied ? Colors.grey : Theme.of(context).accentColor,
       borderRadius: BorderRadius.circular(5),
       child: InkWell(
@@ -277,6 +288,33 @@ class _JobDetailsState extends State<JobDetails> {
         ),
       ),
     );
+    var applyButton = Material(
+      color: isApplied ? Colors.blue[200]
+          : (isDateExpired?Colors.grey:Theme.of(context).accentColor),
+      borderRadius: BorderRadius.circular(5),
+      child: InkWell(
+        onTap: isApplied
+            ? null
+            : () {
+          _showApplyDialog();
+        },
+        borderRadius: BorderRadius.circular(5),
+        child: Container(
+          height: 30,
+          width: 65,
+          alignment: Alignment.center,
+//          padding: EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+
+          child: Text(
+            isApplied
+                ? StringUtils.appliedText
+                : StringUtils.applyText,
+            style: TextStyle(
+                fontSize: 15, color: Colors.white, fontWeight: FontWeight.w600),
+          ),
+        ),
+      ),
+    );
     var spaceBetweenSections = SizedBox(
       height: 30,
     );
@@ -292,7 +330,7 @@ class _JobDetailsState extends State<JobDetails> {
             margin: EdgeInsets.only(right: 10),
             child: CachedNetworkImage(
               placeholder: (context, _) => Image.asset(
-                kImagePlaceHolderAsset,
+                kCompanyImagePlaceholder,
                 fit: BoxFit.cover,
               ),
               imageUrl: jobDetails.profilePicture ?? "",
@@ -553,7 +591,7 @@ class _JobDetailsState extends State<JobDetails> {
                       StringUtils.publishedOn,
                       jobDetails.createdDate != null
                           ? DateFormatUtil
-                          .formatDate(DateTime.parse(jobDetails.createdDate))
+                          .formatDate(jobDetails.createdDate)
                           : StringUtils.unspecifiedText)
                 ],
               ),
@@ -714,7 +752,7 @@ class _JobDetailsState extends State<JobDetails> {
             Text(
               jobDetails.createdDate != null
                   ? DateFormatUtil
-                      .formatDate(DateTime.parse(jobDetails.createdDate))
+                      .formatDate(jobDetails.createdDate)
                   : StringUtils.unspecifiedText,
               style: topSideDescriptionFontStyle,
             ),
@@ -734,7 +772,7 @@ class _JobDetailsState extends State<JobDetails> {
             Text(
               jobDetails.applicationDeadline != null
                   ? DateFormatUtil.formatDate(
-                      DateTime.parse(jobDetails.applicationDeadline))
+                  jobDetails.applicationDeadline)
                   : StringUtils.unspecifiedText,
               style: topSideDescriptionFontStyle,
             ),
