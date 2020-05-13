@@ -66,15 +66,21 @@ class _FavouriteJobListScreenState extends State<FavouriteJobListScreen>
 
   @override
   Widget build(BuildContext context) {
-    return FlavorBanner(
-      child:
-      Consumer<FavouriteJobListViewModel>(builder: (context, favoriteJobListViewModel, _) {
-        var jobList = favoriteJobListViewModel.jobList;
-        var isInSearchMode = favoriteJobListViewModel.isInSearchMode;
-        debugPrint("${jobList.length}");
-        return Scaffold(
-          appBar: AppBar(
-            title: Text(StringUtils.favoriteJobsText),
+    return RefreshIndicator(
+      onRefresh: () async {
+        _searchTextEditingController?.clear();
+        return Provider.of<FavouriteJobListViewModel>(context, listen: false)
+            .refresh();
+      },
+      child: FlavorBanner(
+        child:
+        Consumer<FavouriteJobListViewModel>(builder: (context, favoriteJobListViewModel, _) {
+          var jobList = favoriteJobListViewModel.jobList;
+          var isInSearchMode = favoriteJobListViewModel.isInSearchMode;
+          debugPrint("${jobList.length}");
+          return Scaffold(
+            appBar: AppBar(
+              title: Text(StringUtils.favoriteJobsText),
 //            actions: [
 //              IconButton(
 //                icon: Icon(isInSearchMode ? Icons.close : Icons.search),
@@ -84,81 +90,67 @@ class _FavouriteJobListScreenState extends State<FavouriteJobListScreen>
 //                },
 //              )
 //            ],
-          ),
-          body: Column(
-            children: [
-              if (favoriteJobListViewModel.isInSearchMode)
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(8,8,8,8),
-                  child: CustomTextFormField(
-                    controller: _searchTextEditingController,
-                    onChanged: favoriteJobListViewModel.addSearchQuery,
-                    hintText: StringUtils.searchText,
+            ),
+            body: Column(
+              children: [
+                if (favoriteJobListViewModel.isInSearchMode)
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(8,8,8,8),
+                    child: CustomTextFormField(
+                      controller: _searchTextEditingController,
+                      onChanged: favoriteJobListViewModel.addSearchQuery,
+                      hintText: StringUtils.searchText,
+                    ),
+                  ),
+                Expanded(
+                  child: ListView(
+                    physics: AlwaysScrollableScrollPhysics(),
+                    controller: _scrollController,
+                    children: [
+
+
+                      if (favoriteJobListViewModel.isFetchingData)
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Loader(),
+                        ),
+                      (favoriteJobListViewModel.jobList.length == 0 && favoriteJobListViewModel.isFetchingData)
+                          ? Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(StringUtils.noFavouriteJobsFound),
+                        ),
+                      )
+                          : ListView.builder(
+                          padding: EdgeInsets.symmetric(vertical: 4),
+                          physics: NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+
+                          itemCount: jobList.length + 1,
+//              separatorBuilder: (context,index)=>Divider(),
+                          itemBuilder: (context, index) {
+                            if (index == jobList.length) {
+                              return favoriteJobListViewModel.isFetchingMoreData
+                                  ? Padding(
+                                  padding: EdgeInsets.all(15),
+                                  child: Loader())
+                                  : SizedBox();
+                            }
+
+                            JobListModel job = jobList[index];
+
+                            return FavoriteJobListTileWidget(
+                              job,
+                            );
+                          }),
+                    ],
                   ),
                 ),
-              Expanded(
-                child: ListView(
-                  physics: AlwaysScrollableScrollPhysics(),
-                  controller: _scrollController,
-                  children: [
-
-
-                    if (favoriteJobListViewModel.isFetchingData)
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Loader(),
-                      ),
-                    (favoriteJobListViewModel.jobList.length == 0 && favoriteJobListViewModel.isFetchingData)
-                        ? Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(StringUtils.noFavouriteJobsFound),
-                      ),
-                    )
-                        : ListView.builder(
-                        padding: EdgeInsets.symmetric(vertical: 4),
-                        physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-
-                        itemCount: jobList.length + 1,
-//              separatorBuilder: (context,index)=>Divider(),
-                        itemBuilder: (context, index) {
-                          if (index == jobList.length) {
-                            return favoriteJobListViewModel.isFetchingMoreData
-                                ? Padding(
-                                padding: EdgeInsets.all(15),
-                                child: Loader())
-                                : SizedBox();
-                          }
-
-                          JobListModel job = jobList[index];
-
-                          return FavoriteJobListTileWidget(
-                            job,
-//                              onTap: () {
-//                                Navigator.of(context).push(MaterialPageRoute(
-//                                    builder: (context) => JobDetails(
-//                                      jobModel: job,
-//                                      index: index,
-//                                    )));
-//                              },
-//                              onFavorite: () {
-//                                appliedJobListViewModel.addToFavorite(job.jobId, index);
-//                              },
-                            job.isApplied
-                                ? null
-                                : () {
-                              _showApplyForJobDialog(job, index);
-                            },
-                          );
-                        }),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        );
-      }),
+              ],
+            ),
+          );
+        }),
+      ),
     );
   }
 

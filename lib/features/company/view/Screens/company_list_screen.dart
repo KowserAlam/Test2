@@ -3,11 +3,14 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:p7app/features/user_profile/models/company.dart';
-import 'package:p7app/features/user_profile/repositories/company_list_repository.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:p7app/main_app/app_theme/app_theme.dart';
+
+import 'company_details.dart';
+import 'file:///G:/Study/Flutter/p7app_repo/lib/features/company/models/company.dart';
+import 'file:///G:/Study/Flutter/p7app_repo/lib/features/company/repositories/company_list_repository.dart';
 import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
-import 'package:p7app/features/user_profile/view_models/company_list_view_model.dart';
-import 'package:p7app/features/user_profile/views/screens/company_details.dart';
+import 'file:///G:/Study/Flutter/p7app_repo/lib/features/company/view_model/company_list_view_model.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/util/debouncer.dart';
@@ -49,6 +52,8 @@ class _CompanyListScreenState extends State<CompanyListScreen> {
     var scaffoldBackgroundColor = Theme.of(context).scaffoldBackgroundColor;
     bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     var titleStyle = TextStyle(fontSize: 16, fontWeight: FontWeight.w600);
+    double iconSize = 14.0;
+    var subtitleColor = isDarkMode ? Colors.white : AppTheme.grey;
 
 
     return Scaffold(
@@ -64,6 +69,7 @@ class _CompanyListScreenState extends State<CompanyListScreen> {
             children: [
               CustomTextField(
                 controller: _companyNameController,
+                hintText: 'Search',
                 onSubmitted: (v){
                   if(_companyNameController.text.length>2){
                     updateSuggestion();
@@ -133,7 +139,30 @@ class _CompanyListScreenState extends State<CompanyListScreen> {
                                           child: Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: <Widget>[
-                                              Text(companySuggestion[index].name),
+                                              Text(companySuggestion[index].name, style: TextStyle(fontWeight: FontWeight.bold),),
+                                              SizedBox(height: 10,),
+                                              companySuggestion[index].address==null?SizedBox():Container(
+                                                child: Row(
+                                                  children: <Widget>[
+                                                    Icon(
+                                                      FeatherIcons.mapPin,
+                                                      color: subtitleColor,
+                                                      size: iconSize,
+                                                    ),
+                                                    SizedBox(
+                                                      width: 5,
+                                                    ),
+                                                    Expanded(
+                                                      child: Text(
+                                                        companySuggestion[index].address ?? "",
+                                                        maxLines: 1,
+                                                        overflow: TextOverflow.ellipsis,
+                                                        style: TextStyle(color: subtitleColor),
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
                                             ],
                                           )),
                                       //heartButton,

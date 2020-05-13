@@ -5,7 +5,7 @@ import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart';
-import 'package:p7app/features/user_profile/models/company.dart';
+import 'file:///G:/Study/Flutter/p7app_repo/lib/features/company/models/company.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
 import 'package:p7app/main_app/failure/error.dart';

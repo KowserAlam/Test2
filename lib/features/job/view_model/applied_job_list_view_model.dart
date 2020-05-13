@@ -201,6 +201,7 @@ class AppliedJobListViewModel with ChangeNotifier {
     _jobListFilters = JobListFilters();
   }
 
+
   /// ##########################
   /// getter setters
   /// #########################
