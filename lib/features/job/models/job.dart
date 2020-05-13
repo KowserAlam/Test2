@@ -28,6 +28,7 @@ class JobModel {
   String division;
   String district;
   List<String> jobSkills;
+  List<String> skill;
   bool isApplied;
   bool status;
   String profilePicture;
@@ -63,6 +64,7 @@ class JobModel {
     this.jobSkills,
     this.status,
     this.profilePicture,
+    this.skill
   });
 
   JobModel.fromJson(Map<String, dynamic> json) {
@@ -95,6 +97,7 @@ class JobModel {
     division = json['division'];
     district = json['district'];
     jobSkills = json['job_skills']?.cast<String>();
+    skill = json['skill']?.cast<String>();
 
     isApplied = json['is_applied'] == null ? false : (json['is_applied'] == "Yes" ? true : false);
     status = json['status'] == null ? false : (json['status'] == "Yes" ? true : false);
@@ -132,6 +135,7 @@ class JobModel {
     data['division'] = this.division;
     data['district'] = this.district;
     data['job_skills'] = this.jobSkills;
+    data['skill'] = this.skill;
     return data;
   }
 }

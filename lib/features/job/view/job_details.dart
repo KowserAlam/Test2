@@ -112,6 +112,48 @@ class _JobDetailsState extends State<JobDetails> {
     }
   }
 
+  _showApplyDialog(){
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text(StringUtils.doYouWantToApplyText),
+            actions: [
+              RawMaterialButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text(StringUtils.noText),
+              ),
+              RawMaterialButton(
+                onPressed: () {
+                  applyForJob(jobDetails.jobId)
+                      .then((value) {
+                    setState(() {
+                      jobDetails.isApplied = value;
+                    });
+                  });
+                  Navigator.pop(context);
+                },
+                child: Text(StringUtils.yesText),
+              ),
+            ],
+          );
+        });
+  }
+
+  String skillListToString(){
+    var listOfSkills = "";
+    for(int i = 0; i< jobDetails.skill.length; i++){
+      if(i +1 == jobDetails.skill.length){
+        listOfSkills += jobDetails.skill[i];
+      }else{
+        listOfSkills += jobDetails.skill[i]+ ", ";
+      }
+    }
+    return listOfSkills;
+  }
+
 //  void getDetails() async {
 //    //Provider.of<JobDetailViewModel>(context, listen: false).slug = widget.jobModel.slug;
 //    await Provider.of<JobDetailViewModel>(context, listen: false)
@@ -218,12 +260,7 @@ class _JobDetailsState extends State<JobDetails> {
         onTap: isApplied
             ? null
             : () {
-                applyForJob(jobDetails.jobId)
-                    .then((value) {
-                  setState(() {
-                    jobDetails.isApplied = value;
-                  });
-                });
+                _showApplyDialog();
               },
         borderRadius: BorderRadius.circular(5),
         child: Container(
@@ -631,6 +668,7 @@ class _JobDetailsState extends State<JobDetails> {
           SizedBox(
             height: 5,
           ),
+          Text(skillListToString(), style: descriptionFontStyle,)
         ],
       ),
     );

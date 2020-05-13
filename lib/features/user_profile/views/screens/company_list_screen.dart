@@ -62,6 +62,11 @@ class _CompanyListScreenState extends State<CompanyListScreen> {
                     BotToast.showText(text: StringUtils.searchLetterCapText);
                   }
                 },
+                onChanged: (v){
+                  if(_companyNameController.text.length==0){
+                    companyViewModel.resetState();
+                  }
+                },
                 suffixIcon: IconButton(
                   icon: Icon(Icons.search),
                   onPressed: (){
