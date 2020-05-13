@@ -8,7 +8,7 @@ class PopularJobCategoriesLisRepository{
 
   Future<Either<AppError,List<String>>> getList() async{
     try{
-      var res = await ApiClient().getRequest(Urls.popularJobCategoriesListUrl);
+      var res = await ApiClient().getRequest(Urls.jobCategoriesListUrl);
 
       if(res.statusCode == 200){
         var decodedJson = json.decode(res.body);

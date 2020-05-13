@@ -10,8 +10,13 @@ import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/widgets/app_version_widget_small.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:p7app/main_app/widgets/loader.dart';
 
 class Root extends StatefulWidget {
+  final bool isFromLogin;
+
+  Root({this.isFromLogin = false});
+
   @override
   _RootState createState() => _RootState();
 }
@@ -19,30 +24,33 @@ class Root extends StatefulWidget {
 class _RootState extends State<Root> {
   @override
   void initState() {
-//    ApiHelper apiHelper = ApiHelper();
+    init();
+    super.initState();
+  }
+
+  init(){
+    //    ApiHelper apiHelper = ApiHelper();
 //    apiHelper.checkInternetConnectivity();
 
     getAuthStatus().then((AuthUserModel user) {
       if (user != null) {
-        Future.delayed(Duration(seconds: 2)).then((_) {
+        Future.delayed(Duration(seconds: widget.isFromLogin?0: 2)).then((_) {
           Navigator.pushAndRemoveUntil(
               context,
               CupertinoPageRoute(builder: (context) => JobListScreen()),
-              (Route<dynamic> route) => false);
+                  (Route<dynamic> route) => false);
         });
       } else {
         Future.delayed(Duration(seconds: 1)).then((_) {
           Navigator.pushAndRemoveUntil(
               context,
               CupertinoPageRoute(builder: (context) => LoginScreen()),
-              (Route<dynamic> route) => false);
+                  (Route<dynamic> route) => false);
         });
       }
     });
     initFireBseFCM();
-    super.initState();
   }
-
   initFireBseFCM() {
     final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 
@@ -143,7 +151,7 @@ class _RootState extends State<Root> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
-        child: Container(
+        child:widget.isFromLogin? Center(child: Loader(),):Container(
           height: height,
           width: width,
           child: Column(

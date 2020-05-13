@@ -36,7 +36,7 @@ class ExperienceListItem extends StatelessWidget {
       child: ListTile(
         contentPadding: EdgeInsets.zero,
         leading: Image.asset(
-          kImagePlaceHolderAsset,
+          kCompanyImagePlaceholder,
           height: 55,
           width: 55,
         ),

@@ -25,8 +25,8 @@ main() {
   viewModel.jobListRepository = mockRepository;
   setUp(() {
     viewModel.jobList = [
-      JobModel(jobId: "abc", status: false, isApplied: false),
-      JobModel(jobId: "abc", status: false, isApplied: false),
+      JobModel(jobId: "abc", isFavourite: false, isApplied: false),
+      JobModel(jobId: "abc", isFavourite: false, isApplied: false),
     ];
   });
 

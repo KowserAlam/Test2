@@ -213,7 +213,7 @@ class JobListViewModel with ChangeNotifier {
       if (res.statusCode == 200) {
         BotToast.closeAllLoading();
 
-        _jobList[index].status = !_jobList[index].status;
+        _jobList[index].isFavourite = !_jobList[index].isFavourite;
         notifyListeners();
         return true;
       } else {

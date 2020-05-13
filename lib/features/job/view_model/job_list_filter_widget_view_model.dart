@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:p7app/features/job/models/sort_item.dart';
+import 'package:p7app/features/job/repositories/job_gender_list_repository.dart';
 import 'package:p7app/features/job/repositories/job_list_sort_items_repository.dart';
 import 'package:p7app/features/job/repositories/job_location_list_repository.dart';
 import 'package:p7app/features/job/repositories/job_type_list_repository.dart';
@@ -224,7 +225,7 @@ class JobListFilterWidgetViewModel with ChangeNotifier {
 
   Future<List<String>> _getGenderList() async {
     Either<AppError, List<String>> res =
-        await GenderListRepository().getGenderList();
+        await JobGenderListRepository().getGenderList();
     return res.fold((l) {
       print(l);
       return [];

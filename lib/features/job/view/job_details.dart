@@ -234,7 +234,7 @@ class _JobDetailsState extends State<JobDetails> {
     double sectionIconSize = 20;
     Color clockIconColor = Colors.orange;
 
-    bool isFavorite = jobDetails?.status ?? false;
+    bool isFavorite = jobDetails?.isFavourite ?? false;
      bool isApplied = jobDetails?.isApplied ?? false;
     bool isDateExpired = jobDetails.applicationDeadline != null
         ? jobDetails.applicationDeadline.isAfter(DateTime.now())
@@ -249,7 +249,7 @@ class _JobDetailsState extends State<JobDetails> {
 
           addToFavorite(jobDetails.jobId)
               .then((value) {
-            jobDetails.status = !jobDetails.status;
+            jobDetails.isFavourite = !jobDetails.isFavourite;
             setState(() {
             });
           });
@@ -589,9 +589,9 @@ class _JobDetailsState extends State<JobDetails> {
                 children: <Widget>[
                   jobSummeryRichText(
                       StringUtils.publishedOn,
-                      jobDetails.createdDate != null
+                      jobDetails.createdAt != null
                           ? DateFormatUtil
-                          .formatDate(jobDetails.createdDate)
+                          .formatDate(jobDetails.createdAt)
                           : StringUtils.unspecifiedText)
                 ],
               ),
@@ -750,9 +750,9 @@ class _JobDetailsState extends State<JobDetails> {
               width: 5,
             ),
             Text(
-              jobDetails.createdDate != null
+              jobDetails.createdAt != null
                   ? DateFormatUtil
-                      .formatDate(jobDetails.createdDate)
+                      .formatDate(jobDetails.createdAt)
                   : StringUtils.unspecifiedText,
               style: topSideDescriptionFontStyle,
             ),
