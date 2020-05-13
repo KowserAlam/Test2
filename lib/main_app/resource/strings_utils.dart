@@ -175,7 +175,7 @@ class StringUtils {
   static String ongoingText = "Ongoing";
 
   //Company List Screen
-  static var companyListText = "Company List";
+  static var companyListAppbarText = "Search Companies";
 
   //Company Details Screen
   static var companyDetailsText = "Company Details";
