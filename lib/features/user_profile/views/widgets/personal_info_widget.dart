@@ -65,7 +65,7 @@ class PersonalInfoWidget extends StatelessWidget {
                 _item(
                     context: context,
                     label: StringUtils.dateOfBirthText,
-                    value: personalInfo.dateOfBirth != null? DateFormatUtil().dateFormat1(personalInfo.dateOfBirth):""),
+                    value: personalInfo.dateOfBirth != null? DateFormatUtil.formatDate(personalInfo.dateOfBirth):""),
                 //gender
                 _item(
                     context: context,
