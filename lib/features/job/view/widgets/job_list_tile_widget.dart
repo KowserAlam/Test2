@@ -24,7 +24,7 @@ class JobListTileWidget extends StatefulWidget {
 class _JobListTileWidgetState extends State<JobListTileWidget> {
   @override
   Widget build(BuildContext context) {
-    bool isFavorite = widget.jobModel.status;
+    bool isFavorite = widget.jobModel.isFavourite;
 
     String publishDateText = widget.jobModel.createdAt == null
         ? StringUtils.unspecifiedText

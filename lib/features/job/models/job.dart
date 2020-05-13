@@ -30,7 +30,7 @@ class JobModel {
   List<String> jobSkills;
   List<String> skill;
   bool isApplied;
-  bool status;
+  bool isFavourite;
   String profilePicture;
   DateTime publishDate;
   DateTime postDate;
@@ -65,7 +65,7 @@ class JobModel {
     this.division,
     this.district,
     this.jobSkills,
-    this.status,
+    this.isFavourite,
     this.profilePicture,
     this.skill,
     this.postDate
@@ -114,7 +114,7 @@ class JobModel {
     skill = json['skill']?.cast<String>();
 
     isApplied = json['is_applied'] == null ? false : (json['is_applied'] == "Yes" ? true : false);
-    status = json['status'] == null ? false : (json['status'] == "Yes" ? true : false);
+    isFavourite = json['is_favourite'] == null ? false : (json['is_favourite'] == "Yes" ? true : false);
     if(json['profile_picture'] != null){
       profilePicture = "$baseUrl${json['profile_picture']}";
     }
