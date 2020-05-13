@@ -25,6 +25,8 @@ class _CompanyListScreenState extends State<CompanyListScreen> {
   Debouncer _debouncer = Debouncer(milliseconds: 400);
   Company selectedCompany;
 
+
+
   @override
   void initState() {
     // TODO: implement initState
@@ -42,6 +44,13 @@ class _CompanyListScreenState extends State<CompanyListScreen> {
       companyViewModel.getJobDetails();
       print(companyViewModel.companyList.length);
     }
+
+    var backgroundColor = Theme.of(context).backgroundColor;
+    var scaffoldBackgroundColor = Theme.of(context).scaffoldBackgroundColor;
+    bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    var titleStyle = TextStyle(fontSize: 16, fontWeight: FontWeight.w600);
+
+
     return Scaffold(
       appBar: AppBar(
         title: Text(StringUtils.companyListText),
@@ -90,21 +99,50 @@ class _CompanyListScreenState extends State<CompanyListScreen> {
                                     builder: (context) => CompanyDetails(company: companySuggestion[index],)));
                           },
                           child: Container(
-                            padding: EdgeInsets.symmetric(vertical: 10),
-                              margin: EdgeInsets.symmetric(vertical: 5),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(2),
-                                border: Border.all(width: 1,color: Colors.grey[400]),
-                              ),
-                              child: ListTile(
-                                leading: CachedNetworkImage(
-                                  placeholder: (context, _) => Image.asset(
-                                    kImagePlaceHolderAsset,
-                                    fit: BoxFit.cover,
+                            decoration: BoxDecoration(color: scaffoldBackgroundColor,
+                                boxShadow: [
+                                  BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 10),
+                                  BoxShadow(color: Colors.black.withOpacity(0.2), blurRadius: 10),
+                                ]),
+                            margin: EdgeInsets.fromLTRB(8, 4, 8, 4),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Container(
+                                  color: backgroundColor,
+                                  padding: EdgeInsets.all(8),
+                                  child: Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Container(
+                                        height: 60,
+                                        width: 60,
+                                        decoration: BoxDecoration(
+                                          color: scaffoldBackgroundColor,
+                                        ),
+                                        child: CachedNetworkImage(
+                                          placeholder: (context, _) => Image.asset(
+                                            kImagePlaceHolderAsset,
+                                            fit: BoxFit.cover,
+                                          ),
+                                          imageUrl: companySuggestion[index].profilePicture ?? "",
+                                        ),
+                                      ),
+                                      SizedBox(width: 8),
+                                      Expanded(
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: <Widget>[
+                                              Text(companySuggestion[index].name),
+                                            ],
+                                          )),
+                                      //heartButton,
+                                    ],
                                   ),
-                                  imageUrl: companySuggestion[index]?.profilePicture ?? "",
                                 ),
-                                title: Text(companySuggestion[index].name),)));
+                              ],
+                            ),
+                          ));
                     }),
               )
             ],
