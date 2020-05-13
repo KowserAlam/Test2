@@ -33,6 +33,7 @@ class _JobListScreenState extends State<JobListScreen>
   ScrollController _scrollController = ScrollController();
   AnimationController controller;
   TextEditingController _searchTextEditingController = TextEditingController();
+  var _searchFieldFocusNode = FocusNode();
   var _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -86,6 +87,12 @@ class _JobListScreenState extends State<JobListScreen>
                 onPressed: () {
                   _searchTextEditingController?.clear();
                   jobListViewModel.toggleIsInSearchMode();
+
+                  if(jobListViewModel.isInSearchMode){
+                    _searchFieldFocusNode.requestFocus();
+                  }else{
+                    _searchFieldFocusNode.unfocus();
+                  }
                 },
               ),
               IconButton(
@@ -117,6 +124,7 @@ class _JobListScreenState extends State<JobListScreen>
                       Padding(
                         padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
                         child: CustomTextField(
+                          focusNode: _searchFieldFocusNode,
                           onSubmitted: (v){
                             if (_searchTextEditingController
                                 .text.isNotEmpty) {

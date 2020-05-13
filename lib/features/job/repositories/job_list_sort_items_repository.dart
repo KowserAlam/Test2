@@ -5,9 +5,9 @@ class JobListSortItemRepository{
   List<SortItem> getList(){
 
     return [
-      SortItem(key: "",value:"None"),
+      SortItem(key: "",value:"Most Recent"),
       SortItem(key: "top-rated",value: "Top Rated"),
-      SortItem(key: "most-applied",value: "Most applied"),
+      SortItem(key: "most-applied",value: "Most Applied"),
     ];
   }
 }

@@ -25,4 +25,12 @@ extension StringExtenion on String {
     else
       return false;
   }
+
+  String get  replaceAmpWith26{
+    if (this != null){
+      return this.replaceAll("%26", "&");
+    }
+    else
+      return null;
+  }
 }

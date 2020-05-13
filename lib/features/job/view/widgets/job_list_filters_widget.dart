@@ -226,7 +226,7 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
                     labelText: StringUtils.sortBy,
                     hint: Text(StringUtils.tapToSelectText),
                     value: jobListFilterWidgetViewModel.selectedSortBy ??
-                        SortItem(key: '', value: 'None'),
+                        jobListFilterWidgetViewModel.sortByList[0],
                     onChanged: (v) =>
                         jobListFilterWidgetViewModel.selectedSortBy = v,
                     items: sortByListDropDownMenuItems,

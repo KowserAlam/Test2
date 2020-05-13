@@ -40,13 +40,13 @@ class _AppDrawerState extends State<AppDrawer> {
         SizedBox(
           height: MediaQuery.of(context).padding.top,
         ),
-
         FutureBuilder<AuthUserModel>(
             future: AuthService.getInstance().then((value) => value.getUser()),
             builder: (context, snapshot) {
 //              var baseUrl = FlavorConfig.instance.values.baseUrl;
               var user = snapshot.data;
-              var imageUrl = user?.professionalImage??kDefaultUserImageNetwork;
+              var imageUrl =
+                  user?.professionalImage ?? kDefaultUserImageNetwork;
               return Container(
                 height: 160,
                 decoration: BoxDecoration(
@@ -93,9 +93,12 @@ class _AppDrawerState extends State<AppDrawer> {
                       ),
                       child: ClipRRect(
                         child: CachedNetworkImage(
-                          imageUrl:imageUrl,
+                          imageUrl: imageUrl,
                           fit: BoxFit.cover,
-                          placeholder:(context,_)=> Image.asset(kDefaultUserImageAsset,fit: BoxFit.cover,),
+                          placeholder: (context, _) => Image.asset(
+                            kDefaultUserImageAsset,
+                            fit: BoxFit.cover,
+                          ),
                         ),
                         borderRadius: BorderRadius.circular(100),
                       ),
@@ -112,7 +115,6 @@ class _AppDrawerState extends State<AppDrawer> {
                 ),
               );
             }),
-
         Expanded(
           child: SingleChildScrollView(
             child: Column(
@@ -131,7 +133,7 @@ class _AppDrawerState extends State<AppDrawer> {
                 ),
 
                 Divider(height: 1),
-
+// favorite jobs
                 DrawerListWidget(
                   label: StringUtils.favoriteJobsText,
                   icon: FontAwesomeIcons.heart,
@@ -146,26 +148,26 @@ class _AppDrawerState extends State<AppDrawer> {
                 ),
                 Divider(height: 1),
 
-// skill check
-//                DrawerListWidget(
-//                  label: StringUtils.appliedJobsText,
-//                  icon: FontAwesomeIcons.checkCircle,
-//                  isSelected: false,
-//                  onTap: () {
-//                    Navigator.pop(context);
-//                    Navigator.push(
-//                        context,
-//                        CupertinoPageRoute(
-//                            builder: (context) => AppliedJobListScreen()));
-//                  },
-//                ),
+// applied jobs
+                DrawerListWidget(
+                  label: StringUtils.appliedJobsText,
+                  icon: FontAwesomeIcons.checkCircle,
+                  isSelected: false,
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.push(
+                        context,
+                        CupertinoPageRoute(
+                            builder: (context) => AppliedJobListScreen()));
+                  },
+                ),
 
                 Divider(height: 1),
 
 // company list
                 DrawerListWidget(
                   label: StringUtils.companyListText,
-                  icon: FontAwesomeIcons.briefcase,
+                  icon: FontAwesomeIcons.solidBuilding,
                   isSelected: false,
                   onTap: () {
                     Navigator.pop(context);
@@ -177,16 +179,16 @@ class _AppDrawerState extends State<AppDrawer> {
                 ),
 
                 Divider(height: 1),
-
-                DrawerListWidget(
-                  label: StringUtils.skillCheckText,
-                  icon: FontAwesomeIcons.list,
-                  isSelected: false,
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                ),
-                Divider(height: 1),
+//
+//                DrawerListWidget(
+//                  label: StringUtils.skillCheckText,
+//                  icon: FontAwesomeIcons.list,
+//                  isSelected: false,
+//                  onTap: () {
+//                    Navigator.pop(context);
+//                  },
+//                ),
+//                Divider(height: 1),
 
                 ///Profile
                 DrawerListWidget(
@@ -202,30 +204,27 @@ class _AppDrawerState extends State<AppDrawer> {
                   },
                 ),
 
-                Divider(
-                  height: 1
-                ),
+                Divider(height: 1),
+
                 /// ************ sign out
                 DrawerListWidget(
                   label: StringUtils.signOutText,
                   icon: FontAwesomeIcons.signOutAlt,
                   isSelected: false,
                   onTap: () {
-                    Provider.of<LoginViewModel>(context, listen: false).signOut();
+                    Provider.of<LoginViewModel>(context, listen: false)
+                        .signOut();
                     Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(builder: (context) => LoginScreen()),
-                            (_) => false);
+                        (_) => false);
                   },
                 ),
                 Divider(height: 1),
-
               ],
             ),
           ),
         ),
-
-
         Center(child: AppVersionWidgetLowerCase())
       ],
     );
@@ -254,7 +253,7 @@ class DrawerListWidget extends StatelessWidget {
     var iconColor = color ??
         (isSelected
             ? Theme.of(context).primaryColor
-            : (isDarkMode?Colors.grey[200]:Colors.grey[700]));
+            : (isDarkMode ? Colors.grey[200] : Colors.grey[700]));
     return Material(
       color: isSelected
           ? Theme.of(context).scaffoldBackgroundColor
