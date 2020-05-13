@@ -2,6 +2,7 @@ import 'package:after_layout/after_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p7app/features/job/models/job_list_filters.dart';
+import 'package:p7app/features/job/models/jon_type_model.dart';
 import 'package:p7app/features/job/models/sort_item.dart';
 import 'package:p7app/features/job/repositories/job_list_sort_items_repository.dart';
 import 'package:p7app/features/job/view_model/job_list_filter_widget_view_model.dart';
@@ -117,11 +118,11 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
                   ))
               .toList();
       var jobTypeDropDownMenuItems = jobListFilterWidgetViewModel.jobTypes
-          .map((e) => DropdownMenuItem<String>(
-                key: Key(e),
+          .map((e) => DropdownMenuItem<JobType>(
+                key: Key(e.id),
                 value: e,
                 child: Text(
-                  e,
+                  e.name,
                   overflow: TextOverflow.ellipsis,
                 ),
               ))
@@ -266,7 +267,7 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
                   ),
                   spaceBetween,
                   // jobType
-                  CustomDropdownButtonFormField(
+                  CustomDropdownButtonFormField<JobType>(
                     labelText: StringUtils.jobTypeText,
                     hint: Text(StringUtils.tapToSelectText),
                     onChanged: (value) {

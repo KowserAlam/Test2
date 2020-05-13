@@ -24,7 +24,7 @@ class JobListRepository {
         "?page=${filters.page}&q=${filters.searchQuery??""}&location=${filters.location??""}&category=${filters.category??""}"
         "&location_from_homepage=${filters.location_from_homepage??""}&keyword_from_homepage=${filters.keyword_from_homepage??""}"
         "&skill=${filters.skill??""}&salaryMin=${filters.salaryMin??""}&salaryMax=${filters.salaryMax??""}&experienceMin=${filters.experienceMin??""}"
-        "&experienceMax=${filters.experienceMax??""}&datePosted=${filters.datePosted??""}&gender=${filters.gender??""}&job_type=${filters.job_type??""}"
+        "&experienceMax=${filters.experienceMax??""}&datePosted=${filters.datePosted??""}&gender=${filters.gender??""}&job_type=${filters.job_type?.id??""}"
         "&qualification=${filters.qualification??""}&sort=${filters?.sort?.key??""}"
         "&page_size=${filters.page_size}&top-skill=${filters.topSkill??""}";
 

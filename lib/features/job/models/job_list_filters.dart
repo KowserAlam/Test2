@@ -1,3 +1,4 @@
+import 'package:p7app/features/job/models/jon_type_model.dart';
 import 'package:p7app/features/job/models/sort_item.dart';
 
 class JobListFilters {
@@ -18,7 +19,7 @@ class JobListFilters {
   String qualification;
   SortItem sort;
   bool isApplied;
-  String job_type;
+  JobType job_type;
   String topSkill;
 
   JobListFilters({

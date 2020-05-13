@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:p7app/features/job/models/jon_type_model.dart';
 import 'package:p7app/features/job/models/sort_item.dart';
 import 'package:p7app/features/job/repositories/job_gender_list_repository.dart';
 import 'package:p7app/features/job/repositories/job_list_sort_items_repository.dart';
@@ -17,12 +18,12 @@ class JobListFilterWidgetViewModel with ChangeNotifier {
   List<Skill> _skills = [];
   List<String> _locations = [];
   List<String> _jobCategories = [];
-  List<String> _jobTypes = [];
+  List<JobType> _jobTypes = [];
   List<String> _qualifications = [];
   List<String> _genders = [];
   String _selectedCategory;
   String _selectedLocation;
-  String _selectedJobType;
+  JobType _selectedJobType;
   double _experienceMax;
   double _experienceMin;
   double _salaryMax;
@@ -93,9 +94,9 @@ class JobListFilterWidgetViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  String get selectedJobType => _selectedJobType;
+  JobType get selectedJobType => _selectedJobType;
 
-  set selectedJobType(String value) {
+  set selectedJobType(JobType value) {
     _selectedJobType = value;
     notifyListeners();
   }
@@ -148,9 +149,9 @@ class JobListFilterWidgetViewModel with ChangeNotifier {
     _jobCategories = value;
   }
 
-  List<String> get jobTypes => _jobTypes;
+  List<JobType> get jobTypes => _jobTypes;
 
-  set jobTypes(List<String> value) {
+  set jobTypes(List<JobType> value) {
     _jobTypes = value;
   }
 
@@ -189,8 +190,8 @@ class JobListFilterWidgetViewModel with ChangeNotifier {
     }, (r) => r);
   }
 
-  Future<List<String>> _getJobTypeList() async {
-    Either<AppError, List<String>> res = await JobTypeLisRepository().getList();
+  Future<List<JobType>> _getJobTypeList() async {
+    Either<AppError, List<JobType>> res = await JobTypeLisRepository().getList();
     return res.fold((l) {
       print(l);
       return [];

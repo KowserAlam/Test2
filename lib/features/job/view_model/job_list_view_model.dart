@@ -308,7 +308,7 @@ class JobListViewModel with ChangeNotifier {
 
   bool get hasSkill => _jobListFilters.skill.isNotEmptyOrNotNull;
 
-  bool get hasJobType => _jobListFilters.job_type.isNotEmptyOrNotNull;
+  bool get hasJobType => _jobListFilters.job_type?.id?.isNotEmptyOrNotNull??false;
 
   bool get hasDatePosted => _jobListFilters.datePosted.isNotEmptyOrNotNull;
 
