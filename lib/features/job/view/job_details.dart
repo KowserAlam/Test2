@@ -237,7 +237,7 @@ class _JobDetailsState extends State<JobDetails> {
     bool isFavorite = jobDetails?.isFavourite ?? false;
      bool isApplied = jobDetails?.isApplied ?? false;
     bool isDateExpired = jobDetails.applicationDeadline != null
-        ? jobDetails.applicationDeadline.isAfter(DateTime.now())
+        ? DateTime.now().isAfter(jobDetails.applicationDeadline)
         : true;
     //Widgets
     var heartButton = Material(

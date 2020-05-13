@@ -138,7 +138,7 @@ class _FavoriteJobListTileWidgetState extends State<FavoriteJobListTileWidget> {
         ? StringUtils.unspecifiedText
         : DateFormatUtil().dateFormat1(widget.jobListModel.applicationDeadline);
     bool isDateExpired = widget.jobListModel.applicationDeadline != null
-    ? widget.jobListModel.applicationDeadline.isAfter(DateTime.now())
+        ? DateTime.now().isAfter(widget.jobListModel.applicationDeadline)
         : true;
 
     var backgroundColor = Theme.of(context).backgroundColor;
