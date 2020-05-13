@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:p7app/features/auth/provider/login_view_model.dart';
 import 'package:p7app/features/auth/view/login_screen.dart';
 import 'package:p7app/features/company/view/Screens/company_list_screen.dart';
+import 'package:p7app/features/company/view_model/company_list_view_model.dart';
 import 'package:p7app/features/config/config_screen.dart';
 import 'package:p7app/features/job/view/applied_job_list_screen.dart';
 

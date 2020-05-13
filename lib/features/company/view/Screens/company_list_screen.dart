@@ -25,14 +25,7 @@ class _CompanyListScreenState extends State<CompanyListScreen> {
   Debouncer _debouncer = Debouncer(milliseconds: 400);
   Company selectedCompany;
 
-
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    //updateSuggestion();
-    super.initState();
-  }
+  
 
 
   @override
@@ -53,125 +46,131 @@ class _CompanyListScreenState extends State<CompanyListScreen> {
     var subtitleColor = isDarkMode ? Colors.white : AppTheme.grey;
 
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(StringUtils.companyListAppbarText),
-      ),
-      body: SingleChildScrollView(
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          padding: EdgeInsets.all(10),
-          child: Column(
-            children: [
-              CustomTextField(
-                controller: _companyNameController,
-                hintText: 'Search',
-                onSubmitted: (v){
-                  if(_companyNameController.text.length>2){
-                    updateSuggestion();
-                  }else{
-                    BotToast.showText(text: StringUtils.searchLetterCapText);
-                  }
-                },
-                onChanged: (v){
-                  if(_companyNameController.text.length==0){
-                    companyViewModel.resetState();
-                  }
-                },
-                suffixIcon: IconButton(
-                  icon: Icon(Icons.search),
-                  onPressed: (){
+    return WillPopScope(
+      onWillPop: () async{
+        companyViewModel.resetState();
+        return true;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(StringUtils.companyListAppbarText),
+        ),
+        body: SingleChildScrollView(
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            padding: EdgeInsets.all(10),
+            child: Column(
+              children: [
+                CustomTextField(
+                  controller: _companyNameController,
+                  hintText: 'Search',
+                  onSubmitted: (v){
                     if(_companyNameController.text.length>2){
                       updateSuggestion();
                     }else{
                       BotToast.showText(text: StringUtils.searchLetterCapText);
                     }
                   },
+                  onChanged: (v){
+                    if(_companyNameController.text.length==0){
+                      companyViewModel.resetState();
+                    }
+                  },
+                  suffixIcon: IconButton(
+                    icon: Icon(Icons.search),
+                    onPressed: (){
+                      if(_companyNameController.text.length>2){
+                        updateSuggestion();
+                      }else{
+                        BotToast.showText(text: StringUtils.searchLetterCapText);
+                      }
+                    },
+                  ),
                 ),
-              ),
-              Expanded(
-                child: ListView.builder(
-                    itemCount: companySuggestion.length,
-                    itemBuilder: (BuildContext context, int index){
-                      return GestureDetector(
-                          onTap: (){
-                            Navigator.push(
-                                context,
-                                CupertinoPageRoute(
-                                    builder: (context) => CompanyDetails(company: companySuggestion[index],)));
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(color: scaffoldBackgroundColor,
-                                boxShadow: [
-                                  BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 10),
-                                  BoxShadow(color: Colors.black.withOpacity(0.2), blurRadius: 10),
-                                ]),
-                            margin: EdgeInsets.fromLTRB(8, 4, 8, 4),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Container(
-                                  color: backgroundColor,
-                                  padding: EdgeInsets.all(8),
-                                  child: Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Container(
-                                        height: 60,
-                                        width: 60,
-                                        decoration: BoxDecoration(
-                                          color: scaffoldBackgroundColor,
-                                        ),
-                                        child: CachedNetworkImage(
-                                          placeholder: (context, _) => Image.asset(
-                                            kImagePlaceHolderAsset,
-                                            fit: BoxFit.cover,
+                Expanded(
+                  child: ListView.builder(
+                      itemCount: companySuggestion.length,
+                      itemBuilder: (BuildContext context, int index){
+                        return GestureDetector(
+                            onTap: (){
+                              Navigator.push(
+                                  context,
+                                  CupertinoPageRoute(
+                                      builder: (context) => CompanyDetails(company: companySuggestion[index],)));
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(color: scaffoldBackgroundColor,
+                                  boxShadow: [
+                                    BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 10),
+                                    BoxShadow(color: Colors.black.withOpacity(0.2), blurRadius: 10),
+                                  ]),
+                              margin: EdgeInsets.fromLTRB(8, 4, 8, 4),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Container(
+                                    color: backgroundColor,
+                                    padding: EdgeInsets.all(8),
+                                    child: Row(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Container(
+                                          height: 60,
+                                          width: 60,
+                                          decoration: BoxDecoration(
+                                            color: scaffoldBackgroundColor,
                                           ),
-                                          imageUrl: companySuggestion[index].profilePicture ?? "",
+                                          child: CachedNetworkImage(
+                                            placeholder: (context, _) => Image.asset(
+                                              kImagePlaceHolderAsset,
+                                              fit: BoxFit.cover,
+                                            ),
+                                            imageUrl: companySuggestion[index].profilePicture ?? "",
+                                          ),
                                         ),
-                                      ),
-                                      SizedBox(width: 8),
-                                      Expanded(
-                                          child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: <Widget>[
-                                              Text(companySuggestion[index].name, style: TextStyle(fontWeight: FontWeight.bold),),
-                                              SizedBox(height: 10,),
-                                              companySuggestion[index].address==null?SizedBox():Container(
-                                                child: Row(
-                                                  children: <Widget>[
-                                                    Icon(
-                                                      FeatherIcons.mapPin,
-                                                      color: subtitleColor,
-                                                      size: iconSize,
-                                                    ),
-                                                    SizedBox(
-                                                      width: 5,
-                                                    ),
-                                                    Expanded(
-                                                      child: Text(
-                                                        companySuggestion[index].address ?? "",
-                                                        maxLines: 1,
-                                                        overflow: TextOverflow.ellipsis,
-                                                        style: TextStyle(color: subtitleColor),
+                                        SizedBox(width: 8),
+                                        Expanded(
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: <Widget>[
+                                                Text(companySuggestion[index].name, style: TextStyle(fontWeight: FontWeight.bold),),
+                                                SizedBox(height: 10,),
+                                                companySuggestion[index].address==null?SizedBox():Container(
+                                                  child: Row(
+                                                    children: <Widget>[
+                                                      Icon(
+                                                        FeatherIcons.mapPin,
+                                                        color: subtitleColor,
+                                                        size: iconSize,
                                                       ),
-                                                    )
-                                                  ],
+                                                      SizedBox(
+                                                        width: 5,
+                                                      ),
+                                                      Expanded(
+                                                        child: Text(
+                                                          companySuggestion[index].address ?? "",
+                                                          maxLines: 1,
+                                                          overflow: TextOverflow.ellipsis,
+                                                          style: TextStyle(color: subtitleColor),
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ),
                                                 ),
-                                              ),
-                                            ],
-                                          )),
-                                      //heartButton,
-                                    ],
+                                              ],
+                                            )),
+                                        //heartButton,
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          ));
-                    }),
-              )
-            ],
+                                ],
+                              ),
+                            ));
+                      }),
+                )
+              ],
+            ),
           ),
         ),
       ),
