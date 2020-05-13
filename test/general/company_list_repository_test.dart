@@ -1,10 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:p7app/features/user_profile/models/user_model.dart';
-import 'file:///G:/Study/Flutter/p7app_repo/lib/features/company/repositories/company_list_repository.dart';
-import 'package:p7app/features/user_profile/repositories/industry_list_repository.dart';
-
+import 'package:p7app/features/company/repositories/company_list_repository.dart';
 import '../test_data/dataReader.dart';
 
 

@@ -1,11 +1,9 @@
-import 'dart:math';
 
-import 'package:after_layout/after_layout.dart';
 import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:bot_toast/bot_toast.dart';
-import 'file:///G:/Study/Flutter/p7app_repo/lib/features/company/models/company.dart';
+import 'package:p7app/features/company/models/company.dart';
+import 'package:p7app/features/company/repositories/company_list_repository.dart';
 import 'package:p7app/features/user_profile/models/experience_info.dart';
-import 'file:///G:/Study/Flutter/p7app_repo/lib/features/company/repositories/company_list_repository.dart';
 import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/features/user_profile/views/widgets/common_date_picker_widget.dart';

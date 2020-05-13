@@ -1,12 +1,8 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:p7app/features/job/models/job.dart';
-import 'package:p7app/features/job/repositories/job_details_repository.dart';
-import 'file:///G:/Study/Flutter/p7app_repo/lib/features/company/models/company.dart';
-import 'file:///G:/Study/Flutter/p7app_repo/lib/features/company/repositories/company_list_repository.dart';
-import 'package:p7app/main_app/api_helpers/api_client.dart';
-import 'package:p7app/main_app/auth_service/auth_service.dart';
+import 'package:p7app/features/company/models/company.dart';
+import 'package:p7app/features/company/repositories/company_list_repository.dart';
 import 'package:p7app/main_app/failure/error.dart';
 
 class CompanyListViewModel with ChangeNotifier{

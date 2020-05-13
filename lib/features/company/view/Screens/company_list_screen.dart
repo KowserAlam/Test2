@@ -4,13 +4,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:p7app/features/company/models/company.dart';
+import 'package:p7app/features/company/view_model/company_list_view_model.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
-
 import 'company_details.dart';
-import 'file:///G:/Study/Flutter/p7app_repo/lib/features/company/models/company.dart';
-import 'file:///G:/Study/Flutter/p7app_repo/lib/features/company/repositories/company_list_repository.dart';
-import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
-import 'file:///G:/Study/Flutter/p7app_repo/lib/features/company/view_model/company_list_view_model.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/util/debouncer.dart';
