@@ -176,17 +176,37 @@ class StringUtils {
 
   //Company List Screen
   static var companyListAppbarText = "Search Companies";
+  static var searchLetterCapText = "You need to enter at least 3 letters";
 
   //Company Details Screen
   static var companyDetailsText = "Company Details";
-  static var companyHeadText = "Company Head";
-  static var companyHeadNameText = "Name";
-  static var companyHeadDesignationText = "Designation";
-  static var companyHeadNumberText = "Contact Number";
-  static var searchLetterCapText = "You need to enter more than two letters";
-  static var postCodeText = "Post Code";
-  static var companyContactText = "Contact";
+  static var companyBasicInfoSectionText = "BASIC INFO";
+  static var companyProfileText = "Profile";
+  static var companyIndustryText = "Industry";
+  static var companyYearsOfEstablishmentText = "Years of establishment";
+  static var basisMembershipText = "BASIS Membership No";
+  static var companyAddressSectionText = "Address";
+  static var companyAddressText = "Address";
+  static var companyAreaText = "Area";
+  static var companyCityText = "City";
+  static var companyCountryText = "Country";
+  static var companyPostCodeText = "Post Code";
+  static var companyContactSectionText = "CONTACT";
+  static var companyEmailText = "Email";
   static var companyWebAddressText = "Web Address";
+  static var companySocialNetworksSectionText = "SOCIAL NETWORKS";
+  static var companyOrganizationHeadSectionText = "ORGANIZATION\'s HEAD";
+  static var companyOrganizationHeadNameText = "Name";
+  static var companyOrganizationHeadDesignationText = "Designation";
+  static var companyOrganizationHeadMobileNoText = "Mobile No";
+  static var companyOrganizationHeadEmailText = "Email";
+  static var companyOtherInformationText = "OTHER INFORMATION";
+  static var companyNoOFHumanResourcesText = "No of Human Resources";
+  static var companyNoOFItResourcesText = "No of IT Resources";
+  static var companyLegalStructureText = "Leagal Structure";
+
+
+
 
   //Reference Edit Screen
   static var referenceDescriptionText = "Description";

@@ -373,7 +373,7 @@ class _JobDetailsState extends State<JobDetails> {
                     SizedBox(
                       height: 5,
                     ),
-                    Row(
+                    jobDetails.division==null?SizedBox():Row(
                       children: <Widget>[
                         Icon(
                           FeatherIcons.mapPin,

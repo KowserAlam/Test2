@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p7app/features/company/models/company.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
@@ -41,12 +43,12 @@ class _CompanyDetailsState extends State<CompanyDetails> {
     double sectionIconSize = 20;
     Color clockIconColor = Colors.orange;
 
-    Text jobSummeryRichText(String title, String description) {
+    Text richText(String title, String description) {
       return Text.rich(
         TextSpan(children: <TextSpan>[
           TextSpan(text: title, style: descriptionFontStyleBold),
           TextSpan(text: ': ', style: descriptionFontStyleBold),
-          TextSpan(text: description, style: descriptionFontStyle),
+          TextSpan(text: description==null?StringUtils.unspecifiedText:description, style: descriptionFontStyle),
         ]),
         style: descriptionFontStyle,
       );
@@ -54,6 +56,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
 
 
     var dividerUpperSide = Container(
+      padding: EdgeInsets.only(bottom: 20),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -95,39 +98,30 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                 SizedBox(
                   height: 10,
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      companyDetails.email != null
-                          ? companyDetails.email
-                          : StringUtils.unspecifiedText,
-                      style: topSideDescriptionFontStyle,
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Row(
-                      children: <Widget>[
-                        Icon(
-                          FeatherIcons.mapPin,
-                          size: iconSize,
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Flexible(
-                          child: Text(
-                            companyDetails.address != null
-                                ? companyDetails.address
-                                : StringUtils.unspecifiedText,
-                            style: topSideDescriptionFontStyle,
-                          ),
-                        )
-                      ],
-                    )
-                  ],
-                )
+//                Column(
+//                  crossAxisAlignment: CrossAxisAlignment.start,
+//                  children: <Widget>[
+//                    companyDetails.address==null?SizedBox():Row(
+//                      children: <Widget>[
+//                        Icon(
+//                          FeatherIcons.mapPin,
+//                          size: iconSize,
+//                        ),
+//                        SizedBox(
+//                          width: 5,
+//                        ),
+//                        Flexible(
+//                          child: Text(
+//                            companyDetails.address != null
+//                                ? companyDetails.address
+//                                : StringUtils.unspecifiedText,
+//                            style: topSideDescriptionFontStyle,
+//                          ),
+//                        )
+//                      ],
+//                    )
+//                  ],
+//                )
               ],
             ),
           )
@@ -135,126 +129,281 @@ class _CompanyDetailsState extends State<CompanyDetails> {
       ),
     );
 
-    Widget titleHeader(IconData icon, String title){
-      return Row(
-        children: <Widget>[
-          Icon(icon),
-          Text(
-            title,
-            style: sectionTitleFont,
-          ),
-        ],
-      );
-    }
 
-    var organizationHead = Column(
-      children: [
-        titleHeader(Icons.person_outline, "Organization Head"),
-        SizedBox(
-          height: 10,
-        ),
-        Container(
-          width: double.infinity,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5),
-              //gradient: isDarkMode?AppTheme.darkLinearGradient:AppTheme.lightLinearGradient,
-              border: Border.all(width: 1, color: summerySectionBorderColor),
-              color: summerySectionColor),
-          padding: EdgeInsets.all(10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: <Widget>[
-                  jobSummeryRichText(
-                      StringUtils.companyHeadNameText,
-                      companyDetails.organizationHead != null
-                          ? companyDetails.organizationHead.toString()
-                          : StringUtils.unspecifiedText)
-                ],
+    var basicInfo = Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              FaIcon(
+                Icons.person_outline,
+                size: fontAwesomeIconSize,
               ),
               SizedBox(
-                height: 5,
+                width: 5,
               ),
-              Row(
-                children: <Widget>[
-                  jobSummeryRichText(
-                      StringUtils.companyHeadDesignationText,
-                      companyDetails.organizationHeadDesignation != null
-                          ? companyDetails.organizationHeadDesignation.toString()
-                          : StringUtils.unspecifiedText)
-                ],
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              Row(
-                children: <Widget>[
-                  jobSummeryRichText(
-                      StringUtils.companyHeadNumberText,
-                      companyDetails.organizationHeadNumber != null
-                          ? companyDetails.organizationHeadNumber.toString()
-                          : StringUtils.unspecifiedText)
-                ],
-              ),
-              SizedBox(
-                height: 5,
-              ),
+              Text(
+                StringUtils.companyBasicInfoSectionText,
+                style: sectionTitleFont,
+              )
             ],
           ),
-        ),
-      ],
+          SizedBox(height: 5,),
+
+          richText(StringUtils.companyProfileText, companyDetails.companyProfile),
+          SizedBox(height: 5,),
+//
+//          richText(StringUtils.companyIndustryText, companyDetails.companyProfile),
+//          SizedBox(height: 5,),
+
+          richText(StringUtils.companyYearsOfEstablishmentText, companyDetails.yearsOfEstablishment),
+          SizedBox(height: 5,),
+
+          richText(StringUtils.companyBasicInfoSectionText, companyDetails.basisMemberShipNo),
+          SizedBox(height: 5,),
+        ],
+      ),
     );
 
+    var address = Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              FaIcon(
+                Icons.map,
+                size: fontAwesomeIconSize,
+              ),
+              SizedBox(
+                width: 5,
+              ),
+              Text(
+                StringUtils.companyAddressSectionText,
+                style: sectionTitleFont,
+              )
+            ],
+          ),
+          SizedBox(height: 5,),
 
-    var otherInformation = Column(
-      children: [
-        titleHeader(Icons.list, "Other Information"),
-        SizedBox(
-          height: 10,
-        ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: <Widget>[
-                jobSummeryRichText(
-                    StringUtils.postCodeText,
-                    companyDetails.postCode != null
-                        ? companyDetails.postCode.toString()
-                        : StringUtils.unspecifiedText)
+          richText(StringUtils.companyAddressText, companyDetails.address),
+          SizedBox(height: 5,),
+//
+//          richText(StringUtils.companyIndustryText, companyDetails.companyProfile),
+//          SizedBox(height: 5,),
+
+          richText(StringUtils.companyCityText, companyDetails.district),
+          SizedBox(height: 5,),
+
+          richText(StringUtils.companyPostCodeText, companyDetails.postCode),
+          SizedBox(height: 5,),
+        ],
+      ),
+    );
+
+    var contact = Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              FaIcon(
+                Icons.cast_connected,
+                size: fontAwesomeIconSize,
+              ),
+              SizedBox(
+                width: 5,
+              ),
+              Text(
+                StringUtils.companyContactSectionText,
+                style: sectionTitleFont,
+              )
+            ],
+          ),
+          SizedBox(height: 5,),
+
+          //Company contact one
+          companyDetails.companyContactNoOne==null?SizedBox():Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [Row(
+              children: [
+                Icon(Icons.phone_android, size: fontAwesomeIconSize,),
+                SizedBox(width: 5,),
+                Text(companyDetails.companyContactNoOne),
               ],
             ),
-            SizedBox(
-              height: 5,
-            ),
-            Row(
-              children: <Widget>[
-                jobSummeryRichText(
-                    StringUtils.companyContactText,
-                    companyDetails.companyContactNoOne != null
-                        ? companyDetails.companyContactNoOne.toString()
-                        : StringUtils.unspecifiedText)
+              SizedBox(height: 5,),],
+          ),
+
+          //Company contact two
+          companyDetails.companyContactNoTwo==null?SizedBox():Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [Row(
+              children: [
+                Icon(Icons.phone_android, size: fontAwesomeIconSize,),
+                SizedBox(width: 5,),
+                Text(companyDetails.companyContactNoTwo),
               ],
             ),
-            SizedBox(
-              height: 5,
-            ),
-            Row(
-              children: <Widget>[
-                jobSummeryRichText(
-                    StringUtils.companyWebAddressText,
-                    companyDetails.webAddress != null
-                        ? companyDetails.webAddress.toString()
-                        : StringUtils.unspecifiedText)
+              SizedBox(height: 5,),],
+          ),
+
+          //Company contact three
+          companyDetails.companyContactNoThree==null?SizedBox():Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [Row(
+              children: [
+                Icon(Icons.phone_android, size: fontAwesomeIconSize,),
+                SizedBox(width: 5,),
+                Text(companyDetails.companyContactNoThree),
               ],
             ),
-            SizedBox(
-              height: 5,
+              SizedBox(height: 5,),],
+          ),
+//
+//          richText(StringUtils.companyIndustryText, companyDetails.companyProfile),
+//          SizedBox(height: 5,),
+
+          richText(StringUtils.companyEmailText, companyDetails.email),
+          SizedBox(height: 5,),
+
+          richText(StringUtils.companyWebAddressText, companyDetails.webAddress),
+          SizedBox(height: 5,),
+        ],
+      ),
+    );
+
+    var socialNetworks = Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              FaIcon(
+                Icons.screen_lock_landscape,
+                size: fontAwesomeIconSize,
+              ),
+              SizedBox(
+                width: 5,
+              ),
+              Text(
+                StringUtils.companySocialNetworksSectionText,
+                style: sectionTitleFont,
+              )
+            ],
+          ),
+          SizedBox(height: 5,),
+
+          //Company facebook
+          companyDetails.companyNameFacebook==null?SizedBox():Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [Row(
+              children: [
+                //Icon(Icons.backup, size: fontAwesomeIconSize,),
+                SizedBox(width: 5,),
+                Text(companyDetails.companyNameFacebook),
+              ],
             ),
-          ],
-        ),
-      ],
+              SizedBox(height: 5,),],
+          ),
+
+          //Company twitter
+//          companyDetails.companyNameFacebook==null?SizedBox():Column(
+//            crossAxisAlignment: CrossAxisAlignment.start,
+//            children: [Row(
+//              children: [
+//                //Icon(Icons.backup, size: fontAwesomeIconSize,),
+//                SizedBox(width: 5,),
+//                Text(companyDetails.companyNameFacebook),
+//              ],
+//            ),
+//              SizedBox(height: 5,),],
+//          ),
+
+          //Company google
+          companyDetails.companyNameGoogle==null?SizedBox():Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [Row(
+              children: [
+                //Icon(Icons.backup, size: fontAwesomeIconSize,),
+                SizedBox(width: 5,),
+                Text(companyDetails.companyNameGoogle),
+              ],
+            ),
+              SizedBox(height: 5,),],
+          ),
+        ],
+      ),
+    );
+
+    var organizationHead = Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              FaIcon(
+                Icons.person_pin,
+                size: fontAwesomeIconSize,
+              ),
+              SizedBox(
+                width: 5,
+              ),
+              Text(
+                StringUtils.companyOrganizationHeadSectionText,
+                style: sectionTitleFont,
+              )
+            ],
+          ),
+          SizedBox(height: 5,),
+
+          richText(StringUtils.companyOrganizationHeadNameText, companyDetails.organizationHead),
+          SizedBox(height: 5,),
+
+          richText(StringUtils.companyOrganizationHeadDesignationText, companyDetails.organizationHeadDesignation),
+          SizedBox(height: 5,),
+
+          richText(StringUtils.companyOrganizationHeadMobileNoText, companyDetails.organizationHeadNumber),
+          SizedBox(height: 5,),
+//
+//          richText(StringUtils.companyPostCodeText, companyDetails.postCode),
+//          SizedBox(height: 5,),
+        ],
+      ),
+    );
+
+    var otherInfo = Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              FaIcon(
+                Icons.list,
+                size: fontAwesomeIconSize,
+              ),
+              SizedBox(
+                width: 5,
+              ),
+              Text(
+                StringUtils.companyOtherInformationText,
+                style: sectionTitleFont,
+              )
+            ],
+          ),
+          SizedBox(height: 5,),
+
+          richText(StringUtils.companyLegalStructureText, companyDetails.legalStructure),
+          SizedBox(height: 5,),
+
+          richText(StringUtils.companyNoOFHumanResourcesText, companyDetails.noOfHumanResources),
+          SizedBox(height: 5,),
+
+          richText(StringUtils.companyNoOFItResourcesText, companyDetails.noOfResources),
+          SizedBox(height: 5,),
+        ],
+      ),
     );
 
     return Scaffold(
@@ -277,9 +426,46 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                           topRight: Radius.circular(3))),
                   child: dividerUpperSide,
                 ),
-                SizedBox(height: 5,),
+                SizedBox(height: 2,),
                 Container(
-                  padding: EdgeInsets.all(10),
+                  padding: EdgeInsets.symmetric(vertical: 18, horizontal: 10),
+                  decoration: BoxDecoration(
+                      color: sectionColor,
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(3),
+                          topRight: Radius.circular(3))),
+                  child: Column(
+                    children: [
+                      basicInfo,
+                    ],
+                  ),
+                ),
+
+                SizedBox(height: 2,),
+                Container(
+                  padding: EdgeInsets.symmetric(vertical: 18, horizontal: 10),
+                  decoration: BoxDecoration(
+                      color: sectionColor,
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(3),
+                          topRight: Radius.circular(3))),
+                  child: address,
+                ),
+
+                SizedBox(height: 2,),
+                Container(
+                  padding: EdgeInsets.symmetric(vertical: 18, horizontal: 10),
+                  decoration: BoxDecoration(
+                      color: sectionColor,
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(3),
+                          topRight: Radius.circular(3))),
+                  child: contact,
+                ),
+
+                SizedBox(height: 2,),
+                Container(
+                  padding: EdgeInsets.symmetric(vertical: 18, horizontal: 10),
                   decoration: BoxDecoration(
                       color: sectionColor,
                       borderRadius: BorderRadius.only(
@@ -287,14 +473,27 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                           topRight: Radius.circular(3))),
                   child: organizationHead,
                 ),
+
+                SizedBox(height: 2,),
                 Container(
-                  padding: EdgeInsets.all(10),
+                  padding: EdgeInsets.symmetric(vertical: 18, horizontal: 10),
                   decoration: BoxDecoration(
                       color: sectionColor,
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(3),
                           topRight: Radius.circular(3))),
-                  child: otherInformation,
+                  child: socialNetworks,
+                ),
+
+                SizedBox(height: 2,),
+                Container(
+                  padding: EdgeInsets.symmetric(vertical: 18, horizontal: 10),
+                  decoration: BoxDecoration(
+                      color: sectionColor,
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(3),
+                          topRight: Radius.circular(3))),
+                  child: otherInfo,
                 ),
               ],
             ),
