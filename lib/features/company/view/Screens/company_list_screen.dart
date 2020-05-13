@@ -58,7 +58,7 @@ class _CompanyListScreenState extends State<CompanyListScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(StringUtils.companyListText),
+        title: Text(StringUtils.companyListAppbarText),
       ),
       body: SingleChildScrollView(
         child: Container(

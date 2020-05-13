@@ -166,7 +166,7 @@ class _AppDrawerState extends State<AppDrawer> {
 
 // company list
                 DrawerListWidget(
-                  label: StringUtils.companyListText,
+                  label: StringUtils.companyListAppbarText,
                   icon: FontAwesomeIcons.solidBuilding,
                   isSelected: false,
                   onTap: () {

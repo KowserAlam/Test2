@@ -137,6 +137,9 @@ class _FavoriteJobListTileWidgetState extends State<FavoriteJobListTileWidget> {
     String deadLineText = widget.jobListModel.applicationDeadline == null
         ? StringUtils.unspecifiedText
         : DateFormatUtil().dateFormat1(widget.jobListModel.applicationDeadline);
+    bool isDateExpired = widget.jobListModel.applicationDeadline != null
+    ? widget.jobListModel.applicationDeadline.isAfter(DateTime.now())
+        : true;
 
     var backgroundColor = Theme.of(context).backgroundColor;
     var scaffoldBackgroundColor = Theme.of(context).scaffoldBackgroundColor;
@@ -154,7 +157,7 @@ class _FavoriteJobListTileWidgetState extends State<FavoriteJobListTileWidget> {
       ),
       child: CachedNetworkImage(
         placeholder: (context, _) => Image.asset(
-          kImagePlaceHolderAsset,
+          kCompanyImagePlaceholder,
           fit: BoxFit.cover,
         ),
         imageUrl: widget.jobListModel?.profilePicture ?? "",
@@ -217,7 +220,8 @@ class _FavoriteJobListTileWidgetState extends State<FavoriteJobListTileWidget> {
     );
 
     var applyButton = Material(
-      color: isApplied ? Colors.grey : Colors.blue[200],
+      color: widget.jobListModel.isApplied ? Colors.blue[200]
+          : (isDateExpired?Colors.grey:Theme.of(context).accentColor),
       borderRadius: BorderRadius.circular(5),
       child: InkWell(
         onTap: isApplied
