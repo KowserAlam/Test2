@@ -14,8 +14,8 @@ class JobListModel{
   bool isFavourite;
   bool isApplied;
   String postDate;
-  String applicationDeadline;
-  String createdAt;
+  DateTime applicationDeadline;
+  DateTime createdAt;
 
 
   JobListModel({
@@ -52,10 +52,14 @@ class JobListModel{
     jobSite = json['job_site'];
     jobType = json['job_type'];
     isApplied = json['is_applied'] == null ? false : (json['is_applied'][0] == "Yes" ? true : false);
-    applicationDeadline = json['application_deadline'];
     isFavourite = json['is_favourite'] == null ? false : (json['is_favourite'][0] == "Yes" ? true : false);
     this.postDate = json['post_date'];
-    this.createdAt = json['created_at'];
+    if(json['application_deadline'] != null){
+      applicationDeadline = DateTime.parse(json['application_deadline']);
+    }
+    if(json['created_date'] != null){
+      createdAt = DateTime.parse(json['created_date']);
+    }
   }
 
   Map<String, dynamic> toJson() {
