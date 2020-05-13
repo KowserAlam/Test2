@@ -552,7 +552,8 @@ class _JobDetailsState extends State<JobDetails> {
                   jobSummeryRichText(
                       StringUtils.publishedOn,
                       jobDetails.createdDate != null
-                          ? DateFormatUtil.formatDate(DateTime.parse(jobDetails.createdDate))
+                          ? DateFormatUtil
+                          .formatDate(DateTime.parse(jobDetails.createdDate))
                           : StringUtils.unspecifiedText)
                 ],
               ),
@@ -712,7 +713,8 @@ class _JobDetailsState extends State<JobDetails> {
             ),
             Text(
               jobDetails.createdDate != null
-                  ? DateFormatUtil.formatDate(DateTime.parse(jobDetails.createdDate))
+                  ? DateFormatUtil
+                      .formatDate(DateTime.parse(jobDetails.createdDate))
                   : StringUtils.unspecifiedText,
               style: topSideDescriptionFontStyle,
             ),

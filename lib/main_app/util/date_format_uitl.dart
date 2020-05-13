@@ -11,10 +11,10 @@ class DateFormatUtil{
     return DateFormat('yyyy-MM-dd').format(dateTime);
   }
   static String formatDate(DateTime dateTime){
-    return DateFormat.yMMMd().format(dateTime);
+    return DateFormat('dd/MM/yyyy').format(dateTime);
   }
   String dateFormat1(DateTime dateTime){
-    return DateFormat.yMMMd().format(dateTime);
+    return DateFormat('dd/MM/yyyy').format(dateTime);
   }
 
 }
