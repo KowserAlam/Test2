@@ -1,15 +1,16 @@
 import 'dart:convert';
+
 import 'package:dartz/dartz.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
 import 'package:p7app/main_app/failure/error.dart';
 
-class GenderListRepository{
+class JobGenderListRepository{
 
   Future<Either<AppError,List<String>>> getGenderList() async{
     try{
 
-      var res = await ApiClient().getRequest(Urls.genderListUrl);
+      var res = await ApiClient().getRequest(Urls.jobGenderList);
 
       if(res.statusCode == 200){
         var decodedJson = json.decode(res.body);

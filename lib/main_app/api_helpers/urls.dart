@@ -36,6 +36,7 @@ class Urls {
   static String industryListUrl = "/api/industry/";
   static String companyListUrl = "/api/company/";
   static String genderListUrl = "/api/gender/";
+
   static String nationalityListUrl = "/api/professional/nationality/";
   static String religionListUrl = "/api/professional/religion/";
   static String skillListUrl = "/api/skill_list/";
@@ -45,9 +46,17 @@ class Urls {
   static String certificateNameListUrl = "/api/professional/certificate_name/";
   static String qualificationListUrl = "/api/qualification/";
   static String experienceListUrl = "/api/experience/";
-  static String popularJobCategoriesListUrl = "/api/popular_categories/";
+  static String jobCategoriesListUrl = "/api/popular_categories/";
   static String jobTypeListUrl = "/job_type/";
+
   static String jobLocationListUrl = "/api/location/";
+  static String jobSourceList = "/api/job-source/list/";
+  static String jobGenderList = "/api/job-gender/list/";
+  static String jobCategoryList = "/api/job-category/list/";
+  static String jobSiteList = "/api/job-site/list";
+  static String jobNatureList = "/api/job-nature/list";
+
+
 
   static String favouriteJobAddUrl = "/api/favourite_job_add/";
   static String applyJobOnlineUrl = "/api/apply_online_job_add/";

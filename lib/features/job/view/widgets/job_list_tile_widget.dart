@@ -26,9 +26,9 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
   Widget build(BuildContext context) {
     bool isFavorite = widget.jobModel.status;
 
-    String publishDateText = widget.jobModel.createdDate == null
+    String publishDateText = widget.jobModel.createdAt == null
         ? StringUtils.unspecifiedText
-        : DateFormatUtil().dateFormat1(widget.jobModel.createdDate);
+        : DateFormatUtil().dateFormat1(widget.jobModel.createdAt);
 
     String deadLineText = widget.jobModel.applicationDeadline == null
         ? StringUtils.unspecifiedText

@@ -17,7 +17,7 @@ class JobModel {
   String rawContent;
   String webAddress;
   bool termsAndCondition;
-  DateTime createdDate;
+  DateTime createdAt;
   String industry;
   String employmentStatus;
   String experience;
@@ -32,12 +32,15 @@ class JobModel {
   bool isApplied;
   bool status;
   String profilePicture;
+  DateTime publishDate;
+  DateTime postDate;
 
   JobModel({
     this.jobId,
     this.slug,
     this.title,
     this.jobLocation,
+    this.publishDate,
     this.salaryMin,
     this.salaryMax,
     this.vacancy,
@@ -51,7 +54,7 @@ class JobModel {
     this.rawContent,
     this.webAddress,
     this.termsAndCondition,
-    this.createdDate,
+    this.createdAt,
     this.industry,
     this.employmentStatus,
     this.experience,
@@ -64,7 +67,8 @@ class JobModel {
     this.jobSkills,
     this.status,
     this.profilePicture,
-    this.skill
+    this.skill,
+    this.postDate
   });
 
   JobModel.fromJson(Map<String, dynamic> json) {
@@ -80,9 +84,15 @@ class JobModel {
     if(json['application_deadline'] != null){
       applicationDeadline = DateTime.parse(json['application_deadline']);
     }
-    if(json['created_date'] != null){
-      createdDate = DateTime.parse(json['created_date']);
+    if(json['created_at'] != null){
+      createdAt = DateTime.parse(json['created_at']);
     }
+    if(json['publish_date'] != null){
+      publishDate = DateTime.parse(json['publish_date']);
+    }    if(json['post_date'] != null){
+      postDate = DateTime.parse(json['post_date']);
+    }
+
     descriptions = json['descriptions'];
     responsibilities = json['responsibilities'];
     education = json['education'];
@@ -110,36 +120,5 @@ class JobModel {
     }
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['job_id'] = this.jobId;
-    data['slug'] = this.slug;
-    data['title'] = this.title;
-    data['job_location'] = this.jobLocation;
-    data['salary_min'] = this.salaryMin;
-    data['salary_max'] = this.salaryMax;
-    data['vacancy'] = this.vacancy;
-    data['application_deadline'] = this.applicationDeadline;
-    data['descriptions'] = this.descriptions;
-    data['responsibilities'] = this.responsibilities;
-    data['education'] = this.education;
-    data['salary'] = this.salary;
-    data['other_benefits'] = this.otherBenefits;
-    data['raw_content'] = this.rawContent;
-    data['web_address'] = this.webAddress;
-    data['terms_and_condition'] = this.termsAndCondition;
-    data['created_date'] = this.createdDate;
-    data['industry'] = this.industry;
-    data['employment_status'] = this.employmentStatus;
-    data['experience'] = this.experience;
-    data['qualification'] = this.qualification;
-    data['gender'] = this.gender;
-    data['currency'] = this.currency;
-    data['company_name'] = this.companyName;
-    data['division'] = this.division;
-    data['district'] = this.district;
-    data['job_skills'] = this.jobSkills;
-    data['skill'] = this.skill;
-    return data;
-  }
+
 }
