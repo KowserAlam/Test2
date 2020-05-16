@@ -12,10 +12,7 @@ import 'package:p7app/main_app/api_helpers/urls.dart';
 import 'package:p7app/main_app/failure/error.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 
-/// http://dev.ishraak.com/api/job_list/?page=1&q=job&location=&category=
-/// &location_from_homepage=&keyword_from_homepage=&skill=&salaryMin=
-/// &salaryMax=&experienceMin=&experienceMax=null&datePosted=&gender=
-/// &qualification=&sort=&page_size=10
+
 class AppliedJobListRepository {
 
   Future<Either<AppError, List<JobListModel>>> fetchJobList(

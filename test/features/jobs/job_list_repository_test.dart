@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:p7app/features/job/repositories/job_list_repository.dart';
+import 'package:p7app/features/job/repositories/job_repository.dart';
 
 import '../../test_data/dataReader.dart';
 main(){
@@ -21,7 +21,7 @@ main(){
 //      print(data[JsonKeys.data][JsonKeys.enrolledExamList]);
 
           //act
-          var list = JobListRepository().fromJson(data);
+          var list = JobRepository().fromJson(data);
 
           //assert
 
