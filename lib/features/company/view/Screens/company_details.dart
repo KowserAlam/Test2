@@ -7,6 +7,7 @@ import 'package:p7app/features/company/models/company.dart';
 import 'package:p7app/main_app/api_helpers/url_launcher_helper.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/util/method_extension.dart';
 
 class CompanyDetails extends StatefulWidget {
   final Company company;
@@ -243,17 +244,19 @@ class _CompanyDetailsState extends State<CompanyDetails> {
 //          SizedBox(height: 5,),
 
           //Email
+          if(companyDetails.email != null)
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [Row(
               children: [
                 Text(StringUtils.companyEmailText+': ',style: TextStyle(fontWeight: FontWeight.bold)),
                 SizedBox(width: 5,),
+
                 GestureDetector(
                     onTap: (){
-                      UrlLauncherHelper.launchUrl(companyDetails.email);
+                      UrlLauncherHelper.sendMail(companyDetails.email);
                     },
-                    child: Text(companyDetails.email,style: TextStyle(color: Colors.lightBlue),)),
+                    child: Text(companyDetails.email??"",style: TextStyle(color: Colors.lightBlue),)),
               ],
             ),
               SizedBox(height: 5,),],

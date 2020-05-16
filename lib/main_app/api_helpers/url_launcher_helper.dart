@@ -13,4 +13,15 @@ class UrlLauncherHelper {
       BotToast.showText(text: "Unable to launch");
     }
   }
+  static sendMail(String email) async {
+//    debugPrint("Launching url: $email");
+
+    bool _canLaunch = await canLaunch("mailto:$email");
+    if (_canLaunch) {
+      launch("mailto:$email");
+
+    } else {
+      BotToast.showText(text: "Unable to launch");
+    }
+  }
 }
