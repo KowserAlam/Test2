@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/util/method_extension.dart';
 
 class JobApplyButton extends StatelessWidget {
   final Function onPressedApply;
@@ -13,12 +14,13 @@ class JobApplyButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isAppliedDisabled = isApplied;
+
+
 
     bool isDateExpired = applicationDeadline != null
-        ? DateTime.now().isAfter(applicationDeadline)
+        ? (applicationDeadline.isBefore(DateTime.now()) && !applicationDeadline.isToday() )
         : true;
-
+    bool isAppliedDisabled = isApplied || isDateExpired;
     return  Material(
       color: isApplied
           ? Colors.blue[200]

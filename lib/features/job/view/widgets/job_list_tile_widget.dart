@@ -9,6 +9,8 @@ import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/util/date_format_uitl.dart';
 
+import 'job_apply_button.dart';
+
 class JobListTileWidget extends StatefulWidget {
   final JobModel jobModel;
   final Function onTap;
@@ -33,11 +35,11 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
     String deadLineText = widget.jobModel.applicationDeadline == null
         ? StringUtils.unspecifiedText
         : DateFormatUtil().dateFormat1(widget.jobModel.applicationDeadline);
-    bool isDateExpired = widget.jobModel.applicationDeadline != null
-        ? DateTime.now().isAfter(widget.jobModel.applicationDeadline)
-        : true;
+//    bool isDateExpired = widget.jobModel.applicationDeadline != null
+//        ? DateTime.now().isAfter(widget.jobModel.applicationDeadline)
+//        : true;
 
-    debugPrint("Deadline: ${widget.jobModel.applicationDeadline}\n Today: ${DateTime.now()} \n $isDateExpired");
+//    debugPrint("Deadline: ${widget.jobModel.applicationDeadline}\n Today: ${DateTime.now()} \n $isDateExpired");
 
     var backgroundColor = Theme.of(context).backgroundColor;
     var scaffoldBackgroundColor = Theme.of(context).scaffoldBackgroundColor;
@@ -104,28 +106,11 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
       ),
     );
 
-    var applyButton = Material(
-      color: widget.jobModel.isApplied ? Colors.blue[200]
-          : (isDateExpired?Colors.grey:Theme.of(context).accentColor),
-      borderRadius: BorderRadius.circular(5),
-      child: InkWell(
-        onTap: isDateExpired? null:widget.onApply,
-        borderRadius: BorderRadius.circular(5),
-        child: Container(
-          height: 30,
-          width: 65,
-          alignment: Alignment.center,
-//          padding: EdgeInsets.symmetric(vertical: 6, horizontal: 15),
 
-          child: Text(
-            widget.jobModel.isApplied
-                ? StringUtils.appliedText
-                : StringUtils.applyText,
-            style: TextStyle(
-                fontSize: 15, color: Colors.white, fontWeight: FontWeight.w600),
-          ),
-        ),
-      ),
+    var applyButton = JobApplyButton(
+      applicationDeadline: widget.jobModel.applicationDeadline,
+      onPressedApply: widget.onApply,
+      isApplied: widget.jobModel.isApplied,
     );
     var jobType = Row(
       children: <Widget>[
