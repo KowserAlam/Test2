@@ -1,6 +1,6 @@
 import 'package:p7app/main_app/flavour/flavour_config.dart';
 
-class JobListModel{
+class JobListModel {
   String jobId;
   String slug;
   String title;
@@ -13,10 +13,10 @@ class JobListModel{
   String jobType;
   bool isFavourite;
   bool isApplied;
-  String postDate;
+  DateTime postDate;
   DateTime applicationDeadline;
   DateTime createdAt;
-
+  DateTime publishDate;
 
   JobListModel({
     this.jobId,
@@ -36,7 +36,7 @@ class JobListModel{
     this.createdAt,
   });
 
-  JobListModel.fromJson(Map<String, dynamic> json){
+  JobListModel.fromJson(Map<String, dynamic> json) {
     String baseUrl = FlavorConfig?.instance?.values?.baseUrl;
 
     jobId = json['job_id'];
@@ -45,40 +45,34 @@ class JobListModel{
     jobLocation = json['job_location'];
     employmentStatus = json['employment_status'];
     companyName = json['company_name'];
-    if(json['profile_picture'] != null){
+    if (json['profile_picture'] != null) {
       profilePicture = "$baseUrl${json['profile_picture']}";
     }
     jobNature = json['job_nature'];
     jobSite = json['job_site'];
     jobType = json['job_type'];
-    isApplied = json['is_applied'] == null ? false : (json['is_applied'][0] == "Yes" ? true : false);
-    isFavourite = json['is_favourite'] == null ? false : (json['is_favourite'][0] == "Yes" ? true : false);
+    isApplied = json['is_applied'] == null
+        ? false
+        : (json['is_applied'][0] == "Yes" ? true : false);
+    isFavourite = json['is_favourite'] == null
+        ? false
+        : (json['is_favourite'][0] == "Yes" ? true : false);
+
     this.postDate = json['post_date'];
-    if(json['application_deadline'] != null){
+
+    if (json['application_deadline'] != null) {
       applicationDeadline = DateTime.parse(json['application_deadline']);
     }
-    if(json['created_date'] != null){
+    if (json['created_date'] != null) {
       createdAt = DateTime.parse(json['created_date']);
     }
-  }
+    if (json['publish_date'] != null) {
+      publishDate = DateTime.parse(json['publish_date']);
+    }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['job_id'] = this.jobId;
-    data['slug'] = this.slug;
-    data['title'] = this.slug;
-    data['job_location'] = this.jobLocation;
-    data['employment_status'] = this.employmentStatus;
-    data['company_name'] = this.companyName;
-    data['profile_picture'] = this.profilePicture;
-    data['job_type'] = this.jobType;
-    data['job_site'] = this.jobSite;
-    data['job_nature'] = this.jobNature;
-    //data['is_favourite'] = this.isFavourite;
-    //data['is_applied'] = this.isApplied;
-    data['post_date'] = this.postDate;
-    data['application_deadline'] = this.applicationDeadline;
-    data['created_at'] = this.createdAt;
-    return data;
+    if (json['post_date'] != null) {
+      postDate = DateTime.parse(json['post_date']);
+    }
+
   }
 }
