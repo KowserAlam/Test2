@@ -643,7 +643,7 @@ class _JobDetailsState extends State<JobDetails> {
                 ],
               ),
               SizedBox(
-                height: 5,
+                height: 5
               ),
               Row(
                 children: <Widget>[
