@@ -276,7 +276,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [Row(
               children: [
-                //Icon(Icons.backup, size: fontAwesomeIconSize,),
+                Text('Facebook: ',style: TextStyle(fontWeight: FontWeight.bold)),
                 SizedBox(width: 5,),
                 Text(companyDetails.companyNameFacebook),
               ],
@@ -302,7 +302,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [Row(
               children: [
-                //Icon(Icons.backup, size: fontAwesomeIconSize,),
+                Text('Google: ',style: TextStyle(fontWeight: FontWeight.bold),),
                 SizedBox(width: 5,),
                 Text(companyDetails.companyNameGoogle),
               ],
