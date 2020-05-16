@@ -4,8 +4,7 @@ class JobModel {
   String jobId;
   String slug;
   String title;
-  String jobLocation;
-  String jobCategory;
+  String jobCity;
   String salaryMin;
   String salaryMax;
   int vacancy;
@@ -20,7 +19,7 @@ class JobModel {
   bool termsAndCondition;
   DateTime createdAt;
   String industry;
-  String jobNature;
+  String employmentStatus;
   String experience;
   String qualification;
   String gender;
@@ -35,17 +34,12 @@ class JobModel {
   String profilePicture;
   DateTime publishDate;
   DateTime postDate;
-  String jobAddress;
-  String jobCity;
-  String jobArea;
-  String jobCountry;
 
   JobModel({
     this.jobId,
     this.slug,
     this.title,
-    this.jobLocation,
-    this.jobCategory,
+    this.jobCity,
     this.publishDate,
     this.salaryMin,
     this.salaryMax,
@@ -62,7 +56,7 @@ class JobModel {
     this.termsAndCondition,
     this.createdAt,
     this.industry,
-    this.jobNature,
+    this.employmentStatus,
     this.experience,
     this.qualification,
     this.gender,
@@ -74,11 +68,7 @@ class JobModel {
     this.isFavourite,
     this.profilePicture,
     this.skill,
-    this.postDate,
-    this.jobAddress,
-    this.jobArea,
-    this.jobCity,
-    this.jobCountry
+    this.postDate
   });
 
   JobModel.fromJson(Map<String, dynamic> json) {
@@ -87,8 +77,7 @@ class JobModel {
     jobId = json['job_id'];
     slug = json['slug'];
     title = json['title'];
-    jobLocation = json['job_location'];
-    jobCategory = json['job_category'];
+    jobCity = json['job_city'];
     salaryMin = json['salary_min'];
     salaryMax = json['salary_max'];
     vacancy = json['vacancy'];
@@ -115,7 +104,7 @@ class JobModel {
     webAddress = json['web_address'];
     termsAndCondition = json['terms_and_condition'];
     industry = json['industry'];
-    jobNature = json['job_nature'];
+    employmentStatus = json['employment_status'];
     experience = json['experience'];
     qualification = json['qualification'];
     gender = json['gender'];
@@ -131,10 +120,6 @@ class JobModel {
     if(json['profile_picture'] != null){
       profilePicture = "$baseUrl${json['profile_picture']}";
     }
-    jobCity = json['job_city'];
-    jobArea = json['job_area'];
-    jobCountry = json['job_country'];
-    jobAddress = json['job_address'];
   }
 
 

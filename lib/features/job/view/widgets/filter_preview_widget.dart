@@ -91,7 +91,7 @@ class FilterPreviewWidget extends StatelessWidget {
                   }),
             if (jobListViewModel.hasSkill)
               filterItem(
-                  value: filters.skill,
+                  value: filters.skill.name,
                   context: context,
                   name: StringUtils.skillText,
                   onClear: () {

@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:p7app/features/job/models/job.dart';
+import 'package:p7app/features/job/models/job_model.dart';
 import 'package:p7app/features/job/models/job_list_filters.dart';
 import 'package:p7app/features/job/models/sort_item.dart';
 import 'package:p7app/features/job/repositories/job_repository.dart';
@@ -248,6 +248,7 @@ class JobListViewModel with ChangeNotifier {
   void clearGender(){
      _jobListFilters.gender = null;
      notifyListeners();
+     getJobList();
   }
   void clearCategory(){
      _jobListFilters.category = null;
@@ -306,7 +307,7 @@ class JobListViewModel with ChangeNotifier {
 
   bool get hasLocation => _jobListFilters.location.isNotEmptyOrNotNull;
 
-  bool get hasSkill => _jobListFilters.skill.isNotEmptyOrNotNull;
+  bool get hasSkill => _jobListFilters.skill?.id?.isNotEmptyOrNotNull??false;
 
   bool get hasJobType => _jobListFilters.jobType?.id?.isNotEmptyOrNotNull??false;
 
@@ -322,7 +323,6 @@ class JobListViewModel with ChangeNotifier {
 
   bool get isFilterApplied {
     return hasGender ||
-        hasCategory ||
         hasQualification ||
         hasSortBy ||
         hasCategory ||
@@ -330,6 +330,7 @@ class JobListViewModel with ChangeNotifier {
         hasJobType ||
         hasDatePosted ||
         hasSalaryRange ||
+        hasSkill ||
         hasExperienceRange;
   }
 

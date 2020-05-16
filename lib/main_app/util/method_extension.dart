@@ -8,6 +8,17 @@ extension DateTimeExtension on DateTime {
     else
       return null;
   }
+
+  bool  isToday() {
+    if (this != null) {
+      var day = DateTime.now().day;
+      var month = DateTime.now().month;
+      var year = DateTime.now().year;
+      return this.day == day && this.month == month && this.year == year;
+    } else {
+      return false;
+    }
+  }
 }
 
 extension StringExtenion on String {
@@ -18,19 +29,17 @@ extension StringExtenion on String {
       return true;
   }
 
-  bool get  isNotEmptyOrNotNull{
-    if (this != null){
+  bool get isNotEmptyOrNotNull {
+    if (this != null) {
       return this.isNotEmpty;
-    }
-    else
+    } else
       return false;
   }
 
-  String get  replaceAmpWith26{
-    if (this != null){
+  String get replaceAmpWith26 {
+    if (this != null) {
       return this.replaceAll("%26", "&");
-    }
-    else
+    } else
       return null;
   }
 }

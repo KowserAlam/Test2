@@ -36,6 +36,7 @@ class SkillListRepository{
     json.forEach((element) {
       list.add(Skill.fromJson(element));
     });
+    list.sort((a,b)=>a.name.compareTo(b.name));
 
     return list;
   }

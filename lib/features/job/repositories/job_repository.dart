@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart';
-import 'package:p7app/features/job/models/job.dart';
+import 'package:p7app/features/job/models/job_model.dart';
 import 'package:p7app/features/job/models/job_list_filters.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
@@ -23,7 +23,7 @@ class JobRepository {
     var _filters =
         "?page=${filters.page}&q=${filters.searchQuery??""}&location=${filters.location??""}&category=${filters.category??""}"
         "&location_from_homepage=${filters.location_from_homepage??""}&keyword_from_homepage=${filters.keyword_from_homepage??""}"
-        "&skill=${filters.skill??""}&salaryMin=${filters.salaryMin??""}&salaryMax=${filters.salaryMax??""}&experienceMin=${filters.experienceMin??""}"
+        "&skill=${filters.skill?.id??""}&salaryMin=${filters.salaryMin??""}&salaryMax=${filters.salaryMax??""}&experienceMin=${filters.experienceMin??""}"
         "&experienceMax=${filters.experienceMax??""}&datePosted=${filters.datePosted??""}&gender=${filters.gender??""}&job_type=${filters.jobType?.id??""}"
         "&qualification=${filters.qualification??""}&sort=${filters?.sort?.key??""}"
         "&page_size=${filters.page_size}&top-skill=${filters.topSkill??""}";
