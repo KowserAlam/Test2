@@ -284,6 +284,7 @@ class _JobDetailsState extends State<JobDetails> {
     JobApplyButton(isApplied: isApplied, applicationDeadline: jobDetails.applicationDeadline, onPressedApply: (){
       _showApplyDialog();
     },);
+
     var spaceBetweenSections = SizedBox(
       height: 30,
     );
