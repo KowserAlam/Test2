@@ -248,6 +248,7 @@ class JobListViewModel with ChangeNotifier {
   void clearGender(){
      _jobListFilters.gender = null;
      notifyListeners();
+     getJobList();
   }
   void clearCategory(){
      _jobListFilters.category = null;
