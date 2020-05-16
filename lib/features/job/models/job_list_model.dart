@@ -73,5 +73,6 @@ class JobListModel {
     if (json['post_date'] != null) {
       postDate = DateTime.parse(json['post_date']);
     }
+
   }
 }

@@ -88,9 +88,9 @@ class _JobListScreenState extends State<JobListScreen>
                   _searchTextEditingController?.clear();
                   jobListViewModel.toggleIsInSearchMode();
 
-                  if(jobListViewModel.isInSearchMode){
+                  if (jobListViewModel.isInSearchMode) {
                     _searchFieldFocusNode.requestFocus();
-                  }else{
+                  } else {
                     _searchFieldFocusNode.unfocus();
                   }
                 },
@@ -125,9 +125,8 @@ class _JobListScreenState extends State<JobListScreen>
                         padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
                         child: CustomTextField(
                           focusNode: _searchFieldFocusNode,
-                          onSubmitted: (v){
-                            if (_searchTextEditingController
-                                .text.isNotEmpty) {
+                          onSubmitted: (v) {
+                            if (_searchTextEditingController.text.isNotEmpty) {
                               jobListViewModel
                                   .search(_searchTextEditingController.text);
                             }
@@ -135,7 +134,6 @@ class _JobListScreenState extends State<JobListScreen>
                           suffixIcon: IconButton(
                             icon: Icon(Icons.search),
                             onPressed: () {
-
                               if (_searchTextEditingController
                                   .text.isNotEmpty) {
                                 jobListViewModel
@@ -161,20 +159,21 @@ class _JobListScreenState extends State<JobListScreen>
                         ]),
                         child: Column(
                           children: [
-
-                            if (_searchTextEditingController.text.isNotEmpty && !jobListViewModel.isFetchingData)
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                    '${jobListViewModel.totalJobCount} ${StringUtils.jobsFoundText}'),
-                              )
+                            if (jobListViewModel.totalJobCount != 0)
+                              if (_searchTextEditingController
+                                      .text.isNotEmpty &&
+                                  !jobListViewModel.isFetchingData)
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                      '${jobListViewModel.totalJobCount} ${StringUtils.jobsFoundText}'),
+                                )
                           ],
                         ),
                       ),
                     ],
                   ),
-                if(jobListViewModel.isFilterApplied)
-                FilterPreviewWidget(),
+                if (jobListViewModel.isFilterApplied) FilterPreviewWidget(),
                 Expanded(
                   child: ListView(
                     physics: AlwaysScrollableScrollPhysics(),
@@ -267,6 +266,3 @@ class _JobListScreenState extends State<JobListScreen>
         });
   }
 }
-
-
-
