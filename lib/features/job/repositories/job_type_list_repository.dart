@@ -5,7 +5,7 @@ import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
 import 'package:p7app/main_app/failure/error.dart';
 
-class JobTypeLisRepository{
+class JobTypeListRepository{
 
   Future<Either<AppError,List<JobType>>> getList() async{
     try{

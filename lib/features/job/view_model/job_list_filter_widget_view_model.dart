@@ -191,7 +191,7 @@ class JobListFilterWidgetViewModel with ChangeNotifier {
   }
 
   Future<List<JobType>> _getJobTypeList() async {
-    Either<AppError, List<JobType>> res = await JobTypeLisRepository().getList();
+    Either<AppError, List<JobType>> res = await JobTypeListRepository().getList();
     return res.fold((l) {
       print(l);
       return [];

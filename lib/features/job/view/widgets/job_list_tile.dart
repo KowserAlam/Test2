@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:p7app/features/job/models/job.dart';
+import 'package:p7app/features/job/models/job_model.dart';
 import 'package:p7app/features/job/models/job_list_model.dart';
 import 'package:p7app/features/job/view/job_details.dart';
 import 'package:p7app/features/job/view_model/job_list_view_model.dart';

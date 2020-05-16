@@ -7,7 +7,7 @@ import 'package:p7app/features/job/view/widgets/job_list_tile.dart';
 import 'package:p7app/features/job/view_model/applied_job_list_view_model.dart';
 import 'package:p7app/features/job/view_model/favourite_job_list_view_model.dart';
 import 'package:p7app/features/job/view_model/job_list_view_model.dart';
-import 'package:p7app/features/job/models/job.dart';
+import 'package:p7app/features/job/models/job_model.dart';
 import 'package:p7app/features/job/view/widgets/job_list_tile_widget.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
 import 'package:p7app/main_app/flavour/flavor_banner.dart';

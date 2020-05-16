@@ -5,7 +5,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:p7app/features/job/models/job.dart';
+import 'package:p7app/features/job/models/job_model.dart';
 import 'package:p7app/features/job/models/job_list_filters.dart';
 import 'package:p7app/features/job/repositories/job_repository.dart';
 import 'package:p7app/features/job/view_model/job_list_view_model.dart';

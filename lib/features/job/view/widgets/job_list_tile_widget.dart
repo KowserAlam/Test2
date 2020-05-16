@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:p7app/features/job/models/job.dart';
+import 'package:p7app/features/job/models/job_model.dart';
 import 'package:p7app/features/job/view/job_details.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
 import 'package:p7app/main_app/resource/const.dart';
@@ -78,7 +78,7 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
           ),
           Expanded(
             child: Text(
-              widget.jobModel.jobLocation ?? "",
+              widget.jobModel.jobCity ?? "",
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(color: subtitleColor),
@@ -199,7 +199,7 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
                       SizedBox(height: 3),
                       companyName,
                       SizedBox(height: 3),
-                      if (widget.jobModel.jobLocation != null) companyLocation,
+                      if (widget.jobModel.jobCity != null) companyLocation,
                     ],
                   )),
                   SizedBox(width: 8),

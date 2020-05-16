@@ -7,7 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:p7app/features/job/models/job.dart';
+import 'package:p7app/features/job/models/job_model.dart';
 
 import 'package:p7app/features/job/repositories/job_repository.dart';
 import 'package:p7app/features/job/view_model/job_list_view_model.dart';
@@ -22,13 +22,13 @@ import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/widgets/loader.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:p7app/main_app/util/method_extension.dart';
 
 class JobDetails extends StatefulWidget {
   final String slug;
   final Function onChangeCallBack;
 
-
-  JobDetails({ @required this.slug,this.onChangeCallBack});
+  JobDetails({@required this.slug, this.onChangeCallBack});
 
   @override
   _JobDetailsState createState() => _JobDetailsState();
@@ -36,7 +36,6 @@ class JobDetails extends StatefulWidget {
 
 class _JobDetailsState extends State<JobDetails> {
   JobModel jobDetails;
-
 
   @override
   void initState() {
@@ -47,26 +46,28 @@ class _JobDetailsState extends State<JobDetails> {
     super.initState();
   }
 
-  _changeCallBack(){
-    if(widget.onChangeCallBack != null){
+  _changeCallBack() {
+    if (widget.onChangeCallBack != null) {
       widget.onChangeCallBack();
     }
   }
-  Future<bool> addToFavorite(String jobId,) async {
+
+  Future<bool> addToFavorite(
+    String jobId,
+  ) async {
     BotToast.showLoading();
     var userId =
         await AuthService.getInstance().then((value) => value.getUser().userId);
     var body = {'user_id': userId, 'job_id': jobId};
 
     try {
-      ApiClient client =  ApiClient();
+      ApiClient client = ApiClient();
       var res = await client.postRequest(Urls.favouriteJobAddUrl, body);
       print(res.body);
 
       if (res.statusCode == 200) {
         BotToast.closeAllLoading();
-         Provider.of<JobListViewModel>(context, listen: false)
-            .refresh();
+        Provider.of<JobListViewModel>(context, listen: false).refresh();
         setState(() {});
         _changeCallBack();
 
@@ -80,20 +81,21 @@ class _JobDetailsState extends State<JobDetails> {
       BotToast.closeAllLoading();
       BotToast.showText(text: StringUtils.unableToSaveData);
       print(e);
-      Provider.of<JobListViewModel>(context, listen: false)
-          .refresh();
+      Provider.of<JobListViewModel>(context, listen: false).refresh();
       return false;
     }
   }
 
-  Future<bool> applyForJob(String jobId,) async {
+  Future<bool> applyForJob(
+    String jobId,
+  ) async {
     BotToast.showLoading();
     var userId =
-    await AuthService.getInstance().then((value) => value.getUser().userId);
+        await AuthService.getInstance().then((value) => value.getUser().userId);
     var body = {'user_id': userId, 'job_id': jobId};
 
     try {
-      ApiClient client =  ApiClient();
+      ApiClient client = ApiClient();
       var res = await client.postRequest(Urls.applyJobOnlineUrl, body);
       print(res.body);
 
@@ -119,7 +121,7 @@ class _JobDetailsState extends State<JobDetails> {
     }
   }
 
-  _showApplyDialog(){
+  _showApplyDialog() {
     showDialog(
         context: context,
         builder: (context) {
@@ -134,8 +136,7 @@ class _JobDetailsState extends State<JobDetails> {
               ),
               RawMaterialButton(
                 onPressed: () {
-                  applyForJob(jobDetails.jobId)
-                      .then((value) {
+                  applyForJob(jobDetails.jobId).then((value) {
                     setState(() {
                       jobDetails.isApplied = value;
                     });
@@ -149,13 +150,13 @@ class _JobDetailsState extends State<JobDetails> {
         });
   }
 
-  String skillListToString(){
+  String skillListToString() {
     var listOfSkills = "";
-    for(int i = 0; i< jobDetails.skill.length; i++){
-      if(i +1 == jobDetails.skill.length){
+    for (int i = 0; i < jobDetails.skill.length; i++) {
+      if (i + 1 == jobDetails.skill.length) {
         listOfSkills += jobDetails.skill[i];
-      }else{
-        listOfSkills += jobDetails.skill[i]+ ", ";
+      } else {
+        listOfSkills += jobDetails.skill[i] + ", ";
       }
     }
     return listOfSkills;
@@ -227,10 +228,11 @@ class _JobDetailsState extends State<JobDetails> {
     Color clockIconColor = Colors.orange;
 
     bool isFavorite = jobDetails?.isFavourite ?? false;
-     bool isApplied = jobDetails?.isApplied ?? false;
+    bool isApplied = jobDetails?.isApplied ?? false;
     bool isDateExpired = jobDetails.applicationDeadline != null
         ? DateTime.now().isAfter(jobDetails.applicationDeadline)
         : true;
+
     //Widgets
     var heartButton = Material(
       color: Colors.transparent,
@@ -238,12 +240,9 @@ class _JobDetailsState extends State<JobDetails> {
       child: InkWell(
         borderRadius: BorderRadius.circular(20),
         onTap: () {
-
-          addToFavorite(jobDetails.jobId)
-              .then((value) {
+          addToFavorite(jobDetails.jobId).then((value) {
             jobDetails.isFavourite = !jobDetails.isFavourite;
-            setState(() {
-            });
+            setState(() {});
           });
         },
         child: Padding(
@@ -281,15 +280,16 @@ class _JobDetailsState extends State<JobDetails> {
       ),
     );
     var applyButton = Material(
-      color: isApplied ? Colors.blue[200]
-          : (isDateExpired?Colors.grey:Theme.of(context).accentColor),
+      color: isApplied
+          ? Colors.blue[200]
+          : (isDateExpired ? Colors.grey : Theme.of(context).accentColor),
       borderRadius: BorderRadius.circular(5),
       child: InkWell(
         onTap: isApplied
             ? null
             : () {
-          _showApplyDialog();
-        },
+                _showApplyDialog();
+              },
         borderRadius: BorderRadius.circular(5),
         child: Container(
           height: 30,
@@ -298,9 +298,7 @@ class _JobDetailsState extends State<JobDetails> {
 //          padding: EdgeInsets.symmetric(vertical: 6, horizontal: 15),
 
           child: Text(
-            isApplied
-                ? StringUtils.appliedText
-                : StringUtils.applyText,
+            isApplied ? StringUtils.appliedText : StringUtils.applyText,
             style: TextStyle(
                 fontSize: 15, color: Colors.white, fontWeight: FontWeight.w600),
           ),
@@ -310,7 +308,7 @@ class _JobDetailsState extends State<JobDetails> {
     var spaceBetweenSections = SizedBox(
       height: 30,
     );
-    var dividerUpperSide = Container(
+    var jobHeader = Container(
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -365,25 +363,25 @@ class _JobDetailsState extends State<JobDetails> {
                     SizedBox(
                       height: 5,
                     ),
-                    jobDetails.division==null?SizedBox():Row(
-                      children: <Widget>[
-                        Icon(
-                          FeatherIcons.mapPin,
-                          size: iconSize,
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Flexible(
-                          child: Text(
-                            jobDetails.division != null
-                                ? jobDetails.division
-                                : StringUtils.unspecifiedText,
-                            style: topSideDescriptionFontStyle,
+                    if (jobDetails.jobCity.isNotEmptyOrNotNull)
+                      Row(
+                        children: <Widget>[
+                          Icon(
+                            FeatherIcons.mapPin,
+                            size: iconSize,
                           ),
-                        )
-                      ],
-                    )
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Flexible(
+                            child: Text(
+                            jobDetails.jobCity
+                                  ?? StringUtils.unspecifiedText,
+                              style: topSideDescriptionFontStyle,
+                            ),
+                          )
+                        ],
+                      )
                   ],
                 )
               ],
@@ -582,8 +580,7 @@ class _JobDetailsState extends State<JobDetails> {
                   jobSummeryRichText(
                       StringUtils.publishedOn,
                       jobDetails.createdAt != null
-                          ? DateFormatUtil
-                          .formatDate(jobDetails.createdAt)
+                          ? DateFormatUtil.formatDate(jobDetails.createdAt)
                           : StringUtils.unspecifiedText)
                 ],
               ),
@@ -629,8 +626,8 @@ class _JobDetailsState extends State<JobDetails> {
               Container(
                 child: jobSummeryRichText(
                     StringUtils.jobLocation,
-                    jobDetails.jobLocation != null
-                        ? jobDetails.jobLocation.toString()
+                    jobDetails.jobCity != null
+                        ? jobDetails.jobCity.toString()
                         : StringUtils.unspecifiedText),
               ),
               SizedBox(
@@ -699,7 +696,10 @@ class _JobDetailsState extends State<JobDetails> {
           SizedBox(
             height: 5,
           ),
-          Text(skillListToString(), style: descriptionFontStyle,)
+          Text(
+            skillListToString(),
+            style: descriptionFontStyle,
+          )
         ],
       ),
     );
@@ -743,8 +743,7 @@ class _JobDetailsState extends State<JobDetails> {
             ),
             Text(
               jobDetails.createdAt != null
-                  ? DateFormatUtil
-                      .formatDate(jobDetails.createdAt)
+                  ? DateFormatUtil.formatDate(jobDetails.createdAt)
                   : StringUtils.unspecifiedText,
               style: topSideDescriptionFontStyle,
             ),
@@ -763,8 +762,7 @@ class _JobDetailsState extends State<JobDetails> {
             ),
             Text(
               jobDetails.applicationDeadline != null
-                  ? DateFormatUtil.formatDate(
-                  jobDetails.applicationDeadline)
+                  ? DateFormatUtil.formatDate(jobDetails.applicationDeadline)
                   : StringUtils.unspecifiedText,
               style: topSideDescriptionFontStyle,
             ),
@@ -819,7 +817,7 @@ class _JobDetailsState extends State<JobDetails> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      dividerUpperSide,
+                      jobHeader,
                       SizedBox(
                         height: 10,
                       ),

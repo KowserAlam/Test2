@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:p7app/features/job/models/job.dart';
+import 'package:p7app/features/job/models/job_model.dart';
 import 'package:p7app/features/job/models/job_list_filters.dart';
 import 'package:p7app/features/job/models/sort_item.dart';
 import 'package:p7app/features/job/repositories/job_repository.dart';

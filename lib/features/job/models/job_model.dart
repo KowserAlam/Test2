@@ -4,7 +4,7 @@ class JobModel {
   String jobId;
   String slug;
   String title;
-  String jobLocation;
+  String jobCity;
   String salaryMin;
   String salaryMax;
   int vacancy;
@@ -39,7 +39,7 @@ class JobModel {
     this.jobId,
     this.slug,
     this.title,
-    this.jobLocation,
+    this.jobCity,
     this.publishDate,
     this.salaryMin,
     this.salaryMax,
@@ -77,7 +77,7 @@ class JobModel {
     jobId = json['job_id'];
     slug = json['slug'];
     title = json['title'];
-    jobLocation = json['job_location'];
+    jobCity = json['job_city'];
     salaryMin = json['salary_min'];
     salaryMax = json['salary_max'];
     vacancy = json['vacancy'];
