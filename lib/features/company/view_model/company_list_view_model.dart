@@ -11,7 +11,7 @@ class CompanyListViewModel with ChangeNotifier{
   CompanyListRepository _companyListRepository = CompanyListRepository();
   String _query;
   int noOfSearchResults = 0;
-  bool noCompanyFound = false;
+  bool searchStart = false;
 
   set query(String value){
     _query = value;
@@ -20,7 +20,7 @@ class CompanyListViewModel with ChangeNotifier{
 
   Future<bool> getJobDetails() async {
     isFetchingData = true;
-
+    searchStart = true;
 
     Either<AppError, List<Company>> result =
     await _companyListRepository.getList(query: _query);
@@ -41,6 +41,7 @@ class CompanyListViewModel with ChangeNotifier{
   resetState() {
     companyList = null;
     isFetchingData = false;
+    searchStart = false;
     _companyListRepository = CompanyListRepository();
     noOfSearchResults = 0;
     notifyListeners();

@@ -92,7 +92,7 @@ class _CompanyListScreenState extends State<CompanyListScreen> {
                     },
                   ),
                 ),
-                companyViewModel.noOfSearchResults>0?Container(
+                companyViewModel.searchStart?Container(
                   padding: EdgeInsets.symmetric(vertical: 5),
                   margin: EdgeInsets.symmetric(vertical: 5),
                   decoration: BoxDecoration(color: scaffoldBackgroundColor,
@@ -103,9 +103,9 @@ class _CompanyListScreenState extends State<CompanyListScreen> {
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
+                    children: companyViewModel.isFetchingData?[Text('Searching..')]:[
                       Text(companyViewModel.noOfSearchResults.toString()),
-                      companyViewModel.noOfSearchResults>1?Text(' company found'):Text(' companies found')
+                      companyViewModel.noOfSearchResults>1?Text(' companies found'):Text(' company found')
                     ],
                   )
                 ):SizedBox(),
