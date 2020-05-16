@@ -1,12 +1,13 @@
 import 'dart:convert';
 import 'package:dartz/dartz.dart';
+import 'package:p7app/features/job/models/jon_type_model.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
 import 'package:p7app/main_app/failure/error.dart';
 
 class JobTypeLisRepository{
 
-  Future<Either<AppError,List<String>>> getList() async{
+  Future<Either<AppError,List<JobType>>> getList() async{
     try{
       var res = await ApiClient().getRequest(Urls.jobTypeListUrl);
 
@@ -14,7 +15,7 @@ class JobTypeLisRepository{
         var decodedJson = json.decode(res.body);
         print(decodedJson);
 
-        List<String> list = fromJson(decodedJson);
+        List<JobType> list = fromJson(decodedJson);
         return Right(list);
       }else{
         return Left(AppError.unknownError);
@@ -25,10 +26,10 @@ class JobTypeLisRepository{
     }
   }
 
-  List<String> fromJson(json){
-   List<String> list = [];
+  List<JobType> fromJson(json){
+   List<JobType> list = [];
    json.forEach((element) {
-     list.add(element['name']);
+     list.add(JobType.fromJson(element));
    });
    return list;
   }

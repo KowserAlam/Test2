@@ -8,7 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p7app/features/job/models/job.dart';
-import 'package:p7app/features/job/repositories/job_details_repository.dart';
+
+import 'package:p7app/features/job/repositories/job_repository.dart';
 import 'package:p7app/features/job/view_model/job_list_view_model.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
@@ -16,11 +17,8 @@ import 'package:p7app/main_app/app_theme/app_theme.dart';
 import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/failure/error.dart';
 import 'package:p7app/main_app/resource/const.dart';
-import 'package:p7app/main_app/resource/decorations.dart';
 import 'package:p7app/main_app/util/date_format_uitl.dart';
-import 'package:p7app/main_app/widgets/custom_Button.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
-import 'package:p7app/main_app/widgets/common_button.dart';
 import 'package:p7app/main_app/widgets/loader.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -163,15 +161,9 @@ class _JobDetailsState extends State<JobDetails> {
     return listOfSkills;
   }
 
-//  void getDetails() async {
-//    //Provider.of<JobDetailViewModel>(context, listen: false).slug = widget.jobModel.slug;
-//    await Provider.of<JobDetailViewModel>(context, listen: false)
-//        .getJobDetails();
-//  }
-
   getJobDetails() async {
     dartZ.Either<AppError, JobModel> result =
-        await JobDetailsRepository().fetchJobDetails(widget.slug);
+        await JobRepository().fetchJobDetails(widget.slug);
     return result.fold((l) {
       print(l);
     }, (JobModel dataModel) {
@@ -237,7 +229,7 @@ class _JobDetailsState extends State<JobDetails> {
     bool isFavorite = jobDetails?.isFavourite ?? false;
      bool isApplied = jobDetails?.isApplied ?? false;
     bool isDateExpired = jobDetails.applicationDeadline != null
-        ? jobDetails.applicationDeadline.isAfter(DateTime.now())
+        ? DateTime.now().isAfter(jobDetails.applicationDeadline)
         : true;
     //Widgets
     var heartButton = Material(

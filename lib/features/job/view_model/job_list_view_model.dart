@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:p7app/features/job/models/job.dart';
 import 'package:p7app/features/job/models/job_list_filters.dart';
 import 'package:p7app/features/job/models/sort_item.dart';
-import 'package:p7app/features/job/repositories/job_list_repository.dart';
+import 'package:p7app/features/job/repositories/job_repository.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
 import 'package:p7app/main_app/auth_service/auth_service.dart';
@@ -22,7 +22,7 @@ class JobListViewModel with ChangeNotifier {
   bool _isFetchingMoreData = false;
   bool _hasMoreData = false;
   int _pageCount = 1;
-  JobListRepository _jobListRepository = JobListRepository();
+  JobRepository _jobListRepository = JobRepository();
   JobListFilters _jobListFilters = JobListFilters();
   Debouncer _debouncer = Debouncer(milliseconds: 800);
   bool _isInSearchMode = false;
@@ -235,7 +235,7 @@ class JobListViewModel with ChangeNotifier {
     _isFetchingData = false;
     _hasMoreData = false;
     _pageCount = 1;
-    _jobListRepository = JobListRepository();
+    _jobListRepository = JobRepository();
     _jobListFilters = JobListFilters();
     notifyListeners();
   }
@@ -270,7 +270,7 @@ class JobListViewModel with ChangeNotifier {
      getJobList();
   }
   void clearJobType(){
-     _jobListFilters.job_type = null;
+     _jobListFilters.jobType = null;
      notifyListeners();
      getJobList();
   }
@@ -308,7 +308,7 @@ class JobListViewModel with ChangeNotifier {
 
   bool get hasSkill => _jobListFilters.skill.isNotEmptyOrNotNull;
 
-  bool get hasJobType => _jobListFilters.job_type.isNotEmptyOrNotNull;
+  bool get hasJobType => _jobListFilters.jobType?.id?.isNotEmptyOrNotNull??false;
 
   bool get hasDatePosted => _jobListFilters.datePosted.isNotEmptyOrNotNull;
 
@@ -360,7 +360,7 @@ class JobListViewModel with ChangeNotifier {
     _isInSearchMode = value;
   }
 
-  set jobListRepository(JobListRepository value) {
+  set jobListRepository(JobRepository value) {
     _jobListRepository = value;
   }
 }

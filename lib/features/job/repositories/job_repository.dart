@@ -15,7 +15,7 @@ import 'package:p7app/main_app/resource/strings_utils.dart';
 /// &location_from_homepage=&keyword_from_homepage=&skill=&salaryMin=
 /// &salaryMax=&experienceMin=&experienceMax=null&datePosted=&gender=
 /// &qualification=&sort=&page_size=10
-class JobListRepository {
+class JobRepository {
 
   Future<Either<AppError, JobListScreenDataModel>> fetchJobList(
       JobListFilters filters) async {
@@ -24,7 +24,7 @@ class JobListRepository {
         "?page=${filters.page}&q=${filters.searchQuery??""}&location=${filters.location??""}&category=${filters.category??""}"
         "&location_from_homepage=${filters.location_from_homepage??""}&keyword_from_homepage=${filters.keyword_from_homepage??""}"
         "&skill=${filters.skill??""}&salaryMin=${filters.salaryMin??""}&salaryMax=${filters.salaryMax??""}&experienceMin=${filters.experienceMin??""}"
-        "&experienceMax=${filters.experienceMax??""}&datePosted=${filters.datePosted??""}&gender=${filters.gender??""}&job_type=${filters.job_type??""}"
+        "&experienceMax=${filters.experienceMax??""}&datePosted=${filters.datePosted??""}&gender=${filters.gender??""}&job_type=${filters.jobType?.id??""}"
         "&qualification=${filters.qualification??""}&sort=${filters?.sort?.key??""}"
         "&page_size=${filters.page_size}&top-skill=${filters.topSkill??""}";
 
@@ -69,6 +69,39 @@ class JobListRepository {
     }
     return jobList;
   }
+
+  Future<Either<AppError, JobModel>> fetchJobDetails(
+      String slug) async {
+
+
+    //var url = "/api/load_job/seo-expert-78caf3ac";
+    var url = "${Urls.jobDetailsUrl}${slug}";
+
+    try {
+      var response = await ApiClient().getRequest(url);
+      debugPrint(url);
+      print(response.statusCode);
+//      print(response.body);
+      if (response.statusCode == 200) {
+        var mapData = json.decode(utf8.decode(response.bodyBytes));
+
+        var jobDetails = JobModel.fromJson(mapData);
+        return Right(jobDetails);
+      } else {
+        BotToast.showText(text: StringUtils.somethingIsWrong);
+        return Left(AppError.unknownError);
+      }
+    } on SocketException catch (e) {
+      print(e);
+      BotToast.showText(text: StringUtils.checkInternetConnectionMessage);
+      return Left(AppError.networkError);
+    } catch (e) {
+      print(e);
+      BotToast.showText(text: StringUtils.somethingIsWrong);
+      return Left(AppError.serverError);
+    }
+  }
+
 
 }
 

@@ -89,7 +89,9 @@ class JobModel {
     }
     if(json['publish_date'] != null){
       publishDate = DateTime.parse(json['publish_date']);
-    }    if(json['post_date'] != null){
+    }
+
+    if(json['post_date'] != null){
       postDate = DateTime.parse(json['post_date']);
     }
 

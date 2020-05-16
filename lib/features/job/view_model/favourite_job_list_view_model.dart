@@ -8,7 +8,7 @@ import 'package:p7app/features/job/models/job_list_filters.dart';
 import 'package:p7app/features/job/models/job_list_model.dart';
 import 'package:p7app/features/job/repositories/applied_job_list_repository.dart';
 import 'package:p7app/features/job/repositories/favourite_job_list_repository.dart';
-import 'package:p7app/features/job/repositories/job_list_repository.dart';
+import 'package:p7app/features/job/repositories/job_repository.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
 import 'package:p7app/main_app/auth_service/auth_service.dart';

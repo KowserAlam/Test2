@@ -47,14 +47,14 @@ class Urls {
   static String qualificationListUrl = "/api/qualification/";
   static String experienceListUrl = "/api/experience/";
   static String jobCategoriesListUrl = "/api/popular_categories/";
-  static String jobTypeListUrl = "/job_type/";
-
+  static String jobTypeListUrl = "/api/job-type/list";
   static String jobLocationListUrl = "/api/location/";
   static String jobSourceList = "/api/job-source/list/";
   static String jobGenderList = "/api/job-gender/list/";
   static String jobCategoryList = "/api/job-category/list/";
   static String jobSiteList = "/api/job-site/list";
   static String jobNatureList = "/api/job-nature/list";
+
 
 
 

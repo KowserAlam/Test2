@@ -26,16 +26,18 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
   Widget build(BuildContext context) {
     bool isFavorite = widget.jobModel.isFavourite;
 
-    String publishDateText = widget.jobModel.createdAt == null
+    String publishDateText = widget.jobModel.publishDate == null
         ? StringUtils.unspecifiedText
-        : DateFormatUtil().dateFormat1(widget.jobModel.createdAt);
+        : DateFormatUtil().dateFormat1(widget.jobModel.publishDate);
 
     String deadLineText = widget.jobModel.applicationDeadline == null
         ? StringUtils.unspecifiedText
         : DateFormatUtil().dateFormat1(widget.jobModel.applicationDeadline);
     bool isDateExpired = widget.jobModel.applicationDeadline != null
-        ? widget.jobModel.applicationDeadline.isAfter(DateTime.now())
+        ? DateTime.now().isAfter(widget.jobModel.applicationDeadline)
         : true;
+
+    debugPrint("Deadline: ${widget.jobModel.applicationDeadline}\n Today: ${DateTime.now()} \n $isDateExpired");
 
     var backgroundColor = Theme.of(context).backgroundColor;
     var scaffoldBackgroundColor = Theme.of(context).scaffoldBackgroundColor;
@@ -153,7 +155,7 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
         ),
       ],
     );
-    var createdDateWidget = Row(
+    var publishDate = Row(
       children: <Widget>[
         Icon(
           FeatherIcons.calendar,
@@ -213,7 +215,7 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  createdDateWidget,
+                  publishDate,
                   applicationDeadlineWidget,
                   applyButton,
                 ],
