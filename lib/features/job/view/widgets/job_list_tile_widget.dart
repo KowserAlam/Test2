@@ -112,24 +112,24 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
       onPressedApply: widget.onApply,
       isApplied: widget.jobModel.isApplied,
     );
-    var jobType = Row(
-      children: <Widget>[
-        Icon(
-          FontAwesomeIcons.clock,
-          size: iconSize,
-          color: AppTheme.orange,
-        ),
-        SizedBox(
-          width: 5,
-        ),
-        Text(
-          widget.jobModel.jobNature != null
-              ? widget.jobModel.jobNature
-              : StringUtils.unspecifiedText,
-          style: TextStyle(color: subtitleColor),
-        ),
-      ],
-    );
+//    var jobType = Row(
+//      children: <Widget>[
+//        Icon(
+//          FontAwesomeIcons.clock,
+//          size: iconSize,
+//          color: AppTheme.orange,
+//        ),
+//        SizedBox(
+//          width: 5,
+//        ),
+//        Text(
+//          widget.jobModel.jobNature != null
+//              ? widget.jobModel.jobNature
+//              : StringUtils.unspecifiedText,
+//          style: TextStyle(color: subtitleColor),
+//        ),
+//      ],
+//    );
     var applicationDeadlineWidget = Row(
       children: <Widget>[
         Icon(FeatherIcons.clock, size: iconSize, color: subtitleColor),

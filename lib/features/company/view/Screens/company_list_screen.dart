@@ -92,6 +92,23 @@ class _CompanyListScreenState extends State<CompanyListScreen> {
                     },
                   ),
                 ),
+                companyViewModel.noOfSearchResults>0?Container(
+                  padding: EdgeInsets.symmetric(vertical: 5),
+                  margin: EdgeInsets.symmetric(vertical: 5),
+                  decoration: BoxDecoration(color: scaffoldBackgroundColor,
+                      boxShadow: [
+                        BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 10),
+                        BoxShadow(color: Colors.black.withOpacity(0.2), blurRadius: 10),
+                      ]),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(companyViewModel.noOfSearchResults.toString()),
+                      companyViewModel.noOfSearchResults>1?Text(' company found'):Text(' companies found')
+                    ],
+                  )
+                ):SizedBox(),
                 companyViewModel.isFetchingData? Padding(
                   padding: const EdgeInsets.only(top: 15),
                   child: Loader(),

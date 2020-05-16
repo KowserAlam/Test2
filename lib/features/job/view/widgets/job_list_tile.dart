@@ -338,8 +338,8 @@ class _FavoriteJobListTileWidgetState extends State<FavoriteJobListTileWidget> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  deadLineWidget,
                   publishDateWidget,
+                  deadLineWidget,
                   applyButton,
                 ],
               ),

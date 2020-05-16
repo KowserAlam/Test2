@@ -5,6 +5,9 @@ class JobModel {
   String slug;
   String title;
   String jobCity;
+  String jobAddress;
+  String jobCountry;
+  String jobArea;
   String salaryMin;
   String salaryMax;
   int vacancy;
@@ -68,7 +71,10 @@ class JobModel {
     this.isFavourite,
     this.profilePicture,
     this.skill,
-    this.postDate
+    this.postDate,
+    this.jobAddress,
+    this.jobCountry,
+    this.jobArea
   });
 
   JobModel.fromJson(Map<String, dynamic> json) {

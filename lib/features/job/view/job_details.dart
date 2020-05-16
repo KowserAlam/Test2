@@ -202,6 +202,7 @@ class _JobDetailsState extends State<JobDetails> {
       return Text.rich(
         TextSpan(children: <TextSpan>[
           TextSpan(text: title, style: descriptionFontStyleBold),
+          TextSpan(text: ': ', style: descriptionFontStyleBold),
           TextSpan(text: description, style: descriptionFontStyle),
         ]),
         style: descriptionFontStyle,
@@ -490,12 +491,13 @@ class _JobDetailsState extends State<JobDetails> {
           SizedBox(
             height: 5,
           ),
-          Text(
-            jobDetails.salary != null
-                ? jobDetails.salary.toString()
-                : StringUtils.unspecifiedText,
-            style: descriptionFontStyle,
-          )
+          jobSummeryRichText(StringUtils.currentOffer, jobDetails.salary != null
+              ? jobDetails.salary
+              : StringUtils.unspecifiedText,),
+          SizedBox(
+            height: 5,
+          ),
+          jobDetails.salaryMin!=null?jobDetails.salaryMax!=null??jobSummeryRichText(StringUtils.salaryRangeText, jobDetails.salaryMin+'-'+jobDetails.salaryMax,):SizedBox()
         ],
       ),
     );
@@ -582,7 +584,7 @@ class _JobDetailsState extends State<JobDetails> {
               Row(
                 children: <Widget>[
                   jobSummeryRichText(
-                      StringUtils.employmentStatus,
+                      StringUtils.jobNature,
                       jobDetails.employmentStatus != null
                           ? jobDetails.employmentStatus
                           : StringUtils.unspecifiedText)
@@ -594,7 +596,7 @@ class _JobDetailsState extends State<JobDetails> {
               Row(
                 children: <Widget>[
                   jobSummeryRichText(
-                      StringUtils.yearsOfExperience,
+                      StringUtils.experience,
                       jobDetails.experience != null
                           ? jobDetails.experience.toString()
                           : StringUtils.unspecifiedText)
