@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p7app/features/company/models/company.dart';
+import 'package:p7app/main_app/api_helpers/url_launcher_helper.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 
@@ -241,10 +242,39 @@ class _CompanyDetailsState extends State<CompanyDetails> {
 //          richText(StringUtils.companyIndustryText, companyDetails.companyProfile),
 //          SizedBox(height: 5,),
 
-          richText(StringUtils.companyEmailText, companyDetails.email),
-          SizedBox(height: 5,),
+          //Email
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [Row(
+              children: [
+                Text(StringUtils.companyEmailText+': ',style: TextStyle(fontWeight: FontWeight.bold)),
+                SizedBox(width: 5,),
+                GestureDetector(
+                    onTap: (){
+                      UrlLauncherHelper.launchUrl(companyDetails.email);
+                    },
+                    child: Text(companyDetails.email,style: TextStyle(color: Colors.lightBlue),)),
+              ],
+            ),
+              SizedBox(height: 5,),],
+          ),
 
-          richText(StringUtils.companyWebAddressText, companyDetails.webAddress),
+          //Web address
+          companyDetails.webAddress==null?SizedBox():Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [Row(
+              children: [
+                Text(StringUtils.companyWebAddressText+': ',style: TextStyle(fontWeight: FontWeight.bold)),
+                SizedBox(width: 5,),
+                GestureDetector(
+                    onTap: (){
+                      UrlLauncherHelper.launchUrl(companyDetails.webAddress);
+                    },
+                    child: Text(companyDetails.webAddress,style: TextStyle(color: Colors.lightBlue),)),
+              ],
+            ),
+              SizedBox(height: 5,),],
+          ),
           SizedBox(height: 5,),
         ],
       ),
@@ -278,7 +308,11 @@ class _CompanyDetailsState extends State<CompanyDetails> {
               children: [
                 Text('Facebook: ',style: TextStyle(fontWeight: FontWeight.bold)),
                 SizedBox(width: 5,),
-                Text(companyDetails.companyNameFacebook),
+                GestureDetector(
+                    onTap: (){
+                      UrlLauncherHelper.launchUrl(companyDetails.companyNameFacebook);
+                    },
+                    child: Text(companyDetails.companyNameFacebook,style: TextStyle(color: Colors.lightBlue),)),
               ],
             ),
               SizedBox(height: 5,),],
@@ -302,9 +336,13 @@ class _CompanyDetailsState extends State<CompanyDetails> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [Row(
               children: [
-                Text('Google: ',style: TextStyle(fontWeight: FontWeight.bold),),
+                Text('Google: ',style: TextStyle(fontWeight: FontWeight.bold, ),),
                 SizedBox(width: 5,),
-                Text(companyDetails.companyNameGoogle),
+                GestureDetector(
+                    onTap: (){
+                      UrlLauncherHelper.launchUrl(companyDetails.companyNameGoogle);
+                    },
+                    child: Text(companyDetails.companyNameGoogle, style: TextStyle(color: Colors.lightBlue),)),
               ],
             ),
               SizedBox(height: 5,),],
