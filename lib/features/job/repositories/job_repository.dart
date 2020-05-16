@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart';
+import 'package:p7app/features/job/models/job_list_model.dart';
 import 'package:p7app/features/job/models/job_model.dart';
 import 'package:p7app/features/job/models/job_list_filters.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
@@ -60,11 +61,11 @@ class JobRepository {
     }
   }
 
-  List<JobModel> fromJson(Map<String, dynamic> json) {
-    List<JobModel> jobList = new List<JobModel>();
+  List<JobListModel> fromJson(Map<String, dynamic> json) {
+    List<JobListModel> jobList = new List<JobListModel>();
     if (json['results'] != null) {
       json['results'].forEach((v) {
-        jobList.add(new JobModel.fromJson(v));
+        jobList.add(new JobListModel.fromJson(v));
       });
     }
     return jobList;
@@ -108,7 +109,7 @@ class JobRepository {
 class JobListScreenDataModel {
   int count;
   bool nextPage;
-  List<JobModel> jobList;
+  List<JobListModel> jobList;
 
   JobListScreenDataModel({
     @required this.count,

@@ -4,7 +4,7 @@ class JobListModel {
   String jobId;
   String slug;
   String title;
-  String jobLocation;
+  String jobCity;
   String employmentStatus;
   String companyName;
   String profilePicture;
@@ -15,14 +15,12 @@ class JobListModel {
   bool isApplied;
   DateTime postDate;
   DateTime applicationDeadline;
-  DateTime createdAt;
-  DateTime publishDate;
 
   JobListModel({
     this.jobId,
     this.slug,
     this.title,
-    this.jobLocation,
+    this.jobCity,
     this.employmentStatus,
     this.companyName,
     this.profilePicture,
@@ -33,7 +31,6 @@ class JobListModel {
     this.isFavourite,
     this.postDate,
     this.applicationDeadline,
-    this.createdAt,
   });
 
   JobListModel.fromJson(Map<String, dynamic> json) {
@@ -42,7 +39,7 @@ class JobListModel {
     jobId = json['job_id'];
     slug = json['slug'];
     title = json['title'];
-    jobLocation = json['job_location'];
+    jobCity = json['job_city'];
     employmentStatus = json['employment_status'];
     companyName = json['company_name'];
     if (json['profile_picture'] != null) {
@@ -58,16 +55,9 @@ class JobListModel {
         ? false
         : (json['is_favourite'][0] == "Yes" ? true : false);
 
-    this.postDate = json['post_date'];
 
     if (json['application_deadline'] != null) {
       applicationDeadline = DateTime.parse(json['application_deadline']);
-    }
-    if (json['created_date'] != null) {
-      createdAt = DateTime.parse(json['created_date']);
-    }
-    if (json['publish_date'] != null) {
-      publishDate = DateTime.parse(json['publish_date']);
     }
 
     if (json['post_date'] != null) {

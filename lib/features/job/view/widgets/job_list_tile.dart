@@ -184,7 +184,7 @@ class _FavoriteJobListTileWidgetState extends State<FavoriteJobListTileWidget> {
           ),
           Expanded(
             child: Text(
-              widget.jobListModel.jobLocation ?? "",
+              widget.jobListModel.jobCity ?? "",
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(color: subtitleColor),
@@ -322,7 +322,7 @@ class _FavoriteJobListTileWidgetState extends State<FavoriteJobListTileWidget> {
                           SizedBox(height: 3),
                           companyName,
                           SizedBox(height: 3),
-                          widget.jobListModel.jobLocation== null?SizedBox():companyLocation,
+                          widget.jobListModel.jobCity== null?SizedBox():companyLocation,
                         ],
                       )),
                   SizedBox(width: 8),

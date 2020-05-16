@@ -5,6 +5,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:p7app/features/job/models/job_list_model.dart';
 import 'package:p7app/features/job/models/job_model.dart';
 import 'package:p7app/features/job/models/job_list_filters.dart';
 import 'package:p7app/features/job/repositories/job_repository.dart';
@@ -25,8 +26,8 @@ main() {
   viewModel.jobListRepository = mockRepository;
   setUp(() {
     viewModel.jobList = [
-      JobModel(jobId: "abc", isFavourite: false, isApplied: false),
-      JobModel(jobId: "abc", isFavourite: false, isApplied: false),
+      JobListModel(jobId: "abc", isFavourite: false, isApplied: false),
+      JobListModel(jobId: "abc", isFavourite: false, isApplied: false),
     ];
   });
 

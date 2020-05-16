@@ -1,7 +1,5 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
-
-
 // ignore: must_be_immutable
 class JobType extends Equatable{
    String id;

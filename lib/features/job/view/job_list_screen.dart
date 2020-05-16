@@ -1,6 +1,7 @@
 import 'package:after_layout/after_layout.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:p7app/features/job/models/job_list_model.dart';
 import 'package:p7app/features/job/models/sort_item.dart';
 import 'package:p7app/features/job/repositories/job_list_sort_items_repository.dart';
 import 'package:p7app/features/job/view/job_details.dart';
@@ -207,7 +208,7 @@ class _JobListScreenState extends State<JobListScreen>
                                       : SizedBox();
                                 }
 
-                                JobModel job = jobList[index];
+                                JobListModel job = jobList[index];
 
                                 return JobListTileWidget(
                                   job,
@@ -240,7 +241,7 @@ class _JobListScreenState extends State<JobListScreen>
     );
   }
 
-  _showApplyForJobDialog(JobModel jobModel, int index) {
+  _showApplyForJobDialog(JobListModel jobModel, int index) {
     showDialog(
         context: context,
         builder: (context) {

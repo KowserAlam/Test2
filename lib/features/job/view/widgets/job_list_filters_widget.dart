@@ -4,7 +4,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p7app/features/job/models/job_list_filters.dart';
 import 'package:p7app/features/job/models/jon_type_model.dart';
 import 'package:p7app/features/job/models/sort_item.dart';
-import 'package:p7app/features/job/repositories/job_list_sort_items_repository.dart';
 import 'package:p7app/features/job/view_model/job_list_filter_widget_view_model.dart';
 import 'package:p7app/features/job/view_model/job_list_view_model.dart';
 import 'package:p7app/features/user_profile/models/skill.dart';
@@ -47,8 +46,9 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
         skill: filterVM.selectedSkill,
         location: filterVM.selectedLocation ?? "",
         qualification: filterVM.selectedQualification ?? "",
-        category: filterVM.selectedCategory.isNotEmptyOrNotNull ?
-        filterVM.selectedCategory.replaceFirst("&", "%26"):"",
+        category: filterVM.selectedCategory.isNotEmptyOrNotNull
+            ? filterVM.selectedCategory.replaceFirst("&", "%26")
+            : "",
         datePosted: filterVM.selectedDatePosted ?? "",
         gender: filterVM.selectedGender ?? "",
         jobType: filterVM.selectedJobType,

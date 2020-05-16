@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:p7app/features/job/models/job_list_model.dart';
 import 'package:p7app/features/job/models/job_model.dart';
 import 'package:p7app/features/job/models/job_list_filters.dart';
 import 'package:p7app/features/job/models/sort_item.dart';
@@ -17,7 +18,7 @@ import 'package:rxdart/rxdart.dart';
 import 'package:p7app/main_app/util/method_extension.dart';
 
 class JobListViewModel with ChangeNotifier {
-  List<JobModel> _jobList = [];
+  List<JobListModel> _jobList = [];
   bool _isFetchingData = false;
   bool _isFetchingMoreData = false;
   bool _hasMoreData = false;
@@ -334,9 +335,9 @@ class JobListViewModel with ChangeNotifier {
         hasExperienceRange;
   }
 
-  List<JobModel> get jobList => _jobList;
+  List<JobListModel> get jobList => _jobList;
 
-  set jobList(List<JobModel> value) {
+  set jobList(List<JobListModel> value) {
     _jobList = value;
     notifyListeners();
   }
