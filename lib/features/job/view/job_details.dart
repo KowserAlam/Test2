@@ -10,6 +10,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p7app/features/job/models/job_model.dart';
 
 import 'package:p7app/features/job/repositories/job_repository.dart';
+import 'package:p7app/features/job/view/widgets/job_apply_button.dart';
 import 'package:p7app/features/job/view_model/job_list_view_model.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
@@ -229,9 +230,9 @@ class _JobDetailsState extends State<JobDetails> {
 
     bool isFavorite = jobDetails?.isFavourite ?? false;
     bool isApplied = jobDetails?.isApplied ?? false;
-    bool isDateExpired = jobDetails.applicationDeadline != null
-        ? DateTime.now().isAfter(jobDetails.applicationDeadline)
-        : true;
+//    bool isDateExpired = jobDetails.applicationDeadline != null
+//        ? DateTime.now().isAfter(jobDetails.applicationDeadline)
+//        : true;
 
     //Widgets
     var heartButton = Material(
@@ -279,32 +280,10 @@ class _JobDetailsState extends State<JobDetails> {
         ),
       ),
     );
-    var applyButton = Material(
-      color: isApplied
-          ? Colors.blue[200]
-          : (isDateExpired ? Colors.grey : Theme.of(context).accentColor),
-      borderRadius: BorderRadius.circular(5),
-      child: InkWell(
-        onTap: isApplied
-            ? null
-            : () {
-                _showApplyDialog();
-              },
-        borderRadius: BorderRadius.circular(5),
-        child: Container(
-          height: 30,
-          width: 65,
-          alignment: Alignment.center,
-//          padding: EdgeInsets.symmetric(vertical: 6, horizontal: 15),
-
-          child: Text(
-            isApplied ? StringUtils.appliedText : StringUtils.applyText,
-            style: TextStyle(
-                fontSize: 15, color: Colors.white, fontWeight: FontWeight.w600),
-          ),
-        ),
-      ),
-    );
+    var applyButton =
+    JobApplyButton(isApplied: isApplied, applicationDeadline: jobDetails.applicationDeadline, onPressedApply: (){
+      _showApplyDialog();
+    },);
     var spaceBetweenSections = SizedBox(
       height: 30,
     );
