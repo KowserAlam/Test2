@@ -95,11 +95,6 @@ class _CompanyListScreenState extends State<CompanyListScreen> {
                 companyViewModel.searchStart?Container(
                   padding: EdgeInsets.symmetric(vertical: 5),
                   margin: EdgeInsets.symmetric(vertical: 5),
-                  decoration: BoxDecoration(color: scaffoldBackgroundColor,
-                      boxShadow: [
-                        BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 10),
-                        BoxShadow(color: Colors.black.withOpacity(0.2), blurRadius: 10),
-                      ]),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -129,7 +124,7 @@ class _CompanyListScreenState extends State<CompanyListScreen> {
                                     BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 10),
                                     BoxShadow(color: Colors.black.withOpacity(0.2), blurRadius: 10),
                                   ]),
-                              margin: EdgeInsets.fromLTRB(8, 4, 8, 4),
+                              margin: EdgeInsets.fromLTRB(0, 4, 0, 4),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[

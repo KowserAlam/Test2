@@ -175,7 +175,7 @@ class StringUtils {
   static String ongoingText = "Ongoing";
 
   //Company List Screen
-  static var companyListAppbarText = "Search Companies";
+  static var companyListAppbarText = "Companies";
   static var searchLetterCapText = "You need to enter at least 3 letters";
 
   //Company Details Screen
