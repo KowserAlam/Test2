@@ -37,6 +37,7 @@ class JobModel {
   String profilePicture;
   DateTime publishDate;
   DateTime postDate;
+  String jobCategory;
 
   JobModel({
     this.jobId,
@@ -74,7 +75,8 @@ class JobModel {
     this.postDate,
     this.jobAddress,
     this.jobCountry,
-    this.jobArea
+    this.jobArea,
+    this.jobCategory
   });
 
   JobModel.fromJson(Map<String, dynamic> json) {
@@ -118,6 +120,7 @@ class JobModel {
     companyName = json['company_name'];
     division = json['division'];
     district = json['district'];
+    jobCategory = json['job_category'];
     jobSkills = json['job_skills']?.cast<String>();
     skill = json['skill']?.cast<String>();
 

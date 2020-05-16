@@ -491,13 +491,12 @@ class _JobDetailsState extends State<JobDetails> {
           SizedBox(
             height: 5,
           ),
-          jobSummeryRichText(StringUtils.currentOffer, jobDetails.salary != null
-              ? jobDetails.salary
-              : StringUtils.unspecifiedText,),
-          SizedBox(
-            height: 5,
-          ),
-          jobDetails.salaryMin!=null?jobDetails.salaryMax!=null??jobSummeryRichText(StringUtils.salaryRangeText, jobDetails.salaryMin+'-'+jobDetails.salaryMax,):SizedBox()
+          Text(
+            jobDetails.salary != null
+                ? jobDetails.salary.toString()
+                : StringUtils.unspecifiedText,
+            style: descriptionFontStyle,
+          )
         ],
       ),
     );
@@ -560,9 +559,9 @@ class _JobDetailsState extends State<JobDetails> {
               Row(
                 children: <Widget>[
                   jobSummeryRichText(
-                      StringUtils.publishedOn,
-                      jobDetails.createdAt != null
-                          ? DateFormatUtil.formatDate(jobDetails.createdAt)
+                      StringUtils.category,
+                      jobDetails.jobCategory != null
+                          ? jobDetails.jobCategory
                           : StringUtils.unspecifiedText)
                 ],
               ),
@@ -584,9 +583,21 @@ class _JobDetailsState extends State<JobDetails> {
               Row(
                 children: <Widget>[
                   jobSummeryRichText(
-                      StringUtils.jobNature,
-                      jobDetails.employmentStatus != null
-                          ? jobDetails.employmentStatus
+                      StringUtils.qualificationText,
+                      jobDetails.qualification != null
+                          ? jobDetails.qualification
+                          : StringUtils.unspecifiedText)
+                ],
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Row(
+                children: <Widget>[
+                  jobSummeryRichText(
+                      StringUtils.gender,
+                      jobDetails.gender != null
+                          ? jobDetails.gender
                           : StringUtils.unspecifiedText)
                 ],
               ),
@@ -598,53 +609,7 @@ class _JobDetailsState extends State<JobDetails> {
                   jobSummeryRichText(
                       StringUtils.experience,
                       jobDetails.experience != null
-                          ? jobDetails.experience.toString()
-                          : StringUtils.unspecifiedText)
-                ],
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              Container(
-                child: jobSummeryRichText(
-                    StringUtils.jobLocation,
-                    jobDetails.jobCity != null
-                        ? jobDetails.jobCity.toString()
-                        : StringUtils.unspecifiedText),
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              Row(
-                children: <Widget>[
-                  jobSummeryRichText(
-                      StringUtils.salary,
-                      jobDetails.salary != null
-                          ? jobDetails.salary.toString()
-                          : StringUtils.unspecifiedText)
-                ],
-              ),
-              SizedBox(
-                height: 5
-              ),
-              Row(
-                children: <Widget>[
-                  jobSummeryRichText(
-                      StringUtils.gender,
-                      jobDetails.gender != null
-                          ? jobDetails.gender.toString()
-                          : StringUtils.unspecifiedText)
-                ],
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              Row(
-                children: <Widget>[
-                  jobSummeryRichText(
-                      StringUtils.applicationDeadline,
-                      jobDetails.applicationDeadline != null
-                          ? jobDetails.applicationDeadline.toString()
+                          ? jobDetails.experience
                           : StringUtils.unspecifiedText)
                 ],
               ),
@@ -724,8 +689,8 @@ class _JobDetailsState extends State<JobDetails> {
               width: 5,
             ),
             Text(
-              jobDetails.createdAt != null
-                  ? DateFormatUtil.formatDate(jobDetails.createdAt)
+              jobDetails.postDate != null
+                  ? DateFormatUtil.formatDate(jobDetails.postDate)
                   : StringUtils.unspecifiedText,
               style: topSideDescriptionFontStyle,
             ),
