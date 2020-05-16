@@ -121,6 +121,8 @@ class JobModel {
     division = json['division'];
     district = json['district'];
     jobCategory = json['job_category'];
+    jobAddress = json['job_address'];
+
     jobSkills = json['job_skills']?.cast<String>();
     skill = json['skill']?.cast<String>();
 

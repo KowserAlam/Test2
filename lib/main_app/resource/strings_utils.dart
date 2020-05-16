@@ -180,22 +180,23 @@ class StringUtils {
 
   //Company Details Screen
   static var companyDetailsText = "Company Details";
-  static var companyBasicInfoSectionText = "BASIC INFO";
+  static var companyBasisInfoSectionText = "BASIS INFO";
   static var companyProfileText = "Profile";
   static var companyIndustryText = "Industry";
-  static var companyYearsOfEstablishmentText = "Years of establishment";
+  static var companyYearsOfEstablishmentText = "Year of establishment";
   static var basisMembershipText = "BASIS Membership No";
-  static var companyAddressSectionText = "Address";
+  static var companyAddressSectionText = "ADDRESS";
   static var companyAddressText = "Address";
   static var companyAreaText = "Area";
   static var companyCityText = "City";
+  static var companyDistrictText = "District";
   static var companyCountryText = "Country";
   static var companyPostCodeText = "Post Code";
   static var companyContactSectionText = "CONTACT";
   static var companyEmailText = "Email";
   static var companyWebAddressText = "Web Address";
   static var companySocialNetworksSectionText = "SOCIAL NETWORKS";
-  static var companyOrganizationHeadSectionText = "ORGANIZATION\'s HEAD";
+  static var companyOrganizationHeadSectionText = "ORGANIZATION\'S HEAD";
   static var companyOrganizationHeadNameText = "Name";
   static var companyOrganizationHeadDesignationText = "Designation";
   static var companyOrganizationHeadMobileNoText = "Mobile No";
@@ -203,7 +204,7 @@ class StringUtils {
   static var companyOtherInformationText = "OTHER INFORMATION";
   static var companyNoOFHumanResourcesText = "No of Human Resources";
   static var companyNoOFItResourcesText = "No of IT Resources";
-  static var companyLegalStructureText = "Leagal Structure";
+  static var companyLegalStructureText = "Legal Structure";
 
 
 

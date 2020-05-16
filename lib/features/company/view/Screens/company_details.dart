@@ -98,30 +98,6 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                 SizedBox(
                   height: 10,
                 ),
-//                Column(
-//                  crossAxisAlignment: CrossAxisAlignment.start,
-//                  children: <Widget>[
-//                    companyDetails.address==null?SizedBox():Row(
-//                      children: <Widget>[
-//                        Icon(
-//                          FeatherIcons.mapPin,
-//                          size: iconSize,
-//                        ),
-//                        SizedBox(
-//                          width: 5,
-//                        ),
-//                        Flexible(
-//                          child: Text(
-//                            companyDetails.address != null
-//                                ? companyDetails.address
-//                                : StringUtils.unspecifiedText,
-//                            style: topSideDescriptionFontStyle,
-//                          ),
-//                        )
-//                      ],
-//                    )
-//                  ],
-//                )
               ],
             ),
           )
@@ -130,7 +106,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
     );
 
 
-    var basicInfo = Container(
+    var basisInfo = Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -144,7 +120,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                 width: 5,
               ),
               Text(
-                StringUtils.companyBasicInfoSectionText,
+                StringUtils.companyBasisInfoSectionText,
                 style: sectionTitleFont,
               )
             ],
@@ -157,10 +133,10 @@ class _CompanyDetailsState extends State<CompanyDetails> {
 //          richText(StringUtils.companyIndustryText, companyDetails.companyProfile),
 //          SizedBox(height: 5,),
 
-          richText(StringUtils.companyYearsOfEstablishmentText, companyDetails.yearsOfEstablishment),
+          richText(StringUtils.companyYearsOfEstablishmentText, companyDetails.yearOfEstablishment),
           SizedBox(height: 5,),
 
-          richText(StringUtils.companyBasicInfoSectionText, companyDetails.basisMemberShipNo),
+          richText(StringUtils.companyBasisInfoSectionText, companyDetails.basisMemberShipNo),
           SizedBox(height: 5,),
         ],
       ),
@@ -193,7 +169,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
 //          richText(StringUtils.companyIndustryText, companyDetails.companyProfile),
 //          SizedBox(height: 5,),
 
-          richText(StringUtils.companyCityText, companyDetails.district),
+          richText(StringUtils.companyDistrictText, companyDetails.district),
           SizedBox(height: 5,),
 
           richText(StringUtils.companyPostCodeText, companyDetails.postCode),
@@ -436,7 +412,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                           topRight: Radius.circular(3))),
                   child: Column(
                     children: [
-                      basicInfo,
+                      basisInfo,
                     ],
                   ),
                 ),

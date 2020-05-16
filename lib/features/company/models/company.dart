@@ -9,7 +9,7 @@ class Company extends Equatable {
   String companyNameFacebook;
   String companyNameGoogle;
   String basisMemberShipNo;
-  String yearsOfEstablishment;
+  String yearOfEstablishment;
   String address;
   String postCode;
   String companyContactNoOne;
@@ -41,7 +41,7 @@ class Company extends Equatable {
         this.companyNameFacebook,
         this.companyNameGoogle,
         this.basisMemberShipNo,
-        this.yearsOfEstablishment,
+        this.yearOfEstablishment,
       this.address,
         this.postCode,
       this.companyContactNoOne,
@@ -75,17 +75,17 @@ class Company extends Equatable {
     companyNameFacebook = json['company_name_facebook']?.toString();
     companyNameGoogle = json['company_name_google']?.toString();
     basisMemberShipNo = json['basis_membership_no']?.toString();
-    yearsOfEstablishment = json['years_of_establishment']?.toString();
+    yearOfEstablishment = json['year_of_eastablishment']?.toString();
     address = json['address']?.toString();
     postCode = json['post_code']?.toString();
     companyContactNoOne = json['company_contact_no_one']?.toString();
-    companyContactNoTwo = json['company_company_no_two']?.toString();
+    companyContactNoTwo = json['company_contact_no_two']?.toString();
     companyContactNoThree = json['company_contact_no_three']?.toString();
     webAddress = json['web_address']?.toString();
     organizationHead = json['organization_head']?.toString();
     organizationHeadDesignation = json['organization_head_designation']?.toString();
     organizationHeadNumber = json['organization_head_number']?.toString();
-    legalStructure = json['legal_structure']?.toString();
+    legalStructure = json['legal_structure_of_this_company']?.toString();
     noOfHumanResources = json['total_number_of_human_resources']?.toString();
     noOfResources = json['no_of_it_resources']?.toString();
     contactPerson = json['contact_person']?.toString();
@@ -111,7 +111,7 @@ class Company extends Equatable {
     data['company_name_facebook'] = this.companyNameFacebook;
     data['company_name_google'] = this.companyNameGoogle;
     data['basis_membership_no'] = this.basisMemberShipNo;
-    data['years_of_establishment'] = this.yearsOfEstablishment;
+    data['year_of_eastablishment'] = this.yearOfEstablishment;
     data['address'] = this.address;
     data['post_code'] = this.postCode;
     data['company_contact_no_one'] = this.companyContactNoOne;
@@ -121,7 +121,7 @@ class Company extends Equatable {
     data['organization_head'] = this.organizationHead;
     data['organization_head_designation'] = this.organizationHeadDesignation;
     data['organization_head_number'] = this.organizationHeadNumber;
-    data['legal_structure'] = this.legalStructure;
+    data['legal_structure_of_this_company'] = this.legalStructure;
     data['total_number_of_human_resources'] = this.noOfHumanResources;
     data['no_of_it_resources'] = this.noOfResources;
     data['contact_person'] = this.contactPerson;

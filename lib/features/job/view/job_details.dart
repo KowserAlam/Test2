@@ -469,6 +469,33 @@ class _JobDetailsState extends State<JobDetails> {
         ],
       ),
     );
+
+    var location = Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              FaIcon(
+                FontAwesomeIcons.mapPin,
+                size: fontAwesomeIconSize,
+              ),
+              SizedBox(
+                width: 5,
+              ),
+              Text(
+                StringUtils.locationText,
+                style: sectionTitleFont,
+              )
+            ],
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          jobSummeryRichText(StringUtils.addressText, jobDetails.jobAddress)
+        ],
+      ),
+    );
     var salary = Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -491,12 +518,14 @@ class _JobDetailsState extends State<JobDetails> {
           SizedBox(
             height: 5,
           ),
-          Text(
-            jobDetails.salary != null
-                ? jobDetails.salary.toString()
-                : StringUtils.unspecifiedText,
-            style: descriptionFontStyle,
-          )
+          jobSummeryRichText(StringUtils.currentOffer, jobDetails.salary != null
+              ? jobDetails.salary.toString()
+              : StringUtils.unspecifiedText,),
+          jobSummeryRichText(StringUtils.salaryRangeText, (jobDetails.salaryMin != null
+              ? jobDetails.salaryMin.toString()
+              : StringUtils.unspecifiedText) + "-"+ (jobDetails.salaryMax != null
+              ? jobDetails.salaryMax.toString()
+              : StringUtils.unspecifiedText),)
         ],
       ),
     );
