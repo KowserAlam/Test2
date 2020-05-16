@@ -138,8 +138,8 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
           width: 5,
         ),
         Text(
-          widget.jobModel.employmentStatus != null
-              ? widget.jobModel.employmentStatus
+          widget.jobModel.jobNature != null
+              ? widget.jobModel.jobNature
               : StringUtils.unspecifiedText,
           style: TextStyle(color: subtitleColor),
         ),

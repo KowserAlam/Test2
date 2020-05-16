@@ -5,6 +5,7 @@ class JobModel {
   String slug;
   String title;
   String jobLocation;
+  String jobCategory;
   String salaryMin;
   String salaryMax;
   int vacancy;
@@ -19,7 +20,7 @@ class JobModel {
   bool termsAndCondition;
   DateTime createdAt;
   String industry;
-  String employmentStatus;
+  String jobNature;
   String experience;
   String qualification;
   String gender;
@@ -34,12 +35,17 @@ class JobModel {
   String profilePicture;
   DateTime publishDate;
   DateTime postDate;
+  String jobAddress;
+  String jobCity;
+  String jobArea;
+  String jobCountry;
 
   JobModel({
     this.jobId,
     this.slug,
     this.title,
     this.jobLocation,
+    this.jobCategory,
     this.publishDate,
     this.salaryMin,
     this.salaryMax,
@@ -56,7 +62,7 @@ class JobModel {
     this.termsAndCondition,
     this.createdAt,
     this.industry,
-    this.employmentStatus,
+    this.jobNature,
     this.experience,
     this.qualification,
     this.gender,
@@ -68,7 +74,11 @@ class JobModel {
     this.isFavourite,
     this.profilePicture,
     this.skill,
-    this.postDate
+    this.postDate,
+    this.jobAddress,
+    this.jobArea,
+    this.jobCity,
+    this.jobCountry
   });
 
   JobModel.fromJson(Map<String, dynamic> json) {
@@ -78,6 +88,7 @@ class JobModel {
     slug = json['slug'];
     title = json['title'];
     jobLocation = json['job_location'];
+    jobCategory = json['job_category'];
     salaryMin = json['salary_min'];
     salaryMax = json['salary_max'];
     vacancy = json['vacancy'];
@@ -104,7 +115,7 @@ class JobModel {
     webAddress = json['web_address'];
     termsAndCondition = json['terms_and_condition'];
     industry = json['industry'];
-    employmentStatus = json['employment_status'];
+    jobNature = json['job_nature'];
     experience = json['experience'];
     qualification = json['qualification'];
     gender = json['gender'];
@@ -120,6 +131,10 @@ class JobModel {
     if(json['profile_picture'] != null){
       profilePicture = "$baseUrl${json['profile_picture']}";
     }
+    jobCity = json['job_city'];
+    jobArea = json['job_area'];
+    jobCountry = json['job_country'];
+    jobAddress = json['job_address'];
   }
 
 

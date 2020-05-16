@@ -200,6 +200,7 @@ class _JobDetailsState extends State<JobDetails> {
       return Text.rich(
         TextSpan(children: <TextSpan>[
           TextSpan(text: title, style: descriptionFontStyleBold),
+          TextSpan(text: ': ', style: descriptionFontStyleBold),
           TextSpan(text: description, style: descriptionFontStyle),
         ]),
         style: descriptionFontStyle,
@@ -459,6 +460,44 @@ class _JobDetailsState extends State<JobDetails> {
         ],
       ),
     );
+    var location = Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              FaIcon(
+                FontAwesomeIcons.mapPin,
+                size: fontAwesomeIconSize,
+              ),
+              SizedBox(
+                width: 5,
+              ),
+              Text(
+                StringUtils.jobLocation,
+                style: sectionTitleFont,
+              )
+            ],
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          jobSummeryRichText(StringUtils.addressText, jobDetails.jobAddress),
+          SizedBox(
+            height: 5,
+          ),
+          jobSummeryRichText(StringUtils.addressText, jobDetails.jobAddress),
+          SizedBox(
+            height: 5,
+          ),
+          jobSummeryRichText(StringUtils.addressText, jobDetails.jobAddress),
+          SizedBox(
+            height: 5,
+          ),
+          jobSummeryRichText(StringUtils.addressText, jobDetails.jobAddress),
+        ],
+      ),
+    );
     var education = Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -512,12 +551,10 @@ class _JobDetailsState extends State<JobDetails> {
           SizedBox(
             height: 5,
           ),
-          Text(
-            jobDetails.salary != null
-                ? jobDetails.salary.toString()
-                : StringUtils.unspecifiedText,
-            style: descriptionFontStyle,
-          )
+          jobSummeryRichText('Current Offer: ', jobDetails.salary != null
+              ? jobDetails.salary.toString()
+              : StringUtils.unspecifiedText,),
+          jobDetails.salaryMax!=null?jobDetails.salaryMin!=null??jobSummeryRichText('Range:', jobDetails.salaryMin+"-"+jobDetails.salaryMax):SizedBox()
         ],
       ),
     );
@@ -580,10 +617,9 @@ class _JobDetailsState extends State<JobDetails> {
               Row(
                 children: <Widget>[
                   jobSummeryRichText(
-                      StringUtils.publishedOn,
-                      jobDetails.createdAt != null
-                          ? DateFormatUtil
-                          .formatDate(jobDetails.createdAt)
+                      StringUtils.category,
+                      jobDetails.jobCategory != null
+                          ? jobDetails.jobCategory.toString()
                           : StringUtils.unspecifiedText)
                 ],
               ),
@@ -605,43 +641,9 @@ class _JobDetailsState extends State<JobDetails> {
               Row(
                 children: <Widget>[
                   jobSummeryRichText(
-                      StringUtils.employmentStatus,
-                      jobDetails.employmentStatus != null
-                          ? jobDetails.employmentStatus
-                          : StringUtils.unspecifiedText)
-                ],
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              Row(
-                children: <Widget>[
-                  jobSummeryRichText(
-                      StringUtils.yearsOfExperience,
+                      StringUtils.experience,
                       jobDetails.experience != null
                           ? jobDetails.experience.toString()
-                          : StringUtils.unspecifiedText)
-                ],
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              Container(
-                child: jobSummeryRichText(
-                    StringUtils.jobLocation,
-                    jobDetails.jobLocation != null
-                        ? jobDetails.jobLocation.toString()
-                        : StringUtils.unspecifiedText),
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              Row(
-                children: <Widget>[
-                  jobSummeryRichText(
-                      StringUtils.salary,
-                      jobDetails.salary != null
-                          ? jobDetails.salary.toString()
                           : StringUtils.unspecifiedText)
                 ],
               ),
@@ -663,9 +665,9 @@ class _JobDetailsState extends State<JobDetails> {
               Row(
                 children: <Widget>[
                   jobSummeryRichText(
-                      StringUtils.applicationDeadline,
-                      jobDetails.applicationDeadline != null
-                          ? jobDetails.applicationDeadline.toString()
+                      StringUtils.qualificationText,
+                      jobDetails.qualification != null
+                          ? jobDetails.qualification.toString()
                           : StringUtils.unspecifiedText)
                 ],
               ),
