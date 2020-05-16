@@ -307,7 +307,7 @@ class JobListViewModel with ChangeNotifier {
 
   bool get hasLocation => _jobListFilters.location.isNotEmptyOrNotNull;
 
-  bool get hasSkill => _jobListFilters.skill.isNotEmptyOrNotNull;
+  bool get hasSkill => _jobListFilters.skill?.id?.isNotEmptyOrNotNull??false;
 
   bool get hasJobType => _jobListFilters.jobType?.id?.isNotEmptyOrNotNull??false;
 
@@ -323,7 +323,6 @@ class JobListViewModel with ChangeNotifier {
 
   bool get isFilterApplied {
     return hasGender ||
-        hasCategory ||
         hasQualification ||
         hasSortBy ||
         hasCategory ||
@@ -331,6 +330,7 @@ class JobListViewModel with ChangeNotifier {
         hasJobType ||
         hasDatePosted ||
         hasSalaryRange ||
+        hasSkill ||
         hasExperienceRange;
   }
 

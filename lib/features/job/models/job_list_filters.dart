@@ -1,5 +1,6 @@
 import 'package:p7app/features/job/models/jon_type_model.dart';
 import 'package:p7app/features/job/models/sort_item.dart';
+import 'package:p7app/features/user_profile/models/skill.dart';
 
 class JobListFilters {
   int page;
@@ -9,7 +10,7 @@ class JobListFilters {
   String category;
   String location_from_homepage;
   String keyword_from_homepage;
-  String skill;
+  Skill skill;
   String salaryMin;
   String salaryMax;
   String experienceMin;
