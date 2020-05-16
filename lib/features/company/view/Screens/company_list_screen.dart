@@ -7,6 +7,7 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:p7app/features/company/models/company.dart';
 import 'package:p7app/features/company/view_model/company_list_view_model.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
+import 'package:p7app/main_app/widgets/loader.dart';
 import 'company_details.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
@@ -38,6 +39,8 @@ class _CompanyListScreenState extends State<CompanyListScreen> {
       print(companyViewModel.companyList.length);
     }
 
+
+
     var backgroundColor = Theme.of(context).backgroundColor;
     var scaffoldBackgroundColor = Theme.of(context).scaffoldBackgroundColor;
     bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
@@ -65,6 +68,7 @@ class _CompanyListScreenState extends State<CompanyListScreen> {
                 CustomTextField(
                   controller: _companyNameController,
                   hintText: 'Search',
+                  autofocus: true,
                   onSubmitted: (v){
                     if(_companyNameController.text.length>2){
                       updateSuggestion();
@@ -88,7 +92,10 @@ class _CompanyListScreenState extends State<CompanyListScreen> {
                     },
                   ),
                 ),
-                Expanded(
+                companyViewModel.isFetchingData? Padding(
+                  padding: const EdgeInsets.only(top: 15),
+                  child: Loader(),
+                ):Expanded(
                   child: ListView.builder(
                       itemCount: companySuggestion.length,
                       itemBuilder: (BuildContext context, int index){

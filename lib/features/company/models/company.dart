@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:p7app/main_app/flavour/flavour_config.dart';
 
 // ignore: must_be_immutable
 class Company extends Equatable {
@@ -66,6 +67,8 @@ class Company extends Equatable {
       this.district});
 
   Company.fromJson(Map<String, dynamic> json) {
+    String baseUrl = FlavorConfig?.instance?.values?.baseUrl;
+
     name = json['name']?.toString();
     email = json['email']?.toString();
     companyNameBdjobs = json['company_name_bdjobs']?.toString();
@@ -90,7 +93,9 @@ class Company extends Equatable {
     contactPersonMobileNo = json['contact_person_mobile_no']?.toString();
     contactPersonEmail = json['contact_person_email']?.toString();
     companyProfile = json['company_profile']?.toString();
-    profilePicture = json['profile_picture']?.toString();
+    if(json['profile_picture'] != null){
+      profilePicture = "$baseUrl${json['profile_picture']}";
+    }
     latitude = json['latitude']?.toString();
     longitude = json['longitude']?.toString();
     createdDate = json['created_date']?.toString();

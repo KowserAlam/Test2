@@ -7,7 +7,7 @@ import 'package:p7app/main_app/failure/error.dart';
 
 class CompanyListViewModel with ChangeNotifier{
   List<Company> companyList;
-  bool isFetchingData;
+  bool isFetchingData = false;
   CompanyListRepository _companyListRepository = CompanyListRepository();
   String _query;
 
