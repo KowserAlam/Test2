@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:p7app/features/job/models/job_list_model.dart';
 import 'package:p7app/features/job/models/job_model.dart';
 import 'package:p7app/features/job/view/job_details.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
@@ -12,7 +13,7 @@ import 'package:p7app/main_app/util/date_format_uitl.dart';
 import 'job_apply_button.dart';
 
 class JobListTileWidget extends StatefulWidget {
-  final JobModel jobModel;
+  final JobListModel jobModel;
   final Function onTap;
   final Function onApply;
   final Function onFavorite;
