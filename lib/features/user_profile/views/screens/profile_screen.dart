@@ -10,7 +10,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p7app/features/user_profile/models/member_ship_info.dart';
 import 'package:p7app/features/user_profile/views/screens/add_edit_education_screen.dart';
 import 'package:p7app/features/user_profile/views/screens/add_edit_experience_screen.dart';
-import 'package:p7app/features/user_profile/views/screens/add_edit_technical_skill_screen.dart';
+import 'package:p7app/features/user_profile/views/screens/add_edit_professional_skill_screen.dart';
 import 'package:p7app/features/user_profile/views/screens/profile_header_edit_screen.dart';
 import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
@@ -18,7 +18,7 @@ import 'package:p7app/features/user_profile/views/widgets/educations_list_item.d
 import 'package:p7app/features/user_profile/views/widgets/experience_list_item.dart';
 import 'package:p7app/features/user_profile/views/widgets/member_ship_list_item.dart';
 import 'package:p7app/features/user_profile/views/widgets/personal_info_widget.dart';
-import 'package:p7app/features/user_profile/views/widgets/technical_skill_list_item.dart';
+import 'package:p7app/features/user_profile/views/widgets/professional_skill_list_item.dart';
 import 'package:p7app/features/user_profile/views/widgets/user_info_list_item.dart';
 import 'package:p7app/main_app/api_helpers/url_launcher_helper.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
@@ -500,13 +500,13 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
           Navigator.push(
               context,
               CupertinoPageRoute(
-                  builder: (context) => AddEditTechnicalSkill(
+                  builder: (context) => AddEditProfessionalSkill(
                         previouslyAddedSkills: list,
                       )));
         },
         children: List.generate(list.length, (index) {
           var skill = list[index];
-          return TechnicalSkillListItem(
+          return ProfessionalSkillListItem(
             isInEditMode: isInEditModeSkill,
             skillInfo: skill,
             onTapDelete: () {
@@ -516,7 +516,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
               Navigator.push(
                   context,
                   CupertinoPageRoute(
-                      builder: (context) => AddEditTechnicalSkill(
+                      builder: (context) => AddEditProfessionalSkill(
                             skillInfo: skill,
                             index: index,
                             previouslyAddedSkills: list,
