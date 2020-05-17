@@ -38,6 +38,11 @@ class JobModel {
   DateTime publishDate;
   DateTime postDate;
   String jobCategory;
+  String jobSite;
+  String jobNature;
+  String jobType;
+  String additionalRequirements;
+  String companyProfile;
 
   JobModel({
     this.jobId,
@@ -76,7 +81,12 @@ class JobModel {
     this.jobAddress,
     this.jobCountry,
     this.jobArea,
-    this.jobCategory
+    this.jobCategory,
+    this.jobNature,
+    this.jobSite,
+    this.jobType,
+    this.additionalRequirements,
+    this.companyProfile
   });
 
   JobModel.fromJson(Map<String, dynamic> json) {
@@ -121,8 +131,15 @@ class JobModel {
     division = json['division'];
     district = json['district'];
     jobCategory = json['job_category'];
-    jobAddress = json['job_address'];
-
+    jobAddress = json['address'];
+    jobArea = json['job_area'];
+    jobCity = json['job_city'];
+    jobCountry = json['job_country'];
+    jobSite = json['job_site'];
+    jobNature = json['job_nature'];
+    jobType = json['job_type'];
+    companyProfile = json['company_profile'];
+    additionalRequirements = json['additional_requirements'];
     jobSkills = json['job_skills']?.cast<String>();
     skill = json['skill']?.cast<String>();
 

@@ -206,6 +206,7 @@ class StringUtils {
   static var companyNoOFHumanResourcesText = "No of Human Resources";
   static var companyNoOFItResourcesText = "No of IT Resources";
   static var companyLegalStructureText = "Legal Structure";
+  static var companyLocationText = "LOCATION";
 
 
 
@@ -437,4 +438,15 @@ static const String advanceFilterText = "Advance Filter";
 static const String jobCategoryText = "Job Category";
 static const String jobTypeText  = "Job Type";
 static const String datePosted  = "Date Posted";
+static const String jobSiteText  = "Job Site";
+  static const String jobNatureText  = "Job Nature";
+  static const String jobAddressText  = "Address";
+  static const String jobAreaText  = "Area";
+  static const String jobCityText  = "City";
+  static const String jobCountryText  = "Country";
+  static const String jobAboutText  = "About Job";
+  static const String jobAboutCompanyText  = "About Company";
+  static const String jobCompanyProfileText  = "Company Profile";
+  static const String jobCompanyWebAddressText  = "Web Address";
+  static const String jobAdditionalRequirementsText  = "Additional Requirements";
 }
