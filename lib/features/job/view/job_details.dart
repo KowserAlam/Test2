@@ -344,25 +344,25 @@ class _JobDetailsState extends State<JobDetails> {
                     SizedBox(
                       height: 5,
                     ),
-                    if (jobDetails.jobCity.isNotEmptyOrNotNull)
-                      Row(
-                        children: <Widget>[
-                          Icon(
-                            FeatherIcons.mapPin,
-                            size: iconSize,
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Flexible(
-                            child: Text(
-                            jobDetails.jobCity
-                                  ?? StringUtils.unspecifiedText,
-                              style: topSideDescriptionFontStyle,
-                            ),
-                          )
-                        ],
-                      )
+//                    if (jobDetails.jobCity.isNotEmptyOrNotNull)
+//                      Row(
+//                        children: <Widget>[
+//                          Icon(
+//                            FeatherIcons.mapPin,
+//                            size: iconSize,
+//                          ),
+//                          SizedBox(
+//                            width: 5,
+//                          ),
+//                          Flexible(
+//                            child: Text(
+//                            jobDetails.jobCity
+//                                  ?? StringUtils.unspecifiedText,
+//                              style: topSideDescriptionFontStyle,
+//                            ),
+//                          )
+//                        ],
+//                      )
                   ],
                 )
               ],
@@ -470,21 +470,14 @@ class _JobDetailsState extends State<JobDetails> {
       ),
     );
 
-    var location = Container(
+    var additionalRequirements = Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Row(
             children: <Widget>[
-              FaIcon(
-                FontAwesomeIcons.mapPin,
-                size: fontAwesomeIconSize,
-              ),
-              SizedBox(
-                width: 5,
-              ),
               Text(
-                StringUtils.locationText,
+                StringUtils.jobAdditionalRequirementsText,
                 style: sectionTitleFont,
               )
             ],
@@ -492,7 +485,106 @@ class _JobDetailsState extends State<JobDetails> {
           SizedBox(
             height: 5,
           ),
-          jobSummeryRichText(StringUtils.addressText, jobDetails.jobAddress)
+          Text(
+            jobDetails.additionalRequirements != null
+                ? jobDetails.additionalRequirements
+                : StringUtils.unspecifiedText,
+            style: descriptionFontStyle,
+          )
+        ],
+      ),
+    );
+
+    var location = Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              FaIcon(
+                Icons.pin_drop,
+                size: fontAwesomeIconSize,
+              ),
+              SizedBox(
+                width: 5,
+              ),
+              Text(
+                StringUtils.companyLocationText,
+                style: sectionTitleFont,
+              )
+            ],
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          jobSummeryRichText(StringUtils.jobAddressText, jobDetails.jobAddress!=null?jobDetails.jobAddress:StringUtils.unspecifiedText),
+          SizedBox(height: 5,),
+          jobSummeryRichText(StringUtils.jobAreaText, jobDetails.jobArea!=null?jobDetails.jobArea:StringUtils.unspecifiedText),
+          SizedBox(height: 5,),
+          jobSummeryRichText(StringUtils.jobCityText, jobDetails.jobCity!=null?jobDetails.jobCity:StringUtils.unspecifiedText),
+          SizedBox(height: 5,),
+          jobSummeryRichText(StringUtils.jobCountryText, jobDetails.jobCountry!=null?jobDetails.jobCountry:StringUtils.unspecifiedText),
+          SizedBox(height: 5,),
+        ],
+      ),
+    );
+    var aboutJob = Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              FaIcon(
+                FontAwesomeIcons.exclamationCircle,
+                size: fontAwesomeIconSize,
+              ),
+              SizedBox(
+                width: 5,
+              ),
+              Text(
+                StringUtils.jobAboutText,
+                style: sectionTitleFont,
+              )
+            ],
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          jobSummeryRichText(StringUtils.jobTypeText, jobDetails.jobType!=null?jobDetails.jobType:StringUtils.unspecifiedText),
+          SizedBox(height: 5,),
+          jobSummeryRichText(StringUtils.jobNature, jobDetails.jobNature!=null?jobDetails.jobNature:StringUtils.unspecifiedText),
+          SizedBox(height: 5,),
+          jobSummeryRichText(StringUtils.jobSiteText, jobDetails.jobSite!=null?jobDetails.jobSite:StringUtils.unspecifiedText),
+          SizedBox(height: 5,),
+        ],
+      ),
+    );
+    var aboutCompany = Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              FaIcon(
+                FontAwesomeIcons.exclamationCircle,
+                size: fontAwesomeIconSize,
+              ),
+              SizedBox(
+                width: 5,
+              ),
+              Text(
+                StringUtils.jobAboutCompanyText,
+                style: sectionTitleFont,
+              )
+            ],
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          jobSummeryRichText(StringUtils.jobCompanyProfileText, jobDetails.companyProfile!=null?jobDetails.companyProfile:StringUtils.unspecifiedText),
+          SizedBox(height: 5,),
+//          jobSummeryRichText(StringUtils.jobNature, jobDetails.jobNature!=null?jobDetails.jobNature:StringUtils.unspecifiedText),
+//          SizedBox(height: 5,),
         ],
       ),
     );
@@ -519,12 +611,12 @@ class _JobDetailsState extends State<JobDetails> {
             height: 5,
           ),
           jobSummeryRichText(StringUtils.currentOffer, jobDetails.salary != null
-              ? jobDetails.salary.toString()
+              ? jobDetails.salary.toString()+' '+(jobDetails.currency!=null?jobDetails.currency:'')
               : StringUtils.unspecifiedText,),
           jobSummeryRichText(StringUtils.salaryRangeText, (jobDetails.salaryMin != null
               ? jobDetails.salaryMin.toString()
               : StringUtils.unspecifiedText) + "-"+ (jobDetails.salaryMax != null
-              ? jobDetails.salaryMax.toString()
+              ? jobDetails.salaryMax.toString()+' '+(jobDetails.currency!=null?jobDetails.currency:'')
               : StringUtils.unspecifiedText),)
         ],
       ),
@@ -828,6 +920,8 @@ class _JobDetailsState extends State<JobDetails> {
                     children: <Widget>[
                       jobSummary,
                       spaceBetweenSections,
+                      aboutJob,
+                      spaceBetweenSections,
                       description,
                       spaceBetweenSections,
                       responsibilities,
@@ -835,6 +929,10 @@ class _JobDetailsState extends State<JobDetails> {
                       requiredSkills,
                       spaceBetweenSections,
                       education,
+                      spaceBetweenSections,
+                      additionalRequirements,
+                      spaceBetweenSections,
+                      location,
                       spaceBetweenSections,
                       benefitsHeader,
                     ],
