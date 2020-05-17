@@ -275,6 +275,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                   spaceBetweenFields,
                   //Current Address
                   CustomTextFormField(
+                    maxLength: 255,
                     keyboardType: TextInputType.multiline,
                     minLines: 3,
                     maxLines: 8,
@@ -291,6 +292,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                   CustomTextFormField(
                     //validator: Validator().nullFieldValidate,
                     //focusNode: _permanentAddressFocusNode,
+                    maxLength: 255,
                     minLines: 3,
                     maxLines: 8,
 //                    textInputAction: TextInputAction.next,

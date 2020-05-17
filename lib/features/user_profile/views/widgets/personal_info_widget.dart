@@ -18,20 +18,13 @@ class PersonalInfoWidget extends StatelessWidget {
     double width = MediaQuery.of(context).size.width > 720 ? 160 : 130;
     return Padding(
       padding: const EdgeInsets.all(5.0),
-      child: Row(
-        children: <Widget>[
-          SizedBox(
-            width: width,
-            child: Text(
-              "$label",
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-          ),
-          Expanded(
-            child: Text(": ${value??""}"),
-          ),
-        ],
-      ),
+      child: Text.rich(TextSpan(children: [
+        TextSpan(
+          text: "$label",
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        TextSpan(text: ": ${value ?? ""}"),
+      ])),
     );
   }
 
@@ -41,13 +34,15 @@ class PersonalInfoWidget extends StatelessWidget {
       useSeparator: false,
       icon: FontAwesomeIcons.infoCircle,
       label: StringUtils.personalInfoText,
-      onTapEditAction: (){
-        var userModel =  Provider.of<UserProfileViewModel>(context, listen: false).userData;
+      onTapEditAction: () {
+        var userModel =
+            Provider.of<UserProfileViewModel>(context, listen: false).userData;
         Navigator.push(
             context,
             CupertinoPageRoute(
-                builder: (context) =>
-                    EditPersonalInfoScreen(userModel: userModel,)));
+                builder: (context) => EditPersonalInfoScreen(
+                      userModel: userModel,
+                    )));
       },
       children: <Widget>[
         Container(
@@ -55,53 +50,60 @@ class PersonalInfoWidget extends StatelessWidget {
           decoration: BoxDecoration(
             color: Theme.of(context).backgroundColor,
             borderRadius: BorderRadius.circular(5),
-            boxShadow: CommonStyleTextField.boxShadow,),
-          child: Consumer<UserProfileViewModel>(builder: (context, userProvider, _) {
+            boxShadow: CommonStyleTextField.boxShadow,
+          ),
+          child: Consumer<UserProfileViewModel>(
+              builder: (context, userProvider, _) {
             var personalInfo = userProvider.userData.personalInfo;
             return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-              SizedBox(height: 10,),
+                SizedBox(
+                  height: 10,
+                ),
                 //dob
                 _item(
                     context: context,
                     label: StringUtils.dateOfBirthText,
-                    value: personalInfo.dateOfBirth != null? DateFormatUtil.formatDate(personalInfo.dateOfBirth):""),
+                    value: personalInfo.dateOfBirth != null
+                        ? DateFormatUtil.formatDate(personalInfo.dateOfBirth)
+                        : ""),
                 //gender
                 _item(
                     context: context,
                     label: StringUtils.genderText,
-                    value: personalInfo.gender??""),
+                    value: personalInfo.gender ?? ""),
                 //father name
                 _item(
                     context: context,
                     label: StringUtils.fatherNameText,
-                    value: personalInfo.fatherName??""),
+                    value: personalInfo.fatherName ?? ""),
                 //mother name
                 _item(
                     context: context,
                     label: StringUtils.motherNameText,
-                    value: personalInfo.motherName??""),
+                    value: personalInfo.motherName ?? ""),
 
                 //current address
                 _item(
                     context: context,
                     label: StringUtils.currentAddressText,
-                    value: personalInfo.address??""),
+                    value: personalInfo.address ?? ""),
                 //permanent address
                 _item(
                     context: context,
                     label: StringUtils.permanentAddressText,
-                    value: personalInfo.permanentAddress??""),
+                    value: personalInfo.permanentAddress ?? ""),
                 //nationality
                 _item(
                     context: context,
                     label: StringUtils.nationalityText,
-                    value: personalInfo.nationalityObj?.name??""),
+                    value: personalInfo.nationalityObj?.name ?? ""),
                 //religion
                 _item(
                     context: context,
                     label: StringUtils.religionText,
-                    value: personalInfo.religionObj?.name??""),
+                    value: personalInfo.religionObj?.name ?? ""),
               ],
             );
           }),
