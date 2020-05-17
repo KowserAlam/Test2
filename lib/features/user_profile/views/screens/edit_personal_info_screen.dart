@@ -228,11 +228,11 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                         _chosenBirthDate = v;
                       });
                     },
-                    onTapDateClear: (){
-                      setState(() {
-                        _chosenBirthDate = null;
-                      });
-                    },
+//                    onTapDateClear: (){
+//                      setState(() {
+//                        _chosenBirthDate = null;
+//                      });
+//                    },
                   ),
                   spaceBetweenFields,
                   //Gender
@@ -251,7 +251,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                   CustomTextFormField(
                     keyboardType: TextInputType.text,
                     //focusNode: _fatherNameFocusNode,
-                    textInputAction: TextInputAction.next,
+//                    textInputAction: TextInputAction.next,
                     onFieldSubmitted: (a) {
 //                      FocusScope.of(context)
 //                          .requestFocus(_motherNameFocusNode);
@@ -264,7 +264,6 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                   //Mother's Name
                   CustomTextFormField(
                     keyboardType: TextInputType.text,
-                    textInputAction: TextInputAction.next,
                     onFieldSubmitted: (a) {
 //                      FocusScope.of(context)
 //                          .requestFocus(_currentAddressFocusNode);
@@ -276,8 +275,9 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                   spaceBetweenFields,
                   //Current Address
                   CustomTextFormField(
-                    textInputAction: TextInputAction.next,
-                    keyboardType: TextInputType.text,
+                    keyboardType: TextInputType.multiline,
+                    minLines: 3,
+                    maxLines: 8,
                     onFieldSubmitted: (a) {
 //                      FocusScope.of(context)
 //                          .requestFocus(_permanentAddressFocusNode);
@@ -291,8 +291,10 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                   CustomTextFormField(
                     //validator: Validator().nullFieldValidate,
                     //focusNode: _permanentAddressFocusNode,
-                    textInputAction: TextInputAction.next,
-                    keyboardType: TextInputType.text,
+                    minLines: 3,
+                    maxLines: 8,
+//                    textInputAction: TextInputAction.next,
+                    keyboardType: TextInputType.multiline,
                     onFieldSubmitted: (a) {
 //                      FocusScope.of(context)
 //                          .requestFocus(_nationalityFocusNode);

@@ -12,15 +12,14 @@ class CommonDatePickerWidget extends StatelessWidget {
   final DateTime minDate;
   final DateTime maxDate;
 
-  const CommonDatePickerWidget({
-    @required this.label,
-    @required this.date,
-    @required this.onDateTimeChanged,
-    this.onTapDateClear,
-    this.maxDate,
-    this.minDate,
-    this.errorText
-  });
+  const CommonDatePickerWidget(
+      {@required this.label,
+      @required this.date,
+      @required this.onDateTimeChanged,
+      this.onTapDateClear,
+      this.maxDate,
+      this.minDate,
+      this.errorText});
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +37,14 @@ class CommonDatePickerWidget extends StatelessWidget {
         ),
         InkWell(
           onTap: () {
-            _showDatePicker(context);
+            FocusScopeNode currentFocus = FocusScope.of(context);
+            currentFocus?.unfocus();
+
+            Theme.of(context).platform == TargetPlatform.iOS
+                ?
+            _showCupertinoDatePicker(context):
+//            _showDatePicker(context);
+            _selectDateAndroid(context);
           },
           child: Container(
             height: 50,
@@ -64,15 +70,16 @@ class CommonDatePickerWidget extends StatelessWidget {
                         ? DateFormatUtil.formatDate(date)
                         : StringUtils.chooseDateText,
                   ),
-                  date != null
-                      ? InkWell(
-                          child: Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Icon(Icons.close),
-                          ),
-                          onTap: onTapDateClear,
-                        )
-                      : SizedBox(),
+                  if (onTapDateClear != null)
+                    date != null
+                        ? InkWell(
+                            child: Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: Icon(Icons.close),
+                            ),
+                            onTap: onTapDateClear,
+                          )
+                        : SizedBox(),
                 ],
               ),
             ),
@@ -90,11 +97,10 @@ class CommonDatePickerWidget extends StatelessWidget {
     );
   }
 
-  _showDatePicker(context) {
-    var _miniDate = maxDate?? DateTime.now().subtract(Duration(days: 360 * 100));
-    var _maxDate = minDate??DateTime.now().add(Duration(days: 360 * 10));
-
-    onDateTimeChanged( date ?? DateTime.now());
+  _showCupertinoDatePicker(context) {
+    var _miniDate =
+        maxDate ?? DateTime.now().subtract(Duration(days: 360 * 100));
+    var _maxDate = minDate ?? DateTime.now().add(Duration(days: 360 * 10));
 
     showDialog(
         context: context,
@@ -116,8 +122,9 @@ class CommonDatePickerWidget extends StatelessWidget {
                           minimumDate: _miniDate,
                           initialDateTime: date ?? DateTime.now(),
                           mode: CupertinoDatePickerMode.date,
-                          onDateTimeChanged: (v){
-                            if(v.year >= _miniDate.year && v.year <= _maxDate.year) {
+                          onDateTimeChanged: (v) {
+                            if (v.year >= _miniDate.year &&
+                                v.year <= _maxDate.year) {
                               onDateTimeChanged(v);
                             }
                           },
@@ -133,6 +140,68 @@ class CommonDatePickerWidget extends StatelessWidget {
                           ),
                         ),
                         onTap: () {
+                          onDateTimeChanged(date ?? DateTime.now());
+                          Navigator.pop(context);
+                        }),
+                  ],
+                ),
+              ),
+            ),
+          );
+        });
+  }
+ _selectDateAndroid(BuildContext context) async {
+    var _miniDate =
+        maxDate ?? DateTime.now().subtract(Duration(days: 360 * 100));
+    var _maxDate = minDate ?? DateTime.now().add(Duration(days: 360 * 10));
+    showDatePicker(
+      firstDate: _miniDate,
+      initialDate: DateTime.now(),
+      lastDate: _maxDate,
+      context: context,
+    ).then((value) => onDateTimeChanged(value));
+
+  }
+
+  _showDatePicker(context) {
+    var _miniDate =
+        maxDate ?? DateTime.now().subtract(Duration(days: 360 * 100));
+    var _maxDate = minDate ?? DateTime.now().add(Duration(days: 360 * 10));
+
+    showDialog(
+        context: context,
+        builder: (context) {
+          return Center(
+            child: Container(
+              height: MediaQuery.of(context).size.height / 2,
+              width: MediaQuery.of(context).size.width / 1.3,
+              child: Material(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    Expanded(
+                      child: CalendarDatePicker(
+                        lastDate: _maxDate,
+                        firstDate: _miniDate,
+                        initialDate: date ?? DateTime.now(),
+                        onDateChanged: (v) {
+                          if (v.year >= _miniDate.year &&
+                              v.year <= _maxDate.year) {
+                            onDateTimeChanged(v);
+                          }
+                        },
+                      ),
+                    ),
+                    InkWell(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Icon(
+                            Icons.done,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                        ),
+                        onTap: () {
+                          onDateTimeChanged(date ?? DateTime.now());
                           Navigator.pop(context);
                         }),
                   ],
