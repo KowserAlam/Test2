@@ -12,25 +12,25 @@ class PortfolioListItemWidget extends StatefulWidget {
   final bool isInEditMode;
   final Function onTapDelete;
 
-  const PortfolioListItemWidget({
-    Key key,
-    @required this.portfolioInfo,this.onTapEdit,this.isInEditMode,this.onTapDelete
-  }) : super(key: key);
+  const PortfolioListItemWidget(
+      {Key key,
+      @required this.portfolioInfo,
+      this.onTapEdit,
+      this.isInEditMode,
+      this.onTapDelete})
+      : super(key: key);
 
   @override
-  _PortfolioListItemWidgetState createState() => _PortfolioListItemWidgetState();
+  _PortfolioListItemWidgetState createState() =>
+      _PortfolioListItemWidgetState();
 }
 
 class _PortfolioListItemWidgetState extends State<PortfolioListItemWidget> {
-
   bool isExpanded = false;
   int chLength = 150;
 
-
-
   @override
   Widget build(BuildContext context) {
-
     bool hasMoreText = widget.portfolioInfo.description == null
         ? false
         : widget.portfolioInfo.description.length > chLength;
@@ -45,69 +45,80 @@ class _PortfolioListItemWidgetState extends State<PortfolioListItemWidget> {
         borderRadius: BorderRadius.circular(5),
         boxShadow: CommonStyleTextField.boxShadow,
       ),
-      padding: const EdgeInsets.symmetric(horizontal: 8),
-      child: ListTile(
-        contentPadding: EdgeInsets.zero,
-        leading: CachedNetworkImage(
-          height: 55,
-          width: 55,
-          imageUrl: widget.portfolioInfo.image??"",
-          placeholder: (context, _) => Image.asset(
-            kImagePlaceHolderAsset,
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          CachedNetworkImage(
             height: 55,
             width: 55,
+            imageUrl: widget.portfolioInfo.image ?? "",
+            placeholder: (context, _) => Image.asset(
+              kImagePlaceHolderAsset,
+              height: 55,
+              width: 55,
+            ),
+//          fit: BoxFit.cover,
           ),
-          fit: BoxFit.cover,
-        ),
-        title: Text(widget.portfolioInfo.name ?? "",maxLines: 1,),
-        subtitle: Column(
-//          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
+          SizedBox(
+            width: 10,
+          ),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Expanded(child: Text(descriptionText??"")),
+                Text(
+                  widget.portfolioInfo.name ?? "",
+                  maxLines: 1,
+                  style: Theme.of(context).textTheme.subtitle1,
+                ),
+                Text(descriptionText ?? "",style: TextStyle(color: Colors.grey),),
+                SizedBox(
+                  height: 5,
+                ),
+                if (hasMoreText)
+                  InkWell(
+                    onTap: () {
+                      isExpanded = !isExpanded;
+                      setState(() {});
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(3.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            isExpanded
+                                ? StringUtils.seeLessText
+                                : StringUtils.seeMoreText,
+                            style: TextStyle(color: Theme.of(context).primaryColor),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
               ],
             ),
-            SizedBox(
-              height: 5,
-            ),
-            if (hasMoreText)
-              InkWell(
-                onTap: () {
-                  isExpanded = !isExpanded;
-                  setState(() {});
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(3.0),
-                  child: Text(
-                    isExpanded
-                        ? StringUtils.seeLessText
-                        : StringUtils.seeMoreText,
-                    style: TextStyle(color: Theme.of(context).primaryColor),
-                  ),
+          ),
+          if (widget.isInEditMode)
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                IconButton(
+                  icon: Icon(FontAwesomeIcons.edit),
+                  onPressed: widget.onTapEdit,
+                  iconSize: 18,
+                  color: Colors.black,
                 ),
-              )
-          ],
-        ),
-        trailing:  !widget.isInEditMode
-            ? null
-            : Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            IconButton(
-              icon: Icon(FontAwesomeIcons.edit),
-              onPressed: widget.onTapEdit,
-              iconSize: 18,
-              color: Colors.black,
+                IconButton(
+                  icon: Icon(FontAwesomeIcons.trash),
+                  onPressed: widget.onTapDelete,
+                  iconSize: 18,
+                  color: Colors.black,
+                ),
+              ],
             ),
-            IconButton(
-              icon: Icon(FontAwesomeIcons.trash),
-              onPressed: widget.onTapDelete,
-              iconSize: 18,
-              color: Colors.black,
-            ),
-          ],
-        ),
+        ],
       ),
     );
   }
