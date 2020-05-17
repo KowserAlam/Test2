@@ -5,6 +5,9 @@ import 'package:url_launcher/url_launcher.dart';
 class UrlLauncherHelper {
   static launchUrl(String url) async {
     debugPrint("Launching url: $url");
+    if(!url.contains('https://', 0)){
+      url = 'https://' + url;
+    }
 
     bool _canLaunch = await canLaunch(url);
     if (_canLaunch) {

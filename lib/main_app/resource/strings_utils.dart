@@ -180,8 +180,9 @@ class StringUtils {
 
   //Company Details Screen
   static var companyDetailsText = "Company Details";
-  static var companyBasisInfoSectionText = "BASIS INFO";
-  static var companyProfileText = "Profile";
+  static var companyBasicInfoSectionText = "BASIC INFO";
+  static var companyBasisMembershipInfoText = "Basis Membership Info";
+  static var companyProfileText = "Company Profile";
   static var companyIndustryText = "Industry";
   static var companyYearsOfEstablishmentText = "Year of establishment";
   static var basisMembershipText = "BASIS Membership No";
