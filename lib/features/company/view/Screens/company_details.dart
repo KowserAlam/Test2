@@ -122,7 +122,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                 width: 5,
               ),
               Text(
-                StringUtils.companyBasisInfoSectionText,
+                StringUtils.companyBasicInfoSectionText,
                 style: sectionTitleFont,
               )
             ],
@@ -138,7 +138,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
           richText(StringUtils.companyYearsOfEstablishmentText, companyDetails.yearOfEstablishment),
           SizedBox(height: 5,),
 
-          richText(StringUtils.companyBasisInfoSectionText, companyDetails.basisMemberShipNo),
+          richText(StringUtils.companyBasisMembershipInfoText, companyDetails.basisMemberShipNo),
           SizedBox(height: 5,),
         ],
       ),
@@ -254,7 +254,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
 
                 GestureDetector(
                     onTap: (){
-                      UrlLauncherHelper.sendMail(companyDetails.email);
+                      UrlLauncherHelper.sendMail(companyDetails.email.trim());
                     },
                     child: Text(companyDetails.email??"",style: TextStyle(color: Colors.lightBlue),)),
               ],
@@ -271,7 +271,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                 SizedBox(width: 5,),
                 GestureDetector(
                     onTap: (){
-                      UrlLauncherHelper.launchUrl(companyDetails.webAddress);
+                      UrlLauncherHelper.launchUrl(companyDetails.webAddress.trim());
                     },
                     child: Text(companyDetails.webAddress,style: TextStyle(color: Colors.lightBlue),)),
               ],
@@ -313,7 +313,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                 SizedBox(width: 5,),
                 GestureDetector(
                     onTap: (){
-                      UrlLauncherHelper.launchUrl(companyDetails.companyNameFacebook);
+                      UrlLauncherHelper.launchUrl(companyDetails.companyNameFacebook.trim());
                     },
                     child: Text(companyDetails.companyNameFacebook,style: TextStyle(color: Colors.lightBlue),)),
               ],
@@ -343,7 +343,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                 SizedBox(width: 5,),
                 GestureDetector(
                     onTap: (){
-                      UrlLauncherHelper.launchUrl(companyDetails.companyNameGoogle);
+                      UrlLauncherHelper.launchUrl(companyDetails.companyNameGoogle.trim());
                     },
                     child: Text(companyDetails.companyNameGoogle, style: TextStyle(color: Colors.lightBlue),)),
               ],
