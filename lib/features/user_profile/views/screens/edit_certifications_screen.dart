@@ -90,7 +90,25 @@ class _EditCertificationState extends State<EditCertification> {
       );
 
       if(_issueDate != null){
-        
+        if(hasExpiryDate){
+          if(_expirydate != null){
+            if(_expirydate.isAfter(_issueDate)){
+
+              if(widget.certificationInfo != null){
+                updateData(certificationData);
+              }else{addData(certificationData);}
+
+            }else{
+              BotToast.showText(text: StringUtils.dateLogicWarningText);
+            }
+          }else{
+            BotToast.showText(text: StringUtils.blankExpiryDateWarningText);
+          }
+        }else{
+          if(widget.certificationInfo != null){
+            updateData(certificationData);
+          }else{addData(certificationData);}
+        }
       }else{
         BotToast.showText(text: StringUtils.blankIssueDateWarningText);
       }

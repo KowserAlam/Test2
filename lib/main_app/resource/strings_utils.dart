@@ -233,6 +233,8 @@ class StringUtils {
   static var certificationCredentialUrlText = "Credential URL";
   static var previouslyAddedCertificateText  = "You have already added this certificate before";
   static var blankIssueDateWarningText = "Issue date can not be blank";
+  static var blankExpiryDateWarningText = "Please insert the expiry date";
+  static var dateLogicWarningText = "Issue date needs to occur before expiry date";
 
   //Portfolio Edit Screen
   static var portfolioNameText = "Name";
