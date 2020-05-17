@@ -50,7 +50,7 @@ class CustomTextFormField extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         if(labelText != null)
-        Text("  " + labelText ?? "",
+        Text("  ${labelText ?? ""}",
             style: TextStyle(fontWeight: FontWeight.bold)),
         SizedBox(
           height: 5,

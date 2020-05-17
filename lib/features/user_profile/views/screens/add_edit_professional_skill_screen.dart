@@ -12,22 +12,23 @@ import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/util/validator.dart';
 import 'package:p7app/main_app/widgets/edit_screen_save_button.dart';
 import 'package:flutter/material.dart';
+import 'package:p7app/main_app/widgets/loader.dart';
 import 'package:provider/provider.dart';
 import 'package:dartz/dartz.dart' as dartZ;
 
-class AddEditTechnicalSkill extends StatefulWidget {
+class AddEditProfessionalSkill extends StatefulWidget {
   final SkillInfo skillInfo;
   final int index;
   final List<SkillInfo> previouslyAddedSkills;
 
-  AddEditTechnicalSkill({this.skillInfo, this.index,this.previouslyAddedSkills});
+  AddEditProfessionalSkill({this.skillInfo, this.index,this.previouslyAddedSkills});
 
   @override
-  _AddEditTechnicalSkillState createState() =>
-      _AddEditTechnicalSkillState(this.skillInfo, this.index);
+  _AddEditProfessionalSkillState createState() =>
+      _AddEditProfessionalSkillState(this.skillInfo, this.index);
 }
 
-class _AddEditTechnicalSkillState extends State<AddEditTechnicalSkill> {
+class _AddEditProfessionalSkillState extends State<AddEditProfessionalSkill> {
   final SkillInfo technicalSkill;
   final int index;
   bool loading;
@@ -36,7 +37,7 @@ class _AddEditTechnicalSkillState extends State<AddEditTechnicalSkill> {
   TextEditingController ratingController = new TextEditingController();
 
 
-  _AddEditTechnicalSkillState(this.technicalSkill, this.index);
+  _AddEditProfessionalSkillState(this.technicalSkill, this.index);
 
   var _formKey = GlobalKey<FormState>();
   var _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -171,70 +172,74 @@ class _AddEditTechnicalSkillState extends State<AddEditTechnicalSkill> {
                         return SizedBox();
                       }, (r){
                         searchList = r;
-                        return Container(
-                            padding: EdgeInsets.symmetric(horizontal: 8),
-                            decoration: BoxDecoration(
-                              color: Theme.of(context).backgroundColor,
-                              borderRadius: BorderRadius.circular(7),
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Color(0xff000000).withOpacity(0.2), blurRadius: 20),
-                                BoxShadow(
-                                    color: Color(0xfffafafa).withOpacity(0.2), blurRadius: 20),
-                              ],
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("  ${StringUtils.skillNameText}",
+                                style: TextStyle(fontWeight: FontWeight.bold)),
+                            SizedBox(
+                              height: 5,
                             ),
-                            child: AutoCompleteTextField<Skill>(
-                              style: TextStyle(color: Colors.black, fontSize: 16),
-                              decoration: InputDecoration(
-                                hintText: StringUtils.searchSkillText,
-                                border: InputBorder.none,
-                              ),
-                              itemBuilder: (context, skill) {
-                                return Container(
-                                  padding: EdgeInsets.symmetric(vertical: 5, horizontal: 2),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: <Widget>[
-                                      Text(skill.name,
+                            Container(
+                                padding: EdgeInsets.symmetric(horizontal: 8),
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).backgroundColor,
+                                  borderRadius: BorderRadius.circular(7),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: Color(0xff000000).withOpacity(0.2), blurRadius: 20),
+                                    BoxShadow(
+                                        color: Color(0xfffafafa).withOpacity(0.2), blurRadius: 20),
+                                  ],
+                                ),
+                                child: AutoCompleteTextField<Skill>(
+                                  style: TextStyle(color: Colors.black, fontSize: 16),
+                                  decoration: InputDecoration(
+                                    hintText: StringUtils.searchSkillText,
+                                    border: InputBorder.none,
+                                  ),
+
+                                  itemBuilder: (context, skill) {
+                                    return Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(skill.name,
                                         style: TextStyle(
                                             fontSize: 16.0
                                         ),),
-                                    ],
-                                  ),
-                                );
-                              },
-                              key:  key,
-                              clearOnSubmit: false,
-                              controller: searchController,
-                              itemFilter: (skill, query){
-                                return skill.name.toLowerCase().startsWith(query.toLowerCase());
-                              },
-                              itemSorter: (a,b){
-                                return a.name.compareTo(b.name);
-                              },
-                              itemSubmitted: (skill){
-                                print(skill);
-                                searchController.text = skill.name;
-                                _selectedSkill = skill;
-                              },
-                              suggestions: r,
-                            ));
+                                    );
+                                  },
+                                  key:  key,
+                                  clearOnSubmit: false,
+                                  controller: searchController,
+                                  itemFilter: (skill, query){
+                                    return skill.name.toLowerCase().startsWith(query.toLowerCase());
+                                  },
+                                  itemSorter: (a,b){
+                                    return a.name.compareTo(b.name);
+                                  },
+                                  itemSubmitted: (skill){
+                                    print(skill);
+                                    searchController.text = skill.name;
+                                    _selectedSkill = skill;
+                                  },
+                                  suggestions: r,
+                                )),
+                          ],
+                        );
                       });
                     };
-                    return CustomTextFormField(
-                      controller: searchController,
-                      hintText: StringUtils.searchSkillText,
-                    );
+                    return Loader();
                   },
                 ),
                 SizedBox(
-                  height: 50,
+                  height: 30,
                 ),
                 CustomTextFormField(
                   keyboardType: TextInputType.number,
                   controller: ratingController,
                   validator: Validator().expertiseFieldValidate,
-                  labelText: StringUtils.expertiseLevel,
+                  labelText: "${StringUtils.expertiseLevel} (0 - 10)",
+                  hintText: "0 - 10",
                 ),
                 SizedBox(height: 30,)
               ],

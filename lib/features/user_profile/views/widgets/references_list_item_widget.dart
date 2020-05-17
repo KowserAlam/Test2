@@ -35,6 +35,7 @@ class _ReferencesListItemWidgetState extends State<ReferencesListItemWidget> {
     String text = (isExpanded || !hasMoreText)
         ? widget.referenceData?.description ?? ""
         : widget.referenceData?.description?.substring(0, chLength) ?? "";
+
     return Container(
       margin: EdgeInsets.only(bottom: 8),
       padding: EdgeInsets.only(top: 8, bottom: 8, right: 8),

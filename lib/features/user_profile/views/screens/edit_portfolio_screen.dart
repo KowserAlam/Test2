@@ -232,12 +232,8 @@ class _EditPortfolioState extends State<EditPortfolio> {
                     keyboardType: TextInputType.multiline,
                     minLines: 5,
                     maxLines: 12,
+                    maxLength: 800,
                     focusNode: _portfolioDescriptionFocusNode,
-                    textInputAction: TextInputAction.done,
-                    onFieldSubmitted: (a) {
-//                      FocusScope.of(context)
-//                          .requestFocus(_currentPositionFocusNode);
-                    },
                     controller: _portfolioDescriptionController,
                     labelText: StringUtils.portfolioDescriptionText,
                     hintText: StringUtils.portfolioDescriptionText,
