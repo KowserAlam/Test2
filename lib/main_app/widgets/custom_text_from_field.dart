@@ -17,8 +17,10 @@ class CustomTextFormField extends StatelessWidget {
   final ValueChanged<String> onFieldSubmitted;
   final Widget prefix;
   final Function onChanged;
+  final   int maxLength;
 
   const CustomTextFormField({
+    this.maxLength,
     this.validator,
     this.prefix,
     this.onChanged,
@@ -40,6 +42,10 @@ class CustomTextFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    FocusScopeNode currentFocus = FocusScope.of(context);
+
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -61,6 +67,7 @@ class CustomTextFormField extends StatelessWidget {
             ],
           ),
           child: TextFormField(
+            maxLength: maxLength,
             minLines: minLines,
             onChanged: onChanged,
             onFieldSubmitted: onFieldSubmitted,

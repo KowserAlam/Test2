@@ -57,7 +57,7 @@ class Urls {
 
 
 
-
+  static String jobDetailsUrl = "/api/load_job/";
   static String favouriteJobAddUrl = "/api/favourite_job_add/";
   static String applyJobOnlineUrl = "/api/apply_online_job_add/";
 
@@ -66,12 +66,11 @@ class Urls {
   /// &location_from_homepage=&keyword_from_homepage=&skill=&salaryMin=
   /// &salaryMax=&experienceMin=&experienceMax=null&datePosted=&gender=
   /// &qualification=&sort=&page_size=10
-  static String jobListUrl = "/api/job_list";
-  static String jobDetailsUrl = "/api/load_job/";
-  static String appliedJobListUrl = "/api/applied_jobs";
-  static String favouriteJobListUrl = "/api/favourite-jobs";
-  static String companySearchUrl = "/company/search";
 
+  static String jobListUrl = "/api/job/search";
+  static String appliedJobListUrl = "/api/job/applied";
+  static String favouriteJobListUrl = "/api/job/favourite";
+  static String companySearchUrl = "/company/search";
 
 
 
@@ -92,7 +91,5 @@ class Urls {
   static String signUpEmailCheckUrl = "/api/signup/email";
   static String signUpEmailVerificationUrl = "/api/signup/email-verification";
   static String signUpEmailConfirmPassword = "/api/signup/examinee";
-
-
 
 }

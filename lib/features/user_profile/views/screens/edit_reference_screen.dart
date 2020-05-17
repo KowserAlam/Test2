@@ -83,13 +83,12 @@ class _EditReferenceScreenState extends State<EditReferenceScreen> {
     var description = CustomTextFormField(
       validator: Validator().nullFieldValidate,
       keyboardType: TextInputType.multiline,
-      focusNode: _descriptionFocusNode,
-      textInputAction: TextInputAction.done,
       controller: _descriptionController,
       labelText: StringUtils.referenceDescriptionText,
       hintText: StringUtils.referenceDescriptionText,
+      maxLength: 800,
       minLines: 5,
-      maxLines: 12,
+      maxLines: 18,
     );
 
 

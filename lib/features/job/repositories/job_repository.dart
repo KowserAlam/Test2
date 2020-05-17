@@ -9,6 +9,7 @@ import 'package:p7app/features/job/models/job_model.dart';
 import 'package:p7app/features/job/models/job_list_filters.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
+import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/failure/error.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 
@@ -100,6 +101,79 @@ class JobRepository {
       print(e);
       BotToast.showText(text: StringUtils.somethingIsWrong);
       return Left(AppError.serverError);
+    }
+  }
+
+
+  Future<bool> applyForJob(String jobId,
+      {ApiClient apiClient}) async {
+    BotToast.showLoading();
+    var userId =
+    await AuthService.getInstance().then((value) => value.getUser().userId);
+    var body = {'user_id': userId, 'job_id': jobId};
+
+    try {
+      ApiClient client = apiClient ?? ApiClient();
+      var res = await client.postRequest(Urls.applyJobOnlineUrl, body);
+      print(res.body);
+
+      if (res.statusCode == 200) {
+        BotToast.closeAllLoading();
+        BotToast.showText(
+            text: StringUtils.successfullyAppliedText,
+            duration: Duration(seconds: 2));
+        return true;
+      } else {
+        BotToast.closeAllLoading();
+        BotToast.showText(text: StringUtils.unableToApplyText);
+        return false;
+      }
+    } on SocketException catch (e) {
+      BotToast.closeAllLoading();
+      BotToast.showText(text: StringUtils.checkInternetConnectionMessage);
+      print(e);
+      return false;
+    }
+    catch (e) {
+      BotToast.closeAllLoading();
+      BotToast.showText(text: StringUtils.unableToApplyText);
+      print(e);
+      return false;
+    }
+  }
+
+  Future<bool> addToFavorite(String jobId,
+      {ApiClient apiClient}) async {
+    BotToast.showLoading();
+    var userId =
+    await AuthService.getInstance().then((value) => value.getUser().userId);
+    var body = {'user_id': userId, 'job_id': jobId};
+
+    try {
+      ApiClient client = apiClient ?? ApiClient();
+      var res = await client.postRequest(Urls.favouriteJobAddUrl, body);
+      print(res.body);
+
+      if (res.statusCode == 200) {
+        BotToast.closeAllLoading();
+        return true;
+      } else {
+        BotToast.closeAllLoading();
+        BotToast.showText(text: StringUtils.unableToAddAsFavoriteText);
+        return false;
+      }
+    }
+    on SocketException catch (e) {
+      BotToast.closeAllLoading();
+      BotToast.showText(text: StringUtils.checkInternetConnectionMessage);
+      print(e);
+      return false;
+    }
+    catch (e) {
+      BotToast.closeAllLoading();
+      BotToast.showText(text: StringUtils.unableToAddAsFavoriteText);
+      print(e);
+      return false;
     }
   }
 

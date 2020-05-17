@@ -62,7 +62,7 @@ class JobListViewModel with ChangeNotifier {
     resetPageCounter();
 //    _jobListFilters = JobListFilters();
     if (!_isInSearchMode) {
-      _jobListFilters.searchQuery  = "";
+      _jobListFilters.searchQuery = "";
       getJobList();
     }
     notifyListeners();
@@ -167,67 +167,26 @@ class JobListViewModel with ChangeNotifier {
 
   Future<bool> applyForJob(String jobId, int index,
       {ApiClient apiClient}) async {
-    BotToast.showLoading();
-    var userId =
-        await AuthService.getInstance().then((value) => value.getUser().userId);
-    var body = {'user_id': userId, 'job_id': jobId};
-
-    try {
-      ApiClient client = apiClient ?? ApiClient();
-      var res = await client.postRequest(Urls.applyJobOnlineUrl, body);
-      print(res.body);
-
-      if (res.statusCode == 200) {
-        BotToast.closeAllLoading();
-        BotToast.showText(
-            text: StringUtils.successfullyAppliedText,
-            duration: Duration(seconds: 2));
-        _jobList[index].isApplied = true;
-        notifyListeners();
-        return true;
-      } else {
-        BotToast.closeAllLoading();
-        BotToast.showText(text: StringUtils.unableToSaveData);
-        return false;
-      }
-    } catch (e) {
-      BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToSaveData);
-      print(e);
-
-      return false;
+    bool isSuccessful = await JobRepository().applyForJob(jobId);
+    if (isSuccessful) {
+      _jobList[index].isApplied = true;
+      notifyListeners();
+      return isSuccessful;
+    } else {
+      return isSuccessful;
     }
   }
 
   Future<bool> addToFavorite(String jobId, int index,
       {ApiClient apiClient}) async {
-    BotToast.showLoading();
-    var userId =
-        await AuthService.getInstance().then((value) => value.getUser().userId);
-    var body = {'user_id': userId, 'job_id': jobId};
 
-    try {
-      ApiClient client = apiClient ?? ApiClient();
-      var res = await client.postRequest(Urls.favouriteJobAddUrl, body);
-      print(res.body);
-
-      if (res.statusCode == 200) {
-        BotToast.closeAllLoading();
-
-        _jobList[index].isFavourite = !_jobList[index].isFavourite;
-        notifyListeners();
-        return true;
-      } else {
-        BotToast.closeAllLoading();
-        BotToast.showText(text: StringUtils.unableToSaveData);
-        return false;
-      }
-    } catch (e) {
-      BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToSaveData);
-      print(e);
-
-      return false;
+    bool isSuccessful = await JobRepository().addToFavorite(jobId);
+    if (isSuccessful) {
+      _jobList[index].isFavourite = !_jobList[index].isFavourite;
+      notifyListeners();
+      return isSuccessful;
+    } else {
+      return isSuccessful;
     }
   }
 
@@ -241,53 +200,62 @@ class JobListViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  void clearSort(){
-     _jobListFilters.sort = null;
-     notifyListeners();
-     getJobList();
-  }
-  void clearGender(){
-     _jobListFilters.gender = null;
-     notifyListeners();
-     getJobList();
-  }
-  void clearCategory(){
-     _jobListFilters.category = null;
+  void clearSort() {
+    _jobListFilters.sort = null;
     notifyListeners();
-     getJobList();
+    getJobList();
   }
-  void clearQualification(){
-     _jobListFilters.qualification = null;
+
+  void clearGender() {
+    _jobListFilters.gender = null;
     notifyListeners();
-     getJobList();
+    getJobList();
   }
-  void clearLocation(){
-     _jobListFilters.location = null;
+
+  void clearCategory() {
+    _jobListFilters.category = null;
     notifyListeners();
-     getJobList();
+    getJobList();
   }
-  void clearSkill(){
-     _jobListFilters.skill = null;
+
+  void clearQualification() {
+    _jobListFilters.qualification = null;
     notifyListeners();
-     getJobList();
+    getJobList();
   }
-  void clearJobType(){
-     _jobListFilters.jobType = null;
-     notifyListeners();
-     getJobList();
-  }
-  void clearDatePosted(){
-     _jobListFilters.datePosted = null;
+
+  void clearLocation() {
+    _jobListFilters.location = null;
     notifyListeners();
-     getJobList();
+    getJobList();
   }
-  void clearSalaryRange(){
+
+  void clearSkill() {
+    _jobListFilters.skill = null;
+    notifyListeners();
+    getJobList();
+  }
+
+  void clearJobType() {
+    _jobListFilters.jobType = null;
+    notifyListeners();
+    getJobList();
+  }
+
+  void clearDatePosted() {
+    _jobListFilters.datePosted = null;
+    notifyListeners();
+    getJobList();
+  }
+
+  void clearSalaryRange() {
     _jobListFilters.salaryMax = null;
     _jobListFilters.salaryMin = null;
     notifyListeners();
     getJobList();
   }
-  void clearExperienceRange(){
+
+  void clearExperienceRange() {
     _jobListFilters.experienceMax = null;
     _jobListFilters.experienceMin = null;
     notifyListeners();
@@ -298,19 +266,21 @@ class JobListViewModel with ChangeNotifier {
   /// getter setters
   /// #########################
 
-  bool get hasSortBy => _jobListFilters.sort?.key?.isNotEmptyOrNotNull??false;
+  bool get hasSortBy => _jobListFilters.sort?.key?.isNotEmptyOrNotNull ?? false;
 
   bool get hasGender => _jobListFilters.gender.isNotEmptyOrNotNull;
 
   bool get hasCategory => _jobListFilters.category.isNotEmptyOrNotNull;
 
-  bool get hasQualification => _jobListFilters.qualification.isNotEmptyOrNotNull;
+  bool get hasQualification =>
+      _jobListFilters.qualification.isNotEmptyOrNotNull;
 
   bool get hasLocation => _jobListFilters.location.isNotEmptyOrNotNull;
 
-  bool get hasSkill => _jobListFilters.skill?.id?.isNotEmptyOrNotNull??false;
+  bool get hasSkill => _jobListFilters.skill?.id?.isNotEmptyOrNotNull ?? false;
 
-  bool get hasJobType => _jobListFilters.jobType?.id?.isNotEmptyOrNotNull??false;
+  bool get hasJobType =>
+      _jobListFilters.jobType?.id?.isNotEmptyOrNotNull ?? false;
 
   bool get hasDatePosted => _jobListFilters.datePosted.isNotEmptyOrNotNull;
 

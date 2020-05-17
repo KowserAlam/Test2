@@ -8,11 +8,13 @@ class CustomDropdownButtonFormField<T> extends StatelessWidget {
   final ValueChanged<T> onChanged;
   final List<DropdownMenuItem<T>> items;
   final FormFieldValidator<T> validator;
+  final FocusNode focusNode;
 
   CustomDropdownButtonFormField({
     this.validator,
     this.hint,
     this.labelText,
+    this.focusNode,
     @required this.value,
     @required this.onChanged,
     @required this.items,
@@ -37,6 +39,7 @@ class CustomDropdownButtonFormField<T> extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8),
             child: DropdownButtonFormField<T>(
+              focusNode: focusNode,
               validator: validator,
               decoration: InputDecoration(
                 border: InputBorder.none,

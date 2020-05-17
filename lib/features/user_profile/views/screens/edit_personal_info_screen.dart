@@ -42,8 +42,8 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
   final _motherNameController = TextEditingController();
   final _currentAddressController = TextEditingController();
   final _permanentAddressController = TextEditingController();
-  final _nationalityController = TextEditingController();
-  final _religionController = TextEditingController();
+//  final _nationalityController = TextEditingController();
+//  final _religionController = TextEditingController();
 
   //FocusNode
   final _fatherNameFocusNode = FocusNode();
@@ -54,7 +54,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
   final _religionFocusNode = FocusNode();
 
   //Date
-  DateTime _chosenDate;
+  DateTime _chosenBirthDate;
 
   //Nationality
   List<DropdownMenuItem<Nationality>> _nationalityList = [];
@@ -66,9 +66,9 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
 
   //Gender
   List<DropdownMenuItem<String>> _genderList = [
-    new DropdownMenuItem(value: 'Male',child: Text('Male'),),
-    new DropdownMenuItem(value: 'Female',child: Text('Female'),),
-    new DropdownMenuItem(value: null,child: Text('Prefer not to share'),)
+//    new DropdownMenuItem(value: 'Male',child: Text('Male'),),
+//    new DropdownMenuItem(value: 'Female',child: Text('Female'),),
+//    new DropdownMenuItem(value: null,child: Text('Prefer not to share'),)
   ];
   String _selectedGenderDropDownItem;
 
@@ -78,14 +78,12 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
     var personalInfo = widget.userModel.personalInfo;
     _fatherNameController.text = personalInfo.fatherName ?? "";
     _motherNameController.text = personalInfo.motherName ?? "";
-    _nationalityController.text = personalInfo.nationality ?? "";
     _currentAddressController.text = personalInfo.address ?? "";
     _permanentAddressController.text = personalInfo.permanentAddress ?? "";
-
-    _selectedReligionDropDownItem = personalInfo.religionObj?? null;
-    _selectedNationalityDropDownItem = personalInfo.nationalityObj?? null;
-    //_selectedGenderDropDownItem = personalInfo.gender;
-    _chosenDate = personalInfo.dateOfBirth;
+    _selectedReligionDropDownItem = personalInfo.religionObj;
+    _selectedNationalityDropDownItem = personalInfo.nationalityObj;
+    _selectedGenderDropDownItem = personalInfo.gender;
+    _chosenBirthDate = personalInfo.dateOfBirth;
 
     NationalityListRepository()
         .getNationalityList()
@@ -129,6 +127,25 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
       });
     });
 
+    GenderListRepository()
+        .getGenderList()
+        .then((dartZ.Either<AppError, List<String>> value) {
+      value.fold((l) {
+        // left
+        BotToast.showText(text: StringUtils.unableToFetchList);
+      }, (r) {
+        // right
+        _genderList = r
+            .map((e) => DropdownMenuItem(
+          key: Key(e),
+          value: e,
+          child: Text(e ?? ""),
+        ))
+            .toList();
+        setState(() {});
+      });
+    });
+
     super.initState();
   }
 
@@ -153,10 +170,10 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
       };
 
 
-      if (_chosenDate != null) {
-        print(DateFormatUtil.dateFormatYYYMMDD(_chosenDate));
+      if (_chosenBirthDate != null) {
+        print(DateFormatUtil.dateFormatYYYMMDD(_chosenBirthDate));
         data.addAll(
-            {"date_of_birth": DateFormatUtil.dateFormatYYYMMDD(_chosenDate)});
+            {"date_of_birth": DateFormatUtil.dateFormatYYYMMDD(_chosenBirthDate)});
       }
 
       dartZ.Either<AppError, UserPersonalInfo> res =
@@ -180,9 +197,6 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
 
     //TextStyle
     TextStyle titleFont = TextStyle(fontSize: 15, color: Colors.black, fontWeight: FontWeight.bold);
-
-
-
     var spaceBetweenFields = SizedBox(height: 15,);
 
     return Scaffold(
@@ -208,17 +222,17 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                   //Date of Birth
                   CommonDatePickerWidget(
                     label: StringUtils.dateOfBirthText,
-                    date: _chosenDate,
+                    date: _chosenBirthDate,
                     onDateTimeChanged: (v){
                       setState(() {
-                        _chosenDate = v;
+                        _chosenBirthDate = v;
                       });
                     },
-                    onTapDateClear: (){
-                      setState(() {
-                        _chosenDate = null;
-                      });
-                    },
+//                    onTapDateClear: (){
+//                      setState(() {
+//                        _chosenBirthDate = null;
+//                      });
+//                    },
                   ),
                   spaceBetweenFields,
                   //Gender
@@ -237,7 +251,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                   CustomTextFormField(
                     keyboardType: TextInputType.text,
                     //focusNode: _fatherNameFocusNode,
-                    textInputAction: TextInputAction.next,
+//                    textInputAction: TextInputAction.next,
                     onFieldSubmitted: (a) {
 //                      FocusScope.of(context)
 //                          .requestFocus(_motherNameFocusNode);
@@ -250,7 +264,6 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                   //Mother's Name
                   CustomTextFormField(
                     keyboardType: TextInputType.text,
-                    textInputAction: TextInputAction.next,
                     onFieldSubmitted: (a) {
 //                      FocusScope.of(context)
 //                          .requestFocus(_currentAddressFocusNode);
@@ -262,8 +275,10 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                   spaceBetweenFields,
                   //Current Address
                   CustomTextFormField(
-                    textInputAction: TextInputAction.next,
-                    keyboardType: TextInputType.text,
+                    maxLength: 255,
+                    keyboardType: TextInputType.multiline,
+                    minLines: 3,
+                    maxLines: 8,
                     onFieldSubmitted: (a) {
 //                      FocusScope.of(context)
 //                          .requestFocus(_permanentAddressFocusNode);
@@ -277,8 +292,11 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                   CustomTextFormField(
                     //validator: Validator().nullFieldValidate,
                     //focusNode: _permanentAddressFocusNode,
-                    textInputAction: TextInputAction.next,
-                    keyboardType: TextInputType.text,
+                    maxLength: 255,
+                    minLines: 3,
+                    maxLines: 8,
+//                    textInputAction: TextInputAction.next,
+                    keyboardType: TextInputType.multiline,
                     onFieldSubmitted: (a) {
 //                      FocusScope.of(context)
 //                          .requestFocus(_nationalityFocusNode);
