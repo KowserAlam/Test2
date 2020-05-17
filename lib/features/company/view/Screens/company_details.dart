@@ -130,7 +130,22 @@ class _CompanyDetailsState extends State<CompanyDetails> {
           ),
           SizedBox(height: 5,),
 
-          richText(StringUtils.companyProfileText, companyDetails.companyProfile),
+          //Company Profile
+          companyDetails.companyProfile==null?SizedBox():Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [Row(
+              children: [
+                Text(StringUtils.companyProfileText+': ',style: TextStyle(fontWeight: FontWeight.bold)),
+                SizedBox(width: 5,),
+                GestureDetector(
+                    onTap: (){
+                      UrlLauncherHelper.launchUrl(companyDetails.companyProfile.trim());
+                    },
+                    child: Text(companyDetails.companyProfile,style: TextStyle(color: Colors.lightBlue),)),
+              ],
+            ),
+              SizedBox(height: 5,),],
+          ),
           SizedBox(height: 5,),
 //
 //          richText(StringUtils.companyIndustryText, companyDetails.companyProfile),
