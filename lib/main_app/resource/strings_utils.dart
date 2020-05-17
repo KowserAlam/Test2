@@ -217,12 +217,16 @@ class StringUtils {
 
 
   //Membership Edit Screen
+  static var membershipAppbarText = "Membership";
   static var membershipOrgNameText = "Organization Name";
   static var membershipPositionHeldText = "Position Held";
   static var membershipOngoingText = "Ongoing";
   static var membershipStartDateText = "Start Date";
   static var membershipEndDateText = "End Date";
   static var membershipDescriptionText = "Description";
+  static var membershipBlankStartDateWarningText = "Please enter your membership starting date";
+  static var membershipBlankEndDateWarningText = "Please enter your membership ending date";
+  static var membershipDateLogicWarningText = "Your starting date needs to occur before ending date";
 
   //Certifications Edit Screen
   static var certificationNameText = "Certification Name";

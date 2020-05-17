@@ -28,8 +28,8 @@ class MemberShipListItem extends StatelessWidget {
             width: 55,
             color: Theme.of(context).scaffoldBackgroundColor,
             child: Icon(FontAwesomeIcons.certificate)),
-        title: Text(memberShip.positionHeld??""),
-        subtitle: Text(memberShip.orgName??""),
+        title: Text(memberShip.orgName??""),
+        subtitle: Text(memberShip.positionHeld??""),
         trailing: !isInEditMode?SizedBox():Row(
           mainAxisSize: MainAxisSize.min,
           children: [

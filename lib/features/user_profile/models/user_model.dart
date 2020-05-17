@@ -68,12 +68,19 @@ class UserModel {
         portfolioInfo.add(new PortfolioInfo.fromJson(v));
       });
     }
+
     if (json['membership_info'] != null) {
       membershipInfo = new List<MembershipInfo>();
       json['membership_info'].forEach((v) {
         membershipInfo.add(new MembershipInfo.fromJson(v));
       });
+
+      membershipInfo.sort((a,b){
+        if(a.startDate == null || b.startDate == null)
+          return 0;
+        return b.startDate.compareTo(a.startDate);});
     }
+
     if (json['certification_info'] != null) {
       certificationInfo = new List<CertificationInfo>();
       json['certification_info'].forEach((v) {

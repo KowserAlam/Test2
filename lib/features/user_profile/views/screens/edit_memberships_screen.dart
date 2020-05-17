@@ -56,76 +56,59 @@ class _EditMemberShipsState extends State<EditMemberShips> {
     super.initState();
   }
 
+  void addData(MembershipInfo membershipInfo){
+    Provider.of<UserProfileViewModel>(context, listen: false)
+        .addMembershipData(membershipInfo)
+        .then((value) {
+      if (value) {
+        Navigator.pop(context);
+      }
+    });
+  }
+
+  void updateData(MembershipInfo membershipInfo){
+    Provider.of<UserProfileViewModel>(context, listen: false)
+        .updateMembershipData(membershipInfo, widget.index)
+        .then((value) {
+      if (value) {
+        Navigator.pop(context);
+      }
+    });
+  }
+
   _handleSave() {
     bool isValid = _formKey.currentState.validate();
     if (isValid) {
-      if(_startDate!=null && _endDate != null){
-        if(_startDate.isBefore(_endDate)){
-          var membershipInfo = MembershipInfo(
-              membershipId: widget.membershipInfo?.membershipId,
-              orgName: _orgNameController.text,
-              positionHeld: _positionHeldController.text,
-              description: _descriptionController.text,
-              membershipOngoing: _membershipOngoing,
-              startDate: _startDate,
-              endDate: !_membershipOngoing?_endDate:null,
-          );
+      var membershipInfo = MembershipInfo(
+        membershipId: widget.membershipInfo?.membershipId,
+        orgName: _orgNameController.text,
+        positionHeld: _positionHeldController.text,
+        description: _descriptionController.text,
+        membershipOngoing: _membershipOngoing,
+        startDate: _startDate,
+        endDate: !_membershipOngoing?_endDate:null,
+      );
 
-          if (widget.membershipInfo != null) {
-            /// updating existing data
+      if(_startDate != null){
+        if(!_membershipOngoing){
+          if(_endDate!=null){
 
-            Provider.of<UserProfileViewModel>(context, listen: false)
-                .updateMembershipData(membershipInfo, widget.index)
-                .then((value) {
-              if (value) {
-                Navigator.pop(context);
-              }
-            });
-          } else {
-            /// adding new data
-            Provider.of<UserProfileViewModel>(context, listen: false)
-                .addMembershipData(membershipInfo)
-                .then((value) {
-              if (value) {
-                Navigator.pop(context);
-              }
-            });
-          }
+            if(widget.membershipInfo != null){
+              updateData(membershipInfo);
+            }else{addData(membershipInfo);}
+
+          }else{BotToast.showText(text: StringUtils.membershipBlankEndDateWarningText);}
         }else{
-          BotToast.showText(text: "Please make sure your starting date occurs before your ending date");
+
+          if(widget.membershipInfo != null){
+            updateData(membershipInfo);
+          }else{addData(membershipInfo);}
+
         }
       }else{
-        var membershipInfo = MembershipInfo(
-          membershipId: widget.membershipInfo?.membershipId,
-          orgName: _orgNameController.text,
-          positionHeld: _positionHeldController.text,
-          description: _descriptionController.text,
-          membershipOngoing: _membershipOngoing,
-          startDate: _startDate,
-          endDate: _endDate
-        );
-
-        if (widget.membershipInfo != null) {
-          /// updating existing data
-
-          Provider.of<UserProfileViewModel>(context, listen: false)
-              .updateMembershipData(membershipInfo, widget.index)
-              .then((value) {
-            if (value) {
-              Navigator.pop(context);
-            }
-          });
-        } else {
-          /// adding new data
-          Provider.of<UserProfileViewModel>(context, listen: false)
-              .addMembershipData(membershipInfo)
-              .then((value) {
-            if (value) {
-              Navigator.pop(context);
-            }
-          });
-        }
+        BotToast.showText(text: StringUtils.membershipBlankStartDateWarningText);
       }
+
     }
   }
 
@@ -136,7 +119,7 @@ class _EditMemberShipsState extends State<EditMemberShips> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Membership'),
+        title: Text(StringUtils.membershipAppbarText),
         actions: <Widget>[
           EditScreenSaveButton(
             text: StringUtils.saveText,

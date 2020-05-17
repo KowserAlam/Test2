@@ -197,6 +197,11 @@ class UserProfileViewModel with ChangeNotifier {
         return false;
       }, (r){
         userData.membershipInfo.add(r);
+        userData.membershipInfo.sort((a,b){
+          if(a.startDate == null || b.startDate == null)
+            return 0;
+          return b.startDate.compareTo(a.startDate);
+        });
         notifyListeners();
         return true;
       });
@@ -210,6 +215,11 @@ class UserProfileViewModel with ChangeNotifier {
         return false;
       }, (r){
         userData.membershipInfo[index] = r;
+        userData.membershipInfo.sort((a,b){
+          if(a.startDate == null || b.startDate == null)
+            return 0;
+          return b.startDate.compareTo(a.startDate);
+        });
         notifyListeners();
         return true;
       });
