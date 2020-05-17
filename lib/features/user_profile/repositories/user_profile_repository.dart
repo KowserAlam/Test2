@@ -86,7 +86,7 @@ Logger().i(data);
       }
     } on SocketException catch (e) {
       BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToSaveData);
+      BotToast.showText(text: StringUtils.checkInternetConnectionMessage);
       print(e);
       return left(AppError.networkError);
     } catch (e) {
