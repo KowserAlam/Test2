@@ -55,6 +55,26 @@ class _EditCertificationState extends State<EditCertification> {
     if(x==0){return true;}else {return false;};
   }
 
+  void addData(CertificationInfo certificationInfo){
+    Provider.of<UserProfileViewModel>(context, listen: false)
+        .addCertificationData(certificationInfo)
+        .then((value) {
+      if (value) {
+        Navigator.pop(context);
+      }
+    });
+  }
+
+  void updateData(CertificationInfo certificationInfo){
+    Provider.of<UserProfileViewModel>(context, listen: false)
+        .updateCertificationData(certificationInfo, widget.index)
+        .then((value) {
+      if (value) {
+        Navigator.pop(context);
+      }
+    });
+  }
+
   _handleSave() {
     bool isValid = _formKey.currentState.validate();
     if (isValid) {
@@ -69,41 +89,10 @@ class _EditCertificationState extends State<EditCertification> {
         expiryDate:  _expirydate
       );
 
-      if (widget.certificationInfo != null) {
-        /// updating existing data
-        if(_certificationNameController.text == widget.certificationInfo.certificationName){
-          Provider.of<UserProfileViewModel>(context, listen: false)
-              .updateCertificationData(certificationData, widget.index)
-              .then((value) {
-            if (value) {
-              Navigator.pop(context);
-            }
-          });
-        }else{
-          if(sameSkill(_certificationNameController.text)){
-            Provider.of<UserProfileViewModel>(context, listen: false)
-                .updateCertificationData(certificationData, widget.index)
-                .then((value) {
-              if (value) {
-                Navigator.pop(context);
-              }
-            });
-          }else{BotToast.showText(text: StringUtils.previouslyAddedCertificateText);}
-        }
-      } else {
-        /// adding new data
-        if(sameSkill(_certificationNameController.text)){
-          Provider.of<UserProfileViewModel>(context, listen: false)
-              .addCertificationData(certificationData)
-              .then((value) {
-            if (value) {
-              Navigator.pop(context);
-            }
-          });
-        }else{
-
-        }
+      if(_issueDate != null){
         
+      }else{
+        BotToast.showText(text: StringUtils.blankIssueDateWarningText);
       }
     }
   }
