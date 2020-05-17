@@ -7,6 +7,7 @@ import 'package:p7app/features/company/models/company.dart';
 import 'package:p7app/main_app/api_helpers/url_launcher_helper.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/util/date_format_uitl.dart';
 import 'package:p7app/main_app/util/method_extension.dart';
 
 class CompanyDetails extends StatefulWidget {
@@ -129,13 +130,27 @@ class _CompanyDetailsState extends State<CompanyDetails> {
           ),
           SizedBox(height: 5,),
 
-          richText(StringUtils.companyProfileText, companyDetails.companyProfile),
-          SizedBox(height: 5,),
+          //Company Profile
+          companyDetails.companyProfile==null?SizedBox():Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [Row(
+              children: [
+                Text(StringUtils.companyProfileText+': ',style: descriptionFontStyleBold),
+                SizedBox(width: 5,),
+                GestureDetector(
+                    onTap: (){
+                      UrlLauncherHelper.launchUrl(companyDetails.companyProfile.trim());
+                    },
+                    child: Text(companyDetails.companyProfile,style: TextStyle(color: Colors.lightBlue),)),
+              ],
+            ),
+              SizedBox(height: 5,),],
+          ),
 //
 //          richText(StringUtils.companyIndustryText, companyDetails.companyProfile),
 //          SizedBox(height: 5,),
 
-          richText(StringUtils.companyYearsOfEstablishmentText, companyDetails.yearOfEstablishment),
+          richText(StringUtils.companyYearsOfEstablishmentText, companyDetails.yearOfEstablishment!=null?DateFormatUtil.formatDate(companyDetails.yearOfEstablishment):StringUtils.unspecifiedText),
           SizedBox(height: 5,),
 
           richText(StringUtils.companyBasisMembershipInfoText, companyDetails.basisMemberShipNo),
@@ -249,7 +264,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [Row(
               children: [
-                Text(StringUtils.companyEmailText+': ',style: TextStyle(fontWeight: FontWeight.bold)),
+                Text(StringUtils.companyEmailText+': ',style: descriptionFontStyleBold),
                 SizedBox(width: 5,),
 
                 GestureDetector(
@@ -267,7 +282,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [Row(
               children: [
-                Text(StringUtils.companyWebAddressText+': ',style: TextStyle(fontWeight: FontWeight.bold)),
+                Text(StringUtils.companyWebAddressText+': ',style: descriptionFontStyleBold),
                 SizedBox(width: 5,),
                 GestureDetector(
                     onTap: (){
@@ -309,7 +324,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [Row(
               children: [
-                Text('Facebook: ',style: TextStyle(fontWeight: FontWeight.bold)),
+                Text('Facebook: ',style: descriptionFontStyleBold),
                 SizedBox(width: 5,),
                 GestureDetector(
                     onTap: (){
@@ -318,28 +333,32 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                     child: Text(companyDetails.companyNameFacebook,style: TextStyle(color: Colors.lightBlue),)),
               ],
             ),
-              SizedBox(height: 5,),],
+              SizedBox(height: 10,),],
           ),
 
-          //Company twitter
-//          companyDetails.companyNameFacebook==null?SizedBox():Column(
-//            crossAxisAlignment: CrossAxisAlignment.start,
-//            children: [Row(
-//              children: [
-//                //Icon(Icons.backup, size: fontAwesomeIconSize,),
-//                SizedBox(width: 5,),
-//                Text(companyDetails.companyNameFacebook),
-//              ],
-//            ),
-//              SizedBox(height: 5,),],
-//          ),
+          //Company bdjobs
+          companyDetails.companyNameBdjobs==null?SizedBox():Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [Row(
+              children: [
+                Text('BdJobs: ',style: descriptionFontStyleBold),
+                SizedBox(width: 5,),
+                GestureDetector(
+                    onTap: (){
+                      UrlLauncherHelper.launchUrl(companyDetails.companyNameFacebook.trim());
+                    },
+                    child: Text(companyDetails.companyNameBdjobs,style: TextStyle(color: Colors.lightBlue),)),
+              ],
+            ),
+              SizedBox(height: 10,),],
+          ),
 
           //Company google
           companyDetails.companyNameGoogle==null?SizedBox():Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [Row(
               children: [
-                Text('Google: ',style: TextStyle(fontWeight: FontWeight.bold, ),),
+                Text('Google: ',style: descriptionFontStyleBold,),
                 SizedBox(width: 5,),
                 GestureDetector(
                     onTap: (){

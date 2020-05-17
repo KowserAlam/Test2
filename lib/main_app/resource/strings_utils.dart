@@ -184,7 +184,7 @@ class StringUtils {
   static var companyBasisMembershipInfoText = "Basis Membership Info";
   static var companyProfileText = "Company Profile";
   static var companyIndustryText = "Industry";
-  static var companyYearsOfEstablishmentText = "Year of establishment";
+  static var companyYearsOfEstablishmentText = "Year of Establishment";
   static var basisMembershipText = "BASIS Membership No";
   static var companyAddressSectionText = "ADDRESS";
   static var companyAddressText = "Address";
@@ -232,6 +232,7 @@ class StringUtils {
   static var certificationCredentialIdText = "Credential Id";
   static var certificationCredentialUrlText = "Credential URL";
   static var previouslyAddedCertificateText  = "You have already added this certificate before";
+  static var blankIssueDateWarningText = "Issue date can not be blank";
 
   //Portfolio Edit Screen
   static var portfolioNameText = "Name";
