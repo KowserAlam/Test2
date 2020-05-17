@@ -282,6 +282,8 @@ class StringUtils {
   static String chooseDateText = "Choose Date";
   static String majorDateText = "Major";
   static String noDegreeChosen = "You need to choose a degree";
+  static String blankGraduationDateWarningText = "Please enter your graduation date";
+  static String blankEnrollDateWarningText = "Please enter your enroll date";
 
   /// login screen
 

@@ -129,6 +129,22 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
         institutionNameErrorText == null;
   }
 
+  void addData(EduInfo eduInfo){
+    Provider.of<UserProfileViewModel>(context, listen: false).addEduInfo(eduInfo).then((value) {
+      if (value) {
+        Navigator.pop(context);
+      }
+    });
+  }
+
+  void updateData(EduInfo eduInfo){
+    Provider.of<UserProfileViewModel>(context, listen: false).updateEduInfo(eduInfo, index).then((value) {
+      if (value) {
+        Navigator.pop(context);
+      }
+    });
+  }
+
   _handleSave() {
     var isSuccess = validate();
 
@@ -136,9 +152,6 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
       if (selectedDegree == null) {
         BotToast.showText(text: StringUtils.noDegreeChosen);
       } else {
-        var userProfileViewModel =
-            Provider.of<UserProfileViewModel>(context, listen: false);
-
         var insId = selectedInstitute?.id;
 
         if (selectedInstitute != null) {
@@ -159,20 +172,26 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
         );
         print("Degree: " + education.degree);
 
-        if (widget.educationModel == null) {
-          // add new
-          userProfileViewModel.addEduInfo(education).then((value) {
-            if (value) {
-              Navigator.pop(context);
+        if(_enrollDate != null){
+          if(!currentLyStudyingHere){
+            if(_graduationDate != null){
+              if(widget.educationModel != null){
+                updateData(education);
+              }else{
+                addData(education);
+              }
+            }else{
+              BotToast.showText(text: StringUtils.blankGraduationDateWarningText);
             }
-          });
-        } else {
-          // update existing
-          userProfileViewModel.updateEduInfo(education, index).then((value) {
-            if (value) {
-              Navigator.pop(context);
+          }else{
+            if(widget.educationModel != null){
+              updateData(education);
+            }else{
+              addData(education);
             }
-          });
+          }
+        }else{
+          BotToast.showText(text: StringUtils.blankGraduationDateWarningText);
         }
       }
     }
