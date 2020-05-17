@@ -135,7 +135,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [Row(
               children: [
-                Text(StringUtils.companyProfileText+': ',style: TextStyle(fontWeight: FontWeight.bold)),
+                Text(StringUtils.companyProfileText+': ',style: descriptionFontStyleBold),
                 SizedBox(width: 5,),
                 GestureDetector(
                     onTap: (){
@@ -146,7 +146,6 @@ class _CompanyDetailsState extends State<CompanyDetails> {
             ),
               SizedBox(height: 5,),],
           ),
-          SizedBox(height: 5,),
 //
 //          richText(StringUtils.companyIndustryText, companyDetails.companyProfile),
 //          SizedBox(height: 5,),
@@ -265,7 +264,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [Row(
               children: [
-                Text(StringUtils.companyEmailText+': ',style: TextStyle(fontWeight: FontWeight.bold)),
+                Text(StringUtils.companyEmailText+': ',style: descriptionFontStyleBold),
                 SizedBox(width: 5,),
 
                 GestureDetector(
@@ -283,7 +282,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [Row(
               children: [
-                Text(StringUtils.companyWebAddressText+': ',style: TextStyle(fontWeight: FontWeight.bold)),
+                Text(StringUtils.companyWebAddressText+': ',style: descriptionFontStyleBold),
                 SizedBox(width: 5,),
                 GestureDetector(
                     onTap: (){
@@ -325,7 +324,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [Row(
               children: [
-                Text('Facebook: ',style: TextStyle(fontWeight: FontWeight.bold)),
+                Text('Facebook: ',style: descriptionFontStyleBold),
                 SizedBox(width: 5,),
                 GestureDetector(
                     onTap: (){
@@ -342,7 +341,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [Row(
               children: [
-                Text('BdJobs: ',style: TextStyle(fontWeight: FontWeight.bold)),
+                Text('BdJobs: ',style: descriptionFontStyleBold),
                 SizedBox(width: 5,),
                 GestureDetector(
                     onTap: (){
@@ -359,7 +358,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [Row(
               children: [
-                Text('Google: ',style: TextStyle(fontWeight: FontWeight.bold, ),),
+                Text('Google: ',style: descriptionFontStyleBold,),
                 SizedBox(width: 5,),
                 GestureDetector(
                     onTap: (){
