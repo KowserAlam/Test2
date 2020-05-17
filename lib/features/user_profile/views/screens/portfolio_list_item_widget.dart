@@ -51,13 +51,14 @@ class _PortfolioListItemWidgetState extends State<PortfolioListItemWidget> {
         leading: CachedNetworkImage(
           height: 55,
           width: 55,
+
           imageUrl: widget.portfolioInfo.image??"",
           placeholder: (context, _) => Image.asset(
             kImagePlaceHolderAsset,
             height: 55,
             width: 55,
           ),
-          fit: BoxFit.cover,
+
         ),
         title: Text(widget.portfolioInfo.name ?? "",maxLines: 1,),
         subtitle: Column(

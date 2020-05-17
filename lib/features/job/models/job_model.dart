@@ -143,8 +143,13 @@ class JobModel {
     jobSkills = json['job_skills']?.cast<String>();
     skill = json['skill']?.cast<String>();
 
-    isApplied = json['is_applied'] == null ? false : (json['is_applied'] == "Yes" ? true : false);
-    isFavourite = json['is_favourite'] == null ? false : (json['is_favourite'] == "Yes" ? true : false);
+    isApplied = json['is_applied'] == null
+        ? false
+        : (json['is_applied'] == "True" ? true : false);
+    isFavourite = json['is_favourite'] == null
+        ? false
+        : (json['is_favourite'] == "True" ? true : false);
+
     if(json['profile_picture'] != null){
       profilePicture = "$baseUrl${json['profile_picture']}";
     }
