@@ -75,9 +75,6 @@ class Urls {
 
 
 
-
-
-
   /// skill check
 
   static String examListUrl = "/registration/index";
@@ -94,7 +91,5 @@ class Urls {
   static String signUpEmailCheckUrl = "/api/signup/email";
   static String signUpEmailVerificationUrl = "/api/signup/email-verification";
   static String signUpEmailConfirmPassword = "/api/signup/examinee";
-
-
 
 }

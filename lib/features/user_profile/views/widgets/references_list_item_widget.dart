@@ -34,7 +34,7 @@ class ReferencesListItemWidget extends StatelessWidget {
           color: Theme.of(context).backgroundColor,
           child: Icon(FontAwesomeIcons.user),
         ),
-        title: Text(referenceData.description ?? ""),
+        title: Text(referenceData.description ?? "",maxLines: 3,),
 //        subtitle: Text(referenceData.currentPosition ?? ""),
         trailing: !isInEditMode
             ? SizedBox()
