@@ -108,24 +108,31 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
   bool validate() {
     bool isFormValid = _formKey.currentState.validate();
     bool isEnrollDateCorrect = _enrollDate != null;
-    bool isGraduationDateCorrect =
-        (_enrollDate != null && _graduationDate != null)
-            ? !_graduationDate.isBefore(_enrollDate)
-            : true;
+    bool isGraduationDateCorrect(){
+      if(currentLyStudyingHere){
+        _graduationDate = null;
+        return true;
+      }else{
+        if(_graduationDate == null){
+          graduationDateErrorText = StringUtils.blankGraduationDateWarningText;
+          return false;
+        }else{
+          graduationDateErrorText = null;
+          return true;
+        }
+      }
+    }
 
     institutionNameErrorText = institutionNameController.text.isEmpty
         ? StringUtils.thisFieldIsRequired
         : null;
     enrollDateErrorText =
         isEnrollDateCorrect ? null : StringUtils.thisFieldIsRequired;
-    graduationDateErrorText = isGraduationDateCorrect
-        ? null
-        : StringUtils.graduationDateShouldBeAfterEnrollDate;
     setState(() {});
 
     return isFormValid &&
         isEnrollDateCorrect &&
-        isGraduationDateCorrect &&
+        isGraduationDateCorrect() &&
         institutionNameErrorText == null;
   }
 
@@ -172,26 +179,16 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
         );
         print("Degree: " + education.degree);
 
-        if(_enrollDate != null){
-          if(!currentLyStudyingHere){
-            if(_graduationDate != null){
-              if(widget.educationModel != null){
-                updateData(education);
-              }else{
-                addData(education);
-              }
-            }else{
-              BotToast.showText(text: StringUtils.blankGraduationDateWarningText);
-            }
+        if(_enrollDate.isBefore(_graduationDate)){
+          print('1');
+          if(widget.educationModel != null){
+            updateData(education);
           }else{
-            if(widget.educationModel != null){
-              updateData(education);
-            }else{
-              addData(education);
-            }
+            addData(education);
           }
         }else{
-          BotToast.showText(text: StringUtils.blankGraduationDateWarningText);
+          print('2');
+          BotToast.showText(text: StringUtils.graduationDateLogicText);
         }
       }
     }
