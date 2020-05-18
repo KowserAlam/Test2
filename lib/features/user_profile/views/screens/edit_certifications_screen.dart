@@ -98,7 +98,9 @@ class _EditCertificationState extends State<EditCertification> {
         return false;
       }
     }
+    setState(() {
 
+    });
     return isValid && dateCheck();
   }
 

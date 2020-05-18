@@ -22,6 +22,7 @@ class EditMemberShips extends StatefulWidget {
 class _EditMemberShipsState extends State<EditMemberShips> {
   final _formKey = GlobalKey<FormState>();
   bool _membershipOngoing = false;
+  String blankStartingDateWarningText, blankEndingDateWarningText;
 
 
   //TextEditingController
@@ -76,42 +77,58 @@ class _EditMemberShipsState extends State<EditMemberShips> {
     });
   }
 
-  _handleSave() {
+  bool validate(){
     bool isValid = _formKey.currentState.validate();
-    if (isValid) {
-      var membershipInfo = MembershipInfo(
-        membershipId: widget.membershipInfo?.membershipId,
-        orgName: _orgNameController.text,
-        positionHeld: _positionHeldController.text,
-        description: _descriptionController.text,
-        membershipOngoing: _membershipOngoing,
-        startDate: _startDate,
-        endDate: !_membershipOngoing?_endDate:null,
-      );
-
+    bool checkDate(){
       if(_startDate != null){
-        if(!_membershipOngoing){
-          if(_endDate!=null){
-            if(_startDate.isBefore(_endDate)){
-              if(widget.membershipInfo != null){
-                updateData(membershipInfo);
-              }else{addData(membershipInfo);}
-            }else{
-              BotToast.showText(text: StringUtils.membershipDateLogicWarningText);
-            }
-
-          }else{BotToast.showText(text: StringUtils.membershipBlankEndDateWarningText);}
+        blankStartingDateWarningText = null;
+        if(_membershipOngoing){
+          _endDate = null;
+          blankEndingDateWarningText = null;
+          return true;
         }else{
-
-          if(widget.membershipInfo != null){
-            updateData(membershipInfo);
-          }else{addData(membershipInfo);}
-
+          if(_endDate != null){
+            blankEndingDateWarningText = null;
+            return true;
+          }else{
+            blankEndingDateWarningText = StringUtils.membershipBlankEndDateWarningText;
+            return false;
+          }
         }
       }else{
-        BotToast.showText(text: StringUtils.membershipBlankStartDateWarningText);
+        blankStartingDateWarningText = StringUtils.membershipBlankStartDateWarningText;
+        return false;
       }
+    }
+    setState(() {
 
+    });
+    return isValid && checkDate();
+  }
+
+  _handleSave() {
+    var membershipInfo = MembershipInfo(
+      membershipId: widget.membershipInfo?.membershipId,
+      orgName: _orgNameController.text,
+      positionHeld: _positionHeldController.text,
+      description: _descriptionController.text,
+      membershipOngoing: _membershipOngoing,
+      startDate: _startDate,
+      endDate: !_membershipOngoing?_endDate:null,
+    );
+
+    if(validate()){
+      if(_startDate.isBefore(_endDate)){
+        if(widget.membershipInfo == null){
+          addData(membershipInfo);
+        }else{
+          updateData(membershipInfo);
+        }
+      }else{
+        BotToast.showText(text: StringUtils.membershipDateLogicWarningText);
+      }
+    }else{
+      print('not validated');
     }
   }
 
@@ -190,6 +207,7 @@ class _EditMemberShipsState extends State<EditMemberShips> {
                   spaceBetweenFields,
                   //Start Date
                   CommonDatePickerWidget(
+                    errorText: blankStartingDateWarningText,
                     label: StringUtils.startingDateText,
                     date: _startDate,
                     onDateTimeChanged: (v){setState(() {
@@ -203,6 +221,7 @@ class _EditMemberShipsState extends State<EditMemberShips> {
                   ),
                   //End Date
                   !_membershipOngoing?CommonDatePickerWidget(
+                    errorText: blankEndingDateWarningText,
                     label: StringUtils.membershipEndDateText,
                     date: _endDate,
                     onDateTimeChanged: (v){setState(() {
