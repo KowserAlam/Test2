@@ -172,26 +172,22 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
         );
         print("Degree: " + education.degree);
 
-        if(_enrollDate != null){
-          if(!currentLyStudyingHere){
-            if(_graduationDate != null){
-              if(widget.educationModel != null){
-                updateData(education);
-              }else{
-                addData(education);
-              }
-            }else{
-              BotToast.showText(text: StringUtils.blankGraduationDateWarningText);
-            }
-          }else{
+        if(!currentLyStudyingHere){
+          if(_graduationDate != null){
             if(widget.educationModel != null){
               updateData(education);
             }else{
               addData(education);
             }
+          }else{
+            BotToast.showText(text: StringUtils.blankGraduationDateWarningText);
           }
         }else{
-          BotToast.showText(text: StringUtils.blankGraduationDateWarningText);
+          if(widget.educationModel != null){
+            updateData(education);
+          }else{
+            addData(education);
+          }
         }
       }
     }
