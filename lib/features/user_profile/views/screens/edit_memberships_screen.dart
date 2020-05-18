@@ -92,10 +92,13 @@ class _EditMemberShipsState extends State<EditMemberShips> {
       if(_startDate != null){
         if(!_membershipOngoing){
           if(_endDate!=null){
-
-            if(widget.membershipInfo != null){
-              updateData(membershipInfo);
-            }else{addData(membershipInfo);}
+            if(_startDate.isBefore(_endDate)){
+              if(widget.membershipInfo != null){
+                updateData(membershipInfo);
+              }else{addData(membershipInfo);}
+            }else{
+              BotToast.showText(text: StringUtils.membershipDateLogicWarningText);
+            }
 
           }else{BotToast.showText(text: StringUtils.membershipBlankEndDateWarningText);}
         }else{
