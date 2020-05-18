@@ -181,7 +181,7 @@ class StringUtils {
   //Company Details Screen
   static var companyDetailsText = "Company Details";
   static var companyBasicInfoSectionText = "BASIC INFO";
-  static var companyBasisMembershipInfoText = "Basis Membership Info";
+  static var companyBasisMembershipNoText = "Basis Membership No";
   static var companyProfileText = "Company Profile";
   static var companyIndustryText = "Industry";
   static var companyYearsOfEstablishmentText = "Year of Establishment";
@@ -310,6 +310,7 @@ class StringUtils {
   static var emailAlreadyExistText =
       "Email Already exist! Try login or rest password";
   static var somethingIsWrong = "Something is wrong ! \nTry again later";
+  static var unauthorizedText = "Unauthorized";
 
   /// AddEditSkill Screen
 
