@@ -31,6 +31,7 @@ class _EditCertificationState extends State<EditCertification> {
   final _formKey = GlobalKey<FormState>();
   bool  hasExpiryDate;
   DateTime _issueDate, _expirydate;
+  String blankExpiryDateErrorText,blankIssueDateErrorText;
 
   //TextEditingController
   final _certificationNameController = TextEditingController();
@@ -75,43 +76,56 @@ class _EditCertificationState extends State<EditCertification> {
     });
   }
 
-  _handleSave() {
+  bool validate(){
     bool isValid = _formKey.currentState.validate();
-    if (isValid) {
-      var certificationData = CertificationInfo(
-        certificationId: widget.certificationInfo?.certificationId,
-        certificationName: _certificationNameController.text,
-        organizationName: _organizationNameController.text,
-        credentialUrl: _credentialUrlController.text,
-        credentialId: _credentialIdController.text,
-        hasExpiryPeriod: hasExpiryDate,
-        issueDate: _issueDate,
-        expiryDate:  _expirydate
-      );
-
+    bool dateCheck(){
       if(_issueDate != null){
+        blankIssueDateErrorText = null;
         if(hasExpiryDate){
           if(_expirydate != null){
-            if(_expirydate.isAfter(_issueDate)){
-
-              if(widget.certificationInfo != null){
-                updateData(certificationData);
-              }else{addData(certificationData);}
-
-            }else{
-              BotToast.showText(text: StringUtils.dateLogicWarningText);
-            }
+            blankExpiryDateErrorText = null;
+            return true;
           }else{
-            BotToast.showText(text: StringUtils.blankExpiryDateWarningText);
+            blankExpiryDateErrorText = StringUtils.blankExpiryDateWarningText;
+            return false;
           }
         }else{
-          if(widget.certificationInfo != null){
-            updateData(certificationData);
-          }else{addData(certificationData);}
+          _expirydate = null;
+          return true;
         }
       }else{
-        BotToast.showText(text: StringUtils.blankIssueDateWarningText);
+        blankIssueDateErrorText = StringUtils.blankIssueDateWarningText;
+        return false;
       }
+    }
+
+    return isValid && dateCheck();
+  }
+
+  _handleSave() {
+    if(validate()){
+      var certificationInfo = CertificationInfo(
+          certificationId: widget.certificationInfo?.certificationId,
+          certificationName: _certificationNameController.text,
+          organizationName: _organizationNameController.text,
+          credentialUrl: _credentialUrlController.text,
+          credentialId: _credentialIdController.text,
+          hasExpiryPeriod: hasExpiryDate,
+          issueDate: _issueDate,
+          expiryDate:  _expirydate
+      );
+
+      if(_issueDate.isBefore(_expirydate)){
+        if(widget.certificationInfo == null){
+          addData(certificationInfo);
+        }else{
+          updateData(certificationInfo);
+        }
+      }else{
+        BotToast.showText(text: StringUtils.dateLogicWarningText);
+      }
+    }else{
+      print('not validated');
     }
   }
 
@@ -215,6 +229,7 @@ class _EditCertificationState extends State<EditCertification> {
                   ),
                   spaceBetweenFields,
                   CommonDatePickerWidget(
+                    errorText: blankIssueDateErrorText,
                     label: StringUtils.certificationIssueDateText,
                     date: _issueDate,
                     onDateTimeChanged: (v){
@@ -251,6 +266,7 @@ class _EditCertificationState extends State<EditCertification> {
                   spaceBetweenFields,
                   //ExpiryDate
                   hasExpiryDate?CommonDatePickerWidget(
+                    errorText: blankExpiryDateErrorText,
                     label: StringUtils.certificationExpiryDateText,
                     date: _expirydate,
                     onDateTimeChanged: (v){
