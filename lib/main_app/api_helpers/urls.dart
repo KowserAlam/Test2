@@ -57,7 +57,7 @@ class Urls {
 
 
 
-  static String jobDetailsUrl = "/api/load_job/";
+  static String jobDetailsUrl = "/api/job/get/";
   static String favouriteJobAddUrl = "/api/job/favourite/toggle";
   static String applyJobOnlineUrl = "/api/job/apply/";
 
