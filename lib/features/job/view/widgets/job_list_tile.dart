@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bot_toast/bot_toast.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
@@ -16,12 +18,14 @@ import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/util/date_format_uitl.dart';
 import 'package:provider/provider.dart';
+import 'package:meta/meta.dart';
 
+@deprecated
 class FavoriteJobListTileWidget extends StatefulWidget {
   final JobListModel jobListModel;
   //final Function onTap;
   //final Function onFavorite;
-
+  @deprecated
   FavoriteJobListTileWidget(this.jobListModel);
 
   @override
@@ -52,7 +56,12 @@ class _FavoriteJobListTileWidgetState extends State<FavoriteJobListTileWidget> {
         BotToast.showText(text: StringUtils.unableToSaveData);
         return false;
       }
-    } catch (e) {
+    } on SocketException catch (e) {
+      BotToast.closeAllLoading();
+      BotToast.showText(text: StringUtils.checkInternetConnectionMessage);
+      print(e);
+      return false;
+    }catch (e) {
       BotToast.closeAllLoading();
       BotToast.showText(text: StringUtils.unableToSaveData);
       print(e);
@@ -85,11 +94,15 @@ class _FavoriteJobListTileWidgetState extends State<FavoriteJobListTileWidget> {
         BotToast.showText(text: StringUtils.unableToSaveData);
         return false;
       }
-    } catch (e) {
+    }on SocketException catch (e) {
+      BotToast.closeAllLoading();
+      BotToast.showText(text: StringUtils.checkInternetConnectionMessage);
+      print(e);
+      return false;
+    }catch (e) {
       BotToast.closeAllLoading();
       BotToast.showText(text: StringUtils.unableToSaveData);
       print(e);
-
       return false;
     }
   }
