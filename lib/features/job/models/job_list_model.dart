@@ -49,12 +49,8 @@ class JobListModel {
     jobSite = json['job_site'];
     jobType = json['job_type'];
 
-    isApplied = json['is_applied'] == null
-        ? false
-        : (json['is_applied'] == "True" ? true : false);
-    isFavourite = json['is_favourite'] == null
-        ? false
-        : (json['is_favourite'] == "True" ? true : false);
+    isApplied = json['is_applied']  as bool?? false;
+    isFavourite = json['is_favourite'] as bool?? false;
 
 
     if (json['application_deadline'] != null) {

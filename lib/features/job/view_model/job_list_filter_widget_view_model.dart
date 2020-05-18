@@ -259,6 +259,7 @@ class JobListFilterWidgetViewModel with ChangeNotifier {
     _experienceMax = null;
     _selectedDatePosted = null;
     _selectedSortBy = null;
+    getAllFilters();
     notifyListeners();
   }
 }

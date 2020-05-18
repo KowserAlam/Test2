@@ -17,6 +17,25 @@ import 'package:p7app/main_app/resource/strings_utils.dart';
 /// &location_from_homepage=&keyword_from_homepage=&skill=&salaryMin=
 /// &salaryMax=&experienceMin=&experienceMax=null&datePosted=&gender=
 /// &qualification=&sort=&page_size=10
+///
+/// query = request.GET.get('q')
+///current_url = request.GET.get('current_url')
+///sorting = request.GET.get('sort')
+///category = request.GET.get('category')
+///district = request.GET.get('location')
+///skill = request.GET.get('skill')
+///job_city = request.GET.get('job_city')
+///salaryMin = request.GET.get('salaryMin')
+///salaryMax = request.GET.get('salaryMax')
+///experienceMin = request.GET.get('experienceMin')
+///experienceMax = request.GET.get('experienceMax')
+///datePosted = request.GET.get('datePosted')
+///gender = request.GET.get('gender')
+///job_type = request.GET.get('job_type')
+///qualification = request.GET.get('qualification')
+///topSkill = request.GET.get('top-skill')
+///
+
 class JobRepository {
 
   Future<Either<AppError, JobListScreenDataModel>> fetchJobList(
@@ -28,7 +47,8 @@ class JobRepository {
         "&skill=${filters.skill?.id??""}&salaryMin=${filters.salaryMin??""}&salaryMax=${filters.salaryMax??""}&experienceMin=${filters.experienceMin??""}"
         "&experienceMax=${filters.experienceMax??""}&datePosted=${filters.datePosted??""}&gender=${filters.gender??""}&job_type=${filters.jobType?.id??""}"
         "&qualification=${filters.qualification??""}&sort=${filters?.sort?.key??""}"
-        "&page_size=${filters.page_size}&top-skill=${filters.topSkill??""}";
+        "&page_size=${filters.page_size}&top-skill=${filters.topSkill??""}"
+        "&job_city=${filters.jobCity??""}";
 
     var url = "${Urls.jobListUrl}${_filters}";
 
