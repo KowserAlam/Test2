@@ -239,7 +239,6 @@ class _AddEditProfessionalSkillState extends State<AddEditProfessionalSkill> {
                   controller: ratingController,
                   validator: Validator().expertiseFieldValidate,
                   labelText: "${StringUtils.expertiseLevel} (0 - 10)",
-                  hintText: "0 - 10",
                 ),
                 SizedBox(height: 30,)
               ],

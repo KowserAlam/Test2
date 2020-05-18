@@ -305,7 +305,7 @@ class StringUtils {
 
   /// AddEditSkill Screen
 
-  static var skillNameText = "Name of Skill";
+  static var skillNameText = "Name of Skill:";
   static var skillNameExample = "eg. Python";
   static var expertiseLevel = "Expertise level:";
   static var searchSkillText = "Search your skill";
