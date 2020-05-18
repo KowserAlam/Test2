@@ -38,8 +38,8 @@ class CompanyListRepository {
   List<Company> fromJson(json) {
     List<Company> list = [];
 
-    if (json['data'] != null) {
-      json['data'].forEach((element) {
+    if (json!= null) {
+      json.forEach((element) {
         list.add(Company.fromJson(element));
       });
     }

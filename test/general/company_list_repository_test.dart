@@ -14,7 +14,7 @@ main(){
       await TestDataReader().readData("company_list.json");
     });
 
-    test("industry_list Test, Testing with valid json should return valid list",
+    test("Company List Test, Testing with valid json should return valid list",
             () {
           // arrange
           var data = json.decode(responseJsonSuccess);

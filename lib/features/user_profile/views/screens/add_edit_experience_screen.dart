@@ -1,12 +1,17 @@
 import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:bot_toast/bot_toast.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_typeahead/cupertino_flutter_typeahead.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart' as TypeAhead;
+
 import 'package:p7app/features/company/models/company.dart';
 import 'package:p7app/features/company/repositories/company_list_repository.dart';
 import 'package:p7app/features/user_profile/models/experience_info.dart';
 import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/features/user_profile/views/widgets/common_date_picker_widget.dart';
+import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/util/debouncer.dart';
 import 'package:p7app/main_app/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
@@ -66,31 +71,31 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
       currentLyWorkingHere = _leavingDate == null;
     }
 
-    _companyNameController.addListener(() {
-      if (_companyNameController.text.length > 3) {
-        _companyAutocompleteKey.currentState.suggestions = [];
-        _debouncer.run(() {
-          CompanyListRepository()
-              .getList(query: _companyNameController.text)
-              .then((value) {
-            value.fold((l) {
-              //left
-              print(l);
-              _companyAutocompleteKey.currentState.suggestions = [];
-            }, (List<Company> r) {
-//              //right
-              companySuggestion = r;
-              _companyAutocompleteKey.currentState.updateSuggestions(r);
-              _companyAutocompleteKey.currentState.updateOverlay();
-
-//            setState(() {
+//    _companyNameController.addListener(() {
+//      if (_companyNameController.text.length > 3) {
+//        _companyAutocompleteKey.currentState.suggestions = [];
+//        _debouncer.run(() {
+//          CompanyListRepository()
+//              .getList(query: _companyNameController.text)
+//              .then((value) {
+//            value.fold((l) {
+//              //left
+//              print(l);
+//              _companyAutocompleteKey.currentState.suggestions = [];
+//            }, (List<Company> r) {
+////              //right
+//              companySuggestion = r;
+//              _companyAutocompleteKey.currentState.updateSuggestions(r);
+//              _companyAutocompleteKey.currentState.updateOverlay();
 //
+////            setState(() {
+////
+////            });
 //            });
-            });
-          });
-        });
-      }
-    });
+//          });
+//        });
+//      }
+//    });
     super.initState();
   }
 
@@ -302,20 +307,64 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
             borderRadius: BorderRadius.circular(7),
             boxShadow: CommonStyleTextField.boxShadow,
           ),
-          child: TypeAheadField<Company>(
-//            key: _companyAutocompleteKey,
+          child: TypeAheadFormField<Company>(
+            textFieldConfiguration: TextFieldConfiguration(
+              controller: _companyNameController,
+                decoration: InputDecoration(
+              hintText: StringUtils.currentCompanyHint,
+              border: InputBorder.none,
+              contentPadding:
+                  const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(7),
+                  borderSide:
+                      BorderSide(color: Theme.of(context).primaryColor)),
+            )),
             itemBuilder: (BuildContext context, Company suggestion) {
-              return ListTile(
-                title: Text(suggestion.name ?? ""),
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                child: Row(
+                  children: [
+                    CachedNetworkImage(
+                      height: 20,
+                      width: 20,
+                      imageUrl: suggestion.profilePicture ?? "",
+                      placeholder: (context, _) => Image.asset(
+                        kCompanyImagePlaceholder,
+                        height: 20,
+                        width: 20,
+                      ),
+                    ),
+                    SizedBox(
+                      width: 8,
+                    ),
+                    Text(suggestion.name ?? ""),
+                  ],
+                ),
               );
             },
             onSuggestionSelected: (Company suggestion) {
-              print(suggestion);
+              print(suggestion.name);
+              _companyNameController.text = suggestion.name;
+              selectedCompany = suggestion;
+              setState(() {});
             },
+            suggestionsBoxDecoration: SuggestionsBoxDecoration(
+              borderRadius: BorderRadius.circular(5),
+            ),
             suggestionsCallback: (String pattern) {
+              if(pattern.length>2)
               return CompanyListRepository()
                   .getList(query: pattern)
                   .then((value) => value.fold((l) => [], (r) => r));
+              else
+                return[];
+            },
+            validator: (v) {
+              return v.length < 3 ? StringUtils.typeAtLeast3Letter : null;
+            },
+            noItemsFoundBuilder: (context) {
+              return SizedBox();
             },
           ),
         ),
@@ -358,7 +407,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       name,
-                      nameOfCompany,
+//                      nameOfCompany,
                       spaceBetweenSections,
 
                       /// Position

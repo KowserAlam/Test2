@@ -460,4 +460,6 @@ static const String jobSiteText  = "Job Site";
   static const String jobCompanyProfileText  = "Company Profile";
   static const String jobCompanyWebAddressText  = "Web Address";
   static const String jobAdditionalRequirementsText  = "Additional Requirements";
+  static const String typeAtLeast3Letter  = "Type at least 3 letter";
+  static const String notFoundText  = "Not Found";
 }
