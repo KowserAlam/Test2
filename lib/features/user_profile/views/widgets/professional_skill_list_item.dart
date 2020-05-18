@@ -69,7 +69,7 @@ class ProfessionalSkillListItem extends StatelessWidget {
                     color: Colors.transparent,
                     child: Row(
                       children: [
-                        SizedBox(width: 8),
+                        SizedBox(width: 15),
                         InkWell(
                           child: Icon(
                             FontAwesomeIcons.edit,
@@ -78,7 +78,7 @@ class ProfessionalSkillListItem extends StatelessWidget {
                           ),
                           onTap: onTapEdit,
                         ),
-                        SizedBox(width: 20),
+                        SizedBox(width: 25),
                         InkWell(
                           child: Icon(
                             FontAwesomeIcons.trash,
@@ -87,7 +87,7 @@ class ProfessionalSkillListItem extends StatelessWidget {
                           ),
                           onTap: onTapDelete,
                         ),
-                        SizedBox(width: 8),
+                        SizedBox(width: 15),
                       ],
                     ),
                   ),
