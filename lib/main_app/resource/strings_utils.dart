@@ -261,7 +261,7 @@ class StringUtils {
   static String currentlyWorkingHereText = "Currently working here";
   static String joining = "Currently working here";
   static String joiningLeavingDateLogic = "Please make sure your joining date occurs before your leaving date";
-  static String sameExperience = "You\'ve already added this skill before.";
+  static String sameExperience = "You\'ve already added this experience before.";
   static String graduationDateShouldBeAfterEnrollDate = "Graduation date should be after enroll date";
 
 
