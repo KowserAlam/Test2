@@ -70,24 +70,6 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
     _currentDesignationEditingController.text =
         personalInfo.currentDesignation ?? "";
 
-    IndustryListRepository()
-        .getIndustryList()
-        .then((dartZ.Either<AppError, List<String>> value) {
-      value.fold((l) {
-        // left
-        BotToast.showText(text: StringUtils.unableToLoadExpertiseListText);
-      }, (r) {
-        // right
-        _industryExpertiseList = r
-            .map((e) => DropdownMenuItem(
-                  key: Key(e),
-                  value: e,
-                  child: Text(e ?? ""),
-                ))
-            .toList();
-        setState(() {});
-      });
-    });
     super.initState();
   }
 

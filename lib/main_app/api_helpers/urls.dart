@@ -35,7 +35,7 @@ class Urls {
 
   static String industryListUrl = "/api/industry/";
   static String companyListUrl = "/api/company/";
-  static String genderListUrl = "/api/gender/";
+  static String genderListUrl = "/api/gender/list";
 
   static String nationalityListUrl = "/api/professional/nationality/";
   static String religionListUrl = "/api/professional/religion/";
@@ -50,7 +50,7 @@ class Urls {
   static String jobTypeListUrl = "/api/job-type/list";
   static String jobLocationListUrl = "/api/location/";
   static String jobSourceList = "/api/job-source/list/";
-  static String jobGenderList = "/api/gender/list/";
+  static String jobGenderList = "/api/job-gender/list/";
   static String jobCategoryList = "/api/job-category/list/";
   static String jobSiteList = "/api/job-site/list";
   static String jobNatureList = "/api/job-nature/list";
