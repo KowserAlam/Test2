@@ -273,12 +273,12 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
       future: DegreeListRepository().getList(),
       builder:
           (context, AsyncSnapshot<dartZ.Either<AppError, List<String>>> snap) {
-        if (snap.hasData) {
 
+        if (snap.hasData) {
           var items =  snap.data.fold((l) {
             return null;
           }, (r) {
-            var items = r
+            return r
                 .map((e) => DropdownMenuItem<String>(
                       key: Key(e),
                       value: e,

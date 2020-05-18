@@ -44,20 +44,20 @@ class Urls {
   static String organizationListUrl = "/api/professional/organization/";
   static String majorListUrl = "/api/professional/major/";
   static String certificateNameListUrl = "/api/professional/certificate_name/";
-  static String qualificationListUrl = "/api/qualification/";
+  static String qualificationListUrl = "/api/qualification/list";
   static String experienceListUrl = "/api/experience/";
   static String jobCategoriesListUrl = "/api/popular_categories/";
   static String jobTypeListUrl = "/api/job-type/list";
   static String jobLocationListUrl = "/api/location/";
   static String jobSourceList = "/api/job-source/list/";
-  static String jobGenderList = "/api/job-gender/list/";
+  static String jobGenderList = "/api/gender/list/";
   static String jobCategoryList = "/api/job-category/list/";
   static String jobSiteList = "/api/job-site/list";
   static String jobNatureList = "/api/job-nature/list";
 
 
 
-  static String jobDetailsUrl = "/api/load_job/";
+  static String jobDetailsUrl = "/api/job/get/";
   static String favouriteJobAddUrl = "/api/job/favourite/toggle";
   static String applyJobOnlineUrl = "/api/job/apply/";
 
