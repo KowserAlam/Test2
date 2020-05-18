@@ -8,7 +8,7 @@ import 'package:p7app/features/user_profile/repositories/institution_list_reposi
 import 'package:p7app/features/user_profile/repositories/major_subject_list_repository.dart';
 import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
-import 'package:p7app/features/user_profile/views/widgets/common_date_picker_widget.dart';
+import 'package:p7app/main_app/widgets/common_date_picker_widget.dart';
 import 'package:p7app/features/user_profile/views/widgets/custom_dropdown_button_form_field.dart';
 import 'package:p7app/main_app/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/failure/error.dart';
