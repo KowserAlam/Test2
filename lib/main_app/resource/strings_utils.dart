@@ -197,6 +197,11 @@ class StringUtils {
   static var companyEmailText = "Email";
   static var companyWebAddressText = "Web Address";
   static var companySocialNetworksSectionText = "SOCIAL NETWORKS";
+  static var companyContactPersonSectionText = "CONTACT PERSON";
+  static var companyContactPersonNameText = "Name";
+  static var companyContactPersonDesignationText = "Designation";
+  static var companyContactPersonMobileNoText = "Mobile No";
+  static var companyContactPersonEmailText = "Email";
   static var companyOrganizationHeadSectionText = "ORGANIZATION\'S HEAD";
   static var companyOrganizationHeadNameText = "Name";
   static var companyOrganizationHeadDesignationText = "Designation";
@@ -261,8 +266,10 @@ class StringUtils {
   static String currentlyWorkingHereText = "Currently working here";
   static String joining = "Currently working here";
   static String joiningLeavingDateLogic = "Please make sure your joining date occurs before your leaving date";
-  static String sameExperience = "You\'ve already added this skill before.";
+  static String sameExperience = "You\'ve already added this experience before.";
   static String graduationDateShouldBeAfterEnrollDate = "Graduation date should be after enroll date";
+  static String blankJoiningDateErrorText = "Please enter joining date";
+  static String blankLeavingDateErrorText = "Please enter leaving date";
 
 
 
