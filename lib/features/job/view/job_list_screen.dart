@@ -125,6 +125,7 @@ class _JobListScreenState extends State<JobListScreen>
                       Padding(
                         padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
                         child: CustomTextField(
+                          textInputAction: TextInputAction.search,
                           focusNode: _searchFieldFocusNode,
                           onSubmitted: (v) {
                             if (_searchTextEditingController.text.isNotEmpty) {
