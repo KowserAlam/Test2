@@ -439,7 +439,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
           richText(StringUtils.companyContactPersonMobileNoText, companyDetails.contactPersonMobileNo),
           SizedBox(height: 5,),
 
-          richText(StringUtils.companyContactPersonEmailText, companyDetails.contactPersonMobileNo),
+          richText(StringUtils.companyContactPersonEmailText, companyDetails.contactPersonEmail),
           SizedBox(height: 5,),
 //
 //          richText(StringUtils.companyPostCodeText, companyDetails.postCode),
