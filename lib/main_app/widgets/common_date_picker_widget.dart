@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/util/date_format_uitl.dart';
 
-class CommonDatePickerWidget extends StatelessWidget {
+class CommonDatePickerWidget extends StatefulWidget {
   final String label;
   final String errorText;
   final DateTime date;
@@ -11,6 +11,7 @@ class CommonDatePickerWidget extends StatelessWidget {
   final Function onTapDateClear;
   final DateTime minDate;
   final DateTime maxDate;
+
 
   const CommonDatePickerWidget(
       {@required this.label,
@@ -22,13 +23,18 @@ class CommonDatePickerWidget extends StatelessWidget {
       this.errorText});
 
   @override
+  _CommonDatePickerWidgetState createState() => _CommonDatePickerWidgetState();
+}
+
+class _CommonDatePickerWidgetState extends State<CommonDatePickerWidget> {
+  @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(height: 16),
         Text(
-          label ?? "",
+          widget.label ?? "",
           textAlign: TextAlign.left,
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
@@ -39,12 +45,12 @@ class CommonDatePickerWidget extends StatelessWidget {
           onTap: () {
             FocusScopeNode currentFocus = FocusScope.of(context);
             currentFocus?.unfocus();
-
-            Theme.of(context).platform == TargetPlatform.iOS
-                ?
-            _showCupertinoDatePicker(context):
+            _showCupertinoDatePicker(context);
+//            Theme.of(context).platform == TargetPlatform.iOS
+//                ?
+//            _showCupertinoDatePicker(context):
 //            _showDatePicker(context);
-            _selectDateAndroid(context);
+//            _selectDateAndroid(context);
           },
           child: Container(
             height: 50,
@@ -66,18 +72,18 @@ class CommonDatePickerWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
-                    date != null
-                        ? DateFormatUtil.formatDate(date)
+                    widget.date != null
+                        ? DateFormatUtil.formatDate(widget.date)
                         : StringUtils.chooseDateText,
                   ),
-                  if (onTapDateClear != null)
-                    date != null
+                  if (widget.onTapDateClear != null)
+                    widget.date != null
                         ? InkWell(
                             child: Padding(
                               padding: const EdgeInsets.all(4.0),
                               child: Icon(Icons.close),
                             ),
-                            onTap: onTapDateClear,
+                            onTap: widget.onTapDateClear,
                           )
                         : SizedBox(),
                 ],
@@ -85,11 +91,11 @@ class CommonDatePickerWidget extends StatelessWidget {
             ),
           ),
         ),
-        if (errorText != null)
+        if (widget.errorText != null)
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              errorText,
+              widget.errorText,
               style: TextStyle(color: Colors.red),
             ),
           ),
@@ -99,8 +105,8 @@ class CommonDatePickerWidget extends StatelessWidget {
 
   _showCupertinoDatePicker(context) {
     var _miniDate =
-        maxDate ?? DateTime.now().subtract(Duration(days: 360 * 100));
-    var _maxDate = minDate ?? DateTime.now().add(Duration(days: 360 * 10));
+        widget.maxDate ?? DateTime.now().subtract(Duration(days: 360 * 100));
+    var _maxDate = widget.minDate ?? DateTime.now().add(Duration(days: 360 * 10));
 
     showDialog(
         context: context,
@@ -120,12 +126,12 @@ class CommonDatePickerWidget extends StatelessWidget {
                         child: CupertinoDatePicker(
                           maximumDate: _maxDate,
                           minimumDate: _miniDate,
-                          initialDateTime: date ?? DateTime.now(),
+                          initialDateTime: widget.date ?? DateTime.now(),
                           mode: CupertinoDatePickerMode.date,
                           onDateTimeChanged: (v) {
                             if (v.year >= _miniDate.year &&
                                 v.year <= _maxDate.year) {
-                              onDateTimeChanged(v);
+                              widget.onDateTimeChanged(v);
                             }
                           },
                         ),
@@ -140,7 +146,7 @@ class CommonDatePickerWidget extends StatelessWidget {
                           ),
                         ),
                         onTap: () {
-                          onDateTimeChanged(date ?? DateTime.now());
+                          widget.onDateTimeChanged(widget.date ?? DateTime.now());
                           Navigator.pop(context);
                         }),
                   ],
@@ -150,23 +156,27 @@ class CommonDatePickerWidget extends StatelessWidget {
           );
         });
   }
+
  _selectDateAndroid(BuildContext context) async {
     var _miniDate =
-        maxDate ?? DateTime.now().subtract(Duration(days: 360 * 100));
-    var _maxDate = minDate ?? DateTime.now().add(Duration(days: 360 * 10));
+        widget.maxDate ?? DateTime.now().subtract(Duration(days: 360 * 100));
+    var _maxDate = widget.minDate ?? DateTime.now().add(Duration(days: 360 * 10));
     showDatePicker(
       firstDate: _miniDate,
-      initialDate: DateTime.now(),
+      initialDate: widget.date??DateTime.now(),
       lastDate: _maxDate,
       context: context,
-    ).then((value) => onDateTimeChanged(value));
+    ).then((value) {
+      widget.onDateTimeChanged(value);
+
+    });
 
   }
 
   _showDatePicker(context) {
     var _miniDate =
-        maxDate ?? DateTime.now().subtract(Duration(days: 360 * 100));
-    var _maxDate = minDate ?? DateTime.now().add(Duration(days: 360 * 10));
+        widget.maxDate ?? DateTime.now().subtract(Duration(days: 360 * 100));
+    var _maxDate = widget.minDate ?? DateTime.now().add(Duration(days: 360 * 10));
 
     showDialog(
         context: context,
@@ -183,11 +193,11 @@ class CommonDatePickerWidget extends StatelessWidget {
                       child: CalendarDatePicker(
                         lastDate: _maxDate,
                         firstDate: _miniDate,
-                        initialDate: date ?? DateTime.now(),
+                        initialDate: widget.date ?? DateTime.now(),
                         onDateChanged: (v) {
                           if (v.year >= _miniDate.year &&
                               v.year <= _maxDate.year) {
-                            onDateTimeChanged(v);
+                            widget.onDateTimeChanged(v);
                           }
                         },
                       ),
@@ -201,7 +211,7 @@ class CommonDatePickerWidget extends StatelessWidget {
                           ),
                         ),
                         onTap: () {
-                          onDateTimeChanged(date ?? DateTime.now());
+                          widget.onDateTimeChanged(widget.date ?? DateTime.now());
                           Navigator.pop(context);
                         }),
                   ],
