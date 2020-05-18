@@ -9,6 +9,7 @@ import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/util/date_format_uitl.dart';
 
+
 import 'job_apply_button.dart';
 
 class JobListTileWidget extends StatefulWidget {

@@ -218,6 +218,7 @@ class _JobListScreenState extends State<JobListScreen>
                                         .push(MaterialPageRoute(
                                             builder: (context) => JobDetails(
                                                   slug: job.slug,
+                                              fromJobListScreenType: JobListScreenType.main,
                                                 )));
                                   },
                                   onFavorite: () {

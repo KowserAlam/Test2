@@ -274,8 +274,9 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
       builder:
           (context, AsyncSnapshot<dartZ.Either<AppError, List<String>>> snap) {
         if (snap.hasData) {
-          return snap.data.fold((l) {
-            return SizedBox();
+
+          var items =  snap.data.fold((l) {
+            return null;
           }, (r) {
             var items = r
                 .map((e) => DropdownMenuItem<String>(
@@ -284,20 +285,19 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
                       child: Text(e ?? ""),
                     ))
                 .toList();
-
-            return CustomDropdownButtonFormField<String>(
-              validator: Validator().nullFieldValidate,
-              labelText: StringUtils.nameOfODegreeText,
-              hint: Text(StringUtils.tapToSelectText),
-              value: selectedDegree,
-              items: items,
-              onChanged: (v) {
-                selectedDegree = v;
-                print(selectedDegree);
-                setState(() {});
-              },
-            );
           });
+          return CustomDropdownButtonFormField<String>(
+            validator: Validator().nullFieldValidate,
+            labelText: StringUtils.nameOfODegreeText,
+            hint: Text(StringUtils.tapToSelectText),
+            value: selectedDegree,
+            items: items,
+            onChanged: (v) {
+              selectedDegree = v;
+              print(selectedDegree);
+              setState(() {});
+            },
+          );
         } else {
           return Loader();
         }

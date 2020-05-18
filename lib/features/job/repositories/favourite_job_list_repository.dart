@@ -18,8 +18,7 @@ import 'package:p7app/main_app/resource/strings_utils.dart';
 /// &qualification=&sort=&page_size=10
 class FavoriteJobListRepository {
 
-  Future<Either<AppError, List<JobListModel>>> fetchJobList(
-      JobListFilters filters) async {
+  Future<Either<AppError, List<JobListModel>>> fetchJobList() async {
 
     var url = "${Urls.favouriteJobListUrl}";
 
@@ -47,11 +46,10 @@ class FavoriteJobListRepository {
     }
   }
 
-  List<JobListModel> fromJson(Map<String, dynamic> json) {
-
+  List<JobListModel> fromJson( json) {
     List<JobListModel> jobList = new List<JobListModel>();
-    if (json['bookmarked_jobs'] != null) {
-      json['bookmarked_jobs'].forEach((v) {
+    if (json != null) {
+      json.forEach((v) {
         jobList.add(new JobListModel.fromJson(v));
       });
     }
