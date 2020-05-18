@@ -11,6 +11,8 @@ import 'package:p7app/features/job/models/job_model.dart';
 
 import 'package:p7app/features/job/repositories/job_repository.dart';
 import 'package:p7app/features/job/view/widgets/job_apply_button.dart';
+import 'package:p7app/features/job/view_model/applied_job_list_view_model.dart';
+import 'package:p7app/features/job/view_model/favourite_job_list_view_model.dart';
 import 'package:p7app/features/job/view_model/job_list_view_model.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
@@ -25,11 +27,12 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:p7app/main_app/util/method_extension.dart';
 
+enum JobListScreenType{ main,applied,favorite}
 class JobDetails extends StatefulWidget {
   final String slug;
-  final Function onChangeCallBack;
+  final JobListScreenType fromJobListScreenType;
 
-  JobDetails({@required this.slug, this.onChangeCallBack});
+  JobDetails({@required this.slug, this.fromJobListScreenType});
 
   @override
   _JobDetailsState createState() => _JobDetailsState();
@@ -47,10 +50,21 @@ class _JobDetailsState extends State<JobDetails> {
     super.initState();
   }
 
-  _changeCallBack() {
-    if (widget.onChangeCallBack != null) {
-      widget.onChangeCallBack();
+  refreshList() {
+    Provider.of<JobListViewModel>(context, listen: false).refresh();
+    if(widget.fromJobListScreenType != null){
+      switch (widget.fromJobListScreenType ){
+        case JobListScreenType.main:
+          break;
+        case JobListScreenType.applied:
+          Provider.of<AppliedJobListViewModel>(context, listen: false).refresh();
+          break;
+        case JobListScreenType.favorite:
+          Provider.of<FavouriteJobListViewModel>(context, listen: false).refresh();
+          break;
+      }
     }
+
   }
 
   Future<bool> addToFavorite(
@@ -70,7 +84,7 @@ class _JobDetailsState extends State<JobDetails> {
         BotToast.closeAllLoading();
         Provider.of<JobListViewModel>(context, listen: false).refresh();
         setState(() {});
-        _changeCallBack();
+        refreshList();
 
         return true;
       } else {
@@ -105,7 +119,7 @@ class _JobDetailsState extends State<JobDetails> {
         BotToast.showText(
             text: StringUtils.successfullyAppliedText,
             duration: Duration(seconds: 2));
-        _changeCallBack();
+        refreshList();
 
         return true;
       } else {
