@@ -27,7 +27,8 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:p7app/main_app/util/method_extension.dart';
 
-enum JobListScreenType{ main,applied,favorite}
+enum JobListScreenType { main, applied, favorite }
+
 class JobDetails extends StatefulWidget {
   final String slug;
   final JobListScreenType fromJobListScreenType;
@@ -50,90 +51,38 @@ class _JobDetailsState extends State<JobDetails> {
     super.initState();
   }
 
-  refreshList() {
+  _refreshList() {
     Provider.of<JobListViewModel>(context, listen: false).refresh();
-    if(widget.fromJobListScreenType != null){
-      switch (widget.fromJobListScreenType ){
+    if (widget.fromJobListScreenType != null) {
+      switch (widget.fromJobListScreenType) {
         case JobListScreenType.main:
           break;
         case JobListScreenType.applied:
-          Provider.of<AppliedJobListViewModel>(context, listen: false).refresh();
+          Provider.of<AppliedJobListViewModel>(context, listen: false)
+              .refresh();
           break;
         case JobListScreenType.favorite:
-          Provider.of<FavouriteJobListViewModel>(context, listen: false).refresh();
+          Provider.of<FavouriteJobListViewModel>(context, listen: false)
+              .refresh();
           break;
       }
     }
-
   }
 
   Future<bool> addToFavorite(
     String jobId,
   ) async {
-    BotToast.showLoading();
-    var userId =
-        await AuthService.getInstance().then((value) => value.getUser().userId);
-    var body = {'user_id': userId, 'job_id': jobId};
-
-    try {
-      ApiClient client = ApiClient();
-      var res = await client.postRequest(Urls.favouriteJobAddUrl, body);
-      print(res.body);
-
-      if (res.statusCode == 200) {
-        BotToast.closeAllLoading();
-        Provider.of<JobListViewModel>(context, listen: false).refresh();
-        setState(() {});
-        refreshList();
-
-        return true;
-      } else {
-        BotToast.closeAllLoading();
-        BotToast.showText(text: StringUtils.unableToSaveData);
-        return false;
-      }
-    } catch (e) {
-      BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToSaveData);
-      print(e);
-      Provider.of<JobListViewModel>(context, listen: false).refresh();
-      return false;
-    }
+    bool res = await JobRepository().addToFavorite(jobId);
+    _refreshList();
+    return res;
   }
 
   Future<bool> applyForJob(
     String jobId,
   ) async {
-    BotToast.showLoading();
-    var userId =
-        await AuthService.getInstance().then((value) => value.getUser().userId);
-    var body = {'user_id': userId, 'job_id': jobId};
-
-    try {
-      ApiClient client = ApiClient();
-      var res = await client.postRequest(Urls.applyJobOnlineUrl, body);
-      print(res.body);
-
-      if (res.statusCode == 200) {
-        BotToast.closeAllLoading();
-        BotToast.showText(
-            text: StringUtils.successfullyAppliedText,
-            duration: Duration(seconds: 2));
-        refreshList();
-
-        return true;
-      } else {
-        BotToast.closeAllLoading();
-        BotToast.showText(text: StringUtils.unableToSaveData);
-        return false;
-      }
-    } catch (e) {
-      BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToSaveData);
-      print(e);
-
-      return false;
-    }
+    bool res = await JobRepository().applyForJob(jobId);
+    _refreshList();
+    return res;
   }
 
   _showApplyDialog() {
@@ -257,7 +206,10 @@ class _JobDetailsState extends State<JobDetails> {
         borderRadius: BorderRadius.circular(20),
         onTap: () {
           addToFavorite(jobDetails.jobId).then((value) {
-            jobDetails.isFavourite = !jobDetails.isFavourite;
+            if (value) {
+              jobDetails.isFavourite = !jobDetails.isFavourite;
+            }
+
             setState(() {});
           });
         },
@@ -295,10 +247,13 @@ class _JobDetailsState extends State<JobDetails> {
         ),
       ),
     );
-    var applyButton =
-    JobApplyButton(isApplied: isApplied, applicationDeadline: jobDetails.applicationDeadline, onPressedApply: (){
-      _showApplyDialog();
-    },);
+    var applyButton = JobApplyButton(
+      isApplied: isApplied,
+      applicationDeadline: jobDetails.applicationDeadline,
+      onPressedApply: () {
+        _showApplyDialog();
+      },
+    );
 
     var spaceBetweenSections = SizedBox(
       height: 30,
@@ -531,14 +486,38 @@ class _JobDetailsState extends State<JobDetails> {
           SizedBox(
             height: 5,
           ),
-          jobSummeryRichText(StringUtils.jobAddressText, jobDetails.jobAddress!=null?jobDetails.jobAddress:StringUtils.unspecifiedText),
-          SizedBox(height: 5,),
-          jobSummeryRichText(StringUtils.jobAreaText, jobDetails.jobArea!=null?jobDetails.jobArea:StringUtils.unspecifiedText),
-          SizedBox(height: 5,),
-          jobSummeryRichText(StringUtils.jobCityText, jobDetails.jobCity!=null?jobDetails.jobCity:StringUtils.unspecifiedText),
-          SizedBox(height: 5,),
-          jobSummeryRichText(StringUtils.jobCountryText, jobDetails.jobCountry!=null?jobDetails.jobCountry:StringUtils.unspecifiedText),
-          SizedBox(height: 5,),
+          jobSummeryRichText(
+              StringUtils.jobAddressText,
+              jobDetails.jobAddress != null
+                  ? jobDetails.jobAddress
+                  : StringUtils.unspecifiedText),
+          SizedBox(
+            height: 5,
+          ),
+          jobSummeryRichText(
+              StringUtils.jobAreaText,
+              jobDetails.jobArea != null
+                  ? jobDetails.jobArea
+                  : StringUtils.unspecifiedText),
+          SizedBox(
+            height: 5,
+          ),
+          jobSummeryRichText(
+              StringUtils.jobCityText,
+              jobDetails.jobCity != null
+                  ? jobDetails.jobCity
+                  : StringUtils.unspecifiedText),
+          SizedBox(
+            height: 5,
+          ),
+          jobSummeryRichText(
+              StringUtils.jobCountryText,
+              jobDetails.jobCountry != null
+                  ? jobDetails.jobCountry
+                  : StringUtils.unspecifiedText),
+          SizedBox(
+            height: 5,
+          ),
         ],
       ),
     );
@@ -564,12 +543,30 @@ class _JobDetailsState extends State<JobDetails> {
           SizedBox(
             height: 5,
           ),
-          jobSummeryRichText(StringUtils.jobTypeText, jobDetails.jobType!=null?jobDetails.jobType:StringUtils.unspecifiedText),
-          SizedBox(height: 5,),
-          jobSummeryRichText(StringUtils.jobNature, jobDetails.jobNature!=null?jobDetails.jobNature:StringUtils.unspecifiedText),
-          SizedBox(height: 5,),
-          jobSummeryRichText(StringUtils.jobSiteText, jobDetails.jobSite!=null?jobDetails.jobSite:StringUtils.unspecifiedText),
-          SizedBox(height: 5,),
+          jobSummeryRichText(
+              StringUtils.jobTypeText,
+              jobDetails.jobType != null
+                  ? jobDetails.jobType
+                  : StringUtils.unspecifiedText),
+          SizedBox(
+            height: 5,
+          ),
+          jobSummeryRichText(
+              StringUtils.jobNature,
+              jobDetails.jobNature != null
+                  ? jobDetails.jobNature
+                  : StringUtils.unspecifiedText),
+          SizedBox(
+            height: 5,
+          ),
+          jobSummeryRichText(
+              StringUtils.jobSiteText,
+              jobDetails.jobSite != null
+                  ? jobDetails.jobSite
+                  : StringUtils.unspecifiedText),
+          SizedBox(
+            height: 5,
+          ),
         ],
       ),
     );
@@ -595,8 +592,14 @@ class _JobDetailsState extends State<JobDetails> {
           SizedBox(
             height: 5,
           ),
-          jobSummeryRichText(StringUtils.jobCompanyProfileText, jobDetails.companyProfile!=null?jobDetails.companyProfile:StringUtils.unspecifiedText),
-          SizedBox(height: 5,),
+          jobSummeryRichText(
+              StringUtils.jobCompanyProfileText,
+              jobDetails.companyProfile != null
+                  ? jobDetails.companyProfile
+                  : StringUtils.unspecifiedText),
+          SizedBox(
+            height: 5,
+          ),
 //          jobSummeryRichText(StringUtils.jobNature, jobDetails.jobNature!=null?jobDetails.jobNature:StringUtils.unspecifiedText),
 //          SizedBox(height: 5,),
         ],
@@ -624,14 +627,26 @@ class _JobDetailsState extends State<JobDetails> {
           SizedBox(
             height: 5,
           ),
-          jobSummeryRichText(StringUtils.currentOffer, jobDetails.salary != null
-              ? jobDetails.salary.toString()+' '+(jobDetails.currency!=null?jobDetails.currency:'')
-              : StringUtils.unspecifiedText,),
-          jobSummeryRichText(StringUtils.salaryRangeText, (jobDetails.salaryMin != null
-              ? jobDetails.salaryMin.toString()
-              : StringUtils.unspecifiedText) + "-"+ (jobDetails.salaryMax != null
-              ? jobDetails.salaryMax.toString()+' '+(jobDetails.currency!=null?jobDetails.currency:'')
-              : StringUtils.unspecifiedText),)
+          jobSummeryRichText(
+            StringUtils.currentOffer,
+            jobDetails.salary != null
+                ? jobDetails.salary.toString() +
+                    ' ' +
+                    (jobDetails.currency != null ? jobDetails.currency : '')
+                : StringUtils.unspecifiedText,
+          ),
+          jobSummeryRichText(
+            StringUtils.salaryRangeText,
+            (jobDetails.salaryMin != null
+                    ? jobDetails.salaryMin.toString()
+                    : StringUtils.unspecifiedText) +
+                "-" +
+                (jobDetails.salaryMax != null
+                    ? jobDetails.salaryMax.toString() +
+                        ' ' +
+                        (jobDetails.currency != null ? jobDetails.currency : '')
+                    : StringUtils.unspecifiedText),
+          )
         ],
       ),
     );

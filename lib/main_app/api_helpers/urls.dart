@@ -58,8 +58,8 @@ class Urls {
 
 
   static String jobDetailsUrl = "/api/load_job/";
-  static String favouriteJobAddUrl = "/api/favourite_job_add/";
-  static String applyJobOnlineUrl = "/api/apply_online_job_add/";
+  static String favouriteJobAddUrl = "/api/job/favourite/toggle";
+  static String applyJobOnlineUrl = "/api/job/apply/";
 
 //  http://p7.ishraak.com/api/job_list/?page=1&page_size=2
   /// http://dev.ishraak.com/api/job_list/?page=1&q=job&location=&category=
@@ -68,8 +68,8 @@ class Urls {
   /// &qualification=&sort=&page_size=10
 
   static String jobListUrl = "/api/job/search";
-  static String appliedJobListUrl = "/api/job/applied";
-  static String favouriteJobListUrl = "/api/job/favourite";
+  static String appliedJobListUrl = "/api/job/applied/";
+  static String favouriteJobListUrl = "/api/job/favourite/";
   static String companySearchUrl = "/api/company/search";
 
 

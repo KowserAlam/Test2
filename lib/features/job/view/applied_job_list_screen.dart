@@ -43,7 +43,7 @@ class _AppliedJobListScreenState extends State<AppliedJobListScreen>
   @override
   void afterFirstLayout(BuildContext context) {
     var jobListViewModel =
-    Provider.of<AppliedJobListViewModel>(context, listen: false);
+        Provider.of<AppliedJobListViewModel>(context, listen: false);
     jobListViewModel.getJobList();
 
 //    _scrollController.addListener(() {
@@ -71,74 +71,65 @@ class _AppliedJobListScreenState extends State<AppliedJobListScreen>
             .refresh();
       },
       child: FlavorBanner(
-        child:
-        Consumer<AppliedJobListViewModel>(builder: (context, appliedJobListViewModel, _) {
+        child: Consumer<AppliedJobListViewModel>(
+            builder: (context, appliedJobListViewModel, _) {
           var jobList = appliedJobListViewModel.jobList;
-          var isInSearchMode = appliedJobListViewModel.isInSearchMode;
+
           debugPrint("${jobList.length}");
           return Scaffold(
             appBar: AppBar(
               title: Text(StringUtils.appliedJobsText),
-//            actions: [
-//              IconButton(
-//                icon: Icon(isInSearchMode ? Icons.close : Icons.search),
-//                onPressed: () {
-//                  _searchTextEditingController?.clear();
-//                  jobListViewModel.toggleIsInSearchMode();
-//                },
-//              )
-//            ],
             ),
             body: Column(
               children: [
-                if (appliedJobListViewModel.isInSearchMode)
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(8,8,8,8),
-                    child: CustomTextFormField(
-                      controller: _searchTextEditingController,
-                      onChanged: appliedJobListViewModel.addSearchQuery,
-                      hintText: StringUtils.searchText,
-                    ),
-                  ),
                 Expanded(
                   child: ListView(
                     physics: AlwaysScrollableScrollPhysics(),
                     controller: _scrollController,
                     children: [
-
-
                       if (appliedJobListViewModel.isFetchingData)
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Loader(),
                         ),
-                      (appliedJobListViewModel.jobList.length == 0 && appliedJobListViewModel.isFetchingData)
+                      (appliedJobListViewModel.jobList.length == 0 &&
+                              appliedJobListViewModel.isFetchingData)
                           ? Center(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(StringUtils.noAppliedJobsFound),
-                        ),
-                      )
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(StringUtils.noAppliedJobsFound),
+                              ),
+                            )
                           : ListView.builder(
-                          padding: EdgeInsets.symmetric(vertical: 4),
-                          physics: NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-
-                          itemCount: jobList.length + 1,
+                              padding: EdgeInsets.symmetric(vertical: 4),
+                              physics: NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: jobList.length,
 //              separatorBuilder: (context,index)=>Divider(),
-                          itemBuilder: (context, index) {
-                            if (index == jobList.length) {
-                              return appliedJobListViewModel.isFetchingMoreData
-                                  ? Padding(
-                                  padding: EdgeInsets.all(15),
-                                  child: Loader())
-                                  : SizedBox();
-                            }
+                              itemBuilder: (context, index) {
+                                JobListModel job = jobList[index];
 
-                            JobListModel job = jobList[index];
-
-                            return FavoriteJobListTileWidget(job);
-                          }),
+                                return JobListTileWidget(
+                                  job,
+                                  onFavorite: () {
+                                    appliedJobListViewModel
+                                        .addToFavorite(job.jobId, index)
+                                        .then((value) {
+                                      return Provider.of<JobListViewModel>(context, listen: false)
+                                          .refresh();
+                                    });
+                                  },
+                                  onTap: () {
+                                    Navigator.of(context)
+                                        .push(MaterialPageRoute(
+                                            builder: (context) => JobDetails(
+                                                  slug: job.slug,
+                                                  fromJobListScreenType:
+                                                      JobListScreenType.applied,
+                                                )));
+                                  },
+                                );
+                              }),
                     ],
                   ),
                 ),
