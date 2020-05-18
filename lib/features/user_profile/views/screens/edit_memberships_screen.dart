@@ -57,24 +57,25 @@ class _EditMemberShipsState extends State<EditMemberShips> {
     super.initState();
   }
 
-  void addData(MembershipInfo membershipInfo){
-    Provider.of<UserProfileViewModel>(context, listen: false)
-        .addMembershipData(membershipInfo)
-        .then((value) {
-      if (value) {
-        Navigator.pop(context);
-      }
-    });
-  }
 
-  void updateData(MembershipInfo membershipInfo){
-    Provider.of<UserProfileViewModel>(context, listen: false)
-        .updateMembershipData(membershipInfo, widget.index)
-        .then((value) {
-      if (value) {
-        Navigator.pop(context);
-      }
-    });
+  void submitData(MembershipInfo membershipInfo){
+    if(widget.membershipInfo == null){
+      Provider.of<UserProfileViewModel>(context, listen: false)
+          .addMembershipData(membershipInfo)
+          .then((value) {
+        if (value) {
+          Navigator.pop(context);
+        }
+      });
+    }else{
+      Provider.of<UserProfileViewModel>(context, listen: false)
+          .updateMembershipData(membershipInfo, widget.index)
+          .then((value) {
+        if (value) {
+          Navigator.pop(context);
+        }
+      });
+    }
   }
 
   bool validate(){
@@ -118,14 +119,14 @@ class _EditMemberShipsState extends State<EditMemberShips> {
     );
 
     if(validate()){
-      if(_startDate.isBefore(_endDate)){
-        if(widget.membershipInfo == null){
-          addData(membershipInfo);
-        }else{
-          updateData(membershipInfo);
-        }
+      if(_membershipOngoing){
+        submitData(membershipInfo);
       }else{
-        BotToast.showText(text: StringUtils.membershipDateLogicWarningText);
+        if(_startDate.isBefore(_endDate)){
+          submitData(membershipInfo);
+        }else{
+          BotToast.showText(text: StringUtils.membershipDateLogicWarningText);
+        }
       }
     }else{
       print('not validated');

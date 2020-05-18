@@ -136,22 +136,21 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
         institutionNameErrorText == null;
   }
 
-  void addData(EduInfo eduInfo){
-    Provider.of<UserProfileViewModel>(context, listen: false).addEduInfo(eduInfo).then((value) {
-      if (value) {
-        Navigator.pop(context);
-      }
-    });
+  void submitData(EduInfo education){
+    if(widget.educationModel != null){
+      Provider.of<UserProfileViewModel>(context, listen: false).updateEduInfo(education, index).then((value) {
+        if (value) {
+          Navigator.pop(context);
+        }
+      });
+    }else{
+      Provider.of<UserProfileViewModel>(context, listen: false).addEduInfo(education).then((value) {
+        if (value) {
+          Navigator.pop(context);
+        }
+      });
+    }
   }
-
-  void updateData(EduInfo eduInfo){
-    Provider.of<UserProfileViewModel>(context, listen: false).updateEduInfo(eduInfo, index).then((value) {
-      if (value) {
-        Navigator.pop(context);
-      }
-    });
-  }
-
   _handleSave() {
     var isSuccess = validate();
 
@@ -179,16 +178,14 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
         );
         print("Degree: " + education.degree);
 
-        if(_enrollDate.isBefore(_graduationDate)){
-          print('1');
-          if(widget.educationModel != null){
-            updateData(education);
-          }else{
-            addData(education);
-          }
+        if(currentLyStudyingHere){
+          submitData(education);
         }else{
-          print('2');
-          BotToast.showText(text: StringUtils.graduationDateLogicText);
+          if(_enrollDate.isBefore(_graduationDate)){
+            submitData(education);
+          }else{
+            BotToast.showText(text: StringUtils.graduationDateLogicText);
+          }
         }
       }
     }
