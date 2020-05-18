@@ -56,24 +56,25 @@ class _EditCertificationState extends State<EditCertification> {
     if(x==0){return true;}else {return false;};
   }
 
-  void addData(CertificationInfo certificationInfo){
-    Provider.of<UserProfileViewModel>(context, listen: false)
-        .addCertificationData(certificationInfo)
-        .then((value) {
-      if (value) {
-        Navigator.pop(context);
-      }
-    });
-  }
 
-  void updateData(CertificationInfo certificationInfo){
-    Provider.of<UserProfileViewModel>(context, listen: false)
-        .updateCertificationData(certificationInfo, widget.index)
-        .then((value) {
-      if (value) {
-        Navigator.pop(context);
-      }
-    });
+  void submitData(CertificationInfo certificationInfo){
+    if(widget.certificationInfo == null){
+      Provider.of<UserProfileViewModel>(context, listen: false)
+          .addCertificationData(certificationInfo)
+          .then((value) {
+        if (value) {
+          Navigator.pop(context);
+        }
+      });
+    }else{
+      Provider.of<UserProfileViewModel>(context, listen: false)
+          .updateCertificationData(certificationInfo, widget.index)
+          .then((value) {
+        if (value) {
+          Navigator.pop(context);
+        }
+      });
+    }
   }
 
   bool validate(){
@@ -117,14 +118,14 @@ class _EditCertificationState extends State<EditCertification> {
           expiryDate:  _expirydate
       );
 
-      if(_issueDate.isBefore(_expirydate)){
-        if(widget.certificationInfo == null){
-          addData(certificationInfo);
-        }else{
-          updateData(certificationInfo);
-        }
+      if(!hasExpiryDate){
+        submitData(certificationInfo);
       }else{
-        BotToast.showText(text: StringUtils.dateLogicWarningText);
+        if(_issueDate.isBefore(_expirydate)){
+          submitData(certificationInfo);
+        }else{
+          BotToast.showText(text: StringUtils.dateLogicWarningText);
+        }
       }
     }else{
       print('not validated');
