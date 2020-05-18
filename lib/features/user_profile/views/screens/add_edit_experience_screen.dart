@@ -55,6 +55,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
   String _joiningDateErrorText;
   String _leavingDateErrorText;
 
+
   _AddNewExperienceScreenState(this.experienceModel, this.index);
 
   @override
@@ -71,31 +72,6 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
       currentLyWorkingHere = _leavingDate == null;
     }
 
-//    _companyNameController.addListener(() {
-//      if (_companyNameController.text.length > 3) {
-//        _companyAutocompleteKey.currentState.suggestions = [];
-//        _debouncer.run(() {
-//          CompanyListRepository()
-//              .getList(query: _companyNameController.text)
-//              .then((value) {
-//            value.fold((l) {
-//              //left
-//              print(l);
-//              _companyAutocompleteKey.currentState.suggestions = [];
-//            }, (List<Company> r) {
-////              //right
-//              companySuggestion = r;
-//              _companyAutocompleteKey.currentState.updateSuggestions(r);
-//              _companyAutocompleteKey.currentState.updateOverlay();
-//
-////            setState(() {
-////
-////            });
-//            });
-//          });
-//        });
-//      }
-//    });
     super.initState();
   }
 
@@ -141,16 +117,16 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
     bool isNotEmpty = _companyNameController.text.isNotEmpty;
     _companyNameErrorText =
         !isNotEmpty ? StringUtils.thisFieldIsRequired : null;
-    bool isJoiningDateIsNotEmpty = _joiningDate != null;
-    bool isLeavingDateIsCorrect =
-        currentLyWorkingHere ? true : _leavingDate != null;
-    _joiningDateErrorText =
-        !isJoiningDateIsNotEmpty ? StringUtils.thisFieldIsRequired : null;
-    _leavingDateErrorText =
-        !isLeavingDateIsCorrect ? StringUtils.thisFieldIsRequired : null;
+    bool dateCheck(){
+      if(_joiningDate != null){
+
+      }else{
+        _joiningDateErrorText = StringUtils.blankJoiningDateErrorText;
+      }
+    }
 
     setState(() {});
-    return isNotEmpty && isJoiningDateIsNotEmpty && isLeavingDateIsCorrect;
+    return isNotEmpty ;
   }
 
   _handleSave() {

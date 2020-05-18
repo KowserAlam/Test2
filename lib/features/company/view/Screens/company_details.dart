@@ -409,6 +409,45 @@ class _CompanyDetailsState extends State<CompanyDetails> {
       ),
     );
 
+    var contactPerson = Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              FaIcon(
+                Icons.person_pin,
+                size: fontAwesomeIconSize,
+              ),
+              SizedBox(
+                width: 5,
+              ),
+              Text(
+                StringUtils.companyContactPersonSectionText,
+                style: sectionTitleFont,
+              )
+            ],
+          ),
+          SizedBox(height: 5,),
+
+          richText(StringUtils.companyContactPersonNameText, companyDetails.contactPerson),
+          SizedBox(height: 5,),
+
+          richText(StringUtils.companyContactPersonDesignationText, companyDetails.contactPersonDesignation),
+          SizedBox(height: 5,),
+
+          richText(StringUtils.companyContactPersonMobileNoText, companyDetails.contactPersonMobileNo),
+          SizedBox(height: 5,),
+
+          richText(StringUtils.companyContactPersonEmailText, companyDetails.contactPersonMobileNo),
+          SizedBox(height: 5,),
+//
+//          richText(StringUtils.companyPostCodeText, companyDetails.postCode),
+//          SizedBox(height: 5,),
+        ],
+      ),
+    );
+
     var otherInfo = Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -508,6 +547,17 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                           topLeft: Radius.circular(3),
                           topRight: Radius.circular(3))),
                   child: organizationHead,
+                ),
+
+                SizedBox(height: 2,),
+                Container(
+                  padding: EdgeInsets.symmetric(vertical: 18, horizontal: 10),
+                  decoration: BoxDecoration(
+                      color: sectionColor,
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(3),
+                          topRight: Radius.circular(3))),
+                  child: contactPerson,
                 ),
 
                 SizedBox(height: 2,),
