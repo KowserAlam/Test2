@@ -1,6 +1,6 @@
-
 import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:bot_toast/bot_toast.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:p7app/features/company/models/company.dart';
 import 'package:p7app/features/company/repositories/company_list_repository.dart';
 import 'package:p7app/features/user_profile/models/experience_info.dart';
@@ -139,8 +139,10 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
     bool isJoiningDateIsNotEmpty = _joiningDate != null;
     bool isLeavingDateIsCorrect =
         currentLyWorkingHere ? true : _leavingDate != null;
-    _joiningDateErrorText = !isJoiningDateIsNotEmpty ? StringUtils.thisFieldIsRequired : null;
-    _leavingDateErrorText = !isLeavingDateIsCorrect ? StringUtils.thisFieldIsRequired : null;
+    _joiningDateErrorText =
+        !isJoiningDateIsNotEmpty ? StringUtils.thisFieldIsRequired : null;
+    _leavingDateErrorText =
+        !isLeavingDateIsCorrect ? StringUtils.thisFieldIsRequired : null;
 
     setState(() {});
     return isNotEmpty && isJoiningDateIsNotEmpty && isLeavingDateIsCorrect;
@@ -286,6 +288,47 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
           ),
       ],
     );
+    var name = Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text("  " + StringUtils.nameOfCompany ?? "",
+            style: TextStyle(fontWeight: FontWeight.bold)),
+        SizedBox(
+          height: 5,
+        ),
+        Container(
+          decoration: BoxDecoration(
+            color: Theme.of(context).backgroundColor,
+            borderRadius: BorderRadius.circular(7),
+            boxShadow: CommonStyleTextField.boxShadow,
+          ),
+          child: TypeAheadField<Company>(
+//            key: _companyAutocompleteKey,
+            itemBuilder: (BuildContext context, Company suggestion) {
+              return ListTile(
+                title: Text(suggestion.name ?? ""),
+              );
+            },
+            onSuggestionSelected: (Company suggestion) {
+              print(suggestion);
+            },
+            suggestionsCallback: (String pattern) {
+              return CompanyListRepository()
+                  .getList(query: pattern)
+                  .then((value) => value.fold((l) => [], (r) => r));
+            },
+          ),
+        ),
+        if (_companyNameErrorText != null)
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              _companyNameErrorText,
+              style: TextStyle(color: Colors.red),
+            ),
+          ),
+      ],
+    );
 
     return WillPopScope(
       onWillPop: () async {
@@ -314,6 +357,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
+                      name,
                       nameOfCompany,
                       spaceBetweenSections,
 
