@@ -166,7 +166,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
           Row(
             children: <Widget>[
               FaIcon(
-                Icons.person_outline,
+                FeatherIcons.userCheck,
                 size: fontAwesomeIconSize,
               ),
               SizedBox(
@@ -256,7 +256,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
           Row(
             children: <Widget>[
               FaIcon(
-                Icons.map,
+                FeatherIcons.map,
                 size: fontAwesomeIconSize,
               ),
               SizedBox(
@@ -300,7 +300,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
           Row(
             children: <Widget>[
               FaIcon(
-                Icons.cast_connected,
+                FeatherIcons.userCheck,
                 size: fontAwesomeIconSize,
               ),
               SizedBox(
@@ -463,7 +463,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
           Row(
             children: <Widget>[
               FaIcon(
-                Icons.screen_lock_landscape,
+                FeatherIcons.cast,
                 size: fontAwesomeIconSize,
               ),
               SizedBox(
@@ -579,7 +579,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
           Row(
             children: <Widget>[
               FaIcon(
-                Icons.person_pin,
+                FeatherIcons.userCheck,
                 size: fontAwesomeIconSize,
               ),
               SizedBox(
@@ -626,7 +626,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
           Row(
             children: <Widget>[
               FaIcon(
-                Icons.person_pin,
+                FeatherIcons.userCheck,
                 size: fontAwesomeIconSize,
               ),
               SizedBox(
@@ -679,7 +679,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
           Row(
             children: <Widget>[
               FaIcon(
-                Icons.list,
+                FontAwesomeIcons.exclamationCircle,
                 size: fontAwesomeIconSize,
               ),
               SizedBox(
@@ -718,7 +718,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
         Row(
           children: <Widget>[
             FaIcon(
-              Icons.map,
+              FeatherIcons.mapPin,
               size: fontAwesomeIconSize,
             ),
             SizedBox(
