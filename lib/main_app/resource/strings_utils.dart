@@ -463,6 +463,7 @@ static const String jobSiteText  = "Job Site";
   static const String jobAddressText  = "Address";
   static const String jobAreaText  = "Area";
   static const String jobCityText  = "City";
+  static const String jobCityHintText  = "eg. Dhaka";
   static const String jobCountryText  = "Country";
   static const String jobAboutText  = "About Job";
   static const String jobAboutCompanyText  = "About Company";

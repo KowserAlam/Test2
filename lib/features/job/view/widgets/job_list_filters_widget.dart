@@ -11,6 +11,7 @@ import 'package:p7app/features/user_profile/styles/common_style_text_field.dart'
 import 'package:p7app/features/user_profile/views/widgets/custom_dropdown_button_form_field.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/widgets/common_button.dart';
+import 'package:p7app/main_app/widgets/custom_text_from_field.dart';
 import 'package:provider/provider.dart';
 import 'package:p7app/main_app/util/method_extension.dart';
 import 'package:searchable_dropdown/searchable_dropdown.dart';
@@ -27,11 +28,18 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
   double experienceMin = 0;
   double experienceMax = 10;
   var _formKey = GlobalKey<FormState>();
+  var _jobCityTextController = TextEditingController();
 
   @override
   void afterFirstLayout(BuildContext context) {
-    Provider.of<JobListFilterWidgetViewModel>(context, listen: false)
+    var model = Provider.of<JobListFilterWidgetViewModel>(
+        context, listen: false);
+    model
         .getAllFilters();
+    if(model.selectedLocation.isNotEmptyOrNotNull){
+      _jobCityTextController.text = model.selectedLocation;
+    }
+
   }
 
   _handleApply() {
@@ -45,7 +53,7 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
         experienceMax: filterVM.experienceMax?.round()?.toString() ?? "",
         experienceMin: filterVM.experienceMin?.round()?.toString() ?? "",
         skill: filterVM.selectedSkill,
-        location: filterVM.selectedLocation ?? "",
+        jobCity: filterVM.selectedLocation ?? "",
         qualification: filterVM.selectedQualification ?? "",
         category: filterVM.selectedCategory.isNotEmptyOrNotNull
             ? filterVM.selectedCategory.replaceFirst("&", "%26")
@@ -179,6 +187,7 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
                             listen: false)
                         .resetState();
                     _formKey.currentState.reset();
+                    _jobCityTextController.clear();
                   },
                 ),
                 // close button
@@ -246,15 +255,23 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
                   ),
                   spaceBetween,
                   //location
-                  CustomDropdownButtonFormField<String>(
+                  CustomTextFormField(
                     labelText: StringUtils.locationText,
-                    hint: Text(StringUtils.tapToSelectText),
-                    onChanged: (value) {
-                      jobListFilterWidgetViewModel.selectedLocation = value;
+                    controller: _jobCityTextController,
+                    hintText: StringUtils.jobCityHintText,
+                    onChanged: (v){
+                      jobListFilterWidgetViewModel.selectedLocation = v;
                     },
-                    value: jobListFilterWidgetViewModel.selectedLocation,
-                    items: locationDropDownMenuItems,
                   ),
+//                  CustomDropdownButtonFormField<String>(
+//                    labelText: StringUtils.locationText,
+//                    hint: Text(StringUtils.tapToSelectText),
+//                    onChanged: (value) {
+//                      jobListFilterWidgetViewModel.selectedLocation = value;
+//                    },
+//                    value: jobListFilterWidgetViewModel.selectedLocation,
+//                    items: locationDropDownMenuItems,
+//                  ),
                   spaceBetween,
                   //skill
                   CustomDropdownButtonFormField(
