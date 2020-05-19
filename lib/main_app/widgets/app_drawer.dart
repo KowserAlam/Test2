@@ -133,8 +133,9 @@ class _AppDrawerState extends State<AppDrawer> {
                   icon: FontAwesomeIcons.clipboardList,
                   isSelected: false,
                   onTap: () {
-                    Navigator.of(context).pushReplacement(CupertinoPageRoute(
-                        builder: (context) => JobListScreen()));
+                    Navigator.pop(context);
+//                    Navigator.of(context).pushReplacement(CupertinoPageRoute(
+//                        builder: (context) => JobListScreen()));
                   },
                 ),
 

@@ -246,7 +246,6 @@ class JobListFilterWidgetViewModel with ChangeNotifier {
   }
 
   resetState() {
-
     _selectedGender = null;
     _selectedQualification = null;
     _selectedSkill = null;
