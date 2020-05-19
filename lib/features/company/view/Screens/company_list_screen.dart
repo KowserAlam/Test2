@@ -70,6 +70,7 @@ class _CompanyListScreenState extends State<CompanyListScreen> {
                   controller: _companyNameController,
                   hintText: 'Search',
                   autofocus: true,
+                  textInputAction: TextInputAction.search,
                   onSubmitted: (v){
                     if(_companyNameController.text.length>2){
                       updateSuggestion();
