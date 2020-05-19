@@ -479,7 +479,7 @@ class _JobDetailsState extends State<JobDetails> {
                 width: 5,
               ),
               Text(
-                StringUtils.companyLocationText,
+                StringUtils.jobLocation,
                 style: sectionTitleFont,
               )
             ],
