@@ -22,6 +22,7 @@ class JobListFilters {
   bool isApplied;
   JobType jobType;
   String topSkill;
+  String jobCity;
 
   JobListFilters({
     this.page = 1,
@@ -43,5 +44,6 @@ class JobListFilters {
     this.isApplied,
     this.jobType,
     this.topSkill,
+    this.jobCity,
   });
 }

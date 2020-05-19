@@ -27,7 +27,11 @@ class EducationsListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var backgroundColor = Theme.of(context).backgroundColor;
-    String date = eduInfoModel.graduationDate != null ? DateFormatUtil.formatDate(eduInfoModel.graduationDate):StringUtils.ongoingText;
+    String graduationDateText = eduInfoModel.graduationDate != null
+        ? DateFormatUtil.formatDate(eduInfoModel.graduationDate)
+        : StringUtils.ongoingText;
+    String date =
+        "${eduInfoModel.enrolledDate != null ? DateFormatUtil.formatDate(eduInfoModel.enrolledDate) : ""} - $graduationDateText";
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       margin: EdgeInsets.only(bottom: 8),

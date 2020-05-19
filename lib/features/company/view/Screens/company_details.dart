@@ -153,7 +153,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
           richText(StringUtils.companyYearsOfEstablishmentText, companyDetails.yearOfEstablishment!=null?DateFormatUtil.formatDate(companyDetails.yearOfEstablishment):StringUtils.unspecifiedText),
           SizedBox(height: 5,),
 
-          richText(StringUtils.companyBasisMembershipInfoText, companyDetails.basisMemberShipNo),
+          richText(StringUtils.companyBasisMembershipNoText, companyDetails.basisMemberShipNo),
           SizedBox(height: 5,),
         ],
       ),

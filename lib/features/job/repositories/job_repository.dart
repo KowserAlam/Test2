@@ -17,18 +17,36 @@ import 'package:p7app/main_app/resource/strings_utils.dart';
 /// &location_from_homepage=&keyword_from_homepage=&skill=&salaryMin=
 /// &salaryMax=&experienceMin=&experienceMax=null&datePosted=&gender=
 /// &qualification=&sort=&page_size=10
-class JobRepository {
+///
+/// query = request.GET.get('q')
+///current_url = request.GET.get('current_url')
+///sorting = request.GET.get('sort')
+///category = request.GET.get('category')
+///district = request.GET.get('location')
+///skill = request.GET.get('skill')
+///job_city = request.GET.get('job_city')
+///salaryMin = request.GET.get('salaryMin')
+///salaryMax = request.GET.get('salaryMax')
+///experienceMin = request.GET.get('experienceMin')
+///experienceMax = request.GET.get('experienceMax')
+///datePosted = request.GET.get('datePosted')
+///gender = request.GET.get('gender')
+///job_type = request.GET.get('job_type')
+///qualification = request.GET.get('qualification')
+///topSkill = request.GET.get('top-skill')
+///
 
+class JobRepository {
   Future<Either<AppError, JobListScreenDataModel>> fetchJobList(
       JobListFilters filters) async {
-
     var _filters =
-        "?page=${filters.page}&q=${filters.searchQuery??""}&location=${filters.location??""}&category=${filters.category??""}"
-        "&location_from_homepage=${filters.location_from_homepage??""}&keyword_from_homepage=${filters.keyword_from_homepage??""}"
-        "&skill=${filters.skill?.id??""}&salaryMin=${filters.salaryMin??""}&salaryMax=${filters.salaryMax??""}&experienceMin=${filters.experienceMin??""}"
-        "&experienceMax=${filters.experienceMax??""}&datePosted=${filters.datePosted??""}&gender=${filters.gender??""}&job_type=${filters.jobType?.id??""}"
-        "&qualification=${filters.qualification??""}&sort=${filters?.sort?.key??""}"
-        "&page_size=${filters.page_size}&top-skill=${filters.topSkill??""}";
+        "?page=${filters.page}&q=${filters.searchQuery ?? ""}&location=${filters.location ?? ""}&category=${filters.category ?? ""}"
+        "&location_from_homepage=${filters.location_from_homepage ?? ""}&keyword_from_homepage=${filters.keyword_from_homepage ?? ""}"
+        "&skill=${filters.skill?.id ?? ""}&salaryMin=${filters.salaryMin ?? ""}&salaryMax=${filters.salaryMax ?? ""}&experienceMin=${filters.experienceMin ?? ""}"
+        "&experienceMax=${filters.experienceMax ?? ""}&datePosted=${filters.datePosted ?? ""}&gender=${filters.gender ?? ""}&job_type=${filters.jobType?.id ?? ""}"
+        "&qualification=${filters.qualification ?? ""}&sort=${filters?.sort?.key ?? ""}"
+        "&page_size=${filters.page_size}&top-skill=${filters.topSkill ?? ""}"
+        "&job_city=${filters.jobCity ?? ""}";
 
     var url = "${Urls.jobListUrl}${_filters}";
 
@@ -40,13 +58,15 @@ class JobRepository {
       if (response.statusCode == 200) {
         var mapData = json.decode(utf8.decode(response.bodyBytes));
 
-
         var jobList = fromJson(mapData);
         var dataModel = JobListScreenDataModel(
             jobList: jobList,
             count: mapData['count'],
-            nextPage: mapData['next_pages']??false);
+            nextPage: mapData['next_pages'] ?? false);
         return Right(dataModel);
+      } else if (response.statusCode == 401) {
+        BotToast.showText(text: StringUtils.unauthorizedText);
+        return Left(AppError.unauthorized);
       } else {
         BotToast.showText(text: StringUtils.somethingIsWrong);
         return Left(AppError.unknownError);
@@ -72,10 +92,7 @@ class JobRepository {
     return jobList;
   }
 
-  Future<Either<AppError, JobModel>> fetchJobDetails(
-      String slug) async {
-
-
+  Future<Either<AppError, JobModel>> fetchJobDetails(String slug) async {
     //var url = "/api/load_job/seo-expert-78caf3ac";
     var url = "${Urls.jobDetailsUrl}${slug}";
 
@@ -104,12 +121,10 @@ class JobRepository {
     }
   }
 
-
-  Future<bool> applyForJob(String jobId,
-      {ApiClient apiClient}) async {
+  Future<bool> applyForJob(String jobId, {ApiClient apiClient}) async {
     BotToast.showLoading();
     var userId =
-    await AuthService.getInstance().then((value) => value.getUser().userId);
+        await AuthService.getInstance().then((value) => value.getUser().userId);
     var body = {'user_id': userId, 'job_id': jobId};
 
     try {
@@ -133,8 +148,7 @@ class JobRepository {
       BotToast.showText(text: StringUtils.checkInternetConnectionMessage);
       print(e);
       return false;
-    }
-    catch (e) {
+    } catch (e) {
       BotToast.closeAllLoading();
       BotToast.showText(text: StringUtils.unableToApplyText);
       print(e);
@@ -142,11 +156,10 @@ class JobRepository {
     }
   }
 
-  Future<bool> addToFavorite(String jobId,
-      {ApiClient apiClient}) async {
+  Future<bool> addToFavorite(String jobId, {ApiClient apiClient}) async {
     BotToast.showLoading();
     var userId =
-    await AuthService.getInstance().then((value) => value.getUser().userId);
+        await AuthService.getInstance().then((value) => value.getUser().userId);
     var body = {'user_id': userId, 'job_id': jobId};
 
     try {
@@ -162,22 +175,18 @@ class JobRepository {
         BotToast.showText(text: StringUtils.unableToAddAsFavoriteText);
         return false;
       }
-    }
-    on SocketException catch (e) {
+    } on SocketException catch (e) {
       BotToast.closeAllLoading();
       BotToast.showText(text: StringUtils.checkInternetConnectionMessage);
       print(e);
       return false;
-    }
-    catch (e) {
+    } catch (e) {
       BotToast.closeAllLoading();
       BotToast.showText(text: StringUtils.unableToAddAsFavoriteText);
       print(e);
       return false;
     }
   }
-
-
 }
 
 class JobListScreenDataModel {
