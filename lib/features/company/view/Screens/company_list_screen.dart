@@ -31,12 +31,13 @@ class _CompanyListScreenState extends State<CompanyListScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     var companyViewModel = Provider.of<CompanyListViewModel>(context);
     List<Company> companySuggestion = companyViewModel.companyList==null?[]:companyViewModel.companyList;
     void updateSuggestion(){
       companyViewModel.query = _companyNameController.text;
       companyViewModel.getJobDetails();
-      print(companyViewModel.companyList.length);
+//      print(companyViewModel.companyList.length);
     }
 
 

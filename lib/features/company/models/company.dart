@@ -28,8 +28,8 @@ class Company extends Equatable {
   String contactPersonEmail;
   String companyProfile;
   String profilePicture;
-  String latitude;
-  String longitude;
+  double latitude;
+  double longitude;
   String createdDate;
   String division;
   String district;
@@ -37,31 +37,31 @@ class Company extends Equatable {
   Company(
       {this.name,
       this.email,
-        this.companyNameBdjobs,
-        this.companyNameFacebook,
-        this.companyNameGoogle,
-        this.basisMemberShipNo,
-        this.yearOfEstablishment,
+      this.companyNameBdjobs,
+      this.companyNameFacebook,
+      this.companyNameGoogle,
+      this.basisMemberShipNo,
+      this.yearOfEstablishment,
       this.address,
-        this.postCode,
+      this.postCode,
       this.companyContactNoOne,
-        this.companyContactNoTwo,
-        this.companyContactNoThree,
-        this.webAddress,
-        this.organizationHead,
-        this.organizationHeadDesignation,
-        this.organizationHeadNumber,
-        this.legalStructure,
-        this.noOfHumanResources,
-        this.noOfResources,
+      this.companyContactNoTwo,
+      this.companyContactNoThree,
+      this.webAddress,
+      this.organizationHead,
+      this.organizationHeadDesignation,
+      this.organizationHeadNumber,
+      this.legalStructure,
+      this.noOfHumanResources,
+      this.noOfResources,
       this.contactPerson,
       this.contactPersonDesignation,
       this.contactPersonMobileNo,
       this.contactPersonEmail,
-        this.companyProfile,
+      this.companyProfile,
       this.profilePicture,
-        this.latitude,
-        this.longitude,
+      this.latitude,
+      this.longitude,
       this.createdDate,
       this.division,
       this.district});
@@ -75,7 +75,7 @@ class Company extends Equatable {
     companyNameFacebook = json['company_name_facebook']?.toString();
     companyNameGoogle = json['company_name_google']?.toString();
     basisMemberShipNo = json['basis_membership_no']?.toString();
-    if(json['year_of_eastablishment'] != null){
+    if (json['year_of_eastablishment'] != null) {
       yearOfEstablishment = DateTime.parse(json['year_of_eastablishment']);
     }
     address = json['address']?.toString();
@@ -85,7 +85,8 @@ class Company extends Equatable {
     companyContactNoThree = json['company_contact_no_three']?.toString();
     webAddress = json['web_address']?.toString();
     organizationHead = json['organization_head']?.toString();
-    organizationHeadDesignation = json['organization_head_designation']?.toString();
+    organizationHeadDesignation =
+        json['organization_head_designation']?.toString();
     organizationHeadNumber = json['organization_head_number']?.toString();
     legalStructure = json['legal_structure_of_this_company']?.toString();
     noOfHumanResources = json['total_number_of_human_resources']?.toString();
@@ -95,11 +96,19 @@ class Company extends Equatable {
     contactPersonMobileNo = json['contact_person_mobile_no']?.toString();
     contactPersonEmail = json['contact_person_email']?.toString();
     companyProfile = json['company_profile']?.toString();
-    if(json['profile_picture'] != null){
+    if (json['profile_picture'] != null) {
       profilePicture = "$baseUrl${json['profile_picture']}";
     }
-    latitude = json['latitude']?.toString();
-    longitude = json['longitude']?.toString();
+
+    try {
+      if(json['latitude'] != null)
+      latitude = double.parse(json['latitude'].toString());
+      if(json['longitude'] != null)
+      longitude = double.parse(json['longitude'].toString());
+    } catch (e) {
+      print(e);
+    }
+
     createdDate = json['created_date']?.toString();
     division = json['division']?.toString();
     district = json['district']?.toString();

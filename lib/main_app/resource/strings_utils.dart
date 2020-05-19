@@ -211,9 +211,8 @@ class StringUtils {
   static var companyNoOFHumanResourcesText = "No of Human Resources";
   static var companyNoOFItResourcesText = "No of IT Resources";
   static var companyLegalStructureText = "Legal Structure";
-  static var companyLocationText = "Job Location";
-
-
+  static var companyLocationText = "LOCATION";
+  static var companyLocationOnMapText = "LOCATION ON MAP";
 
 
   //Reference Edit Screen
@@ -429,7 +428,7 @@ static const String saveJobButtonText = 'Save Job';
 static const String jobDescriptionTitle = 'Description';
 static const String responsibilitiesTitle = 'Responsibilities';
 static const String currentOffer = 'Current Offer';
-static const String educationTitle = 'Education';
+static const String educationTitle = 'Educational Requirement';
 static const String salaryTitle = 'Salary';
 static const String otherBenefitsTitle = 'Other Benefits';
 static const String secondApplyButtonText = 'Apply Online';
@@ -463,6 +462,7 @@ static const String jobSiteText  = "Job Site";
   static const String jobAddressText  = "Address";
   static const String jobAreaText  = "Area";
   static const String jobCityText  = "City";
+  static const String jobCityHintText  = "eg. Dhaka";
   static const String jobCountryText  = "Country";
   static const String jobAboutText  = "About Job";
   static const String jobAboutCompanyText  = "About Company";

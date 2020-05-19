@@ -8,8 +8,6 @@ class JobListFilters {
   String searchQuery;
   String location;
   String category;
-  String location_from_homepage;
-  String keyword_from_homepage;
   Skill skill;
   String salaryMin;
   String salaryMax;
@@ -22,7 +20,6 @@ class JobListFilters {
   bool isApplied;
   JobType jobType;
   String topSkill;
-  String jobCity;
 
   JobListFilters({
     this.page = 1,
@@ -30,8 +27,6 @@ class JobListFilters {
     this.searchQuery,
     this.location,
     this.category,
-    this.location_from_homepage = '',
-    this.keyword_from_homepage = '',
     this.skill,
     this.salaryMin,
     this.salaryMax,
@@ -44,6 +39,5 @@ class JobListFilters {
     this.isApplied,
     this.jobType,
     this.topSkill,
-    this.jobCity,
   });
 }

@@ -16,7 +16,7 @@ import 'package:p7app/main_app/failure/error.dart';
 
 class JobListFilterWidgetViewModel with ChangeNotifier {
   List<Skill> _skills = [];
-  List<String> _locations = [];
+  List<String> _jobCity = [];
   List<String> _jobCategories = [];
   List<JobType> _jobTypes = [];
   List<String> _qualifications = [];
@@ -59,10 +59,10 @@ class JobListFilterWidgetViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  List<String> get locations => _locations;
+  List<String> get jobCity => _jobCity;
 
-  set locations(List<String> value) {
-    _locations = value;
+  set jobCity(List<String> value) {
+    _jobCity = value;
     notifyListeners();
   }
 
@@ -176,7 +176,7 @@ class JobListFilterWidgetViewModel with ChangeNotifier {
     skills = await _getSkillList();
     jobTypes = await _getJobTypeList();
     jobCategories = await _getJobCategoriesList();
-    locations = await _getJobLocationList();
+    jobCity = await _getJobLocationList();
     qualifications = await _getQualificationList();
     genders = await _getGenderList();
   }

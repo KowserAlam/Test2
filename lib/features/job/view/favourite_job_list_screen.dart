@@ -14,6 +14,7 @@ import 'package:p7app/main_app/flavour/flavor_banner.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/widgets/app_drawer.dart';
 import 'package:flutter/material.dart';
+import 'package:p7app/main_app/widgets/common_prompt_dialog.dart';
 import 'package:p7app/main_app/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/widgets/loader.dart';
 import 'package:provider/provider.dart';
@@ -121,14 +122,7 @@ class _FavouriteJobListScreenState extends State<FavouriteJobListScreen>
                                                 )));
                                   },
                                   onApply: () {
-                                    favoriteJobListViewModel
-                                        .applyForJob(job.jobId, index)
-                                        .then((value) {
-                                      return Provider.of<JobListViewModel>(
-                                              context,
-                                              listen: false)
-                                          .refresh();
-                                    });
+                                    _showApplyForJobDialog(job, index);
                                   },
                                   onFavorite: () {
                                     favoriteJobListViewModel
@@ -153,28 +147,26 @@ class _FavouriteJobListScreenState extends State<FavouriteJobListScreen>
     );
   }
 
-  _showApplyForJobDialog(JobListModel jobModel, int index) {
+  _showApplyForJobDialog(JobListModel job, int index) {
     showDialog(
         context: context,
         builder: (context) {
-          return AlertDialog(
-            title: Text(StringUtils.doYouWantToApplyText),
-            actions: [
-              RawMaterialButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: Text(StringUtils.noText),
-              ),
-              RawMaterialButton(
-                onPressed: () {
-                  Provider.of<JobListViewModel>(context, listen: false)
-                      .applyForJob(jobModel.jobId, index);
-                  Navigator.pop(context);
-                },
-                child: Text(StringUtils.yesText),
-              ),
-            ],
+          return CommonPromptDialog(
+            titleText: StringUtils.doYouWantToApplyText,
+            onCancel: () {
+              Navigator.pop(context);
+            },
+            onAccept: () {
+              Provider.of<FavouriteJobListViewModel>(context, listen: false)
+                  .applyForJob(job.jobId, index)
+                  .then((value) {
+                Navigator.pop(context);
+                return Provider.of<JobListViewModel>(context, listen: false)
+                    .refresh();
+
+              });
+
+            },
           );
         });
   }
