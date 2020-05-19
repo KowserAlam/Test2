@@ -42,4 +42,15 @@ extension StringExtenion on String {
     } else
       return null;
   }
+
+  String get titleCase {
+    if(this != null){
+      String x = '';
+      for(int i=1; i<this.length; i++){
+        x += this[i].toLowerCase();
+      }
+      return this[0].toUpperCase()+x;
+    }else
+      return null;
+  }
 }

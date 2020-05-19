@@ -15,6 +15,7 @@ import 'package:p7app/features/job/view_model/applied_job_list_view_model.dart';
 import 'package:p7app/features/job/view_model/favourite_job_list_view_model.dart';
 import 'package:p7app/features/job/view_model/job_list_view_model.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
+import 'package:p7app/main_app/api_helpers/url_launcher_helper.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
 import 'package:p7app/main_app/auth_service/auth_service.dart';
@@ -546,7 +547,7 @@ class _JobDetailsState extends State<JobDetails> {
           jobSummeryRichText(
               StringUtils.jobTypeText,
               jobDetails.jobType != null
-                  ? jobDetails.jobType
+                  ? StringExtenion(jobDetails.jobType).titleCase
                   : StringUtils.unspecifiedText),
           SizedBox(
             height: 5,
@@ -554,7 +555,7 @@ class _JobDetailsState extends State<JobDetails> {
           jobSummeryRichText(
               StringUtils.jobNature,
               jobDetails.jobNature != null
-                  ? jobDetails.jobNature
+                  ? StringExtenion(jobDetails.jobNature).titleCase
                   : StringUtils.unspecifiedText),
           SizedBox(
             height: 5,
@@ -562,7 +563,7 @@ class _JobDetailsState extends State<JobDetails> {
           jobSummeryRichText(
               StringUtils.jobSiteText,
               jobDetails.jobSite != null
-                  ? jobDetails.jobSite
+                  ? StringExtenion(jobDetails.jobSite).titleCase
                   : StringUtils.unspecifiedText),
           SizedBox(
             height: 5,
@@ -577,7 +578,7 @@ class _JobDetailsState extends State<JobDetails> {
           Row(
             children: <Widget>[
               FaIcon(
-                FontAwesomeIcons.exclamationCircle,
+                FontAwesomeIcons.solidBuilding,
                 size: fontAwesomeIconSize,
               ),
               SizedBox(
@@ -592,11 +593,18 @@ class _JobDetailsState extends State<JobDetails> {
           SizedBox(
             height: 5,
           ),
-          jobSummeryRichText(
-              StringUtils.jobCompanyProfileText,
-              jobDetails.companyProfile != null
-                  ? jobDetails.companyProfile
-                  : StringUtils.unspecifiedText),
+          Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text(StringUtils.jobCompanyProfileText+': ', style: descriptionFontStyleBold,),
+              jobDetails.companyProfile!=null?GestureDetector(
+                  onTap: (){
+                    UrlLauncherHelper.launchUrl(jobDetails.companyProfile.trim());
+                  },
+                  child: Text(jobDetails.companyProfile, style: TextStyle(color: Colors.lightBlue),)):Text(StringUtils.unspecifiedText),
+            ],
+          ),
           SizedBox(
             height: 5,
           ),
@@ -962,6 +970,8 @@ class _JobDetailsState extends State<JobDetails> {
                       additionalRequirements,
                       spaceBetweenSections,
                       location,
+                      spaceBetweenSections,
+                      aboutCompany,
                       spaceBetweenSections,
                       benefitsHeader,
                     ],

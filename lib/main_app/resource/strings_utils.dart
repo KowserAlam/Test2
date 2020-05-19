@@ -211,7 +211,7 @@ class StringUtils {
   static var companyNoOFHumanResourcesText = "No of Human Resources";
   static var companyNoOFItResourcesText = "No of IT Resources";
   static var companyLegalStructureText = "Legal Structure";
-  static var companyLocationText = "LOCATION";
+  static var companyLocationText = "Job Location";
 
 
 
@@ -429,7 +429,7 @@ static const String saveJobButtonText = 'Save Job';
 static const String jobDescriptionTitle = 'Description';
 static const String responsibilitiesTitle = 'Responsibilities';
 static const String currentOffer = 'Current Offer';
-static const String educationTitle = 'Educational Requirement';
+static const String educationTitle = 'Education';
 static const String salaryTitle = 'Salary';
 static const String otherBenefitsTitle = 'Other Benefits';
 static const String secondApplyButtonText = 'Apply Online';

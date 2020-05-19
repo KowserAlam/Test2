@@ -113,7 +113,7 @@ class JobModel {
       postDate = DateTime.parse(json['post_date']);
     }
 
-    descriptions = json['descriptions'];
+    descriptions = json['description'];
     responsibilities = json['responsibilities'];
     education = json['education'];
     salary = json['salary']?.toString();
@@ -125,7 +125,7 @@ class JobModel {
     employmentStatus = json['employment_status'];
     experience = json['experience'];
     qualification = json['qualification'];
-    gender = json['gender'];
+    gender = json['job_gender'];
     currency = json['currency'];
     companyName = json['company_name'];
     division = json['division'];
