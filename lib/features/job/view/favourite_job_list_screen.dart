@@ -72,81 +72,78 @@ class _FavouriteJobListScreenState extends State<FavouriteJobListScreen>
         return Provider.of<FavouriteJobListViewModel>(context, listen: false)
             .refresh();
       },
-      child: Consumer<FavouriteJobListViewModel>(
-          builder: (context, favoriteJobListViewModel, _) {
-        var jobList = favoriteJobListViewModel.jobList;
-        debugPrint("${jobList.length}");
-
-        return Column(
-          children: [
-            Expanded(
-              child: ListView(
-                physics: AlwaysScrollableScrollPhysics(),
-                controller: _scrollController,
-                children: [
-                  if (favoriteJobListViewModel.isFetchingData)
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Loader(),
-                    ),
-                  (favoriteJobListViewModel.jobList.length == 0 &&
-                      favoriteJobListViewModel.isFetchingData)
-                      ? Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(StringUtils.noFavouriteJobsFound),
-                    ),
-                  )
-                      : ListView.builder(
-                      padding: EdgeInsets.symmetric(vertical: 4),
-                      physics: NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: jobList.length,
-                      itemBuilder: (context, index) {
-                        JobListModel job = jobList[index];
-
-                        return JobListTileWidget(
-                          job,
-                          onTap: () {
-                            Navigator.of(context)
-                                .push(MaterialPageRoute(
-                                builder: (context) => JobDetails(
-                                  slug: job.slug,
-                                  fromJobListScreenType:
-                                  JobListScreenType
-                                      .favorite,
-                                )));
-                          },
-                          onApply: () {
-                            _showApplyForJobDialog(job, index);
-                          },
-                          onFavorite: () {
-                            favoriteJobListViewModel
-                                .addToFavorite(job.jobId, index)
-                                .then((value) {
-                              return Provider.of<JobListViewModel>(
-                                  context,
-                                  listen: false)
-                                  .refresh();
-                            });
-                          },
-                        );
-                      }),
-                ],
-              ),
+      child: FlavorBanner(
+        child: Consumer<FavouriteJobListViewModel>(
+            builder: (context, favoriteJobListViewModel, _) {
+          var jobList = favoriteJobListViewModel.jobList;
+          debugPrint("${jobList.length}");
+          return Scaffold(
+            appBar: AppBar(
+              title: Text(StringUtils.favoriteJobsText),
             ),
-          ],
-        );
+            body: Column(
+              children: [
+                Expanded(
+                  child: ListView(
+                    physics: AlwaysScrollableScrollPhysics(),
+                    controller: _scrollController,
+                    children: [
+                      if (favoriteJobListViewModel.isFetchingData)
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Loader(),
+                        ),
+                      (favoriteJobListViewModel.jobList.length == 0 &&
+                              favoriteJobListViewModel.isFetchingData)
+                          ? Center(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(StringUtils.noFavouriteJobsFound),
+                              ),
+                            )
+                          : ListView.builder(
+                              padding: EdgeInsets.symmetric(vertical: 4),
+                              physics: NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: jobList.length,
+                              itemBuilder: (context, index) {
+                                JobListModel job = jobList[index];
 
-//        return Scaffold(
-//          appBar: AppBar(
-//            title: Text(StringUtils.favoriteJobsText),
-//          ),
-//          body: ,
-//        );
-
-
-      }),
+                                return JobListTileWidget(
+                                  job,
+                                  onTap: () {
+                                    Navigator.of(context)
+                                        .push(MaterialPageRoute(
+                                            builder: (context) => JobDetails(
+                                                  slug: job.slug,
+                                                  fromJobListScreenType:
+                                                      JobListScreenType
+                                                          .favorite,
+                                                )));
+                                  },
+                                  onApply: () {
+                                    _showApplyForJobDialog(job, index);
+                                  },
+                                  onFavorite: () {
+                                    favoriteJobListViewModel
+                                        .addToFavorite(job.jobId, index)
+                                        .then((value) {
+                                      return Provider.of<JobListViewModel>(
+                                              context,
+                                              listen: false)
+                                          .refresh();
+                                    });
+                                  },
+                                );
+                              }),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          );
+        }),
+      ),
     );
   }
 

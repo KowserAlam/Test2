@@ -64,9 +64,6 @@ class _AppliedJobListScreenState extends State<AppliedJobListScreen>
 
   @override
   Widget build(BuildContext context) {
-
-
-
     return RefreshIndicator(
       onRefresh: () async {
         _searchTextEditingController?.clear();
@@ -78,70 +75,66 @@ class _AppliedJobListScreenState extends State<AppliedJobListScreen>
         var jobList = appliedJobListViewModel.jobList;
 
         debugPrint("${jobList.length}");
-
-        return Column(
-          children: [
-            Expanded(
-              child: ListView(
-                physics: AlwaysScrollableScrollPhysics(),
-                controller: _scrollController,
-                children: [
-                  if (appliedJobListViewModel.isFetchingData)
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Loader(),
-                    ),
-                  (appliedJobListViewModel.jobList.length == 0 &&
-                      appliedJobListViewModel.isFetchingData)
-                      ? Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(StringUtils.noAppliedJobsFound),
-                    ),
-                  )
-                      : ListView.builder(
-                      padding: EdgeInsets.symmetric(vertical: 4),
-                      physics: NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: jobList.length,
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(StringUtils.appliedJobsText),
+          ),
+          body: Column(
+            children: [
+              Expanded(
+                child: ListView(
+                  physics: AlwaysScrollableScrollPhysics(),
+                  controller: _scrollController,
+                  children: [
+                    if (appliedJobListViewModel.isFetchingData)
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Loader(),
+                      ),
+                    (appliedJobListViewModel.jobList.length == 0 &&
+                            appliedJobListViewModel.isFetchingData)
+                        ? Center(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(StringUtils.noAppliedJobsFound),
+                            ),
+                          )
+                        : ListView.builder(
+                            padding: EdgeInsets.symmetric(vertical: 4),
+                            physics: NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: jobList.length,
 //              separatorBuilder: (context,index)=>Divider(),
-                      itemBuilder: (context, index) {
-                        JobListModel job = jobList[index];
+                            itemBuilder: (context, index) {
+                              JobListModel job = jobList[index];
 
-                        return JobListTileWidget(
-                          job,
-                          onFavorite: () {
-                            appliedJobListViewModel
-                                .addToFavorite(job.jobId, index)
-                                .then((value) {
-                              return Provider.of<JobListViewModel>(context, listen: false)
-                                  .refresh();
-                            });
-                          },
-                          onTap: () {
-                            Navigator.of(context)
-                                .push(MaterialPageRoute(
-                                builder: (context) => JobDetails(
-                                  slug: job.slug,
-                                  fromJobListScreenType:
-                                  JobListScreenType.applied,
-                                )));
-                          },
-                        );
-                      }),
-                ],
+                              return JobListTileWidget(
+                                job,
+                                onFavorite: () {
+                                  appliedJobListViewModel
+                                      .addToFavorite(job.jobId, index)
+                                      .then((value) {
+                                    return Provider.of<JobListViewModel>(context, listen: false)
+                                        .refresh();
+                                  });
+                                },
+                                onTap: () {
+                                  Navigator.of(context)
+                                      .push(MaterialPageRoute(
+                                          builder: (context) => JobDetails(
+                                                slug: job.slug,
+                                                fromJobListScreenType:
+                                                    JobListScreenType.applied,
+                                              )));
+                                },
+                              );
+                            }),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         );
-
-//        return Scaffold(
-//          appBar: AppBar(
-//            title: Text(StringUtils.appliedJobsText),
-//          ),
-//          body: ,
-//        );
-
       }),
     );
   }
