@@ -51,6 +51,7 @@ class _AppDrawerState extends State<AppDrawer> {
               return Container(
                 height: 160,
                 decoration: BoxDecoration(
+                  color: Color(0xff08233A),
                   image: DecorationImage(
                       image: AssetImage(kUserProfileCoverImageAsset),
                       fit: BoxFit.cover),
@@ -122,7 +123,6 @@ class _AppDrawerState extends State<AppDrawer> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 ///Home / Jobs index = 0
-
                 DrawerListWidget(
                   label: StringUtils.jobListText,
                   icon: FontAwesomeIcons.clipboardList,
@@ -133,39 +133,38 @@ class _AppDrawerState extends State<AppDrawer> {
                   },
                 ),
 
-                Divider(height: 1),
-// favorite jobs
-                DrawerListWidget(
-                  label: StringUtils.favoriteJobsText,
-                  icon: FontAwesomeIcons.heart,
-                  isSelected: false,
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.push(
-                        context,
-                        CupertinoPageRoute(
-                            builder: (context) => FavouriteJobListScreen()));
-                  },
-                ),
-                Divider(height: 1),
+//                Divider(height: 1),
+//// favorite jobs
+//                DrawerListWidget(
+//                  label: StringUtils.favoriteJobsText,
+//                  icon: FontAwesomeIcons.heart,
+//                  isSelected: false,
+//                  onTap: () {
+//                    Navigator.pop(context);
+//                    Navigator.push(
+//                        context,
+//                        CupertinoPageRoute(
+//                            builder: (context) => FavouriteJobListScreen()));
+//                  },
+//                ),
+//                Divider(height: 1),
+//
+//// applied jobs
+//                DrawerListWidget(
+//                  label: StringUtils.appliedJobsText,
+//                  icon: FontAwesomeIcons.checkCircle,
+//                  isSelected: false,
+//                  onTap: () {
+//                    Navigator.pop(context);
+//                    Navigator.push(
+//                        context,
+//                        CupertinoPageRoute(
+//                            builder: (context) => AppliedJobListScreen()));
+//                  },
+//                ),
 
-// applied jobs
-                DrawerListWidget(
-                  label: StringUtils.appliedJobsText,
-                  icon: FontAwesomeIcons.checkCircle,
-                  isSelected: false,
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.push(
-                        context,
-                        CupertinoPageRoute(
-                            builder: (context) => AppliedJobListScreen()));
-                  },
-                ),
-
                 Divider(height: 1),
-
-// company list
+                // company list
                 DrawerListWidget(
                   label: StringUtils.companyListAppbarText,
                   icon: FontAwesomeIcons.solidBuilding,
