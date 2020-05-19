@@ -7,6 +7,7 @@ import 'package:p7app/features/job/repositories/job_list_sort_items_repository.d
 import 'package:p7app/features/job/view/job_details.dart';
 import 'package:p7app/features/job/view/widgets/filter_preview_widget.dart';
 import 'package:p7app/features/job/view/widgets/job_list_filters_widget.dart';
+import 'package:p7app/features/job/view_model/job_list_filter_widget_view_model.dart';
 import 'package:p7app/features/job/view_model/job_list_view_model.dart';
 import 'package:p7app/features/job/models/job_model.dart';
 import 'package:p7app/features/job/view/widgets/job_list_tile_widget.dart';
@@ -16,6 +17,7 @@ import 'package:p7app/main_app/flavour/flavor_banner.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/widgets/app_drawer.dart';
 import 'package:flutter/material.dart';
+import 'package:p7app/main_app/widgets/common_prompt_dialog.dart';
 import 'package:p7app/main_app/widgets/custom_text_field.dart';
 import 'package:p7app/main_app/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/widgets/loader.dart';
@@ -114,6 +116,8 @@ class _JobListScreenState extends State<JobListScreen>
           body: RefreshIndicator(
             onRefresh: () async {
               _searchTextEditingController?.clear();
+              Provider.of<JobListFilterWidgetViewModel>(context, listen: false)
+                  .resetState();
               return Provider.of<JobListViewModel>(context, listen: false)
                   .refresh();
             },
@@ -218,7 +222,8 @@ class _JobListScreenState extends State<JobListScreen>
                                         .push(MaterialPageRoute(
                                             builder: (context) => JobDetails(
                                                   slug: job.slug,
-                                              fromJobListScreenType: JobListScreenType.main,
+                                                  fromJobListScreenType:
+                                                      JobListScreenType.main,
                                                 )));
                                   },
                                   onFavorite: () {
@@ -247,24 +252,16 @@ class _JobListScreenState extends State<JobListScreen>
     showDialog(
         context: context,
         builder: (context) {
-          return AlertDialog(
-            title: Text(StringUtils.doYouWantToApplyText),
-            actions: [
-              RawMaterialButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: Text(StringUtils.noText),
-              ),
-              RawMaterialButton(
-                onPressed: () {
-                  Provider.of<JobListViewModel>(context, listen: false)
-                      .applyForJob(jobModel.jobId, index);
-                  Navigator.pop(context);
-                },
-                child: Text(StringUtils.yesText),
-              ),
-            ],
+          return CommonPromptDialog(
+            titleText: StringUtils.doYouWantToApplyText,
+            onCancel: () {
+              Navigator.pop(context);
+            },
+            onAccept: () {
+              Provider.of<JobListViewModel>(context, listen: false)
+                  .applyForJob(jobModel.jobId, index);
+              Navigator.pop(context);
+            },
           );
         });
   }

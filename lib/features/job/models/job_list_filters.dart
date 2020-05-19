@@ -8,8 +8,6 @@ class JobListFilters {
   String searchQuery;
   String location;
   String category;
-  String location_from_homepage;
-  String keyword_from_homepage;
   Skill skill;
   String salaryMin;
   String salaryMax;
@@ -30,8 +28,6 @@ class JobListFilters {
     this.searchQuery,
     this.location,
     this.category,
-    this.location_from_homepage = '',
-    this.keyword_from_homepage = '',
     this.skill,
     this.salaryMin,
     this.salaryMax,

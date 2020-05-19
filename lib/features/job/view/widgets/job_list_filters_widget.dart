@@ -86,7 +86,7 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
                 ),
               ))
           .toList();
-      var locationDropDownMenuItems = jobListFilterWidgetViewModel.locations
+      var locationDropDownMenuItems = jobListFilterWidgetViewModel.jobCity
           .map((e) => DropdownMenuItem<String>(
                 key: Key(e),
                 value: e,
