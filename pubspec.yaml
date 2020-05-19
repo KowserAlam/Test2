@@ -47,6 +47,7 @@ dependencies:
 #  animations: ^1.0.0+5
   firebase_messaging: ^6.0.13
   firebase_core: ^0.4.4+3
+  google_maps_flutter: ^0.5.27+3
 
 
 

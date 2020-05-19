@@ -212,6 +212,7 @@ class StringUtils {
   static var companyNoOFItResourcesText = "No of IT Resources";
   static var companyLegalStructureText = "Legal Structure";
   static var companyLocationText = "LOCATION";
+  static var companyLocationOnMapText = "LOCATION ON MAP";
 
 
 

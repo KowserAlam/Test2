@@ -40,12 +40,12 @@ class JobRepository {
   Future<Either<AppError, JobListScreenDataModel>> fetchJobList(
       JobListFilters filters) async {
     var _filters =
-        "?page=${filters.page}&q=${filters.searchQuery ?? ""}&location=${filters.location ?? ""}&category=${filters.category ?? ""}"
+        "?page=${filters.page}&q=${filters.searchQuery ?? ""}&category=${filters.category ?? ""}"
         "&skill=${filters.skill?.id ?? ""}&salaryMin=${filters.salaryMin ?? ""}&salaryMax=${filters.salaryMax ?? ""}&experienceMin=${filters.experienceMin ?? ""}"
         "&experienceMax=${filters.experienceMax ?? ""}&datePosted=${filters.datePosted ?? ""}&gender=${filters.gender ?? ""}&job_type=${filters.jobType?.id ?? ""}"
         "&qualification=${filters.qualification ?? ""}&sort=${filters?.sort?.key ?? ""}"
         "&page_size=${filters.page_size}&top-skill=${filters.topSkill ?? ""}"
-        "&job_city=${filters.jobCity ?? ""}";
+        "&job_city=${filters.location ?? ""}";
 
     var url = "${Urls.jobListUrl}${_filters}";
 

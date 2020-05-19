@@ -152,17 +152,16 @@ class _JobListScreenState extends State<JobListScreen>
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.symmetric(horizontal: 8),
+//                        margin: EdgeInsets.symmetric(horizontal: 8),
                         width: double.infinity,
-                        decoration:
-                            BoxDecoration(color: backgroundColor, boxShadow: [
-                          BoxShadow(
-                              color: Colors.black.withOpacity(0.1),
-                              blurRadius: 10),
-                          BoxShadow(
-                              color: Colors.black.withOpacity(0.2),
-                              blurRadius: 10),
-                        ]),
+//                        decoration: BoxDecoration(color: backgroundColor, boxShadow: [
+//                          BoxShadow(
+//                              color: Colors.black.withOpacity(0.1),
+//                              blurRadius: 10),
+//                          BoxShadow(
+//                              color: Colors.black.withOpacity(0.2),
+//                              blurRadius: 10),
+//                        ]),
                         child: Column(
                           children: [
                             if (jobListViewModel.totalJobCount != 0)
@@ -170,7 +169,7 @@ class _JobListScreenState extends State<JobListScreen>
                                       .text.isNotEmpty &&
                                   !jobListViewModel.isFetchingData)
                                 Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                  padding: const EdgeInsets.only(bottom:8.0),
                                   child: Text(
                                       '${jobListViewModel.totalJobCount} ${StringUtils.jobsFoundText}'),
                                 )

@@ -53,7 +53,7 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
         experienceMax: filterVM.experienceMax?.round()?.toString() ?? "",
         experienceMin: filterVM.experienceMin?.round()?.toString() ?? "",
         skill: filterVM.selectedSkill,
-        jobCity: filterVM.selectedLocation ?? "",
+        location: filterVM.selectedLocation ?? "",
         qualification: filterVM.selectedQualification ?? "",
         category: filterVM.selectedCategory.isNotEmptyOrNotNull
             ? filterVM.selectedCategory.replaceFirst("&", "%26")
