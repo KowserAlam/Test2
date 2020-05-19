@@ -101,7 +101,9 @@ class Company extends Equatable {
     }
 
     try {
+      if(json['latitude'] != null)
       latitude = double.parse(json['latitude'].toString());
+      if(json['longitude'] != null)
       longitude = double.parse(json['longitude'].toString());
     } catch (e) {
       print(e);

@@ -215,8 +215,6 @@ class StringUtils {
   static var companyLocationOnMapText = "LOCATION ON MAP";
 
 
-
-
   //Reference Edit Screen
   static var referenceDescriptionText = "Description";
   static var referenceAppbarText = "Reference";
