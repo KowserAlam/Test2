@@ -842,7 +842,7 @@ class _JobDetailsState extends State<JobDetails> {
         Row(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Icon(FeatherIcons.clock, size: 14, color: Colors.grey[500]),
+            Icon(FeatherIcons.calendar, size: 14, color: Colors.grey[500]),
             SizedBox(
               width: 5,
             ),
@@ -858,7 +858,7 @@ class _JobDetailsState extends State<JobDetails> {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Icon(
-              FeatherIcons.calendar,
+              FeatherIcons.clock,
               size: 14,
               color: Colors.grey[500],
             ),
