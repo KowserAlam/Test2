@@ -53,6 +53,13 @@ class UserProfileViewModel with ChangeNotifier {
     notifyListeners();
   }
 
+  resetState(){
+     _userData = null;
+     _isBusySaving = false;
+     _hasError = false;
+     _isBusyLoading = false;
+  }
+
   Future<bool> fetchUserData() async {
     isBusyLoading = true;
 

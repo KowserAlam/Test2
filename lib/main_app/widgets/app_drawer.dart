@@ -8,6 +8,11 @@ import 'package:p7app/features/job/view/applied_job_list_screen.dart';
 
 import 'package:p7app/features/job/view/favourite_job_list_screen.dart';
 import 'package:p7app/features/job/view/job_list_screen.dart';
+import 'package:p7app/features/job/view_model/applied_job_list_view_model.dart';
+import 'package:p7app/features/job/view_model/favourite_job_list_view_model.dart';
+import 'package:p7app/features/job/view_model/job_list_filter_widget_view_model.dart';
+import 'package:p7app/features/job/view_model/job_list_view_model.dart';
+import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/features/user_profile/views/screens/profile_screen.dart';
 import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/auth_service/auth_user_model.dart';
@@ -212,12 +217,7 @@ class _AppDrawerState extends State<AppDrawer> {
                   icon: FontAwesomeIcons.signOutAlt,
                   isSelected: false,
                   onTap: () {
-                    Provider.of<LoginViewModel>(context, listen: false)
-                        .signOut();
-                    Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(builder: (context) => LoginScreen()),
-                        (_) => false);
+                    _handleSignOut(context);
                   },
                 ),
                 Divider(height: 1),
@@ -229,6 +229,18 @@ class _AppDrawerState extends State<AppDrawer> {
       ],
     );
   }
+}
+
+_handleSignOut(context) {
+  Provider.of<LoginViewModel>(context, listen: false).signOut();
+  Provider.of<JobListViewModel>(context, listen: false).resetState();
+  Provider.of<FavouriteJobListViewModel>(context, listen: false).resetState();
+  Provider.of<AppliedJobListViewModel>(context, listen: false).resetState();
+  Provider.of<JobListFilterWidgetViewModel>(context, listen: false).resetState();
+  Provider.of<UserProfileViewModel>(context, listen: false).resetState();
+
+  Navigator.pushAndRemoveUntil(context,
+      MaterialPageRoute(builder: (context) => LoginScreen()), (_) => false);
 }
 
 /// App Drawer item widget
