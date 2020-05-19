@@ -141,16 +141,35 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
     bool isNotEmpty = _companyNameController.text.isNotEmpty;
     _companyNameErrorText =
         !isNotEmpty ? StringUtils.thisFieldIsRequired : null;
-    bool isJoiningDateIsNotEmpty = _joiningDate != null;
-    bool isLeavingDateIsCorrect =
-        currentLyWorkingHere ? true : _leavingDate != null;
-    _joiningDateErrorText =
-        !isJoiningDateIsNotEmpty ? StringUtils.thisFieldIsRequired : null;
-    _leavingDateErrorText =
-        !isLeavingDateIsCorrect ? StringUtils.thisFieldIsRequired : null;
+    bool dateCheck(){
+      if(_joiningDate != null){
+        _joiningDateErrorText = null;
+        if(currentLyWorkingHere){
+          _leavingDateErrorText = null;
+          _leavingDate = null;
+          return true;
+        }else{
+          if(_leavingDate != null){
+            _leavingDateErrorText = null;
+            if(_joiningDate.isBefore(_leavingDate)){
+              return true;
+            }else{
+              BotToast.showText(text: StringUtils.joiningLeavingDateLogic);
+              return false;
+            }
+          }else{
+            _leavingDateErrorText = StringUtils.blankLeavingDateErrorText;
+            return false;
+          }
+        }
+      }else{
+        _joiningDateErrorText = StringUtils.blankJoiningDateErrorText;
+        return false;
+      }
+    }
 
     setState(() {});
-    return isNotEmpty && isJoiningDateIsNotEmpty && isLeavingDateIsCorrect;
+    return isNotEmpty && dateCheck();
   }
 
   _handleSave() {
@@ -168,69 +187,15 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
           organizationName: _companyNameController.text,
           designation: positionNameController.text,
           companyId: selectedCompany?.name ?? _selectedCompanyId,
-          startDate: _joiningDate);
+          startDate: _joiningDate,
+          endDate:  _leavingDate,
+      );
 
-      if (!currentLyWorkingHere) {
-        experienceInfo.endDate = _leavingDate;
-      }
 
-      if (_joiningDate != null && _leavingDate != null) {
-        if (_joiningDate.isBefore(_leavingDate)) {
-          if (widget.experienceInfoModel != null) {
-            print('1');
-            if (widget.experienceInfoModel.organizationName !=
-                _companyNameController.text) {
-              print('1.1');
-              if (sameExperience(_companyNameController.text)) {
-                print('1.2');
-                updateExp(experienceInfo);
-              } else {
-                print('1.3');
-                BotToast.showText(text: StringUtils.sameExperience);
-              }
-            } else {
-              print('1.4');
-              updateExp(experienceInfo);
-            }
-          } else {
-            print('1.5');
-            if (sameExperience(_companyNameController.text)) {
-              addExp(experienceInfo);
-            } else {
-              print('1.6');
-              BotToast.showText(text: StringUtils.sameExperience);
-            }
-          }
-        } else {
-          print('1.5');
-          BotToast.showText(text: StringUtils.joiningLeavingDateLogic);
-        }
-      } else {
-        if (widget.experienceInfoModel != null) {
-          print('2');
-          if (widget.experienceInfoModel.organizationName !=
-              _companyNameController.text) {
-            print('2.1');
-            if (sameExperience(_companyNameController.text)) {
-              print('2.2');
-              updateExp(experienceInfo);
-            } else {
-              print('2.3');
-              BotToast.showText(text: StringUtils.sameExperience);
-            }
-          } else {
-            print('2.4');
-            updateExp(experienceInfo);
-          }
-        } else {
-          if (sameExperience(_companyNameController.text)) {
-            print('2.5');
-            addExp(experienceInfo);
-          } else {
-            print('2.6');
-            BotToast.showText(text: StringUtils.sameExperience);
-          }
-        }
+      if(widget.experienceInfoModel == null){
+        addExp(experienceInfo);
+      }else{
+        updateExp(experienceInfo);
       }
     }
   }
