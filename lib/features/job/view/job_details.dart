@@ -7,6 +7,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:p7app/features/company/models/company.dart';
+import 'package:p7app/features/company/repositories/company_list_repository.dart';
 import 'package:p7app/features/job/models/job_model.dart';
 
 import 'package:p7app/features/job/repositories/job_repository.dart';
@@ -42,6 +44,7 @@ class JobDetails extends StatefulWidget {
 
 class _JobDetailsState extends State<JobDetails> {
   JobModel jobDetails;
+  String companyWebAddress;
 
   @override
   void initState() {
@@ -49,6 +52,7 @@ class _JobDetailsState extends State<JobDetails> {
 //    getDetails();
     print(widget.slug);
     getJobDetails();
+    getCompanyWebAddress();
     super.initState();
   }
 
@@ -71,16 +75,16 @@ class _JobDetailsState extends State<JobDetails> {
   }
 
   Future<bool> addToFavorite(
-    String jobId,
-  ) async {
+      String jobId,
+      ) async {
     bool res = await JobRepository().addToFavorite(jobId);
     _refreshList();
     return res;
   }
 
   Future<bool> applyForJob(
-    String jobId,
-  ) async {
+      String jobId,
+      ) async {
     bool res = await JobRepository().applyForJob(jobId);
     _refreshList();
     return res;
@@ -137,12 +141,24 @@ class _JobDetailsState extends State<JobDetails> {
 
   getJobDetails() async {
     dartZ.Either<AppError, JobModel> result =
-        await JobRepository().fetchJobDetails(widget.slug);
+    await JobRepository().fetchJobDetails(widget.slug);
     return result.fold((l) {
       print(l);
     }, (JobModel dataModel) {
       print(dataModel.title);
       jobDetails = dataModel;
+      setState(() {});
+    });
+  }
+
+  getCompanyWebAddress() async{
+    dartZ.Either<AppError, List<Company>> result =
+    await CompanyListRepository().getList(query: jobDetails.companyName);
+    return result.fold((l) {
+      print(l);
+    }, (List<Company> dataModel) {
+      print(dataModel[0].name);
+      companyWebAddress = dataModel[0].name;
       setState(() {});
     });
   }
@@ -155,19 +171,19 @@ class _JobDetailsState extends State<JobDetails> {
     Color sectionColor = Theme.of(context).backgroundColor;
     Color summerySectionBorderColor = Colors.grey[300];
     Color summerySectionColor =
-        !isDarkMode ? Colors.grey[200] : Colors.grey[600];
+    !isDarkMode ? Colors.grey[200] : Colors.grey[600];
     Color backgroundColor = !isDarkMode ? Colors.grey[200] : Colors.grey[700];
 
     //Styles
     TextStyle headerTextStyle =
-        new TextStyle(fontSize: 18, fontWeight: FontWeight.bold);
+    new TextStyle(fontSize: 18, fontWeight: FontWeight.bold);
     TextStyle sectionTitleFont =
-        TextStyle(fontSize: 17, fontWeight: FontWeight.bold);
+    TextStyle(fontSize: 17, fontWeight: FontWeight.bold);
     TextStyle descriptionFontStyle = TextStyle(fontSize: 13);
     TextStyle topSideDescriptionFontStyle = TextStyle(
         fontSize: 14, color: !isDarkMode ? Colors.grey[600] : Colors.grey[500]);
     TextStyle descriptionFontStyleBold =
-        TextStyle(fontSize: 12, fontWeight: FontWeight.bold);
+    TextStyle(fontSize: 12, fontWeight: FontWeight.bold);
     double fontAwesomeIconSize = 15;
 
     Text jobSummeryRichText(String title, String description) {
@@ -239,8 +255,8 @@ class _JobDetailsState extends State<JobDetails> {
         onTap: isApplied
             ? null
             : () {
-                _showApplyDialog();
-              },
+          _showApplyDialog();
+        },
         borderRadius: BorderRadius.circular(5),
         child: Container(
           height: 30,
@@ -616,6 +632,13 @@ class _JobDetailsState extends State<JobDetails> {
           SizedBox(
             height: 5,
           ),
+          jobSummeryRichText(
+            StringUtils.companyWebAddressText,
+            companyWebAddress != null
+                ? companyWebAddress
+                : StringUtils.unspecifiedText,
+          ),
+          SizedBox(height: 5,)
 //          jobSummeryRichText(StringUtils.jobNature, jobDetails.jobNature!=null?jobDetails.jobNature:StringUtils.unspecifiedText),
 //          SizedBox(height: 5,),
         ],
@@ -647,20 +670,20 @@ class _JobDetailsState extends State<JobDetails> {
             StringUtils.currentOffer,
             jobDetails.salary != null
                 ? jobDetails.salary.toString() +
-                    ' ' +
-                    (jobDetails.currency != null ? jobDetails.currency : '')
+                ' ' +
+                (jobDetails.currency != null ? jobDetails.currency : '')
                 : StringUtils.unspecifiedText,
           ),
           jobSummeryRichText(
             StringUtils.salaryRangeText,
             (jobDetails.salaryMin != null
-                    ? jobDetails.salaryMin.toString()
-                    : StringUtils.unspecifiedText) +
+                ? jobDetails.salaryMin.toString()
+                : StringUtils.unspecifiedText) +
                 "-" +
                 (jobDetails.salaryMax != null
                     ? jobDetails.salaryMax.toString() +
-                        ' ' +
-                        (jobDetails.currency != null ? jobDetails.currency : '')
+                    ' ' +
+                    (jobDetails.currency != null ? jobDetails.currency : '')
                     : StringUtils.unspecifiedText),
           )
         ],
@@ -1023,18 +1046,18 @@ class _JobDetailsState extends State<JobDetails> {
                 ),
                 jobDetails.webAddress != null
                     ? Container(
-                        padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: sectionColor,
-                          borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(3),
-                              bottomRight: Radius.circular(3)),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[jobSource],
-                        ),
-                      )
+                  padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: sectionColor,
+                    borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(3),
+                        bottomRight: Radius.circular(3)),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[jobSource],
+                  ),
+                )
                     : SizedBox()
               ],
             ),
