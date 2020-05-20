@@ -28,7 +28,15 @@ class PasswordChangeViewModel with ChangeNotifier {
     _errorTextConfirmPassword = value;
   }
 
-  changePassword(
+  onChangeConfirmPassword(String val){
+
+  }
+
+  onChangePasswordPassword(String val){
+
+  }
+
+  Future<bool> changePassword(
       {@required String oldPassword, @required String newPassword}) {
 
     ApiClient().postRequest(Urls.passwordChangeUrl, {
