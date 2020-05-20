@@ -16,15 +16,19 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   @override
   Widget build(BuildContext context) {
     var changePassViewModel = Provider.of<PasswordChangeViewModel>(context);
-    var currentPassword = CustomTextFieldRounded(
+
+    var oldPassword = CustomTextFieldRounded(
+      errorText: changePassViewModel.errorTextOldPassword,
       controller: _currentPasswordTextController,
       labelText: StringUtils.currentPasswordText,
     );
     var newPassword = CustomTextFieldRounded(
+      errorText: changePassViewModel.errorTextNewPassword,
       labelText: StringUtils.newPasswordText,
       controller: _newPasswordTextController,
     );
     var confirmPassword = CustomTextFieldRounded(
+      errorText: changePassViewModel.onChangeConfirmPassword(_confirmPasswordTextController.text),
       controller: _confirmPasswordTextController,
       labelText: StringUtils.confirmNewPasswordText,
     );
@@ -50,7 +54,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            currentPassword,
+            oldPassword,
             SizedBox(height: 15,),
             newPassword,
             SizedBox(height: 15,),
