@@ -38,7 +38,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       controller: _newPasswordTextController,
     );
     var confirmPassword = CustomTextFieldRounded(
-      errorText: changePassViewModel.onChangeConfirmPassword(_confirmPasswordTextController.text),
+      errorText: changePassViewModel.errorTextConfirmPassword,
       onChanged: (val){
         changePassViewModel.onChangeConfirmPassword(val);
       },
