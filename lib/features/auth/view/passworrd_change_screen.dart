@@ -11,10 +11,14 @@ class ChangePasswordScreen extends StatefulWidget {
 }
 
 class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
-  TextEditingController _currentPasswordTextController, _newPasswordTextController, _confirmPasswordTextController;
+  TextEditingController _currentPasswordTextController,
+      _newPasswordTextController,
+      _confirmPasswordTextController;
 
-  bool validate(){
-    return _currentPasswordTextController != null && _newPasswordTextController!=null && _confirmPasswordTextController!= null;
+  bool validate() {
+    return _currentPasswordTextController != null &&
+        _newPasswordTextController != null &&
+        _confirmPasswordTextController != null;
   }
 
   @override
@@ -23,7 +27,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
 
     var oldPassword = CustomTextFieldRounded(
       errorText: changePassViewModel.errorTextOldPassword,
-      onChanged: (val){
+      onChanged: (val) {
         changePassViewModel.onChangeOldPassword(val);
       },
       controller: _currentPasswordTextController,
@@ -31,7 +35,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
     );
     var newPassword = CustomTextFieldRounded(
       errorText: changePassViewModel.errorTextNewPassword,
-      onChanged: (val){
+      onChanged: (val) {
         changePassViewModel.onChangeNewPassword(val);
       },
       labelText: StringUtils.newPasswordText,
@@ -39,7 +43,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
     );
     var confirmPassword = CustomTextFieldRounded(
       errorText: changePassViewModel.errorTextConfirmPassword,
-      onChanged: (val){
+      onChanged: (val) {
         changePassViewModel.onChangeConfirmPassword(val);
       },
       controller: _confirmPasswordTextController,
@@ -49,9 +53,9 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       height: 50,
       width: 200,
       child: CommonButton(
-        onTap: validate()?(){
-
-        }:null,
+        onTap: changePassViewModel.allowSubmitButton
+            ? changePassViewModel.changePassword
+            : null,
         label: StringUtils.submitButtonText,
       ),
     );
@@ -68,11 +72,17 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             oldPassword,
-            SizedBox(height: 15,),
+            SizedBox(
+              height: 15,
+            ),
             newPassword,
-            SizedBox(height: 15,),
+            SizedBox(
+              height: 15,
+            ),
             confirmPassword,
-            SizedBox(height: 20,),
+            SizedBox(
+              height: 20,
+            ),
             submitButton
           ],
         ),

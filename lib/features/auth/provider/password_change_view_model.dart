@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:p7app/main_app/util/method_extension.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
@@ -43,10 +43,25 @@ class PasswordChangeViewModel with ChangeNotifier {
     _errorTextConfirmPassword = value;
   }
 
+  bool get allowSubmitButton {
+    bool isNoErrors = _errorTextConfirmPassword == null &&
+        _errorTextNewPassword == null &&
+        _errorTextOldPassword == null;
+
+    bool isNoEmptyFields = _newPassword.isNotEmptyOrNotNull &&
+        _oldPassword.isNotEmptyOrNotNull &&
+        _confirmNewPassword.isNotEmptyOrNotNull;
+
+    return isNoEmptyFields & isNoErrors;
+  }
+
   bool validate() {
-    return onChangeOldPassword(_oldPassword) &&
-        onChangeNewPassword(_newPassword) &&
-        onChangeConfirmPassword(_confirmNewPassword);
+    onChangeOldPassword(_oldPassword);
+    onChangeNewPassword(_newPassword);
+    onChangeConfirmPassword(_confirmNewPassword);
+    return _errorTextNewPassword == null &&
+        _errorTextConfirmPassword == null &&
+        _errorTextOldPassword == null;
   }
 
   onChangeOldPassword(String val) {
@@ -57,27 +72,31 @@ class PasswordChangeViewModel with ChangeNotifier {
 
   onChangeNewPassword(String val) {
     _newPassword = val;
-    _newPassword = Validator().validatePassword(val);
+    _errorTextNewPassword = Validator().validatePassword(val);
+
+    if(_confirmNewPassword.isNotEmptyOrNotNull){
+      onChangeConfirmPassword(_confirmNewPassword);
+    }
     notifyListeners();
   }
 
   onChangeConfirmPassword(String val) {
     _confirmNewPassword = val;
     _errorTextConfirmPassword =
-        Validator().validateConfirmPassword(_oldPassword, val);
+        Validator().validateConfirmPassword(_newPassword, val);
 
     notifyListeners();
   }
 
-  Future<bool> changePassword(
-      {@required String oldPassword, @required String newPassword}) async {
+  Future<bool> changePassword() async {
     bool isValid = validate();
 
-    if(isValid){
+    if (isValid) {
       isBusy = true;
-      var userId = await AuthService.getInstance().then((value) => value.getUser().userId);
+      var userId = await AuthService.getInstance()
+          .then((value) => value.getUser().userId);
       var body = {
-        "user_id" : userId,
+        "user_id": userId,
         "old_password": _oldPassword,
         "new_password": _newPassword
       };
@@ -100,12 +119,8 @@ class PasswordChangeViewModel with ChangeNotifier {
         BotToast.showText(text: StringUtils.somethingIsWrong);
         return false;
       }
-    }else{
+    } else {
       return false;
     }
-
-
-
-
   }
 }
