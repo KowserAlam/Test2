@@ -44,7 +44,7 @@ class JobDetails extends StatefulWidget {
 
 class _JobDetailsState extends State<JobDetails> {
   JobModel jobDetails;
-  String companyWebAddress;
+  Company jobCompany;
 
   @override
   void initState() {
@@ -52,7 +52,6 @@ class _JobDetailsState extends State<JobDetails> {
 //    getDetails();
     print(widget.slug);
     getJobDetails();
-    getCompanyWebAddress();
     super.initState();
   }
 
@@ -147,18 +146,19 @@ class _JobDetailsState extends State<JobDetails> {
     }, (JobModel dataModel) {
       print(dataModel.title);
       jobDetails = dataModel;
+      getCompanyWebAddress(jobDetails);
       setState(() {});
     });
   }
 
-  getCompanyWebAddress() async{
+  getCompanyWebAddress(JobModel jobModel) async{
     dartZ.Either<AppError, List<Company>> result =
-    await CompanyListRepository().getList(query: jobDetails.companyName);
+    await CompanyListRepository().getList(query: jobModel.companyName);
     return result.fold((l) {
       print(l);
     }, (List<Company> dataModel) {
       print(dataModel[0].name);
-      companyWebAddress = dataModel[0].name;
+      jobCompany = dataModel[0];
       setState(() {});
     });
   }
@@ -634,9 +634,9 @@ class _JobDetailsState extends State<JobDetails> {
           ),
           jobSummeryRichText(
             StringUtils.companyWebAddressText,
-            companyWebAddress != null
-                ? companyWebAddress
-                : StringUtils.unspecifiedText,
+            jobCompany.webAddress == null
+                ? StringUtils.unspecifiedText
+                : jobCompany.webAddress,
           ),
           SizedBox(height: 5,)
 //          jobSummeryRichText(StringUtils.jobNature, jobDetails.jobNature!=null?jobDetails.jobNature:StringUtils.unspecifiedText),
