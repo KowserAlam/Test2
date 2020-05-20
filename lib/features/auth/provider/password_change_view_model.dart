@@ -4,6 +4,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
+import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/util/validator.dart';
 
@@ -74,7 +75,12 @@ class PasswordChangeViewModel with ChangeNotifier {
 
     if(isValid){
       isBusy = true;
-      var body = {};
+      var userId = await AuthService.getInstance().then((value) => value.getUser().userId);
+      var body = {
+        "user_id" : userId,
+        "old_password": _oldPassword,
+        "new_password": _newPassword
+      };
       try {
         var res = await ApiClient().postRequest(Urls.passwordChangeUrl, body);
         isBusy = false;
