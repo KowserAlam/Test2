@@ -18,8 +18,35 @@ class PasswordChangeViewModel with ChangeNotifier {
   String _errorTextNewPassword;
   String _errorTextConfirmPassword;
   bool _isBusy = false;
+  bool _isObscurePasswordOld = true;
+  bool _isObscurePasswordNew = true;
+  bool _isObscurePasswordConfirm = true;
 
 
+  bool get isObscurePasswordOld => _isObscurePasswordOld;
+
+  set isObscurePasswordOld(bool value) {
+    _isObscurePasswordOld = value;
+    notifyListeners();
+  }
+
+
+
+  bool get isObscurePasswordNew => _isObscurePasswordNew;
+
+  set isObscurePasswordNew(bool value) {
+    _isObscurePasswordNew = value;
+    notifyListeners();
+  }
+
+
+
+  bool get isObscurePasswordConfirm => _isObscurePasswordConfirm;
+
+  set isObscurePasswordConfirm(bool value) {
+    _isObscurePasswordConfirm = value;
+    notifyListeners();
+  }
 
   bool get isBusy => _isBusy;
 
@@ -94,6 +121,9 @@ class PasswordChangeViewModel with ChangeNotifier {
 
 
   resetState(){
+    _isObscurePasswordOld = true;
+    _isObscurePasswordNew = true;
+    _isObscurePasswordConfirm = true;
      _oldPassword = "";
      _newPassword = "";
      _confirmNewPassword = "";

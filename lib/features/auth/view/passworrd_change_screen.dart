@@ -35,29 +35,92 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   Widget build(BuildContext context) {
     var changePassViewModel = Provider.of<PasswordChangeViewModel>(context);
 
-    var oldPassword = CustomTextFieldRounded(
-      errorText: changePassViewModel.errorTextOldPassword,
-      onChanged: (val) {
-        changePassViewModel.onChangeOldPassword(val);
+    var oldPassword = Consumer<PasswordChangeViewModel>(
+      builder: (context, passwordChangeViewModel, _) {
+        bool isObscure = passwordChangeViewModel.isObscurePasswordOld;
+        return CustomTextFieldRounded(
+          labelText: StringUtils.currentPasswordText,
+          onChanged: passwordChangeViewModel.onChangeOldPassword,
+          errorText: passwordChangeViewModel.errorTextOldPassword,
+          prefixIcon: Icon(
+              Icons.lock
+          ),
+          suffixIcon: IconButton(
+            icon: !isObscure
+                ? Icon(
+              Icons.visibility,
+            )
+                : Icon(
+              Icons.visibility_off,
+              color: Theme.of(context).textTheme.body1.color,
+            ),
+            onPressed: () {
+              passwordChangeViewModel.isObscurePasswordOld = !isObscure;
+            },
+          ),
+          obscureText: passwordChangeViewModel.isObscurePasswordOld,
+          controller: _currentPasswordTextController,
+          hintText: StringUtils.currentPasswordText,
+        );
       },
-      controller: _currentPasswordTextController,
-      labelText: StringUtils.currentPasswordText,
     );
-    var newPassword = CustomTextFieldRounded(
-      errorText: changePassViewModel.errorTextNewPassword,
-      onChanged: (val) {
-        changePassViewModel.onChangeNewPassword(val);
+    var newPassword = Consumer<PasswordChangeViewModel>(
+      builder: (context, passwordChangeViewModel, _) {
+        bool isObscure = passwordChangeViewModel.isObscurePasswordNew;
+        return CustomTextFieldRounded(
+          labelText: StringUtils.newPasswordText,
+          onChanged: passwordChangeViewModel.onChangeNewPassword,
+          errorText: passwordChangeViewModel.errorTextNewPassword,
+          prefixIcon: Icon(
+              Icons.lock
+          ),
+          suffixIcon: IconButton(
+            icon: !isObscure
+                ? Icon(
+              Icons.visibility,
+            )
+                : Icon(
+              Icons.visibility_off,
+              color: Theme.of(context).textTheme.body1.color,
+            ),
+            onPressed: () {
+              passwordChangeViewModel.isObscurePasswordNew = !isObscure;
+            },
+          ),
+          obscureText: passwordChangeViewModel.isObscurePasswordNew,
+          controller: _newPasswordTextController,
+          hintText: StringUtils.newPasswordText,
+        );
       },
-      labelText: StringUtils.newPasswordText,
-      controller: _newPasswordTextController,
     );
-    var confirmPassword = CustomTextFieldRounded(
-      errorText: changePassViewModel.errorTextConfirmPassword,
-      onChanged: (val) {
-        changePassViewModel.onChangeConfirmPassword(val);
+    var confirmPassword = Consumer<PasswordChangeViewModel>(
+      builder: (context, passwordChangeViewModel, _) {
+        bool isObscure = passwordChangeViewModel.isObscurePasswordConfirm;
+        return CustomTextFieldRounded(
+          labelText: StringUtils.confirmPasswordText,
+          onChanged: passwordChangeViewModel.onChangeConfirmPassword,
+          errorText: passwordChangeViewModel.errorTextConfirmPassword,
+          prefixIcon: Icon(
+              Icons.lock
+          ),
+          suffixIcon: IconButton(
+            icon: !isObscure
+                ? Icon(
+              Icons.visibility,
+            )
+                : Icon(
+              Icons.visibility_off,
+              color: Theme.of(context).textTheme.body1.color,
+            ),
+            onPressed: () {
+              passwordChangeViewModel.isObscurePasswordConfirm = !isObscure;
+            },
+          ),
+          obscureText: passwordChangeViewModel.isObscurePasswordConfirm,
+          controller: _confirmPasswordTextController,
+          hintText: StringUtils.confirmPasswordText,
+        );
       },
-      controller: _confirmPasswordTextController,
-      labelText: StringUtils.confirmNewPasswordText,
     );
     var submitButton = changePassViewModel.isBusy? Loader(): Container(
       height: 50,
@@ -76,27 +139,29 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       appBar: AppBar(
         title: Text(StringUtils.changePasswordAppbarText),
       ),
-      body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            oldPassword,
-            SizedBox(
-              height: 15,
-            ),
-            newPassword,
-            SizedBox(
-              height: 15,
-            ),
-            confirmPassword,
-            SizedBox(
-              height: 20,
-            ),
-            submitButton
-          ],
+      body: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              oldPassword,
+              SizedBox(
+                height: 15,
+              ),
+              newPassword,
+              SizedBox(
+                height: 15,
+              ),
+              confirmPassword,
+              SizedBox(
+                height: 20,
+              ),
+              submitButton
+            ],
+          ),
         ),
       ),
     );
