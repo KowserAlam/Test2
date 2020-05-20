@@ -47,6 +47,13 @@ class StringUtils {
   static String proceedButtonText = "Proceed";
   static String doYouWantToSubmitText = "Do you want to submit?";
 
+  ///Reset Password Screen
+  static String resetPasswordAppbarText = "Reset Password";
+  static String currentPasswordText = "Current Password";
+  static String newPasswordText = "New Password";
+  static String confirmNewPasswordText = "Confirm Password";
+  static String sumbitButtonText = "Submit";
+
   static String yesText = "Yes";
   static String noText = "No";
   static String candidateListText = "Candidate List";

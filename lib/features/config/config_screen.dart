@@ -1,10 +1,8 @@
-
-import 'package:p7app/features/config/config_provider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:p7app/main_app/repositories/app_info_repository.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';
 
 class ConfigScreen extends StatefulWidget {
   @override
@@ -38,6 +36,18 @@ class _ConfigScreenState extends State<ConfigScreen> {
 //            ),
 //          ),
 //          Divider(height: 2,),
+
+        GestureDetector(
+          onTap: (){
+
+          },
+          child: ListTile(
+            leading: Icon(
+              Icons.lock_open,
+            ),
+            title: Text('Reset Password'),
+          ),
+        ),
 
           ListTile(
             leading: Icon(
