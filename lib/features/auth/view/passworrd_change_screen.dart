@@ -13,22 +13,35 @@ class ChangePasswordScreen extends StatefulWidget {
 class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   TextEditingController _currentPasswordTextController, _newPasswordTextController, _confirmPasswordTextController;
 
+  bool validate(){
+    return _currentPasswordTextController != null && _newPasswordTextController!=null && _confirmPasswordTextController!= null;
+  }
+
   @override
   Widget build(BuildContext context) {
     var changePassViewModel = Provider.of<PasswordChangeViewModel>(context);
 
     var oldPassword = CustomTextFieldRounded(
       errorText: changePassViewModel.errorTextOldPassword,
+      onChanged: (val){
+        changePassViewModel.onChangeOldPassword(val);
+      },
       controller: _currentPasswordTextController,
       labelText: StringUtils.currentPasswordText,
     );
     var newPassword = CustomTextFieldRounded(
       errorText: changePassViewModel.errorTextNewPassword,
+      onChanged: (val){
+        changePassViewModel.onChangeNewPassword(val);
+      },
       labelText: StringUtils.newPasswordText,
       controller: _newPasswordTextController,
     );
     var confirmPassword = CustomTextFieldRounded(
       errorText: changePassViewModel.onChangeConfirmPassword(_confirmPasswordTextController.text),
+      onChanged: (val){
+        changePassViewModel.onChangeConfirmPassword(val);
+      },
       controller: _confirmPasswordTextController,
       labelText: StringUtils.confirmNewPasswordText,
     );
@@ -36,9 +49,9 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       height: 50,
       width: 200,
       child: CommonButton(
-        onTap: (){
+        onTap: validate()?(){
 
-        },
+        }:null,
         label: StringUtils.submitButtonText,
       ),
     );
