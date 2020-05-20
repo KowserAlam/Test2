@@ -7,6 +7,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:p7app/features/company/models/company.dart';
+import 'package:p7app/features/company/repositories/company_list_repository.dart';
 import 'package:p7app/features/job/models/job_model.dart';
 
 import 'package:p7app/features/job/repositories/job_repository.dart';
@@ -42,6 +44,7 @@ class JobDetails extends StatefulWidget {
 
 class _JobDetailsState extends State<JobDetails> {
   JobModel jobDetails;
+  String companyWebAddress;
 
   @override
   void initState() {
@@ -49,6 +52,7 @@ class _JobDetailsState extends State<JobDetails> {
 //    getDetails();
     print(widget.slug);
     getJobDetails();
+    getCompanyWebAddress();
     super.initState();
   }
 
@@ -143,6 +147,18 @@ class _JobDetailsState extends State<JobDetails> {
     }, (JobModel dataModel) {
       print(dataModel.title);
       jobDetails = dataModel;
+      setState(() {});
+    });
+  }
+
+  getCompanyWebAddress() async{
+    dartZ.Either<AppError, List<Company>> result =
+    await CompanyListRepository().getList(query: jobDetails.companyName);
+    return result.fold((l) {
+      print(l);
+    }, (List<Company> dataModel) {
+      print(dataModel[0].name);
+      companyWebAddress = dataModel[0].name;
       setState(() {});
     });
   }
@@ -616,6 +632,13 @@ class _JobDetailsState extends State<JobDetails> {
           SizedBox(
             height: 5,
           ),
+          jobSummeryRichText(
+            StringUtils.companyWebAddressText,
+            companyWebAddress != null
+                ? companyWebAddress
+                : StringUtils.unspecifiedText,
+          ),
+          SizedBox(height: 5,)
 //          jobSummeryRichText(StringUtils.jobNature, jobDetails.jobNature!=null?jobDetails.jobNature:StringUtils.unspecifiedText),
 //          SizedBox(height: 5,),
         ],
