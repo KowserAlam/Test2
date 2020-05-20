@@ -38,7 +38,7 @@ class CompanyListRepository {
   List<Company> fromJson(json) {
     List<Company> list = [];
 
-    if (json!= null) {
+    if (json != null) {
       json.forEach((element) {
         list.add(Company.fromJson(element));
       });
@@ -48,5 +48,20 @@ class CompanyListRepository {
 //    tl.map<String>((e) => e['name']).toList();
 
     return list;
+  }
+
+  Future<Company> getCompanyDetails(String name) async {
+    var result = await getList(query: name);
+
+    return result.fold((l) {
+      print(l);
+      return null;
+    }, (List<Company> companyList) {
+      print(companyList);
+      if (companyList.length > 0) {
+        return companyList.first;
+      }
+      return null;
+    });
   }
 }
