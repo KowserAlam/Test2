@@ -40,19 +40,22 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       appBar: AppBar(
         title: Text('Reset Password'),
       ),
-      body: Column(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          currentPassword,
-          SizedBox(height: 15,),
-          newPassword,
-          SizedBox(height: 15,),
-          confirmPassword,
-          SizedBox(height: 20,),
-          submitButton
-        ],
+      body: Container(
+        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            currentPassword,
+            SizedBox(height: 15,),
+            newPassword,
+            SizedBox(height: 15,),
+            confirmPassword,
+            SizedBox(height: 20,),
+            submitButton
+          ],
+        ),
       ),
     );
   }

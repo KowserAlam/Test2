@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:p7app/features/auth/view/passworrd_change_screen.dart';
 import 'package:p7app/main_app/repositories/app_info_repository.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:flutter/material.dart';
@@ -39,13 +40,16 @@ class _ConfigScreenState extends State<ConfigScreen> {
 
         GestureDetector(
           onTap: (){
-
+            Navigator.push(
+                context,
+                CupertinoPageRoute(
+                    builder: (context) => ChangePasswordScreen()));
           },
           child: ListTile(
             leading: Icon(
               Icons.lock_open,
             ),
-            title: Text('Reset Password'),
+            title: Text('Change Password'),
           ),
         ),
 
