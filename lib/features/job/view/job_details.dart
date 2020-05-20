@@ -127,6 +127,14 @@ class _JobDetailsState extends State<JobDetails> {
     return listOfSkills;
   }
 
+  String refactorAboutJobStrings(String value){
+    if(value=='ONSITE')return 'On-site';
+    if(value=='Remote')return 'Remote';
+    if(value=='FULLTIME')return 'Full-time';
+    if(value=='PARTTIME')return 'Part-time';
+    return StringExtenion(value).titleCase;
+  }
+
   getJobDetails() async {
     dartZ.Either<AppError, JobModel> result =
         await JobRepository().fetchJobDetails(widget.slug);
@@ -547,7 +555,7 @@ class _JobDetailsState extends State<JobDetails> {
           jobSummeryRichText(
               StringUtils.jobTypeText,
               jobDetails.jobType != null
-                  ? StringExtenion(jobDetails.jobType).titleCase
+                  ? refactorAboutJobStrings(jobDetails.jobType)
                   : StringUtils.unspecifiedText),
           SizedBox(
             height: 5,
@@ -555,7 +563,7 @@ class _JobDetailsState extends State<JobDetails> {
           jobSummeryRichText(
               StringUtils.jobNature,
               jobDetails.jobNature != null
-                  ? StringExtenion(jobDetails.jobNature).titleCase
+                  ? refactorAboutJobStrings(jobDetails.jobNature)
                   : StringUtils.unspecifiedText),
           SizedBox(
             height: 5,
@@ -563,7 +571,7 @@ class _JobDetailsState extends State<JobDetails> {
           jobSummeryRichText(
               StringUtils.jobSiteText,
               jobDetails.jobSite != null
-                  ? StringExtenion(jobDetails.jobSite).titleCase
+                  ? refactorAboutJobStrings(jobDetails.jobSite)
                   : StringUtils.unspecifiedText),
           SizedBox(
             height: 5,
