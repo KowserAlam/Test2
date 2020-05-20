@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:p7app/features/auth/view/widgets/custom_text_field_rounded.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/widgets/common_button.dart';
+import 'package:provider/provider.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
   @override
@@ -13,6 +14,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var changePassViewModel = Provider.of(context);
     var currentPassword = CustomTextFieldRounded(
       controller: _currentPasswordTextController,
       labelText: StringUtils.currentPasswordText,
