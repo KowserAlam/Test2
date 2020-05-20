@@ -3,10 +3,16 @@ import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
 
 class PasswordChangeViewModel with ChangeNotifier {
+  String _oldPassword="";
+  String _newPassword="";
+  String _confirmNewPassword="";
+
+
 
   String _errorTextOldPassword;
   String _errorTextNewPassword;
   String _errorTextConfirmPassword;
+
 
 
   String get errorTextOldPassword => _errorTextOldPassword;
@@ -28,11 +34,14 @@ class PasswordChangeViewModel with ChangeNotifier {
     _errorTextConfirmPassword = value;
   }
 
-  onChangeConfirmPassword(String val){
+  String onChangeConfirmPassword(String val){
 
   }
 
-  onChangePasswordPassword(String val){
+  String onChangePassword(String val){
+
+  }
+  String onChangeOldPassword(String val){
 
   }
 
@@ -41,6 +50,10 @@ class PasswordChangeViewModel with ChangeNotifier {
 
     ApiClient().postRequest(Urls.passwordChangeUrl, {
 
+
+
     });
   }
+
+
 }
