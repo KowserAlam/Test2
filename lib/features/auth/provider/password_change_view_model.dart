@@ -1,26 +1,35 @@
+import 'dart:io';
+
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
+import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/util/validator.dart';
 
 class PasswordChangeViewModel with ChangeNotifier {
-  String _oldPassword="";
-  String _newPassword="";
-  String _confirmNewPassword="";
-
-
+  String _oldPassword = "";
+  String _newPassword = "";
+  String _confirmNewPassword = "";
 
   String _errorTextOldPassword;
   String _errorTextNewPassword;
   String _errorTextConfirmPassword;
+  bool _isBusy = false;
 
 
+  bool get isBusy => _isBusy;
+
+  set isBusy(bool value) {
+    _isBusy = value;
+    notifyListeners();
+  }
 
   String get errorTextOldPassword => _errorTextOldPassword;
 
   set errorTextOldPassword(String value) {
     _errorTextOldPassword = value;
   }
-
 
   String get errorTextNewPassword => _errorTextNewPassword;
 
@@ -34,26 +43,52 @@ class PasswordChangeViewModel with ChangeNotifier {
     _errorTextConfirmPassword = value;
   }
 
-  String onChangeConfirmPassword(String val){
 
+
+  onChangeOldPassword(String val) {
+    _oldPassword = val;
   }
 
-  String onChangePassword(String val){
-
+  onChangeNewPassword(String val) {
+    _newPassword = val;
+    _newPassword =  Validator().validatePassword(val);
+    notifyListeners();
   }
-  String onChangeOldPassword(String val){
+  onChangeConfirmPassword(String val) {
+    _confirmNewPassword = val;
+    _errorTextConfirmPassword =
+        Validator().validateConfirmPassword(_oldPassword, val);
 
+    notifyListeners();
   }
 
   Future<bool> changePassword(
-      {@required String oldPassword, @required String newPassword}) {
+      {@required String oldPassword, @required String newPassword}) async{
+    isBusy = true;
 
-    ApiClient().postRequest(Urls.passwordChangeUrl, {
+    try{
+      var res = await ApiClient().postRequest(Urls.passwordChangeUrl, {});
+      isBusy = false;
+      if(res.statusCode ==200){
+        return true;
 
+      }else{
+        return false;
+      }
 
+    }
+    on SocketException catch (e){
+      isBusy = false;
+      print(e);
+      BotToast.showText(text: StringUtils.checkInternetConnectionMessage);
+      return false;
+    }
+    catch (e){
+      isBusy = false;
+      print(e);
+      BotToast.showText(text: StringUtils.somethingIsWrong);
+      return false;
+    }
 
-    });
   }
-
-
 }
