@@ -52,7 +52,6 @@ class CompanyListRepository {
 
   Future<Company> getCompanyDetails(String name) async {
     var result = await getList(query: name);
-
     return result.fold((l) {
       print(l);
       return null;
