@@ -20,6 +20,7 @@ class Urls {
   static String signUpUrl = "/api/professional/create_with_user/";
   static String passwordResetUrl = "/api/professional/password_reset/";
   static String dashboardUrl = "/api/app-dashboard";
+  static String passwordChangeUrl = "/api/pro/change-password/";
 
   static String userProfileUrl = "/api/professional/profile";
   static String userProfileUpdateUrlPartial = "/api/professional/profile_update_partial";
