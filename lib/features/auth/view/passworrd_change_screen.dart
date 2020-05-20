@@ -58,7 +58,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Reset Password'),
+        title: Text(StringUtils.changePasswordAppbarText),
       ),
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
