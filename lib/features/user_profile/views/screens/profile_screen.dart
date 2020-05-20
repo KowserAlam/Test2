@@ -22,7 +22,7 @@ import 'package:p7app/features/user_profile/views/widgets/professional_skill_lis
 import 'package:p7app/features/user_profile/views/widgets/user_info_list_item.dart';
 import 'package:p7app/main_app/api_helpers/url_launcher_helper.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
-import 'package:p7app/main_app/failure/error.dart';
+import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/widgets/failure_widget.dart';
@@ -688,24 +688,36 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
               .fetchUserData();
         },
         child: SingleChildScrollView(
-//          physics: BouncingScrollPhysics(),
+          physics: AlwaysScrollableScrollPhysics(),
           child: Consumer<UserProfileViewModel>(
               builder: (context, userProfileViewModel, child) {
             if (userProfileViewModel.appError != null) {
               switch (userProfileViewModel.appError) {
                 case AppError.serverError:
-                  return FailureWidget(
+                  return FailureFullScreenWidget(
                     errorMessage: StringUtils.unableToLoadData,
+                    onTap: (){
+                      return Provider.of<UserProfileViewModel>(context, listen: false)
+                          .fetchUserData();
+                    },
                   );
 
                 case AppError.networkError:
-                  return FailureWidget(
+                  return FailureFullScreenWidget(
                     errorMessage: StringUtils.checkInternetConnectionMessage,
+                    onTap: (){
+                      return Provider.of<UserProfileViewModel>(context, listen: false)
+                          .fetchUserData();
+                    },
                   );
 
                 default:
-                  return FailureWidget(
+                  return FailureFullScreenWidget(
                     errorMessage: StringUtils.somethingIsWrong,
+                    onTap: (){
+                      return Provider.of<UserProfileViewModel>(context, listen: false)
+                          .fetchUserData();
+                    },
                   );
               }
             }

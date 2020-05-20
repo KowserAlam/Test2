@@ -16,7 +16,7 @@ import 'package:p7app/features/user_profile/models/user_personal_info.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/auth_service/auth_user_model.dart';
-import 'package:p7app/main_app/failure/error.dart';
+import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;

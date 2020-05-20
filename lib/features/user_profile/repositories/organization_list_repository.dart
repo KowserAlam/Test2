@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:dartz/dartz.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
-import 'package:p7app/main_app/failure/error.dart';
+import 'package:p7app/main_app/failure/app_error.dart';
 
 class OrganizationListRepository{
 

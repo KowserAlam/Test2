@@ -10,7 +10,7 @@ import 'package:p7app/features/job/models/job_list_filters.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
 import 'package:p7app/main_app/auth_service/auth_service.dart';
-import 'package:p7app/main_app/failure/error.dart';
+import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 
 /// http://dev.ishraak.com/api/job_list/?page=1&q=job&location=&category=

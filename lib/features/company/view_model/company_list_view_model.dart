@@ -3,7 +3,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:p7app/features/company/models/company.dart';
 import 'package:p7app/features/company/repositories/company_list_repository.dart';
-import 'package:p7app/main_app/failure/error.dart';
+import 'package:p7app/main_app/failure/app_error.dart';
 
 class CompanyListViewModel with ChangeNotifier{
   List<Company> companyList;
