@@ -638,11 +638,8 @@ class _JobDetailsState extends State<JobDetails> {
           SizedBox(
             height: 5,
           ),
-          jobSummeryRichText(
-            StringUtils.companyWebAddressText,
-            jobCompany.webAddress == null
-                ? StringUtils.unspecifiedText
-                : jobCompany.webAddress,
+          jobSummeryRichText(StringUtils.companyWebAddressText,
+            jobCompany?.webAddress ?? "",
           ),
           SizedBox(height: 5,)
 //          jobSummeryRichText(StringUtils.jobNature, jobDetails.jobNature!=null?jobDetails.jobNature:StringUtils.unspecifiedText),
