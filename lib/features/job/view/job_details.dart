@@ -9,6 +9,7 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p7app/features/company/models/company.dart';
 import 'package:p7app/features/company/repositories/company_list_repository.dart';
+import 'package:p7app/features/company/view/Screens/company_details.dart';
 import 'package:p7app/features/job/models/job_model.dart';
 
 import 'package:p7app/features/job/repositories/job_repository.dart';
@@ -188,6 +189,8 @@ class _JobDetailsState extends State<JobDetails> {
     TextStyle descriptionFontStyle = TextStyle(fontSize: 13);
     TextStyle topSideDescriptionFontStyle = TextStyle(
         fontSize: 14, color: !isDarkMode ? Colors.grey[600] : Colors.grey[500]);
+    TextStyle hasCompanyFontStyle = TextStyle(
+        fontSize: 14, color: Colors.blueAccent);
     TextStyle descriptionFontStyleBold =
     TextStyle(fontSize: 12, fontWeight: FontWeight.bold);
     double fontAwesomeIconSize = 15;
@@ -335,11 +338,19 @@ class _JobDetailsState extends State<JobDetails> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(
-                      jobDetails.companyName != null
-                          ? jobDetails.companyName
-                          : StringUtils.unspecifiedText,
-                      style: topSideDescriptionFontStyle,
+                    GestureDetector(
+                      child: Text(
+                        jobDetails.companyName != null
+                            ? jobDetails.companyName
+                            : StringUtils.unspecifiedText,
+                        style: jobCompany==null?topSideDescriptionFontStyle:hasCompanyFontStyle,
+                      ),
+                      onTap: (){
+                        jobCompany!=null?Navigator.push(
+                            context,
+                            CupertinoPageRoute(
+                                builder: (context) => CompanyDetails(company: jobCompany,))):null;
+                      },
                     ),
                     SizedBox(
                       height: 5,
@@ -638,10 +649,21 @@ class _JobDetailsState extends State<JobDetails> {
           SizedBox(
             height: 5,
           ),
-          jobSummeryRichText(StringUtils.companyWebAddressText,
-            jobCompany?.webAddress ?? "",
+          Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text(StringUtils.companyWebAddressText+': ', style: descriptionFontStyleBold,),
+              jobCompany!=null?GestureDetector(
+                  onTap: (){
+                    jobCompany.webAddress!=null?UrlLauncherHelper.launchUrl(jobDetails.companyProfile.trim()):null;
+                  },
+                  child: Text(jobCompany.webAddress ?? "", style: TextStyle(color: Colors.lightBlue),)):Text(StringUtils.unspecifiedText),
+            ],
           ),
-          SizedBox(height: 5,)
+          SizedBox(
+            height: 5,
+          ),
 //          jobSummeryRichText(StringUtils.jobNature, jobDetails.jobNature!=null?jobDetails.jobNature:StringUtils.unspecifiedText),
 //          SizedBox(height: 5,),
         ],
