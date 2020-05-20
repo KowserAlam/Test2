@@ -3,6 +3,7 @@ import 'package:p7app/features/auth/provider/password_change_view_model.dart';
 import 'package:p7app/features/auth/view/widgets/custom_text_field_rounded.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/widgets/common_button.dart';
+import 'package:p7app/main_app/widgets/loader.dart';
 import 'package:provider/provider.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
@@ -19,6 +20,12 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
     return _currentPasswordTextController != null &&
         _newPasswordTextController != null &&
         _confirmPasswordTextController != null;
+  }
+
+  _handleChangePassword(context) {
+    var changePassViewModel =
+        Provider.of<PasswordChangeViewModel>(context, listen: false);
+    changePassViewModel.changePassword();
   }
 
   @override
@@ -49,12 +56,14 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       controller: _confirmPasswordTextController,
       labelText: StringUtils.confirmNewPasswordText,
     );
-    var submitButton = Container(
+    var submitButton = changePassViewModel.isBusy? Loader(): Container(
       height: 50,
       width: 200,
       child: CommonButton(
         onTap: changePassViewModel.allowSubmitButton
-            ? changePassViewModel.changePassword
+            ? () {
+                _handleChangePassword(context);
+              }
             : null,
         label: StringUtils.submitButtonText,
       ),

@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:p7app/main_app/util/method_extension.dart';
 import 'package:bot_toast/bot_toast.dart';
@@ -59,6 +60,7 @@ class PasswordChangeViewModel with ChangeNotifier {
     onChangeOldPassword(_oldPassword);
     onChangeNewPassword(_newPassword);
     onChangeConfirmPassword(_confirmNewPassword);
+
     return _errorTextNewPassword == null &&
         _errorTextConfirmPassword == null &&
         _errorTextOldPassword == null;
@@ -90,6 +92,7 @@ class PasswordChangeViewModel with ChangeNotifier {
 
   Future<bool> changePassword() async {
     bool isValid = validate();
+    print(isValid);
 
     if (isValid) {
       isBusy = true;
@@ -100,12 +103,20 @@ class PasswordChangeViewModel with ChangeNotifier {
         "old_password": _oldPassword,
         "new_password": _newPassword
       };
+
       try {
         var res = await ApiClient().postRequest(Urls.passwordChangeUrl, body);
+
+        print(res.statusCode);
+        print(res.body);
         isBusy = false;
         if (res.statusCode == 200) {
           return true;
         } else {
+          var data = json.decode(res.body);
+          var message = data['message'];
+          _errorTextOldPassword = message;
+          notifyListeners();
           return false;
         }
       } on SocketException catch (e) {
@@ -120,6 +131,7 @@ class PasswordChangeViewModel with ChangeNotifier {
         return false;
       }
     } else {
+      print('invalid');
       return false;
     }
   }
