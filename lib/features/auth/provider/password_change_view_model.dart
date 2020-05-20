@@ -19,6 +19,8 @@ class PasswordChangeViewModel with ChangeNotifier {
   String _errorTextConfirmPassword;
   bool _isBusy = false;
 
+
+
   bool get isBusy => _isBusy;
 
   set isBusy(bool value) {
@@ -90,6 +92,17 @@ class PasswordChangeViewModel with ChangeNotifier {
     notifyListeners();
   }
 
+
+  resetState(){
+     _oldPassword = "";
+     _newPassword = "";
+     _confirmNewPassword = "";
+     _errorTextOldPassword;
+     _errorTextNewPassword;
+     _errorTextConfirmPassword;
+     _isBusy = false;
+  }
+
   Future<bool> changePassword() async {
     bool isValid = validate();
     print(isValid);
@@ -104,6 +117,8 @@ class PasswordChangeViewModel with ChangeNotifier {
         "new_password": _newPassword
       };
 
+
+
       try {
         var res = await ApiClient().postRequest(Urls.passwordChangeUrl, body);
 
@@ -111,13 +126,17 @@ class PasswordChangeViewModel with ChangeNotifier {
         print(res.body);
         isBusy = false;
         var data = json.decode(res.body);
+        print(data['status']);
         if (data['status'] == "success") {
+          BotToast.showText(text: StringUtils.passwordChangeSuccessful);
+          resetState();
           return true;
         } else {
           var data = json.decode(res.body);
           var message = data['message'];
           _errorTextOldPassword = message;
           notifyListeners();
+          print("Unable to change password");
           return false;
         }
 //        if (res.statusCode == 200) {

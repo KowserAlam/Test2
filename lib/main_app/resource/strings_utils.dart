@@ -8,6 +8,7 @@ class StringUtils {
   static var signSuccessfulText =
       "Sign up Successful \n Check your email to verify account !";
 
+  static String passwordChangeSuccessful = "Password change successful";
   static String appName = "Job Search";
   static String logInButtonText = "LOG IN";
   static String loginSuccessMessage = "Login Successful";

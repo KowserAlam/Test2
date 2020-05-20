@@ -22,10 +22,13 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         _confirmPasswordTextController != null;
   }
 
-  _handleChangePassword(context) {
+  _handleChangePassword(context) async{
     var changePassViewModel =
         Provider.of<PasswordChangeViewModel>(context, listen: false);
-    changePassViewModel.changePassword();
+    var isSuccess = await changePassViewModel.changePassword();
+    if(isSuccess){
+      Navigator.pop(context);
+    }
   }
 
   @override
