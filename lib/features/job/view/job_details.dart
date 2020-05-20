@@ -152,7 +152,12 @@ class _JobDetailsState extends State<JobDetails> {
   }
 
   getCompanyWebAddress(JobModel jobModel) async{
-    CompanyListRepository().getCompanyDetails(jobModel.companyName);
+    CompanyListRepository().getCompanyDetails(jobModel.companyName).then((value) {
+      jobCompany = value;
+      setState(() {
+
+      });
+    });
 //    dartZ.Either<AppError, List<Company>> result =
 //    await CompanyListRepository().getList(query: jobModel.companyName);
 //    return result.fold((l) {
