@@ -8,6 +8,11 @@ import 'package:p7app/features/job/view/applied_job_list_screen.dart';
 
 import 'package:p7app/features/job/view/favourite_job_list_screen.dart';
 import 'package:p7app/features/job/view/job_list_screen.dart';
+import 'package:p7app/features/job/view_model/applied_job_list_view_model.dart';
+import 'package:p7app/features/job/view_model/favourite_job_list_view_model.dart';
+import 'package:p7app/features/job/view_model/job_list_filter_widget_view_model.dart';
+import 'package:p7app/features/job/view_model/job_list_view_model.dart';
+import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/features/user_profile/views/screens/profile_screen.dart';
 import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/auth_service/auth_user_model.dart';
@@ -51,6 +56,7 @@ class _AppDrawerState extends State<AppDrawer> {
               return Container(
                 height: 160,
                 decoration: BoxDecoration(
+                  color: Color(0xff08233A),
                   image: DecorationImage(
                       image: AssetImage(kUserProfileCoverImageAsset),
                       fit: BoxFit.cover),
@@ -122,50 +128,49 @@ class _AppDrawerState extends State<AppDrawer> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 ///Home / Jobs index = 0
-
                 DrawerListWidget(
                   label: StringUtils.jobListText,
-                  icon: FontAwesomeIcons.clipboardList,
-                  isSelected: false,
-                  onTap: () {
-                    Navigator.of(context).pushReplacement(CupertinoPageRoute(
-                        builder: (context) => JobListScreen()));
-                  },
-                ),
-
-                Divider(height: 1),
-// favorite jobs
-                DrawerListWidget(
-                  label: StringUtils.favoriteJobsText,
-                  icon: FontAwesomeIcons.heart,
+                  icon: FontAwesomeIcons.briefcase,
                   isSelected: false,
                   onTap: () {
                     Navigator.pop(context);
-                    Navigator.push(
-                        context,
-                        CupertinoPageRoute(
-                            builder: (context) => FavouriteJobListScreen()));
-                  },
-                ),
-                Divider(height: 1),
-
-// applied jobs
-                DrawerListWidget(
-                  label: StringUtils.appliedJobsText,
-                  icon: FontAwesomeIcons.checkCircle,
-                  isSelected: false,
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.push(
-                        context,
-                        CupertinoPageRoute(
-                            builder: (context) => AppliedJobListScreen()));
+//                    Navigator.of(context).pushReplacement(CupertinoPageRoute(
+//                        builder: (context) => JobListScreen()));
                   },
                 ),
 
-                Divider(height: 1),
+//                Divider(height: 1),
+//// favorite jobs
+//                DrawerListWidget(
+//                  label: StringUtils.favoriteJobsText,
+//                  icon: FontAwesomeIcons.heart,
+//                  isSelected: false,
+//                  onTap: () {
+//                    Navigator.pop(context);
+//                    Navigator.push(
+//                        context,
+//                        CupertinoPageRoute(
+//                            builder: (context) => FavouriteJobListScreen()));
+//                  },
+//                ),
+//                Divider(height: 1),
+//
+//// applied jobs
+//                DrawerListWidget(
+//                  label: StringUtils.appliedJobsText,
+//                  icon: FontAwesomeIcons.checkCircle,
+//                  isSelected: false,
+//                  onTap: () {
+//                    Navigator.pop(context);
+//                    Navigator.push(
+//                        context,
+//                        CupertinoPageRoute(
+//                            builder: (context) => AppliedJobListScreen()));
+//                  },
+//                ),
 
-// company list
+                Divider(height: 1),
+                // company list
                 DrawerListWidget(
                   label: StringUtils.companyListAppbarText,
                   icon: FontAwesomeIcons.solidBuilding,
@@ -213,12 +218,7 @@ class _AppDrawerState extends State<AppDrawer> {
                   icon: FontAwesomeIcons.signOutAlt,
                   isSelected: false,
                   onTap: () {
-                    Provider.of<LoginViewModel>(context, listen: false)
-                        .signOut();
-                    Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(builder: (context) => LoginScreen()),
-                        (_) => false);
+                    _handleSignOut(context);
                   },
                 ),
                 Divider(height: 1),
@@ -230,6 +230,18 @@ class _AppDrawerState extends State<AppDrawer> {
       ],
     );
   }
+}
+
+_handleSignOut(context) {
+  Provider.of<LoginViewModel>(context, listen: false).signOut();
+  Provider.of<JobListViewModel>(context, listen: false).resetState();
+  Provider.of<FavouriteJobListViewModel>(context, listen: false).resetState();
+  Provider.of<AppliedJobListViewModel>(context, listen: false).resetState();
+  Provider.of<JobListFilterWidgetViewModel>(context, listen: false).resetState();
+  Provider.of<UserProfileViewModel>(context, listen: false).resetState();
+
+  Navigator.pushAndRemoveUntil(context,
+      MaterialPageRoute(builder: (context) => LoginScreen()), (_) => false);
 }
 
 /// App Drawer item widget

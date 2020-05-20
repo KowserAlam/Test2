@@ -9,7 +9,9 @@ class Loader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: CupertinoActivityIndicator(radius: size??10,),
+      child: CupertinoActivityIndicator(
+        radius: size ?? 10,
+      ),
     );
   }
 }

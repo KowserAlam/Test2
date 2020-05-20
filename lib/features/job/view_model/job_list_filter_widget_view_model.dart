@@ -12,7 +12,7 @@ import 'package:p7app/features/user_profile/models/skill.dart';
 import 'package:p7app/features/user_profile/repositories/degree_list_repository.dart';
 import 'package:p7app/features/user_profile/repositories/gender_list_repository.dart';
 import 'package:p7app/features/user_profile/repositories/skill_list_repository.dart';
-import 'package:p7app/main_app/failure/error.dart';
+import 'package:p7app/main_app/failure/app_error.dart';
 
 class JobListFilterWidgetViewModel with ChangeNotifier {
   List<Skill> _skills = [];
@@ -246,7 +246,6 @@ class JobListFilterWidgetViewModel with ChangeNotifier {
   }
 
   resetState() {
-
     _selectedGender = null;
     _selectedQualification = null;
     _selectedSkill = null;

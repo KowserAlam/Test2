@@ -2,7 +2,7 @@ name: p7app
 description: A new Flutter application for Project Seven.
 
 
-version: 1.0.95+70
+version: 1.0.98+73
 
 
 environment:
@@ -48,6 +48,7 @@ dependencies:
   firebase_messaging: ^6.0.13
   firebase_core: ^0.4.4+3
   google_maps_flutter: ^0.5.27+3
+
 
 
 

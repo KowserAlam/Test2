@@ -4,6 +4,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p7app/features/job/models/job_list_model.dart';
 import 'package:p7app/features/job/models/sort_item.dart';
 import 'package:p7app/features/job/repositories/job_list_sort_items_repository.dart';
+import 'package:p7app/features/job/view/applied_job_list_screen.dart';
+import 'package:p7app/features/job/view/favourite_job_list_screen.dart';
 import 'package:p7app/features/job/view/job_details.dart';
 import 'package:p7app/features/job/view/widgets/filter_preview_widget.dart';
 import 'package:p7app/features/job/view/widgets/job_list_filters_widget.dart';
@@ -39,6 +41,8 @@ class _JobListScreenState extends State<JobListScreen>
   var _searchFieldFocusNode = FocusNode();
   var _scaffoldKey = GlobalKey<ScaffoldState>();
 
+  TabController _tabViewController;
+
   @override
   void initState() {
     controller = AnimationController(
@@ -46,6 +50,11 @@ class _JobListScreenState extends State<JobListScreen>
       duration: Duration(milliseconds: 400),
       reverseDuration: Duration(milliseconds: 400),
     );
+    _tabViewController = TabController(
+      vsync: this,
+      length: 3,
+    );
+
     super.initState();
   }
 
@@ -61,11 +70,16 @@ class _JobListScreenState extends State<JobListScreen>
         jobListViewModel.getMoreData();
       }
     });
+    _tabViewController.addListener(() {
+//  print("changing ${_tabViewController.index} ");
+      setState(() {});
+    });
   }
 
   @override
   void dispose() {
     _scrollController.dispose();
+    _tabViewController.dispose();
     super.dispose();
   }
 
@@ -77,6 +91,7 @@ class _JobListScreenState extends State<JobListScreen>
     return FlavorBanner(
       child:
           Consumer<JobListViewModel>(builder: (context, jobListViewModel, _) {
+        bool isMainList = _tabViewController.index == 0;
         var jobList = jobListViewModel.jobList;
         var isInSearchMode = jobListViewModel.isInSearchMode;
         debugPrint("${jobList.length}");
@@ -84,35 +99,39 @@ class _JobListScreenState extends State<JobListScreen>
           key: _scaffoldKey,
           appBar: AppBar(
             title: Text(StringUtils.jobListText),
-            actions: [
-              IconButton(
-                icon: Icon(isInSearchMode ? Icons.close : Icons.search),
-                onPressed: () {
-                  _searchTextEditingController?.clear();
-                  jobListViewModel.toggleIsInSearchMode();
+            actions: isMainList
+                ? [
+                    IconButton(
+                      icon: Icon(isInSearchMode ? Icons.close : Icons.search),
+                      onPressed: () {
+                        _searchTextEditingController?.clear();
+                        jobListViewModel.toggleIsInSearchMode();
 
-                  if (jobListViewModel.isInSearchMode) {
-                    _searchFieldFocusNode.requestFocus();
-                  } else {
-                    _searchFieldFocusNode.unfocus();
-                  }
-                },
-              ),
-              IconButton(
-                icon: Icon(Icons.filter_list),
-                onPressed: () {
-                  _scaffoldKey.currentState.openEndDrawer();
-                },
-              )
-            ],
+                        if (jobListViewModel.isInSearchMode) {
+                          _searchFieldFocusNode.requestFocus();
+                        } else {
+                          _searchFieldFocusNode.unfocus();
+                        }
+                      },
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.filter_list),
+                      onPressed: () {
+                        _scaffoldKey.currentState.openEndDrawer();
+                      },
+                    )
+                  ]
+                : null,
           ),
           drawer: Drawer(
               child: AppDrawer(
             routeName: 'job_list',
           )),
-          endDrawer: Drawer(
-            child: JobListFilterWidget(),
-          ),
+          endDrawer: isMainList
+              ? Drawer(
+                  child: JobListFilterWidget(),
+                )
+              : null,
           body: RefreshIndicator(
             onRefresh: () async {
               _searchTextEditingController?.clear();
@@ -169,7 +188,7 @@ class _JobListScreenState extends State<JobListScreen>
                                       .text.isNotEmpty &&
                                   !jobListViewModel.isFetchingData)
                                 Padding(
-                                  padding: const EdgeInsets.only(bottom:8.0),
+                                  padding: const EdgeInsets.only(bottom: 8.0),
                                   child: Text(
                                       '${jobListViewModel.totalJobCount} ${StringUtils.jobsFoundText}'),
                                 )

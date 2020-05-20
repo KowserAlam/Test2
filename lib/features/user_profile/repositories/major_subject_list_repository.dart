@@ -5,7 +5,7 @@ import 'package:p7app/features/user_profile/models/major.dart';
 import 'package:p7app/features/user_profile/models/religion.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
-import 'package:p7app/main_app/failure/error.dart';
+import 'package:p7app/main_app/failure/app_error.dart';
 
 class MajorSubListListRepository {
   Future<Either<AppError, List<MajorSubject>>> getList() async {
