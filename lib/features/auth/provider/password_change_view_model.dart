@@ -17,7 +17,6 @@ class PasswordChangeViewModel with ChangeNotifier {
   String _errorTextConfirmPassword;
   bool _isBusy = false;
 
-
   bool get isBusy => _isBusy;
 
   set isBusy(bool value) {
@@ -43,17 +42,24 @@ class PasswordChangeViewModel with ChangeNotifier {
     _errorTextConfirmPassword = value;
   }
 
-
+  bool validate() {
+    return onChangeOldPassword(_oldPassword) &&
+        onChangeNewPassword(_newPassword) &&
+        onChangeConfirmPassword(_confirmNewPassword);
+  }
 
   onChangeOldPassword(String val) {
     _oldPassword = val;
+    _errorTextOldPassword = Validator().validateEmptyPassword(val);
+    notifyListeners();
   }
 
   onChangeNewPassword(String val) {
     _newPassword = val;
-    _newPassword =  Validator().validatePassword(val);
+    _newPassword = Validator().validatePassword(val);
     notifyListeners();
   }
+
   onChangeConfirmPassword(String val) {
     _confirmNewPassword = val;
     _errorTextConfirmPassword =
@@ -63,32 +69,37 @@ class PasswordChangeViewModel with ChangeNotifier {
   }
 
   Future<bool> changePassword(
-      {@required String oldPassword, @required String newPassword}) async{
-    isBusy = true;
+      {@required String oldPassword, @required String newPassword}) async {
+    bool isValid = validate();
 
-    try{
-      var res = await ApiClient().postRequest(Urls.passwordChangeUrl, {});
-      isBusy = false;
-      if(res.statusCode ==200){
-        return true;
-
-      }else{
+    if(isValid){
+      isBusy = true;
+      var body = {};
+      try {
+        var res = await ApiClient().postRequest(Urls.passwordChangeUrl, body);
+        isBusy = false;
+        if (res.statusCode == 200) {
+          return true;
+        } else {
+          return false;
+        }
+      } on SocketException catch (e) {
+        isBusy = false;
+        print(e);
+        BotToast.showText(text: StringUtils.checkInternetConnectionMessage);
+        return false;
+      } catch (e) {
+        isBusy = false;
+        print(e);
+        BotToast.showText(text: StringUtils.somethingIsWrong);
         return false;
       }
+    }else{
+      return false;
+    }
 
-    }
-    on SocketException catch (e){
-      isBusy = false;
-      print(e);
-      BotToast.showText(text: StringUtils.checkInternetConnectionMessage);
-      return false;
-    }
-    catch (e){
-      isBusy = false;
-      print(e);
-      BotToast.showText(text: StringUtils.somethingIsWrong);
-      return false;
-    }
+
+
 
   }
 }
