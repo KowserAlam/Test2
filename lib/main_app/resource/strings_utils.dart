@@ -383,6 +383,7 @@ class StringUtils {
   static var setNewPasswordText = "Set new password";
   static var resetYourPassword = "Reset your Password";
   static var unableToSaveData = "Unable to save data";
+  static var unableToLoadData= "Unable to load data";
   static var unableToApplyText = "Unable to apply";
   static var unableToAddAsFavoriteText = "Unable to add as favorite";
   static var aPasswordRestLinkHasBeenSentToText = "A password reset email has been sent to";

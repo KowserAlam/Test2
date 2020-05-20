@@ -31,16 +31,24 @@ class UserProfileRepository {
       var url = "${Urls.userProfileUrl}/$professionalId";
       var response = await ApiClient().getRequest(url);
       print(response.statusCode);
-      var mapJson = json.decode(response.body);
+      
+      if(response.statusCode == 200){
+        var mapJson = json.decode(response.body);
 //      var mapJson = json.decode(dummyData);
-      var userModel = UserModel.fromJson(mapJson);
+        var userModel = UserModel.fromJson(mapJson);
+        return Right(userModel);
+      }else{
+        return left(AppError.httpError);
+      }
 
-      return Right(userModel);
+
     } on SocketException catch (e) {
       print(e);
+      BotToast.showText(text: StringUtils.checkInternetConnectionMessage);
       return left(AppError.networkError);
     } catch (e) {
       print(e);
+      BotToast.showText(text: StringUtils.somethingIsWrong);
       return left(AppError.serverError);
     }
   }

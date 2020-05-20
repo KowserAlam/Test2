@@ -26,7 +26,7 @@ main(){
 
           //assert
 
-          expect(list.length, 9);
+          expect(list.length, 10);
         });
 
   });

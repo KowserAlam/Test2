@@ -8,6 +8,7 @@ import 'package:p7app/features/user_profile/models/skill_info.dart';
 import 'package:p7app/features/user_profile/models/user_model.dart';
 import 'package:p7app/features/user_profile/models/user_personal_info.dart';
 import 'package:p7app/features/user_profile/repositories/user_profile_repository.dart';
+import 'package:p7app/main_app/failure/error.dart';
 import 'package:p7app/main_app/resource/json_keys.dart';
 import 'package:flutter/foundation.dart';
 import 'package:uuid/uuid.dart';
@@ -15,7 +16,7 @@ import 'package:uuid/uuid.dart';
 class UserProfileViewModel with ChangeNotifier {
   UserModel _userData;
   bool _isBusySaving = false;
-  bool _hasError = false;
+  AppError _appError;
   bool _isBusyLoading = false;
 
   bool get isBusyLoading => _isBusyLoading;
@@ -25,13 +26,11 @@ class UserProfileViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  bool get hasError => _hasError;
 
-  set hasError(bool value) {
-    if (_hasError != value) {
-      _hasError = value;
-      notifyListeners();
-    }
+  AppError get appError => _appError;
+
+  set appError(AppError value) {
+    _appError = value;
   }
 
   bool get isBusySaving => _isBusySaving;
@@ -56,7 +55,7 @@ class UserProfileViewModel with ChangeNotifier {
   resetState(){
      _userData = null;
      _isBusySaving = false;
-     _hasError = false;
+     _appError = null;
      _isBusyLoading = false;
   }
 
@@ -66,7 +65,7 @@ class UserProfileViewModel with ChangeNotifier {
     var result = await UserProfileRepository().getUserData();
     return result.fold((left) {
       /// if left
-      _hasError = true;
+      _appError = left;
       _isBusyLoading = false;
 
       notifyListeners();
@@ -75,7 +74,7 @@ class UserProfileViewModel with ChangeNotifier {
       /// if right
 
       _userData = right;
-      _hasError = false;
+      _appError = null;
       _isBusyLoading = false;
       notifyListeners();
 

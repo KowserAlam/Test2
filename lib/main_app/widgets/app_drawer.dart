@@ -130,7 +130,7 @@ class _AppDrawerState extends State<AppDrawer> {
                 ///Home / Jobs index = 0
                 DrawerListWidget(
                   label: StringUtils.jobListText,
-                  icon: FontAwesomeIcons.clipboardList,
+                  icon: FontAwesomeIcons.briefcase,
                   isSelected: false,
                   onTap: () {
                     Navigator.pop(context);

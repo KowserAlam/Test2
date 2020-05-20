@@ -22,8 +22,10 @@ import 'package:p7app/features/user_profile/views/widgets/professional_skill_lis
 import 'package:p7app/features/user_profile/views/widgets/user_info_list_item.dart';
 import 'package:p7app/main_app/api_helpers/url_launcher_helper.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
+import 'package:p7app/main_app/failure/error.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/widgets/failure_widget.dart';
 import 'package:p7app/main_app/widgets/loader.dart';
 import 'package:p7app/main_app/widgets/rectangular_button.dart';
 import 'package:flutter/cupertino.dart';
@@ -136,6 +138,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
     var profileHeaderBackgroundColor = Color(0xff08233A);
     var profileHeaderFontColor = Colors.white;
 
+    // widgets
     var profileImageWidget = Container(
       margin: EdgeInsets.only(bottom: 15, top: 8),
       height: 65,
@@ -225,9 +228,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                 ),
               ),
             ),
-            SizedBox(
-              width: 8,
-            ),
+            SizedBox(width: 8),
             Container(
               constraints: BoxConstraints(
                   minHeight: 25, maxHeight: 25, minWidth: 25, maxWidth: 25),
@@ -272,12 +273,11 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                     )));
       },
     );
-    var userLocationWidget =       Selector<UserProfileViewModel, String>(
+    var userLocationWidget = Selector<UserProfileViewModel, String>(
         selector: (_, userProfileViewModel) =>
-        userProfileViewModel.userData.personalInfo.currentLocation,
+            userProfileViewModel.userData.personalInfo.currentLocation,
         builder: (context, String data, _) {
-
-          if(data == null){
+          if (data == null) {
             return SizedBox();
           }
           return Row(
@@ -298,13 +298,11 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
             ],
           );
         });
-
-    var userMobileWidget =       Selector<UserProfileViewModel, String>(
+    var userMobileWidget = Selector<UserProfileViewModel, String>(
         selector: (_, userProfileViewModel) =>
-        userProfileViewModel.userData.personalInfo.phone,
+            userProfileViewModel.userData.personalInfo.phone,
         builder: (context, String data, _) {
-
-          if(data == null){
+          if (data == null) {
             return SizedBox();
           }
           return Row(
@@ -325,8 +323,6 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
             ],
           );
         });
-
-
     var emailWidget = Selector<UserProfileViewModel, String>(
         selector: (_, userProfileViewModel) =>
             userProfileViewModel.userData.personalInfo.email,
@@ -418,7 +414,8 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
           Navigator.push(
               context,
               CupertinoPageRoute(
-                  builder: (context) => AddNewExperienceScreen(previouslyAddedExp: expList)));
+                  builder: (context) =>
+                      AddNewExperienceScreen(previouslyAddedExp: expList)));
         },
         children: List.generate(expList.length, (int index) {
           var exp = expList[index];
@@ -432,7 +429,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                       builder: (context) => AddNewExperienceScreen(
                             index: index,
                             experienceInfoModel: exp,
-                        previouslyAddedExp: expList,
+                            previouslyAddedExp: expList,
                           )));
             },
             onTapDelete: () {
@@ -445,7 +442,6 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
     var educationWidget = Consumer<UserProfileViewModel>(
         builder: (context, userProfileViewModel, _) {
       var eduList = userProfileViewModel.userData.eduInfo;
-
 
       return UserInfoListItem(
         isInEditMode: isInEditModeEducation,
@@ -692,9 +688,27 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
               .fetchUserData();
         },
         child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
+//          physics: BouncingScrollPhysics(),
           child: Consumer<UserProfileViewModel>(
               builder: (context, userProfileViewModel, child) {
+            if (userProfileViewModel.appError != null) {
+              switch (userProfileViewModel.appError) {
+                case AppError.serverError:
+                  return FailureWidget(
+                    errorMessage: StringUtils.unableToLoadData,
+                  );
+
+                case AppError.networkError:
+                  return FailureWidget(
+                    errorMessage: StringUtils.checkInternetConnectionMessage,
+                  );
+
+                default:
+                  return FailureWidget(
+                    errorMessage: StringUtils.somethingIsWrong,
+                  );
+              }
+            }
             if (userProfileViewModel.userData == null) {
               return Container(
                 height: MediaQuery.of(context).size.height,
