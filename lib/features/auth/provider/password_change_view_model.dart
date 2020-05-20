@@ -76,7 +76,7 @@ class PasswordChangeViewModel with ChangeNotifier {
     _newPassword = val;
     _errorTextNewPassword = Validator().validatePassword(val);
 
-    if(_confirmNewPassword.isNotEmptyOrNotNull){
+    if (_confirmNewPassword.isNotEmptyOrNotNull) {
       onChangeConfirmPassword(_confirmNewPassword);
     }
     notifyListeners();
@@ -110,11 +110,8 @@ class PasswordChangeViewModel with ChangeNotifier {
         print(res.statusCode);
         print(res.body);
         isBusy = false;
-//        var data = json.decode(res.body);
-//        if(data['status'] == "success"){
-//
-//        }
-        if (res.statusCode == 200) {
+        var data = json.decode(res.body);
+        if (data['status'] == "success") {
           return true;
         } else {
           var data = json.decode(res.body);
@@ -123,6 +120,15 @@ class PasswordChangeViewModel with ChangeNotifier {
           notifyListeners();
           return false;
         }
+//        if (res.statusCode == 200) {
+//          return true;
+//        } else {
+//          var data = json.decode(res.body);
+//          var message = data['message'];
+//          _errorTextOldPassword = message;
+//          notifyListeners();
+//          return false;
+//        }
       } on SocketException catch (e) {
         isBusy = false;
         print(e);
