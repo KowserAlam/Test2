@@ -20,7 +20,6 @@ import 'package:rxdart/rxdart.dart';
 class FavouriteJobListViewModel with ChangeNotifier {
   List<JobListModel> _jobList = [];
   bool _isFetchingData = false;
-
   FavoriteJobListRepository _jobListRepository = FavoriteJobListRepository();
 
 
@@ -96,7 +95,8 @@ class FavouriteJobListViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-
+bool get shouldShowLoader => _isFetchingData && _jobList.length == 0;
+bool get shouldShowNoJobs => !_isFetchingData && _jobList.length == 0;
   set jobListRepository(FavoriteJobListRepository value) {
     _jobListRepository = value;
   }

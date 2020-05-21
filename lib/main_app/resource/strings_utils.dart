@@ -47,6 +47,8 @@ class StringUtils {
   static String cancelButtonText = "Cancel";
   static String proceedButtonText = "Proceed";
   static String doYouWantToSubmitText = "Do you want to submit?";
+  static String youDoNotHaveAnyFavoriteJob = "You don't have any favorite job";
+  static String youDoNotHaveAnyAppliedJob = "You don't have any applied job";
 
   ///Reset Password Screen
   static String changePasswordAppbarText = "Change Password";

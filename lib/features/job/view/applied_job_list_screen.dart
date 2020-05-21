@@ -4,6 +4,7 @@ import 'package:p7app/features/auth/view/widgets/custom_text_field_rounded.dart'
 import 'package:p7app/features/job/models/job_list_model.dart';
 import 'package:p7app/features/job/view/job_details.dart';
 import 'package:p7app/features/job/view/widgets/job_list_tile.dart';
+import 'package:p7app/features/job/view/widgets/no_applied_jobs_widget.dart';
 import 'package:p7app/features/job/view_model/applied_job_list_view_model.dart';
 import 'package:p7app/features/job/view_model/job_list_view_model.dart';
 import 'package:p7app/features/job/models/job_model.dart';
@@ -46,14 +47,6 @@ class _AppliedJobListScreenState extends State<AppliedJobListScreen>
         Provider.of<AppliedJobListViewModel>(context, listen: false);
     jobListViewModel.getJobList();
 
-//    _scrollController.addListener(() {
-//      if (_scrollController.position.pixels ==
-//          _scrollController.position.maxScrollExtent &&
-//          jobListViewModel.hasMoreData &&
-//          !jobListViewModel.isFetchingData) {
-//        jobListViewModel.getMoreData();
-//      }
-//    });
   }
 
   @override
@@ -79,59 +72,46 @@ class _AppliedJobListScreenState extends State<AppliedJobListScreen>
           appBar: AppBar(
             title: Text(StringUtils.appliedJobsText),
           ),
-          body: Column(
+          body:  appliedJobListViewModel.shouldShowLoader
+              ? Center(
+            child: Loader(),
+          ):ListView(
+            physics: AlwaysScrollableScrollPhysics(),
+            controller: _scrollController,
             children: [
-              Expanded(
-                child: ListView(
-                  physics: AlwaysScrollableScrollPhysics(),
-                  controller: _scrollController,
-                  children: [
-                    if (appliedJobListViewModel.isFetchingData)
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Loader(),
-                      ),
-                    (appliedJobListViewModel.jobList.length == 0 &&
-                            appliedJobListViewModel.isFetchingData)
-                        ? Center(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(StringUtils.noAppliedJobsFound),
-                            ),
-                          )
-                        : ListView.builder(
-                            padding: EdgeInsets.symmetric(vertical: 4),
-                            physics: NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemCount: jobList.length,
-//              separatorBuilder: (context,index)=>Divider(),
-                            itemBuilder: (context, index) {
-                              JobListModel job = jobList[index];
 
-                              return JobListTileWidget(
-                                job,
-                                onFavorite: () {
-                                  appliedJobListViewModel
-                                      .addToFavorite(job.jobId, index)
-                                      .then((value) {
-                                    return Provider.of<JobListViewModel>(context, listen: false)
-                                        .refresh();
-                                  });
-                                },
-                                onTap: () {
-                                  Navigator.of(context)
-                                      .push(MaterialPageRoute(
-                                          builder: (context) => JobDetails(
-                                                slug: job.slug,
-                                                fromJobListScreenType:
-                                                    JobListScreenType.applied,
-                                              )));
-                                },
-                              );
-                            }),
-                  ],
-                ),
-              ),
+              appliedJobListViewModel.shouldShowNoJobs
+                  ? NoAppliedJobsWidget()
+                  : ListView.builder(
+                      padding: EdgeInsets.symmetric(vertical: 4),
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: jobList.length,
+//              separatorBuilder: (context,index)=>Divider(),
+                      itemBuilder: (context, index) {
+                        JobListModel job = jobList[index];
+
+                        return JobListTileWidget(
+                          job,
+                          onFavorite: () {
+                            appliedJobListViewModel
+                                .addToFavorite(job.jobId, index)
+                                .then((value) {
+                              return Provider.of<JobListViewModel>(context, listen: false)
+                                  .refresh();
+                            });
+                          },
+                          onTap: () {
+                            Navigator.of(context)
+                                .push(MaterialPageRoute(
+                                    builder: (context) => JobDetails(
+                                          slug: job.slug,
+                                          fromJobListScreenType:
+                                              JobListScreenType.applied,
+                                        )));
+                          },
+                        );
+                      }),
             ],
           ),
         );

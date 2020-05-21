@@ -74,6 +74,10 @@ class AppliedJobListViewModel with ChangeNotifier {
     notifyListeners();
   }
 
+  bool get shouldShowLoader => _isFetchingData && _jobListApplied.length == 0;
+  bool get shouldShowNoJobs => !_isFetchingData && _jobListApplied.length == 0;
+
+
   Future<bool> applyForJob(String jobId, int index,
       {ApiClient apiClient}) async {
     bool isSuccessful = await JobRepository().applyForJob(jobId);
