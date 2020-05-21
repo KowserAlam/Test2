@@ -58,7 +58,11 @@ class CompanyListRepository {
     }, (List<Company> companyList) {
       print(companyList);
       if (companyList.length > 0) {
-        return companyList.first;
+        if (companyList.first.name == name) {
+          return companyList.first;
+        } else {
+          return null;
+        }
       }
       return null;
     });
