@@ -215,20 +215,20 @@ class _AppDrawerState extends State<AppDrawer> {
                   },
                 ),
 
-                Divider(height: 1,),
-                ///Inbox
-                DrawerListWidget(
-                  label: 'Inbox',
-                  icon: FontAwesomeIcons.facebookMessenger,
-                  isSelected: false,
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.push(
-                        context,
-                        CupertinoPageRoute(
-                            builder: (context) => ChatListScreen()));
-                  },
-                ),
+//                Divider(height: 1,),
+//                ///Inbox
+//                DrawerListWidget(
+//                  label: 'Inbox',
+//                  icon: FontAwesomeIcons.facebookMessenger,
+//                  isSelected: false,
+//                  onTap: () {
+//                    Navigator.pop(context);
+//                    Navigator.push(
+//                        context,
+//                        CupertinoPageRoute(
+//                            builder: (context) => ChatListScreen()));
+//                  },
+//                ),
 
                 Divider(height: 1),
                 //carer advice
