@@ -28,10 +28,12 @@ class UserProfileRepository {
       var authUser = await AuthService.getInstance();
       var professionalId = authUser.getUser().professionalId;
       debugPrint(professionalId);
+
       var url = "${Urls.userProfileUrl}/$professionalId";
       var response = await ApiClient().getRequest(url);
       print(response.statusCode);
-      
+//      print(response.body);
+
       if(response.statusCode == 200){
         var mapJson = json.decode(response.body);
 //      var mapJson = json.decode(dummyData);
