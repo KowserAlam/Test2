@@ -12,11 +12,17 @@ class ChatListTile extends StatefulWidget {
 class _ChatListTileState extends State<ChatListTile> {
   @override
   Widget build(BuildContext context) {
+    var scaffoldBackgroundColor = Theme.of(context).scaffoldBackgroundColor;
+
     return Container(
       height: 80,
       margin: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
       padding: EdgeInsets.symmetric(horizontal: 10),
-      decoration: nMbox,
+      decoration: BoxDecoration(color: scaffoldBackgroundColor,
+          boxShadow: [
+            BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 10),
+            BoxShadow(color: Colors.black.withOpacity(0.2), blurRadius: 10),
+          ]),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.max,
@@ -25,32 +31,7 @@ class _ChatListTileState extends State<ChatListTile> {
           Container(
             height: 65,
             width: 65,
-            padding: EdgeInsets.all(5),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(50),
-                color: AppTheme.mC,
-                gradient: LinearGradient(
-                    colors: [AppTheme.shadowColor, AppTheme.lightShadowColor],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight
-                ),
-                boxShadow: [
-                  BoxShadow(
-                      color: AppTheme.mCD,
-                      offset: Offset(10,10),
-                      blurRadius: 10
-                  ),
-                  BoxShadow(
-                      color: AppTheme.mCL,
-                      offset: Offset(-10,-10),
-                      blurRadius: 10
-                  )
-                ]
-            ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(50),
-              child: Image.asset('assets/images/user_default.jpg'),
-            ),
+            child: Image.asset('assets/images/user_default.jpg', fit: BoxFit.cover,),
           ),
           Flexible(
             child: Container(
