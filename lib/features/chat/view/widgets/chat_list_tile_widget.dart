@@ -64,7 +64,7 @@ class _ChatListTileState extends State<ChatListTile> {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Name', style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15,),overflow: TextOverflow.ellipsis,),
+                        Text('Company Name', style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15,),overflow: TextOverflow.ellipsis,),
                         Text('Some chat message', style: TextStyle(fontSize: 13),overflow: TextOverflow.ellipsis,),
                       ],
                     ),
