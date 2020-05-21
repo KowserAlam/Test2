@@ -4,6 +4,7 @@ import 'package:p7app/features/auth/view/widgets/custom_text_field_rounded.dart'
 import 'package:p7app/features/job/models/job_list_model.dart';
 import 'package:p7app/features/job/view/job_details.dart';
 import 'package:p7app/features/job/view/widgets/job_list_tile.dart';
+import 'package:p7app/features/job/view/widgets/no_favourite_jobs_widget.dart';
 import 'package:p7app/features/job/view_model/applied_job_list_view_model.dart';
 import 'package:p7app/features/job/view_model/favourite_job_list_view_model.dart';
 import 'package:p7app/features/job/view_model/job_list_view_model.dart';
@@ -81,26 +82,17 @@ class _FavouriteJobListScreenState extends State<FavouriteJobListScreen>
             appBar: AppBar(
               title: Text(StringUtils.favoriteJobsText),
             ),
-            body: Column(
-              children: [
-                Expanded(
-                  child: ListView(
+            body: favoriteJobListViewModel.shouldShowLoader
+                ? Center(
+                    child: Loader(),
+                  )
+                : ListView(
                     physics: AlwaysScrollableScrollPhysics(),
                     controller: _scrollController,
                     children: [
-                      if (favoriteJobListViewModel.isFetchingData)
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Loader(),
-                        ),
-                      (favoriteJobListViewModel.jobList.length == 0 &&
-                              favoriteJobListViewModel.isFetchingData)
-                          ? Center(
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(StringUtils.noFavouriteJobsFound),
-                              ),
-                            )
+                
+                              favoriteJobListViewModel.shouldShowNoJobs
+                          ? NoFavouriteJobsWidget()
                           : ListView.builder(
                               padding: EdgeInsets.symmetric(vertical: 4),
                               physics: NeverScrollableScrollPhysics(),
@@ -138,9 +130,6 @@ class _FavouriteJobListScreenState extends State<FavouriteJobListScreen>
                               }),
                     ],
                   ),
-                ),
-              ],
-            ),
           );
         }),
       ),
@@ -163,9 +152,7 @@ class _FavouriteJobListScreenState extends State<FavouriteJobListScreen>
                 Navigator.pop(context);
                 return Provider.of<JobListViewModel>(context, listen: false)
                     .refresh();
-
               });
-
             },
           );
         });

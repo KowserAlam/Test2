@@ -104,7 +104,7 @@ class CustomTextFieldRounded extends StatelessWidget {
           errorText == null
               ? Text("")
               : Padding(
-                  padding: const EdgeInsets.only(left: 38, top: 8),
+                  padding: const EdgeInsets.only(left: 38, top: 8,right: 38),
                   child: Text(
                     errorText,
                     style: TextStyle(color: Colors.red),
