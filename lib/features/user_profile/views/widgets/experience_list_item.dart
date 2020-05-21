@@ -38,52 +38,63 @@ class ExperienceListItem extends StatelessWidget {
         boxShadow: CommonStyleTextField.boxShadow,
       ),
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-      child: ListTile(
-        contentPadding: EdgeInsets.zero,
-        leading: CachedNetworkImage(
-          height: 55,
-          width: 55,
-          fit: BoxFit.cover,
-          placeholder: (context, _) => Image.asset(
-            kCompanyImagePlaceholder,
+      child: Row(
+        children: [
+          CachedNetworkImage(
             height: 55,
             width: 55,
             fit: BoxFit.cover,
-          ),
-          imageUrl: experienceInfoModel.companyProfilePic ?? "",
-        ),
-        title: Text(
-          experienceInfoModel.organizationName ?? "",
-        ),
-        subtitle: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(experienceInfoModel.designation ?? ""),
-            Text(
-              date,
-              style: TextStyle(fontSize: 12),
+            placeholder: (context, _) => Image.asset(
+              kCompanyImagePlaceholder,
+              height: 55,
+              width: 55,
+              fit: BoxFit.cover,
             ),
-          ],
-        ),
-        trailing: !isInEditMode
-            ? SizedBox()
-            : Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  IconButton(
-                    icon: Icon(FontAwesomeIcons.edit),
-                    onPressed: onTapEdit,
-                    iconSize: 18,
-                    color: Colors.black,
-                  ),
-                  IconButton(
-                    icon: Icon(FontAwesomeIcons.trash),
-                    onPressed: onTapDelete,
-                    iconSize: 18,
-                    color: Colors.black,
-                  ),
-                ],
-              ),
+            imageUrl: experienceInfoModel.companyProfilePic ?? "",
+          ),
+          SizedBox(
+            width: 8,
+          ),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  experienceInfoModel.organizationName ?? "",
+                  style: Theme.of(context).textTheme.subtitle1,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(experienceInfoModel.designation ?? ""),
+                    Text(
+                      date,
+                      style: TextStyle(fontSize: 12, color: Colors.grey),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          if (isInEditMode)
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                IconButton(
+                  icon: Icon(FontAwesomeIcons.edit),
+                  onPressed: onTapEdit,
+                  iconSize: 18,
+                  color: Colors.black,
+                ),
+                IconButton(
+                  icon: Icon(FontAwesomeIcons.trash),
+                  onPressed: onTapDelete,
+                  iconSize: 18,
+                  color: Colors.black,
+                ),
+              ],
+            ),
+        ],
       ),
     );
   }

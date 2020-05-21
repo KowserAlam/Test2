@@ -203,7 +203,7 @@ class _AppDrawerState extends State<AppDrawer> {
                 ///Profile
                 DrawerListWidget(
                   label: StringUtils.profileText,
-                  icon: FontAwesomeIcons.infoCircle,
+                  icon: FontAwesomeIcons.solidUserCircle,
                   isSelected: false,
                   onTap: () {
                     Navigator.pop(context);
@@ -218,7 +218,7 @@ class _AppDrawerState extends State<AppDrawer> {
                 //carer advice
                 DrawerListWidget(
                   label: StringUtils.careerAdviceText,
-                  icon: FontAwesomeIcons.questionCircle,
+                  icon: FontAwesomeIcons.newspaper,
                   isSelected: false,
                   onTap: () {
                     Navigator.pop(context);
@@ -231,7 +231,7 @@ class _AppDrawerState extends State<AppDrawer> {
                 //about us
                 DrawerListWidget(
                   label: StringUtils.aboutUsText,
-                  icon: FontAwesomeIcons.info,
+                  icon: FontAwesomeIcons.infoCircle,
                   isSelected: false,
                   onTap: () {
                     Navigator.pop(context);
@@ -243,7 +243,7 @@ class _AppDrawerState extends State<AppDrawer> {
                 //contact us
                 DrawerListWidget(
                   label: StringUtils.contactUsText,
-                  icon: FontAwesomeIcons.phone,
+                  icon: FontAwesomeIcons.at,
                   isSelected: false,
                   onTap: () {
                     Navigator.pop(context);
@@ -253,10 +253,10 @@ class _AppDrawerState extends State<AppDrawer> {
                 ),
 
                 Divider(height: 1),
-                //faq us
+                //faq
                 DrawerListWidget(
                   label: StringUtils.faqText,
-                  icon: FontAwesomeIcons.question,
+                  icon: FontAwesomeIcons.questionCircle,
                   isSelected: false,
                   onTap: () {
                     Navigator.pop(context);

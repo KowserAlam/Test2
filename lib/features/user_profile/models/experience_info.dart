@@ -9,6 +9,7 @@ class ExperienceInfo {
   DateTime startDate;
   DateTime endDate;
   String companyProfilePic;
+  bool isCurrentlyWorkingHere;
 
   ExperienceInfo({
     this.organizationName,
@@ -18,11 +19,13 @@ class ExperienceInfo {
     this.companyId,
     this.experienceId,
     this.companyProfilePic,
+    this.isCurrentlyWorkingHere,
   });
 
   ExperienceInfo.fromJson(Map<String, dynamic> json) {
     var baseUrl = FlavorConfig?.instance?.values?.baseUrl;
 
+    isCurrentlyWorkingHere = json['is_currently_working'];
     experienceId = json['id'];
     organizationName = json['company_text'];
     companyId = json['company'];
@@ -35,7 +38,7 @@ class ExperienceInfo {
       endDate = DateTime.parse(json['end_date']);
     }
     if (json['profile_pic'] != null) {
-      companyProfilePic = "${baseUrl}${json['profile_pic']}";
+      companyProfilePic = "${baseUrl}/media/${json['profile_pic']}";
     }
   }
 
