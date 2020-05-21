@@ -2,6 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
+  ///Neumorphic Colors
+  static Color mC = Colors.grey.shade100;
+  static Color mCL = Colors.white;
+  static Color mCD = Colors.black.withOpacity(0.075);
+  static Color mCC = Colors.green.withOpacity(0.65);
+  static Color fCD = Colors.grey.shade700;
+  static Color fCL = Colors.grey;
+  static Color shadowColor = Colors.grey[100];
+  static Color lightShadowColor = Colors.white;
+
   /// Oficion color
   static Color orange = Color(0xfffd7e14);
   static Color danger = Color(0xffdc3545);
