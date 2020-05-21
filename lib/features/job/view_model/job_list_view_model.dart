@@ -28,6 +28,15 @@ class JobListViewModel with ChangeNotifier {
   Debouncer _debouncer = Debouncer(milliseconds: 800);
   bool _isInSearchMode = false;
   int _totalJobCount = 0;
+  AppError _appError;
+
+
+  AppError get appError => _appError;
+
+  set appError(AppError value) {
+    _appError = value;
+    notifyListeners();
+  }
 
   int get totalJobCount => _totalJobCount;
 
@@ -115,15 +124,19 @@ class JobListViewModel with ChangeNotifier {
   }
 
   Future<bool> getJobList() async {
-    isFetchingData = true;
-    totalJobCount = 0;
+    _isFetchingData = true;
+    _totalJobCount = 0;
+    _appError = null;
+    notifyListeners();
 
     Either<AppError, JobListScreenDataModel> result =
         await _jobListRepository.fetchJobList(_jobListFilters);
     return result.fold((l) {
       _hasMoreData = false;
-      isFetchingData = false;
+      _isFetchingData = false;
       _totalJobCount = 0;
+      _appError = l;
+      notifyListeners();
       print(l);
       return false;
     }, (JobListScreenDataModel dataModel) {
@@ -132,6 +145,7 @@ class JobListViewModel with ChangeNotifier {
       _jobList = list;
       _totalJobCount = dataModel.count;
       _hasMoreData = dataModel.nextPage;
+      appError = null;
       notifyListeners();
       return true;
     });

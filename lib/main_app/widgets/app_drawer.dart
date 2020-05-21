@@ -23,6 +23,10 @@ import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:p7app/main_app/views/about_us_screen.dart';
+import 'package:p7app/main_app/views/career_advice.dart';
+import 'package:p7app/main_app/views/contact_us_screen.dart';
+import 'package:p7app/main_app/views/faq_screen.dart';
 import 'package:p7app/main_app/widgets/app_version_widget_small.dart';
 import 'package:provider/provider.dart';
 
@@ -200,7 +204,7 @@ class _AppDrawerState extends State<AppDrawer> {
                 ///Profile
                 DrawerListWidget(
                   label: StringUtils.profileText,
-                  icon: FontAwesomeIcons.infoCircle,
+                  icon: FontAwesomeIcons.solidUserCircle,
                   isSelected: false,
                   onTap: () {
                     Navigator.pop(context);
@@ -211,21 +215,71 @@ class _AppDrawerState extends State<AppDrawer> {
                   },
                 ),
 
-                Divider(height: 1,),
-                ///Inbox
+//                Divider(height: 1,),
+//                ///Inbox
+//                DrawerListWidget(
+//                  label: 'Inbox',
+//                  icon: FontAwesomeIcons.facebookMessenger,
+//                  isSelected: false,
+//                  onTap: () {
+//                    Navigator.pop(context);
+//                    Navigator.push(
+//                        context,
+//                        CupertinoPageRoute(
+//                            builder: (context) => ChatListScreen()));
+//                  },
+//                ),
+
+                Divider(height: 1),
+                //carer advice
                 DrawerListWidget(
-                  label: 'Inbox',
-                  icon: FontAwesomeIcons.facebookMessenger,
+                  label: StringUtils.careerAdviceText,
+                  icon: FontAwesomeIcons.newspaper,
                   isSelected: false,
                   onTap: () {
                     Navigator.pop(context);
-                    Navigator.push(
-                        context,
-                        CupertinoPageRoute(
-                            builder: (context) => ChatListScreen()));
+                    Navigator.of(context).push(CupertinoPageRoute(
+                        builder: (context) => CareerAdviceScreen()));
                   },
                 ),
 
+                Divider(height: 1),
+                //about us
+                DrawerListWidget(
+                  label: StringUtils.aboutUsText,
+                  icon: FontAwesomeIcons.infoCircle,
+                  isSelected: false,
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.of(context).push(CupertinoPageRoute(
+                        builder: (context) => AboutUsScreen()));
+                  },
+                ),
+                Divider(height: 1),
+                //contact us
+                DrawerListWidget(
+                  label: StringUtils.contactUsText,
+                  icon: FontAwesomeIcons.at,
+                  isSelected: false,
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.of(context).push(CupertinoPageRoute(
+                        builder: (context) => ContactUsScreen()));
+                  },
+                ),
+
+                Divider(height: 1),
+                //faq
+                DrawerListWidget(
+                  label: StringUtils.faqText,
+                  icon: FontAwesomeIcons.questionCircle,
+                  isSelected: false,
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.of(context).push(CupertinoPageRoute(
+                        builder: (context) => FAQScreen()));
+                  },
+                ),
                 Divider(height: 1),
 
                 /// ************ sign out
@@ -253,7 +307,8 @@ _handleSignOut(context) {
   Provider.of<JobListViewModel>(context, listen: false).resetState();
   Provider.of<FavouriteJobListViewModel>(context, listen: false).resetState();
   Provider.of<AppliedJobListViewModel>(context, listen: false).resetState();
-  Provider.of<JobListFilterWidgetViewModel>(context, listen: false).resetState();
+  Provider.of<JobListFilterWidgetViewModel>(context, listen: false)
+      .resetState();
   Provider.of<UserProfileViewModel>(context, listen: false).resetState();
 
   Navigator.pushAndRemoveUntil(context,
