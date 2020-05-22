@@ -2,7 +2,7 @@ import 'package:p7app/main_app/flavour/flavour_config.dart';
 import 'package:p7app/main_app/util/method_extension.dart';
 
 class ExperienceInfo {
-  int experienceId;
+  String experienceId;
   String companyName;
   String companyId;
   String designation;
@@ -26,7 +26,7 @@ class ExperienceInfo {
     var baseUrl = FlavorConfig?.instance?.values?.baseUrl;
 
     isCurrentlyWorkingHere = json['is_currently_working'];
-    experienceId = json['id'];
+    experienceId = json['id']?.toString();
     companyName = json['company_text'];
     companyId = json['company_id'];
     designation = json['designation'];

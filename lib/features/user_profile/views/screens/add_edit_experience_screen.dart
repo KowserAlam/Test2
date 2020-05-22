@@ -41,7 +41,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
   DateTime _joiningDate, _leavingDate;
   Company selectedCompany;
   String _selectedCompanyId;
-  int _experienceId;
+  String _experienceId;
   TextEditingController _companyNameController = TextEditingController();
   TextEditingController positionNameController = TextEditingController();
   Debouncer _debouncer = Debouncer(milliseconds: 400);

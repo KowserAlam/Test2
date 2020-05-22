@@ -129,11 +129,11 @@ class JobModel {
     qualification = json['qualification'];
     gender = json['job_gender'];
     currency = json['currency'];
-    companyName = json['company_name_'];
+    companyName = json['company_name'];
 
-    if (json['company_name'] != null) {
-      company = Company.fromJson(json['company_name']);
-    }
+//    if (json['company'] != null) {
+//      company = Company.fromJson(json['company_name']);
+//    }
 
     division = json['division'];
     district = json['district'];
