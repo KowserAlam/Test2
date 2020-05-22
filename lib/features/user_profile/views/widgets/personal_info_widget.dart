@@ -104,6 +104,10 @@ class PersonalInfoWidget extends StatelessWidget {
                     context: context,
                     label: StringUtils.religionText,
                     value: personalInfo.religionObj?.name ?? ""),
+                _item(
+                    context: context,
+                    label: StringUtils.bloodGroupText,
+                    value: personalInfo.bloodGroup ?? ""),
               ],
             );
           }),

@@ -42,6 +42,8 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
   final _motherNameController = TextEditingController();
   final _currentAddressController = TextEditingController();
   final _permanentAddressController = TextEditingController();
+  final _bloodGroupController = TextEditingController();
+
 //  final _nationalityController = TextEditingController();
 //  final _religionController = TextEditingController();
 
@@ -70,6 +72,21 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
 //    new DropdownMenuItem(value: 'Female',child: Text('Female'),),
 //    new DropdownMenuItem(value: null,child: Text('Prefer not to share'),)
   ];
+
+  //Gender
+  List<String> _bloodGroupList = [
+    "O+",
+    "O-",
+    "A+",
+    "A-",
+    "B+",
+    "B-",
+    "AB+",
+    "AB-",
+  ];
+
+  String _selectedBloodGroup;
+
   String _selectedGenderDropDownItem;
 
   @override
@@ -84,6 +101,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
     _selectedNationalityDropDownItem = personalInfo.nationalityObj;
     _selectedGenderDropDownItem = personalInfo.gender;
     _chosenBirthDate = personalInfo.dateOfBirth;
+    _selectedBloodGroup = personalInfo.bloodGroup;
 
     NationalityListRepository()
         .getNationalityList()
@@ -103,10 +121,6 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
         setState(() {});
       });
     });
-
-
-
-
 
     ReligionListRepository()
         .getReligionList()
@@ -137,10 +151,10 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
         // right
         _genderList = r
             .map((e) => DropdownMenuItem(
-          key: Key(e),
-          value: e,
-          child: Text(e ?? ""),
-        ))
+                  key: Key(e),
+                  value: e,
+                  child: Text(e ?? ""),
+                ))
             .toList();
         setState(() {});
       });
@@ -148,7 +162,6 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
 
     super.initState();
   }
-
 
   _handleSave() async {
     var isValid = _formKey.currentState.validate();
@@ -167,13 +180,14 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
         "religion": _selectedReligionDropDownItem?.id,
         "address": _currentAddressController.text,
         "gender": _selectedGenderDropDownItem,
+        "blood_group": _selectedBloodGroup,
       };
-
 
       if (_chosenBirthDate != null) {
         print(DateFormatUtil.dateFormatYYYMMDD(_chosenBirthDate));
-        data.addAll(
-            {"date_of_birth": DateFormatUtil.dateFormatYYYMMDD(_chosenBirthDate)});
+        data.addAll({
+          "date_of_birth": DateFormatUtil.dateFormatYYYMMDD(_chosenBirthDate)
+        });
       }
 
       dartZ.Either<AppError, UserPersonalInfo> res =
@@ -194,10 +208,12 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     //TextStyle
-    TextStyle titleFont = TextStyle(fontSize: 15, color: Colors.black, fontWeight: FontWeight.bold);
-    var spaceBetweenFields = SizedBox(height: 15,);
+    TextStyle titleFont = TextStyle(
+        fontSize: 15, color: Colors.black, fontWeight: FontWeight.bold);
+    var spaceBetweenFields = SizedBox(
+      height: 15,
+    );
 
     return Scaffold(
       appBar: AppBar(
@@ -223,7 +239,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                   CommonDatePickerWidget(
                     label: StringUtils.dateOfBirthText,
                     date: _chosenBirthDate,
-                    onDateTimeChanged: (v){
+                    onDateTimeChanged: (v) {
                       setState(() {
                         _chosenBirthDate = v;
                       });
@@ -329,6 +345,24 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                     },
                     items: _religionList,
                   ),
+                  spaceBetweenFields,
+                  //Mother's Name
+                  CustomDropdownButtonFormField<String>(
+                    labelText: StringUtils.bloodGroupText,
+                    hint: Text(StringUtils.tapToSelectText),
+                    value: _selectedBloodGroup,
+                    onChanged: (value) {
+                      _selectedBloodGroup = value;
+                      setState(() {});
+                    },
+                    items: _bloodGroupList
+                        .map((e) => DropdownMenuItem<String>(
+                              child: Text(e),
+                              value: e,
+                              key: Key(e),
+                            ))
+                        .toList(),
+                  ),
                   spaceBetweenFields
                 ],
               ),
@@ -338,5 +372,4 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
       ),
     );
   }
-
 }

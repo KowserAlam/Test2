@@ -366,10 +366,12 @@ class StringUtils {
 
   static var fatherNameText = "Father's Name";
   static var motherNameText = "Mother's Name";
+  static var bloodGroupHintText = "eg. O+";
   static var dateOfBirthText = "Date of Birth";
   static var permanentAddressText = "Permanent Address";
   static var currentAddressText = "Current Address";
   static var religionText = "Religion";
+  static var bloodGroupText = "Blood Group";
   static var genderText = "Gender";
   static var nationalityText = "Nationality";
   static var languagesKnown  = "Languages Known ";
