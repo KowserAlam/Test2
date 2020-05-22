@@ -71,7 +71,11 @@ class Urls {
   static String companySearchUrl = "/api/company/search";
 
 
-
+// webUrl
+  static String aboutUs = "/about-us-app/";
+  static String contactUs = "/contact-us-app/";
+  static String careerAdvice = "/career-advice-app/";
+  static String faq = "/FAQ-app/";
 
   /// skill check
 
