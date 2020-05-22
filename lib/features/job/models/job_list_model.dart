@@ -43,7 +43,7 @@ class JobListModel {
     employmentStatus = json['employment_status'];
     companyName = json['company_name'];
     if (json['profile_picture'] != null) {
-      profilePicture = "$baseUrl${json['profile_picture']}";
+      profilePicture = "$baseUrl/media/${json['profile_picture']}";
     }
     jobNature = json['job_nature'];
     jobSite = json['job_site'];

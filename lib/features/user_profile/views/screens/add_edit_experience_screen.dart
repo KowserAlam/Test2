@@ -61,7 +61,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
   void initState() {
     if (widget.experienceInfoModel != null) {
       _companyNameController.text =
-          widget.experienceInfoModel.organizationName ?? "";
+          widget.experienceInfoModel.companyName ?? "";
       positionNameController.text =
           widget.experienceInfoModel.designation ?? "";
       _joiningDate = widget.experienceInfoModel.startDate;
@@ -102,7 +102,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
   bool sameExperience(String input) {
     int x = 0;
     for (int i = 0; i < widget.previouslyAddedExp.length; i++) {
-      if (input == widget.previouslyAddedExp[i].organizationName) {
+      if (input == widget.previouslyAddedExp[i].companyName) {
         x++;
       }
     }
@@ -184,7 +184,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
       }
       var experienceInfo = ExperienceInfo(
           experienceId: widget.experienceInfoModel?.experienceId,
-          organizationName: _companyNameController.text,
+          companyName: _companyNameController.text,
           designation: positionNameController.text,
           companyId: selectedCompany?.name ?? _selectedCompanyId,
           startDate: _joiningDate,
