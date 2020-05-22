@@ -75,6 +75,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
 
   //Gender
   List<String> _bloodGroupList = [
+    "",
     "O+",
     "O-",
     "A+",

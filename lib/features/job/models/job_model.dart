@@ -1,3 +1,4 @@
+import 'package:p7app/features/company/models/company.dart';
 import 'package:p7app/main_app/flavour/flavour_config.dart';
 
 class JobModel {
@@ -28,6 +29,7 @@ class JobModel {
   String gender;
   String currency;
   String companyName;
+  Company company;
   String division;
   String district;
   List<String> jobSkills;
@@ -44,50 +46,50 @@ class JobModel {
   String additionalRequirements;
   String companyProfile;
 
-  JobModel({
-    this.jobId,
-    this.slug,
-    this.title,
-    this.jobCity,
-    this.publishDate,
-    this.salaryMin,
-    this.salaryMax,
-    this.vacancy,
-    this.applicationDeadline,
-    this.descriptions,
-    this.responsibilities,
-    this.education,
-    this.isApplied,
-    this.salary,
-    this.otherBenefits,
-    this.rawContent,
-    this.webAddress,
-    this.termsAndCondition,
-    this.createdAt,
-    this.industry,
-    this.employmentStatus,
-    this.experience,
-    this.qualification,
-    this.gender,
-    this.currency,
-    this.companyName,
-    this.division,
-    this.district,
-    this.jobSkills,
-    this.isFavourite,
-    this.profilePicture,
-    this.skill,
-    this.postDate,
-    this.jobAddress,
-    this.jobCountry,
-    this.jobArea,
-    this.jobCategory,
-    this.jobNature,
-    this.jobSite,
-    this.jobType,
-    this.additionalRequirements,
-    this.companyProfile
-  });
+  JobModel(
+      {this.jobId,
+      this.slug,
+      this.title,
+      this.jobCity,
+      this.publishDate,
+      this.salaryMin,
+      this.salaryMax,
+      this.vacancy,
+      this.applicationDeadline,
+      this.descriptions,
+      this.responsibilities,
+      this.education,
+      this.isApplied,
+      this.salary,
+      this.otherBenefits,
+      this.rawContent,
+      this.webAddress,
+      this.termsAndCondition,
+      this.createdAt,
+      this.industry,
+      this.employmentStatus,
+      this.experience,
+      this.qualification,
+      this.gender,
+      this.currency,
+      this.companyName,
+      this.company,
+      this.division,
+      this.district,
+      this.jobSkills,
+      this.isFavourite,
+      this.profilePicture,
+      this.skill,
+      this.postDate,
+      this.jobAddress,
+      this.jobCountry,
+      this.jobArea,
+      this.jobCategory,
+      this.jobNature,
+      this.jobSite,
+      this.jobType,
+      this.additionalRequirements,
+      this.companyProfile});
 
   JobModel.fromJson(Map<String, dynamic> json) {
     String baseUrl = FlavorConfig?.instance?.values?.baseUrl;
@@ -99,17 +101,17 @@ class JobModel {
     salaryMin = json['salary_min'];
     salaryMax = json['salary_max'];
     vacancy = json['vacancy'];
-    if(json['application_deadline'] != null){
+    if (json['application_deadline'] != null) {
       applicationDeadline = DateTime.parse(json['application_deadline']);
     }
-    if(json['created_at'] != null){
+    if (json['created_at'] != null) {
       createdAt = DateTime.parse(json['created_at']);
     }
-    if(json['publish_date'] != null){
+    if (json['publish_date'] != null) {
       publishDate = DateTime.parse(json['publish_date']);
     }
 
-    if(json['post_date'] != null){
+    if (json['post_date'] != null) {
       postDate = DateTime.parse(json['post_date']);
     }
 
@@ -127,7 +129,12 @@ class JobModel {
     qualification = json['qualification'];
     gender = json['job_gender'];
     currency = json['currency'];
-    companyName = json['company_name'];
+    companyName = json['company_name_'];
+
+    if (json['company_name'] != null) {
+      company = Company.fromJson(json['company_name']);
+    }
+
     division = json['division'];
     district = json['district'];
     jobCategory = json['job_category'];
@@ -150,10 +157,8 @@ class JobModel {
         ? false
         : (json['is_favourite'] == "True" ? true : false);
 
-    if(json['profile_picture'] != null){
+    if (json['profile_picture'] != null) {
       profilePicture = "$baseUrl${json['profile_picture']}";
     }
   }
-
-
 }
