@@ -27,40 +27,43 @@ class _NotificationTileState extends State<NotificationTile> {
           Container(
             height: 65,
             width: 65,
+            margin: EdgeInsets.only(right: 3),
             child: Image.asset('assets/images/user_default.jpg', fit: BoxFit.cover,),
           ),
           Flexible(
-            child: Container(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Flexible(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Company Name', style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15,),overflow: TextOverflow.ellipsis,),
-                        Text('Some chat message', style: TextStyle(fontSize: 13),overflow: TextOverflow.ellipsis,),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ),
-          Container(
-            width: 60,
-            padding: EdgeInsets.only(bottom: 10),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Text('17/08/20', style: TextStyle(fontSize: 12),),
+                Padding(
+                  padding: const EdgeInsets.only(top: 5),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Flexible(
+                        child: Container(
+                          height: 15,
+                          child: Text('Source',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12), overflow: TextOverflow.ellipsis,),
+                        ),
+                      ),
+                      Container(
+                        height: 15,
+                        width: 60,
+                        child: Center(child: Text('05/02/20', style: TextStyle(fontSize: 10),)),
+                      ),
+                    ],
+                  ),
+                ),
+                Flexible(
+                  child: Container(
+                    padding: EdgeInsets.only(bottom: 5,top: 2),
+                    child: Text('Disguised Toast shows how to play and use Gangplank with 6 Sorcerers for a lethal instant destruction TFT team comp. Enjoy your daily dose of Toasty Teamfight Tactics 10.10 set 3 Galaxies Action!',overflow: TextOverflow.ellipsis,maxLines: 3,),
+                  ),
+                )
               ],
             ),
           )
-
         ],
       ),
     );
