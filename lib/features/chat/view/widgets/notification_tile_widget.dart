@@ -1,15 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:p7app/main_app/app_theme/app_theme.dart';
-import 'package:p7app/main_app/resource/decorations.dart';
 
-
-class ChatListTile extends StatefulWidget {
+class NotificationTile extends StatefulWidget {
   @override
-  _ChatListTileState createState() => _ChatListTileState();
+  _NotificationTileState createState() => _NotificationTileState();
 }
 
-class _ChatListTileState extends State<ChatListTile> {
+class _NotificationTileState extends State<NotificationTile> {
   @override
   Widget build(BuildContext context) {
     var scaffoldBackgroundColor = Theme.of(context).scaffoldBackgroundColor;
