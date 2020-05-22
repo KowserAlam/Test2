@@ -58,7 +58,7 @@ class _NotificationTileState extends State<NotificationTile> {
                 Flexible(
                   child: Container(
                     padding: EdgeInsets.only(bottom: 5,top: 2),
-                    child: Text('Disguised Toast shows how to play and use Gangplank with 6 Sorcerers for a lethal instant destruction TFT team comp. Enjoy your daily dose of Toasty Teamfight Tactics 10.10 set 3 Galaxies Action!',overflow: TextOverflow.ellipsis,maxLines: 3,),
+                    child: Text('Flutter is an open-source UI software development kit created by Google. It is used to develop applications for Android, iOS, Windows, Mac, Linux, Google Fuchsia and the web',overflow: TextOverflow.ellipsis,maxLines: 3,),
                   ),
                 )
               ],
