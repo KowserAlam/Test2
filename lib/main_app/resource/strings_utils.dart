@@ -326,6 +326,7 @@ class StringUtils {
   static var skillNameExample = "eg. Python";
   static var expertiseLevel = "Expertise level:";
   static var searchSkillText = "Search your skill";
+  static const String typeAtLeast2Letter  = "Type at least 2 letter";
 
   /// Verify Screen
 

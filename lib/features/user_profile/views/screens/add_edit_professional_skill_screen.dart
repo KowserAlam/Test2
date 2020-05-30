@@ -1,10 +1,13 @@
 import 'package:after_layout/after_layout.dart';
 import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:bot_toast/bot_toast.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:p7app/features/user_profile/models/skill.dart';
 import 'package:p7app/features/user_profile/models/skill_info.dart';
 import 'package:p7app/features/user_profile/repositories/skill_list_repository.dart';
+import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/main_app/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
@@ -80,6 +83,7 @@ class _AddEditProfessionalSkillState extends State<AddEditProfessionalSkill> {
   _handleSave() {
     bool isValid = _formKey.currentState.validate();
     if (isValid) {
+      print(searchController.text);
       if(correctInput(searchController.text)){
         if(widget.skillInfo == null){
           if(sameSkill(searchController.text)){
@@ -139,9 +143,84 @@ class _AddEditProfessionalSkillState extends State<AddEditProfessionalSkill> {
   }
 
 
+  List<Skill> filter(String pattern, List<Skill> a){
+    searchList = a;
+    a.removeWhere((item) => !item.name.toLowerCase().contains(pattern.toLowerCase()));
+    return a;
+  }
 
   @override
   Widget build(BuildContext context) {
+
+    var skillName = Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text("  " + StringUtils.skillNameText ?? "",
+            style: TextStyle(fontWeight: FontWeight.bold)),
+        SizedBox(
+          height: 5,
+        ),
+        Container(
+          decoration: BoxDecoration(
+            color: Theme.of(context).backgroundColor,
+            borderRadius: BorderRadius.circular(7),
+            boxShadow: CommonStyleTextField.boxShadow,
+          ),
+          child: TypeAheadFormField<Skill>(
+            textFieldConfiguration: TextFieldConfiguration(
+                controller: searchController,
+                decoration: InputDecoration(
+                  hintText: StringUtils.searchSkillText,
+                  border: InputBorder.none,
+                  contentPadding:
+                  const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(7),
+                      borderSide:
+                      BorderSide(color: Theme.of(context).primaryColor)),
+                )),
+            itemBuilder: (BuildContext context, Skill skill) {
+              return Container(
+                padding: EdgeInsets.all(8),
+                child: Text(skill.name ?? ""),
+              );
+            },
+            onSuggestionSelected: (Skill suggestion) {
+              print(suggestion.name);
+              searchController.text = suggestion.name;
+              _selectedSkill = suggestion;
+              setState(() {});
+            },
+            suggestionsBoxDecoration: SuggestionsBoxDecoration(
+              borderRadius: BorderRadius.circular(5),
+            ),
+            suggestionsCallback: (String pattern) {
+              if(pattern.length>1)
+                return SkillListRepository()
+                    .getSkillList()
+                    .then((value) => value.fold((l) => [], (r) => filter(pattern, r)));
+              else
+                return[];
+            },
+            validator: (v) {
+              return v.length < 2 ? StringUtils.typeAtLeast2Letter : null;
+            },
+            noItemsFoundBuilder: (context) {
+              return SizedBox();
+            },
+          ),
+        ),
+//        if (searchController != null)
+//          Padding(
+//            padding: const EdgeInsets.all(8.0),
+//            child: Text(
+//              "error",
+//              style: TextStyle(color: Colors.red),
+//            ),
+//          ),
+      ],
+    );
+
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
@@ -164,73 +243,77 @@ class _AddEditProfessionalSkillState extends State<AddEditProfessionalSkill> {
                 SizedBox(
                   height: 20,
                 ),
-                FutureBuilder<dartZ.Either<AppError, List<Skill>>>(
-                  future: SkillListRepository().getSkillList(),
-                  builder: (BuildContext context, AsyncSnapshot<dartZ.Either<AppError, List<Skill>>> snapshot){
-                    if(snapshot.hasData){
-                      return snapshot.data.fold((l){
-                        return SizedBox();
-                      }, (r){
-                        searchList = r;
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text("  ${StringUtils.skillNameText}",
-                                style: TextStyle(fontWeight: FontWeight.bold)),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Container(
-                                padding: EdgeInsets.symmetric(horizontal: 8),
-                                decoration: BoxDecoration(
-                                  color: Theme.of(context).backgroundColor,
-                                  borderRadius: BorderRadius.circular(7),
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Color(0xff000000).withOpacity(0.2), blurRadius: 20),
-                                    BoxShadow(
-                                        color: Color(0xfffafafa).withOpacity(0.2), blurRadius: 20),
-                                  ],
-                                ),
-                                child: AutoCompleteTextField<Skill>(
-                                  style: TextStyle(color: Colors.black, fontSize: 16),
-                                  decoration: InputDecoration(
-                                    hintText: StringUtils.searchSkillText,
-                                    border: InputBorder.none,
-                                  ),
-
-                                  itemBuilder: (context, skill) {
-                                    return Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Text(skill.name,
-                                        style: TextStyle(
-                                            fontSize: 16.0
-                                        ),),
-                                    );
-                                  },
-                                  key:  key,
-                                  clearOnSubmit: false,
-                                  controller: searchController,
-                                  itemFilter: (skill, query){
-                                    return skill.name.toLowerCase().startsWith(query.toLowerCase());
-                                  },
-                                  itemSorter: (a,b){
-                                    return a.name.compareTo(b.name);
-                                  },
-                                  itemSubmitted: (skill){
-                                    print(skill);
-                                    searchController.text = skill.name;
-                                    _selectedSkill = skill;
-                                  },
-                                  suggestions: r,
-                                )),
-                          ],
-                        );
-                      });
-                    };
-                    return Loader();
-                  },
-                ),
+//                FutureBuilder<dartZ.Either<AppError, List<Skill>>>(
+//                  future: SkillListRepository().getSkillList(),
+//                  builder: (BuildContext context, AsyncSnapshot<dartZ.Either<AppError, List<Skill>>> snapshot){
+//                    if(snapshot.hasData){
+//                      return snapshot.data.fold((l){
+//                        return SizedBox();
+//                      }, (r){
+//                        searchList = r;
+//                        return Column(
+//                          crossAxisAlignment: CrossAxisAlignment.start,
+//                          children: [
+//                            Text("  ${StringUtils.skillNameText}",
+//                                style: TextStyle(fontWeight: FontWeight.bold)),
+//                            SizedBox(
+//                              height: 5,
+//                            ),
+//                            Container(
+//                                padding: EdgeInsets.symmetric(horizontal: 8),
+//                                decoration: BoxDecoration(
+//                                  color: Theme.of(context).backgroundColor,
+//                                  borderRadius: BorderRadius.circular(7),
+//                                  boxShadow: [
+//                                    BoxShadow(
+//                                        color: Color(0xff000000).withOpacity(0.2), blurRadius: 20),
+//                                    BoxShadow(
+//                                        color: Color(0xfffafafa).withOpacity(0.2), blurRadius: 20),
+//                                  ],
+//                                ),
+//                                child: AutoCompleteTextField<Skill>(
+//                                  style: TextStyle(color: Colors.black, fontSize: 16),
+//                                  decoration: InputDecoration(
+//                                    hintText: StringUtils.searchSkillText,
+//                                    border: InputBorder.none,
+//                                  ),
+//
+//                                  itemBuilder: (context, skill) {
+//                                    return Padding(
+//                                      padding: const EdgeInsets.all(8.0),
+//                                      child: Text(skill.name,
+//                                        style: TextStyle(
+//                                            fontSize: 16.0
+//                                        ),),
+//                                    );
+//                                  },
+//                                  key:  key,
+//                                  clearOnSubmit: false,
+//                                  controller: searchController,
+//                                  itemFilter: (skill, query){
+//                                    return skill.name.toLowerCase().startsWith(query.toLowerCase());
+//                                  },
+//                                  itemSorter: (a,b){
+//                                    return a.name.compareTo(b.name);
+//                                  },
+//                                  itemSubmitted: (skill){
+//                                    print(skill);
+//                                    searchController.text = skill.name;
+//                                    _selectedSkill = skill;
+//                                  },
+//                                  suggestions: r,
+//                                )),
+//                          ],
+//                        );
+//                      });
+//                    };
+//                    return Loader();
+//                  },
+//                ),
+//                SizedBox(
+//                  height: 30,
+//                ),
+                skillName,
                 SizedBox(
                   height: 30,
                 ),
