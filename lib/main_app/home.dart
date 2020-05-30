@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p7app/features/job/view/applied_job_list_screen.dart';
 import 'package:p7app/features/job/view/favourite_job_list_screen.dart';
 import 'package:p7app/features/job/view/job_list_screen.dart';
+import 'package:p7app/main_app/resource/strings_utils.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -12,13 +13,10 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   var _paeViewController = PageController();
   int currentIndex = 0;
+
   @override
   Widget build(BuildContext context) {
-
-
     var bottomNavBar = BottomNavigationBar(
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
 //        selectedItemColor: Theme.of(context).primaryColor,
 //        unselectedItemColor: Colors.grey,
         onTap: (int index) {
@@ -27,16 +25,29 @@ class _HomeState extends State<Home> {
               curve: Curves.easeInOut);
         },
         currentIndex: currentIndex,
+        iconSize: 17,
+        selectedFontSize: 10,
+        unselectedFontSize: 10,
         items: [
           BottomNavigationBarItem(
-              icon: Icon(
-                FontAwesomeIcons.briefcase,
+              icon: Padding(
+                padding: const EdgeInsets.only(bottom: 5),
+                child: Icon(
+                  FontAwesomeIcons.briefcase,
+                ),
               ),
-              title: Text("")),
+              title: Text(StringUtils.jobsText)),
           BottomNavigationBarItem(
-              icon: Icon(FontAwesomeIcons.checkCircle), title: Text("")),
+              icon: Padding(
+                  padding: const EdgeInsets.only(bottom: 5),
+                  child: Icon(FontAwesomeIcons.checkCircle)),
+              title: Text(StringUtils.appliedText)),
           BottomNavigationBarItem(
-              icon: Icon(FontAwesomeIcons.heart), title: Text("")),
+              icon: Padding(
+                padding: const EdgeInsets.only(bottom: 5),
+                child: Icon(FontAwesomeIcons.heart),
+              ),
+              title: Text(StringUtils.favoriteText)),
         ]);
     return WillPopScope(
       onWillPop: () async {

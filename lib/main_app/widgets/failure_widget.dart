@@ -3,11 +3,14 @@ import 'package:flutter/material.dart';
 class FailureFullScreenWidget extends StatelessWidget {
   final String errorMessage;
   final Function onTap;
-
+  const FailureFullScreenWidget({
+    @required this.errorMessage,
+    this.onTap,
+  });
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height,
+      height: MediaQuery.of(context).size.height -(AppBar().preferredSize.height * 2),
       width: MediaQuery.of(context).size.width,
       child: InkWell(
         onTap: onTap,
@@ -23,8 +26,5 @@ class FailureFullScreenWidget extends StatelessWidget {
     );
   }
 
-  const FailureFullScreenWidget({
-    @required this.errorMessage,
-    this.onTap,
-  });
+
 }

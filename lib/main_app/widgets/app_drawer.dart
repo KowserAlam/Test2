@@ -134,7 +134,7 @@ class _AppDrawerState extends State<AppDrawer> {
               children: <Widget>[
                 ///Home / Jobs index = 0
                 DrawerListWidget(
-                  label: StringUtils.jobListText,
+                  label: StringUtils.jobsText,
                   icon: FontAwesomeIcons.briefcase,
                   isSelected: false,
                   onTap: () {

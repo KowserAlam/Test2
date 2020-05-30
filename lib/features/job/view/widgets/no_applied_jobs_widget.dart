@@ -8,8 +8,9 @@ class NoAppliedJobsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var color = Colors.grey;
+
     return Container(
-      height: MediaQuery.of(context).size.height,
+      height: MediaQuery.of(context).size.height - (AppBar().preferredSize.height *2),
       width: MediaQuery.of(context).size.width,
       child: InkWell(
         onTap: onTap,
