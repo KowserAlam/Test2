@@ -155,7 +155,7 @@ class _JobListScreenState extends State<JobListScreen>
         return Scaffold(
           key: _scaffoldKey,
           appBar: AppBar(
-            title: Text(StringUtils.jobListText),
+            title: Text(StringUtils.jobsText),
             actions: isMainList
                 ? [
                     IconButton(
