@@ -107,7 +107,7 @@ SPEC CHECKSUMS:
   connectivity: 5da134a8c10a7b6f334a17217fe4d0cfc4fb1c64
   connectivity_macos: 9c4ae58730e141c1a12dec9fbd04a0a7cab7610f
   Firebase: fe7f74012742ab403451dd283e6909b8f1fb348a
-  firebase_core: 2e20c83fefb704fc827d429f38c0492818b5f1f1
+  firebase_core: b77314bf4bfacf4fb7253ce9bcdd39eb1cff9348
   FirebaseCore: ed0a24c758a57c2b88c5efa8e6a8195e868af589
   FirebaseCoreDiagnostics: e9b4cd8ba60dee0f2d13347332e4b7898cca5b61
   FirebaseCoreDiagnosticsInterop: 296e2c5f5314500a850ad0b83e9e7c10b011a850

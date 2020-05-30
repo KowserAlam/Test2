@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/services.dart';
 import 'package:logger/logger.dart';
 import 'package:p7app/features/job/view/job_list_screen.dart';
 import 'package:p7app/main_app/auth_service/auth_service.dart';
@@ -29,29 +30,30 @@ class _RootState extends State<Root> {
     super.initState();
   }
 
-  init(){
+  init() {
     //    ApiHelper apiHelper = ApiHelper();
 //    apiHelper.checkInternetConnectivity();
 
     getAuthStatus().then((AuthUserModel user) {
       if (user != null) {
-        Future.delayed(Duration(seconds: widget.isFromLogin?0: 2)).then((_) {
+        Future.delayed(Duration(seconds: widget.isFromLogin ? 0 : 2)).then((_) {
           Navigator.pushAndRemoveUntil(
               context,
               CupertinoPageRoute(builder: (context) => Home()),
-                  (Route<dynamic> route) => false);
+              (Route<dynamic> route) => false);
         });
       } else {
         Future.delayed(Duration(seconds: 1)).then((_) {
           Navigator.pushAndRemoveUntil(
               context,
               CupertinoPageRoute(builder: (context) => LoginScreen()),
-                  (Route<dynamic> route) => false);
+              (Route<dynamic> route) => false);
         });
       }
     });
     initFireBseFCM();
   }
+
   initFireBseFCM() {
     final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 
@@ -149,28 +151,36 @@ class _RootState extends State<Root> {
         ),
       ],
     );
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: SafeArea(
-        child:widget.isFromLogin? Center(child: Loader(),):Container(
-          height: height,
-          width: width,
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              SizedBox(),
-              SizedBox(),
-              SizedBox(),
-              appLogoText,
-              SizedBox(),
-              Container(
-                width: 150,
-                child: ishraakLogo,
-              ),
-              AppVersionWidgetLowerCase()
-            ],
-          ),
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: AnnotatedRegion<SystemUiOverlayStyle>(
+          value: SystemUiOverlayStyle.light
+              .copyWith(statusBarColor: Theme.of(context).primaryColor),
+          child: widget.isFromLogin
+              ? Center(
+                  child: Loader(),
+                )
+              : Container(
+                  height: height,
+                  width: width,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      SizedBox(),
+                      SizedBox(),
+                      SizedBox(),
+                      appLogoText,
+                      SizedBox(),
+                      Container(
+                        width: 150,
+                        child: ishraakLogo,
+                      ),
+                      AppVersionWidgetLowerCase()
+                    ],
+                  ),
+                ),
         ),
       ),
     );

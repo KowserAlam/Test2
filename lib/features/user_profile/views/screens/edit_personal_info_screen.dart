@@ -24,6 +24,7 @@ import 'package:p7app/main_app/widgets/common_button.dart';
 import 'package:p7app/main_app/widgets/edit_screen_save_button.dart';
 import 'package:provider/provider.dart';
 import 'package:dartz/dartz.dart' as dartZ;
+import 'package:p7app/main_app/util/method_extension.dart';
 
 class EditPersonalInfoScreen extends StatefulWidget {
   final UserModel userModel;
@@ -358,7 +359,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                     },
                     items: _bloodGroupList
                         .map((e) => DropdownMenuItem<String>(
-                              child: Text(e),
+                              child: Text(e.isEmptyOrNull?" - - - -":e),
                               value: e,
                               key: Key(e),
                             ))
