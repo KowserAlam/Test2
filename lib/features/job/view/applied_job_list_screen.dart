@@ -92,7 +92,7 @@ class _AppliedJobListScreenState extends State<AppliedJobListScreen>
                       itemBuilder: (context, index) {
                         JobListModel job = jobList[index];
 
-                        return JobListTile(
+                        return JobListTileWidget(
                           job,
                           onFavorite: () {
                             appliedJobListViewModel
