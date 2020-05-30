@@ -1,158 +1,47 @@
-import 'dart:io';
-
-import 'package:bot_toast/bot_toast.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:p7app/features/job/models/job_model.dart';
 import 'package:p7app/features/job/models/job_list_model.dart';
-import 'package:p7app/features/job/view/job_details.dart';
-import 'package:p7app/features/job/view_model/job_list_view_model.dart';
-import 'package:p7app/main_app/api_helpers/api_client.dart';
-import 'package:p7app/main_app/api_helpers/urls.dart';
+import 'package:p7app/features/job/models/job_model.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
-import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/resource/const.dart';
+import 'package:p7app/main_app/resource/decorations.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/util/date_format_uitl.dart';
-import 'package:provider/provider.dart';
-import 'package:meta/meta.dart';
 
-@deprecated
-class FavoriteJobListTileWidget extends StatefulWidget {
-  final JobListModel jobListModel;
-  //final Function onTap;
-  //final Function onFavorite;
-  @deprecated
-  FavoriteJobListTileWidget(this.jobListModel);
+
+import 'job_apply_button.dart';
+
+class JobListTile extends StatefulWidget {
+  final JobListModel jobModel;
+  final Function onTap;
+  final Function onApply;
+  final Function onFavorite;
+
+  JobListTile(this.jobModel, {this.onTap, this.onFavorite, this.onApply});
 
   @override
-  _FavoriteJobListTileWidgetState createState() => _FavoriteJobListTileWidgetState();
+  _JobListTileState createState() => _JobListTileState();
 }
 
-class _FavoriteJobListTileWidgetState extends State<FavoriteJobListTileWidget> {
-
-  Future<bool> addToFavorite(String jobId,) async {
-    BotToast.showLoading();
-    var userId =
-    await AuthService.getInstance().then((value) => value.getUser().userId);
-    var body = {'user_id': userId, 'job_id': jobId};
-
-    try {
-      ApiClient client =  ApiClient();
-      var res = await client.postRequest(Urls.favouriteJobAddUrl, body);
-      print(res.body);
-
-      if (res.statusCode == 200) {
-        BotToast.closeAllLoading();
-        Provider.of<JobListViewModel>(context, listen: false)
-            .refresh();
-        setState(() {});
-        return true;
-      } else {
-        BotToast.closeAllLoading();
-        BotToast.showText(text: StringUtils.unableToSaveData);
-        return false;
-      }
-    } on SocketException catch (e) {
-      BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.checkInternetConnectionMessage);
-      print(e);
-      return false;
-    }catch (e) {
-      BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToSaveData);
-      print(e);
-      Provider.of<JobListViewModel>(context, listen: false)
-          .refresh();
-      return false;
-    }
-  }
-
-  Future<bool> applyForJob(String jobId,) async {
-    BotToast.showLoading();
-    var userId =
-    await AuthService.getInstance().then((value) => value.getUser().userId);
-    var body = {'user_id': userId, 'job_id': jobId};
-
-    try {
-      ApiClient client =  ApiClient();
-      var res = await client.postRequest(Urls.applyJobOnlineUrl, body);
-      print(res.body);
-
-      if (res.statusCode == 200) {
-        BotToast.closeAllLoading();
-        BotToast.showText(
-            text: StringUtils.successfullyAppliedText,
-            duration: Duration(seconds: 2));
-
-        return true;
-      } else {
-        BotToast.closeAllLoading();
-        BotToast.showText(text: StringUtils.unableToSaveData);
-        return false;
-      }
-    }on SocketException catch (e) {
-      BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.checkInternetConnectionMessage);
-      print(e);
-      return false;
-    }catch (e) {
-      BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToSaveData);
-      print(e);
-      return false;
-    }
-  }
-
-  _showApplyDialog(){
-    showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text(StringUtils.doYouWantToApplyText),
-            actions: [
-              RawMaterialButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: Text(StringUtils.noText),
-              ),
-              RawMaterialButton(
-                onPressed: () {
-                  applyForJob(widget.jobListModel.jobId)
-                      .then((value) {
-                    setState(() {
-                      widget.jobListModel.isApplied = value;
-                    });
-                  });
-                  Navigator.pop(context);
-                },
-                child: Text(StringUtils.yesText),
-              ),
-            ],
-          );
-        });
-  }
-
-
+class _JobListTileState extends State<JobListTile> {
   @override
   Widget build(BuildContext context) {
-    bool isFavorite = widget.jobListModel.isFavourite;
-    bool isApplied = widget.jobListModel.isApplied;
+    bool isFavorite = widget.jobModel.isFavourite;
 
-    String publishDateText = widget.jobListModel.postDate == null
+    String publishDateText = widget.jobModel.postDate == null
         ? StringUtils.unspecifiedText
-        : DateFormatUtil().dateFormat1(widget.jobListModel.postDate);
+        : DateFormatUtil().dateFormat1(widget.jobModel.postDate);
 
-    String deadLineText = widget.jobListModel.applicationDeadline == null
+    String deadLineText = widget.jobModel.applicationDeadline == null
         ? StringUtils.unspecifiedText
-        : DateFormatUtil().dateFormat1(widget.jobListModel.applicationDeadline);
-    bool isDateExpired = widget.jobListModel.applicationDeadline != null
-        ? DateTime.now().isAfter(widget.jobListModel.applicationDeadline)
-        : true;
+        : DateFormatUtil().dateFormat1(widget.jobModel.applicationDeadline);
+//    bool isDateExpired = widget.jobModel.applicationDeadline != null
+//        ? DateTime.now().isAfter(widget.jobModel.applicationDeadline)
+//        : true;
+
+//    debugPrint("Deadline: ${widget.jobModel.applicationDeadline}\n Today: ${DateTime.now()} \n $isDateExpired");
 
     var backgroundColor = Theme.of(context).backgroundColor;
     var scaffoldBackgroundColor = Theme.of(context).scaffoldBackgroundColor;
@@ -161,7 +50,6 @@ class _FavoriteJobListTileWidgetState extends State<FavoriteJobListTileWidget> {
     double iconSize = 14.0;
 //    bool isTabLayout = MediaQuery.of(context).size.width > kMidDeviceScreenSize;
     var subtitleColor = isDarkMode ? Colors.white : AppTheme.grey;
-
     var companyLogo = Container(
       height: 60,
       width: 60,
@@ -169,19 +57,16 @@ class _FavoriteJobListTileWidgetState extends State<FavoriteJobListTileWidget> {
         color: scaffoldBackgroundColor,
       ),
       child: CachedNetworkImage(
-        placeholder: (context, _) => Image.asset(
-          kCompanyImagePlaceholder,
-          fit: BoxFit.cover,
-        ),
-        imageUrl: widget.jobListModel?.profilePicture ?? "",
+        imageUrl: widget.jobModel.profilePicture ?? "",
+        placeholder: (context, _) => Image.asset(kCompanyImagePlaceholder),
       ),
     ); //That pointless fruit logo
     var jobTitle = Text(
-      widget.jobListModel.title ?? "",
+      widget.jobModel.title ?? "",
       style: titleStyle,
     );
     var companyName = Text(
-      widget.jobListModel.companyName ?? "",
+      widget.jobModel.companyName ?? "",
       style: TextStyle(color: subtitleColor),
     );
     var companyLocation = Container(
@@ -197,7 +82,7 @@ class _FavoriteJobListTileWidgetState extends State<FavoriteJobListTileWidget> {
           ),
           Expanded(
             child: Text(
-              widget.jobListModel.jobCity ?? "",
+              widget.jobModel.jobCity ?? "",
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(color: subtitleColor),
@@ -206,23 +91,14 @@ class _FavoriteJobListTileWidgetState extends State<FavoriteJobListTileWidget> {
         ],
       ),
     );
-
     var heartButton = Material(
       color: Colors.transparent,
       borderRadius: BorderRadius.circular(20),
       child: InkWell(
         borderRadius: BorderRadius.circular(20),
-        onTap: () {
-
-          addToFavorite(widget.jobListModel.jobId)
-              .then((value) {
-            widget.jobListModel.isFavourite = !widget.jobListModel.isFavourite;
-            setState(() {
-            });
-          });
-        },
+        onTap: widget.onFavorite,
         child: Padding(
-          padding: const EdgeInsets.all(5.0),
+          padding: const EdgeInsets.all(8.0),
           child: Icon(
             isFavorite ? FontAwesomeIcons.solidHeart : FontAwesomeIcons.heart,
             color: isFavorite ? AppTheme.orange : AppTheme.grey,
@@ -232,61 +108,41 @@ class _FavoriteJobListTileWidgetState extends State<FavoriteJobListTileWidget> {
       ),
     );
 
-    var applyButton = Material(
-      color: widget.jobListModel.isApplied ? Colors.blue[200]
-          : (isDateExpired?Colors.grey:Theme.of(context).accentColor),
-      borderRadius: BorderRadius.circular(5),
-      child: InkWell(
-        onTap: isApplied || isDateExpired
-            ? null
-            : () {
-          _showApplyDialog();
-        },
-        borderRadius: BorderRadius.circular(5),
-        child: Container(
-          height: 30,
-          width: 65,
-          alignment: Alignment.center,
-//          padding: EdgeInsets.symmetric(vertical: 6, horizontal: 15),
 
-          child: Text(
-            isApplied ? StringUtils.appliedText : StringUtils.applyText,
-            style: TextStyle(
-                fontSize: 15, color: Colors.white, fontWeight: FontWeight.w600),
-          ),
-        ),
-      ),
+    var applyButton = JobApplyButton(
+      applicationDeadline: widget.jobModel.applicationDeadline,
+      onPressedApply: widget.onApply,
+      isApplied: widget.jobModel.isApplied,
     );
-
-    var jobType = Row(
-      children: <Widget>[
-        Icon(
-          FontAwesomeIcons.clock,
-          size: iconSize,
-          color: AppTheme.orange,
-        ),
-        SizedBox(
-          width: 5,
-        ),
-        Text(
-          widget.jobListModel.employmentStatus != null
-              ? widget.jobListModel.employmentStatus
-              : StringUtils.unspecifiedText,
-          style: TextStyle(color: subtitleColor),
-        ),
-      ],
-    );
-    var publishDateWidget = Row(
+//    var jobType = Row(
+//      children: <Widget>[
+//        Icon(
+//          FontAwesomeIcons.clock,
+//          size: iconSize,
+//          color: AppTheme.orange,
+//        ),
+//        SizedBox(
+//          width: 5,
+//        ),
+//        Text(
+//          widget.jobModel.jobNature != null
+//              ? widget.jobModel.jobNature
+//              : StringUtils.unspecifiedText,
+//          style: TextStyle(color: subtitleColor),
+//        ),
+//      ],
+//    );
+    var applicationDeadlineWidget = Row(
       children: <Widget>[
         Icon(FeatherIcons.clock, size: iconSize, color: subtitleColor),
         SizedBox(width: 5),
         Text(
-          publishDateText,
+          deadLineText,
           style: TextStyle(color: subtitleColor, fontWeight: FontWeight.w100),
         ),
       ],
     );
-    var deadLineWidget = Row(
+    var publishDate = Row(
       children: <Widget>[
         Icon(
           FeatherIcons.calendar,
@@ -295,68 +151,70 @@ class _FavoriteJobListTileWidgetState extends State<FavoriteJobListTileWidget> {
         ),
         SizedBox(width: 5),
         Text(
-          deadLineText,
+          publishDateText,
           style: TextStyle(color: subtitleColor, fontWeight: FontWeight.w100),
         ),
       ],
     );
+
     return GestureDetector(
-      //onTap: widget.onTap,
-      onTap: (){
-        Navigator.push(
-            context,
-            CupertinoPageRoute(
-                builder: (context) => JobDetails(slug: widget.jobListModel.slug,)));
-      },
+      onTap: widget.onTap,
       child: Container(
-        decoration: BoxDecoration(color: scaffoldBackgroundColor,
-//        borderRadius: BorderRadius.circular(5),
-            boxShadow: [
-              BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 10),
-              BoxShadow(color: Colors.black.withOpacity(0.2), blurRadius: 10),
-            ]),
-        margin: EdgeInsets.fromLTRB(8, 4, 8, 4),
-        child: Column(
+        height: 120,
+        margin: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+        padding: EdgeInsets.all(8),
+        decoration: nMbox,
+        child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Container(
-              color: backgroundColor,
-              padding: EdgeInsets.all(8),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  companyLogo,
-                  SizedBox(width: 8),
-                  Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          jobTitle,
-                          SizedBox(height: 3),
-                          companyName,
-                          SizedBox(height: 3),
-                          widget.jobListModel.jobCity== null?SizedBox():companyLocation,
-                        ],
-                      )),
-                  SizedBox(width: 8),
-                  heartButton,
-                ],
+              height: 65,
+              width: 65,
+              padding: EdgeInsets.all(3),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(3),
+                  color: AppTheme.mC,
+                  gradient: LinearGradient(
+                      colors: [AppTheme.shadowColor, AppTheme.lightShadowColor],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                        color: AppTheme.mCD,
+                        offset: Offset(10,10),
+                        blurRadius: 10
+                    ),
+                    BoxShadow(
+                        color: AppTheme.mCL,
+                        offset: Offset(-10,-10),
+                        blurRadius: 10
+                    )
+                  ]
+              ),
+              child: CachedNetworkImage(
+                imageUrl: widget.jobModel.profilePicture ?? "",
+                placeholder: (context, _) => Image.asset(kCompanyImagePlaceholder),
               ),
             ),
-            //Job Title
-            SizedBox(height: 1),
-            Container(
-              padding: EdgeInsets.all(8),
-              color: backgroundColor,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  publishDateWidget,
-                  deadLineWidget,
-                  applyButton,
-                ],
-              ),
-            ),
+//            SizedBox(width: 13,),
+//            Column(
+//              crossAxisAlignment: CrossAxisAlignment.start,
+//              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//              children: <Widget>[
+//                Text(chat[index].name, style: TextStyle(color: Colors.black, fontSize: 15),),
+//                Container(
+//                  width: width*0.7,
+//                  child: Row(
+//                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                    children: <Widget>[
+//                      Text(chat[index].additionalText, style: chat[index].seenUnseen),
+//                      Text(chat[index].time, style: TextStyle(fontSize: 10),),
+//                    ],
+//                  ),
+//                )
+//              ],
+//            )
           ],
         ),
       ),

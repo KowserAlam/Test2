@@ -69,6 +69,7 @@ class _AppliedJobListScreenState extends State<AppliedJobListScreen>
 
         debugPrint("${jobList.length}");
         return Scaffold(
+          backgroundColor: Colors.white,
           appBar: AppBar(
             title: Text(StringUtils.appliedJobsText),
           ),
@@ -91,7 +92,7 @@ class _AppliedJobListScreenState extends State<AppliedJobListScreen>
                       itemBuilder: (context, index) {
                         JobListModel job = jobList[index];
 
-                        return JobListTileWidget(
+                        return JobListTile(
                           job,
                           onFavorite: () {
                             appliedJobListViewModel
