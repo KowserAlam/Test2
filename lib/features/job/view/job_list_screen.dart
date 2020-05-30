@@ -121,6 +121,14 @@ class _JobListScreenState extends State<JobListScreen>
           },
         );
 
+      case AppError.unauthorized:
+        return FailureFullScreenWidget(
+          errorMessage: StringUtils.somethingIsWrong,
+          onTap: () {
+            return _signOut(context);
+          },
+        );
+
       default:
         return FailureFullScreenWidget(
           errorMessage: StringUtils.somethingIsWrong,

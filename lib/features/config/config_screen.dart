@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:p7app/features/auth/view/passworrd_change_screen.dart';
 import 'package:p7app/main_app/repositories/app_info_repository.dart';
+import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:p7app/main_app/widgets/app_logo.dart';
 
 class ConfigScreen extends StatefulWidget {
   @override
@@ -11,6 +13,7 @@ class ConfigScreen extends StatefulWidget {
 }
 
 class _ConfigScreenState extends State<ConfigScreen> {
+  String appVersion = "";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,21 +41,40 @@ class _ConfigScreenState extends State<ConfigScreen> {
 //          ),
 //          Divider(height: 2,),
 
-        GestureDetector(
-          onTap: (){
-            Navigator.push(
-                context,
-                CupertinoPageRoute(
-                    builder: (context) => ChangePasswordScreen()));
-          },
-          child: ListTile(
+          ListTile(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  CupertinoPageRoute(
+                      builder: (context) => ChangePasswordScreen()));
+            },
             leading: Icon(
               Icons.lock_open,
             ),
-            title: Text('Change Password'),
+            title: Text(StringUtils.changePassword),
           ),
-        ),
-
+          ListTile(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  CupertinoPageRoute(
+                      builder: (context) => LicensePage(
+                        applicationLegalese: "Copyright © 2020 Job Search",
+                        applicationVersion: appVersion,
+                            applicationIcon: Container(
+                              height: 30,
+                              width: 30,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(image: AssetImage(kDefaultLogo))
+                              ),
+                            ),
+                          )));
+            },
+            leading: Icon(
+              Icons.featured_play_list,
+            ),
+            title: Text(StringUtils.licenses),
+          ),
           ListTile(
             leading: Icon(
               FontAwesomeIcons.infoCircle,
@@ -60,7 +82,13 @@ class _ConfigScreenState extends State<ConfigScreen> {
             ),
             title: FutureBuilder(
               future: AppInfoRepository().getAppVersion(),
-              builder: (c,snapshot)=> Text(snapshot.hasData?"Version: ${snapshot.data}":"",style: TextStyle(color: Colors.grey),),
+              builder: (c, snapshot) {
+                appVersion = snapshot.data??"";
+                return Text(
+                snapshot.hasData ? "Version: ${snapshot.data}" : "",
+                style: TextStyle(color: Colors.grey),
+              );
+              },
             ),
           )
         ],
