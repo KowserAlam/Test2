@@ -1,6 +1,7 @@
 import 'package:after_layout/after_layout.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:p7app/features/auth/view/login_screen.dart';
 import 'package:p7app/features/job/models/job_list_model.dart';
 import 'package:p7app/features/job/models/sort_item.dart';
 import 'package:p7app/features/job/repositories/job_list_sort_items_repository.dart';
@@ -15,6 +16,8 @@ import 'package:p7app/features/job/models/job_model.dart';
 import 'package:p7app/features/job/view/widgets/job_list_tile_widget.dart';
 import 'package:p7app/features/user_profile/models/skill.dart';
 import 'package:p7app/features/user_profile/repositories/skill_list_repository.dart';
+import 'package:p7app/main_app/auth_service/auth_service.dart';
+import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/flavour/flavor_banner.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/widgets/app_drawer.dart';
@@ -62,7 +65,15 @@ class _JobListScreenState extends State<JobListScreen>
   void afterFirstLayout(BuildContext context) {
     var jobListViewModel =
         Provider.of<JobListViewModel>(context, listen: false);
-    jobListViewModel.getJobList();
+    jobListViewModel.getJobList().then((v){
+      if(jobListViewModel.appError != null){
+        if(jobListViewModel.appError == AppError.unauthorized){
+          _signOut(context);
+        }
+      }
+    });
+
+
 
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
@@ -75,7 +86,10 @@ class _JobListScreenState extends State<JobListScreen>
       setState(() {});
     });
   }
-
+  _signOut(context){
+    Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => LoginScreen()));
+    AuthService.getInstance().then((value) => value.removeUser());
+  }
   @override
   void dispose() {
     _scrollController.dispose();
