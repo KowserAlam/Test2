@@ -180,10 +180,9 @@ class _JobListScreenState extends State<JobListScreen>
                   ]
                 : null,
           ),
-          drawer: Drawer(
-              child: AppDrawer(
+          drawer: AppDrawer(
             routeName: 'job_list',
-          )),
+          ),
           endDrawer: isMainList
               ? Drawer(
                   child: JobListFilterWidget(),

@@ -73,6 +73,9 @@ class _AppliedJobListScreenState extends State<AppliedJobListScreen>
           appBar: AppBar(
             title: Text(StringUtils.appliedJobsText),
           ),
+          drawer: AppDrawer(
+            routeName: 'applied_job_list',
+          ),
           body:  appliedJobListViewModel.shouldShowLoader
               ? Center(
             child: Loader(),

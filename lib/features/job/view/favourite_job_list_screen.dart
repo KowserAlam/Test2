@@ -82,6 +82,9 @@ class _FavouriteJobListScreenState extends State<FavouriteJobListScreen>
             appBar: AppBar(
               title: Text(StringUtils.favoriteJobsText),
             ),
+            drawer: AppDrawer(
+              routeName: 'favorite_job_list',
+            ),
             body: favoriteJobListViewModel.shouldShowLoader
                 ? Center(
                     child: Loader(),

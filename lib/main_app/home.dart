@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:p7app/features/dashboard/view/dash_board.dart';
 import 'package:p7app/features/job/view/applied_job_list_screen.dart';
 import 'package:p7app/features/job/view/favourite_job_list_screen.dart';
 import 'package:p7app/features/job/view/job_list_screen.dart';
@@ -33,6 +34,14 @@ class _HomeState extends State<Home> {
         unselectedFontSize: 10,
         type: BottomNavigationBarType.fixed,
         items: [
+          BottomNavigationBarItem(
+              icon: Padding(
+                padding: const EdgeInsets.only(bottom: 3,),
+                child: Icon(
+                  FontAwesomeIcons.home,
+                ),
+              ),
+              title: Text(StringUtils.dashBoardText)),
           BottomNavigationBarItem(
               icon: Padding(
                 padding: const EdgeInsets.only(bottom: 3,),
@@ -75,6 +84,7 @@ class _HomeState extends State<Home> {
           },
           controller: _paeViewController,
           children: <Widget>[
+            DashBoard(),
             JobListScreen(),
             AppliedJobListScreen(),
             FavouriteJobListScreen(),
