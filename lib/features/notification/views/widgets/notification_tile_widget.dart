@@ -17,7 +17,7 @@ class _NotificationTileState extends State<NotificationTile> {
     var scaffoldBackgroundColor = Theme.of(context).scaffoldBackgroundColor;
 
     return Container(
-      height: 80,
+      height: 65,
       margin: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
       decoration: BoxDecoration(color: scaffoldBackgroundColor, boxShadow: [
         BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 10),
@@ -35,8 +35,8 @@ class _NotificationTileState extends State<NotificationTile> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Container(
-                  height: 65,
-                  width: 65,
+                  height: 60,
+                  width: 60,
                   margin: EdgeInsets.only(right: 3),
                   child: Image.asset(
                     kCompanyImagePlaceholder,
@@ -83,7 +83,7 @@ class _NotificationTileState extends State<NotificationTile> {
                           child: Text(
                             'Flutter is an open-source UI software development kit created by Google. It is used to develop applications for Android, iOS, Windows, Mac, Linux, Google Fuchsia and the web',
                             overflow: TextOverflow.ellipsis,
-                            maxLines: 3,
+                            maxLines: 2,
                           ),
                         ),
                       )

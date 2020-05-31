@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:p7app/features/chat/view/widgets/notification_tile_widget.dart';
+import 'package:p7app/features/notification/views/widgets/notification_tile_widget.dart';
+import 'package:p7app/main_app/resource/strings_utils.dart';
 
 class NotificationScreen extends StatefulWidget {
   @override
@@ -11,7 +12,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Notifications'),
+        title: Text(StringUtils.notificationsText),
       ),
       body: Container(
         child: ListView.builder(

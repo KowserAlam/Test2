@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:p7app/features/chat/view/screens/notification_screen.dart';
+import 'package:p7app/features/notification/views/notification_screen.dart';
 import 'package:p7app/features/job/view/applied_job_list_screen.dart';
 import 'package:p7app/features/job/view/favourite_job_list_screen.dart';
 import 'package:p7app/features/job/view/job_list_screen.dart';
