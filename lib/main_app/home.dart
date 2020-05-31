@@ -27,12 +27,15 @@ class _HomeState extends State<Home> {
         },
         currentIndex: currentIndex,
         iconSize: 17,
+        selectedLabelStyle: TextStyle(fontWeight: FontWeight.w600),
+        unselectedLabelStyle: TextStyle(fontWeight: FontWeight.w600),
         selectedFontSize: 10,
         unselectedFontSize: 10,
+        type: BottomNavigationBarType.fixed,
         items: [
           BottomNavigationBarItem(
               icon: Padding(
-                padding: const EdgeInsets.only(bottom: 5),
+                padding: const EdgeInsets.only(bottom: 3,),
                 child: Icon(
                   FontAwesomeIcons.briefcase,
                 ),
@@ -50,6 +53,7 @@ class _HomeState extends State<Home> {
               ),
               title: Text(StringUtils.favoriteText)),
         ]);
+
     return WillPopScope(
       onWillPop: () async {
         if (currentIndex == 0)
