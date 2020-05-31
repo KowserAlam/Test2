@@ -147,12 +147,12 @@ class _JobDetailsState extends State<JobDetails> {
     }, (JobModel dataModel) {
       print(dataModel.title);
       jobDetails = dataModel;
-      getCompanyWebAddress(jobDetails);
+      getCompany(jobDetails);
       setState(() {});
     });
   }
 
-  getCompanyWebAddress(JobModel jobModel) async{
+  getCompany(JobModel jobModel) async{
     CompanyListRepository().getCompanyDetails(jobModel.companyName).then((value) {
       jobCompany = value;
       setState(() {
