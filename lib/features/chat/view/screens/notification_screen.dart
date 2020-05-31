@@ -14,11 +14,10 @@ class _NotificationScreenState extends State<NotificationScreen> {
         title: Text('Notifications'),
       ),
       body: Container(
-        padding: EdgeInsets.all(5),
         child: ListView.builder(
-          itemCount: 2,
+          itemCount: 7,
             itemBuilder: (BuildContext context, int index){
-              return NotificationTile();
+              return NotificationTile(onTap: (){},);
             }),
       ),
     );

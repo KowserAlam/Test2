@@ -151,10 +151,10 @@ class _RootState extends State<Root> {
         ),
       ],
     );
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        body: AnnotatedRegion<SystemUiOverlayStyle>(
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: AnnotatedRegion<SystemUiOverlayStyle>(
           value: SystemUiOverlayStyle.light
               .copyWith(statusBarColor: Theme.of(context).primaryColor),
           child: widget.isFromLogin
