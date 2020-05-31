@@ -9,6 +9,7 @@ import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/decorations.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/util/date_format_uitl.dart';
+import 'package:meta/meta.dart';
 
 
 import 'job_apply_button.dart';
@@ -18,7 +19,7 @@ class JobListTile extends StatefulWidget {
   final Function onTap;
   final Function onApply;
   final Function onFavorite;
-
+@deprecated
   JobListTile(this.jobModel, {this.onTap, this.onFavorite, this.onApply});
 
   @override
