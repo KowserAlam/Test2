@@ -35,6 +35,7 @@ class UserPersonalInfo {
   String currentDesignation;
   Religion religionObj;
   Nationality nationalityObj;
+  String bloodGroup;
 
   UserPersonalInfo({
     this.id,
@@ -67,6 +68,7 @@ class UserPersonalInfo {
     this.religionObj,
     this.currentCompany,
     this.currentDesignation,
+    this.bloodGroup,
   });
 
   UserPersonalInfo.fromJson(Map<String, dynamic> json) {
@@ -90,6 +92,7 @@ class UserPersonalInfo {
     currentLocation = json['current_location'];
     currentCompany = json['current_company'];
     currentDesignation = json['current_designation'];
+    bloodGroup = json['blood_group'];
 
 
     if (json['date_of_birth'] != null) {

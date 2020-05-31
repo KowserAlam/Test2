@@ -280,6 +280,7 @@ class JobListViewModel with ChangeNotifier {
   /// getter setters
   /// #########################
 
+  bool get shouldShowAppError => _appError != null && _jobList.length ==0;
   bool get hasSortBy => _jobListFilters.sort?.key?.isNotEmptyOrNotNull ?? false;
 
   bool get hasGender => _jobListFilters.gender.isNotEmptyOrNotNull;

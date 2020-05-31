@@ -2,80 +2,177 @@
   "personal_info": {
     "id": "c8eb21a2-0bb6-46ec-add6-0de5336e1723",
     "professional_id": null,
-    "full_name": "Sheikh Shofiullah",
+    "full_name": "shofi",
     "email": "shofi@ishraak.com",
     "phone": "01940469959",
-    "address": "Current address",
-    "about_me": "This is about me",
-    "image": "/media/52655454-c891-4cad-b3c9-81b1ee0a0258-professional.jpg",
+    "address": "",
+    "about_me": "Nothing to say",
+    "image": "/media/b3435184-eb87-45db-a360-bdb3919b3c3b-professional.jpg",
     "job_alert_status": false,
-    "father_name": "Father nam",
-    "mother_name": "Mother name",
-    "facebbok_id": "https://facebook.com/shofizone/",
-    "twitter_id": "",
-    "linkedin_id": "",
-    "date_of_birth": "2011-10-17",
+    "father_name": "",
+    "mother_name": "",
+    "facebook_id": "shofizone",
+    "twitter_id": "shofizone",
+    "linkedin_id": "shofizone",
+    "date_of_birth": "2020-04-22",
+    "blood_group": null,
     "expected_salary_min": null,
     "expected_salary_max": null,
-    "permanent_address": "Nai",
-    "current_location": "Current address",
-    "industry_expertise": "Software & ITES",
+    "permanent_address": "",
+    "current_location": null,
+    "current_company": "Ishraak Solution",
+    "current_designation": "Software Engineer",
+    "created_date": "2020-05-04T15:36:36.954590+06:00",
+    "modified_date": "2020-05-22T11:29:15.671597+06:00",
+    "created_at": null,
+    "modified_at": "27.123.255.109",
+    "industry_expertise": null,
     "user": 39,
-    "gender": "Male",
+    "gender": "Any",
     "status": null,
     "experience": null,
     "qualification": null,
-    "nationality": 2,
+    "nationality": null,
     "religion": 1,
+    "created_by": null,
+    "modified_by": null,
     "religion_obj": {
       "id": 1,
-      "name": "Ishlam",
-      "created_date": "2020-04-20T11:36:01.708604+06:00"
+      "name": "Islam",
+      "created_date": "2020-05-16T16:04:45+06:00"
     },
     "nationality_obj": {
-      "id": 2,
-      "name": "Bangladesh",
-      "created_date": "2020-04-20T15:00:15.240205+06:00"
+      "name": "",
+      "created_date": null
     }
   },
-  "edu_info": [],
-  "skill_info": [
+  "edu_info": [
     {
-      "prof_skill_id": 2,
-      "skill": {
-        "id": 1,
-        "name": "Python",
-        "created_date": "2020-04-05T19:50:17+06:00"
+      "id": 3,
+      "degree": "BSc in CSE",
+      "institution_obj": {
+        "name": "",
+        "created_date": null
       },
-      "rating": 5,
-      "verified_by_skillcheck": false
+      "institution_text": "UITS",
+      "cgpa": "4",
+      "major_obj": {
+        "name": "",
+        "created_date": null
+      },
+      "major_text": null,
+      "enrolled_date": "2015-05-22",
+      "graduation_date": null,
+      "description": null,
+      "is_ongoing": false
     }
   ],
-  "experience_info": [],
-  "portfolio_info": [],
-  "membership_info": [],
-  "certification_info": [],
+  "skill_info": [
+    [
+      {
+        "id": 5,
+        "skill_obj": {
+          "id": 2,
+          "name": "PHP",
+          "created_date": "2020-04-05T19:50:29+06:00"
+        },
+        "rating": 10.0,
+        "verified_by_skillcheck": false
+      }
+    ]
+  ],
+  "experience_info": [
+    {
+      "professional": "c8eb21a2-0bb6-46ec-add6-0de5336e1723",
+      "company_text": "ABCO Overseas Corporation Ltd",
+      "company": {
+        "profile_picture": "/media/images/rsz_screenshot_from_2020-04-12_10-57-26.jpg"
+      },
+      "designation": "Software Engineer",
+      "start_date": "2020-05-21",
+      "end_date": null,
+      "is_currently_working": true
+    },
+    {
+      "professional": "c8eb21a2-0bb6-46ec-add6-0de5336e1723",
+      "company_text": "Namespace IT",
+      "company": {
+        "profile_picture": "/media/images/Untitled_design_-_2020-05-03T104323.834.jpg"
+      },
+      "designation": "Software Engineer",
+      "start_date": "2020-05-13",
+      "end_date": null,
+      "is_currently_working": true
+    },
+    {
+      "professional": "c8eb21a2-0bb6-46ec-add6-0de5336e1723",
+      "company_text": "BJIT Limited",
+      "company": {
+        "profile_picture": "/media/images/Untitled_design_-_2020-04-13T162425.619.jpg"
+      },
+      "designation": "SE",
+      "start_date": "2018-05-22",
+      "end_date": "2020-05-22",
+      "is_currently_working": false
+    },
+    {
+      "professional": "c8eb21a2-0bb6-46ec-add6-0de5336e1723",
+      "company_text": "Craftsmen",
+      "company": {
+        "profile_picture": "/media/images/Untitled_design_-_2020-04-15T104537.785.jpg"
+      },
+      "designation": "SE",
+      "start_date": "2018-05-22",
+      "end_date": null,
+      "is_currently_working": false
+    },
+    {
+      "professional": "c8eb21a2-0bb6-46ec-add6-0de5336e1723",
+      "company_text": "Dhaka Boss",
+      "company": {
+        "profile_picture": "/media/images/Untitled_design_-_2020-05-19T124154.937.jpg"
+      },
+      "designation": "se",
+      "start_date": "2017-05-22",
+      "end_date": null,
+      "is_currently_working": false
+    }
+  ],
+  "portfolio_info": [
+    {
+      "id": 1,
+      "name": "Test",
+      "image": "/media/3ab775df-13f9-43bf-98de-c9ac48dba7a8-professional.jpg",
+      "description": ""
+    }
+  ],
+  "membership_info": [
+    {
+      "id": 2,
+      "organization": "BASIS",
+      "position_held": "",
+      "membership_ongoing": true,
+      "start_date": "2018-05-22",
+      "end_date": null,
+      "description": ""
+    }
+  ],
+  "certification_info": [
+    {
+      "id": 2,
+      "certificate_name": "UNKNOWN ",
+      "organization": "",
+      "has_expiry_period": false,
+      "issue_date": "2017-05-22",
+      "expiry_date": null,
+      "credential_id": "",
+      "credential_url": ""
+    }
+  ],
   "reference_data": [
     {
-      "reference_id": 2,
-      "name": "saiful 2",
-      "current_position": "1",
-      "email": "nai@email.com",
-      "mobile": "01718545454"
-    },
-    {
-      "reference_id": 3,
-      "name": "Robertson 2",
-      "current_position": "Software Engineer",
-      "email": "robart@email.com",
-      "mobile": "01600002322"
-    },
-    {
-      "reference_id": 8,
-      "name": "qweqwe",
-      "current_position": "qweqwe",
-      "email": "qweqwe@email.com",
-      "mobile": "0171844444"
+      "id": 2,
+      "description": "NAME"
     }
   ]
 }

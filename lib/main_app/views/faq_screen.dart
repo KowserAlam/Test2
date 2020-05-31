@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:p7app/main_app/api_helpers/urls.dart';
 import 'package:p7app/main_app/flavour/flavour_config.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
-import 'package:p7app/main_app/views/pge_view_widget.dart';
+import 'package:p7app/main_app/views/widgets/pge_view_widget.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class FAQScreen extends StatefulWidget {
@@ -12,7 +13,7 @@ class FAQScreen extends StatefulWidget {
 }
 
 class _FAQScreenState extends State<FAQScreen> {
-  var url = "${FlavorConfig?.instance?.values?.baseUrl}/FAQ/";
+  var url = "${FlavorConfig?.instance?.values?.baseUrl}${Urls.faqWeb}";
 
   @override
   Widget build(BuildContext context) {

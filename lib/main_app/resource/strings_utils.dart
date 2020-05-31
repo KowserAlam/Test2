@@ -326,6 +326,7 @@ class StringUtils {
   static var skillNameExample = "eg. Python";
   static var expertiseLevel = "Expertise level:";
   static var searchSkillText = "Search your skill";
+  static const String typeAtLeast2Letter  = "Type at least 2 letter";
 
   /// Verify Screen
 
@@ -366,10 +367,12 @@ class StringUtils {
 
   static var fatherNameText = "Father's Name";
   static var motherNameText = "Mother's Name";
+  static var bloodGroupHintText = "eg. O+";
   static var dateOfBirthText = "Date of Birth";
   static var permanentAddressText = "Permanent Address";
   static var currentAddressText = "Current Address";
   static var religionText = "Religion";
+  static var bloodGroupText = "Blood Group";
   static var genderText = "Gender";
   static var nationalityText = "Nationality";
   static var languagesKnown  = "Languages Known ";
@@ -422,7 +425,8 @@ static const String deadlineText = "Deadline";
 static const String applyText = "Apply";
 static const String applyFilterText = "Apply Filter";
 static const String appliedText = "Applied";
-static const String jobListText = "Jobs";
+static const String favoriteText = "Favorite";
+static const String jobsText = "Jobs";
 static const String careerAdviceText = "Career Advice";
 static const String aboutUsText = "About Us";
 static const String contactUsText = "Contact Us";
@@ -455,6 +459,8 @@ static const String jobNature = 'Nature';
 static const String experience = 'Experience';
 static const String jobLocation = 'Job Location';
 static const String salary = 'Salary';
+static const String changePassword = 'Change Password';
+static const String licenses = 'Licenses';
 static const String seeMoreText = "See More";
 static const String seeLessText = "See Less";
 static const String salaryRangeText = 'Range';

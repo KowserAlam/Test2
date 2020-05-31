@@ -69,6 +69,7 @@ class _AppliedJobListScreenState extends State<AppliedJobListScreen>
 
         debugPrint("${jobList.length}");
         return Scaffold(
+          backgroundColor: Colors.white,
           appBar: AppBar(
             title: Text(StringUtils.appliedJobsText),
           ),

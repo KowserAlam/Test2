@@ -72,10 +72,10 @@ class Urls {
 
 
 // webUrl
-  static String aboutUs = "/about-us-app/";
-  static String contactUs = "/contact-us-app/";
-  static String careerAdvice = "/career-advice-app/";
-  static String faq = "/FAQ-app/";
+  static String aboutUsWeb = "/about-us-app/";
+  static String contactUsWeb = "/contact-us-app/";
+  static String careerAdviceWeb = "/career-advice-app/";
+  static String faqWeb = "/FAQ-app/";
 
   /// skill check
 
@@ -89,7 +89,6 @@ class Urls {
   static String recentExamListUrl = "/api/recent-examlist";
   static String searchFeaturedExamUrl = "/api/featured-examlist";
   static String enrolledExamListUrl = "/api/enrolled-examlist";
-
   static String signUpEmailCheckUrl = "/api/signup/email";
   static String signUpEmailVerificationUrl = "/api/signup/email-verification";
   static String signUpEmailConfirmPassword = "/api/signup/examinee";

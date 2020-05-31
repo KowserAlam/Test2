@@ -110,7 +110,7 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
                     key: Key(e),
                     value: e,
                     child: Text(
-                      e,
+                      e.trim(),
                       overflow: TextOverflow.ellipsis,
                     ),
                   ))
@@ -250,6 +250,7 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
                     onChanged: (value) {
                       jobListFilterWidgetViewModel.selectedCategory = value;
                     },
+                    isExpanded: true,
                     value: jobListFilterWidgetViewModel.selectedCategory,
                     items: jobCategoriesDropDownMenuItems,
                   ),

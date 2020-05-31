@@ -655,7 +655,7 @@ Logger().i(data);
       if (response.statusCode == 200) {
         BotToast.closeAllLoading();
         ExperienceInfo data =
-        ExperienceInfo.fromJson(json.decode(response.body));
+        ExperienceInfo();
         return Right(data);
       } else {
         BotToast.closeAllLoading();
@@ -694,8 +694,9 @@ Logger().i(data);
 //      print(response.body);
       if (response.statusCode == 200) {
         BotToast.closeAllLoading();
+
         ExperienceInfo data =
-        ExperienceInfo.fromJson(json.decode(response.body));
+        ExperienceInfo();
         return Right(data);
       } else {
         BotToast.closeAllLoading();

@@ -2,8 +2,8 @@ import 'package:p7app/main_app/flavour/flavour_config.dart';
 import 'package:p7app/main_app/util/method_extension.dart';
 
 class ExperienceInfo {
-  int experienceId;
-  String organizationName;
+  String experienceId;
+  String companyName;
   String companyId;
   String designation;
   DateTime startDate;
@@ -12,7 +12,7 @@ class ExperienceInfo {
   bool isCurrentlyWorkingHere;
 
   ExperienceInfo({
-    this.organizationName,
+    this.companyName,
     this.designation,
     this.startDate,
     this.endDate,
@@ -26,9 +26,9 @@ class ExperienceInfo {
     var baseUrl = FlavorConfig?.instance?.values?.baseUrl;
 
     isCurrentlyWorkingHere = json['is_currently_working'];
-    experienceId = json['id'];
-    organizationName = json['company_text'];
-    companyId = json['company'];
+    experienceId = json['id']?.toString();
+    companyName = json['company_text'];
+    companyId = json['company_id'];
     designation = json['designation'];
     if (json['start_date'] != null) {
       startDate = DateTime.parse(json['start_date']);
@@ -37,15 +37,15 @@ class ExperienceInfo {
     if (json['end_date'] != null) {
       endDate = DateTime.parse(json['end_date']);
     }
-    if (json['profile_pic'] != null) {
-      companyProfilePic = "${baseUrl}/media/${json['profile_pic']}";
+    if (json['company'] != null) {
+      companyProfilePic = "${baseUrl}${json['company']['profile_picture']}";
     }
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     //data['id'] = this.experienceId;
-    data['company_text'] = this.organizationName;
+    data['company_text'] = this.companyName;
     data['company_id'] = this.companyId;
     data['designation'] = this.designation;
     data['start_date'] = this.startDate.toYYYMMDDString;

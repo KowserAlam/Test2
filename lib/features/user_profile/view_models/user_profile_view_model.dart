@@ -123,7 +123,7 @@ class UserProfileViewModel with ChangeNotifier {
         print(l);
         return false;
       }, (r){
-       userData.referenceData[index] = r;
+//       userData.referenceData[index] = r;
        notifyListeners();
        return true;
       });
@@ -338,11 +338,12 @@ class UserProfileViewModel with ChangeNotifier {
         print(l);
         return false;
       }, (r){
-        userData.experienceInfo.add(r);
-        userData.experienceInfo.sort((a,b){
-          if(a.startDate == null || b.startDate == null)
-            return 0;
-          return b.startDate.compareTo(a.startDate);});
+//        userData.experienceInfo.add(r);
+        fetchUserData();
+//        userData.experienceInfo.sort((a,b){
+//          if(a.startDate == null || b.startDate == null)
+//            return 0;
+//          return b.startDate.compareTo(a.startDate);});
         notifyListeners();
         return true;
       });
@@ -356,11 +357,11 @@ class UserProfileViewModel with ChangeNotifier {
         return false;
       }, (r){
         userData.experienceInfo[index] = r;
-        userData.experienceInfo.sort((a,b){
-          if(a.startDate == null || b.startDate == null)
-            return 0;
-          return b.startDate.compareTo(a.startDate);});
-
+//        userData.experienceInfo.sort((a,b){
+//          if(a.startDate == null || b.startDate == null)
+//            return 0;
+//          return b.startDate.compareTo(a.startDate);});
+        fetchUserData();
         notifyListeners();
         return true;
       });
