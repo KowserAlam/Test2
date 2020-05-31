@@ -34,15 +34,15 @@ class _NotificationTileState extends State<NotificationTile> {
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Container(
-                  height: 60,
-                  width: 60,
-                  margin: EdgeInsets.only(right: 3),
-                  child: Image.asset(
-                    kCompanyImagePlaceholder,
-                    fit: BoxFit.cover,
-                  ),
-                ),
+//                Container(
+//                  height: 60,
+//                  width: 60,
+//                  margin: EdgeInsets.only(right: 3),
+//                  child: Image.asset(
+//                    kCompanyImagePlaceholder,
+//                    fit: BoxFit.cover,
+//                  ),
+//                ),
                 Flexible(
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
