@@ -417,6 +417,8 @@ class StringUtils {
     return paths[paths.length - 1];
   }
 
+  //NotificationScreen
+  static const String notificationsText = "Notifications";
 
   ///
 /// Jobs

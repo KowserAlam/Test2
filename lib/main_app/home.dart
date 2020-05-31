@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:p7app/features/chat/view/screens/notification_screen.dart';
 import 'package:p7app/features/job/view/applied_job_list_screen.dart';
 import 'package:p7app/features/job/view/favourite_job_list_screen.dart';
 import 'package:p7app/features/job/view/job_list_screen.dart';
@@ -52,6 +53,12 @@ class _HomeState extends State<Home> {
                 child: Icon(FontAwesomeIcons.heart),
               ),
               title: Text(StringUtils.favoriteText)),
+          BottomNavigationBarItem(
+              icon: Padding(
+                padding: const EdgeInsets.only(bottom: 5),
+                child: Icon(FontAwesomeIcons.bell),
+              ),
+              title: Text(StringUtils.notificationsText)),
         ]);
 
     return WillPopScope(
@@ -78,6 +85,7 @@ class _HomeState extends State<Home> {
             JobListScreen(),
             AppliedJobListScreen(),
             FavouriteJobListScreen(),
+            NotificationScreen(),
           ],
         ),
       ),
