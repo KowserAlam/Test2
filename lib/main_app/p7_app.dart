@@ -4,8 +4,6 @@ import 'package:p7app/features/auth/provider/password_change_view_model.dart';
 import 'package:p7app/features/auth/provider/password_reset_provider.dart';
 import 'package:p7app/features/auth/provider/signup_viewmodel.dart';
 import 'package:p7app/features/company/view_model/company_list_view_model.dart';
-import 'package:p7app/features/config/config_provider.dart';
-import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:p7app/features/job/view_model/applied_job_list_view_model.dart';
 import 'package:p7app/features/job/view_model/favourite_job_list_view_model.dart';
@@ -46,26 +44,14 @@ class P7App extends StatelessWidget {
 
     return MultiProvider(
       providers: providers,
-      child: BotToastInit(
-        child: MaterialApp(
-          navigatorObservers: [BotToastNavigatorObserver()],
-
-          /// From Here
-          ///
-          /// <--- For device preview should be disable before generate apk
-          locale:
-              isEnabledDevicePreview ? DevicePreview.of(context).locale : null,
-
-          /// <--- For device preview should be disable before generate apk
-          builder: isEnabledDevicePreview ? DevicePreview.appBuilder : null,
-          /// To Here
-
-          debugShowCheckedModeBanner: false,
-          title: StringUtils.appName,
-          theme: AppTheme.lightTheme,
+      child: MaterialApp(
+        navigatorObservers: [BotToastNavigatorObserver()],
+        builder: BotToastInit(),
+        debugShowCheckedModeBanner: false,
+        title: StringUtils.appName,
+        theme: AppTheme.lightTheme,
 //      darkTheme: AppTheme.darkTheme,
-          home: Root(),
-        ),
+        home: Root(),
       ),
     );
   }

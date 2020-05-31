@@ -7,9 +7,6 @@ import 'package:provider/provider.dart';
 
 import 'main_app/flavour/flavour_config.dart';
 
-///device preview should be disable before generate apk
-bool isEnabledDevicePreview = false;
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
