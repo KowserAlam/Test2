@@ -75,7 +75,7 @@ class _AddEditProfessionalSkillState extends State<AddEditProfessionalSkill> {
   bool sameSkill(String input){
     int x = 0;
     for(int i =0; i<widget.previouslyAddedSkills.length; i++){
-      if(input == widget.previouslyAddedSkills[i].skill.name) {
+      if(input.toLowerCase() == widget.previouslyAddedSkills[i].skill.name.toLowerCase()) {
         x++;
       }
     }
