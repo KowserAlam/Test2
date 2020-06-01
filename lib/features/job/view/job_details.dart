@@ -222,7 +222,7 @@ class _JobDetailsState extends State<JobDetails> {
         ),
       );
     }
-print(jobDetails?.company?.profilePicture);
+//print(jobDetails?.company?.profilePicture);
     double iconSize = 14;
     double sectionIconSize = 20;
     Color clockIconColor = Colors.orange;

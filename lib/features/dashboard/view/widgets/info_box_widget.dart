@@ -26,10 +26,23 @@ class InfoBoxWidget extends StatelessWidget {
                     ]),
                     iconData: FeatherIcons.feather,
                     label: StringUtils.skillsText,
-                    count: infoBoxData.skillsCount),
+                    count: infoBoxData?.skillsCount??0),
 
                 Row(
                   children: [
+                    /// applied
+                    Expanded(
+                      child:
+                      /// applied
+                      _boxItem(
+                          linearGradient: LinearGradient(colors: [
+                            Color(0xffffb87b),
+                            Color(0xffe1b8fe),
+                          ]),
+                          iconData: FeatherIcons.briefcase,
+                          label: StringUtils.appliedText,
+                          count: infoBoxData?.appliedJobCount),
+                    ),
                     /// favorite
                     Expanded(
                       child: _boxItem(
@@ -39,21 +52,9 @@ class InfoBoxWidget extends StatelessWidget {
                           ]),
                           iconData: FeatherIcons.heart,
                           label: StringUtils.favoriteText,
-                          count: infoBoxData.favouriteJobCount),
+                          count: infoBoxData?.favouriteJobCount),
                     ),
-                    Expanded(
-                      child:
 
-                          /// applied
-                          _boxItem(
-                              linearGradient: LinearGradient(colors: [
-                                Color(0xffffb87b),
-                                Color(0xffe1b8fe),
-                              ]),
-                              iconData: FeatherIcons.briefcase,
-                              label: StringUtils.appliedText,
-                              count: infoBoxData.appliedJobCount),
-                    ),
                   ],
                 ),
               ],
