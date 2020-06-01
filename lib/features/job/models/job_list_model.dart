@@ -41,9 +41,15 @@ class JobListModel {
     title = json['title'];
     jobCity = json['job_city'];
     employmentStatus = json['employment_status'];
-    companyName = json['company_name'];
-    if (json['profile_picture'] != null) {
-      profilePicture = "$baseUrl/media/${json['profile_picture']}";
+//    companyName = json['company_name'];
+
+//    if (json['profile_picture'] != null) {
+//      profilePicture = "$baseUrl/media/${json['profile_picture']}";
+//    }
+
+    if(json['company'] != null){
+      profilePicture = "$baseUrl${json['company']['profile_picture']}";
+      companyName = json['company']['name'];
     }
     jobNature = json['job_nature'];
     jobSite = json['job_site'];
