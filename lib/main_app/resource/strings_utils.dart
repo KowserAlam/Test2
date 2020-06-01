@@ -425,6 +425,7 @@ static const String deadlineText = "Deadline";
 static const String applyText = "Apply";
 static const String applyFilterText = "Apply Filter";
 static const String appliedText = "Applied";
+
 static const String favoriteText = "Favorite";
 static const String jobsText = "Jobs";
 static const String careerAdviceText = "Career Advice";
