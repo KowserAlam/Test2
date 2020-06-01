@@ -45,7 +45,7 @@ class JobDetails extends StatefulWidget {
 
 class _JobDetailsState extends State<JobDetails> {
   JobModel jobDetails;
-  Company jobCompany;
+//  Company jobCompany;
 
   @override
   void initState() {
@@ -121,6 +121,7 @@ class _JobDetailsState extends State<JobDetails> {
 
   String skillListToString() {
     var listOfSkills = "";
+    if(jobDetails.skill != null)
     for (int i = 0; i < jobDetails.skill.length; i++) {
       if (i + 1 == jobDetails.skill.length) {
         listOfSkills += jobDetails.skill[i];
@@ -147,28 +148,28 @@ class _JobDetailsState extends State<JobDetails> {
     }, (JobModel dataModel) {
       print(dataModel.title);
       jobDetails = dataModel;
-      getCompany(jobDetails);
+//      getCompany(jobDetails);
       setState(() {});
     });
   }
 
-  getCompany(JobModel jobModel) async{
-    CompanyListRepository().getCompanyDetails(jobModel.companyName).then((value) {
-      jobCompany = value;
-      setState(() {
-
-      });
-    });
-//    dartZ.Either<AppError, List<Company>> result =
-//    await CompanyListRepository().getList(query: jobModel.companyName);
-//    return result.fold((l) {
-//      print(l);
-//    }, (List<Company> dataModel) {
-//      print(dataModel[0].name);
-//      jobCompany = dataModel[0];
-//      setState(() {});
+//  getCompany(JobModel jobModel) async{
+//    CompanyListRepository().getCompanyDetails(jobModel.companyName).then((value) {
+//      jobCompany = value;
+//      setState(() {
+//
+//      });
 //    });
-  }
+////    dartZ.Either<AppError, List<Company>> result =
+////    await CompanyListRepository().getList(query: jobModel.companyName);
+////    return result.fold((l) {
+////      print(l);
+////    }, (List<Company> dataModel) {
+////      print(dataModel[0].name);
+////      jobCompany = dataModel[0];
+////      setState(() {});
+////    });
+//  }
 
   @override
   Widget build(BuildContext context) {
@@ -307,7 +308,7 @@ class _JobDetailsState extends State<JobDetails> {
                 kCompanyImagePlaceholder,
                 fit: BoxFit.cover,
               ),
-              imageUrl: jobDetails.profilePicture ?? "",
+              imageUrl: jobDetails?.company?.profilePicture ?? "",
             ),
           ),
           Flexible(
@@ -343,13 +344,13 @@ class _JobDetailsState extends State<JobDetails> {
                         jobDetails.companyName != null
                             ? jobDetails.companyName
                             : StringUtils.unspecifiedText,
-                        style: jobCompany==null?topSideDescriptionFontStyle:hasCompanyFontStyle,
+                        style: jobDetails.company==null?topSideDescriptionFontStyle:hasCompanyFontStyle,
                       ),
                       onTap: (){
-                        jobCompany!=null?Navigator.push(
+                        jobDetails.company!=null?Navigator.push(
                             context,
                             CupertinoPageRoute(
-                                builder: (context) => CompanyDetails(company: jobCompany,))):null;
+                                builder: (context) => CompanyDetails(company: jobDetails.company,))):null;
                       },
                     ),
                     SizedBox(
@@ -654,11 +655,11 @@ class _JobDetailsState extends State<JobDetails> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Text(StringUtils.companyWebAddressText+': ', style: descriptionFontStyleBold,),
-              jobCompany!=null?GestureDetector(
+              jobDetails.company!=null?GestureDetector(
                   onTap: (){
-                    jobCompany.webAddress!=null?UrlLauncherHelper.launchUrl(jobDetails.companyProfile.trim()):null;
+                    jobDetails.company.webAddress!=null?UrlLauncherHelper.launchUrl(jobDetails.companyProfile.trim()):null;
                   },
-                  child: Text(jobCompany.webAddress ?? "", style: TextStyle(color: Colors.lightBlue),)):Text(StringUtils.unspecifiedText),
+                  child: Text(jobDetails.company.webAddress ?? "", style: TextStyle(color: Colors.lightBlue),)):Text(StringUtils.unspecifiedText),
             ],
           ),
           SizedBox(

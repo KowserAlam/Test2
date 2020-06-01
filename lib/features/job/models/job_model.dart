@@ -36,7 +36,7 @@ class JobModel {
   List<String> skill;
   bool isApplied;
   bool isFavourite;
-  String profilePicture;
+//  String profilePicture;
   DateTime publishDate;
   DateTime postDate;
   String jobCategory;
@@ -78,7 +78,7 @@ class JobModel {
       this.district,
       this.jobSkills,
       this.isFavourite,
-      this.profilePicture,
+//      this.profilePicture,
       this.skill,
       this.postDate,
       this.jobAddress,
@@ -131,9 +131,9 @@ class JobModel {
     currency = json['currency'];
     companyName = json['company_name'];
 
-//    if (json['company'] != null) {
-//      company = Company.fromJson(json['company_name']);
-//    }
+    if (json['company'] != null) {
+      company = Company.fromJson(json['company']);
+    }
 
     division = json['division'];
     district = json['district'];
@@ -157,8 +157,8 @@ class JobModel {
         ? false
         : (json['is_favourite'] == "True" ? true : false);
 
-    if (json['profile_picture'] != null) {
-      profilePicture = "$baseUrl${json['profile_picture']}";
-    }
+//    if (json['profile_picture'] != null) {
+//      profilePicture = "$baseUrl${json['profile_picture']}";
+//    }
   }
 }
