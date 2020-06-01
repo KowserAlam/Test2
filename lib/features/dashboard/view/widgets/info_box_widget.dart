@@ -11,7 +11,7 @@ class InfoBoxWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     var dashboardViewModel = Provider.of<DashboardViewModel>(context);
     var infoBoxData = Provider.of<DashboardViewModel>(context).infoBoxData;
-    return dashboardViewModel.isLoadingInfoBoxData
+    return dashboardViewModel.shouldShowInfoBoxLoader
         ? Container( height: 100,child: Loader())
         : Padding(
             padding: const EdgeInsets.all(8.0),

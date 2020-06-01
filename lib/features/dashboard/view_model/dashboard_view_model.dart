@@ -10,7 +10,7 @@ class DashboardViewModel with ChangeNotifier {
   AppError _infoBoxError;
   AppError _skillJobChartError;
   InfoBoxDataModel _infoBoxData;
-  List<SkillJobChartDataModel> _skillJobChartData;
+  List<SkillJobChartDataModel> _skillJobChartData =[];
   bool _isLoadingInfoBoxData = false;
   bool _isLoadingSkillJobChartData = false;
 
@@ -57,6 +57,8 @@ class DashboardViewModel with ChangeNotifier {
       return true;
     });
   }
+  bool get shouldShowInfoBoxLoader => _isLoadingInfoBoxData && (_infoBoxData == null);
+  bool get shouldShowJoChartLoader => _isLoadingSkillJobChartData && (_skillJobChartData.length == 0);
   AppError get infoBoxError => _infoBoxError;
   AppError get skillJobChartError => _skillJobChartError;
 
