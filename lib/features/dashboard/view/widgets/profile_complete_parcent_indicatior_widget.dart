@@ -13,9 +13,6 @@ class ProfileCompletePercentIndicatorWidget extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Column(
         children: [
-          SizedBox(
-            height: 8,
-          ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
