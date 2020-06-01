@@ -9,6 +9,7 @@ import 'package:p7app/features/user_profile/models/skill_info.dart';
 import 'package:p7app/features/user_profile/repositories/skill_list_repository.dart';
 import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
+import 'package:p7app/main_app/util/method_extension.dart';
 import 'package:p7app/main_app/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
@@ -63,7 +64,8 @@ class _AddEditProfessionalSkillState extends State<AddEditProfessionalSkill> {
   bool correctInput(String input){
     int x = 0;
     for(int i =0; i<searchList.length; i++){
-      if(input == searchList[i].name) {
+      if(input.toLowerCase() == searchList[i].name.toLowerCase()) {
+        _selectedSkill = searchList[i];
         x++;
       }
     }
