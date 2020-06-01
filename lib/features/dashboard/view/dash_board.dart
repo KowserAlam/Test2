@@ -1,6 +1,7 @@
 import 'package:after_layout/after_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:p7app/features/dashboard/view/widgets/info_box_widget.dart';
+import 'package:p7app/features/dashboard/view/widgets/job_chart_widget.dart';
 import 'package:p7app/features/dashboard/view_model/dashboard_view_model.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/widgets/app_drawer.dart';
@@ -34,6 +35,7 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
         child: ListView(
           children: [
             InfoBoxWidget(),
+            JobChartWidget(),
           ],
         ),
       ),
