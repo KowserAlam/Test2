@@ -2,7 +2,7 @@ name: p7app
 description: A new Flutter application for Project Seven.
 
 
-version: 0.0.112+87
+version: 0.0.113+88
 
 
 environment:
@@ -51,6 +51,7 @@ dependencies:
   webview_flutter: ^0.3.22+1
   charts_flutter: ^0.9.0
   shimmer: ^1.1.1
+  percent_indicator: ^2.1.3
 
 
 
