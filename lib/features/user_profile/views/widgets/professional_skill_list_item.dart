@@ -15,7 +15,7 @@ class ProfessionalSkillListItem extends StatelessWidget {
       @required this.skillInfo,
       this.onTapDelete,
       this.onTapEdit,
-      this.isInEditMode})
+      this.isInEditMode=false})
       : super(key: key);
 
   @override
