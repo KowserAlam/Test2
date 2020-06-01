@@ -341,8 +341,8 @@ print(jobDetails?.company?.profilePicture);
                   children: <Widget>[
                     GestureDetector(
                       child: Text(
-                        jobDetails.companyName != null
-                            ? jobDetails.companyName
+                        jobDetails.company != null
+                            ? jobDetails.company.name
                             : StringUtils.unspecifiedText,
                         style: jobDetails.company==null?topSideDescriptionFontStyle:hasCompanyFontStyle,
                       ),
