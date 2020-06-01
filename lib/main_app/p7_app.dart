@@ -5,6 +5,7 @@ import 'package:p7app/features/auth/provider/password_reset_provider.dart';
 import 'package:p7app/features/auth/provider/signup_viewmodel.dart';
 import 'package:p7app/features/company/view_model/company_list_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:p7app/features/dashboard/view_model/dashboard_view_model.dart';
 import 'package:p7app/features/job/view_model/applied_job_list_view_model.dart';
 import 'package:p7app/features/job/view_model/favourite_job_list_view_model.dart';
 import 'package:p7app/features/job/view_model/job_list_filter_widget_view_model.dart';
@@ -40,6 +41,7 @@ class P7App extends StatelessWidget {
       ChangeNotifierProvider(create: (context) => SignUpViewModel()),
       ChangeNotifierProvider(create: (context) => JobListFilterWidgetViewModel()),
       ChangeNotifierProvider(create: (context) => PasswordChangeViewModel()),
+      ChangeNotifierProvider(create: (context) => DashboardViewModel()),
     ];
 
     return MultiProvider(

@@ -1,14 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:p7app/features/auth/provider/login_view_model.dart';
 import 'package:p7app/features/auth/view/login_screen.dart';
-import 'package:p7app/features/chat/view/screens/chat_list_screen.dart';
 import 'package:p7app/features/company/view/Screens/company_list_screen.dart';
-import 'package:p7app/features/company/view_model/company_list_view_model.dart';
 import 'package:p7app/features/config/config_screen.dart';
-import 'package:p7app/features/job/view/applied_job_list_screen.dart';
-
-import 'package:p7app/features/job/view/favourite_job_list_screen.dart';
-import 'package:p7app/features/job/view/job_list_screen.dart';
 import 'package:p7app/features/job/view_model/applied_job_list_view_model.dart';
 import 'package:p7app/features/job/view_model/favourite_job_list_view_model.dart';
 import 'package:p7app/features/job/view_model/job_list_filter_widget_view_model.dart';
@@ -17,7 +11,6 @@ import 'package:p7app/features/user_profile/view_models/user_profile_view_model.
 import 'package:p7app/features/user_profile/views/screens/profile_screen.dart';
 import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/auth_service/auth_user_model.dart';
-import 'package:p7app/main_app/flavour/flavour_config.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:flutter/cupertino.dart';
@@ -46,107 +39,108 @@ class _AppDrawerState extends State<AppDrawer> {
   @override
   Widget build(BuildContext context) {
     var headerBackgroundColor = Color(0xff08233A);
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: <Widget>[
-        Container(
-          padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-          decoration: BoxDecoration(image: DecorationImage(  image: AssetImage(kUserProfileCoverImageAsset),
-              fit: BoxFit.cover)),
-          child: FutureBuilder<AuthUserModel>(
-              future:
-                  AuthService.getInstance().then((value) => value.getUser()),
-              builder: (context, snapshot) {
+    return Drawer(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: <Widget>[
+          Container(
+            padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+            decoration: BoxDecoration(image: DecorationImage(  image: AssetImage(kUserProfileCoverImageAsset),
+                fit: BoxFit.cover)),
+            child: FutureBuilder<AuthUserModel>(
+                future:
+                    AuthService.getInstance().then((value) => value.getUser()),
+                builder: (context, snapshot) {
 //              var baseUrl = FlavorConfig.instance.values.baseUrl;
-                var user = snapshot.data;
-                var imageUrl =
-                    user?.professionalImage ?? kDefaultUserImageNetwork;
-                return Container(
-                  height: 160,
+                  var user = snapshot.data;
+                  var imageUrl =
+                      user?.professionalImage ?? kDefaultUserImageNetwork;
+                  return Container(
+                    height: 160,
 //                  decoration: BoxDecoration(
 //                    color: headerBackgroundColor,
 //                    image: DecorationImage(
 //                        image: AssetImage(kUserProfileCoverImageAsset),
 //                        fit: BoxFit.cover),
 //                  ),
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          IconButton(
-                            icon: Icon(
-                              Icons.settings,
-                            ),
-                            color: navBarTextColor,
-                            onPressed: () {
-                              Navigator.pop(context);
-                              Navigator.push(
-                                  context,
-                                  CupertinoPageRoute(
-                                      builder: (context) => ConfigScreen()));
-                            },
-                          ),
-                          Container(
-                            child: IconButton(
-                              icon: Icon(Icons.menu),
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            IconButton(
+                              icon: Icon(
+                                Icons.settings,
+                              ),
                               color: navBarTextColor,
                               onPressed: () {
                                 Navigator.pop(context);
+                                Navigator.push(
+                                    context,
+                                    CupertinoPageRoute(
+                                        builder: (context) => ConfigScreen()));
                               },
                             ),
-                          ),
-                        ],
-                      ),
-                      //profile image
-                      Container(
-                        padding: const EdgeInsets.all(4.0),
-                        height: 65,
-                        width: 65,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100),
-                        ),
-                        child: ClipRRect(
-                          child: CachedNetworkImage(
-                            imageUrl: imageUrl,
-                            fit: BoxFit.cover,
-                            placeholder: (context, _) => Image.asset(
-                              kDefaultUserImageAsset,
-                              fit: BoxFit.cover,
+                            Container(
+                              child: IconButton(
+                                icon: Icon(Icons.menu),
+                                color: navBarTextColor,
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                              ),
                             ),
-                          ),
-                          borderRadius: BorderRadius.circular(100),
+                          ],
                         ),
-                      ),
-                      Text(
-                        user?.fullName ?? "",
-                        style: TextStyle(color: navBarTextColor, fontSize: 18),
-                      ),
-                      Text(
-                        user?.email ?? "",
-                        style: TextStyle(color: navBarTextColor),
-                      ),
-                    ],
-                  ),
-                );
-              }),
-        ),
-        Expanded(
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                ///Home / Jobs index = 0
-                DrawerListWidget(
-                  label: StringUtils.jobsText,
-                  icon: FontAwesomeIcons.briefcase,
-                  isSelected: false,
-                  onTap: () {
-                    Navigator.pop(context);
-//                    Navigator.of(context).pushReplacement(CupertinoPageRoute(
-//                        builder: (context) => JobListScreen()));
-                  },
-                ),
+                        //profile image
+                        Container(
+                          padding: const EdgeInsets.all(4.0),
+                          height: 65,
+                          width: 65,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(100),
+                          ),
+                          child: ClipRRect(
+                            child: CachedNetworkImage(
+                              imageUrl: imageUrl,
+                              fit: BoxFit.cover,
+                              placeholder: (context, _) => Image.asset(
+                                kDefaultUserImageAsset,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            borderRadius: BorderRadius.circular(100),
+                          ),
+                        ),
+                        Text(
+                          user?.fullName ?? "",
+                          style: TextStyle(color: navBarTextColor, fontSize: 18),
+                        ),
+                        Text(
+                          user?.email ?? "",
+                          style: TextStyle(color: navBarTextColor),
+                        ),
+                      ],
+                    ),
+                  );
+                }),
+          ),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+//                  ///Home / Jobs index = 0
+//                  DrawerListWidget(
+//                    label: StringUtils.jobsText,
+//                    icon: FontAwesomeIcons.briefcase,
+//                    isSelected: false,
+//                    onTap: () {
+//                      Navigator.pop(context);
+////                    Navigator.of(context).pushReplacement(CupertinoPageRoute(
+////                        builder: (context) => JobListScreen()));
+//                    },
+//                  ),
 
 //                Divider(height: 1),
 //// favorite jobs
@@ -178,22 +172,22 @@ class _AppDrawerState extends State<AppDrawer> {
 //                  },
 //                ),
 
-                Divider(height: 1),
-                // company list
-                DrawerListWidget(
-                  label: StringUtils.companyListAppbarText,
-                  icon: FontAwesomeIcons.solidBuilding,
-                  isSelected: false,
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.push(
-                        context,
-                        CupertinoPageRoute(
-                            builder: (context) => CompanyListScreen()));
-                  },
-                ),
+                  Divider(height: 1),
+                  // company list
+                  DrawerListWidget(
+                    label: StringUtils.companyListAppbarText,
+                    icon: FontAwesomeIcons.solidBuilding,
+                    isSelected: false,
+                    onTap: () {
+                      Navigator.pop(context);
+                      Navigator.push(
+                          context,
+                          CupertinoPageRoute(
+                              builder: (context) => CompanyListScreen()));
+                    },
+                  ),
 
-                Divider(height: 1),
+                  Divider(height: 1),
 //
 //                DrawerListWidget(
 //                  label: StringUtils.skillCheckText,
@@ -205,19 +199,19 @@ class _AppDrawerState extends State<AppDrawer> {
 //                ),
 //                Divider(height: 1),
 
-                ///Profile
-                DrawerListWidget(
-                  label: StringUtils.profileText,
-                  icon: FontAwesomeIcons.solidUserCircle,
-                  isSelected: false,
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.push(
-                        context,
-                        CupertinoPageRoute(
-                            builder: (context) => ProfileScreen()));
-                  },
-                ),
+                  ///Profile
+                  DrawerListWidget(
+                    label: StringUtils.profileText,
+                    icon: FontAwesomeIcons.solidUserCircle,
+                    isSelected: false,
+                    onTap: () {
+                      Navigator.pop(context);
+                      Navigator.push(
+                          context,
+                          CupertinoPageRoute(
+                              builder: (context) => ProfileScreen()));
+                    },
+                  ),
 
 //                Divider(height: 1,),
 //                ///Inbox
@@ -234,74 +228,75 @@ class _AppDrawerState extends State<AppDrawer> {
 //                  },
 //                ),
 
-                Divider(height: 1),
-                //carer advice
-                DrawerListWidget(
-                  label: StringUtils.careerAdviceText,
-                  icon: FontAwesomeIcons.newspaper,
-                  isSelected: false,
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.of(context).push(CupertinoPageRoute(
-                        builder: (context) => CareerAdviceScreen()));
-                  },
-                ),
+                  Divider(height: 1),
+                  //carer advice
+                  DrawerListWidget(
+                    label: StringUtils.careerAdviceText,
+                    icon: FontAwesomeIcons.newspaper,
+                    isSelected: false,
+                    onTap: () {
+                      Navigator.pop(context);
+                      Navigator.of(context).push(CupertinoPageRoute(
+                          builder: (context) => CareerAdviceScreen()));
+                    },
+                  ),
 
-                Divider(height: 1),
-                //about us
-                DrawerListWidget(
-                  label: StringUtils.aboutUsText,
-                  icon: FontAwesomeIcons.infoCircle,
-                  isSelected: false,
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.of(context).push(CupertinoPageRoute(
-                        builder: (context) => AboutUsScreen()));
-                  },
-                ),
-                Divider(height: 1),
-                //contact us
-                DrawerListWidget(
-                  label: StringUtils.contactUsText,
-                  icon: FontAwesomeIcons.at,
-                  isSelected: false,
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.of(context).push(CupertinoPageRoute(
-                        builder: (context) => ContactUsScreen()));
-                  },
-                ),
+                  Divider(height: 1),
+                  //about us
+                  DrawerListWidget(
+                    label: StringUtils.aboutUsText,
+                    icon: FontAwesomeIcons.infoCircle,
+                    isSelected: false,
+                    onTap: () {
+                      Navigator.pop(context);
+                      Navigator.of(context).push(CupertinoPageRoute(
+                          builder: (context) => AboutUsScreen()));
+                    },
+                  ),
+                  Divider(height: 1),
+                  //contact us
+                  DrawerListWidget(
+                    label: StringUtils.contactUsText,
+                    icon: FontAwesomeIcons.at,
+                    isSelected: false,
+                    onTap: () {
+                      Navigator.pop(context);
+                      Navigator.of(context).push(CupertinoPageRoute(
+                          builder: (context) => ContactUsScreen()));
+                    },
+                  ),
 
-                Divider(height: 1),
-                //faq
-                DrawerListWidget(
-                  label: StringUtils.faqText,
-                  icon: FontAwesomeIcons.questionCircle,
-                  isSelected: false,
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.of(context).push(
-                        CupertinoPageRoute(builder: (context) => FAQScreen()));
-                  },
-                ),
-                Divider(height: 1),
+                  Divider(height: 1),
+                  //faq
+                  DrawerListWidget(
+                    label: StringUtils.faqText,
+                    icon: FontAwesomeIcons.questionCircle,
+                    isSelected: false,
+                    onTap: () {
+                      Navigator.pop(context);
+                      Navigator.of(context).push(
+                          CupertinoPageRoute(builder: (context) => FAQScreen()));
+                    },
+                  ),
+                  Divider(height: 1),
 
-                /// ************ sign out
-                DrawerListWidget(
-                  label: StringUtils.signOutText,
-                  icon: FontAwesomeIcons.signOutAlt,
-                  isSelected: false,
-                  onTap: () {
-                    _handleSignOut(context);
-                  },
-                ),
-                Divider(height: 1),
-              ],
+                  /// ************ sign out
+                  DrawerListWidget(
+                    label: StringUtils.signOutText,
+                    icon: FontAwesomeIcons.signOutAlt,
+                    isSelected: false,
+                    onTap: () {
+                      _handleSignOut(context);
+                    },
+                  ),
+                  Divider(height: 1),
+                ],
+              ),
             ),
           ),
-        ),
-        Center(child: AppVersionWidgetLowerCase())
-      ],
+          Center(child: AppVersionWidgetLowerCase())
+        ],
+      ),
     );
   }
 }
