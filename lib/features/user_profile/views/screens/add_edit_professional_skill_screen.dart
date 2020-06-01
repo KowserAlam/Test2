@@ -24,7 +24,7 @@ class AddEditProfessionalSkill extends StatefulWidget {
   final int index;
   final List<SkillInfo> previouslyAddedSkills;
 
-  AddEditProfessionalSkill({this.skillInfo, this.index,this.previouslyAddedSkills});
+  AddEditProfessionalSkill({this.skillInfo, this.index, @required this.previouslyAddedSkills});
 
   @override
   _AddEditProfessionalSkillState createState() =>

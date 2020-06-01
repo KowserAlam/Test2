@@ -59,6 +59,8 @@ class UserProfileViewModel with ChangeNotifier {
      _isBusyLoading = false;
   }
 
+
+  bool get shouldShowLoader => _isBusyLoading && _userData == null;
   Future<bool> fetchUserData() async {
     _isBusyLoading = true;
     _appError = null;
@@ -87,33 +89,33 @@ class UserProfileViewModel with ChangeNotifier {
     });
   }
 
-  Future<Map<String, String>> updateUserData(UserModel user) async {
-    /// update local state
-
-    userData = user;
-
-    /// update in remote server
-
-    var res = Future.delayed(
-      Duration(
-        seconds: 1,
-      ),
-    );
-
-    return res.then((v) {
-      if (v == null) {
-        return {
-          JsonKeys.code: "200",
-          JsonKeys.message: "Save Successfully",
-        };
-      } else {
-        return {
-          JsonKeys.code: "400",
-          JsonKeys.message: "Save Unsuccessful",
-        };
-      }
-    });
-  }
+//  Future<Map<String, String>> updateUserData(UserModel user) async {
+//    /// update local state
+//
+//    userData = user;
+//
+//    /// update in remote server
+//
+//    var res = Future.delayed(
+//      Duration(
+//        seconds: 1,
+//      ),
+//    );
+//
+//    return res.then((v) {
+//      if (v == null) {
+//        return {
+//          JsonKeys.code: "200",
+//          JsonKeys.message: "Save Successfully",
+//        };
+//      } else {
+//        return {
+//          JsonKeys.code: "400",
+//          JsonKeys.message: "Save Unsuccessful",
+//        };
+//      }
+//    });
+//  }
 
 
   //Reference

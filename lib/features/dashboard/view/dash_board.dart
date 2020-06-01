@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:p7app/features/dashboard/view/widgets/info_box_widget.dart';
 import 'package:p7app/features/dashboard/view/widgets/job_chart_widget.dart';
 import 'package:p7app/features/dashboard/view_model/dashboard_view_model.dart';
+import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/widgets/app_drawer.dart';
 import 'package:provider/provider.dart';
@@ -18,6 +19,7 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
   @override
   void afterFirstLayout(BuildContext context) {
     Provider.of<DashboardViewModel>(context, listen: false).getDashboardData();
+    Provider.of<UserProfileViewModel>(context, listen: false).fetchUserData();
   }
 
   @override
