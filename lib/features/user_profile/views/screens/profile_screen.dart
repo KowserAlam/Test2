@@ -680,7 +680,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(StringUtils.profileText),
+        title: Text(StringUtils.myProfileText),
       ),
       body: RefreshIndicator(
         onRefresh: () async {

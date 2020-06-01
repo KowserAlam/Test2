@@ -2,6 +2,7 @@ import 'package:after_layout/after_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:p7app/features/dashboard/view/widgets/info_box_widget.dart';
 import 'package:p7app/features/dashboard/view/widgets/job_chart_widget.dart';
+import 'package:p7app/features/dashboard/view/widgets/profile_complete_parcent_indicatior_widget.dart';
 import 'package:p7app/features/dashboard/view_model/dashboard_view_model.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
@@ -44,6 +45,7 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
               onTapApplied: widget.onTapApplied,
               onTapFavourite: widget.onTapFavourite,
             ),
+            ProfileCompletePercentIndicatorWidget(0.7),
             JobChartWidget(),
           ],
         ),

@@ -151,7 +151,8 @@ class StringUtils {
 
   /// **************** Profile *****************
 
-  static String profileText = "My Profile";
+  static String myProfileText = "My Profile";
+  static String profileText = "Profile";
 
   static String publicView = "PUBLIC VIEW";
 

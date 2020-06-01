@@ -201,7 +201,7 @@ class _AppDrawerState extends State<AppDrawer> {
 
                   ///Profile
                   DrawerListWidget(
-                    label: StringUtils.profileText,
+                    label: StringUtils.myProfileText,
                     icon: FontAwesomeIcons.solidUserCircle,
                     isSelected: false,
                     onTap: () {
