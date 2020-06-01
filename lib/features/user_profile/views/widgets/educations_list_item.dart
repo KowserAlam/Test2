@@ -40,51 +40,57 @@ class EducationsListItem extends StatelessWidget {
         borderRadius: BorderRadius.circular(5),
         boxShadow: CommonStyleTextField.boxShadow,
       ),
-      child: ListTile(
-        contentPadding: EdgeInsets.only(left: 5),
-        leading: Material(
-          color: Theme.of(context).scaffoldBackgroundColor,
-          borderRadius: BorderRadius.circular(5),
-          child: Padding(
-            padding: const EdgeInsets.all(7.0),
-            child: Icon(
-              FontAwesomeIcons.university,
-              size: 40,
-              color: Theme.of(context).primaryColor,
+      child: Row(
+        children: [
+          Icon(
+            FontAwesomeIcons.university,
+            size: 55,
+            color: Theme.of(context).primaryColor,
+          ),
+          SizedBox(
+            width: 8,
+          ),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  eduInfoModel.institutionObj?.name ??
+                      eduInfoModel.institutionText ??
+                      "",style: Theme.of(context).textTheme.subtitle1,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(eduInfoModel.degree ?? ""),
+                    Text(
+                      date,
+                      style: TextStyle(fontSize: 12, color: Colors.grey),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
-        ),
-        title: Text(
-          eduInfoModel.institutionObj?.name ??
-              eduInfoModel.institutionText ??
-              "",
-        ),
-        subtitle: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(eduInfoModel.degree ?? ""),
-            Text(date),
-          ],
-        ),
-        trailing: !isInEditMode
-            ? null
-            : Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  IconButton(
-                    icon: Icon(FontAwesomeIcons.edit),
-                    onPressed: onTapEdit,
-                    iconSize: 18,
-                    color: Colors.black,
-                  ),
-                  IconButton(
-                    icon: Icon(FontAwesomeIcons.trash),
-                    onPressed: onTapDelete,
-                    iconSize: 18,
-                    color: Colors.black,
-                  ),
-                ],
-              ),
+          if (isInEditMode)
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                IconButton(
+                  icon: Icon(FontAwesomeIcons.edit),
+                  onPressed: onTapEdit,
+                  iconSize: 18,
+                  color: Colors.black,
+                ),
+                IconButton(
+                  icon: Icon(FontAwesomeIcons.trash),
+                  onPressed: onTapDelete,
+                  iconSize: 18,
+                  color: Colors.black,
+                ),
+              ],
+            ),
+        ],
       ),
     );
   }
