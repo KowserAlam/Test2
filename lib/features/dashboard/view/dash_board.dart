@@ -9,7 +9,11 @@ import 'package:p7app/main_app/widgets/app_drawer.dart';
 import 'package:provider/provider.dart';
 
 class DashBoard extends StatefulWidget {
-  DashBoard({Key key}) : super(key: key);
+  final Function onTapFavourite;
+  final Function onTapApplied;
+
+  DashBoard({Key key, this.onTapFavourite, this.onTapApplied})
+      : super(key: key);
 
   @override
   _DashBoardState createState() => _DashBoardState();
@@ -36,7 +40,10 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
             .getDashboardData,
         child: ListView(
           children: [
-            InfoBoxWidget(),
+            InfoBoxWidget(
+              onTapApplied: widget.onTapApplied,
+              onTapFavourite: widget.onTapFavourite,
+            ),
             JobChartWidget(),
           ],
         ),

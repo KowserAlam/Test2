@@ -7,6 +7,11 @@ import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 
 class InfoBoxWidget extends StatelessWidget {
+  final Function onTapFavourite;
+  final Function onTapApplied;
+
+  InfoBoxWidget({this.onTapFavourite, this.onTapApplied});
+
   @override
   Widget build(BuildContext context) {
     var dashboardViewModel = Provider.of<DashboardViewModel>(context);
@@ -21,18 +26,24 @@ class InfoBoxWidget extends StatelessWidget {
                     enabled: true,
                     child: Row(
                       children: [
-                        Expanded(child: _boxItem(linearGradient:  LinearGradient(colors: [
-                        Color(0xff91bcf9),
-                    Color(0xff99d7f2),
-                    ]))),
-                        Expanded(child: _boxItem(linearGradient:  LinearGradient(colors: [
-                        Color(0xff91bcf9),
-                    Color(0xff99d7f2),
-                    ]))),
-                        Expanded(child: _boxItem(linearGradient:  LinearGradient(colors: [
-                        Color(0xff91bcf9),
-                    Color(0xff99d7f2),
-                    ]))),
+                        Expanded(
+                            child: _boxItem(
+                                linearGradient: LinearGradient(colors: [
+                          Color(0xff91bcf9),
+                          Color(0xff99d7f2),
+                        ]))),
+                        Expanded(
+                            child: _boxItem(
+                                linearGradient: LinearGradient(colors: [
+                          Color(0xff91bcf9),
+                          Color(0xff99d7f2),
+                        ]))),
+                        Expanded(
+                            child: _boxItem(
+                                linearGradient: LinearGradient(colors: [
+                          Color(0xff91bcf9),
+                          Color(0xff99d7f2),
+                        ]))),
                       ],
                     ))),
           )
@@ -66,6 +77,7 @@ class InfoBoxWidget extends StatelessWidget {
                               ]),
                               iconData: FeatherIcons.briefcase,
                               label: StringUtils.appliedText,
+                              onTap: onTapApplied,
                               count: infoBoxData?.appliedJobCount),
                     ),
 
@@ -78,7 +90,7 @@ class InfoBoxWidget extends StatelessWidget {
                           ]),
                           iconData: FeatherIcons.heart,
                           label: StringUtils.favoriteText,
-                          count: infoBoxData?.favouriteJobCount),
+                          count: infoBoxData?.favouriteJobCount,onTap: onTapFavourite),
                     ),
                   ],
                 ),
@@ -87,11 +99,13 @@ class InfoBoxWidget extends StatelessWidget {
           );
   }
 
-  _boxItem(
-      {String label,
-      int count,
-      IconData iconData,
-      LinearGradient linearGradient}) {
+  _boxItem({
+    String label,
+    int count,
+    IconData iconData,
+    LinearGradient linearGradient,
+    Function onTap,
+  }) {
     return LayoutBuilder(builder: (context, constrain) {
       var deviceWidth = MediaQuery.of(context).size.width;
       double iconSize = deviceWidth * .09;
@@ -101,35 +115,45 @@ class InfoBoxWidget extends StatelessWidget {
       return Container(
         margin: EdgeInsets.all(4),
         height: boxHeight,
-        alignment: Alignment.center,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10), gradient: linearGradient),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            if(iconData!= null)
-            Icon(
-              iconData,
-              color: Colors.white,
-              size: iconSize,
-            ),
-            SizedBox(width: 5),
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
+            borderRadius: BorderRadius.circular(10),
+            gradient: linearGradient),
+        child: Material(
+          color: Colors.transparent,
+          child: InkWell(
+            borderRadius: BorderRadius.circular(10),
+            onTap: onTap,
+            child: Center(
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  if (iconData != null)
+                    Icon(
+                      iconData,
+                      color: Colors.white,
+                      size: iconSize,
+                    ),
+                  SizedBox(width: 5),
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
 //                if(count!= null)
-                Text(
-                  "$count",
-                  style:
-                      TextStyle(color: Colors.white, fontSize: numberFontSize),
-                ),
-                Text(
-                  label??"",
-                  style: TextStyle(color: Colors.white, fontSize: textFontSize),
-                ),
-              ],
+                      Text(
+                        "$count",
+                        style: TextStyle(
+                            color: Colors.white, fontSize: numberFontSize),
+                      ),
+                      Text(
+                        label ?? "",
+                        style:
+                            TextStyle(color: Colors.white, fontSize: textFontSize),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ],
+          ),
         ),
       );
     });
