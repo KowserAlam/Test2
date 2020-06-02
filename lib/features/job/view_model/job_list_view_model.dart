@@ -1,20 +1,12 @@
-import 'dart:convert';
-
-import 'package:bot_toast/bot_toast.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:p7app/features/job/models/job_list_model.dart';
-import 'package:p7app/features/job/models/job_model.dart';
 import 'package:p7app/features/job/models/job_list_filters.dart';
 import 'package:p7app/features/job/models/sort_item.dart';
 import 'package:p7app/features/job/repositories/job_repository.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
-import 'package:p7app/main_app/api_helpers/urls.dart';
-import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/util/debouncer.dart';
-import 'package:rxdart/rxdart.dart';
 import 'package:p7app/main_app/util/method_extension.dart';
 
 class JobListViewModel with ChangeNotifier {
@@ -29,7 +21,7 @@ class JobListViewModel with ChangeNotifier {
   bool _isInSearchMode = false;
   int _totalJobCount = 0;
   AppError _appError;
-
+  DateTime _lastFetchTime;
 
   AppError get appError => _appError;
 
@@ -123,11 +115,19 @@ class JobListViewModel with ChangeNotifier {
     return getJobList();
   }
 
-  Future<bool> getJobList() async {
+  Future<bool> getJobList({bool isFormOnPageLoad = false}) async {
+    if(isFormOnPageLoad)
+      if(_lastFetchTime != null){
+        if(_lastFetchTime.difference(DateTime.now()) < Duration(minutes: 5))
+          return false;
+      }
+    _lastFetchTime = DateTime.now();
     _isFetchingData = true;
     _totalJobCount = 0;
     _appError = null;
     notifyListeners();
+
+
 
     Either<AppError, JobListScreenDataModel> result =
         await _jobListRepository.fetchJobList(_jobListFilters);
@@ -193,7 +193,6 @@ class JobListViewModel with ChangeNotifier {
 
   Future<bool> addToFavorite(String jobId, int index,
       {ApiClient apiClient}) async {
-
     bool isSuccessful = await JobRepository().addToFavorite(jobId);
     if (isSuccessful) {
       _jobList[index].isFavourite = !_jobList[index].isFavourite;
@@ -280,7 +279,8 @@ class JobListViewModel with ChangeNotifier {
   /// getter setters
   /// #########################
 
-  bool get shouldShowAppError => _appError != null && _jobList.length ==0;
+  bool get shouldShowAppError => _appError != null && _jobList.length == 0;
+
   bool get hasSortBy => _jobListFilters.sort?.key?.isNotEmptyOrNotNull ?? false;
 
   bool get hasGender => _jobListFilters.gender.isNotEmptyOrNotNull;
@@ -320,6 +320,8 @@ class JobListViewModel with ChangeNotifier {
         hasExperienceRange;
   }
 
+  bool get hasSearchQuery => _jobListFilters.searchQuery.isNotEmptyOrNotNull;
+
   List<JobListModel> get jobList => _jobList;
 
   set jobList(List<JobListModel> value) {
@@ -350,4 +352,10 @@ class JobListViewModel with ChangeNotifier {
   set jobListRepository(JobRepository value) {
     _jobListRepository = value;
   }
+
+  bool get shouldShowPageLoader =>
+      _jobList.length == 0 && _isFetchingData && !isFilterApplied && ! hasSearchQuery;
+
+  bool get shouldSearchNFilterLoader =>
+        _isFetchingData &&(hasSearchQuery || isFilterApplied);
 }
