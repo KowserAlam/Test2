@@ -15,12 +15,15 @@ import 'package:shimmer/shimmer.dart';
 
 class JobChartWidget extends StatelessWidget {
   final bool animate;
+  final chLength = 100;
 
   JobChartWidget({this.animate = false});
 
   @override
   Widget build(BuildContext context) {
-//    var dashboardViewModel = Provider.of<DashboardViewModel>(context);
+
+    var screenHeight = MediaQuery.of(context).size.height;
+    var chartHeight = screenHeight / 2.2;
     var primaryColor = Theme.of(context).primaryColor;
 
     var dummyDataList = [
@@ -32,137 +35,175 @@ class JobChartWidget extends StatelessWidget {
       SkillJobChartDataModel(month: "December", total: 60),
     ];
 
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Consumer<UserProfileViewModel>(
+            builder:
+                (BuildContext context, userProfileViewModel, Widget child) {
+            var dashboardViewModel = Provider.of<DashboardViewModel>(context);
 
-    return Column(
-      children: [
-        Consumer<DashboardViewModel>(builder:
-            (BuildContext context, dashboardViewModel, Widget child) {
+              if (userProfileViewModel.shouldShowLoader) {
+                return SizedBox();
+//                return Container(
+//                  height: 200,
+//                  child: Padding(
+//                    padding: const EdgeInsets.all(8.0),
+//                    child: Container(
+//                        child: Shimmer.fromColors(
+//                            baseColor: Colors.grey[300],
+//                            highlightColor: Colors.grey[100],
+//                            enabled: true,
+//                            child: Column(
+//                              children: [
+//                                ProfessionalSkillListItem(
+//                                  skillInfo: SkillInfo(
+//                                      rating: 0,
+//                                      skill: Skill(name: ""),
+//                                      verifiedBySkillCheck: false),
+//                                ),
+//                              ],
+//                            ))),
+//                  ),
+//                );
+              }
+              bool isExpanded = dashboardViewModel.idExpandedSkillList;
+              List<SkillInfo> skillList =
+                  userProfileViewModel?.userData?.skillInfo ?? [];
 
-          if(dashboardViewModel.shouldShowJoChartLoader){
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
+              String skillText = _buildStringFromSkillList(skillList);
+
+              bool hasMoreText = skillText.length > chLength;
+              String skillsString = (isExpanded || !hasMoreText)
+                  ? skillText ?? ""
+                  : skillText?.substring(0, chLength) ?? "";
+
+              if (skillList.length == 0) {
+                return Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: RawMaterialButton(
+                    fillColor: Theme.of(context).backgroundColor,
+                    elevation: 3,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          StringUtils.addSkillText,
+                          style: TextStyle(color: primaryColor),
+                        ),
+                        Icon(
+                          Icons.add,
+                          color: primaryColor,
+                        )
+                      ],
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).push(CupertinoPageRoute(
+                          builder: (context) => AddEditProfessionalSkill(
+                                previouslyAddedSkills: skillList,
+                              )));
+                    },
+                  ),
+                );
+              }
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    Text(skillsString),
+                    if (hasMoreText)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 5),
+                        child: InkWell(
+                          onTap: () {
+                            dashboardViewModel.idExpandedSkillList = !isExpanded;
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  isExpanded
+                                      ? StringUtils.seeLessText
+                                      : StringUtils.seeMoreText,
+                                  style: TextStyle(
+                                      color: Theme.of(context).primaryColor),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
+              );
+            },
+          ),
+          Consumer<DashboardViewModel>(builder:
+              (BuildContext context, dashboardViewModel, Widget child) {
+            if (dashboardViewModel.shouldShowJoChartLoader) {
+              return Container(
                   child: Shimmer.fromColors(
                       baseColor: Colors.grey[300],
                       highlightColor: Colors.grey[100],
                       enabled: true,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-
                         child: Container(
                           color: Colors.blue,
-                          height: 200,width: double.infinity,),
-                      ))),
-            );
+                          height: 200,
+                          width: double.infinity,
+                        ),
+                      )));
+            }
+            var seriesList = [
+              charts.Series<SkillJobChartDataModel, String>(
+                id: "JoB Chart",
+                domainFn: (v, _) => v.month ?? "Month",
+                measureFn: (v, _) => v.total ?? 0,
+                data: dashboardViewModel.skillJobChartData,
+                labelAccessorFn: (v, _) => '${v.total ?? ""}',
+              )
+            ];
 
-          }
-              var seriesList = [
-                charts.Series<SkillJobChartDataModel, String>(
-                  id: "JoB Chart",
-                  domainFn: (v, _) => v.month ?? "Month",
-                  measureFn: (v, _) => v.total ?? 0,
-                  data: dashboardViewModel.skillJobChartData,
-                  labelAccessorFn: (v, _) => '${v.total ?? ""}',
-                )
-              ];
-
-          return Container(
-            padding: EdgeInsets.all(8),
-            height: 250,
-            child: charts.BarChart(
-              seriesList,
-              barGroupingType: charts.BarGroupingType.grouped,
-              vertical: false,
-              animate: animate,
+            return Container(
+              padding: EdgeInsets.all(8),
+              height: chartHeight,
+              child: charts.BarChart(
+                seriesList,
+                barGroupingType: charts.BarGroupingType.grouped,
+                vertical: false,
+                animate: animate,
 //        flipVerticalAxis: true,
-              barRendererDecorator: new charts.BarLabelDecorator<String>(),
+                barRendererDecorator: new charts.BarLabelDecorator<String>(),
 
-              behaviors: [
+                behaviors: [
 //              new charts.ChartTitle('Jobs Per Month',
 //                  behaviorPosition: charts.BehaviorPosition.bottom,
 //                  titleOutsideJustification:
 //                      charts.OutsideJustification.middleDrawArea),
-              ],
-              primaryMeasureAxis: new charts.NumericAxisSpec(
-                  tickProviderSpec: new charts.BasicNumericTickProviderSpec(
-                      desiredTickCount: 10)),
-              secondaryMeasureAxis: new charts.NumericAxisSpec(
-                  tickProviderSpec: new charts.BasicNumericTickProviderSpec(
-                      desiredTickCount: 3)),
-            ),
-          );
-        }),
-        Consumer<UserProfileViewModel>(
-          builder: (BuildContext context, userProfileViewModel, Widget child) {
-            if (userProfileViewModel.shouldShowLoader) {
-              return Container(
-                height: 200,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                      child: Shimmer.fromColors(
-                          baseColor: Colors.grey[300],
-                          highlightColor: Colors.grey[100],
-                          enabled: true,
-                          child: Column(
-                            children: [
-                              ProfessionalSkillListItem(
-                                skillInfo: SkillInfo(
-                                    rating: 0,
-                                    skill: Skill(name: ""),
-                                    verifiedBySkillCheck: false),
-                              ),
-                            ],
-                          ))),
-                ),
-              );
-            }
-
-            List<SkillInfo> skillList =
-                userProfileViewModel?.userData?.skillInfo ?? [];
-            if (skillList.length == 0) {
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: RawMaterialButton(
-                  fillColor: Theme.of(context).backgroundColor,
-                  elevation: 3,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5)),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        StringUtils.addSkillText,
-                        style: TextStyle(color: primaryColor),
-                      ),
-                      Icon(
-                        Icons.add,
-                        color: primaryColor,
-                      )
-                    ],
-                  ),
-                  onPressed: () {
-                    Navigator.of(context).push(CupertinoPageRoute(
-                        builder: (context) => AddEditProfessionalSkill(
-                              previouslyAddedSkills: skillList,
-                            )));
-                  },
-                ),
-              );
-            }
-            return Container(
-              padding: EdgeInsets.all(8),
-              child: Column(
-                children: skillList
-                    .map((e) => ProfessionalSkillListItem(
-                          skillInfo: e,
-                        ))
-                    .toList(),
+                ],
+                primaryMeasureAxis: new charts.NumericAxisSpec(
+                    tickProviderSpec: new charts.BasicNumericTickProviderSpec(
+                        desiredTickCount: 10)),
+                secondaryMeasureAxis: new charts.NumericAxisSpec(
+                    tickProviderSpec: new charts.BasicNumericTickProviderSpec(
+                        desiredTickCount: 3)),
               ),
             );
-          },
-        )
-      ],
+          }),
+        ],
+      ),
     );
+  }
+
+  String _buildStringFromSkillList(List<SkillInfo> list) {
+    var skillList = list.map((e) => e?.skill?.name);
+    return skillList.join(", ");
   }
 }

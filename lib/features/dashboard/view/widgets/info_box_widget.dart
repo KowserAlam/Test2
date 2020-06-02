@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p7app/features/dashboard/view_model/dashboard_view_model.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/widgets/loader.dart';
@@ -60,7 +61,7 @@ class InfoBoxWidget extends StatelessWidget {
                             Color(0xffaa91fa),
                             Color(0xff9eacfd),
                           ]),
-                          iconData: FeatherIcons.feather,
+                          iconData: FontAwesomeIcons.tools,
                           label: StringUtils.skillsText,
                           count: infoBoxData?.skillsCount ?? 0),
                     ),
@@ -75,7 +76,7 @@ class InfoBoxWidget extends StatelessWidget {
                                 Color(0xffffb87b),
                                 Color(0xffe1b8fe),
                               ]),
-                              iconData: FeatherIcons.briefcase,
+                              iconData: FontAwesomeIcons.solidCheckSquare,
                               label: StringUtils.appliedText,
                               onTap: onTapApplied,
                               count: infoBoxData?.appliedJobCount),
@@ -88,9 +89,10 @@ class InfoBoxWidget extends StatelessWidget {
                             Color(0xff91bcf9),
                             Color(0xff99d7f2),
                           ]),
-                          iconData: FeatherIcons.heart,
+                          iconData: FontAwesomeIcons.solidHeart,
                           label: StringUtils.favoriteText,
-                          count: infoBoxData?.favouriteJobCount,onTap: onTapFavourite),
+                          count: infoBoxData?.favouriteJobCount,
+                          onTap: onTapFavourite),
                     ),
                   ],
                 ),
@@ -107,17 +109,17 @@ class InfoBoxWidget extends StatelessWidget {
     Function onTap,
   }) {
     return LayoutBuilder(builder: (context, constrain) {
+      var screenHeight = MediaQuery.of(context).size.height;
       var deviceWidth = MediaQuery.of(context).size.width;
-      double iconSize = deviceWidth * .09;
+      double iconSize = deviceWidth * .083;
       double numberFontSize = iconSize / 1.6;
       double textFontSize = iconSize / 3;
-      double boxHeight = iconSize * 2;
+      double boxHeight = iconSize * (1.2+(screenHeight* .002));
       return Container(
         margin: EdgeInsets.all(4),
         height: boxHeight,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            gradient: linearGradient),
+            borderRadius: BorderRadius.circular(10), gradient: linearGradient),
         child: Material(
           color: Colors.transparent,
           child: InkWell(
@@ -139,14 +141,14 @@ class InfoBoxWidget extends StatelessWidget {
                     children: [
 //                if(count!= null)
                       Text(
-                        "$count",
+                        "${count ?? "0"}",
                         style: TextStyle(
                             color: Colors.white, fontSize: numberFontSize),
                       ),
                       Text(
                         label ?? "",
-                        style:
-                            TextStyle(color: Colors.white, fontSize: textFontSize),
+                        style: TextStyle(
+                            color: Colors.white, fontSize: textFontSize),
                       ),
                     ],
                   ),

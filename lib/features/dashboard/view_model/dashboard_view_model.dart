@@ -13,6 +13,8 @@ class DashboardViewModel with ChangeNotifier {
   List<SkillJobChartDataModel> _skillJobChartData =[];
   bool _isLoadingInfoBoxData = false;
   bool _isLoadingSkillJobChartData = false;
+  bool _idExpandedSkillList = false;
+
 
 
 
@@ -69,4 +71,11 @@ class DashboardViewModel with ChangeNotifier {
   bool get isLoadingInfoBoxData => _isLoadingInfoBoxData;
 
   bool get isLoadingSkillJobChartData => _isLoadingSkillJobChartData;
+
+  bool get idExpandedSkillList => _idExpandedSkillList;
+
+  set idExpandedSkillList(bool value) {
+    _idExpandedSkillList = value;
+    notifyListeners();
+  }
 }
