@@ -6,6 +6,7 @@ import 'package:p7app/features/job/models/sort_item.dart';
 import 'package:p7app/features/job/repositories/job_repository.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
+import 'package:p7app/main_app/util/common_serviec_rule.dart';
 import 'package:p7app/main_app/util/debouncer.dart';
 import 'package:p7app/main_app/util/method_extension.dart';
 
@@ -116,11 +117,14 @@ class JobListViewModel with ChangeNotifier {
   }
 
   Future<bool> getJobList({bool isFormOnPageLoad = false}) async {
+
+    var time = Duration(minutes: 5);
     if(isFormOnPageLoad)
       if(_lastFetchTime != null){
-        if(_lastFetchTime.difference(DateTime.now()) < Duration(minutes: 5))
+        if(_lastFetchTime.difference(DateTime.now()) < time)
           return false;
       }
+
     _lastFetchTime = DateTime.now();
     _isFetchingData = true;
     _totalJobCount = 0;

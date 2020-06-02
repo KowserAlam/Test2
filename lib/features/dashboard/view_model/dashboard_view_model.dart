@@ -5,6 +5,7 @@ import 'package:p7app/features/dashboard/models/info_box_data_model.dart';
 import 'package:p7app/features/dashboard/models/skill_job_chart_data_model.dart';
 import 'package:p7app/features/dashboard/repositories/dashboard_repository.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
+import 'package:p7app/main_app/util/common_serviec_rule.dart';
 
 class DashboardViewModel with ChangeNotifier {
   AppError _infoBoxError;
@@ -14,13 +15,22 @@ class DashboardViewModel with ChangeNotifier {
   bool _isLoadingInfoBoxData = false;
   bool _isLoadingSkillJobChartData = false;
   bool _idExpandedSkillList = false;
+  DateTime _lastFetchTime;
 
 
 
 
 
-  Future <void> getDashboardData() async{
-     _isLoadingInfoBoxData = true;
+  Future <void> getDashboardData({bool isFormOnPageLoad = false}) async{
+    var time = Duration(minutes: 5);
+    if(isFormOnPageLoad)
+      if(_lastFetchTime != null){
+        if(_lastFetchTime.difference(DateTime.now()) < time)
+          return false;
+      }
+
+    _lastFetchTime = DateTime.now();
+    _isLoadingInfoBoxData = true;
      _isLoadingSkillJobChartData = true;
     notifyListeners();
     return Future.wait([
