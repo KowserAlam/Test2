@@ -121,14 +121,14 @@ class _JobDetailsState extends State<JobDetails> {
 
   String skillListToString() {
     String listOfSkills = "";
-//    if(jobDetails.jobSkills != null)
-//    for (int i = 0; i < jobDetails.jobSkills.length; i++) {
-//      if (i + 1 == jobDetails.jobSkills.length) {
-//        listOfSkills += jobDetails.jobSkills[i].name;
-//      } else {
-//        listOfSkills += jobDetails.jobSkills[i].name + ", ";
-//      }
-//    }
+    if(jobDetails.jobSkills != null)
+    for (int i = 0; i < jobDetails.jobSkills.length; i++) {
+      if (i + 1 == jobDetails.jobSkills.length) {
+        listOfSkills += jobDetails.jobSkills[i];
+      } else {
+        listOfSkills += jobDetails.jobSkills[i] + ", ";
+      }
+    }
     return listOfSkills;
   }
 

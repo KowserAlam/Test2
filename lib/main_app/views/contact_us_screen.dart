@@ -5,6 +5,7 @@ import 'package:p7app/main_app/app_theme/app_theme.dart';
 import 'package:p7app/main_app/flavour/flavour_config.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/views/widgets/pge_view_widget.dart';
+import 'package:p7app/main_app/widgets/common_button.dart';
 import 'package:p7app/main_app/widgets/custom_text_field.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -90,6 +91,14 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                   hintText: StringUtils.contactUsMessageText,
                 ),
               ],
+            ),
+          ),
+          SizedBox(height: 20,),
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 80),
+            child: CommonButton(
+              label: 'Submit',
+              onTap: (){},
             ),
           )
         ],
