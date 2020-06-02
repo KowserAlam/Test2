@@ -57,12 +57,12 @@ class EducationsListItem extends StatelessWidget {
                 Text(
                   eduInfoModel.institutionObj?.name ??
                       eduInfoModel.institutionText ??
-                      "",style: Theme.of(context).textTheme.subtitle1,
+                      "",style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(eduInfoModel.degree ?? ""),
+                    Text(eduInfoModel.degree ?? "",style: TextStyle(fontSize: 13),),
                     Text(
                       date,
                       style: TextStyle(fontSize: 12, color: Colors.grey),

@@ -33,7 +33,7 @@ class JobModel {
   Company company;
   String division;
   String district;
-  List<Skill> jobSkills;
+  List<String> jobSkills;
   bool isApplied;
   bool isFavourite;
 //  String profilePicture;

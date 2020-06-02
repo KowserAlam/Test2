@@ -440,6 +440,15 @@ static const String noJobsFound = "No jobs found";
 static const String noFavouriteJobsFound = "No favourite jobs found";
 static const String noAppliedJobsFound = "No applied jobs found";
 
+//Contact Us
+static const String contactUsContactInfoText = 'Contact Info';
+static const String contactUsKeepInTouchText = 'Keep In Touch';
+static const String contactUsNameText = 'Contact Info';
+static const String contactUsEmailText = 'Email';
+static const String contactUsPhoneText = 'Phone';
+static const String contactUsSubjectText = 'Subject';
+static const String contactUsMessageText = 'Message';
+
 
 ///Job Details
 static const String jobDetailsAppBarTitle = 'Job Details';
