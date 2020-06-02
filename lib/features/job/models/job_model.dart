@@ -1,3 +1,4 @@
+import 'package:dartz/dartz_unsafe.dart';
 import 'package:p7app/features/company/models/company.dart';
 import 'package:p7app/main_app/flavour/flavour_config.dart';
 import 'package:p7app/features/user_profile/models/skill.dart';
@@ -36,6 +37,7 @@ class JobModel {
   List<String> jobSkills;
   bool isApplied;
   bool isFavourite;
+
 //  String profilePicture;
   DateTime publishDate;
   DateTime postDate;
@@ -146,7 +148,13 @@ class JobModel {
     jobType = json['job_type'];
     companyProfile = json['company_profile'];
     additionalRequirements = json['additional_requirements'];
-    jobSkills = json['job_skills']?.cast<String>();
+
+    if (json['job_skills'] != null) {
+      jobSkills = [];
+      json['job_skills'].forEach((element) {
+        jobSkills.add(element['name']);
+      });
+    }
 
     isApplied = json['is_applied'] == null
         ? false

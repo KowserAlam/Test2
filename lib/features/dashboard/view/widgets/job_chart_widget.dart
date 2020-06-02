@@ -15,7 +15,7 @@ import 'package:shimmer/shimmer.dart';
 
 class JobChartWidget extends StatelessWidget {
   final bool animate;
-  final chLength = 100;
+  final chLength = 90;
 
   JobChartWidget({this.animate = false});
 
@@ -23,7 +23,7 @@ class JobChartWidget extends StatelessWidget {
   Widget build(BuildContext context) {
 
     var screenHeight = MediaQuery.of(context).size.height;
-    var chartHeight = screenHeight / 2.2;
+    var chartHeight = screenHeight / 2.3;
     var primaryColor = Theme.of(context).primaryColor;
 
     var dummyDataList = [
