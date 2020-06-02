@@ -139,7 +139,7 @@ class InfoBoxWidget extends StatelessWidget {
                     children: [
 //                if(count!= null)
                       Text(
-                        "$count",
+                        "${count??"0"}",
                         style: TextStyle(
                             color: Colors.white, fontSize: numberFontSize),
                       ),
