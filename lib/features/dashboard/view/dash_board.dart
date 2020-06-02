@@ -23,7 +23,7 @@ class DashBoard extends StatefulWidget {
 class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
   @override
   void afterFirstLayout(BuildContext context) {
-    Provider.of<DashboardViewModel>(context, listen: false).getDashboardData();
+    Provider.of<DashboardViewModel>(context, listen: false).getDashboardData(isFormOnPageLoad: true);
     Provider.of<UserProfileViewModel>(context, listen: false).fetchUserData();
   }
 
