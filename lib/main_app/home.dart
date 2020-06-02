@@ -58,12 +58,12 @@ class _HomeState extends State<Home> {
           BottomNavigationBarItem(
               icon: Padding(
                   padding: const EdgeInsets.only(bottom: 5),
-                  child: Icon(FontAwesomeIcons.checkCircle)),
+                  child: Icon(FontAwesomeIcons.solidCheckSquare)),
               title: Text(StringUtils.appliedText)),
           BottomNavigationBarItem(
               icon: Padding(
                 padding: const EdgeInsets.only(bottom: 5),
-                child: Icon(FontAwesomeIcons.heart),
+                child: Icon(FontAwesomeIcons.solidHeart),
               ),
               title: Text(StringUtils.favoriteText)),
         ]);

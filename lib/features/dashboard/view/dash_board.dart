@@ -41,11 +41,11 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
             .getDashboardData,
         child: ListView(
           children: [
+            ProfileCompletePercentIndicatorWidget(0.7),
             InfoBoxWidget(
               onTapApplied: widget.onTapApplied,
               onTapFavourite: widget.onTapFavourite,
             ),
-            ProfileCompletePercentIndicatorWidget(0.7),
             JobChartWidget(),
           ],
         ),
