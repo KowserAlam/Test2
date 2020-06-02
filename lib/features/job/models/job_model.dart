@@ -1,5 +1,6 @@
 import 'package:p7app/features/company/models/company.dart';
 import 'package:p7app/main_app/flavour/flavour_config.dart';
+import 'package:p7app/features/user_profile/models/skill.dart';
 
 class JobModel {
   String jobId;
@@ -32,8 +33,7 @@ class JobModel {
   Company company;
   String division;
   String district;
-  List<String> jobSkills;
-  List<String> skill;
+  List<Skill> jobSkills;
   bool isApplied;
   bool isFavourite;
 //  String profilePicture;
@@ -79,7 +79,6 @@ class JobModel {
       this.jobSkills,
       this.isFavourite,
 //      this.profilePicture,
-      this.skill,
       this.postDate,
       this.jobAddress,
       this.jobCountry,
@@ -148,7 +147,6 @@ class JobModel {
     companyProfile = json['company_profile'];
     additionalRequirements = json['additional_requirements'];
     jobSkills = json['job_skills']?.cast<String>();
-    skill = json['skill']?.cast<String>();
 
     isApplied = json['is_applied'] == null
         ? false

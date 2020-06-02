@@ -21,7 +21,13 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
       appBar: AppBar(
         title: Text(StringUtils.contactUsText),
       ),
-      body: PgeViewWidget(url: url,),
+      body: ListView(
+        children: [
+          Container(
+
+          )
+        ],
+      ),
     );
   }
 }
