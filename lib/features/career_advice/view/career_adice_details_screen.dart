@@ -24,7 +24,7 @@ class CareerAdviceDetailsScreen extends StatelessWidget {
                 SizedBox(height: 5,),
                 Text(careerAdviceModel.author, style: TextStyle(fontSize: 13, color: Colors.blueAccent),),
                 SizedBox(height: 5,),
-                Text(DateFormatUtil().dateFormat1(DateTime.parse(careerAdviceModel.createdDate)).toString().toString(), style: TextStyle(fontSize: 13, color: Colors.grey[600]),),
+                Text(DateFormatUtil().dateFormat1(DateTime.parse(careerAdviceModel.createdDate)).toString(), style: TextStyle(fontSize: 13, color: Colors.grey[600]),),
                 SizedBox(height: 12,),
                 Text(careerAdviceModel.description, style: TextStyle(fontSize: 15),)
               ],

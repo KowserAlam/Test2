@@ -8,6 +8,7 @@ import 'package:p7app/main_app/app_theme/app_theme.dart';
 import 'package:p7app/main_app/flavour/flavour_config.dart';
 import 'package:p7app/features/career_advice/models/career_advice_model.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/util/date_format_uitl.dart';
 import 'package:p7app/main_app/views/widgets/pge_view_widget.dart';
 import 'package:p7app/main_app/widgets/loader.dart';
 import 'package:provider/provider.dart';
@@ -118,7 +119,7 @@ class _CareerAdviceScreenState extends State<CareerAdviceScreen>
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               Text(
-                                adviceList[index].createdDate,
+                                DateFormatUtil().dateFormat1(DateTime.parse(adviceList[index].createdDate)).toString(),
                                 style: TextStyle(color: Colors.grey),
                               ),
                               Container(
