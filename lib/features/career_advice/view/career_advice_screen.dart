@@ -52,7 +52,7 @@ class _CareerAdviceScreenState extends State<CareerAdviceScreen>
         title: Text(StringUtils.careerAdviceText),
       ),
       body: RefreshIndicator(
-        onRefresh: vm.getData,
+        onRefresh: vm.refresh,
         child: vm.shouldShowPageLoader
             ? Center(
                 child: Loader(),

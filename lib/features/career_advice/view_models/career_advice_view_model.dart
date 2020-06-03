@@ -16,6 +16,15 @@ class CareerAdviceViewModel with ChangeNotifier {
   int _page = 1;
   bool _hasMoreData = true;
 
+  resetPageCounter(){
+    _page = 0;
+  }
+
+  Future<void> refresh(){
+    _page = 0;
+   return getData();
+  }
+
   Future<void> getData({bool isFromOnPageLoad = false}) async {
     if (isFromOnPageLoad) {
       if (_lastFetchTime != null) if (_lastFetchTime
