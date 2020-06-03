@@ -448,6 +448,7 @@ static const String contactUsEmailText = 'Email';
 static const String contactUsPhoneText = 'Phone';
 static const String contactUsSubjectText = 'Subject';
 static const String contactUsMessageText = 'Message';
+static const String contactUsLocationText = 'Location';
 
 
 ///Job Details
