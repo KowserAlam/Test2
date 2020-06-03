@@ -213,6 +213,7 @@ class _JobListScreenState extends State<JobListScreen>
           shrinkWrap: true,
           itemCount: jobList.length + 1,
           itemBuilder: (context, index) {
+
             if (index == jobList.length) {
               return jobListViewModel
                   .isFetchingMoreData

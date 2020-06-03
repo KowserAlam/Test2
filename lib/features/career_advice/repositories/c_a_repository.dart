@@ -8,7 +8,7 @@ import 'package:p7app/main_app/failure/app_error.dart';
 
 class CareerAdviceRepository {
   Future<Either<AppError, CareerAdviceScreenDataModel>> getData(
-      {int page = 1, int pageSize = 10, ApiClient apiClient}) async {
+      {int page = 1, int pageSize = 6, ApiClient apiClient}) async {
     try {
 //      dev.ishraak.com/api/career_advise/?page_size=2&page=1
       var url = "${Urls.careerAdviceUrl}/?page_size=${pageSize}&page=${page}";

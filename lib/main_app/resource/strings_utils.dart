@@ -183,6 +183,7 @@ class StringUtils {
 
   static String saveText = "Save";
   static String ongoingText = "Ongoing";
+  static String readMoreText = 'Read More';
 
   //Company List Screen
   static var companyListAppbarText = "Companies";

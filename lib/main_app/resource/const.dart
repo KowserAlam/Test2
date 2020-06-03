@@ -17,7 +17,7 @@ const String  kDefaultLogoText = "assets/images/job_search_logo_text.png";
 const String  kUserProfileCoverImageAsset = "assets/images/user_profile_cover.jpg";
 const String  kCompanyImagePlaceholder = "assets/images/company_placeholder.png";
 
-
+const Duration  kDefaultTimeToPreventAutoRefresh = const Duration(minutes: 5);
 
 
 /// Less then 720 will be count as
