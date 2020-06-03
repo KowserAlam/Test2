@@ -109,6 +109,9 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
         Container(
           height: MediaQuery.of(context).size.width,
           width: MediaQuery.of(context).size.width,
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.grey[300])
+          ),
           child: GoogleMap(
             markers: markers.toSet(),
             gestureRecognizers: Set()
