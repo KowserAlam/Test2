@@ -28,6 +28,7 @@ class ProfileCompletePercentIndicatorWidget extends StatelessWidget {
           ),
 
           LinearPercentIndicator(
+            animation: true,
             lineHeight: 8.0,
             percent: percent,
             progressColor: Colors.blue,

@@ -29,6 +29,7 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
 
   @override
   Widget build(BuildContext context) {
+    var dashboardViewModel = Provider.of<DashboardViewModel>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(StringUtils.dashBoardText),
@@ -41,7 +42,7 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
             .getDashboardData,
         child: ListView(
           children: [
-            ProfileCompletePercentIndicatorWidget(0.7),
+            ProfileCompletePercentIndicatorWidget(dashboardViewModel.profileCompletePercent/100),
             InfoBoxWidget(
               onTapApplied: widget.onTapApplied,
               onTapFavourite: widget.onTapFavourite,
