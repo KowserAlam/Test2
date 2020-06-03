@@ -76,6 +76,9 @@ static String dashboardInfoBoxUrl = "/api/professional/info_box/";
 static String dashboardSkillJobChartUrl = "/api/professional/skill_job_chart/";
 static String settingsUrl = "/api/settings/";
 
+//contact us
+static String contactUsUrl = "/api/send_email_to_admin_contact_us/";
+
 
 
 // webUrl
