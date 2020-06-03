@@ -79,6 +79,9 @@ static String profileCompleteness = "/api/pro/profile-completeness/";
 static String settingsUrl = "/api/settings/";
 static String careerAdviceUrl = "/api/career_advise";
 
+//contact us
+static String contactUsUrl = "/api/send_email_to_admin_contact_us/";
+
 
 
 // webUrl

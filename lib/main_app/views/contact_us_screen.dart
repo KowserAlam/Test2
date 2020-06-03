@@ -1,13 +1,28 @@
+import 'dart:async';
+
+import 'package:bot_toast/bot_toast.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
+import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/flavour/flavour_config.dart';
+import 'package:p7app/main_app/models/contact_us_model.dart';
+import 'package:p7app/main_app/models/settings_model.dart';
+import 'package:p7app/main_app/repositories/contact_us_repository.dart';
+import 'package:p7app/main_app/repositories/setting_repository.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/views/widgets/pge_view_widget.dart';
 import 'package:p7app/main_app/widgets/common_button.dart';
 import 'package:p7app/main_app/widgets/custom_text_field.dart';
+import 'package:p7app/main_app/widgets/loader.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:dartz/dartz.dart' as dartZ;
+
 
 class ContactUsScreen extends StatefulWidget {
   ContactUsScreen({Key key}) : super(key: key);
@@ -17,10 +32,98 @@ class ContactUsScreen extends StatefulWidget {
 }
 
 class _ContactUsScreenState extends State<ContactUsScreen> {
-  var url = "${FlavorConfig?.instance?.values?.baseUrl}${Urls.contactUsWeb}";
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController subjectController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController messageController = TextEditingController();
+
+  SettingsModel _settingsModel;
+  getSettingsDetails() async {
+    dartZ.Either<AppError, SettingsModel> result =
+    await SettingsRepository().getSettingInfo();
+    return result.fold((l) {
+      print(l);
+    }, (SettingsModel settingsModel) {
+      print(settingsModel.id);
+      _settingsModel = settingsModel;
+      double lat = double.parse(settingsModel.latitude);
+      double long = double.parse(settingsModel.longitude);
+
+      if (lat != null && long != null) {
+        _goToPosition(lat: lat, long: long);
+      }
+//      getCompany(jobDetails);
+      setState(() {});
+    });
+  }
+
+  Future<bool> addContactUsData(ContactUsModel contactUsModel){
+    return ContactUsRepository().addContactUsData(contactUsModel).then((res){
+      return res.fold((l){
+        print(l);
+        return false;
+      }, (r){
+        BotToast.showText(text: 'Submitted');
+        return true;
+      });
+    });
+  }
+
+  static double _cameraZoom = 10.4746;
+  Completer<GoogleMapController> _controller = Completer();
+  final CameraPosition initialCameraPosition = CameraPosition(
+    target: LatLng(23.7104, 90.40744),
+    zoom: _cameraZoom,
+  );
+
+  List<Marker> markers = [];
+
+  Future<void> _goToPosition({double lat, double long}) async {
+    var markId = MarkerId("Ishraak Solutions");
+    Marker _marker = Marker(
+      onTap: () {
+        print("tapped");
+      },
+      position: LatLng(lat, long),
+      infoWindow: InfoWindow(title: "Ishraak Solutions"),
+      markerId: markId,
+    );
+    markers.add(_marker);
+    final GoogleMapController _googleMapController = await _controller.future;
+    var position = CameraPosition(
+      target: LatLng(lat, long),
+      zoom: _cameraZoom,
+    );
+
+    _googleMapController
+        .animateCamera(CameraUpdate.newCameraPosition(position));
+  }
+
+  @override
+  void initState() {
+    getSettingsDetails();
+    super.initState();
+  }
+
+  void _handleSave(){
+    var contactUsModel = ContactUsModel(
+      name: nameController.text??"",
+      email: emailController.text??"",
+      subject: subjectController.text??"",
+      message: messageController.text??"",
+      phone: phoneController.text??""
+    );
+
+    addContactUsData(contactUsModel);
+  }
 
   @override
   Widget build(BuildContext context) {
+    TextStyle sectionTitleFont = TextStyle(fontSize: 17, fontWeight: FontWeight.bold);
+    TextStyle descriptionFontStyle = TextStyle(fontSize: 13);
+    TextStyle descriptionFontStyleBold = TextStyle(fontSize: 12, fontWeight: FontWeight.bold);
+    double fontAwesomeIconSize = 15;
     
     TextStyle titleStyle = TextStyle(fontWeight: FontWeight.bold,fontSize: 18);
     Widget contactInfoItems(IconData iconData, String data){
@@ -36,6 +139,59 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
     };
 
     var spaceBetweenLines = SizedBox(height: 10,);
+    var googleMap = Column(
+      children: <Widget>[
+        Row(
+          children: <Widget>[
+            FaIcon(
+              FeatherIcons.mapPin,
+              size: fontAwesomeIconSize,
+            ),
+            SizedBox(
+              width: 5,
+            ),
+            Text(
+              StringUtils.contactUsLocationText,
+              style: sectionTitleFont,
+            )
+          ],
+        ),
+        SizedBox(
+          height: 5,
+        ),
+        Container(
+          height: MediaQuery.of(context).size.width,
+          width: MediaQuery.of(context).size.width,
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.grey[300])
+          ),
+          child: GoogleMap(
+            markers: markers.toSet(),
+            gestureRecognizers: Set()
+              ..add(Factory<PanGestureRecognizer>(() => PanGestureRecognizer()))
+              ..add(Factory<ScaleGestureRecognizer>(
+                      () => ScaleGestureRecognizer()))
+              ..add(Factory<TapGestureRecognizer>(() => TapGestureRecognizer()))
+              ..add(Factory<VerticalDragGestureRecognizer>(
+                      () => VerticalDragGestureRecognizer())),
+            onMapCreated: (GoogleMapController controller) {
+              _controller.complete(controller);
+            },
+            initialCameraPosition: initialCameraPosition,
+          ),
+        ),
+      ],
+    );
+
+    if(_settingsModel == null)
+      return Scaffold(
+        appBar: AppBar(
+          title: Text(StringUtils.contactUsText),
+        ),
+        body: Center(
+          child: Loader(),
+        ),
+      );
     return Scaffold(
       appBar: AppBar(
         title: Text(StringUtils.contactUsText),
@@ -60,11 +216,11 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                     children: [
                       Text(StringUtils.contactUsContactInfoText,style: titleStyle,),
                       Divider(height: 25,),
-                      contactInfoItems(Icons.pin_drop, 'House 76, Level 4,'),
+                      contactInfoItems(Icons.pin_drop, _settingsModel.address),
                       spaceBetweenLines,
-                      contactInfoItems(Icons.mail_outline, 'support@ishraak.com'),
+                      contactInfoItems(Icons.mail_outline, _settingsModel.supportEmail),
                       spaceBetweenLines,
-                      contactInfoItems(Icons.phone_in_talk, '01714111977'),
+                      contactInfoItems(Icons.phone_in_talk, _settingsModel.phone),
                     ],
                   ),
                 ),
@@ -73,22 +229,27 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                 SizedBox(height: 10,),
                 CustomTextField(
                   hintText: StringUtils.contactUsNameText,
+                  controller: nameController,
                 ),
                 spaceBetweenLines,
                 CustomTextField(
                   hintText: StringUtils.contactUsEmailText,
+                  controller: emailController,
                 ),
                 spaceBetweenLines,
                 CustomTextField(
                   hintText: StringUtils.contactUsPhoneText,
+                  controller: phoneController,
                 ),
                 spaceBetweenLines,
                 CustomTextField(
                   hintText: StringUtils.contactUsSubjectText,
+                  controller: subjectController,
                 ),
                 spaceBetweenLines,
                 CustomTextField(
                   hintText: StringUtils.contactUsMessageText,
+                  controller: messageController,
                 ),
               ],
             ),
@@ -98,8 +259,15 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
             padding: EdgeInsets.symmetric(horizontal: 80),
             child: CommonButton(
               label: 'Submit',
-              onTap: (){},
+              onTap: (){
+                _handleSave();
+              },
             ),
+          ),
+          SizedBox(height: 30,),
+          Container(
+            margin: EdgeInsets.all(15),
+            child: googleMap,
           )
         ],
       ),
