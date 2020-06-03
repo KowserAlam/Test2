@@ -74,6 +74,9 @@ class Urls {
 
 static String dashboardInfoBoxUrl = "/api/professional/info_box/";
 static String dashboardSkillJobChartUrl = "/api/professional/skill_job_chart/";
+static String settingsUrl = "/api/settings/";
+
+
 
 // webUrl
   static String aboutUsWeb = "/about-us-app/";
