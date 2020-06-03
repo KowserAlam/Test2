@@ -8,6 +8,7 @@ import 'package:p7app/features/dashboard/models/skill_job_chart_data_model.dart'
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
+import 'package:p7app/main_app/resource/strings_utils.dart';
 
 class DashBoardRepository {
   Future<Either<AppError, InfoBoxDataModel>> getInfoBoxData() async {
@@ -51,6 +52,21 @@ print(res.statusCode);
     } catch (e) {
       print(e);
       return Left(AppError.unknownError);
+    }
+  }
+
+  Future<double> getProfileCompletenessPercent()async{
+    try{
+      var res = await ApiClient().getRequest(Urls.profileCompleteness);
+      if(res.statusCode == 200){
+        var data = json.decode(res.body);
+        return data ['percent_of_profile_completeness']?.toDouble();
+      }else{
+        return 0;
+      }
+    }catch (e){
+      print(e);
+      return 0;
     }
   }
 }

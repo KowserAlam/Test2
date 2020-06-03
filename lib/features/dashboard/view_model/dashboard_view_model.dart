@@ -16,7 +16,7 @@ class DashboardViewModel with ChangeNotifier {
   bool _isLoadingSkillJobChartData = false;
   bool _idExpandedSkillList = false;
   DateTime _lastFetchTime;
-
+  double profileCompletePercent = 0;
 
 
 
@@ -36,6 +36,7 @@ class DashboardViewModel with ChangeNotifier {
     return Future.wait([
     _getInfoBoxData(),
     _getISkillJobChartData(),
+      _getProfileCompleteness(),
     ]);
 
   }
@@ -67,6 +68,12 @@ class DashboardViewModel with ChangeNotifier {
       _isLoadingSkillJobChartData = false;
       notifyListeners();
       return true;
+    });
+  }
+  Future<double> _getProfileCompleteness()async{
+    return DashBoardRepository().getProfileCompletenessPercent().then((value) {
+      return profileCompletePercent = value;
+      notifyListeners();
     });
   }
   bool get shouldShowInfoBoxLoader => _isLoadingInfoBoxData && (_infoBoxData == null);
