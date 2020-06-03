@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
 import 'package:p7app/main_app/flavour/flavour_config.dart';
-import 'package:p7app/main_app/models/career_advice_model.dart';
+import 'package:p7app/features/career_advice/models/career_advice_model.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/views/widgets/pge_view_widget.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -36,7 +36,7 @@ class _CareerAdviceScreenState extends State<CareerAdviceScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(adviceList[index].adviceTitle, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
+              Text(adviceList[index].title, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
               SizedBox(height: 2,),
               Text(adviceList[index].author, style: TextStyle(fontSize: 12,color: Colors.lightBlueAccent),),
               SizedBox(height: 10,),
@@ -47,7 +47,7 @@ class _CareerAdviceScreenState extends State<CareerAdviceScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Text(adviceList[index].date, style: TextStyle(color: Colors.grey),),
+                  Text(adviceList[index].createdDate, style: TextStyle(color: Colors.grey),),
                   Container(
                     padding: EdgeInsets.all(10),
                     decoration: BoxDecoration(
