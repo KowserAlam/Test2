@@ -17,7 +17,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p7app/main_app/views/about_us_screen.dart';
-import 'package:p7app/features/career_advice/view/career_advice.dart';
+import 'package:p7app/features/career_advice/view/career_advice_screen.dart';
 import 'package:p7app/main_app/views/contact_us_screen.dart';
 import 'package:p7app/main_app/views/faq_screen.dart';
 import 'package:p7app/main_app/widgets/app_version_widget_small.dart';

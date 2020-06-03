@@ -24,22 +24,6 @@ class CareerAdviceModel {
   }
 }
 
-List<CareerAdviceModel> adviceList = [
-  CareerAdviceModel(
-    title: 'Don\'t be afraid to get fired',
-    author: 'Henry Ford',
-    description:
-        'You’ll compromise yourself and your career goals if you’re just trying to not get fired.',
-    createdDate: '11TH APR, 2020',
-  ),
-  CareerAdviceModel(
-    title: 'SKILLS OVER DEGREES',
-    author: 'Elon Musk',
-    description:
-        'During a 2014 interview, Musk suggested young people should not be obsessed about degrees',
-    createdDate: '11TH APR, 2020',
-  )
-];
 
 
 
