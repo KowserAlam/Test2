@@ -102,7 +102,7 @@ class _CareerAdviceScreenState extends State<CareerAdviceScreen>
                             height: 10,
                           ),
                           Text(
-                            adviceList[index].description,
+                            adviceList[index].shortDescription,
                             style: TextStyle(
                               fontSize: 14,
                             ),
