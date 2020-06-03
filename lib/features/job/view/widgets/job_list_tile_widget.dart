@@ -41,14 +41,16 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
 //        : true;
 
 //    debugPrint("Deadline: ${widget.jobModel.applicationDeadline}\n Today: ${DateTime.now()} \n $isDateExpired");
-
+    bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    var subtitleColor = isDarkMode ? Colors.white : AppTheme.grey;
     var backgroundColor = Theme.of(context).backgroundColor;
     var scaffoldBackgroundColor = Theme.of(context).scaffoldBackgroundColor;
-    bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
-    var titleStyle = TextStyle(fontSize: 16, fontWeight: FontWeight.w600);
-    double iconSize = 14.0;
+
+    var titleStyle = TextStyle(fontSize: 14, fontWeight: FontWeight.w600);
+    var subTitleStyle = TextStyle(fontSize: 12, color: subtitleColor);
+    double iconSize = 12;
 //    bool isTabLayout = MediaQuery.of(context).size.width > kMidDeviceScreenSize;
-    var subtitleColor = isDarkMode ? Colors.white : AppTheme.grey;
+
     var companyLogo = Container(
       height: 60,
       width: 60,
@@ -63,10 +65,12 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
     var jobTitle = Text(
       widget.jobModel.title ?? "",
       style: titleStyle,
+      maxLines: 3,
+      overflow: TextOverflow.ellipsis,
     );
     var companyName = Text(
       widget.jobModel.companyName ?? "",
-      style: TextStyle(color: subtitleColor),
+      style: subTitleStyle,
     );
     var companyLocation = Container(
       child: Row(
@@ -84,7 +88,7 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
               widget.jobModel.jobCity ?? "",
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(color: subtitleColor),
+              style: subTitleStyle,
             ),
           )
         ],
@@ -137,7 +141,7 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
         SizedBox(width: 5),
         Text(
           deadLineText,
-          style: TextStyle(color: subtitleColor, fontWeight: FontWeight.w100),
+          style: subTitleStyle,
         ),
       ],
     );
@@ -151,7 +155,7 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
         SizedBox(width: 5),
         Text(
           publishDateText,
-          style: TextStyle(color: subtitleColor, fontWeight: FontWeight.w100),
+          style: subTitleStyle,
         ),
       ],
     );

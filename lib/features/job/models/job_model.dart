@@ -95,9 +95,9 @@ class JobModel {
   JobModel.fromJson(Map<String, dynamic> json) {
     String baseUrl = FlavorConfig?.instance?.values?.baseUrl;
 
-    jobId = json['job_id'];
+    jobId = json['job_id']?.toString();
     slug = json['slug'];
-    title = json['title'];
+    title = json['title']?.toString();
     jobCity = json['job_city'];
     salaryMin = json['salary_min'];
     salaryMax = json['salary_max'];
@@ -116,9 +116,9 @@ class JobModel {
       postDate = DateTime.parse(json['post_date']);
     }
 
-    descriptions = json['description'];
-    responsibilities = json['responsibilities'];
-    education = json['education'];
+    descriptions = json['description']?.toString();
+    responsibilities = json['responsibilities']?.toString();
+    education = json['education']?.toString();
     salary = json['salary']?.toString();
     otherBenefits = json['other_benefits'];
     rawContent = json['raw_content'];
@@ -126,11 +126,11 @@ class JobModel {
     termsAndCondition = json['terms_and_condition'];
     industry = json['industry'];
     employmentStatus = json['employment_status'];
-    experience = json['experience'];
-    qualification = json['qualification'];
-    gender = json['job_gender'];
-    currency = json['currency'];
-    companyName = json['company_name'];
+    experience = json['experience']?.toString();
+    qualification = json['qualification']?.toString();
+    gender = json['job_gender']?.toString();
+    currency = json['currency']?.toString();
+    companyName = json['company_name']?.toString();
 
     if (json['company'] != null) {
       company = Company.fromJson(json['company']);
