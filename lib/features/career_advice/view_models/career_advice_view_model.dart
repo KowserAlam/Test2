@@ -50,6 +50,7 @@ class CareerAdviceViewModel with ChangeNotifier {
   }
 
   getMoreData() async {
+    _page++;
     _isFetchingMoreData = true;
     notifyListeners();
     var res = await CareerAdviceRepository().getData();
