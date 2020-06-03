@@ -11,8 +11,7 @@ class CareerAdviceScreenDataModel {
   int previousPageNumber;
   int nextPageNumber;
   int code;
-  Null currentUrl;
-  List<CareerAdviceModel> results;
+  List<CareerAdviceModel> careerAdviceList;
 
   CareerAdviceScreenDataModel(
       {this.status,
@@ -25,8 +24,7 @@ class CareerAdviceScreenDataModel {
       this.previousPageNumber,
       this.nextPageNumber,
       this.code,
-      this.currentUrl,
-      this.results});
+      this.careerAdviceList});
 
   CareerAdviceScreenDataModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
@@ -39,11 +37,10 @@ class CareerAdviceScreenDataModel {
     previousPageNumber = json['previous_page_number'];
     nextPageNumber = json['next_page_number'];
     code = json['code'];
-    currentUrl = json['current_url'];
     if (json['results'] != null) {
-      results = new List<CareerAdviceModel>();
+      careerAdviceList = new List<CareerAdviceModel>();
       json['results'].forEach((v) {
-        results.add(new CareerAdviceModel.fromJson(v));
+        careerAdviceList.add(new CareerAdviceModel.fromJson(v));
       });
     }
   }
