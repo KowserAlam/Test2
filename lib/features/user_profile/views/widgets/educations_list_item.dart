@@ -42,10 +42,17 @@ class EducationsListItem extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Icon(
-            FontAwesomeIcons.university,
-            size: 55,
-            color: Theme.of(context).primaryColor,
+          Container(
+            padding: EdgeInsets.all(5),
+            decoration: BoxDecoration(
+              color: Colors.grey[100],
+              borderRadius: BorderRadius.circular(5)
+            ),
+            child: Icon(
+              FontAwesomeIcons.university,
+              size: 50,
+              color: Theme.of(context).primaryColor,
+            ),
           ),
           SizedBox(
             width: 8,
@@ -57,7 +64,7 @@ class EducationsListItem extends StatelessWidget {
                 Text(
                   eduInfoModel.institutionObj?.name ??
                       eduInfoModel.institutionText ??
-                      "",style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),
+                      "",style: TextStyle(fontSize: 15,fontWeight: FontWeight.w600),
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

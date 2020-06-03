@@ -7,6 +7,7 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:p7app/features/company/models/company.dart';
 import 'package:p7app/features/company/view_model/company_list_view_model.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
+import 'package:p7app/main_app/util/date_format_uitl.dart';
 import 'package:p7app/main_app/widgets/loader.dart';
 import 'company_details.dart';
 import 'package:p7app/main_app/resource/const.dart';
@@ -49,7 +50,6 @@ class _CompanyListScreenState extends State<CompanyListScreen> {
     double iconSize = 14.0;
     var subtitleColor = isDarkMode ? Colors.white : AppTheme.grey;
 
-
     return WillPopScope(
       onWillPop: () async{
         companyViewModel.resetState();
@@ -63,7 +63,7 @@ class _CompanyListScreenState extends State<CompanyListScreen> {
           child: Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
-            padding: EdgeInsets.all(10),
+            padding: EdgeInsets.all(8),
             child: Column(
               children: [
                 CustomTextField(
@@ -122,6 +122,7 @@ class _CompanyListScreenState extends State<CompanyListScreen> {
                             },
                             child: Container(
                               decoration: BoxDecoration(color: scaffoldBackgroundColor,
+//        borderRadius: BorderRadius.circular(5),
                                   boxShadow: [
                                     BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 10),
                                     BoxShadow(color: Colors.black.withOpacity(0.2), blurRadius: 10),
@@ -143,11 +144,8 @@ class _CompanyListScreenState extends State<CompanyListScreen> {
                                             color: scaffoldBackgroundColor,
                                           ),
                                           child: CachedNetworkImage(
-                                            placeholder: (context, _) => Image.asset(
-                                              kImagePlaceHolderAsset,
-                                              fit: BoxFit.cover,
-                                            ),
                                             imageUrl: companySuggestion[index].profilePicture ?? "",
+                                            placeholder: (context, _) => Image.asset(kCompanyImagePlaceholder),
                                           ),
                                         ),
                                         SizedBox(width: 8),
@@ -155,9 +153,17 @@ class _CompanyListScreenState extends State<CompanyListScreen> {
                                             child: Column(
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: <Widget>[
-                                                Text(companySuggestion[index].name, style: TextStyle(fontWeight: FontWeight.bold),),
-                                                SizedBox(height: 10,),
-                                                companySuggestion[index].address==null?SizedBox():Container(
+                                                Text(
+                                                  companySuggestion[index].name ?? "",
+                                                  style: titleStyle,
+                                                ),
+//                                                SizedBox(height: 3),
+//                                                Text(
+//                                                  companySuggestion[index].yearOfEstablishment ?? "",
+//                                                  style: TextStyle(color: subtitleColor),
+//                                                ),
+                                                SizedBox(height: 10),
+                                                if (companySuggestion[index].address != null) Container(
                                                   child: Row(
                                                     children: <Widget>[
                                                       Icon(
@@ -181,7 +187,27 @@ class _CompanyListScreenState extends State<CompanyListScreen> {
                                                 ),
                                               ],
                                             )),
-                                        //heartButton,
+                                        SizedBox(width: 8),
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(height: 1),
+                                  Container(
+                                    padding: EdgeInsets.all(8),
+                                    color: backgroundColor,
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: <Widget>[
+                                        Row(
+                                          children: <Widget>[
+                                            Text('Year of Establishment: ',style: TextStyle(color: subtitleColor, fontWeight: FontWeight.w600),),
+                                            SizedBox(width: 5),
+                                            Text(
+                                              companySuggestion[index].yearOfEstablishment!=null?DateFormatUtil.formatDate(companySuggestion[index].yearOfEstablishment):StringUtils.unspecifiedText,
+                                              style: TextStyle(color: subtitleColor, fontWeight: FontWeight.w100),
+                                            ),
+                                          ],
+                                        )
                                       ],
                                     ),
                                   ),
