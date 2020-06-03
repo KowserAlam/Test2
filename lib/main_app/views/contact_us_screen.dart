@@ -13,7 +13,7 @@ import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/flavour/flavour_config.dart';
 import 'package:p7app/main_app/models/contact_us_model.dart';
 import 'package:p7app/main_app/models/settings_model.dart';
-import 'package:p7app/main_app/repositories/contact_us_repository.dart';
+import 'package:p7app/main_app/repositories/contact_us_submit_repository.dart';
 import 'package:p7app/main_app/repositories/setting_repository.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/views/widgets/pge_view_widget.dart';
@@ -59,7 +59,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
   }
 
   Future<bool> addContactUsData(ContactUsModel contactUsModel){
-    return ContactUsRepository().addContactUsData(contactUsModel).then((res){
+    return ContactUsSubmitRepository().addContactUsData(contactUsModel).then((res){
       return res.fold((l){
         print(l);
         return false;

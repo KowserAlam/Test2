@@ -11,48 +11,44 @@ import 'package:p7app/main_app/models/contact_us_model.dart';
 import 'package:p7app/main_app/models/settings_model.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 
-class ContactUsRepository {
-  Future<Either<AppError, ContactUsModel>> getSettingInfo(
-      {ApiClient apiClient}) async {
-    var client = apiClient ?? ApiClient();
+class ContactUsSubmitRepository {
+//  Future<Either<AppError, ContactUsModel>> getSettingInfo(
+//      {ApiClient apiClient}) async {
+//    var client = apiClient ?? ApiClient();
+//
+//    try{
+//      var res = await client.getRequest(Urls.contactUsSubmitUrl);
+//      print(res.statusCode);
+//      if (res.statusCode == 200) {
+//        var decodedJson = json.decode(res.body);
+//        var data = ContactUsModel.fromJson(decodedJson[0]);
+//        return Right(data);
+//      } else {
+//        return Left(AppError.httpError);
+//      }
+//    }
+//    on SocketException catch (e){
+//      print(e);
+//      return Left(AppError.networkError);
+//    }
+//    catch (e){
+//      print(e);
+//      return Left(AppError.unknownError);
+//    }
+//
+//  }
 
-    try{
-      var res = await client.getRequest(Urls.contactUsUrl);
-      print(res.statusCode);
-      if (res.statusCode == 200) {
-        var decodedJson = json.decode(res.body);
-        var data = ContactUsModel.fromJson(decodedJson[0]);
-        return Right(data);
-      } else {
-        return Left(AppError.httpError);
-      }
-    }
-    on SocketException catch (e){
-      print(e);
-      return Left(AppError.networkError);
-    }
-    catch (e){
-      print(e);
-      return Left(AppError.unknownError);
-    }
-
-  }
-
-  Future<Either<AppError, ContactUsModel>> addContactUsData(
+  Future<Either<AppError, bool>> addContactUsData(
       ContactUsModel contactUsModel) async {
     BotToast.showLoading();
-    var url = "${Urls.contactUsUrl}/";
-
+    var url = "${Urls.contactUsSubmitUrl}";
     var data = contactUsModel.toJson();
-
     try {
       var response = await ApiClient().postRequest(url, data);
       print(response.statusCode);
-      print(response.body);
       if (response.statusCode == 200) {
         BotToast.closeAllLoading();
-        ContactUsModel data = ContactUsModel.fromJson(json.decode(response.body));
-        return Right(data);
+        return Right(true);
       } else {
         BotToast.closeAllLoading();
         BotToast.showText(text: StringUtils.unableToSaveData);
