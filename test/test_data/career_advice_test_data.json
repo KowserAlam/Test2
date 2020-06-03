@@ -1,1 +1,71 @@
-{"status":"success","count":7,"start_index":1,"end_index":7,"number_of_pages":1,"next_pages":false,"previous_pages":false,"previous_page_number":0,"next_page_number":0,"code":200,"current_url":null,"results":[{"id":7,"title":"SKILLS OVER DEGREES","short_description":"During a 2014 interview, Musk suggested young people should not be obsessed about degrees","description":"During a 2014 interview, Musk suggested young people should not be obsessed about which university degree they take and where they take it, as it isn’t always a requirement for achieving a great career. \r\n“There is no need to even have a college degree, at all,” said Musk. “If someone graduated from a great university that may be an indication that they will be capable of great things but it’s not necessarily the case.”\r\nAlthough Musk admits that education is important, the business magnate says the development and application of key skills in real-life working environments give employers a greater indication of what talent a young star can bring to their organization.","author":"Elon Musk","created_date":"2020-04-11T13:35:00+06:00"},{"id":6,"title":"Interview Tips #1: Do your research","short_description":"Learning as much as possible about a company’s services, products, customers is important","description":"Learning as much as possible about a company’s services, products, customers and competition will give you an edge in understanding and addressing the employer’s needs, says Carole Martin, job interview coach and author of Boost Your Interview IQ.\r\n\r\nGo beyond reading what’s on the company’s website, recommend Lili Foggle, a job interview specialist based in Connecticut. Read news coverage of the company, check out the company’s social media feeds, and brush up on the key players—i.e., the company’s executive team.\r\n\r\n“Look for the information that you can weave into the conversation,” says Foggle. (“I was excited to see your CEO talk about your company’s commitment to innovation on CNBC.”)","author":"Daniel Bortz","created_date":"2020-04-11T13:30:53+06:00"},{"id":5,"title":"Don't be afraid to get fired","short_description":"You’ll compromise yourself and your career goals if you’re just trying to not get fired.","description":"You’ll compromise yourself and your career goals if you’re just trying to not get fired. As you put together your career, you’re bound to ruffle a few feathers. You’ll need to learn how to wade through office politics to get things done, but you should never do something just because you’re afraid of being fired. There are always exceptions to this rule, but you learn those exceptions when you develop your skills for reading people. Be smart whenever you make a decision, but stick to your guns when you know you’re right.","author":"Henry Ford","created_date":"2020-04-11T13:29:37+06:00"},{"id":3,"title":"Treat your job hunt like a career","short_description":"Hiring managers can smell desperation a mile away and they don’t like it. Hiring managers can smell desperation a mile away and they don’t like it. Hiring managers can smell desperation a mile away and they don’t like it. Hiring managers can smell de","description":"Hiring managers can smell desperation a mile away and they don’t like it. If you’re looking for a job, then act like your job hunt is your job. Keep a schedule, create task lists and execute them, and do everything you would do if you had a job. When you walk into an interview with the glow of someone who has a task to complete, you’ll change your interviewer’s demeanor. You cannot fake confidence. If you’re putting out resumes and scheduling interviews, then that kind of confidence comes out when you sit down and talk to a hiring manager. If you’re looking for a job but are currently working, then don’t act like you’re sneaking around. Stand tall and give strong handshakes when you walk through the door of a hiring manager to talk about your next career move.","author":"Aftab Uddin","created_date":"2020-04-10T12:56:59+06:00"},{"id":2,"title":"Stop being loyal to your company","short_description":"In many instances, it’s almost unfair how companies perceive their employees. An employee that does","description":"In many instances, it’s almost unfair how companies perceive their employees. An employee that does just enough to keep his job and maintains an acceptable level of productivity is actually seen as disposable. Your company is only loyal to you as long as you offer value to the company. Who should you be loyal to in your career pursuits? You should be loyal to yourself. Is it in your best interest to move on to a new company and seek out a new challenge? If you feel it’s time to move on, then make the move. Of course, you should show respect for your employer and gratitude for having a job. That should be a given. But you don't need to go out of your way to show loyalty to a company that could replace you tomorrow.","author":"Munir Uddin Ahm","created_date":"2020-03-11T12:56:16+06:00"},{"id":1,"title":"Focus on professional success before looking for h","short_description":"It sounds weird to tell someone that they shouldn’t seek happiness in their job, but it really is a","description":"It sounds weird to tell someone that they shouldn’t seek happiness in their job, but it really is a great piece of advice. Why? Because oftentimes, the company you work for could care less if you’re happy with what you do. Your company is only interested in results, which is the only thing you should be concerned with.\r\n\r\n\r\nIf you think about it, this is a piece of advice that actually leads to happiness in your personal life. When you focus on results in your career, then you’ll make more money. When you make more money, you’re able to enjoy your personal life a lot more. So rather than trying to find happiness in your career right away, shoot for better job productivity and results instead.","author":"Nayeem Ahmad","created_date":"2020-02-15T12:54:31+06:00"},{"id":4,"title":"Learn how to read people","short_description":"Can you trust your co-worker with your most precious career secrets? Can you trust anyone with your","description":"Can you trust your co-worker with your most precious career secrets? Can you trust anyone with your career secrets? Can you rely on your manager to get you the resources you need to succeed? If you want to succeed in your career, then you need to learn how to read people and determine who you can depend on and who you can't. Don't just go with a gut feeling when it comes to reading people. Base your decisions on actions just as much as words.","author":"Nazrul Islam","created_date":"2020-02-11T12:58:21+06:00"}]}
+{
+  "status": "success",
+  "count": 7,
+  "start_index": 1,
+  "end_index": 7,
+  "number_of_pages": 1,
+  "next_pages": false,
+  "previous_pages": false,
+  "previous_page_number": 0,
+  "next_page_number": 0,
+  "code": 200,
+  "current_url": null,
+  "results": [
+    {
+      "id": 7,
+      "title": "SKILLS OVER DEGREES",
+      "short_description": "During a 2014 interview, Musk suggested young people should not be obsessed about degrees",
+      "description": "During a 2014 interview, Musk suggested young people should not be obsessed about which university degree they take and where they take it, as it isn’t always a requirement for achieving a great career. \r\n“There is no need to even have a college degree, at all,” said Musk. “If someone graduated from a great university that may be an indication that they will be capable of great things but it’s not necessarily the case.”\r\nAlthough Musk admits that education is important, the business magnate says the development and application of key skills in real-life working environments give employers a greater indication of what talent a young star can bring to their organization.",
+      "author": "Elon Musk",
+      "created_date": "2020-04-11T13:35:00+06:00"
+    },
+    {
+      "id": 6,
+      "title": "Interview Tips #1: Do your research",
+      "short_description": "Learning as much as possible about a company’s services, products, customers is important",
+      "description": "Learning as much as possible about a company’s services, products, customers and competition will give you an edge in understanding and addressing the employer’s needs, says Carole Martin, job interview coach and author of Boost Your Interview IQ.\r\n\r\nGo beyond reading what’s on the company’s website, recommend Lili Foggle, a job interview specialist based in Connecticut. Read news coverage of the company, check out the company’s social media feeds, and brush up on the key players—i.e., the company’s executive team.\r\n\r\n“Look for the information that you can weave into the conversation,” says Foggle. (“I was excited to see your CEO talk about your company’s commitment to innovation on CNBC.”)",
+      "author": "Daniel Bortz",
+      "created_date": "2020-04-11T13:30:53+06:00"
+    },
+    {
+      "id": 5,
+      "title": "Don't be afraid to get fired",
+      "short_description": "You’ll compromise yourself and your career goals if you’re just trying to not get fired.",
+      "description": "You’ll compromise yourself and your career goals if you’re just trying to not get fired. As you put together your career, you’re bound to ruffle a few feathers. You’ll need to learn how to wade through office politics to get things done, but you should never do something just because you’re afraid of being fired. There are always exceptions to this rule, but you learn those exceptions when you develop your skills for reading people. Be smart whenever you make a decision, but stick to your guns when you know you’re right.",
+      "author": "Henry Ford",
+      "created_date": "2020-04-11T13:29:37+06:00"
+    },
+    {
+      "id": 3,
+      "title": "Treat your job hunt like a career",
+      "short_description": "Hiring managers can smell desperation a mile away and they don’t like it. Hiring managers can smell desperation a mile away and they don’t like it. Hiring managers can smell desperation a mile away and they don’t like it. Hiring managers can smell de",
+      "description": "Hiring managers can smell desperation a mile away and they don’t like it. If you’re looking for a job, then act like your job hunt is your job. Keep a schedule, create task lists and execute them, and do everything you would do if you had a job. When you walk into an interview with the glow of someone who has a task to complete, you’ll change your interviewer’s demeanor. You cannot fake confidence. If you’re putting out resumes and scheduling interviews, then that kind of confidence comes out when you sit down and talk to a hiring manager. If you’re looking for a job but are currently working, then don’t act like you’re sneaking around. Stand tall and give strong handshakes when you walk through the door of a hiring manager to talk about your next career move.",
+      "author": "Aftab Uddin",
+      "created_date": "2020-04-10T12:56:59+06:00"
+    },
+    {
+      "id": 2,
+      "title": "Stop being loyal to your company",
+      "short_description": "In many instances, it’s almost unfair how companies perceive their employees. An employee that does",
+      "description": "In many instances, it’s almost unfair how companies perceive their employees. An employee that does just enough to keep his job and maintains an acceptable level of productivity is actually seen as disposable. Your company is only loyal to you as long as you offer value to the company. Who should you be loyal to in your career pursuits? You should be loyal to yourself. Is it in your best interest to move on to a new company and seek out a new challenge? If you feel it’s time to move on, then make the move. Of course, you should show respect for your employer and gratitude for having a job. That should be a given. But you don't need to go out of your way to show loyalty to a company that could replace you tomorrow.",
+      "author": "Munir Uddin Ahm",
+      "created_date": "2020-03-11T12:56:16+06:00"
+    },
+    {
+      "id": 1,
+      "title": "Focus on professional success before looking for h",
+      "short_description": "It sounds weird to tell someone that they shouldn’t seek happiness in their job, but it really is a",
+      "description": "It sounds weird to tell someone that they shouldn’t seek happiness in their job, but it really is a great piece of advice. Why? Because oftentimes, the company you work for could care less if you’re happy with what you do. Your company is only interested in results, which is the only thing you should be concerned with.\r\n\r\n\r\nIf you think about it, this is a piece of advice that actually leads to happiness in your personal life. When you focus on results in your career, then you’ll make more money. When you make more money, you’re able to enjoy your personal life a lot more. So rather than trying to find happiness in your career right away, shoot for better job productivity and results instead.",
+      "author": "Nayeem Ahmad",
+      "created_date": "2020-02-15T12:54:31+06:00"
+    },
+    {
+      "id": 4,
+      "title": "Learn how to read people",
+      "short_description": "Can you trust your co-worker with your most precious career secrets? Can you trust anyone with your",
+      "description": "Can you trust your co-worker with your most precious career secrets? Can you trust anyone with your career secrets? Can you rely on your manager to get you the resources you need to succeed? If you want to succeed in your career, then you need to learn how to read people and determine who you can depend on and who you can't. Don't just go with a gut feeling when it comes to reading people. Base your decisions on actions just as much as words.",
+      "author": "Nazrul Islam",
+      "created_date": "2020-02-11T12:58:21+06:00"
+    }
+  ]
+}
