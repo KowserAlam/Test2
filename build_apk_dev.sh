@@ -9,4 +9,4 @@ version=`grep 'version: ' pubspec.yaml | sed 's/version: //'`
 git commit -m "Bump version to $version" pubspec.yaml
 #git tag $version
 
-flutter build apk --target-platform android-arm,android-arm64 --release -t lib/main_qa.dart
+flutter build apk  --flavor dev --target-platform android-arm,android-arm64 --release -t lib/main_dev.dart

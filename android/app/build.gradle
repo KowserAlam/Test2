@@ -39,7 +39,8 @@ android {
         dev {
             dimension "flavor-type"
             applicationId "com.ishraak.p7app"
-            resValue "string", "app_name", "Job Express Dev"
+            resValue "string", "app_name", "devJobExpress"
+            versionNameSuffix "-dev"
         }
     }
 

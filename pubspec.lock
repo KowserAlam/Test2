@@ -92,13 +92,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.9.0"
-  checked_yaml:
-    dependency: transitive
-    description:
-      name: checked_yaml
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.2"
   clock:
     dependency: transitive
     description:
@@ -248,13 +241,6 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_feather_icons
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.3"
-  flutter_flavorizr:
-    dependency: "direct dev"
-    description:
-      name: flutter_flavorizr
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.3"
@@ -422,13 +408,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.6.1+1"
-  json_annotation:
-    dependency: transitive
-    description:
-      name: json_annotation
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.0.1"
   logger:
     dependency: "direct main"
     description:
