@@ -75,32 +75,32 @@ dev_dependencies:
   #  mockito used for mocking
   mockito: 4.1.0
   flutter_launcher_icons: ^0.7.5
-  flutter_flavorizr: ^1.0.3
-
-flavorizr:
-  app:
-    android:
-      flavorDimensions: "flavor-type"
-    ios:
-
-  flavors:
-    prod:
-      app:
-        name: "Job Express"
-
-      android:
-        applicationId: "com.ishraak.jobexpress"
-
-      ios:
-        bundleId: "com.ishraak.jobexpress"
-
-    dev:
-      app:
-        name: "Job Express Dev"
-      android:
-        applicationId: "com.ishraak.p7app"
-      ios:
-          bundleId: "com.ishraak.p7app"
+#  flutter_flavorizr: ^1.0.3
+#
+#flavorizr:
+#  app:
+#    android:
+#      flavorDimensions: "flavor-type"
+#    ios:
+#
+#  flavors:
+#    prod:
+#      app:
+#        name: "Job Express"
+#
+#      android:
+#        applicationId: "com.ishraak.jobexpress"
+#
+#      ios:
+#        bundleId: "com.ishraak.jobexpress"
+#
+#    dev:
+#      app:
+#        name: "Job Express Dev"
+#      android:
+#        applicationId: "com.ishraak.p7app"
+#      ios:
+#          bundleId: "com.ishraak.p7app"
 
 flutter_icons:
   android: "launcher_icon"
