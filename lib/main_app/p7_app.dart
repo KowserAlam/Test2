@@ -11,6 +11,7 @@ import 'package:p7app/features/job/view_model/applied_job_list_view_model.dart';
 import 'package:p7app/features/job/view_model/favourite_job_list_view_model.dart';
 import 'package:p7app/features/job/view_model/job_list_filter_widget_view_model.dart';
 import 'package:p7app/features/job/view_model/job_list_view_model.dart';
+import 'package:p7app/main_app/flavour/flavour_config.dart';
 import 'package:p7app/main_app/util/common_serviec_rule.dart';
 import 'package:provider/provider.dart';
 import 'package:p7app/main_app/root.dart';
@@ -47,6 +48,7 @@ class P7App extends StatelessWidget {
       ChangeNotifierProvider(create: (context) => DashboardViewModel()),
       ChangeNotifierProvider(create: (context) => CareerAdviceViewModel()),
     ];
+    var appName = FlavorConfig.appName();
 
     return MultiProvider(
       providers: providers,
@@ -54,7 +56,7 @@ class P7App extends StatelessWidget {
         navigatorObservers: [BotToastNavigatorObserver()],
         builder: BotToastInit(),
         debugShowCheckedModeBanner: false,
-        title: StringUtils.appName,
+        title: appName,
         theme: AppTheme.lightTheme,
 //      darkTheme: AppTheme.darkTheme,
         home: Root(),

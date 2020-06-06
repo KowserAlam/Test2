@@ -10,6 +10,10 @@ class StringUtils {
 
   static String passwordChangeSuccessful = "Password change successful";
   static String appName = "Job Search";
+  static String appNameDev = "$appName Dev";
+  static String appNameBeta = "$appName Beta";
+  static String appNameQA = "$appName  QA";
+
   static String logInButtonText = "LOG IN";
   static String loginSuccessMessage = "Login Successful";
   static String loginUnsuccessfulMessage = "Login unsuccessful";
