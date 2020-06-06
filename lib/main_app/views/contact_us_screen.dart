@@ -40,6 +40,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
   TextEditingController phoneController = TextEditingController();
   TextEditingController messageController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  bool _submitted = false;
 
   SettingsModel _settingsModel;
   getSettingsDetails() async {
@@ -68,6 +69,10 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
         return false;
       }, (r){
         BotToast.showText(text: 'Submitted');
+        _submitted = true;
+        setState(() {
+
+        });
         return true;
       });
     });
@@ -111,11 +116,11 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
 
   void _handleSave(){
     var contactUsModel = ContactUsModel(
-      name: nameController.text??"",
-      email: emailController.text??"",
-      subject: subjectController.text??"",
-      message: messageController.text??"",
-      phone: phoneController.text??""
+        name: nameController.text??"",
+        email: emailController.text??"",
+        subject: subjectController.text??"",
+        message: messageController.text??"",
+        phone: phoneController.text??""
     );
 
     bool isValid = _formKey.currentState.validate();
@@ -130,7 +135,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
     TextStyle descriptionFontStyle = TextStyle(fontSize: 13);
     TextStyle descriptionFontStyleBold = TextStyle(fontSize: 12, fontWeight: FontWeight.bold);
     double fontAwesomeIconSize = 15;
-    
+
     TextStyle titleStyle = TextStyle(fontWeight: FontWeight.bold,fontSize: 18);
     Widget contactInfoItems(IconData iconData, String data){
       return Row(
@@ -169,7 +174,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
           height: MediaQuery.of(context).size.width,
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
-            border: Border.all(color: Colors.grey[300])
+              border: Border.all(color: Colors.grey[300])
           ),
           child: GoogleMap(
             markers: markers.toSet(),
@@ -214,10 +219,10 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                   Container(
                     padding: EdgeInsets.all(15),
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        gradient: AppTheme.lightLinearGradient,
-                        border: Border.all(width: 1, color: Colors.grey[300]),
-                        //color: Colors.grey[200]
+                      borderRadius: BorderRadius.circular(5),
+                      gradient: AppTheme.lightLinearGradient,
+                      border: Border.all(width: 1, color: Colors.grey[300]),
+                      //color: Colors.grey[200]
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -232,45 +237,66 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 30,),
-                  Text(StringUtils.contactUsKeepInTouchText, style: titleStyle,),
-                  SizedBox(height: 10,),
-                  CustomTextFormField(
-                    hintText: StringUtils.contactUsNameText,
-                    controller: nameController,
-                    validator: Validator().nameValidator,
+                  !_submitted?SizedBox():Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: 30,),
+                      Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(height: 30,),
+                          Text(StringUtils.contactUsSubmittedText, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.redAccent),)
+                        ],
+                      )
+                    ],
                   ),
-                  spaceBetweenLines,
-                  CustomTextFormField(
-                    hintText: StringUtils.contactUsEmailText,
-                    controller: emailController,
-                    validator: Validator().validateEmail,
-                  ),
-                  spaceBetweenLines,
-                  CustomTextFormField(
-                    hintText: StringUtils.contactUsPhoneText,
-                    controller: phoneController,
-                    validator: Validator().validatePhoneNumber,
-                  ),
-                  spaceBetweenLines,
-                  CustomTextFormField(
-                    hintText: StringUtils.contactUsSubjectText,
-                    controller: subjectController,
-                    validator: Validator().nullFieldValidate,
-                  ),
-                  spaceBetweenLines,
-                  CustomTextFormField(
-                    hintText: StringUtils.contactUsMessageText,
-                    controller: messageController,
-                    validator: Validator().nullFieldValidate,
-                    maxLines: 5,
-                  ),
+                  _submitted?SizedBox():Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: 30,),
+                      Text(StringUtils.contactUsKeepInTouchText, style: titleStyle,),
+                      SizedBox(height: 10,),
+                      CustomTextFormField(
+                        hintText: StringUtils.contactUsNameText,
+                        controller: nameController,
+                        validator: Validator().nameValidator,
+                      ),
+                      spaceBetweenLines,
+                      CustomTextFormField(
+                        hintText: StringUtils.contactUsEmailText,
+                        controller: emailController,
+                        keyboardType: TextInputType.emailAddress,
+                        validator: Validator().validateEmail,
+                      ),
+                      spaceBetweenLines,
+                      CustomTextFormField(
+                        hintText: StringUtils.contactUsPhoneText,
+                        controller: phoneController,
+                        keyboardType: TextInputType.number,
+                        validator: Validator().validatePhoneNumber,
+                      ),
+                      spaceBetweenLines,
+                      CustomTextFormField(
+                        hintText: StringUtils.contactUsSubjectText,
+                        controller: subjectController,
+                        validator: Validator().nullFieldValidate,
+                      ),
+                      spaceBetweenLines,
+                      CustomTextFormField(
+                        hintText: StringUtils.contactUsMessageText,
+                        controller: messageController,
+                        validator: Validator().nullFieldValidate,
+                        maxLines: 5,
+                      ),
+                    ],
+                  )
                 ],
               ),
             ),
           ),
-          SizedBox(height: 20,),
-          Container(
+          _submitted?SizedBox():SizedBox(height: 20,),
+          _submitted?SizedBox():Container(
             padding: EdgeInsets.symmetric(horizontal: 80),
             child: CommonButton(
               label: 'Submit',
@@ -279,7 +305,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
               },
             ),
           ),
-          SizedBox(height: 30,),
+          SizedBox(height: 25,),
           Container(
             margin: EdgeInsets.all(15),
             child: googleMap,

@@ -33,7 +33,7 @@ class EducationsListItem extends StatelessWidget {
     String date =
         "${eduInfoModel.enrolledDate != null ? DateFormatUtil.formatDate(eduInfoModel.enrolledDate) : ""} - $graduationDateText";
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 9),
       margin: EdgeInsets.only(bottom: 8),
       decoration: BoxDecoration(
         color: backgroundColor,
