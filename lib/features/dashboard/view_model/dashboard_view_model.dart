@@ -22,7 +22,7 @@ class DashboardViewModel with ChangeNotifier {
 
 
   Future <void> getDashboardData({bool isFormOnPageLoad = false}) async{
-    var time = Duration(minutes: 5);
+    var time = CommonServiceRule.onLoadPageReloadTime;
     if(isFormOnPageLoad)
       if(_lastFetchTime != null){
         if(_lastFetchTime.difference(DateTime.now()) < time)
@@ -76,6 +76,7 @@ class DashboardViewModel with ChangeNotifier {
       notifyListeners();
     });
   }
+
   bool get shouldShowInfoBoxLoader => _isLoadingInfoBoxData && (_infoBoxData == null);
   bool get shouldShowJoChartLoader => _isLoadingSkillJobChartData && (_skillJobChartData.length == 0);
   AppError get infoBoxError => _infoBoxError;

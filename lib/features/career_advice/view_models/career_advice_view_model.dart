@@ -4,6 +4,7 @@ import 'package:p7app/features/career_advice/models/career_advice_screen_data_mo
 import 'package:p7app/features/career_advice/repositories/c_a_repository.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/resource/const.dart';
+import 'package:p7app/main_app/util/common_serviec_rule.dart';
 
 class CareerAdviceViewModel with ChangeNotifier {
 //  CareerAdviceScreenDataModel _careerAdviceScreenDataModel;
@@ -26,10 +27,11 @@ class CareerAdviceViewModel with ChangeNotifier {
   }
 
   Future<void> getData({bool isFromOnPageLoad = false}) async {
+
     if (isFromOnPageLoad) {
       if (_lastFetchTime != null) if (_lastFetchTime
               .difference(DateTime.now()) <
-          kDefaultTimeToPreventAutoRefresh) return;
+          CommonServiceRule.onLoadPageReloadTime) return;
     }
     _isFetchingData = true;
     _lastFetchTime = DateTime.now();

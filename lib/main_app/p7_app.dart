@@ -11,6 +11,7 @@ import 'package:p7app/features/job/view_model/applied_job_list_view_model.dart';
 import 'package:p7app/features/job/view_model/favourite_job_list_view_model.dart';
 import 'package:p7app/features/job/view_model/job_list_filter_widget_view_model.dart';
 import 'package:p7app/features/job/view_model/job_list_view_model.dart';
+import 'package:p7app/main_app/util/common_serviec_rule.dart';
 import 'package:provider/provider.dart';
 import 'package:p7app/main_app/root.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
@@ -22,6 +23,7 @@ import 'package:bot_toast/bot_toast.dart';
 
 class P7App extends StatelessWidget {
   final isEnabledDevicePreview;
+  final CommonServiceRule commonServiceRule = CommonServiceRule();
 
   P7App({this.isEnabledDevicePreview = false});
 
