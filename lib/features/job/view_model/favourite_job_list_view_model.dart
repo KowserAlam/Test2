@@ -56,7 +56,7 @@ class FavouriteJobListViewModel with ChangeNotifier {
         if(_lastFetchTime.difference(DateTime.now()) < time)
           return false;
       }
-
+    _lastFetchTime = DateTime.now();
     isFetchingData = true;
     Either<AppError, List<JobListModel>> result =
     await _jobListRepository.fetchJobList();

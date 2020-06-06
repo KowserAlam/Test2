@@ -31,6 +31,7 @@ class AppliedJobListViewModel with ChangeNotifier {
         if(_lastFetchTime.difference(DateTime.now()) < time)
           return false;
       }
+    _lastFetchTime = DateTime.now();
 
     isFetchingData = true;
 

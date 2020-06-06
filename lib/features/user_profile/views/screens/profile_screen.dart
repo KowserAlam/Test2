@@ -52,7 +52,8 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
 
   @override
   void afterFirstLayout(BuildContext context) {
-    Provider.of<UserProfileViewModel>(context, listen: false).fetchUserData();
+    Provider.of<UserProfileViewModel>(context, listen: false)
+        .fetchUserData(isFormOnPageLoad: true);
   }
 
   Widget userContactInfo(context) => InkWell(
@@ -696,8 +697,9 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                 case AppError.serverError:
                   return FailureFullScreenWidget(
                     errorMessage: StringUtils.unableToLoadData,
-                    onTap: (){
-                      return Provider.of<UserProfileViewModel>(context, listen: false)
+                    onTap: () {
+                      return Provider.of<UserProfileViewModel>(context,
+                              listen: false)
                           .fetchUserData();
                     },
                   );
@@ -705,8 +707,9 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                 case AppError.networkError:
                   return FailureFullScreenWidget(
                     errorMessage: StringUtils.checkInternetConnectionMessage,
-                    onTap: (){
-                      return Provider.of<UserProfileViewModel>(context, listen: false)
+                    onTap: () {
+                      return Provider.of<UserProfileViewModel>(context,
+                              listen: false)
                           .fetchUserData();
                     },
                   );
@@ -714,8 +717,9 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                 default:
                   return FailureFullScreenWidget(
                     errorMessage: StringUtils.somethingIsWrong,
-                    onTap: (){
-                      return Provider.of<UserProfileViewModel>(context, listen: false)
+                    onTap: () {
+                      return Provider.of<UserProfileViewModel>(context,
+                              listen: false)
                           .fetchUserData();
                     },
                   );
