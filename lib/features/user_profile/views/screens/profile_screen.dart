@@ -16,7 +16,7 @@ import 'package:p7app/features/user_profile/styles/common_style_text_field.dart'
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/features/user_profile/views/widgets/educations_list_item.dart';
 import 'package:p7app/features/user_profile/views/widgets/experience_list_item.dart';
-import 'package:p7app/features/user_profile/views/widgets/member_ship_list_item.dart';
+import 'package:p7app/features/user_profile/views/widgets/membership_list_item.dart';
 import 'package:p7app/features/user_profile/views/widgets/personal_info_widget.dart';
 import 'package:p7app/features/user_profile/views/widgets/professional_skill_list_item.dart';
 import 'package:p7app/features/user_profile/views/widgets/user_info_list_item.dart';
