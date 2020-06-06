@@ -30,6 +30,7 @@ class StringUtils {
   static String pleaseEnterAValidEmailText = "Please enter a valid email";
   static String invalidCode = "Invalid Code";
   static String thisFieldIsRequired = "This Field Is Required";
+  static String invalidName = "Name can not contain numbers or symbols";
   static String pleaseEnterPasswordText = "Please enter password";
   static String valueWithinRange = "Please enter a value within 0-10";
   static String invalidPassword = "Invalid Password";
@@ -448,7 +449,7 @@ static const String noAppliedJobsFound = "No applied jobs found";
 //Contact Us
 static const String contactUsContactInfoText = 'Contact Info';
 static const String contactUsKeepInTouchText = 'Keep In Touch';
-static const String contactUsNameText = 'Contact Info';
+static const String contactUsNameText = 'Name';
 static const String contactUsEmailText = 'Email';
 static const String contactUsPhoneText = 'Phone';
 static const String contactUsSubjectText = 'Subject';
