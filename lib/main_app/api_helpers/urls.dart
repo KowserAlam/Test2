@@ -73,7 +73,16 @@ class Urls {
   /// dashboardUrl
 
 static String dashboardInfoBoxUrl = "/api/professional/info_box/";
-static String dashboardSkillJobChartUrl = "/api/professional/skill_job_chart/";
+static String dashboardSkillJobChartUrl = "/api/pro/dashboard/skill/";
+static String profileCompleteness = "/api/pro/profile-completeness/";
+
+static String settingsUrl = "/api/settings/";
+static String careerAdviceUrl = "/api/career_advise";
+
+//contact us
+static String contactUsSubmitUrl = "/api/send_email_to_admin_contact_us/";
+
+
 
 // webUrl
   static String aboutUsWeb = "/about-us-app/";

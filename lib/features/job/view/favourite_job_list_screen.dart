@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:p7app/features/auth/view/widgets/custom_text_field_rounded.dart';
 import 'package:p7app/features/job/models/job_list_model.dart';
 import 'package:p7app/features/job/view/job_details.dart';
-import 'package:p7app/features/job/view/widgets/job_list_tile.dart';
+
 import 'package:p7app/features/job/view/widgets/no_favourite_jobs_widget.dart';
 import 'package:p7app/features/job/view_model/applied_job_list_view_model.dart';
 import 'package:p7app/features/job/view_model/favourite_job_list_view_model.dart';
@@ -47,16 +47,8 @@ class _FavouriteJobListScreenState extends State<FavouriteJobListScreen>
   void afterFirstLayout(BuildContext context) {
     var jobListViewModel =
         Provider.of<FavouriteJobListViewModel>(context, listen: false);
-    jobListViewModel.getJobList();
+    jobListViewModel.getJobList(isFormOnPageLoad: true);
 
-//    _scrollController.addListener(() {
-//      if (_scrollController.position.pixels ==
-//          _scrollController.position.maxScrollExtent &&
-//          jobListViewModel.hasMoreData &&
-//          !jobListViewModel.isFetchingData) {
-//        jobListViewModel.getMoreData();
-//      }
-//    });
   }
 
   @override
@@ -73,69 +65,67 @@ class _FavouriteJobListScreenState extends State<FavouriteJobListScreen>
         return Provider.of<FavouriteJobListViewModel>(context, listen: false)
             .refresh();
       },
-      child: FlavorBanner(
-        child: Consumer<FavouriteJobListViewModel>(
-            builder: (context, favoriteJobListViewModel, _) {
-          var jobList = favoriteJobListViewModel.jobList;
-          debugPrint("${jobList.length}");
-          return Scaffold(
-            appBar: AppBar(
-              title: Text(StringUtils.favoriteJobsText),
-            ),
-            drawer: AppDrawer(
-              routeName: 'favorite_job_list',
-            ),
-            body: favoriteJobListViewModel.shouldShowLoader
-                ? Center(
-                    child: Loader(),
-                  )
-                : ListView(
-                    physics: AlwaysScrollableScrollPhysics(),
-                    controller: _scrollController,
-                    children: [
-                
-                              favoriteJobListViewModel.shouldShowNoJobs
-                          ? NoFavouriteJobsWidget()
-                          : ListView.builder(
-                              padding: EdgeInsets.symmetric(vertical: 4),
-                              physics: NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
-                              itemCount: jobList.length,
-                              itemBuilder: (context, index) {
-                                JobListModel job = jobList[index];
+      child: Consumer<FavouriteJobListViewModel>(
+          builder: (context, favoriteJobListViewModel, _) {
+        var jobList = favoriteJobListViewModel.jobList;
+        debugPrint("${jobList.length}");
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(StringUtils.favoriteJobsText),
+          ),
+          drawer: AppDrawer(
+            routeName: 'favorite_job_list',
+          ),
+          body: favoriteJobListViewModel.shouldShowLoader
+              ? Center(
+                  child: Loader(),
+                )
+              : ListView(
+                  physics: AlwaysScrollableScrollPhysics(),
+                  controller: _scrollController,
+                  children: [
 
-                                return JobListTileWidget(
-                                  job,
-                                  onTap: () {
-                                    Navigator.of(context)
-                                        .push(MaterialPageRoute(
-                                            builder: (context) => JobDetails(
-                                                  slug: job.slug,
-                                                  fromJobListScreenType:
-                                                      JobListScreenType
-                                                          .favorite,
-                                                )));
-                                  },
-                                  onApply: () {
-                                    _showApplyForJobDialog(job, index);
-                                  },
-                                  onFavorite: () {
-                                    favoriteJobListViewModel
-                                        .addToFavorite(job.jobId, index)
-                                        .then((value) {
-                                      return Provider.of<JobListViewModel>(
-                                              context,
-                                              listen: false)
-                                          .refresh();
-                                    });
-                                  },
-                                );
-                              }),
-                    ],
-                  ),
-          );
-        }),
-      ),
+                            favoriteJobListViewModel.shouldShowNoJobs
+                        ? NoFavouriteJobsWidget()
+                        : ListView.builder(
+                            padding: EdgeInsets.symmetric(vertical: 4),
+                            physics: NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: jobList.length,
+                            itemBuilder: (context, index) {
+                              JobListModel job = jobList[index];
+
+                              return JobListTileWidget(
+                                job,
+                                onTap: () {
+                                  Navigator.of(context)
+                                      .push(MaterialPageRoute(
+                                          builder: (context) => JobDetails(
+                                                slug: job.slug,
+                                                fromJobListScreenType:
+                                                    JobListScreenType
+                                                        .favorite,
+                                              )));
+                                },
+                                onApply: () {
+                                  _showApplyForJobDialog(job, index);
+                                },
+                                onFavorite: () {
+                                  favoriteJobListViewModel
+                                      .addToFavorite(job.jobId, index)
+                                      .then((value) {
+                                    return Provider.of<JobListViewModel>(
+                                            context,
+                                            listen: false)
+                                        .refresh();
+                                  });
+                                },
+                              );
+                            }),
+                  ],
+                ),
+        );
+      }),
     );
   }
 

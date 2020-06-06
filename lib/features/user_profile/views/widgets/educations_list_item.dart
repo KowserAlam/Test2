@@ -40,51 +40,64 @@ class EducationsListItem extends StatelessWidget {
         borderRadius: BorderRadius.circular(5),
         boxShadow: CommonStyleTextField.boxShadow,
       ),
-      child: ListTile(
-        contentPadding: EdgeInsets.only(left: 5),
-        leading: Material(
-          color: Theme.of(context).scaffoldBackgroundColor,
-          borderRadius: BorderRadius.circular(5),
-          child: Padding(
-            padding: const EdgeInsets.all(7.0),
+      child: Row(
+        children: [
+          Container(
+            padding: EdgeInsets.all(5),
+            decoration: BoxDecoration(
+              color: Colors.grey[100],
+              borderRadius: BorderRadius.circular(5)
+            ),
             child: Icon(
               FontAwesomeIcons.university,
-              size: 40,
+              size: 50,
               color: Theme.of(context).primaryColor,
             ),
           ),
-        ),
-        title: Text(
-          eduInfoModel.institutionObj?.name ??
-              eduInfoModel.institutionText ??
-              "",
-        ),
-        subtitle: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(eduInfoModel.degree ?? ""),
-            Text(date),
-          ],
-        ),
-        trailing: !isInEditMode
-            ? null
-            : Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  IconButton(
-                    icon: Icon(FontAwesomeIcons.edit),
-                    onPressed: onTapEdit,
-                    iconSize: 18,
-                    color: Colors.black,
-                  ),
-                  IconButton(
-                    icon: Icon(FontAwesomeIcons.trash),
-                    onPressed: onTapDelete,
-                    iconSize: 18,
-                    color: Colors.black,
-                  ),
-                ],
-              ),
+          SizedBox(
+            width: 8,
+          ),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  eduInfoModel.institutionObj?.name ??
+                      eduInfoModel.institutionText ??
+                      "",style: TextStyle(fontSize: 15,fontWeight: FontWeight.w600),
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(eduInfoModel.degree ?? "",style: TextStyle(fontSize: 13),),
+                    Text(
+                      date,
+                      style: TextStyle(fontSize: 12, color: Colors.grey),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          if (isInEditMode)
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                IconButton(
+                  icon: Icon(FontAwesomeIcons.edit),
+                  onPressed: onTapEdit,
+                  iconSize: 18,
+                  color: Colors.black,
+                ),
+                IconButton(
+                  icon: Icon(FontAwesomeIcons.trash),
+                  onPressed: onTapDelete,
+                  iconSize: 18,
+                  color: Colors.black,
+                ),
+              ],
+            ),
+        ],
       ),
     );
   }

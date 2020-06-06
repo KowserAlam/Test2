@@ -10,6 +10,10 @@ class StringUtils {
 
   static String passwordChangeSuccessful = "Password change successful";
   static String appName = "Job Search";
+  static String appNameDev = "$appName Dev";
+  static String appNameBeta = "$appName Beta";
+  static String appNameQA = "$appName  QA";
+
   static String logInButtonText = "LOG IN";
   static String loginSuccessMessage = "Login Successful";
   static String loginUnsuccessfulMessage = "Login unsuccessful";
@@ -151,7 +155,8 @@ class StringUtils {
 
   /// **************** Profile *****************
 
-  static String profileText = "My Profile";
+  static String myProfileText = "My Profile";
+  static String profileText = "Profile";
 
   static String publicView = "PUBLIC VIEW";
 
@@ -182,6 +187,7 @@ class StringUtils {
 
   static String saveText = "Save";
   static String ongoingText = "Ongoing";
+  static String readMoreText = 'Read More';
 
   //Company List Screen
   static var companyListAppbarText = "Companies";
@@ -425,6 +431,7 @@ static const String deadlineText = "Deadline";
 static const String applyText = "Apply";
 static const String applyFilterText = "Apply Filter";
 static const String appliedText = "Applied";
+
 static const String favoriteText = "Favorite";
 static const String jobsText = "Jobs";
 static const String careerAdviceText = "Career Advice";
@@ -437,6 +444,16 @@ static const String typeToSearch = "Type to search";
 static const String noJobsFound = "No jobs found";
 static const String noFavouriteJobsFound = "No favourite jobs found";
 static const String noAppliedJobsFound = "No applied jobs found";
+
+//Contact Us
+static const String contactUsContactInfoText = 'Contact Info';
+static const String contactUsKeepInTouchText = 'Keep In Touch';
+static const String contactUsNameText = 'Contact Info';
+static const String contactUsEmailText = 'Email';
+static const String contactUsPhoneText = 'Phone';
+static const String contactUsSubjectText = 'Subject';
+static const String contactUsMessageText = 'Message';
+static const String contactUsLocationText = 'Location';
 
 
 ///Job Details
@@ -463,14 +480,15 @@ static const String changePassword = 'Change Password';
 static const String licenses = 'Licenses';
 static const String seeMoreText = "See More";
 static const String seeLessText = "See Less";
-static const String salaryRangeText = 'Range';
+static const String salaryRangeText = 'Salary Range';
 static const String gender = 'Gender';
+static const String addSkillText = 'Add Skill';
 static const String tapToSelectText = 'Tap to select';
 static const String applicationDeadline = 'Deadline: ';
 static const String requiredSkills = 'Skill Requirement';
 static const String benefitSectionTitle = 'Benefits';
 static const String jobSource = 'Job Source';
-static const String doYouWantToApplyText = 'Do you want to apply?';
+static const String doYouWantToApplyText = 'Do you want to apply for this job?';
 static const String jobsFoundText = 'jobs found';
 static const String sortBy = 'Sort By';
 static const String advanceFilterText = "Advance Filter";

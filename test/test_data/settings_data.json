@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "facebook_url": "https://www.facebook.com/ishraak.solutions/",
+    "linkedin_url": "https://www.linkedin.com/company/ishraaksolutions/",
+    "twitter_url": "https://twitter.com/IshraakS",
+    "appstore_url": "https://play.google.com/store/apps",
+    "playstore_url": "https://www.apple.com/ios/app-store/",
+    "logo_url": "http://dev.ishraak.com/media/logo/Job-Search-Logo-square.png",
+    "admin_email": "tanvir@ishraak.com",
+    "support_email": "tanvir@ishraak.com",
+    "address": "Badda, Gulsan",
+    "phone": "01921069797",
+    "zoom": 6,
+    "latitude": "4324.000000",
+    "longitude": "4322.000000"
+  }
+]

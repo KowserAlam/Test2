@@ -1,5 +1,7 @@
+import 'package:dartz/dartz_unsafe.dart';
 import 'package:p7app/features/company/models/company.dart';
 import 'package:p7app/main_app/flavour/flavour_config.dart';
+import 'package:p7app/features/user_profile/models/skill.dart';
 
 class JobModel {
   String jobId;
@@ -33,10 +35,10 @@ class JobModel {
   String division;
   String district;
   List<String> jobSkills;
-  List<String> skill;
   bool isApplied;
   bool isFavourite;
-  String profilePicture;
+
+//  String profilePicture;
   DateTime publishDate;
   DateTime postDate;
   String jobCategory;
@@ -78,8 +80,7 @@ class JobModel {
       this.district,
       this.jobSkills,
       this.isFavourite,
-      this.profilePicture,
-      this.skill,
+//      this.profilePicture,
       this.postDate,
       this.jobAddress,
       this.jobCountry,
@@ -94,9 +95,9 @@ class JobModel {
   JobModel.fromJson(Map<String, dynamic> json) {
     String baseUrl = FlavorConfig?.instance?.values?.baseUrl;
 
-    jobId = json['job_id'];
+    jobId = json['job_id']?.toString();
     slug = json['slug'];
-    title = json['title'];
+    title = json['title']?.toString();
     jobCity = json['job_city'];
     salaryMin = json['salary_min'];
     salaryMax = json['salary_max'];
@@ -115,9 +116,9 @@ class JobModel {
       postDate = DateTime.parse(json['post_date']);
     }
 
-    descriptions = json['description'];
-    responsibilities = json['responsibilities'];
-    education = json['education'];
+    descriptions = json['description']?.toString();
+    responsibilities = json['responsibilities']?.toString();
+    education = json['education']?.toString();
     salary = json['salary']?.toString();
     otherBenefits = json['other_benefits'];
     rawContent = json['raw_content'];
@@ -125,15 +126,15 @@ class JobModel {
     termsAndCondition = json['terms_and_condition'];
     industry = json['industry'];
     employmentStatus = json['employment_status'];
-    experience = json['experience'];
-    qualification = json['qualification'];
-    gender = json['job_gender'];
-    currency = json['currency'];
-    companyName = json['company_name'];
+    experience = json['experience']?.toString();
+    qualification = json['qualification']?.toString();
+    gender = json['job_gender']?.toString();
+    currency = json['currency']?.toString();
+    companyName = json['company_name']?.toString();
 
-//    if (json['company'] != null) {
-//      company = Company.fromJson(json['company_name']);
-//    }
+    if (json['company'] != null) {
+      company = Company.fromJson(json['company']);
+    }
 
     division = json['division'];
     district = json['district'];
@@ -147,8 +148,13 @@ class JobModel {
     jobType = json['job_type'];
     companyProfile = json['company_profile'];
     additionalRequirements = json['additional_requirements'];
-    jobSkills = json['job_skills']?.cast<String>();
-    skill = json['skill']?.cast<String>();
+
+    if (json['job_skills'] != null) {
+      jobSkills = [];
+      json['job_skills'].forEach((element) {
+        jobSkills.add(element['name']);
+      });
+    }
 
     isApplied = json['is_applied'] == null
         ? false
@@ -157,8 +163,8 @@ class JobModel {
         ? false
         : (json['is_favourite'] == "True" ? true : false);
 
-    if (json['profile_picture'] != null) {
-      profilePicture = "$baseUrl${json['profile_picture']}";
-    }
+//    if (json['profile_picture'] != null) {
+//      profilePicture = "$baseUrl${json['profile_picture']}";
+//    }
   }
 }

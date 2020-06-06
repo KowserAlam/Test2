@@ -5,25 +5,38 @@ import 'package:p7app/features/dashboard/models/info_box_data_model.dart';
 import 'package:p7app/features/dashboard/models/skill_job_chart_data_model.dart';
 import 'package:p7app/features/dashboard/repositories/dashboard_repository.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
+import 'package:p7app/main_app/util/common_serviec_rule.dart';
 
 class DashboardViewModel with ChangeNotifier {
   AppError _infoBoxError;
   AppError _skillJobChartError;
   InfoBoxDataModel _infoBoxData;
-  List<SkillJobChartDataModel> _skillJobChartData;
+  List<SkillJobChartDataModel> _skillJobChartData =[];
   bool _isLoadingInfoBoxData = false;
   bool _isLoadingSkillJobChartData = false;
+  bool _idExpandedSkillList = false;
+  DateTime _lastFetchTime;
+  double profileCompletePercent = 0;
 
 
 
 
-  Future <void> getDashboardData() async{
-     _isLoadingInfoBoxData = true;
+  Future <void> getDashboardData({bool isFormOnPageLoad = false}) async{
+    var time = CommonServiceRule.onLoadPageReloadTime;
+    if(isFormOnPageLoad)
+      if(_lastFetchTime != null){
+        if(_lastFetchTime.difference(DateTime.now()) < time)
+          return false;
+      }
+
+    _lastFetchTime = DateTime.now();
+    _isLoadingInfoBoxData = true;
      _isLoadingSkillJobChartData = true;
     notifyListeners();
     return Future.wait([
     _getInfoBoxData(),
     _getISkillJobChartData(),
+      _getProfileCompleteness(),
     ]);
 
   }
@@ -57,6 +70,15 @@ class DashboardViewModel with ChangeNotifier {
       return true;
     });
   }
+  Future<double> _getProfileCompleteness()async{
+    return DashBoardRepository().getProfileCompletenessPercent().then((value) {
+      return profileCompletePercent = value;
+      notifyListeners();
+    });
+  }
+
+  bool get shouldShowInfoBoxLoader => _isLoadingInfoBoxData && (_infoBoxData == null);
+  bool get shouldShowJoChartLoader => _isLoadingSkillJobChartData && (_skillJobChartData.length == 0);
   AppError get infoBoxError => _infoBoxError;
   AppError get skillJobChartError => _skillJobChartError;
 
@@ -67,4 +89,11 @@ class DashboardViewModel with ChangeNotifier {
   bool get isLoadingInfoBoxData => _isLoadingInfoBoxData;
 
   bool get isLoadingSkillJobChartData => _isLoadingSkillJobChartData;
+
+  bool get idExpandedSkillList => _idExpandedSkillList;
+
+  set idExpandedSkillList(bool value) {
+    _idExpandedSkillList = value;
+    notifyListeners();
+  }
 }
