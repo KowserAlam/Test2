@@ -260,7 +260,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                       CustomTextFormField(
                         hintText: StringUtils.contactUsNameText,
                         controller: nameController,
-                        validator: Validator().nameValidator,
+                        validator: Validator().nullFieldValidate,
                       ),
                       spaceBetweenLines,
                       CustomTextFormField(
