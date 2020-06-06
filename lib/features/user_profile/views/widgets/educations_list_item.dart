@@ -19,10 +19,10 @@ class EducationsListItem extends StatelessWidget {
 
   EducationsListItem(
       {@required this.eduInfoModel,
-      @required this.index,
-      this.onTapDelete,
-      this.onTapEdit,
-      this.isInEditMode = false});
+        @required this.index,
+        this.onTapDelete,
+        this.onTapEdit,
+        this.isInEditMode = false});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class EducationsListItem extends StatelessWidget {
     String date =
         "${eduInfoModel.enrolledDate != null ? DateFormatUtil.formatDate(eduInfoModel.enrolledDate) : ""} - $graduationDateText";
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 9),
       margin: EdgeInsets.only(bottom: 8),
       decoration: BoxDecoration(
         color: backgroundColor,
@@ -43,15 +43,17 @@ class EducationsListItem extends StatelessWidget {
       child: Row(
         children: [
           Container(
-            padding: EdgeInsets.all(5),
+            padding: EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: Colors.grey[100],
-              borderRadius: BorderRadius.circular(5)
+                color: Colors.grey[100],
+                borderRadius: BorderRadius.circular(5)
             ),
-            child: Icon(
-              FontAwesomeIcons.university,
-              size: 50,
-              color: Theme.of(context).primaryColor,
+            child: Center(
+              child: Icon(
+                FontAwesomeIcons.university,
+                size: 45,
+                color: Theme.of(context).primaryColor,
+              ),
             ),
           ),
           SizedBox(
@@ -64,7 +66,7 @@ class EducationsListItem extends StatelessWidget {
                 Text(
                   eduInfoModel.institutionObj?.name ??
                       eduInfoModel.institutionText ??
-                      "",style: TextStyle(fontSize: 15,fontWeight: FontWeight.w600),
+                      "",style: Theme.of(context).textTheme.subtitle1,
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

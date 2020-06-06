@@ -455,6 +455,7 @@ static const String contactUsPhoneText = 'Phone';
 static const String contactUsSubjectText = 'Subject';
 static const String contactUsMessageText = 'Message';
 static const String contactUsLocationText = 'Location';
+static const String contactUsSubmittedText = 'Your response has been submitted';
 
 
 ///Job Details
