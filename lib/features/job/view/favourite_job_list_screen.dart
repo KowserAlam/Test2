@@ -47,16 +47,8 @@ class _FavouriteJobListScreenState extends State<FavouriteJobListScreen>
   void afterFirstLayout(BuildContext context) {
     var jobListViewModel =
         Provider.of<FavouriteJobListViewModel>(context, listen: false);
-    jobListViewModel.getJobList();
+    jobListViewModel.getJobList(isFormOnPageLoad: true);
 
-//    _scrollController.addListener(() {
-//      if (_scrollController.position.pixels ==
-//          _scrollController.position.maxScrollExtent &&
-//          jobListViewModel.hasMoreData &&
-//          !jobListViewModel.isFetchingData) {
-//        jobListViewModel.getMoreData();
-//      }
-//    });
   }
 
   @override

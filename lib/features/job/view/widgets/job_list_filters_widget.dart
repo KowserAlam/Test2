@@ -14,7 +14,6 @@ import 'package:p7app/main_app/widgets/common_button.dart';
 import 'package:p7app/main_app/widgets/custom_text_from_field.dart';
 import 'package:provider/provider.dart';
 import 'package:p7app/main_app/util/method_extension.dart';
-import 'package:searchable_dropdown/searchable_dropdown.dart';
 
 class JobListFilterWidget extends StatefulWidget {
   @override

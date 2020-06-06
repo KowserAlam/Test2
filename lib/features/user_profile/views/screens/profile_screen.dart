@@ -16,7 +16,7 @@ import 'package:p7app/features/user_profile/styles/common_style_text_field.dart'
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/features/user_profile/views/widgets/educations_list_item.dart';
 import 'package:p7app/features/user_profile/views/widgets/experience_list_item.dart';
-import 'package:p7app/features/user_profile/views/widgets/member_ship_list_item.dart';
+import 'package:p7app/features/user_profile/views/widgets/membership_list_item.dart';
 import 'package:p7app/features/user_profile/views/widgets/personal_info_widget.dart';
 import 'package:p7app/features/user_profile/views/widgets/professional_skill_list_item.dart';
 import 'package:p7app/features/user_profile/views/widgets/user_info_list_item.dart';
@@ -52,7 +52,8 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
 
   @override
   void afterFirstLayout(BuildContext context) {
-    Provider.of<UserProfileViewModel>(context, listen: false).fetchUserData();
+    Provider.of<UserProfileViewModel>(context, listen: false)
+        .fetchUserData(isFormOnPageLoad: true);
   }
 
   Widget userContactInfo(context) => InkWell(
@@ -696,8 +697,9 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                 case AppError.serverError:
                   return FailureFullScreenWidget(
                     errorMessage: StringUtils.unableToLoadData,
-                    onTap: (){
-                      return Provider.of<UserProfileViewModel>(context, listen: false)
+                    onTap: () {
+                      return Provider.of<UserProfileViewModel>(context,
+                              listen: false)
                           .fetchUserData();
                     },
                   );
@@ -705,8 +707,9 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                 case AppError.networkError:
                   return FailureFullScreenWidget(
                     errorMessage: StringUtils.checkInternetConnectionMessage,
-                    onTap: (){
-                      return Provider.of<UserProfileViewModel>(context, listen: false)
+                    onTap: () {
+                      return Provider.of<UserProfileViewModel>(context,
+                              listen: false)
                           .fetchUserData();
                     },
                   );
@@ -714,8 +717,9 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                 default:
                   return FailureFullScreenWidget(
                     errorMessage: StringUtils.somethingIsWrong,
-                    onTap: (){
-                      return Provider.of<UserProfileViewModel>(context, listen: false)
+                    onTap: () {
+                      return Provider.of<UserProfileViewModel>(context,
+                              listen: false)
                           .fetchUserData();
                     },
                   );
