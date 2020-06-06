@@ -16,9 +16,11 @@ import 'package:p7app/main_app/models/settings_model.dart';
 import 'package:p7app/main_app/repositories/contact_us_submit_repository.dart';
 import 'package:p7app/main_app/repositories/setting_repository.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/util/validator.dart';
 import 'package:p7app/main_app/views/widgets/pge_view_widget.dart';
 import 'package:p7app/main_app/widgets/common_button.dart';
 import 'package:p7app/main_app/widgets/custom_text_field.dart';
+import 'package:p7app/main_app/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/widgets/loader.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:dartz/dartz.dart' as dartZ;
@@ -37,6 +39,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
   TextEditingController subjectController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController messageController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
   SettingsModel _settingsModel;
   getSettingsDetails() async {
@@ -115,7 +118,10 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
       phone: phoneController.text??""
     );
 
-    addContactUsData(contactUsModel);
+    bool isValid = _formKey.currentState.validate();
+    if(isValid){
+      addContactUsData(contactUsModel);
+    }
   }
 
   @override
@@ -200,58 +206,67 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
         children: [
           Container(
             padding: EdgeInsets.all(15),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  padding: EdgeInsets.all(15),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      gradient: AppTheme.lightLinearGradient,
-                      border: Border.all(width: 1, color: Colors.grey[300]),
-                      //color: Colors.grey[200]
+            child: Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    padding: EdgeInsets.all(15),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        gradient: AppTheme.lightLinearGradient,
+                        border: Border.all(width: 1, color: Colors.grey[300]),
+                        //color: Colors.grey[200]
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(StringUtils.contactUsContactInfoText,style: titleStyle,),
+                        Divider(height: 25,),
+                        contactInfoItems(Icons.pin_drop, _settingsModel.address),
+                        spaceBetweenLines,
+                        contactInfoItems(Icons.mail_outline, _settingsModel.supportEmail),
+                        spaceBetweenLines,
+                        contactInfoItems(Icons.phone_in_talk, _settingsModel.phone),
+                      ],
+                    ),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(StringUtils.contactUsContactInfoText,style: titleStyle,),
-                      Divider(height: 25,),
-                      contactInfoItems(Icons.pin_drop, _settingsModel.address),
-                      spaceBetweenLines,
-                      contactInfoItems(Icons.mail_outline, _settingsModel.supportEmail),
-                      spaceBetweenLines,
-                      contactInfoItems(Icons.phone_in_talk, _settingsModel.phone),
-                    ],
+                  SizedBox(height: 30,),
+                  Text(StringUtils.contactUsKeepInTouchText, style: titleStyle,),
+                  SizedBox(height: 10,),
+                  CustomTextFormField(
+                    hintText: StringUtils.contactUsNameText,
+                    controller: nameController,
+                    validator: Validator().nameValidator,
                   ),
-                ),
-                SizedBox(height: 30,),
-                Text(StringUtils.contactUsKeepInTouchText, style: titleStyle,),
-                SizedBox(height: 10,),
-                CustomTextField(
-                  hintText: StringUtils.contactUsNameText,
-                  controller: nameController,
-                ),
-                spaceBetweenLines,
-                CustomTextField(
-                  hintText: StringUtils.contactUsEmailText,
-                  controller: emailController,
-                ),
-                spaceBetweenLines,
-                CustomTextField(
-                  hintText: StringUtils.contactUsPhoneText,
-                  controller: phoneController,
-                ),
-                spaceBetweenLines,
-                CustomTextField(
-                  hintText: StringUtils.contactUsSubjectText,
-                  controller: subjectController,
-                ),
-                spaceBetweenLines,
-                CustomTextField(
-                  hintText: StringUtils.contactUsMessageText,
-                  controller: messageController,
-                ),
-              ],
+                  spaceBetweenLines,
+                  CustomTextFormField(
+                    hintText: StringUtils.contactUsEmailText,
+                    controller: emailController,
+                    validator: Validator().validateEmail,
+                  ),
+                  spaceBetweenLines,
+                  CustomTextFormField(
+                    hintText: StringUtils.contactUsPhoneText,
+                    controller: phoneController,
+                    validator: Validator().validatePhoneNumber,
+                  ),
+                  spaceBetweenLines,
+                  CustomTextFormField(
+                    hintText: StringUtils.contactUsSubjectText,
+                    controller: subjectController,
+                    validator: Validator().nullFieldValidate,
+                  ),
+                  spaceBetweenLines,
+                  CustomTextFormField(
+                    hintText: StringUtils.contactUsMessageText,
+                    controller: messageController,
+                    validator: Validator().nullFieldValidate,
+                    maxLines: 5,
+                  ),
+                ],
+              ),
             ),
           ),
           SizedBox(height: 20,),
