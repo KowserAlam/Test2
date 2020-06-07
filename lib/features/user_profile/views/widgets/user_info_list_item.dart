@@ -56,8 +56,8 @@ class _UserInfoListItemState extends State<UserInfoListItem> {
             SizedBox(
               width: 8,
             ),
-            Text(widget.label, style: titleTextStyle),
-            Spacer(),
+            Expanded(child: Text(widget.label, style: titleTextStyle)),
+            
             addNewButton,
             SizedBox(
               width:15,

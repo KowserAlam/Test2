@@ -491,7 +491,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
           isInEditModeSkill = !isInEditModeSkill;
           setState(() {});
         },
-        icon: FontAwesomeIcons.brain,
+        icon: FontAwesomeIcons.tools,
         label: StringUtils.professionalSkillText,
         onTapAddNewAction: () {
           Navigator.push(
