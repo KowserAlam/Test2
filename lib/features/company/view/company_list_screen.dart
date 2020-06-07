@@ -67,91 +67,87 @@ class _CompanyListScreenState extends State<CompanyListScreen>
         appBar: AppBar(
           title: Text(StringUtils.companyListAppbarText),
         ),
-        body: SingleChildScrollView(
-          child: Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height-AppBar().preferredSize.height-30,
-            padding: EdgeInsets.all(8),
-            child: Column(
-              children: [
-                CustomTextField(
-                  controller: _companyNameController,
-                  hintText: StringUtils.companyListSearchText,
-                  autofocus: true,
-                  textInputAction: TextInputAction.search,
-                  onSubmitted: (v) {
-                    search();
+        body: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: CustomTextField(
+                controller: _companyNameController,
+                hintText: StringUtils.companyListSearchText,
+                autofocus: true,
+                textInputAction: TextInputAction.search,
+                onSubmitted: (v) {
+                  search();
 //                    if (_companyNameController.text.length > 2) {
 //                      search();
 //                    } else {
 //                      BotToast.showText(text: StringUtils.searchLetterCapText);
 //                    }
-                  },
-                  onChanged: (v) {
-                    if (_companyNameController.text.isEmpty) {
-                      companyViewModel.resetState();
-                    }
-                  },
-                  suffixIcon: IconButton(
-                    icon: Icon(Icons.search),
-                    onPressed: () {
-                      search();
+                },
+                onChanged: (v) {
+                  if (_companyNameController.text.isEmpty) {
+                    companyViewModel.resetState();
+                  }
+                },
+                suffixIcon: IconButton(
+                  icon: Icon(Icons.search),
+                  onPressed: () {
+                    search();
 //                      if (_companyNameController.text.length > 2) {
 //                        search();
 //                      } else {
 //                        BotToast.showText(
 //                            text: StringUtils.searchLetterCapText);
 //                      }
-                    },
-                  ),
+                  },
                 ),
-                SizedBox(height: 5,),
-                companyViewModel.shouldShowCompanyCount
-                    ? Container(
-                        padding: EdgeInsets.symmetric(vertical: 5),
-                        margin: EdgeInsets.symmetric(vertical: 5),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: companyViewModel.isFetchingData
-                              ? [Text(StringUtils.companyListSearchingText)]
-                              : [
-                                  Text(companyViewModel.noOfSearchResults
-                                      .toString()),
-//                                  if(companyViewModel.shouldShowCompanyCount)
-                                  companyViewModel.noOfSearchResults > 1
-                                      ? Text(' '+StringUtils.companyListMultipleCompaniesFoundText)
-                                      : Text(' '+StringUtils.companyListSingleCompanyFoundText)
-                                ],
-                        ))
-                    : SizedBox(),
-
-                companyViewModel.shouldShowLoader
-                    ? Padding(
-                        padding: const EdgeInsets.only(top: 15),
-                        child: Loader(),
-                      )
-                    : Expanded(
-                        child: ListView.builder(
-                            itemCount: companySuggestion.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        CupertinoPageRoute(
-                                            builder: (context) =>
-                                                CompanyDetails(
-                                                  company:
-                                                      companySuggestion[index],
-                                                )));
-                                  },
-                                  child: CompanyListTile(company: companySuggestion[index],));
-                            }),
-                      )
-              ],
+              ),
             ),
-          ),
+//            SizedBox(height: 5,),
+            companyViewModel.shouldShowCompanyCount
+                ? Container(
+                    padding: EdgeInsets.symmetric(vertical: 5),
+                    margin: EdgeInsets.symmetric(vertical: 5),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: companyViewModel.isFetchingData
+                          ? [Text(StringUtils.companyListSearchingText)]
+                          : [
+                              Text(companyViewModel.noOfSearchResults
+                                  .toString()),
+//                                  if(companyViewModel.shouldShowCompanyCount)
+                              companyViewModel.noOfSearchResults > 1
+                                  ? Text(' '+StringUtils.companyListMultipleCompaniesFoundText)
+                                  : Text(' '+StringUtils.companyListSingleCompanyFoundText)
+                            ],
+                    ))
+                : SizedBox(),
+
+            companyViewModel.shouldShowLoader
+                ? Padding(
+                    padding: const EdgeInsets.only(top: 15),
+                    child: Loader(),
+                  )
+                : Expanded(
+                    child: ListView.builder(
+                        itemCount: companySuggestion.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    CupertinoPageRoute(
+                                        builder: (context) =>
+                                            CompanyDetails(
+                                              company:
+                                                  companySuggestion[index],
+                                            )));
+                              },
+                              child: CompanyListTile(company: companySuggestion[index],));
+                        }),
+                  )
+          ],
         ),
       ),
     );
