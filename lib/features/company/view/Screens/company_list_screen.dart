@@ -32,7 +32,7 @@ class _CompanyListScreenState extends State<CompanyListScreen>
   void afterFirstLayout(BuildContext context) {
     var companyViewModel =
         Provider.of<CompanyListViewModel>(context, listen: false);
-    companyViewModel.getJobDetails();
+    companyViewModel.getCompanyList();
   }
 
   @override
@@ -43,7 +43,7 @@ class _CompanyListScreenState extends State<CompanyListScreen>
         : companyViewModel.companyList;
     void search() {
       companyViewModel.query = _companyNameController.text;
-      companyViewModel.getJobDetails();
+      companyViewModel.getCompanyList();
 //      print(companyViewModel.companyList.length);
     }
 
@@ -84,7 +84,7 @@ class _CompanyListScreenState extends State<CompanyListScreen>
 //                    }
                   },
                   onChanged: (v) {
-                    if (_companyNameController.text.length == 0) {
+                    if (_companyNameController.text.isEmpty) {
                       companyViewModel.resetState();
                     }
                   },
@@ -101,25 +101,25 @@ class _CompanyListScreenState extends State<CompanyListScreen>
                     },
                   ),
                 ),
-//                companyViewModel.shouldShowCompanyCount
-//                    ? Container(
-//                        padding: EdgeInsets.symmetric(vertical: 5),
-//                        margin: EdgeInsets.symmetric(vertical: 5),
-//                        child: Row(
-//                          mainAxisSize: MainAxisSize.max,
-//                          mainAxisAlignment: MainAxisAlignment.center,
-//                          children: companyViewModel.isFetchingData
-//                              ? [Text('Searching..')]
-//                              : [
-//                                  Text(companyViewModel.noOfSearchResults
-//                                      .toString()),
-////                                  if(companyViewModel.shouldShowCompanyCount)
-//                                  companyViewModel.noOfSearchResults > 1
-//                                      ? Text(' companies found')
-//                                      : Text(' company found')
-//                                ],
-//                        ))
-//                    : SizedBox(),
+                companyViewModel.shouldShowCompanyCount
+                    ? Container(
+                        padding: EdgeInsets.symmetric(vertical: 5),
+                        margin: EdgeInsets.symmetric(vertical: 5),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: companyViewModel.isFetchingData
+                              ? [Text('Searching..')]
+                              : [
+                                  Text(companyViewModel.noOfSearchResults
+                                      .toString()),
+//                                  if(companyViewModel.shouldShowCompanyCount)
+                                  companyViewModel.noOfSearchResults > 1
+                                      ? Text(' companies found')
+                                      : Text(' company found')
+                                ],
+                        ))
+                    : SizedBox(),
 
                 companyViewModel.isFetchingData
                     ? Padding(
