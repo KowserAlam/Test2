@@ -103,7 +103,7 @@ dev_dependencies:
 #          bundleId: "com.ishraak.p7app"
 
 flutter_icons:
-  android: "launcher_icon"
+  android: true
   ios: true
   image_path: "assets/images/job_search_logo_sq.png"
 
