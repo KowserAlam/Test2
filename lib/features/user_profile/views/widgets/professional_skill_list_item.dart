@@ -10,47 +10,52 @@ class ProfessionalSkillListItem extends StatelessWidget {
   final Function onTapDelete;
   final bool isInEditMode;
 
-  ProfessionalSkillListItem(
-      {Key key,
-      @required this.skillInfo,
-      this.onTapDelete,
-      this.onTapEdit,
-      this.isInEditMode=false})
+  ProfessionalSkillListItem({Key key,
+    @required this.skillInfo,
+    this.onTapDelete,
+    this.onTapEdit,
+    this.isInEditMode = false})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var titleStyle = Theme
+        .of(context)
+        .textTheme
+        .subtitle2
+        .apply(color: Theme
+        .of(context)
+        .primaryColor);
     return Container(
       margin: EdgeInsets.only(bottom: 8),
       decoration: BoxDecoration(
-        color: Theme.of(context).backgroundColor,
+        color: Theme
+            .of(context)
+            .backgroundColor,
         borderRadius: BorderRadius.circular(5),
         boxShadow: CommonStyleTextField.boxShadow,
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
         child: Row(
           children: [
             skillInfo.verifiedBySkillCheck ?? false
                 ? Icon(
-                    FontAwesomeIcons.checkCircle,
-                    color: Colors.orange,
-                    size: 17,
-                  )
+              FontAwesomeIcons.checkCircle,
+              color: Colors.orange,
+              size: 17,
+            )
                 : Icon(
-                    FontAwesomeIcons.circle,
-                    color: Colors.orange,
-                    size: 17,
-                  ),
+              FontAwesomeIcons.circle,
+              color: Colors.orange,
+              size: 17,
+            ),
             SizedBox(
               width: 5,
             ),
             Expanded(
               child: Text(skillInfo?.skill?.name ?? "",
-                  style: Theme.of(context)
-                      .textTheme
-                      .subtitle1
-                      .apply(color: Theme.of(context).primaryColor)),
+                style: titleStyle,),
             ),
             Row(
               mainAxisSize: MainAxisSize.min,
@@ -59,10 +64,7 @@ class ProfessionalSkillListItem extends StatelessWidget {
                   skillInfo.rating == null
                       ? "N/A"
                       : skillInfo.rating.toString() + "/10",
-                  style: Theme.of(context)
-                      .textTheme
-                      .subtitle1
-                      .apply(color: Theme.of(context).primaryColor),
+                  style: titleStyle,
                 ),
                 if (isInEditMode)
                   Material(
