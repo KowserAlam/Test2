@@ -20,6 +20,7 @@ class CompanyListViewModel with ChangeNotifier {
   }
 
   bool get shouldShowCompanyCount => _query.isNotEmptyOrNotNull;
+    bool get shouldShowLoader => isFetchingData && companyList == null;
 
   Future<bool> getCompanyList() async {
     isFetchingData = true;
@@ -42,13 +43,19 @@ class CompanyListViewModel with ChangeNotifier {
     });
   }
 
+clearSearch(){
+      isFetchingData = false;
+    searchStart = false;
+       _query = "";
+}
   resetState() {
     companyList = null;
     isFetchingData = false;
     searchStart = false;
     _companyListRepository = CompanyListRepository();
     noOfSearchResults = 0;
-    notifyListeners();
+    _query = "";
     getCompanyList();
+        notifyListeners();
   }
 }

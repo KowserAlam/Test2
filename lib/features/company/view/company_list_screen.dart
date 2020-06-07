@@ -54,9 +54,12 @@ class _CompanyListScreenState extends State<CompanyListScreen>
     double iconSize = 14.0;
     var subtitleColor = isDarkMode ? Colors.white : AppTheme.grey;
 
+
+
+
     return WillPopScope(
       onWillPop: () async {
-        companyViewModel.resetState();
+        companyViewModel.clearSearch();
         return true;
       },
       child: Scaffold(
@@ -101,6 +104,7 @@ class _CompanyListScreenState extends State<CompanyListScreen>
                     },
                   ),
                 ),
+                SizedBox(height: 8,),
                 companyViewModel.shouldShowCompanyCount
                     ? Container(
                         padding: EdgeInsets.symmetric(vertical: 5),
@@ -121,7 +125,7 @@ class _CompanyListScreenState extends State<CompanyListScreen>
                         ))
                     : SizedBox(),
 
-                companyViewModel.isFetchingData
+                companyViewModel.shouldShowLoader
                     ? Padding(
                         padding: const EdgeInsets.only(top: 15),
                         child: Loader(),
