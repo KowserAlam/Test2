@@ -1,4 +1,3 @@
-
 import 'package:dartz/dartz.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:p7app/features/job/models/job_list_model.dart';
@@ -13,7 +12,6 @@ class FavouriteJobListViewModel with ChangeNotifier {
   bool _isFetchingData = false;
   FavoriteJobListRepository _jobListRepository = FavoriteJobListRepository();
   DateTime _lastFetchTime;
-
 
   /// ##########################
   /// methods
@@ -32,7 +30,6 @@ class FavouriteJobListViewModel with ChangeNotifier {
 
   Future<bool> addToFavorite(String jobId, int index,
       {ApiClient apiClient}) async {
-
     bool isSuccessful = await JobRepository().addToFavorite(jobId);
     if (isSuccessful) {
       _jobList[index].isFavourite = !_jobList[index].isFavourite;
@@ -43,23 +40,24 @@ class FavouriteJobListViewModel with ChangeNotifier {
     }
   }
 
-  Future<bool> refresh() async{
+  Future<bool> refresh() async {
     return getJobList();
   }
 
   Future<bool> getJobList({bool isFormOnPageLoad = false}) async {
-
     var time = CommonServiceRule.onLoadPageReloadTime;
 
-    if(isFormOnPageLoad)
-      if(_lastFetchTime != null){
-        if(_lastFetchTime.difference(DateTime.now()) < time)
-          return false;
-      }
+    if (isFormOnPageLoad) if (_lastFetchTime != null) {
+      bool shouldNotFetchData =
+          _lastFetchTime.difference(DateTime.now()) < time &&
+              _jobList.length != 0;
+
+      if (shouldNotFetchData) return false;
+    }
     _lastFetchTime = DateTime.now();
     isFetchingData = true;
     Either<AppError, List<JobListModel>> result =
-    await _jobListRepository.fetchJobList();
+        await _jobListRepository.fetchJobList();
     return result.fold((l) {
       isFetchingData = false;
       print(l);
@@ -96,10 +94,11 @@ class FavouriteJobListViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-bool get shouldShowLoader => _isFetchingData && _jobList.length == 0;
-bool get shouldShowNoJobs => !_isFetchingData && _jobList.length == 0;
+  bool get shouldShowLoader => _isFetchingData && _jobList.length == 0;
+
+  bool get shouldShowNoJobs => !_isFetchingData && _jobList.length == 0;
+
   set jobListRepository(FavoriteJobListRepository value) {
     _jobListRepository = value;
   }
-
 }
