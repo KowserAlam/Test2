@@ -369,6 +369,14 @@ class StringUtils {
   static var editText = "Edit";
   static var portfolioText = "Portfolio";
 
+
+  //Company List Screen
+  static var companyListSearchText = "Search";
+  static var companyListMultipleCompaniesFoundText = "companies found";
+  static var companyListSingleCompanyFoundText = "company found";
+  static var companyListYearOfEstablishmentText = "Year of Establishment";
+  static var companyListSearchingText = "Searching";
+
   /// Profile Screen *******************
   /// Personal Info
 

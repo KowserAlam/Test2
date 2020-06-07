@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:p7app/features/company/models/company.dart';
+import 'package:p7app/features/company/view/company_list_tile.dart';
 import 'package:p7app/features/company/view_model/company_list_view_model.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
 import 'package:p7app/main_app/util/date_format_uitl.dart';
@@ -69,13 +70,13 @@ class _CompanyListScreenState extends State<CompanyListScreen>
         body: SingleChildScrollView(
           child: Container(
             width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
+            height: MediaQuery.of(context).size.height-AppBar().preferredSize.height-30,
             padding: EdgeInsets.all(8),
             child: Column(
               children: [
                 CustomTextField(
                   controller: _companyNameController,
-                  hintText: 'Search',
+                  hintText: StringUtils.companyListSearchText,
                   autofocus: true,
                   textInputAction: TextInputAction.search,
                   onSubmitted: (v) {
@@ -104,7 +105,7 @@ class _CompanyListScreenState extends State<CompanyListScreen>
                     },
                   ),
                 ),
-                SizedBox(height: 8,),
+                SizedBox(height: 5,),
                 companyViewModel.shouldShowCompanyCount
                     ? Container(
                         padding: EdgeInsets.symmetric(vertical: 5),
@@ -113,14 +114,14 @@ class _CompanyListScreenState extends State<CompanyListScreen>
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: companyViewModel.isFetchingData
-                              ? [Text('Searching..')]
+                              ? [Text(StringUtils.companyListSearchingText)]
                               : [
                                   Text(companyViewModel.noOfSearchResults
                                       .toString()),
 //                                  if(companyViewModel.shouldShowCompanyCount)
                                   companyViewModel.noOfSearchResults > 1
-                                      ? Text(' companies found')
-                                      : Text(' company found')
+                                      ? Text(' '+StringUtils.companyListMultipleCompaniesFoundText)
+                                      : Text(' '+StringUtils.companyListSingleCompanyFoundText)
                                 ],
                         ))
                     : SizedBox(),
@@ -145,147 +146,7 @@ class _CompanyListScreenState extends State<CompanyListScreen>
                                                       companySuggestion[index],
                                                 )));
                                   },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        color: scaffoldBackgroundColor,
-//        borderRadius: BorderRadius.circular(5),
-                                        boxShadow: [
-                                          BoxShadow(
-                                              color:
-                                                  Colors.black.withOpacity(0.1),
-                                              blurRadius: 10),
-                                          BoxShadow(
-                                              color:
-                                                  Colors.black.withOpacity(0.2),
-                                              blurRadius: 10),
-                                        ]),
-                                    margin: EdgeInsets.fromLTRB(0, 4, 0, 4),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Container(
-                                          color: backgroundColor,
-                                          padding: EdgeInsets.all(8),
-                                          child: Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: <Widget>[
-                                              Container(
-                                                height: 60,
-                                                width: 60,
-                                                decoration: BoxDecoration(
-                                                  color:
-                                                      scaffoldBackgroundColor,
-                                                ),
-                                                child: CachedNetworkImage(
-                                                  imageUrl:
-                                                      companySuggestion[index]
-                                                              .profilePicture ??
-                                                          "",
-                                                  placeholder: (context, _) =>
-                                                      Image.asset(
-                                                          kCompanyImagePlaceholder),
-                                                ),
-                                              ),
-                                              SizedBox(width: 8),
-                                              Expanded(
-                                                  child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: <Widget>[
-                                                  Text(
-                                                    companySuggestion[index]
-                                                            .name ??
-                                                        "",
-                                                    style: titleStyle,
-                                                  ),
-//                                                SizedBox(height: 3),
-//                                                Text(
-//                                                  companySuggestion[index].yearOfEstablishment ?? "",
-//                                                  style: TextStyle(color: subtitleColor),
-//                                                ),
-                                                  SizedBox(height: 10),
-                                                  if (companySuggestion[index]
-                                                          .address !=
-                                                      null)
-                                                    Container(
-                                                      child: Row(
-                                                        children: <Widget>[
-                                                          Icon(
-                                                            FeatherIcons.mapPin,
-                                                            color:
-                                                                subtitleColor,
-                                                            size: iconSize,
-                                                          ),
-                                                          SizedBox(
-                                                            width: 5,
-                                                          ),
-                                                          Expanded(
-                                                            child: Text(
-                                                              companySuggestion[
-                                                                          index]
-                                                                      .address ??
-                                                                  "",
-                                                              maxLines: 1,
-                                                              overflow:
-                                                                  TextOverflow
-                                                                      .ellipsis,
-                                                              style: TextStyle(
-                                                                  color:
-                                                                      subtitleColor),
-                                                            ),
-                                                          )
-                                                        ],
-                                                      ),
-                                                    ),
-                                                ],
-                                              )),
-                                              SizedBox(width: 8),
-                                            ],
-                                          ),
-                                        ),
-                                        SizedBox(height: 1),
-                                        Container(
-                                          padding: EdgeInsets.all(8),
-                                          color: backgroundColor,
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            children: <Widget>[
-                                              Row(
-                                                children: <Widget>[
-                                                  Text(
-                                                    'Year of Establishment: ',
-                                                    style: TextStyle(
-                                                        color: subtitleColor,
-                                                        fontWeight:
-                                                            FontWeight.w600),
-                                                  ),
-                                                  SizedBox(width: 5),
-                                                  Text(
-                                                    companySuggestion[index]
-                                                                .yearOfEstablishment !=
-                                                            null
-                                                        ? DateFormatUtil.formatDate(
-                                                            companySuggestion[
-                                                                    index]
-                                                                .yearOfEstablishment)
-                                                        : StringUtils
-                                                            .unspecifiedText,
-                                                    style: TextStyle(
-                                                        color: subtitleColor,
-                                                        fontWeight:
-                                                            FontWeight.w100),
-                                                  ),
-                                                ],
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ));
+                                  child: CompanyListTile(company: companySuggestion[index],));
                             }),
                       )
               ],

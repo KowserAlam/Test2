@@ -73,7 +73,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
         print(l);
         return false;
       }, (r){
-        BotToast.showText(text: StringUtils.contactUsSubmittedText);
+        //BotToast.showText(text: StringUtils.contactUsSubmittedText);
         _submitted = true;
         nameController.clear();
         emailController.clear();
