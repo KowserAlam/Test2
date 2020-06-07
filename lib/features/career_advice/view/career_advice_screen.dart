@@ -77,7 +77,7 @@ class _CareerAdviceScreenState extends State<CareerAdviceScreen>
                     },
                     child: Container(
                       padding: EdgeInsets.all(8),
-                      margin: EdgeInsets.symmetric(vertical: 5, horizontal: 8),
+                      margin: EdgeInsets.symmetric(vertical: 5),
                       decoration: BoxDecoration(
                         //borderRadius: BorderRadius.circular(5),
                         gradient: AppTheme.lightLinearGradient,
