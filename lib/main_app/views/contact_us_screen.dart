@@ -220,7 +220,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
       body: ListView(
         children: [
           Container(
-            padding: EdgeInsets.all(15),
+            padding: EdgeInsets.all(8),
             child: Form(
               key: _formKey,
               child: Column(
