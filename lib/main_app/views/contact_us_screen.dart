@@ -39,6 +39,11 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
   TextEditingController subjectController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController messageController = TextEditingController();
+  FocusNode nameFocusNode = FocusNode();
+  FocusNode phoneFocusNode = FocusNode();
+  FocusNode emailFocusNode = FocusNode();
+  FocusNode subjectFocusNode = FocusNode();
+  FocusNode messageFocusNode = FocusNode();
   final _formKey = GlobalKey<FormState>();
   bool _submitted = false;
 
@@ -68,8 +73,13 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
         print(l);
         return false;
       }, (r){
-        BotToast.showText(text: 'Submitted');
+        BotToast.showText(text: StringUtils.contactUsSubmittedText);
         _submitted = true;
+        nameController.clear();
+        emailController.clear();
+        subjectController.clear();
+        messageController.clear();
+        phoneController.clear();
         setState(() {
 
         });
@@ -237,21 +247,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                       ],
                     ),
                   ),
-                  !_submitted?SizedBox():Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(height: 30,),
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(height: 30,),
-                          Text(StringUtils.contactUsSubmittedText, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.redAccent),)
-                        ],
-                      )
-                    ],
-                  ),
-                  _submitted?SizedBox():Column(
+                  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(height: 30,),
@@ -261,6 +257,10 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                         hintText: StringUtils.contactUsNameText,
                         controller: nameController,
                         validator: Validator().nullFieldValidate,
+                        onFieldSubmitted: (v){
+                          nameFocusNode.unfocus();
+                          FocusScope.of(context).requestFocus(emailFocusNode);
+                        },
                       ),
                       spaceBetweenLines,
                       CustomTextFormField(
@@ -268,6 +268,11 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                         controller: emailController,
                         keyboardType: TextInputType.emailAddress,
                         validator: Validator().validateEmail,
+                        focusNode: emailFocusNode,
+                        onFieldSubmitted: (v){
+                          nameFocusNode.unfocus();
+                          FocusScope.of(context).requestFocus(phoneFocusNode);
+                        },
                       ),
                       spaceBetweenLines,
                       CustomTextFormField(
@@ -275,12 +280,22 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                         controller: phoneController,
                         keyboardType: TextInputType.number,
                         validator: Validator().validatePhoneNumber,
+                        focusNode: phoneFocusNode,
+                        onFieldSubmitted: (v){
+                          nameFocusNode.unfocus();
+                          FocusScope.of(context).requestFocus(subjectFocusNode);
+                        },
                       ),
                       spaceBetweenLines,
                       CustomTextFormField(
                         hintText: StringUtils.contactUsSubjectText,
                         controller: subjectController,
                         validator: Validator().nullFieldValidate,
+                        focusNode: subjectFocusNode,
+                        onFieldSubmitted: (v){
+                          nameFocusNode.unfocus();
+                          FocusScope.of(context).requestFocus(messageFocusNode);
+                        },
                       ),
                       spaceBetweenLines,
                       CustomTextFormField(
@@ -288,6 +303,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                         controller: messageController,
                         validator: Validator().nullFieldValidate,
                         maxLines: 5,
+                        focusNode: messageFocusNode,
                       ),
                     ],
                   )
@@ -295,8 +311,8 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
               ),
             ),
           ),
-          _submitted?SizedBox():SizedBox(height: 20,),
-          _submitted?SizedBox():Container(
+          SizedBox(height: 20,),
+          Container(
             padding: EdgeInsets.symmetric(horizontal: 80),
             child: CommonButton(
               label: 'Submit',
