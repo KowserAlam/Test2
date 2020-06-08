@@ -104,7 +104,7 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
               onTapApplied: widget.onTapApplied,
               onTapFavourite: widget.onTapFavourite,
             ),
-            JobChartWidget(),
+            JobChartWidget(animate: true,),
           ],
         ),
       ),

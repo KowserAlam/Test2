@@ -20,7 +20,6 @@ class JobChartWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     var screenHeight = MediaQuery.of(context).size.height;
     var chartHeight = screenHeight / 2.1;
     var primaryColor = Theme.of(context).primaryColor;
@@ -35,16 +34,17 @@ class JobChartWidget extends StatelessWidget {
     ];
 
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical:8.0),
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal:5.0),
+            padding: const EdgeInsets.symmetric(horizontal: 5.0),
             child: Consumer<UserProfileViewModel>(
               builder:
                   (BuildContext context, userProfileViewModel, Widget child) {
-              var dashboardViewModel = Provider.of<DashboardViewModel>(context);
+                var dashboardViewModel =
+                    Provider.of<DashboardViewModel>(context);
 
                 if (userProfileViewModel.shouldShowLoader) {
                   return SizedBox();
@@ -70,6 +70,7 @@ class JobChartWidget extends StatelessWidget {
 //                  ),
 //                );
                 }
+
                 bool isExpanded = dashboardViewModel.idExpandedSkillList;
                 List<SkillInfo> skillList =
                     userProfileViewModel?.userData?.skillInfo ?? [];
@@ -121,7 +122,8 @@ class JobChartWidget extends StatelessWidget {
                           padding: const EdgeInsets.only(top: 5),
                           child: InkWell(
                             onTap: () {
-                              dashboardViewModel.idExpandedSkillList = !isExpanded;
+                              dashboardViewModel.idExpandedSkillList =
+                                  !isExpanded;
                             },
                             child: Padding(
                               padding: const EdgeInsets.all(3.0),
@@ -165,7 +167,7 @@ class JobChartWidget extends StatelessWidget {
             }
             var seriesList = [
               charts.Series<SkillJobChartDataModel, String>(
-                id: "JoB Chart",
+                id: "Job Chart",
                 domainFn: (v, _) => v.month ?? "Month",
                 measureFn: (v, _) => v.total ?? 0,
                 data: dashboardViewModel.skillJobChartData,
