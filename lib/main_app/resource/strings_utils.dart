@@ -463,7 +463,7 @@ static const String contactUsPhoneText = 'Phone';
 static const String contactUsSubjectText = 'Subject';
 static const String contactUsMessageText = 'Message';
 static const String contactUsLocationText = 'Location';
-static const String contactUsSubmittedText = 'Your response has been submitted';
+static const String contactUsSubmittedText = 'Thanks for contacting us! We will get in touch with you shortly.';
 
 
 ///Job Details
