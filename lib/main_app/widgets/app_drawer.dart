@@ -7,6 +7,7 @@ import 'package:p7app/features/job/view_model/applied_job_list_view_model.dart';
 import 'package:p7app/features/job/view_model/favourite_job_list_view_model.dart';
 import 'package:p7app/features/job/view_model/job_list_filter_widget_view_model.dart';
 import 'package:p7app/features/job/view_model/job_list_view_model.dart';
+import 'package:p7app/features/jobs_on_map/jobs_on_map_screen.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/features/user_profile/views/screens/profile_screen.dart';
 import 'package:p7app/main_app/auth_service/auth_service.dart';
@@ -45,8 +46,10 @@ class _AppDrawerState extends State<AppDrawer> {
         children: <Widget>[
           Container(
             padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-            decoration: BoxDecoration(image: DecorationImage(  image: AssetImage(kUserProfileCoverImageAsset),
-                fit: BoxFit.cover)),
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage(kUserProfileCoverImageAsset),
+                    fit: BoxFit.cover)),
             child: FutureBuilder<AuthUserModel>(
                 future:
                     AuthService.getInstance().then((value) => value.getUser()),
@@ -114,7 +117,8 @@ class _AppDrawerState extends State<AppDrawer> {
                         ),
                         Text(
                           user?.fullName ?? "",
-                          style: TextStyle(color: navBarTextColor, fontSize: 18),
+                          style:
+                              TextStyle(color: navBarTextColor, fontSize: 18),
                         ),
                         Text(
                           user?.email ?? "",
@@ -130,17 +134,17 @@ class _AppDrawerState extends State<AppDrawer> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-//                  ///Home / Jobs index = 0
-//                  DrawerListWidget(
-//                    label: StringUtils.jobsText,
-//                    icon: FontAwesomeIcons.briefcase,
-//                    isSelected: false,
-//                    onTap: () {
-//                      Navigator.pop(context);
-////                    Navigator.of(context).pushReplacement(CupertinoPageRoute(
-////                        builder: (context) => JobListScreen()));
-//                    },
-//                  ),
+                  ///Home / Jobs on map index = 0
+                  DrawerListWidget(
+                    label: StringUtils.jobsOnMapText,
+                    icon: FontAwesomeIcons.map,
+                    isSelected: false,
+                    onTap: () {
+                      Navigator.pop(context);
+                      Navigator.of(context).push(CupertinoPageRoute(
+                          builder: (context) => JobsOnMap()));
+                    },
+                  ),
 
 //                Divider(height: 1),
 //// favorite jobs
@@ -274,8 +278,8 @@ class _AppDrawerState extends State<AppDrawer> {
                     isSelected: false,
                     onTap: () {
                       Navigator.pop(context);
-                      Navigator.of(context).push(
-                          CupertinoPageRoute(builder: (context) => FAQScreen()));
+                      Navigator.of(context).push(CupertinoPageRoute(
+                          builder: (context) => FAQScreen()));
                     },
                   ),
                   Divider(height: 1),
