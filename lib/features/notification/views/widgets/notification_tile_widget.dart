@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:p7app/features/notification/models/notification_model.dart';
 import 'package:p7app/main_app/resource/const.dart';
+import 'package:p7app/main_app/util/date_format_uitl.dart';
+import 'package:p7app/main_app/util/method_extension.dart';
 
 class NotificationTile extends StatefulWidget {
   final Function onTap;
+  final NotificationModel notificationModel;
 
-
-  NotificationTile({this.onTap});
+  NotificationTile(this.notificationModel, {this.onTap});
 
   @override
   _NotificationTileState createState() => _NotificationTileState();
@@ -15,6 +18,9 @@ class _NotificationTileState extends State<NotificationTile> {
   @override
   Widget build(BuildContext context) {
     var scaffoldBackgroundColor = Theme.of(context).scaffoldBackgroundColor;
+    var time = widget.notificationModel.createdAt == null
+        ? ""
+        : DateFormatUtil.formatDate(widget.notificationModel.createdAt);
 
     return Container(
       height: 65,
@@ -58,9 +64,10 @@ class _NotificationTileState extends State<NotificationTile> {
                               child: Container(
                                 height: 15,
                                 child: Text(
-                                  'Source',
+                                  widget.notificationModel.title,
                                   style: TextStyle(
-                                      fontWeight: FontWeight.bold, fontSize: 12),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 12),
                                   overflow: TextOverflow.ellipsis,
                                 ),
                               ),
@@ -70,7 +77,7 @@ class _NotificationTileState extends State<NotificationTile> {
                               width: 60,
                               child: Center(
                                   child: Text(
-                                '05/02/20',
+                                time,
                                 style: TextStyle(fontSize: 10),
                               )),
                             ),
@@ -81,7 +88,7 @@ class _NotificationTileState extends State<NotificationTile> {
                         child: Container(
                           padding: EdgeInsets.only(bottom: 5, top: 2),
                           child: Text(
-                            'Flutter is an open-source UI software development kit created by Google. It is used to develop applications for Android, iOS, Windows, Mac, Linux, Google Fuchsia and the web',
+                            widget.notificationModel.message,
                             overflow: TextOverflow.ellipsis,
                             maxLines: 2,
                           ),

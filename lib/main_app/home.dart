@@ -35,6 +35,8 @@ class _HomeState extends State<Home> {
         unselectedFontSize: 10,
         type: BottomNavigationBarType.fixed,
         items: [
+
+          // dashboard
           BottomNavigationBarItem(
               icon: Padding(
                 padding: const EdgeInsets.only(
@@ -45,6 +47,7 @@ class _HomeState extends State<Home> {
                 ),
               ),
               title: Text(StringUtils.dashBoardText)),
+          //jobs
           BottomNavigationBarItem(
               icon: Padding(
                 padding: const EdgeInsets.only(
@@ -55,17 +58,20 @@ class _HomeState extends State<Home> {
                 ),
               ),
               title: Text(StringUtils.jobsText)),
+          //applied
           BottomNavigationBarItem(
               icon: Padding(
                   padding: const EdgeInsets.only(bottom: 5),
                   child: Icon(FontAwesomeIcons.solidCheckSquare)),
               title: Text(StringUtils.appliedText)),
+          // favourite
           BottomNavigationBarItem(
               icon: Padding(
                 padding: const EdgeInsets.only(bottom: 5),
                 child: Icon(FontAwesomeIcons.solidHeart),
               ),
               title: Text(StringUtils.favoriteText)),
+          //notifications
           BottomNavigationBarItem(
               icon: Padding(
                 padding: const EdgeInsets.only(bottom: 5),
@@ -85,21 +91,6 @@ class _HomeState extends State<Home> {
           return false;
         }
       },
-      child: Scaffold(
-        bottomNavigationBar: bottomNavBar,
-        body: PageView(
-          onPageChanged: (index) {
-            setState(() {
-              currentIndex = index;
-            });
-          },
-          controller: _paeViewController,
-          children: <Widget>[
-            JobListScreen(),
-            AppliedJobListScreen(),
-            FavouriteJobListScreen(),
-            NotificationScreen(),
-          ],
       child: FlavorBanner(
         child: Scaffold(
           bottomNavigationBar: bottomNavBar,
@@ -126,6 +117,7 @@ class _HomeState extends State<Home> {
               JobListScreen(),
               AppliedJobListScreen(),
               FavouriteJobListScreen(),
+              NotificationScreen(),
             ],
           ),
         ),
@@ -133,3 +125,5 @@ class _HomeState extends State<Home> {
     );
   }
 }
+
+
