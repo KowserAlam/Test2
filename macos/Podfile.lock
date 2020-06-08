@@ -39,6 +39,8 @@ PODS:
     - nanopb/encode (= 0.3.9011)
   - nanopb/decode (0.3.9011)
   - nanopb/encode (0.3.9011)
+  - package_info (0.0.1):
+    - FlutterMacOS
   - path_provider (0.0.1)
   - path_provider_macos (0.0.1):
     - FlutterMacOS
@@ -58,6 +60,7 @@ DEPENDENCIES:
   - connectivity_macos (from `Flutter/ephemeral/.symlinks/plugins/connectivity_macos/macos`)
   - firebase_core (from `Flutter/ephemeral/.symlinks/plugins/firebase_core/macos`)
   - FlutterMacOS (from `Flutter/ephemeral/.symlinks/flutter/darwin-x64`)
+  - package_info (from `Flutter/ephemeral/.symlinks/plugins/package_info/macos`)
   - path_provider (from `Flutter/ephemeral/.symlinks/plugins/path_provider/macos`)
   - path_provider_macos (from `Flutter/ephemeral/.symlinks/plugins/path_provider_macos/macos`)
   - shared_preferences (from `Flutter/ephemeral/.symlinks/plugins/shared_preferences/macos`)
@@ -88,6 +91,8 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/firebase_core/macos
   FlutterMacOS:
     :path: Flutter/ephemeral/.symlinks/flutter/darwin-x64
+  package_info:
+    :path: Flutter/ephemeral/.symlinks/plugins/package_info/macos
   path_provider:
     :path: Flutter/ephemeral/.symlinks/plugins/path_provider/macos
   path_provider_macos:
@@ -105,7 +110,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   connectivity: 5da134a8c10a7b6f334a17217fe4d0cfc4fb1c64
-  connectivity_macos: 9c4ae58730e141c1a12dec9fbd04a0a7cab7610f
+  connectivity_macos: 9f30e9d0e67a0bc08a0c563ee82310b51ca6e818
   Firebase: fe7f74012742ab403451dd283e6909b8f1fb348a
   firebase_core: b77314bf4bfacf4fb7253ce9bcdd39eb1cff9348
   FirebaseCore: ed0a24c758a57c2b88c5efa8e6a8195e868af589
@@ -117,6 +122,7 @@ SPEC CHECKSUMS:
   GoogleDataTransportCCTSupport: 32f75fbe904c82772fcbb6b6bd4525bfb6f2a862
   GoogleUtilities: ad0f3b691c67909d03a3327cc205222ab8f42e0e
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
+  package_info: 6eba2fd8d3371dda2d85c8db6fe97488f24b74b2
   path_provider: e0848572d1d38b9a7dd099e79cf83f5b7e2cde9f
   path_provider_macos: adb94ae6c253c45ef2aac146fbf1f4504d74b0f8
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96

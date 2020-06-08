@@ -1,27 +1,17 @@
-import 'dart:convert';
-
-import 'package:bot_toast/bot_toast.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:p7app/features/job/models/job_model.dart';
-import 'package:p7app/features/job/models/job_list_filters.dart';
 import 'package:p7app/features/job/models/job_list_model.dart';
-import 'package:p7app/features/job/repositories/applied_job_list_repository.dart';
 import 'package:p7app/features/job/repositories/favourite_job_list_repository.dart';
 import 'package:p7app/features/job/repositories/job_repository.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
-import 'package:p7app/main_app/api_helpers/urls.dart';
-import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
-import 'package:p7app/main_app/util/debouncer.dart';
-import 'package:rxdart/rxdart.dart';
+import 'package:p7app/main_app/util/common_serviec_rule.dart';
 
 class FavouriteJobListViewModel with ChangeNotifier {
   List<JobListModel> _jobList = [];
   bool _isFetchingData = false;
   FavoriteJobListRepository _jobListRepository = FavoriteJobListRepository();
-
+  DateTime _lastFetchTime;
 
   /// ##########################
   /// methods
@@ -40,7 +30,6 @@ class FavouriteJobListViewModel with ChangeNotifier {
 
   Future<bool> addToFavorite(String jobId, int index,
       {ApiClient apiClient}) async {
-
     bool isSuccessful = await JobRepository().addToFavorite(jobId);
     if (isSuccessful) {
       _jobList[index].isFavourite = !_jobList[index].isFavourite;
@@ -51,14 +40,24 @@ class FavouriteJobListViewModel with ChangeNotifier {
     }
   }
 
-  Future<bool> refresh() async{
+  Future<bool> refresh() async {
     return getJobList();
   }
 
-  Future<bool> getJobList() async {
+  Future<bool> getJobList({bool isFormOnPageLoad = false}) async {
+    var time = CommonServiceRule.onLoadPageReloadTime;
+
+    if (isFormOnPageLoad) if (_lastFetchTime != null) {
+      bool shouldNotFetchData =
+          _lastFetchTime.difference(DateTime.now()) < time &&
+              _jobList.length != 0;
+
+      if (shouldNotFetchData) return false;
+    }
+    _lastFetchTime = DateTime.now();
     isFetchingData = true;
     Either<AppError, List<JobListModel>> result =
-    await _jobListRepository.fetchJobList();
+        await _jobListRepository.fetchJobList();
     return result.fold((l) {
       isFetchingData = false;
       print(l);
@@ -95,10 +94,11 @@ class FavouriteJobListViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-bool get shouldShowLoader => _isFetchingData && _jobList.length == 0;
-bool get shouldShowNoJobs => !_isFetchingData && _jobList.length == 0;
+  bool get shouldShowLoader => _isFetchingData && _jobList.length == 0;
+
+  bool get shouldShowNoJobs => !_isFetchingData && _jobList.length == 0;
+
   set jobListRepository(FavoriteJobListRepository value) {
     _jobListRepository = value;
   }
-
 }

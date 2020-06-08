@@ -70,6 +70,26 @@ class Urls {
   static String favouriteJobListUrl = "/api/job/favourite/";
   static String companySearchUrl = "/api/company/search";
 
+  /// dashboardUrl
+
+static String dashboardInfoBoxUrl = "/api/professional/info_box/";
+static String dashboardSkillJobChartUrl = "/api/pro/dashboard/skill/";
+static String profileCompleteness = "/api/pro/profile-completeness/";
+
+
+static String careerAdviceUrl = "/api/career_advise";
+//contact us
+static String settingsUrl = "/api/settings/";
+static String contactUsSubmitUrl = "/api/send_email_to_admin_contact_us/";
+
+
+static String notificationMarkReadUrl = "/api/notification/mark-read/";//  id
+static String notificationListUrl = "/api/notification/";
+static String notificationGetUrl = "/api/notification/get/"; //  id
+static String messageListUrk = "/api/employer-message/list/";
+static String messageGetUrl = "/api/employer-message/get/"; //  id
+static String messageMarkedReadUrl = "/api/employer-message/mark-read/"; //  id
+
 
 // webUrl
   static String aboutUsWeb = "/about-us-app/";
@@ -77,20 +97,6 @@ class Urls {
   static String careerAdviceWeb = "/career-advice-app/";
   static String faqWeb = "/FAQ-app/";
 
-  /// skill check
 
-  static String examListUrl = "/registration/index";
-  static String questionListUrl = "/api/question-list";
-  static String submitUrl = "/api/exam-paper/submit";
-
-  static String examResultByIdUrl = "/api/exam/result";
-  static String featuredExamListUrl = "/api/featured-examlist";
-  static String examEnrollUrl = "/api/exam-enroll/";
-  static String recentExamListUrl = "/api/recent-examlist";
-  static String searchFeaturedExamUrl = "/api/featured-examlist";
-  static String enrolledExamListUrl = "/api/enrolled-examlist";
-  static String signUpEmailCheckUrl = "/api/signup/email";
-  static String signUpEmailVerificationUrl = "/api/signup/email-verification";
-  static String signUpEmailConfirmPassword = "/api/signup/examinee";
 
 }

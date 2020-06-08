@@ -1,0 +1,99 @@
+{
+  "project_info": {
+    "project_number": "282452792859",
+    "firebase_url": "https://p7app-df2de.firebaseio.com",
+    "project_id": "p7app-df2de",
+    "storage_bucket": "p7app-df2de.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:282452792859:android:5342e8638a653557b7cabe",
+        "android_client_info": {
+          "package_name": "com.ishraak.jobexpress"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "282452792859-8obl7a32h42nq0sdcphqd0b11re2qfbm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ishraak.jobexpress",
+            "certificate_hash": "b9b4c298494352e95708df3f8fa54e2e7814565e"
+          }
+        },
+        {
+          "client_id": "282452792859-1pu8vul874uskifva0ug37iktfrk6rkj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFF0JesPkE5sLt7jumN2FOt_WN1KowK2E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "282452792859-1pu8vul874uskifva0ug37iktfrk6rkj.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "282452792859-94e2psnnesrh4smaldg7bnh2n5qagjmp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ishraak.p7app"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:282452792859:android:a925700933ba7c46b7cabe",
+        "android_client_info": {
+          "package_name": "com.ishraak.p7app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "282452792859-gj84eqeb45g161rbeo8tlaakdpsdn7rt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ishraak.p7app",
+            "certificate_hash": "b9b4c298494352e95708df3f8fa54e2e7814565e"
+          }
+        },
+        {
+          "client_id": "282452792859-1pu8vul874uskifva0ug37iktfrk6rkj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFF0JesPkE5sLt7jumN2FOt_WN1KowK2E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "282452792859-1pu8vul874uskifva0ug37iktfrk6rkj.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "282452792859-94e2psnnesrh4smaldg7bnh2n5qagjmp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ishraak.p7app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

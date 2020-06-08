@@ -3,12 +3,16 @@ import 'package:p7app/features/auth/provider/login_view_model.dart';
 import 'package:p7app/features/auth/provider/password_change_view_model.dart';
 import 'package:p7app/features/auth/provider/password_reset_provider.dart';
 import 'package:p7app/features/auth/provider/signup_viewmodel.dart';
+import 'package:p7app/features/career_advice/view_models/career_advice_view_model.dart';
 import 'package:p7app/features/company/view_model/company_list_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:p7app/features/dashboard/view_model/dashboard_view_model.dart';
 import 'package:p7app/features/job/view_model/applied_job_list_view_model.dart';
 import 'package:p7app/features/job/view_model/favourite_job_list_view_model.dart';
 import 'package:p7app/features/job/view_model/job_list_filter_widget_view_model.dart';
 import 'package:p7app/features/job/view_model/job_list_view_model.dart';
+import 'package:p7app/main_app/flavour/flavour_config.dart';
+import 'package:p7app/main_app/util/common_serviec_rule.dart';
 import 'package:provider/provider.dart';
 import 'package:p7app/main_app/root.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
@@ -20,6 +24,7 @@ import 'package:bot_toast/bot_toast.dart';
 
 class P7App extends StatelessWidget {
   final isEnabledDevicePreview;
+  final CommonServiceRule commonServiceRule = CommonServiceRule();
 
   P7App({this.isEnabledDevicePreview = false});
 
@@ -40,7 +45,10 @@ class P7App extends StatelessWidget {
       ChangeNotifierProvider(create: (context) => SignUpViewModel()),
       ChangeNotifierProvider(create: (context) => JobListFilterWidgetViewModel()),
       ChangeNotifierProvider(create: (context) => PasswordChangeViewModel()),
+      ChangeNotifierProvider(create: (context) => DashboardViewModel()),
+      ChangeNotifierProvider(create: (context) => CareerAdviceViewModel()),
     ];
+    var appName = FlavorConfig.appName();
 
     return MultiProvider(
       providers: providers,
@@ -48,7 +56,7 @@ class P7App extends StatelessWidget {
         navigatorObservers: [BotToastNavigatorObserver()],
         builder: BotToastInit(),
         debugShowCheckedModeBanner: false,
-        title: StringUtils.appName,
+        title: appName,
         theme: AppTheme.lightTheme,
 //      darkTheme: AppTheme.darkTheme,
         home: Root(),

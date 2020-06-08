@@ -11,6 +11,7 @@ import 'package:p7app/features/user_profile/repositories/user_profile_repository
 import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/resource/json_keys.dart';
 import 'package:flutter/foundation.dart';
+import 'package:p7app/main_app/util/common_serviec_rule.dart';
 import 'package:uuid/uuid.dart';
 
 class UserProfileViewModel with ChangeNotifier {
@@ -18,6 +19,7 @@ class UserProfileViewModel with ChangeNotifier {
   bool _isBusySaving = false;
   AppError _appError;
   bool _isBusyLoading = false;
+  DateTime _lastFetchTime;
 
   bool get isBusyLoading => _isBusyLoading;
 
@@ -25,7 +27,6 @@ class UserProfileViewModel with ChangeNotifier {
     _isBusyLoading = value;
     notifyListeners();
   }
-
 
   AppError get appError => _appError;
 
@@ -52,14 +53,26 @@ class UserProfileViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  resetState(){
-     _userData = null;
-     _isBusySaving = false;
-     _appError = null;
-     _isBusyLoading = false;
+  resetState() {
+    _userData = null;
+    _isBusySaving = false;
+    _appError = null;
+    _isBusyLoading = false;
   }
 
-  Future<bool> fetchUserData() async {
+  bool get shouldShowLoader => _isBusyLoading && _userData == null;
+
+  Future<bool> fetchUserData({bool isFormOnPageLoad = false}) async {
+    var time = CommonServiceRule.onLoadPageReloadTime;
+
+    if(isFormOnPageLoad)
+      if(_lastFetchTime != null){
+        bool shouldNotFetchData = _lastFetchTime.difference(DateTime.now()) < time && _appError != null;
+        if(shouldNotFetchData)
+          return false;
+      }
+    _lastFetchTime = DateTime.now();
+
     _isBusyLoading = true;
     _appError = null;
     notifyListeners();
@@ -67,7 +80,7 @@ class UserProfileViewModel with ChangeNotifier {
     var result = await UserProfileRepository().getUserData();
     return result.fold((left) {
       /// if left
-      if(userData == null){
+      if (userData == null) {
         _appError = left;
       }
 
@@ -87,55 +100,56 @@ class UserProfileViewModel with ChangeNotifier {
     });
   }
 
-  Future<Map<String, String>> updateUserData(UserModel user) async {
-    /// update local state
-
-    userData = user;
-
-    /// update in remote server
-
-    var res = Future.delayed(
-      Duration(
-        seconds: 1,
-      ),
-    );
-
-    return res.then((v) {
-      if (v == null) {
-        return {
-          JsonKeys.code: "200",
-          JsonKeys.message: "Save Successfully",
-        };
-      } else {
-        return {
-          JsonKeys.code: "400",
-          JsonKeys.message: "Save Unsuccessful",
-        };
-      }
-    });
-  }
-
+//  Future<Map<String, String>> updateUserData(UserModel user) async {
+//    /// update local state
+//
+//    userData = user;
+//
+//    /// update in remote server
+//
+//    var res = Future.delayed(
+//      Duration(
+//        seconds: 1,
+//      ),
+//    );
+//
+//    return res.then((v) {
+//      if (v == null) {
+//        return {
+//          JsonKeys.code: "200",
+//          JsonKeys.message: "Save Successfully",
+//        };
+//      } else {
+//        return {
+//          JsonKeys.code: "400",
+//          JsonKeys.message: "Save Unsuccessful",
+//        };
+//      }
+//    });
+//  }
 
   //Reference
-  Future<bool> updateReferenceData(ReferenceData referenceData, int index){
-    return UserProfileRepository().updateUserReference(referenceData).then((res){
-      return res.fold((l){
+  Future<bool> updateReferenceData(ReferenceData referenceData, int index) {
+    return UserProfileRepository()
+        .updateUserReference(referenceData)
+        .then((res) {
+      return res.fold((l) {
         print(l);
         return false;
-      }, (r){
+      }, (r) {
 //       userData.referenceData[index] = r;
-       notifyListeners();
-       return true;
+        notifyListeners();
+        return true;
       });
     });
   }
 
-  Future<bool> addReferenceData(ReferenceData referenceData){
-    return UserProfileRepository().addUserReference(referenceData).then((res){
-      return res.fold((l){
+  Future<bool> addReferenceData(ReferenceData referenceData) {
+    return UserProfileRepository().addUserReference(referenceData).then((res) {
+      return res.fold((l) {
         print(l);
         return false;
-      }, (r){
+      }, (r) {
         userData.referenceData.add(r);
         notifyListeners();
         return true;
@@ -143,12 +157,14 @@ class UserProfileViewModel with ChangeNotifier {
     });
   }
 
-  Future<bool> deleteReferenceData(ReferenceData referenceData,int index ){
-    return UserProfileRepository().deleteUserReference(referenceData).then((res){
-      return res.fold((l){
+  Future<bool> deleteReferenceData(ReferenceData referenceData, int index) {
+    return UserProfileRepository()
+        .deleteUserReference(referenceData)
+        .then((res) {
+      return res.fold((l) {
         print(l);
         return false;
-      }, (r){
+      }, (r) {
         userData.referenceData.removeAt(index);
         notifyListeners();
         return true;
@@ -156,15 +172,13 @@ class UserProfileViewModel with ChangeNotifier {
     });
   }
 
-
-
   //Skill
-  Future<bool> addSkillData(SkillInfo skillInfo){
-    return UserProfileRepository().addUserSkill(skillInfo).then((res){
-      return res.fold((l){
+  Future<bool> addSkillData(SkillInfo skillInfo) {
+    return UserProfileRepository().addUserSkill(skillInfo).then((res) {
+      return res.fold((l) {
         print(l);
         return false;
-      }, (r){
+      }, (r) {
         userData.skillInfo.add(r);
         notifyListeners();
         return true;
@@ -172,13 +186,12 @@ class UserProfileViewModel with ChangeNotifier {
     });
   }
 
-
-  Future<bool> updateSkillData(SkillInfo skillInfo, int index){
-    return UserProfileRepository().updateUserSkill(skillInfo).then((res){
-      return res.fold((l){
+  Future<bool> updateSkillData(SkillInfo skillInfo, int index) {
+    return UserProfileRepository().updateUserSkill(skillInfo).then((res) {
+      return res.fold((l) {
         print(l);
         return false;
-      }, (r){
+      }, (r) {
         userData.skillInfo[index] = r;
         notifyListeners();
         return true;
@@ -186,12 +199,12 @@ class UserProfileViewModel with ChangeNotifier {
     });
   }
 
-  Future<bool> deleteSkillData(SkillInfo skillInfo,int index ){
-    return UserProfileRepository().deleteUserSkill(skillInfo).then((res){
-      return res.fold((l){
+  Future<bool> deleteSkillData(SkillInfo skillInfo, int index) {
+    return UserProfileRepository().deleteUserSkill(skillInfo).then((res) {
+      return res.fold((l) {
         print(l);
         return false;
-      }, (r){
+      }, (r) {
         userData.skillInfo.removeAt(index);
         notifyListeners();
         return true;
@@ -199,18 +212,18 @@ class UserProfileViewModel with ChangeNotifier {
     });
   }
 
-
   //Membership
-  Future<bool> addMembershipData(MembershipInfo membershipInfo){
-    return UserProfileRepository().addUserMembership(membershipInfo).then((res){
-      return res.fold((l){
+  Future<bool> addMembershipData(MembershipInfo membershipInfo) {
+    return UserProfileRepository()
+        .addUserMembership(membershipInfo)
+        .then((res) {
+      return res.fold((l) {
         print(l);
         return false;
-      }, (r){
+      }, (r) {
         userData.membershipInfo.add(r);
-        userData.membershipInfo.sort((a,b){
-          if(a.startDate == null || b.startDate == null)
-            return 0;
+        userData.membershipInfo.sort((a, b) {
+          if (a.startDate == null || b.startDate == null) return 0;
           return b.startDate.compareTo(a.startDate);
         });
         notifyListeners();
@@ -219,16 +232,17 @@ class UserProfileViewModel with ChangeNotifier {
     });
   }
 
-  Future<bool> updateMembershipData(MembershipInfo membershipInfo, int index){
-    return UserProfileRepository().updateUserMembership(membershipInfo).then((res){
-      return res.fold((l){
+  Future<bool> updateMembershipData(MembershipInfo membershipInfo, int index) {
+    return UserProfileRepository()
+        .updateUserMembership(membershipInfo)
+        .then((res) {
+      return res.fold((l) {
         print(l);
         return false;
-      }, (r){
+      }, (r) {
         userData.membershipInfo[index] = r;
-        userData.membershipInfo.sort((a,b){
-          if(a.startDate == null || b.startDate == null)
-            return 0;
+        userData.membershipInfo.sort((a, b) {
+          if (a.startDate == null || b.startDate == null) return 0;
           return b.startDate.compareTo(a.startDate);
         });
         notifyListeners();
@@ -237,12 +251,14 @@ class UserProfileViewModel with ChangeNotifier {
     });
   }
 
-  Future<bool> deleteMembershipData(MembershipInfo membershipInfo,int index ){
-    return UserProfileRepository().deleteUserMembership(membershipInfo).then((res){
-      return res.fold((l){
+  Future<bool> deleteMembershipData(MembershipInfo membershipInfo, int index) {
+    return UserProfileRepository()
+        .deleteUserMembership(membershipInfo)
+        .then((res) {
+      return res.fold((l) {
         print(l);
         return false;
-      }, (r){
+      }, (r) {
         userData.membershipInfo.removeAt(index);
         notifyListeners();
         return true;
@@ -251,12 +267,14 @@ class UserProfileViewModel with ChangeNotifier {
   }
 
   //Certification
-  Future<bool> addCertificationData(CertificationInfo certificationInfo){
-    return UserProfileRepository().addUserCertification(certificationInfo).then((res){
-      return res.fold((l){
+  Future<bool> addCertificationData(CertificationInfo certificationInfo) {
+    return UserProfileRepository()
+        .addUserCertification(certificationInfo)
+        .then((res) {
+      return res.fold((l) {
         print(l);
         return false;
-      }, (r){
+      }, (r) {
         userData.certificationInfo.add(r);
         notifyListeners();
         return true;
@@ -264,12 +282,15 @@ class UserProfileViewModel with ChangeNotifier {
     });
   }
 
-  Future<bool> updateCertificationData(CertificationInfo certificationInfo, int index){
-    return UserProfileRepository().updateUserCertification(certificationInfo).then((res){
-      return res.fold((l){
+  Future<bool> updateCertificationData(
+      CertificationInfo certificationInfo, int index) {
+    return UserProfileRepository()
+        .updateUserCertification(certificationInfo)
+        .then((res) {
+      return res.fold((l) {
         print(l);
         return false;
-      }, (r){
+      }, (r) {
         userData.certificationInfo[index] = r;
         notifyListeners();
         return true;
@@ -277,12 +298,15 @@ class UserProfileViewModel with ChangeNotifier {
     });
   }
 
-  Future<bool> deleteCertificationData(CertificationInfo certificationInfo,int index ){
-    return UserProfileRepository().deleteUserCertification(certificationInfo).then((res){
-      return res.fold((l){
+  Future<bool> deleteCertificationData(
+      CertificationInfo certificationInfo, int index) {
+    return UserProfileRepository()
+        .deleteUserCertification(certificationInfo)
+        .then((res) {
+      return res.fold((l) {
         print(l);
         return false;
-      }, (r){
+      }, (r) {
         userData.certificationInfo.removeAt(index);
         notifyListeners();
         return true;
@@ -291,25 +315,32 @@ class UserProfileViewModel with ChangeNotifier {
   }
 
   //Portfolio
-  Future<bool> addPortfolioInfo({ @required Map<String,dynamic> data, UserProfileRepository userProfileRepository})async{
+  Future<bool> addPortfolioInfo(
+      {@required Map<String, dynamic> data,
+      UserProfileRepository userProfileRepository}) async {
     var repository = userProfileRepository ?? UserProfileRepository();
     var res = await repository.createPortfolioInfo(data);
-      return res.fold((l){
-        print(l);
-        return false;
-      }, (r){
-        userData.portfolioInfo.add(r);
-        notifyListeners();
-        return true;
-      });
-
+    return res.fold((l) {
+      print(l);
+      return false;
+    }, (r) {
+      userData.portfolioInfo.add(r);
+      notifyListeners();
+      return true;
+    });
   }
-  Future<bool> updatePortfolio({ @required Map<String,dynamic> data,@required   int index,@required  String portfolioId}){
-    return UserProfileRepository().updateUserPortfolioInfo(data,portfolioId).then((res){
-      return res.fold((l){
+
+  Future<bool> updatePortfolio(
+      {@required Map<String, dynamic> data,
+      @required int index,
+      @required String portfolioId}) {
+    return UserProfileRepository()
+        .updateUserPortfolioInfo(data, portfolioId)
+        .then((res) {
+      return res.fold((l) {
         print(l);
         return false;
-      }, (r){
+      }, (r) {
         userData.portfolioInfo[index] = r;
         notifyListeners();
         return true;
@@ -317,13 +348,14 @@ class UserProfileViewModel with ChangeNotifier {
     });
   }
 
-  Future<bool> deletePortfolio(PortfolioInfo portfolioInfo,int index ,{UserProfileRepository userProfileRepository}){
+  Future<bool> deletePortfolio(PortfolioInfo portfolioInfo, int index,
+      {UserProfileRepository userProfileRepository}) {
     var repository = userProfileRepository ?? UserProfileRepository();
-    return repository.deletePortfolio(portfolioInfo).then((res){
-      return res.fold((l){
+    return repository.deletePortfolio(portfolioInfo).then((res) {
+      return res.fold((l) {
         print(l);
         return false;
-      }, (r){
+      }, (r) {
         userData.portfolioInfo.removeAt(index);
         notifyListeners();
         return true;
@@ -332,12 +364,14 @@ class UserProfileViewModel with ChangeNotifier {
   }
 
   //Experience
-  Future<bool> addExperienceData(ExperienceInfo experienceInfo){
-    return UserProfileRepository().addUserExperience(experienceInfo).then((res){
-      return res.fold((l){
+  Future<bool> addExperienceData(ExperienceInfo experienceInfo) {
+    return UserProfileRepository()
+        .addUserExperience(experienceInfo)
+        .then((res) {
+      return res.fold((l) {
         print(l);
         return false;
-      }, (r){
+      }, (r) {
 //        userData.experienceInfo.add(r);
         fetchUserData();
 //        userData.experienceInfo.sort((a,b){
@@ -350,12 +384,14 @@ class UserProfileViewModel with ChangeNotifier {
     });
   }
 
-  Future<bool> updateExperienceData(ExperienceInfo experienceInfo, int index){
-    return UserProfileRepository().updateUserExperience(experienceInfo).then((res){
-      return res.fold((l){
+  Future<bool> updateExperienceData(ExperienceInfo experienceInfo, int index) {
+    return UserProfileRepository()
+        .updateUserExperience(experienceInfo)
+        .then((res) {
+      return res.fold((l) {
         print(l);
         return false;
-      }, (r){
+      }, (r) {
         userData.experienceInfo[index] = r;
 //        userData.experienceInfo.sort((a,b){
 //          if(a.startDate == null || b.startDate == null)
@@ -368,12 +404,14 @@ class UserProfileViewModel with ChangeNotifier {
     });
   }
 
-  Future<bool> deleteExperienceData(ExperienceInfo experienceInfo,int index ){
-    return UserProfileRepository().deleteUserExperience(experienceInfo).then((res){
-      return res.fold((l){
+  Future<bool> deleteExperienceData(ExperienceInfo experienceInfo, int index) {
+    return UserProfileRepository()
+        .deleteUserExperience(experienceInfo)
+        .then((res) {
+      return res.fold((l) {
         print(l);
         return false;
-      }, (r){
+      }, (r) {
         userData.experienceInfo.removeAt(index);
         notifyListeners();
         return true;
@@ -381,52 +419,51 @@ class UserProfileViewModel with ChangeNotifier {
     });
   }
 
-
   //Education
-  Future<bool> addEduInfo(EduInfo eduInfo){
-    return UserProfileRepository().addUserEducation(eduInfo).then((res){
-      return res.fold((l){
+  Future<bool> addEduInfo(EduInfo eduInfo) {
+    return UserProfileRepository().addUserEducation(eduInfo).then((res) {
+      return res.fold((l) {
         print(l);
         return false;
-      }, (r){
+      }, (r) {
         userData.eduInfo.add(r);
-        userData.eduInfo.sort((a,b){
-          if(a.enrolledDate == null || b.enrolledDate == null)
-            return 0;
-          return b.enrolledDate.compareTo(a.enrolledDate);});
+        userData.eduInfo.sort((a, b) {
+          if (a.enrolledDate == null || b.enrolledDate == null) return 0;
+          return b.enrolledDate.compareTo(a.enrolledDate);
+        });
         notifyListeners();
         return true;
       });
     });
   }
 
-  Future<bool> updateEduInfo(EduInfo eduInfo,int index){
-    return UserProfileRepository().updateUserEducation(eduInfo).then((res){
-      return res.fold((l){
+  Future<bool> updateEduInfo(EduInfo eduInfo, int index) {
+    return UserProfileRepository().updateUserEducation(eduInfo).then((res) {
+      return res.fold((l) {
         print(l);
         return false;
-      }, (r){
+      }, (r) {
         userData.eduInfo[index] = r;
-        userData.eduInfo.sort((a,b){
-          if(a.enrolledDate == null || b.enrolledDate == null)
-            return 0;
-          return b.enrolledDate.compareTo(a.enrolledDate);});
+        userData.eduInfo.sort((a, b) {
+          if (a.enrolledDate == null || b.enrolledDate == null) return 0;
+          return b.enrolledDate.compareTo(a.enrolledDate);
+        });
         notifyListeners();
         return true;
       });
     });
   }
-  Future<bool> deleteEduInfo(EduInfo eduInfo,int index){
-    return UserProfileRepository().deleteUserEducation(eduInfo).then((res){
-      return res.fold((l){
+
+  Future<bool> deleteEduInfo(EduInfo eduInfo, int index) {
+    return UserProfileRepository().deleteUserEducation(eduInfo).then((res) {
+      return res.fold((l) {
         print(l);
         return false;
-      }, (r){
+      }, (r) {
         userData.eduInfo.removeAt(index);
         notifyListeners();
         return true;
       });
     });
   }
-
 }

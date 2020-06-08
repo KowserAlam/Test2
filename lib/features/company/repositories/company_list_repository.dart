@@ -11,9 +11,9 @@ import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 
 class CompanyListRepository {
-  Future<Either<AppError, List<Company>>> getList({String query}) async {
+  Future<Either<AppError, List<Company>>> getList({String query,int limit =8}) async {
     try {
-      var url = "${Urls.companySearchUrl}/?name=$query";
+      var url = "${Urls.companySearchUrl}/?limit=$limit&name=${query??""}";
       debugPrint(url);
       var res = await ApiClient().getRequest(url);
       debugPrint(res.statusCode.toString());

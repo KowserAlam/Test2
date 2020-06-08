@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:p7app/features/auth/view/widgets/custom_text_field_rounded.dart';
 import 'package:p7app/features/job/models/job_list_model.dart';
 import 'package:p7app/features/job/view/job_details.dart';
-import 'package:p7app/features/job/view/widgets/job_list_tile.dart';
 import 'package:p7app/features/job/view/widgets/no_applied_jobs_widget.dart';
 import 'package:p7app/features/job/view_model/applied_job_list_view_model.dart';
 import 'package:p7app/features/job/view_model/job_list_view_model.dart';
@@ -45,7 +44,7 @@ class _AppliedJobListScreenState extends State<AppliedJobListScreen>
   void afterFirstLayout(BuildContext context) {
     var jobListViewModel =
         Provider.of<AppliedJobListViewModel>(context, listen: false);
-    jobListViewModel.getJobList();
+    jobListViewModel.getJobList(isFormOnPageLoad: true);
 
   }
 
@@ -72,6 +71,9 @@ class _AppliedJobListScreenState extends State<AppliedJobListScreen>
           backgroundColor: Colors.white,
           appBar: AppBar(
             title: Text(StringUtils.appliedJobsText),
+          ),
+          drawer: AppDrawer(
+            routeName: 'applied_job_list',
           ),
           body:  appliedJobListViewModel.shouldShowLoader
               ? Center(

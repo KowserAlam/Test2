@@ -1,5 +1,5 @@
-
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 
 class UserInfoListItem extends StatefulWidget {
@@ -16,7 +16,7 @@ class UserInfoListItem extends StatefulWidget {
     @required this.label,
     this.onTapAddNewAction,
     this.onTapEditAction,
-    this.isInEditMode =  false,
+    this.isInEditMode = false,
     this.useSeparator = true,
     @required this.children,
   });
@@ -26,24 +26,25 @@ class UserInfoListItem extends StatefulWidget {
 }
 
 class _UserInfoListItemState extends State<UserInfoListItem> {
-
-
-
-
   @override
   Widget build(BuildContext context) {
     var titleTextStyle = TextStyle(fontSize: 17, fontWeight: FontWeight.bold);
 
-    var  addNewButton =  widget.isInEditMode
+    var addNewButton = widget.isInEditMode
         ? InkWell(
-      borderRadius: BorderRadius.circular(50),
-      onTap: widget.onTapAddNewAction,
-          child: Material(
-          borderRadius: BorderRadius.circular(50),
-          color: Theme.of(context).primaryColor.withOpacity(.1),
-          child: Icon(Icons.add,
-              color: Theme.of(context).primaryColor.withOpacity(.8))),
-        ):SizedBox();
+            borderRadius: BorderRadius.circular(50),
+            onTap: widget.onTapAddNewAction,
+            child: Material(
+                borderRadius: BorderRadius.circular(50),
+                color: Theme.of(context).primaryColor.withOpacity(.1),
+                child: Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: Icon(FontAwesomeIcons.plus,
+                      size: 20,
+                      color: Theme.of(context).primaryColor.withOpacity(.8)),
+                )),
+          )
+        : SizedBox();
     return Column(
       children: <Widget>[
         Row(
@@ -55,16 +56,19 @@ class _UserInfoListItemState extends State<UserInfoListItem> {
             SizedBox(
               width: 8,
             ),
-            Text(widget.label, style: titleTextStyle),
-            Spacer(),
+            Expanded(child: Text(widget.label, style: titleTextStyle)),
+            
             addNewButton,
-            SizedBox(width: 8,),
+            SizedBox(
+              width:15,
+            ),
             InkWell(
+              borderRadius: BorderRadius.circular(50),
               child: Padding(
-                padding: const EdgeInsets.all(4.0),
+                padding: const EdgeInsets.all(6.0),
                 child: Icon(
-                  widget.isInEditMode?Icons.done:Icons.edit,
-                  size: 18,
+                  widget.isInEditMode ? FontAwesomeIcons.check : Icons.edit,
+                  size: 20,
                   color: Theme.of(context).primaryColor,
                 ),
               ),

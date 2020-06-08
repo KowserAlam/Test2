@@ -19,10 +19,10 @@ class EducationsListItem extends StatelessWidget {
 
   EducationsListItem(
       {@required this.eduInfoModel,
-      @required this.index,
-      this.onTapDelete,
-      this.onTapEdit,
-      this.isInEditMode = false});
+        @required this.index,
+        this.onTapDelete,
+        this.onTapEdit,
+        this.isInEditMode = false});
 
   @override
   Widget build(BuildContext context) {
@@ -33,58 +33,73 @@ class EducationsListItem extends StatelessWidget {
     String date =
         "${eduInfoModel.enrolledDate != null ? DateFormatUtil.formatDate(eduInfoModel.enrolledDate) : ""} - $graduationDateText";
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 9),
       margin: EdgeInsets.only(bottom: 8),
       decoration: BoxDecoration(
         color: backgroundColor,
         borderRadius: BorderRadius.circular(5),
         boxShadow: CommonStyleTextField.boxShadow,
       ),
-      child: ListTile(
-        contentPadding: EdgeInsets.only(left: 5),
-        leading: Material(
-          color: Theme.of(context).scaffoldBackgroundColor,
-          borderRadius: BorderRadius.circular(5),
-          child: Padding(
-            padding: const EdgeInsets.all(7.0),
-            child: Icon(
-              FontAwesomeIcons.university,
-              size: 40,
-              color: Theme.of(context).primaryColor,
+      child: Row(
+        children: [
+          Container(
+            padding: EdgeInsets.all(8),
+            decoration: BoxDecoration(
+                color: Colors.grey[100],
+                borderRadius: BorderRadius.circular(5)
+            ),
+            child: Center(
+              child: Icon(
+                FontAwesomeIcons.university,
+                size: 45,
+                color: Theme.of(context).primaryColor,
+              ),
             ),
           ),
-        ),
-        title: Text(
-          eduInfoModel.institutionObj?.name ??
-              eduInfoModel.institutionText ??
-              "",
-        ),
-        subtitle: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(eduInfoModel.degree ?? ""),
-            Text(date),
-          ],
-        ),
-        trailing: !isInEditMode
-            ? null
-            : Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  IconButton(
-                    icon: Icon(FontAwesomeIcons.edit),
-                    onPressed: onTapEdit,
-                    iconSize: 18,
-                    color: Colors.black,
-                  ),
-                  IconButton(
-                    icon: Icon(FontAwesomeIcons.trash),
-                    onPressed: onTapDelete,
-                    iconSize: 18,
-                    color: Colors.black,
-                  ),
-                ],
-              ),
+          SizedBox(
+            width: 8,
+          ),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  eduInfoModel.institutionObj?.name ??
+                      eduInfoModel.institutionText ??
+                      "",style: Theme.of(context).textTheme.subtitle1,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(eduInfoModel.degree ?? "",style: TextStyle(fontSize: 13),),
+                    Text(
+                      date,
+                      style: TextStyle(fontSize: 12, color: Colors.grey),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          if (isInEditMode)
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                IconButton(
+                  icon: Icon(FontAwesomeIcons.edit),
+                  onPressed: onTapEdit,
+                  iconSize: 18,
+                  color: Colors.black,
+                ),
+                IconButton(
+                  icon: Icon(FontAwesomeIcons.trash),
+                  onPressed: onTapDelete,
+                  iconSize: 18,
+                  color: Colors.black,
+                ),
+              ],
+            ),
+        ],
       ),
     );
   }
