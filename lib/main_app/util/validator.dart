@@ -85,7 +85,7 @@ class Validator {
 
 
   String nameValidator(String value){
-    Pattern pattern = r'^[A-Za-z]';
+    Pattern pattern = '/[a-zA-Z]/i';
     RegExp regExp = new RegExp(pattern);
     if(value.length > 0){
       if(!regExp.hasMatch(value)){

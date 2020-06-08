@@ -1,7 +1,7 @@
 import 'package:after_layout/after_layout.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:p7app/features/career_advice/view/career_adice_details_screen.dart';
+import 'package:p7app/features/career_advice/view/career_advice_details_screen.dart';
 import 'package:p7app/features/career_advice/view_models/career_advice_view_model.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
@@ -77,11 +77,21 @@ class _CareerAdviceScreenState extends State<CareerAdviceScreen>
                     },
                     child: Container(
                       padding: EdgeInsets.all(8),
-                      margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                      margin: EdgeInsets.symmetric(vertical: 5),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
+                        //borderRadius: BorderRadius.circular(5),
                         gradient: AppTheme.lightLinearGradient,
                         border: Border.all(width: 1, color: Colors.grey[300]),
+                        boxShadow: [
+                          BoxShadow(
+                              color:
+                              Colors.black.withOpacity(0.1),
+                              blurRadius: 10),
+                          BoxShadow(
+                              color:
+                              Colors.black.withOpacity(0.2),
+                              blurRadius: 10),
+                        ],
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -128,7 +138,8 @@ class _CareerAdviceScreenState extends State<CareerAdviceScreen>
                                     color: Colors.grey[200],
                                     border: Border.all(
                                         color: Colors.grey[400], width: 1),
-                                    borderRadius: BorderRadius.circular(3)),
+                                    //borderRadius: BorderRadius.circular(3)
+                                ),
                                 child: Center(
                                   child: Text(
                                     StringUtils.readMoreText,

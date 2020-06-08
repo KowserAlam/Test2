@@ -64,9 +64,13 @@ class UserProfileViewModel with ChangeNotifier {
 
   Future<bool> fetchUserData({bool isFormOnPageLoad = false}) async {
     var time = CommonServiceRule.onLoadPageReloadTime;
-    if (isFormOnPageLoad) if (_lastFetchTime != null) {
-      if (_lastFetchTime.difference(DateTime.now()) < time) return false;
-    }
+
+    if(isFormOnPageLoad)
+      if(_lastFetchTime != null){
+        bool shouldNotFetchData = _lastFetchTime.difference(DateTime.now()) < time && _appError != null;
+        if(shouldNotFetchData)
+          return false;
+      }
     _lastFetchTime = DateTime.now();
 
     _isBusyLoading = true;

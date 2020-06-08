@@ -1,6 +1,7 @@
 
 
 import 'package:flutter/foundation.dart';
+import 'package:p7app/features/auth/view/login_screen.dart';
 import 'package:p7app/features/dashboard/models/info_box_data_model.dart';
 import 'package:p7app/features/dashboard/models/skill_job_chart_data_model.dart';
 import 'package:p7app/features/dashboard/repositories/dashboard_repository.dart';
@@ -21,26 +22,31 @@ class DashboardViewModel with ChangeNotifier {
 
 
 
-  Future <void> getDashboardData({bool isFormOnPageLoad = false}) async{
+  Future <AppError> getDashboardData({bool isFormOnPageLoad = false}) async{
     var time = CommonServiceRule.onLoadPageReloadTime;
+
     if(isFormOnPageLoad)
       if(_lastFetchTime != null){
-        if(_lastFetchTime.difference(DateTime.now()) < time)
-          return false;
+        bool shouldNotFetchData = _lastFetchTime.difference(DateTime.now()) < time && _infoBoxError != null;
+        if(shouldNotFetchData)
+          return null;
       }
 
     _lastFetchTime = DateTime.now();
     _isLoadingInfoBoxData = true;
      _isLoadingSkillJobChartData = true;
+    _infoBoxError = null;
+    _skillJobChartError = null;
     notifyListeners();
-    return Future.wait([
+     return Future.wait([
     _getInfoBoxData(),
     _getISkillJobChartData(),
       _getProfileCompleteness(),
-    ]);
+    ]).then((value) => _infoBoxError);
 
   }
   Future<bool> _getInfoBoxData() async {
+
     var result = await DashBoardRepository().getInfoBoxData();
 
    return result.fold((l) {
@@ -56,6 +62,7 @@ class DashboardViewModel with ChangeNotifier {
     });
   }
   Future<bool> _getISkillJobChartData() async {
+
     var result = await DashBoardRepository().getSkillJobChart();
 
     return result.fold((l) {
@@ -72,8 +79,9 @@ class DashboardViewModel with ChangeNotifier {
   }
   Future<double> _getProfileCompleteness()async{
     return DashBoardRepository().getProfileCompletenessPercent().then((value) {
-      return profileCompletePercent = value;
       notifyListeners();
+      return profileCompletePercent = value;
+
     });
   }
 
@@ -91,6 +99,7 @@ class DashboardViewModel with ChangeNotifier {
   bool get isLoadingSkillJobChartData => _isLoadingSkillJobChartData;
 
   bool get idExpandedSkillList => _idExpandedSkillList;
+  bool get shouldShowError => _infoBoxError != null && infoBoxData == null;
 
   set idExpandedSkillList(bool value) {
     _idExpandedSkillList = value;

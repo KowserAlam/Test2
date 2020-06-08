@@ -2,7 +2,7 @@ name: p7app
 description: A new Flutter application for Project Seven.
 
 
-version: 0.0.118+92
+version: 0.0.123+97
 
 
 environment:
@@ -75,9 +75,35 @@ dev_dependencies:
   #  mockito used for mocking
   mockito: 4.1.0
   flutter_launcher_icons: ^0.7.5
+#  flutter_flavorizr: ^1.0.3
+#
+#flavorizr:
+#  app:
+#    android:
+#      flavorDimensions: "flavor-type"
+#    ios:
+#
+#  flavors:
+#    prod:
+#      app:
+#        name: "Job Express"
+#
+#      android:
+#        applicationId: "com.ishraak.jobexpress"
+#
+#      ios:
+#        bundleId: "com.ishraak.jobexpress"
+#
+#    dev:
+#      app:
+#        name: "Job Express Dev"
+#      android:
+#        applicationId: "com.ishraak.p7app"
+#      ios:
+#          bundleId: "com.ishraak.p7app"
 
 flutter_icons:
-  android: "launcher_icon"
+  android: true
   ios: true
   image_path: "assets/images/job_search_logo_sq.png"
 
@@ -101,3 +127,10 @@ flutter:
           weight: 800
         - asset: assets/fonts/Roboto-RegularItalic.ttf
           style: italic
+
+
+
+
+
+
+
