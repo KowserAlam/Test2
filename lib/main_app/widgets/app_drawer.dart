@@ -134,17 +134,17 @@ class _AppDrawerState extends State<AppDrawer> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  ///Home / Jobs on map index = 0
-                  DrawerListWidget(
-                    label: StringUtils.jobsOnMapText,
-                    icon: FontAwesomeIcons.map,
-                    isSelected: false,
-                    onTap: () {
-                      Navigator.pop(context);
-                      Navigator.of(context).push(CupertinoPageRoute(
-                          builder: (context) => JobsOnMap()));
-                    },
-                  ),
+//                  ///Home / Jobs on map index = 0
+//                  DrawerListWidget(
+//                    label: StringUtils.jobsOnMapText,
+//                    icon: FontAwesomeIcons.map,
+//                    isSelected: false,
+//                    onTap: () {
+//                      Navigator.pop(context);
+//                      Navigator.of(context).push(CupertinoPageRoute(
+//                          builder: (context) => JobsOnMap()));
+//                    },
+//                  ),
 
 //                Divider(height: 1),
 //// favorite jobs
