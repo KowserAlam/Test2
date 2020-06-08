@@ -42,6 +42,7 @@ print(res.statusCode);
         decodedJson.forEach((e){
           data.add(SkillJobChartDataModel.fromJson(e));
         });
+        data.sort((a,b)=>b.dateTimeValue.compareTo(a.dateTimeValue));
         return Right(data);
       } else {
         return Left(AppError.serverError);
