@@ -4,6 +4,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/services.dart';
 import 'package:logger/logger.dart';
 import 'package:p7app/features/job/view/job_list_screen.dart';
+import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/auth_service/auth_user_model.dart';
 import 'package:p7app/features/auth/view/login_screen.dart';
@@ -15,6 +16,7 @@ import 'package:p7app/main_app/widgets/app_version_widget_small.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:p7app/main_app/widgets/loader.dart';
+import 'package:provider/provider.dart';
 
 class Root extends StatefulWidget {
   final bool isFromLogin;
@@ -39,6 +41,7 @@ class _RootState extends State<Root> {
     getAuthStatus().then((AuthUserModel user) {
       if (user != null) {
         _setupPushNotification();
+        _initUserdata();
         Future.delayed(Duration(seconds: widget.isFromLogin ? 0 : 2)).then((_) {
           Navigator.pushAndRemoveUntil(
               context,
@@ -59,6 +62,10 @@ class _RootState extends State<Root> {
 
   _setupPushNotification() {
  var pushNotificationService = locator<PushNotificationService>();
+  }
+
+  _initUserdata(){
+    Provider.of<UserProfileViewModel>(context, listen: false).fetchUserData();
   }
 
   Future<AuthUserModel> getAuthStatus() async {

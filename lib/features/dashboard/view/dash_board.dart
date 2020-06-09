@@ -28,9 +28,11 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
   @override
   void afterFirstLayout(BuildContext context) {
     Provider.of<DashboardViewModel>(context, listen: false)
-        .getDashboardData(isFormOnPageLoad: true).then((value){});
+        .getDashboardData(isFormOnPageLoad: true)
+        .then((value) {});
 
-    Provider.of<UserProfileViewModel>(context, listen: false).fetchUserData();
+    Provider.of<UserProfileViewModel>(context, listen: false)
+        .fetchUserData(isFormOnPageLoad: true);
   }
 
   _signOut(context) {
@@ -49,8 +51,7 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
           return FailureFullScreenWidget(
             errorMessage: StringUtils.unableToLoadData,
             onTap: () {
-              return dashboardViewModel
-                  .getDashboardData();
+              return dashboardViewModel.getDashboardData();
             },
           );
 
@@ -58,8 +59,7 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
           return FailureFullScreenWidget(
             errorMessage: StringUtils.checkInternetConnectionMessage,
             onTap: () {
-              return dashboardViewModel
-                  .getDashboardData();
+              return dashboardViewModel.getDashboardData();
             },
           );
 
@@ -75,8 +75,7 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
           return FailureFullScreenWidget(
             errorMessage: StringUtils.somethingIsWrong,
             onTap: () {
-              return dashboardViewModel
-                  .getDashboardData();
+              return dashboardViewModel.getDashboardData();
             },
           );
       }
@@ -92,21 +91,25 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
       body: RefreshIndicator(
         onRefresh: Provider.of<DashboardViewModel>(context, listen: false)
             .getDashboardData,
-        child: dashboardViewModel.shouldShowError ? ListView(
-          children: [
-            errorWidget(),
-          ],
-        ): ListView(
-          children: [
-            ProfileCompletePercentIndicatorWidget(
-                dashboardViewModel.profileCompletePercent / 100),
-            InfoBoxWidget(
-              onTapApplied: widget.onTapApplied,
-              onTapFavourite: widget.onTapFavourite,
-            ),
-            JobChartWidget(animate: true,),
-          ],
-        ),
+        child: dashboardViewModel.shouldShowError
+            ? ListView(
+                children: [
+                  errorWidget(),
+                ],
+              )
+            : ListView(
+                children: [
+                  ProfileCompletePercentIndicatorWidget(
+                      dashboardViewModel.profileCompletePercent / 100),
+                  InfoBoxWidget(
+                    onTapApplied: widget.onTapApplied,
+                    onTapFavourite: widget.onTapFavourite,
+                  ),
+                  JobChartWidget(
+                    animate: true,
+                  ),
+                ],
+              ),
       ),
     );
   }

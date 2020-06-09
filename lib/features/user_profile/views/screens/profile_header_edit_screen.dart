@@ -195,7 +195,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
                           ),
                           fit: BoxFit.cover,
                           imageUrl: userProfileViewModel
-                                  .userData.personalInfo.image ??
+                                  .userData.personalInfo.profileImage ??
                               "",
                         ),
                 )),

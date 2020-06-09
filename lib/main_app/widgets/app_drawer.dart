@@ -50,84 +50,79 @@ class _AppDrawerState extends State<AppDrawer> {
                 image: DecorationImage(
                     image: AssetImage(kUserProfileCoverImageAsset),
                     fit: BoxFit.cover)),
-            child: FutureBuilder<AuthUserModel>(
-                future:
-                    AuthService.getInstance().then((value) => value.getUser()),
-                builder: (context, snapshot) {
+            child: Consumer<UserProfileViewModel>(builder: (context, upvm, _) {
 //              var baseUrl = FlavorConfig.instance.values.baseUrl;
-                  var user = snapshot.data;
-                  var imageUrl =
-                      user?.professionalImage ?? kDefaultUserImageNetwork;
-                  return Container(
-                    height: 160,
+              var user = upvm?.userData?.personalInfo;
+              var imageUrl = user?.profileImage ?? kDefaultUserImageNetwork;
+              return Container(
+                height: 160,
 //                  decoration: BoxDecoration(
 //                    color: headerBackgroundColor,
 //                    image: DecorationImage(
 //                        image: AssetImage(kUserProfileCoverImageAsset),
 //                        fit: BoxFit.cover),
 //                  ),
-                    child: Column(
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            IconButton(
-                              icon: Icon(
-                                Icons.settings,
-                              ),
-                              color: navBarTextColor,
-                              onPressed: () {
-                                Navigator.pop(context);
-                                Navigator.push(
-                                    context,
-                                    CupertinoPageRoute(
-                                        builder: (context) => ConfigScreen()));
-                              },
-                            ),
-                            Container(
-                              child: IconButton(
-                                icon: Icon(Icons.menu),
-                                color: navBarTextColor,
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                              ),
-                            ),
-                          ],
+                        IconButton(
+                          icon: Icon(
+                            Icons.settings,
+                          ),
+                          color: navBarTextColor,
+                          onPressed: () {
+                            Navigator.pop(context);
+                            Navigator.push(
+                                context,
+                                CupertinoPageRoute(
+                                    builder: (context) => ConfigScreen()));
+                          },
                         ),
-                        //profile image
                         Container(
-                          padding: const EdgeInsets.all(4.0),
-                          height: 65,
-                          width: 65,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
+                          child: IconButton(
+                            icon: Icon(Icons.menu),
+                            color: navBarTextColor,
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
                           ),
-                          child: ClipRRect(
-                            child: CachedNetworkImage(
-                              imageUrl: imageUrl,
-                              fit: BoxFit.cover,
-                              placeholder: (context, _) => Image.asset(
-                                kDefaultUserImageAsset,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                            borderRadius: BorderRadius.circular(100),
-                          ),
-                        ),
-                        Text(
-                          user?.fullName ?? "",
-                          style:
-                              TextStyle(color: navBarTextColor, fontSize: 18),
-                        ),
-                        Text(
-                          user?.email ?? "",
-                          style: TextStyle(color: navBarTextColor),
                         ),
                       ],
                     ),
-                  );
-                }),
+                    //profile image
+                    Container(
+                      padding: const EdgeInsets.all(4.0),
+                      height: 65,
+                      width: 65,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(100),
+                      ),
+                      child: ClipRRect(
+                        child: CachedNetworkImage(
+                          imageUrl: imageUrl,
+                          fit: BoxFit.cover,
+                          placeholder: (context, _) => Image.asset(
+                            kDefaultUserImageAsset,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        borderRadius: BorderRadius.circular(100),
+                      ),
+                    ),
+                    Text(
+                      user?.fullName ?? "",
+                      style: TextStyle(color: navBarTextColor, fontSize: 18),
+                    ),
+                    Text(
+                      user?.email ?? "",
+                      style: TextStyle(color: navBarTextColor),
+                    ),
+                  ],
+                ),
+              );
+            }),
           ),
           Expanded(
             child: SingleChildScrollView(
