@@ -14,7 +14,7 @@ class DateFormatUtil{
     return DateFormat('dd/MM/yyyy').format(dateTime);
   }
   static String formatDateTime(DateTime dateTime){
-    return DateFormat("dd/MM/yyyy  hh:mm aaa").format(dateTime);
+    return DateFormat("dd/MM/yyyy").add_jm().format(dateTime.toLocal());
   }
   String dateFormat1(DateTime dateTime){
     return DateFormat('dd/MM/yyyy').format(dateTime);

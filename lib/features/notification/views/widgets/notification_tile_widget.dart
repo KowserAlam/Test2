@@ -17,21 +17,26 @@ class _NotificationTileState extends State<NotificationTile> {
   @override
   Widget build(BuildContext context) {
     var scaffoldBackgroundColor = Theme.of(context).scaffoldBackgroundColor;
+    var backgroundColor = Theme.of(context).backgroundColor;
     var primaryColor = Theme.of(context).primaryColor;
     var createdAt = widget.notificationModel.createdAt;
     var time = "${NotificationHelper.calculateTimeStamp(createdAt)} ago";
 
     bool isRead = widget.notificationModel?.isRead ?? false;
-    var backgroundColor = isRead? scaffoldBackgroundColor : AppTheme.selectedBackgroundColor;
-    var titleColor = isRead?Theme.of(context).textTheme.subtitle1.color: primaryColor;
+    var tileBackgroundColor =
+        isRead ? backgroundColor : AppTheme.selectedBackgroundColor;
+    var titleColor =
+        isRead ? Theme.of(context).textTheme.subtitle1.color : primaryColor;
     return Container(
       height: 65,
-      margin: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+      margin: EdgeInsets.symmetric(vertical: 4,),
       decoration: BoxDecoration(
-          color: backgroundColor, boxShadow: [
-        BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 10),
-        BoxShadow(color: Colors.black.withOpacity(0.2), blurRadius: 10),
-      ]),
+        color: tileBackgroundColor,
+        boxShadow: [
+          BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 10),
+          BoxShadow(color: Colors.black.withOpacity(0.2), blurRadius: 10),
+        ],
+      ),
       child: Material(
         color: Colors.transparent,
         child: InkWell(

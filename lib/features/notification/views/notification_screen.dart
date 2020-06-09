@@ -7,6 +7,7 @@ import 'package:p7app/features/notification/view_models/notificaion_view_model.d
 import 'package:p7app/features/notification/views/widgets/notification_tile_widget.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/util/date_format_uitl.dart';
+import 'package:p7app/main_app/widgets/app_drawer.dart';
 import 'package:provider/provider.dart';
 
 class NotificationScreen extends StatefulWidget {
@@ -28,11 +29,13 @@ class _NotificationScreenState extends State<NotificationScreen>
       appBar: AppBar(
         title: Text(StringUtils.notificationsText),
       ),
+      drawer: AppDrawer(),
       body: Consumer<NotificationViewModel>(
           builder: (context, notificationViewModel, _) {
         return RefreshIndicator(
           onRefresh: () async => notificationViewModel.getNotifications(),
           child: ListView.builder(
+            padding: EdgeInsets.symmetric(vertical: 4),
               itemCount: notificationViewModel.notifications.length,
               itemBuilder: (BuildContext context, int index) {
                 var notification = notificationViewModel.notifications[index];
@@ -53,6 +56,8 @@ _showDialog(context, NotificationModel notification,int index) {
   if (!notification.isRead) {
     NotificationRepository().markAsRead(notification.id);
   }
+//  print(notification.createdAt);
+//  print(DateTime.now());
 
   showCupertinoDialog(
       context: context,
@@ -62,7 +67,8 @@ _showDialog(context, NotificationModel notification,int index) {
           title: Text(notification.title ?? ""),
           content: Column(
             children: [
-//              Text(DateFormatUtil.formatDateTime(notification.createdAt) ?? ""),
+              Text(DateFormatUtil.formatDateTime(notification.createdAt) ?? "",style: TextStyle(fontSize: 10,color: Theme.of(context).primaryColor),),
+              SizedBox(height: 10,),
               Text(notification.message ?? ""),
             ],
           ),
