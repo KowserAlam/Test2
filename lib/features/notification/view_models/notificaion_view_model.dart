@@ -5,13 +5,12 @@ import 'package:p7app/main_app/failure/app_error.dart';
 
 class NotificationViewModel with ChangeNotifier {
   AppError _appError;
-  List<NotificationModel> _notifications =[];
+  List<NotificationModel> _notifications = [];
   bool _isFetchingData = false;
   bool _isGettingMoreData = false;
   bool _hasMoreData = false;
 
-
-  Future<void>  refresh(){
+  Future<void> refresh() {
     return getNotifications();
   }
 
@@ -26,14 +25,14 @@ class NotificationViewModel with ChangeNotifier {
       notifyListeners();
     }, (r) {
       _isFetchingData = false;
-      _notifications = r.notifications??[];
+      _notifications = r.notifications ?? [];
       _hasMoreData = r.next;
       notifyListeners();
     });
   }
 
-  getMoreData()async{
-    if(!_hasMoreData && _isGettingMoreData){
+  getMoreData() async {
+    if (!_hasMoreData && _isGettingMoreData) {
       return;
     }
     _isGettingMoreData = true;
@@ -50,6 +49,22 @@ class NotificationViewModel with ChangeNotifier {
       _notifications.addAll(r.notifications);
       notifyListeners();
     });
+  }
+
+  markAsRead(int index) {
+
+    if (!_notifications[index].isRead) {
+      notifications[index].isRead = true;
+      notifyListeners();
+      NotificationRepository()
+          .markAsRead(notifications[index].id)
+          .then((value) {
+        if (!value) {
+          notifications[index].isRead = false;
+          notifyListeners();
+        }
+      });
+    }
   }
 
   List<NotificationModel> get notifications => _notifications;
@@ -69,7 +84,11 @@ class NotificationViewModel with ChangeNotifier {
   bool get isFetchingData => _isFetchingData;
 
   bool get hasMoreData => _hasMoreData;
+
   bool get shouldShowPageLoader => _isFetchingData && notifications.length == 0;
+
   bool get shouldShowAppError => _appError != null && notifications.length == 0;
-  bool get shouldShowNoNotification => !_isFetchingData&&_appError == null && notifications.length == 0;
+
+  bool get shouldShowNoNotification =>
+      !_isFetchingData && _appError == null && notifications.length == 0;
 }

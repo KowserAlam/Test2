@@ -100,7 +100,9 @@ class _NotificationScreenState extends State<NotificationScreen>
                 return NotificationTile(
                   notification,
                   onTap: () {
+                    notificationViewModel.markAsRead(index);
                     _showDialog(context, notification, index);
+
                   },
                 );
               }),
@@ -111,9 +113,7 @@ class _NotificationScreenState extends State<NotificationScreen>
 }
 
 _showDialog(context, NotificationModel notification, int index) {
-  if (!notification.isRead) {
-    NotificationRepository().markAsRead(notification.id);
-  }
+
 //  print(notification.createdAt);
 //  print(DateTime.now());
 
