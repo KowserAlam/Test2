@@ -8,7 +8,9 @@ import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/auth_service/auth_user_model.dart';
 import 'package:p7app/features/auth/view/login_screen.dart';
 import 'package:p7app/main_app/home.dart';
+import 'package:p7app/main_app/push_notification_service/push_notification_service.dart';
 import 'package:p7app/main_app/resource/const.dart';
+import 'package:p7app/main_app/service_locator/locator.dart';
 import 'package:p7app/main_app/widgets/app_version_widget_small.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -36,11 +38,13 @@ class _RootState extends State<Root> {
 
     getAuthStatus().then((AuthUserModel user) {
       if (user != null) {
+        _setupPushNotification();
         Future.delayed(Duration(seconds: widget.isFromLogin ? 0 : 2)).then((_) {
           Navigator.pushAndRemoveUntil(
               context,
               CupertinoPageRoute(builder: (context) => Home()),
               (Route<dynamic> route) => false);
+
         });
       } else {
         Future.delayed(Duration(seconds: 1)).then((_) {
@@ -51,42 +55,10 @@ class _RootState extends State<Root> {
         });
       }
     });
-    initFireBseFCM();
   }
 
-  initFireBseFCM() {
-    final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
-
-    _firebaseMessaging.requestNotificationPermissions();
-    _firebaseMessaging.onIosSettingsRegistered.listen((d) {
-      print(d);
-    });
-
-    _firebaseMessaging.configure(
-      onMessage: (Map<String, dynamic> message) async {
-        print("onMessage: $message");
-
-        BotToast.showSimpleNotification(
-          title: message['notification']['title'],
-          subTitle: message['notification']['body'],
-          duration: Duration(seconds: 2),
-        );
-
-//        if (_currentActiveChat != message["data"]["chatId"]) {}
-
-        return;
-      },
-      onLaunch: (Map<String, dynamic> message) async {
-        print("onResume: $message");
-
-        return;
-      },
-      onResume: (Map<String, dynamic> message) async {
-        print("onResume: $message");
-
-        return;
-      },
-    );
+  _setupPushNotification() {
+ var pushNotificationService = locator<PushNotificationService>();
   }
 
   Future<AuthUserModel> getAuthStatus() async {
