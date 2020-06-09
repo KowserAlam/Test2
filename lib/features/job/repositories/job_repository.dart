@@ -72,7 +72,7 @@ class JobRepository {
       }
     } on SocketException catch (e) {
       print(e);
-      BotToast.showText(text: StringUtils.checkInternetConnectionMessage);
+      BotToast.showText(text: StringUtils.unableToReachServerMessage);
       return Left(AppError.networkError);
     } catch (e) {
       print(e);
@@ -111,7 +111,7 @@ class JobRepository {
       }
     } on SocketException catch (e) {
       print(e);
-      BotToast.showText(text: StringUtils.checkInternetConnectionMessage);
+      BotToast.showText(text: StringUtils.unableToReachServerMessage);
       return Left(AppError.networkError);
     } catch (e) {
       print(e);
@@ -144,7 +144,7 @@ class JobRepository {
       }
     } on SocketException catch (e) {
       BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.checkInternetConnectionMessage);
+      BotToast.showText(text: StringUtils.unableToReachServerMessage);
       print(e);
       return false;
     } catch (e) {
@@ -176,7 +176,7 @@ class JobRepository {
       }
     } on SocketException catch (e) {
       BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.checkInternetConnectionMessage);
+      BotToast.showText(text: StringUtils.unableToReachServerMessage);
       print(e);
       return false;
     } catch (e) {

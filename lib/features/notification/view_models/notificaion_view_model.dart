@@ -11,7 +11,9 @@ class NotificationViewModel with ChangeNotifier {
   bool _hasMoreData = false;
 
 
-
+  Future<void>  refresh(){
+    return getNotifications();
+  }
 
   Future<void> getNotifications() async {
     _isFetchingData = true;
@@ -68,4 +70,6 @@ class NotificationViewModel with ChangeNotifier {
 
   bool get hasMoreData => _hasMoreData;
   bool get shouldShowPageLoader => _isFetchingData && notifications.length == 0;
+  bool get shouldShowAppError => _appError != null && notifications.length == 0;
+  bool get shouldShowNoNotification => !_isFetchingData&&_appError == null && notifications.length == 0;
 }

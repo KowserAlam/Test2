@@ -75,7 +75,7 @@ class _HomeState extends State<Home> {
           BottomNavigationBarItem(
               icon: Padding(
                 padding: const EdgeInsets.only(bottom: 5),
-                child: Icon(FontAwesomeIcons.bell),
+                child: Icon(FontAwesomeIcons.solidBell),
               ),
               title: Text(StringUtils.notificationsText)),
         ]);

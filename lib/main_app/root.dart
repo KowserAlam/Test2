@@ -65,7 +65,7 @@ class _RootState extends State<Root> {
   }
 
   _initUserdata(){
-    Provider.of<UserProfileViewModel>(context, listen: false).fetchUserData();
+    Provider.of<UserProfileViewModel>(context, listen: false).getUserData();
   }
 
   Future<AuthUserModel> getAuthStatus() async {

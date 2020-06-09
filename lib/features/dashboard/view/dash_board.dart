@@ -29,10 +29,23 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
   void afterFirstLayout(BuildContext context) {
     Provider.of<DashboardViewModel>(context, listen: false)
         .getDashboardData(isFormOnPageLoad: true)
-        .then((value) {});
+        .then((value) {
+          if(value == AppError.unauthorized){
+            _signOut(context);
+          }
+    });
 
     Provider.of<UserProfileViewModel>(context, listen: false)
-        .fetchUserData(isFormOnPageLoad: true);
+        .getUserData();
+  }
+
+  Future<void> _refreshData() async{
+    var dbVM = Provider.of<DashboardViewModel>(context, listen: false);
+    var upVM = Provider.of<UserProfileViewModel>(context, listen: false);
+    return Future.wait([
+      dbVM.getDashboardData(),
+      upVM.getUserData()
+    ]);
   }
 
   _signOut(context) {
@@ -51,21 +64,21 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
           return FailureFullScreenWidget(
             errorMessage: StringUtils.unableToLoadData,
             onTap: () {
-              return dashboardViewModel.getDashboardData();
+              return _refreshData();
             },
           );
 
         case AppError.networkError:
           return FailureFullScreenWidget(
-            errorMessage: StringUtils.checkInternetConnectionMessage,
+            errorMessage: StringUtils.unableToReachServerMessage,
             onTap: () {
-              return dashboardViewModel.getDashboardData();
+              return _refreshData();
             },
           );
 
         case AppError.unauthorized:
           return FailureFullScreenWidget(
-            errorMessage: StringUtils.somethingIsWrong,
+            errorMessage: StringUtils.unauthorizedText,
             onTap: () {
               return _signOut(context);
             },
@@ -75,7 +88,7 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
           return FailureFullScreenWidget(
             errorMessage: StringUtils.somethingIsWrong,
             onTap: () {
-              return dashboardViewModel.getDashboardData();
+              return _refreshData();
             },
           );
       }
@@ -89,8 +102,7 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
         routeName: 'dashboard',
       ),
       body: RefreshIndicator(
-        onRefresh: Provider.of<DashboardViewModel>(context, listen: false)
-            .getDashboardData,
+        onRefresh: _refreshData,
         child: dashboardViewModel.shouldShowError
             ? ListView(
                 children: [

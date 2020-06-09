@@ -62,16 +62,16 @@ class UserProfileViewModel with ChangeNotifier {
 
   bool get shouldShowLoader => _isBusyLoading && _userData == null;
 
-  Future<bool> fetchUserData({bool isFormOnPageLoad = false}) async {
+  Future<bool> getUserData({bool isFormOnPageLoad = false}) async {
     var time = CommonServiceRule.onLoadPageReloadTime;
 
     if(isFormOnPageLoad)
       if(_lastFetchTime != null){
-        bool shouldNotFetchData = _lastFetchTime.difference(DateTime.now()) < time && _appError != null;
+        bool shouldNotFetchData = _lastFetchTime.difference(DateTime.now()) < time && _appError == null;
         if(shouldNotFetchData)
           return false;
       }
-    _lastFetchTime = DateTime.now();
+
 
     _isBusyLoading = true;
     _appError = null;
@@ -90,7 +90,7 @@ class UserProfileViewModel with ChangeNotifier {
       return false;
     }, (right) {
       /// if right
-
+      _lastFetchTime = DateTime.now();
       _userData = right;
       _appError = null;
       _isBusyLoading = false;
@@ -373,7 +373,7 @@ class UserProfileViewModel with ChangeNotifier {
         return false;
       }, (r) {
 //        userData.experienceInfo.add(r);
-        fetchUserData();
+        getUserData();
 //        userData.experienceInfo.sort((a,b){
 //          if(a.startDate == null || b.startDate == null)
 //            return 0;
@@ -397,7 +397,7 @@ class UserProfileViewModel with ChangeNotifier {
 //          if(a.startDate == null || b.startDate == null)
 //            return 0;
 //          return b.startDate.compareTo(a.startDate);});
-        fetchUserData();
+        getUserData();
         notifyListeners();
         return true;
       });

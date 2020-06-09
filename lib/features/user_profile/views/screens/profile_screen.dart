@@ -53,7 +53,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
   @override
   void afterFirstLayout(BuildContext context) {
     Provider.of<UserProfileViewModel>(context, listen: false)
-        .fetchUserData(isFormOnPageLoad: true);
+        .getUserData(isFormOnPageLoad: true);
   }
 
   Widget userContactInfo(context) => InkWell(
@@ -686,7 +686,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
       body: RefreshIndicator(
         onRefresh: () async {
           return Provider.of<UserProfileViewModel>(context, listen: false)
-              .fetchUserData();
+              .getUserData();
         },
         child: SingleChildScrollView(
           physics: AlwaysScrollableScrollPhysics(),
@@ -700,17 +700,17 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                     onTap: () {
                       return Provider.of<UserProfileViewModel>(context,
                               listen: false)
-                          .fetchUserData();
+                          .getUserData();
                     },
                   );
 
                 case AppError.networkError:
                   return FailureFullScreenWidget(
-                    errorMessage: StringUtils.checkInternetConnectionMessage,
+                    errorMessage: StringUtils.unableToReachServerMessage,
                     onTap: () {
                       return Provider.of<UserProfileViewModel>(context,
                               listen: false)
-                          .fetchUserData();
+                          .getUserData();
                     },
                   );
 
@@ -720,7 +720,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                     onTap: () {
                       return Provider.of<UserProfileViewModel>(context,
                               listen: false)
-                          .fetchUserData();
+                          .getUserData();
                     },
                   );
               }

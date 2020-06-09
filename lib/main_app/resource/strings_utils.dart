@@ -17,7 +17,7 @@ class StringUtils {
   static String logInButtonText = "LOG IN";
   static String loginSuccessMessage = "Login Successful";
   static String loginUnsuccessfulMessage = "Login unsuccessful";
-  static String checkInternetConnectionMessage = "Check Internet Connection";
+  static String unableToReachServerMessage = "Unable To Reach Server";
   static String forgotPassword = "Forgot Password ?";
   static String welcomeBack = "Welcome back!";
   static String loginToYourExistingAccount = "Login to your existing account";
@@ -54,6 +54,7 @@ class StringUtils {
   static String doYouWantToSubmitText = "Do you want to submit?";
   static String youDoNotHaveAnyFavoriteJob = "You don't have any favorite job";
   static String youDoNotHaveAnyAppliedJob = "You don't have any applied job";
+  static String youDoNotHaveAnyNotification = "You don't have any notification";
 
   ///Reset Password Screen
   static String changePasswordAppbarText = "Change Password";

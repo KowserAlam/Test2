@@ -47,12 +47,17 @@ class _AppDrawerState extends State<AppDrawer> {
           Container(
             padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
             decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage(kUserProfileCoverImageAsset),
-                    fit: BoxFit.cover)),
+              color: headerBackgroundColor,
+              image: DecorationImage(
+                  image: AssetImage(kUserProfileCoverImageAsset),
+                  fit: BoxFit.cover),
+            ),
             child: Consumer<UserProfileViewModel>(builder: (context, upvm, _) {
 //              var baseUrl = FlavorConfig.instance.values.baseUrl;
               var user = upvm?.userData?.personalInfo;
+              if (user == null) {
+                upvm.getUserData();
+              }
               var imageUrl = user?.profileImage ?? kDefaultUserImageNetwork;
               return Container(
                 height: 160,

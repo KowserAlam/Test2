@@ -108,7 +108,7 @@ class _JobListScreenState extends State<JobListScreen>
 
       case AppError.networkError:
         return FailureFullScreenWidget(
-          errorMessage: StringUtils.checkInternetConnectionMessage,
+          errorMessage: StringUtils.unableToReachServerMessage,
           onTap: () {
             return Provider.of<JobListViewModel>(context, listen: false)
                 .refresh();

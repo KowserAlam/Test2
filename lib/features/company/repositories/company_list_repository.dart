@@ -27,7 +27,7 @@ class CompanyListRepository {
       }
     } on SocketException catch (e) {
       print(e);
-      BotToast.showText(text: StringUtils.checkInternetConnectionMessage);
+      BotToast.showText(text: StringUtils.unableToReachServerMessage);
       return Left(AppError.networkError);
     } catch (e) {
       print(e);
