@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:p7app/features/notification/models/notification_model.dart';
 import 'package:p7app/features/notification/notification_helpers.dart';
-import 'package:p7app/main_app/resource/const.dart';
-import 'package:p7app/main_app/util/date_format_uitl.dart';
-import 'package:p7app/main_app/util/method_extension.dart';
+import 'package:p7app/main_app/app_theme/app_theme.dart';
 
 class NotificationTile extends StatefulWidget {
   final Function onTap;
@@ -16,19 +14,21 @@ class NotificationTile extends StatefulWidget {
 }
 
 class _NotificationTileState extends State<NotificationTile> {
-
-
   @override
   Widget build(BuildContext context) {
     var scaffoldBackgroundColor = Theme.of(context).scaffoldBackgroundColor;
+    var primaryColor = Theme.of(context).primaryColor;
     var createdAt = widget.notificationModel.createdAt;
-
     var time = "${NotificationHelper.calculateTimeStamp(createdAt)} ago";
 
+    bool isRead = widget.notificationModel?.isRead ?? false;
+    var backgroundColor = isRead? scaffoldBackgroundColor : AppTheme.selectedBackgroundColor;
+    var titleColor = isRead?Theme.of(context).textTheme.subtitle1.color: primaryColor;
     return Container(
       height: 65,
       margin: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-      decoration: BoxDecoration(color: scaffoldBackgroundColor, boxShadow: [
+      decoration: BoxDecoration(
+          color: backgroundColor, boxShadow: [
         BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 10),
         BoxShadow(color: Colors.black.withOpacity(0.2), blurRadius: 10),
       ]),
@@ -38,68 +38,51 @@ class _NotificationTileState extends State<NotificationTile> {
           onTap: widget.onTap,
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 5),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
+            child: Column(
               mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-//                Container(
-//                  height: 60,
-//                  width: 60,
-//                  margin: EdgeInsets.only(right: 3),
-//                  child: Image.asset(
-//                    kCompanyImagePlaceholder,
-//                    fit: BoxFit.cover,
-//                  ),
-//                ),
-                Flexible(
-                  child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 5),
+                  child: Row(
                     mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 5),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Flexible(
-                              child: Container(
-                                height: 15,
-                                child: Text(
-                                  widget.notificationModel.title,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 12),
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ),
-                            ),
-                            Container(
-                              height: 15,
-                              width: 60,
-                              child: Center(
-                                  child: Text(
-                                time,
-                                style: TextStyle(
-                                    fontSize: 10,
-                                    color: Theme.of(context).primaryColor),
-                              )),
-                            ),
-                          ],
-                        ),
-                      ),
                       Flexible(
                         child: Container(
-                          padding: EdgeInsets.only(bottom: 5, top: 2),
+                          height: 15,
                           child: Text(
-                            widget.notificationModel.message,
+                            widget.notificationModel.title ?? "",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: titleColor,
+                                fontSize: 14),
                             overflow: TextOverflow.ellipsis,
-                            maxLines: 2,
                           ),
                         ),
-                      )
+                      ),
+                      Container(
+                        height: 15,
+                        width: 60,
+                        child: Center(
+                            child: Text(
+                          time,
+                          style: TextStyle(fontSize: 10, color: primaryColor),
+                        )),
+                      ),
                     ],
+                  ),
+                ),
+                Flexible(
+                  child: Container(
+                    padding: EdgeInsets.only(bottom: 5, top: 2),
+                    child: Text(
+                      widget.notificationModel.message ?? "",
+                      style: TextStyle(fontSize: 13),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
+                    ),
                   ),
                 )
               ],

@@ -38,4 +38,22 @@ class NotificationRepository {
       return Left(AppError.serverError);
     }
   }
+
+  Future<bool> markAsRead(int id)async{
+    var url = "${Urls.notificationMarkReadUrl}/${id}";
+    try{
+      var res = await ApiClient().putRequest(url,{'is_read': true});
+      print(res.statusCode);
+      print(res.body);
+      if(res.statusCode == 200){
+        return true;
+      }else{}
+      return false;
+
+    }catch (e){
+      print(e);
+      return false;
+    }
+
+  }
 }

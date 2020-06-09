@@ -20,6 +20,7 @@ class AppTheme {
   static Color lightGrey = Color(0xfff8f9fa);
   static Color primary = Color(0xff007bff);
   static Color grey = Color(0xff6c757d);
+  static Color selectedBackgroundColor = Color(0xffe3effa);
 
   static Color facebookColor = Color(0xff3D579E);
   static Color linkedInColor = Color(0xff0076B4);

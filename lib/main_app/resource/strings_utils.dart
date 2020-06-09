@@ -65,6 +65,7 @@ class StringUtils {
   static String noText = "No";
   static String candidateListText = "Candidate List";
   static String candidateNameText = "Candidate Name";
+  static String closeText = "Close";
 
   static String examNameText = "Exam";
   static String noExamText = "No Exam";
