@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:p7app/features/notification/models/notification_model.dart';
+import 'package:p7app/features/notification/notification_helpers.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/util/date_format_uitl.dart';
 import 'package:p7app/main_app/util/method_extension.dart';
@@ -15,30 +16,14 @@ class NotificationTile extends StatefulWidget {
 }
 
 class _NotificationTileState extends State<NotificationTile> {
-  String _calculateTimeStamp(DateTime createdAt) {
-    if (createdAt == null) return '';
 
-    var difference = DateTime.now().difference(createdAt);
-    if (difference < Duration(minutes: 1))
-      return "${difference.inSeconds}s";
-    else if (difference < Duration(hours: 1))
-      return "${difference.inMinutes}m";
-    else if (difference < Duration(hours: 24))
-      return "${difference.inHours}h";
-    else if (difference < Duration(days: 30))
-      return "${(difference.inDays / 30).round()}d";
-    else if (difference < Duration(days: 365))
-      return "${(difference.inDays / 30).round()}month";
-    else
-      return "${(difference.inDays / 365).round()}y";
-  }
 
   @override
   Widget build(BuildContext context) {
     var scaffoldBackgroundColor = Theme.of(context).scaffoldBackgroundColor;
     var createdAt = widget.notificationModel.createdAt;
 
-    var time = "${_calculateTimeStamp(createdAt)} ago";
+    var time = "${NotificationHelper.calculateTimeStamp(createdAt)} ago";
 
     return Container(
       height: 65,

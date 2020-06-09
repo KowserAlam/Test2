@@ -23,14 +23,13 @@ class DashboardViewModel with ChangeNotifier {
 
 
   Future <AppError> getDashboardData({bool isFormOnPageLoad = false}) async{
-    var time = CommonServiceRule.onLoadPageReloadTime;
-
-    if(isFormOnPageLoad)
-      if(_lastFetchTime != null){
-        bool shouldNotFetchData = _lastFetchTime.difference(DateTime.now()) < time && _infoBoxError != null;
-        if(shouldNotFetchData)
-          return null;
-      }
+//    var time = CommonServiceRule.onLoadPageReloadTime;
+//    if(isFormOnPageLoad)
+//      if(_lastFetchTime != null){
+//        bool shouldNotFetchData = _lastFetchTime.difference(DateTime.now()) < time && _infoBoxError != null;
+//        if(shouldNotFetchData)
+//          return null;
+//      }
 
     _lastFetchTime = DateTime.now();
     _isLoadingInfoBoxData = true;
