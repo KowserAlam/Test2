@@ -8,6 +8,7 @@ import 'package:p7app/features/notification/views/widgets/notification_tile_widg
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/util/date_format_uitl.dart';
 import 'package:p7app/main_app/widgets/app_drawer.dart';
+import 'package:p7app/main_app/widgets/loader.dart';
 import 'package:provider/provider.dart';
 
 class NotificationScreen extends StatefulWidget {
@@ -17,10 +18,17 @@ class NotificationScreen extends StatefulWidget {
 
 class _NotificationScreenState extends State<NotificationScreen>
     with AfterLayoutMixin {
+  ScrollController _scrollController = ScrollController();
   @override
   void afterFirstLayout(BuildContext context) {
     var notiVM = Provider.of<NotificationViewModel>(context, listen: false);
     notiVM.getNotifications();
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        notiVM.getMoreData();
+      }
+    });
   }
 
   @override
@@ -32,9 +40,15 @@ class _NotificationScreenState extends State<NotificationScreen>
       drawer: AppDrawer(),
       body: Consumer<NotificationViewModel>(
           builder: (context, notificationViewModel, _) {
+
+
+            if(    notificationViewModel.shouldShowPageLoader){
+              return Center(child: Loader(),);
+            }
         return RefreshIndicator(
           onRefresh: () async => notificationViewModel.getNotifications(),
           child: ListView.builder(
+            controller: _scrollController,
             padding: EdgeInsets.symmetric(vertical: 4),
               itemCount: notificationViewModel.notifications.length,
               itemBuilder: (BuildContext context, int index) {
