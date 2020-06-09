@@ -15,12 +15,30 @@ class NotificationTile extends StatefulWidget {
 }
 
 class _NotificationTileState extends State<NotificationTile> {
+  String _calculateTimeStamp(DateTime createdAt) {
+    if (createdAt == null) return '';
+
+    var difference = DateTime.now().difference(createdAt);
+    if (difference < Duration(minutes: 1))
+      return "${difference.inSeconds}s";
+    else if (difference < Duration(hours: 1))
+      return "${difference.inMinutes}m";
+    else if (difference < Duration(hours: 24))
+      return "${difference.inHours}h";
+    else if (difference < Duration(days: 30))
+      return "${(difference.inDays / 30).round()}d";
+    else if (difference < Duration(days: 365))
+      return "${(difference.inDays / 30).round()}month";
+    else
+      return "${(difference.inDays / 365).round()}y";
+  }
+
   @override
   Widget build(BuildContext context) {
     var scaffoldBackgroundColor = Theme.of(context).scaffoldBackgroundColor;
-    var time = widget.notificationModel.createdAt == null
-        ? ""
-        : DateFormatUtil.formatDate(widget.notificationModel.createdAt);
+    var createdAt = widget.notificationModel.createdAt;
+
+    var time = "${_calculateTimeStamp(createdAt)} ago";
 
     return Container(
       height: 65,
@@ -78,7 +96,9 @@ class _NotificationTileState extends State<NotificationTile> {
                               child: Center(
                                   child: Text(
                                 time,
-                                style: TextStyle(fontSize: 10),
+                                style: TextStyle(
+                                    fontSize: 10,
+                                    color: Theme.of(context).primaryColor),
                               )),
                             ),
                           ],
