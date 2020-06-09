@@ -19,16 +19,21 @@ class NotificationViewModel with ChangeNotifier {
     var res = await NotificationRepository().getNotificationsList();
     res.fold((l) {
       _isFetchingData = false;
+      _hasMoreData = false;
       _appError = l;
       notifyListeners();
     }, (r) {
       _isFetchingData = false;
       _notifications = r.notifications??[];
+      _hasMoreData = r.next;
       notifyListeners();
     });
   }
 
   getMoreData()async{
+    if(!_hasMoreData && _isGettingMoreData){
+      return;
+    }
     _isGettingMoreData = true;
     notifyListeners();
     var res = await NotificationRepository().getNotificationsList();
