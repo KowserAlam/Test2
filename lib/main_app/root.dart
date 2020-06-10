@@ -74,7 +74,7 @@ class _RootState extends State<Root> {
 
     if (user != null) {
       Logger().i(user.toJson());
-    }
+    }else{debugPrint("User: $user");}
     return user;
   }
 

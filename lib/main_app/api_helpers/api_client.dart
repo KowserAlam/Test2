@@ -34,6 +34,7 @@ class ApiClient {
     var completeUrl = _buildUrl(url);
     var headers = await _getHeaders();
     var encodedBody = json.encode(body);
+//    print(headers);
     return httClient.post(completeUrl, headers: headers, body: encodedBody);
   }
 
