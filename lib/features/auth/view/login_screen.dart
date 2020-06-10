@@ -46,7 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Text(
             StringUtils.signSuccessfulText,
             textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.title.apply(color: Colors.green),
+            style: Theme.of(context).textTheme.subtitle1.apply(color: Colors.green),
           ),
         );
       }

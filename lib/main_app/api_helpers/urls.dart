@@ -16,7 +16,7 @@ class Urls {
   /// Those url should not contain base url
   /// base url will added by [ApiClient] before sending request
 
-  static String loginUrl = "/api/sign_in/";
+  static String loginUrl = "/api/pro/signin/";
   static String signUpUrl = "/api/professional/create_with_user/";
   static String passwordResetUrl = "/api/professional/password_reset/";
   static String dashboardUrl = "/api/app-dashboard";
