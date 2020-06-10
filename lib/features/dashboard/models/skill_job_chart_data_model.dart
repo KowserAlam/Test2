@@ -29,7 +29,7 @@ class SkillJobChartDataModel {
 
   SkillJobChartDataModel.fromJson(json) {
     try {
-      month = "${_monthsInYear[json[1]]}, ${json[0].toString().substring(2)}";
+      month = "${_monthsInYear[json[1]??""]}, ${json[0].toString().substring(2)}";
       total = json[2];
       year = json[0];
       dateTimeValue = DateTime.parse(

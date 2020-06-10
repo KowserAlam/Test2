@@ -111,9 +111,7 @@ class _CompanyListScreenState extends State<CompanyListScreen>
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: companyViewModel.isFetchingData
-                          ? [Loader()]
-                          : [
+                      children:  [
                               Text(companyViewModel.noOfSearchResults
                                   .toString()),
 //                                  if(companyViewModel.shouldShowCompanyCount)

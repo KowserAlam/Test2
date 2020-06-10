@@ -39,21 +39,25 @@ class NotificationRepository {
     }
   }
 
-  Future<bool> markAsRead(int id)async{
-    var url = "${Urls.notificationMarkReadUrl}/${id}";
-    try{
-      var res = await ApiClient().putRequest(url,{'is_read': true});
+  Future<bool> markAsRead(int id) async {
+
+    var url = "${Urls.notificationMarkReadUrl}/${id}/";
+
+//    print(url);
+    try {
+      var res = await ApiClient().putRequest(
+        url,
+        {'is_read': 1},
+      );
       print(res.statusCode);
       print(res.body);
-      if(res.statusCode == 200){
+      if (res.statusCode == 200) {
         return true;
-      }else{}
+      } else {}
       return false;
-
-    }catch (e){
+    } catch (e) {
       print(e);
       return false;
     }
-
   }
 }

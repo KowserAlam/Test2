@@ -32,27 +32,25 @@ class NotificationViewModel with ChangeNotifier {
   }
 
   getMoreData() async {
-    if (!_hasMoreData && _isGettingMoreData) {
-      return;
+    if (_hasMoreData && !isGettingMoreData) {
+      _isGettingMoreData = true;
+      notifyListeners();
+      var res = await NotificationRepository().getNotificationsList();
+      res.fold((l) {
+        _isGettingMoreData = false;
+        _appError = l;
+        _hasMoreData = false;
+        notifyListeners();
+      }, (r) {
+        _isGettingMoreData = false;
+        _hasMoreData = r.next;
+        _notifications.addAll(r.notifications);
+        notifyListeners();
+      });
     }
-    _isGettingMoreData = true;
-    notifyListeners();
-    var res = await NotificationRepository().getNotificationsList();
-    res.fold((l) {
-      _isGettingMoreData = false;
-      _appError = l;
-      _hasMoreData = false;
-      notifyListeners();
-    }, (r) {
-      _isGettingMoreData = false;
-      _hasMoreData = r.next;
-      _notifications.addAll(r.notifications);
-      notifyListeners();
-    });
   }
 
   markAsRead(int index) {
-
     if (!_notifications[index].isRead) {
       notifications[index].isRead = true;
       notifyListeners();

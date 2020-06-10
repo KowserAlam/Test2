@@ -92,6 +92,7 @@ class _NotificationScreenState extends State<NotificationScreen>
         return RefreshIndicator(
           onRefresh: () async => notificationViewModel.getNotifications(),
           child: ListView.builder(
+            physics: AlwaysScrollableScrollPhysics(),
               controller: _scrollController,
               padding: EdgeInsets.symmetric(vertical: 4),
               itemCount: notificationViewModel.notifications.length,

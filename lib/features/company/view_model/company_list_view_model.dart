@@ -23,6 +23,10 @@ class CompanyListViewModel with ChangeNotifier {
     bool get shouldShowLoader => isFetchingData && companyList == null;
 
   Future<bool> getCompanyList() async {
+    if(_query.isNotEmptyOrNotNull){
+      companyList = null;
+    }
+
     isFetchingData = true;
     searchStart = true;
     notifyListeners();
