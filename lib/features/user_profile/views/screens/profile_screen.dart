@@ -32,7 +32,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:provider/provider.dart';
-
+import 'package:p7app/main_app/util/method_extension.dart';
 import 'edit_certifications_screen.dart';
 import 'edit_memberships_screen.dart';
 
@@ -774,7 +774,10 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                       SizedBox(height: 5),
                       designationWidget,
                       SizedBox(height: 8),
-                      aboutMeWidget,
+                      if (userProfileViewModel?.userData?.personalInfo?.aboutMe
+                              ?.isNotEmptyOrNotNull ??
+                          false)
+                        aboutMeWidget,
                     ],
                   ),
                 ),
