@@ -55,6 +55,7 @@ class StringUtils {
   static String youDoNotHaveAnyFavoriteJob = "You don't have any favorite job";
   static String youDoNotHaveAnyAppliedJob = "You don't have any applied job";
   static String youDoNotHaveAnyNotification = "You don't have any notification";
+  static String youDoNotHaveAnyMessage = "You don't have any message";
 
   ///Reset Password Screen
   static String changePasswordAppbarText = "Change Password";
@@ -436,6 +437,7 @@ class StringUtils {
 
   //NotificationScreen
   static const String notificationsText = "Notifications";
+  static const String messagesText = "Messages";
 
   ///
 /// Jobs
@@ -524,4 +526,5 @@ static const String jobSiteText  = "Job Site";
   static const String jobAdditionalRequirementsText  = "Additional Requirements";
   static const String typeAtLeast3Letter  = "Type at least 3 letter";
   static const String notFoundText  = "Not Found";
+  static const String writeYourMessageText  = "Write your message";
 }

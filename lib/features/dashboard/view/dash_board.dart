@@ -1,10 +1,13 @@
 import 'package:after_layout/after_layout.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p7app/features/auth/view/login_screen.dart';
 import 'package:p7app/features/dashboard/view/widgets/info_box_widget.dart';
 import 'package:p7app/features/dashboard/view/widgets/job_chart_widget.dart';
 import 'package:p7app/features/dashboard/view/widgets/profile_complete_parcent_indicatior_widget.dart';
 import 'package:p7app/features/dashboard/view_model/dashboard_view_model.dart';
+import 'package:p7app/features/messaging/view/message_screen.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
@@ -30,22 +33,18 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
     Provider.of<DashboardViewModel>(context, listen: false)
         .getDashboardData(isFormOnPageLoad: true)
         .then((value) {
-          if(value == AppError.unauthorized){
-            _signOut(context);
-          }
+      if (value == AppError.unauthorized) {
+        _signOut(context);
+      }
     });
 
-    Provider.of<UserProfileViewModel>(context, listen: false)
-        .getUserData();
+    Provider.of<UserProfileViewModel>(context, listen: false).getUserData();
   }
 
-  Future<void> _refreshData() async{
+  Future<void> _refreshData() async {
     var dbVM = Provider.of<DashboardViewModel>(context, listen: false);
     var upVM = Provider.of<UserProfileViewModel>(context, listen: false);
-    return Future.wait([
-      dbVM.getDashboardData(),
-      upVM.getUserData()
-    ]);
+    return Future.wait([dbVM.getDashboardData(), upVM.getUserData()]);
   }
 
   _signOut(context) {
@@ -97,6 +96,15 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
     return Scaffold(
       appBar: AppBar(
         title: Text(StringUtils.dashBoardText),
+        actions: [
+          IconButton(
+            icon: Icon(FontAwesomeIcons.solidComment),
+            onPressed: () {
+              Navigator.of(context).push(CupertinoPageRoute(
+                  builder: (BuildContext context) => MessageScreen()));
+            },
+          )
+        ],
       ),
       drawer: AppDrawer(
         routeName: 'dashboard',
