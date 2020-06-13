@@ -19,7 +19,7 @@ class CompanyListRepository {
       if (res.statusCode == 200) {
         var decodedJson = json.decode(res.body);
 //        debugPrint(decodedJson.toString());
-        List<Company> list = fromJson(decodedJson);
+        List<Company> list = fromJson(decodedJson["results"]);
         return Right(list);
       } else {
         return Left(AppError.serverError);
