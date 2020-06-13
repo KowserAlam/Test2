@@ -51,6 +51,7 @@ class MessageScreenViewModel with ChangeNotifier {
     }
   }
 
+
   markAsRead(int index) {
     if (!_messages[index].isRead) {
       messages[index].isRead = true;

@@ -437,6 +437,7 @@ class StringUtils {
 
   //NotificationScreen
   static const String notificationsText = "Notifications";
+  static const String messagesText = "Messages";
 
   ///
 /// Jobs
@@ -525,4 +526,5 @@ static const String jobSiteText  = "Job Site";
   static const String jobAdditionalRequirementsText  = "Additional Requirements";
   static const String typeAtLeast3Letter  = "Type at least 3 letter";
   static const String notFoundText  = "Not Found";
+  static const String writeYourMessageText  = "Write your message";
 }

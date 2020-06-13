@@ -12,12 +12,13 @@ import 'package:p7app/main_app/widgets/failure_widget.dart';
 import 'package:p7app/main_app/widgets/loader.dart';
 import 'package:provider/provider.dart';
 
-class MessageScreen extends StatefulWidget {
+class MessageListScreen extends StatefulWidget {
   @override
-  _MessageScreenState createState() => _MessageScreenState();
+  _MessageListScreenState createState() => _MessageListScreenState();
 }
 
-class _MessageScreenState extends State<MessageScreen> with AfterLayoutMixin {
+class _MessageListScreenState extends State<MessageListScreen>
+    with AfterLayoutMixin {
   ScrollController _scrollController = ScrollController();
   var _messageInoutTextEditingController = TextEditingController();
 
@@ -92,62 +93,24 @@ class _MessageScreenState extends State<MessageScreen> with AfterLayoutMixin {
         return RefreshIndicator(
           onRefresh: () async => messagesViewModel.getNotifications(),
           child: SafeArea(
-            child: Column(
-              children: [
-                Expanded(
-                  child: ListView.builder(
-                      physics: AlwaysScrollableScrollPhysics(),
-                      controller: _scrollController,
-                      padding: EdgeInsets.symmetric(vertical: 4),
-                      itemCount: messagesViewModel.messages.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        var message = messagesViewModel.messages[index];
-                        return Container(
-                          margin: EdgeInsets.symmetric(vertical: 4),
-                          decoration: BoxDecoration(
-                              color: Theme.of(context).backgroundColor,
-                              boxShadow: CommonStyleTextField.boxShadow),
-                          child: ListTile(
-                            title: Text(message.createdBy ?? ""),
-                            subtitle: Text(message.message ?? ""),
-                          ),
-                        );
-                      }),
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            boxShadow: CommonStyleTextField.boxShadow,
-                              color: Theme.of(context)
-                                  .backgroundColor
-                                  .withBlue(255),
-                              borderRadius: BorderRadius.circular(7)),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8),
-                            child: TextField(
-                              controller: _messageInoutTextEditingController,
-                              decoration: InputDecoration(
-                                  hintText: StringUtils.writeYourMessageText,
-                                  border: InputBorder.none),
-                            ),
-                          ),
-                        ),
-                      ),
+            child: ListView.builder(
+                physics: AlwaysScrollableScrollPhysics(),
+                controller: _scrollController,
+                padding: EdgeInsets.symmetric(vertical: 4),
+                itemCount: messagesViewModel.messages.length,
+                itemBuilder: (BuildContext context, int index) {
+                  var message = messagesViewModel.messages[index];
+                  return Container(
+                    margin: EdgeInsets.symmetric(vertical: 4),
+                    decoration: BoxDecoration(
+                        color: Theme.of(context).backgroundColor,
+                        boxShadow: CommonStyleTextField.boxShadow),
+                    child: ListTile(
+                      title: Text(message.createdBy ?? ""),
+                      subtitle: Text(message.message ?? ""),
                     ),
-                    IconButton(
-                      icon: Icon(Icons.send),
-                      iconSize: 20,
-                      color: Theme.of(context).accentColor,
-                      onPressed: _handleMessageSend,
-                    )
-                  ],
-                ),
-              ],
-            ),
+                  );
+                }),
           ),
         );
       }),
