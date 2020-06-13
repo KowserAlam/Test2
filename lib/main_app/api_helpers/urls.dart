@@ -71,8 +71,7 @@ class Urls {
   static String companySearchUrl = "/api/company/search";
 
   /// dashboardUrl
-
-static String dashboardInfoBoxUrl = "/api/professional/info_box/";
+static String dashboardInfoBoxUrl = "/api/pro/dashboard/infobox/";
 static String dashboardSkillJobChartUrl = "/api/pro/dashboard/skill/";
 static String profileCompleteness = "/api/pro/profile-completeness/";
 
