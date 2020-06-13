@@ -196,7 +196,7 @@ class _EditMemberShipsState extends State<EditMemberShips> {
                     maxLines: 8,
                     minLines: 4,
                     focusNode: _descriptionFocusNode,
-                    keyboardType: TextInputType.text,
+                    keyboardType: TextInputType.multiline,
                     onFieldSubmitted: (a) {
 //                      FocusScope.of(context)
 //                          .requestFocus(_descriptionFocusNode);

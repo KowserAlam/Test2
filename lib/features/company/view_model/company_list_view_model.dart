@@ -12,23 +12,23 @@ class CompanyListViewModel with ChangeNotifier {
   CompanyListRepository _companyListRepository = CompanyListRepository();
   String _query;
   int noOfSearchResults = 0;
-  bool searchStart = false;
+  bool isInSearchMode = false;
 
   set query(String value) {
     _query = value;
     notifyListeners();
   }
 
-  bool get shouldShowCompanyCount => _query.isNotEmptyOrNotNull;
-    bool get shouldShowLoader => isFetchingData && companyList == null;
+  bool get shouldShowCompanyCount =>
+      _query.isNotEmptyOrNotNull && isInSearchMode  && !isFetchingData;
+
+  bool get shouldShowLoader => isFetchingData && companyList == null;
 
   Future<bool> getCompanyList() async {
-    if(_query.isNotEmptyOrNotNull){
+    if (_query.isNotEmptyOrNotNull) {
       companyList = null;
     }
-
     isFetchingData = true;
-    searchStart = true;
     notifyListeners();
     var limit = _query.isNotEmptyOrNotNull ? (_query.length > 2 ? 100 : 8) : 8;
     Either<AppError, List<Company>> result =
@@ -47,19 +47,34 @@ class CompanyListViewModel with ChangeNotifier {
     });
   }
 
-clearSearch(){
-      isFetchingData = false;
-    searchStart = false;
-       _query = "";
-}
+  getMoreData() {
+
+  }
+
+  toggleIsInSearchMode() {
+    isInSearchMode = !isInSearchMode;
+
+    if (!isInSearchMode) {
+      _query = null;
+      getCompanyList();
+    }
+    notifyListeners();
+  }
+
+  clearSearch() {
+    isFetchingData = false;
+    isInSearchMode = false;
+    _query = "";
+  }
+
   resetState() {
     companyList = null;
     isFetchingData = false;
-    searchStart = false;
+    isInSearchMode = false;
     _companyListRepository = CompanyListRepository();
     noOfSearchResults = 0;
     _query = "";
     getCompanyList();
-        notifyListeners();
+    notifyListeners();
   }
 }

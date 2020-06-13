@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:bot_toast/bot_toast.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart';
@@ -19,7 +18,7 @@ class CompanyListRepository {
       debugPrint(res.statusCode.toString());
       if (res.statusCode == 200) {
         var decodedJson = json.decode(res.body);
-        debugPrint(decodedJson.toString());
+//        debugPrint(decodedJson.toString());
         List<Company> list = fromJson(decodedJson);
         return Right(list);
       } else {

@@ -25,7 +25,9 @@ class CompanyListScreen extends StatefulWidget {
 
 class _CompanyListScreenState extends State<CompanyListScreen>
     with AfterLayoutMixin {
-  TextEditingController _companyNameController = TextEditingController();
+  TextEditingController _searchTextEditingController = TextEditingController();
+  FocusNode _searchFieldFocusNode = FocusNode();
+  ScrollController _scrollController = ScrollController();
 
 //  Company selectedCompany;
 
@@ -34,6 +36,13 @@ class _CompanyListScreenState extends State<CompanyListScreen>
     var companyViewModel =
         Provider.of<CompanyListViewModel>(context, listen: false);
     companyViewModel.getCompanyList();
+
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        companyViewModel.getMoreData();
+      }
+    });
   }
 
   @override
@@ -43,7 +52,7 @@ class _CompanyListScreenState extends State<CompanyListScreen>
         ? []
         : companyViewModel.companyList;
     void search() {
-      companyViewModel.query = _companyNameController.text;
+      companyViewModel.query = _searchTextEditingController.text;
       companyViewModel.getCompanyList();
 //      print(companyViewModel.companyList.length);
     }
@@ -54,56 +63,82 @@ class _CompanyListScreenState extends State<CompanyListScreen>
     var titleStyle = TextStyle(fontSize: 16, fontWeight: FontWeight.w600);
     double iconSize = 14.0;
     var subtitleColor = isDarkMode ? Colors.white : AppTheme.grey;
-
-
-
+    var isInSearchMode = companyViewModel.isInSearchMode;
 
     return WillPopScope(
       onWillPop: () async {
+//        if(companyViewModel.isInSearchMode){
+//          companyViewModel.toggleIsInSearchMode();
+//          return false;
+//        };
         companyViewModel.clearSearch();
         return true;
       },
       child: Scaffold(
         appBar: AppBar(
           title: Text(StringUtils.companyListAppbarText),
+          actions: [
+            IconButton(
+              icon: Icon(isInSearchMode ? Icons.close : Icons.search),
+              onPressed: () {
+                _searchTextEditingController?.clear();
+                companyViewModel.toggleIsInSearchMode();
+
+                if (companyViewModel.isInSearchMode) {
+                  _searchFieldFocusNode.requestFocus();
+                } else {
+                  _searchFieldFocusNode.unfocus();
+                }
+              },
+            ),
+//          IconButton(
+//            icon: Icon(Icons.filter_list),
+//            onPressed: () {
+//              _scaffoldKey.currentState.openEndDrawer();
+//            },
+//          )
+          ],
         ),
         body: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: CustomTextField(
-                controller: _companyNameController,
-                hintText: StringUtils.companyListSearchText,
-                autofocus: true,
-                textInputAction: TextInputAction.search,
-                onSubmitted: (v) {
-                  search();
+            if (companyViewModel.isInSearchMode)
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: CustomTextField(
+                  focusNode: _searchFieldFocusNode,
+                  controller: _searchTextEditingController,
+                  hintText: StringUtils.companyListSearchText,
+                  autofocus: true,
+                  textInputAction: TextInputAction.search,
+                  onSubmitted: (v) {
+                    search();
 //                    if (_companyNameController.text.length > 2) {
 //                      search();
 //                    } else {
 //                      BotToast.showText(text: StringUtils.searchLetterCapText);
 //                    }
-                },
-                onChanged: (v) {
-                  if (_companyNameController.text.isEmpty) {
-                    companyViewModel.resetState();
-                  }
-                },
-                suffixIcon: IconButton(
-                  icon: Icon(Icons.search),
-                  onPressed: () {
-                    search();
+                  },
+//                  onChanged: (v) {
+//                    if (_searchTextEditingController.text.isEmpty) {
+//                      companyViewModel.resetState();
+//                    }
+//                  },
+                  suffixIcon: IconButton(
+                    icon: Icon(Icons.search),
+                    onPressed: () {
+                      search();
 //                      if (_companyNameController.text.length > 2) {
 //                        search();
 //                      } else {
 //                        BotToast.showText(
 //                            text: StringUtils.searchLetterCapText);
 //                      }
-                  },
+                    },
+                  ),
                 ),
               ),
-            ),
 //            SizedBox(height: 5,),
+
             companyViewModel.shouldShowCompanyCount
                 ? Container(
                     padding: EdgeInsets.symmetric(vertical: 5),
@@ -111,14 +146,16 @@ class _CompanyListScreenState extends State<CompanyListScreen>
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children:  [
-                              Text(companyViewModel.noOfSearchResults
-                                  .toString()),
+                      children: [
+                        Text(companyViewModel.noOfSearchResults.toString()),
 //                                  if(companyViewModel.shouldShowCompanyCount)
-                              companyViewModel.noOfSearchResults > 1
-                                  ? Text(' '+StringUtils.companyListMultipleCompaniesFoundText)
-                                  : Text(' '+StringUtils.companyListSingleCompanyFoundText)
-                            ],
+                        companyViewModel.noOfSearchResults > 1
+                            ? Text(' ' +
+                                StringUtils
+                                    .companyListMultipleCompaniesFoundText)
+                            : Text(' ' +
+                                StringUtils.companyListSingleCompanyFoundText)
+                      ],
                     ))
                 : SizedBox(),
 
@@ -129,6 +166,7 @@ class _CompanyListScreenState extends State<CompanyListScreen>
                   )
                 : Expanded(
                     child: ListView.builder(
+                      controller: _scrollController,
                         itemCount: companySuggestion.length,
                         itemBuilder: (BuildContext context, int index) {
                           return GestureDetector(
@@ -136,13 +174,13 @@ class _CompanyListScreenState extends State<CompanyListScreen>
                                 Navigator.push(
                                     context,
                                     CupertinoPageRoute(
-                                        builder: (context) =>
-                                            CompanyDetails(
-                                              company:
-                                                  companySuggestion[index],
+                                        builder: (context) => CompanyDetails(
+                                              company: companySuggestion[index],
                                             )));
                               },
-                              child: CompanyListTile(company: companySuggestion[index],));
+                              child: CompanyListTile(
+                                company: companySuggestion[index],
+                              ));
                         }),
                   )
           ],
