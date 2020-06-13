@@ -55,6 +55,7 @@ class StringUtils {
   static String youDoNotHaveAnyFavoriteJob = "You don't have any favorite job";
   static String youDoNotHaveAnyAppliedJob = "You don't have any applied job";
   static String youDoNotHaveAnyNotification = "You don't have any notification";
+  static String youDoNotHaveAnyMessage = "You don't have any message";
 
   ///Reset Password Screen
   static String changePasswordAppbarText = "Change Password";

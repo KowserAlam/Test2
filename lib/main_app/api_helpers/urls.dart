@@ -86,7 +86,7 @@ static String contactUsSubmitUrl = "/api/send_email_to_admin_contact_us/";
 static String notificationMarkReadUrl = "/api/notification/mark-read";//  id
 static String notificationListUrl = "/api/notification";
 static String notificationGetUrl = "/api/notification/get/"; //  id
-static String messageListUrl = "/api/employer-message/list/";
+static String messageListUrl = "/api/employer-message/";
 static String messageGetUrl = "/api/employer-message/get/"; //  id
 static String messageMarkedReadUrl = "/api/employer-message/mark-read/"; //  id
 

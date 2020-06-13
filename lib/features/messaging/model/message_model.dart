@@ -1,4 +1,25 @@
+class MessageScreenDataModel {
+  int count;
+  bool next;
+  bool previous;
+  List<MessageModel> messages;
 
+  MessageScreenDataModel({this.count, this.next, this.previous, this.messages});
+
+  MessageScreenDataModel.fromJson(Map<String, dynamic> json) {
+    count = json['count']??0;
+    next = json['next']??false;
+    previous = json['previous']??false;
+    if (json['results'] != null) {
+      messages = new List<MessageModel>();
+      json['results'].forEach((v) {
+        messages.add(new MessageModel.fromJson(v));
+      });
+    }
+  }
+
+
+}
  class MessageModel{
    int id;
    String createdBy;

@@ -6,7 +6,7 @@ import 'package:p7app/main_app/failure/app_error.dart';
 
 class MessageScreenViewModel with ChangeNotifier {
   AppError _appError;
-  List<MessageModel> _notifications = [];
+  List<MessageModel> _messages = [];
   bool _isFetchingData = false;
   bool _isGettingMoreData = false;
   bool _hasMoreData = false;
@@ -26,7 +26,7 @@ class MessageScreenViewModel with ChangeNotifier {
       notifyListeners();
     }, (r) {
       _isFetchingData = false;
-      _notifications = r.notifications ?? [];
+      _messages = r.messages ?? [];
       _hasMoreData = r.next;
       notifyListeners();
     });
@@ -45,31 +45,31 @@ class MessageScreenViewModel with ChangeNotifier {
       }, (r) {
         _isGettingMoreData = false;
         _hasMoreData = r.next;
-        _notifications.addAll(r.notifications);
+        _messages.addAll(r.messages);
         notifyListeners();
       });
     }
   }
 
   markAsRead(int index) {
-    if (!_notifications[index].isRead) {
-      notifications[index].isRead = true;
+    if (!_messages[index].isRead) {
+      messages[index].isRead = true;
       notifyListeners();
       MessageRepository()
-          .markAsRead(notifications[index].id)
+          .markAsRead(messages[index].id)
           .then((value) {
         if (!value) {
-          notifications[index].isRead = false;
+          messages[index].isRead = false;
           notifyListeners();
         }
       });
     }
   }
 
-  List<MessageModel> get notifications => _notifications;
+  List<MessageModel> get messages => _messages;
 
-  set notifications(List<MessageModel> value) {
-    _notifications = value;
+  set messages(List<MessageModel> value) {
+    _messages = value;
   }
 
   AppError get appError => _appError;
@@ -84,10 +84,10 @@ class MessageScreenViewModel with ChangeNotifier {
 
   bool get hasMoreData => _hasMoreData;
 
-  bool get shouldShowPageLoader => _isFetchingData && notifications.length == 0;
+  bool get shouldShowPageLoader => _isFetchingData && messages.length == 0;
 
-  bool get shouldShowAppError => _appError != null && notifications.length == 0;
+  bool get shouldShowAppError => _appError != null && messages.length == 0;
 
-  bool get shouldShowNoNotification =>
-      !_isFetchingData && _appError == null && notifications.length == 0;
+  bool get shouldShowNoMessage =>
+      !_isFetchingData && _appError == null && messages.length == 0;
 }

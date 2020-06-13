@@ -11,7 +11,7 @@ import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 
 class MessageRepository{
-  getMessageList() async {
+  Future<Either<AppError,MessageScreenDataModel>> getMessageList() async {
     try {
       var response = await ApiClient().getRequest(Urls.messageListUrl);
       print(response.statusCode);
@@ -19,7 +19,7 @@ class MessageRepository{
       if (response.statusCode == 200) {
         var mapData = json.decode(utf8.decode(response.bodyBytes));
 
-        var data = MessageModel.fromJson(mapData);
+        var data = MessageScreenDataModel.fromJson(mapData);
         return Right(data);
       } else if (response.statusCode == 401) {
         BotToast.showText(text: StringUtils.unauthorizedText);
