@@ -96,6 +96,11 @@ class CompanyListViewModel with ChangeNotifier {
     _query = "";
   }
 
+  Future<void> refresh() async{
+    _page = 0;
+    return getCompanyList();
+  }
+
   resetState() {
     companyList = null;
     _isFetchingData = false;
