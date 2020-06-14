@@ -397,7 +397,7 @@ class StringUtils {
   static var cropImageText  = "Crop Image";
   static var cancelText  = "Cancel";
   static var facebookTrlText  = "Facebook";
-  static var facebookBaseUrl  = "facebook.com/";
+  static var facebookBaseUrl  = "fb.com/";
   static var twitterUrlText  = "Twitter";
   static var twitterBaeUrl  = "twitter.com/";
   static var linkedUrlText  = "LinkedIn";

@@ -191,9 +191,9 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                   var username =
                       userProfileViewModel.userData.personalInfo.facebookId;
                   if (username.isNotEmptyOrNotNull) {
-                    UrlLauncherHelper.launchFacebookUrl(username);
-//                      UrlLauncherHelper.launchUrl(
-//                          "https://" + StringUtils.facebookBaseUrl + link);
+//                    UrlLauncherHelper.launchFacebookUrl(username);
+                      UrlLauncherHelper.launchUrl(
+                          "https://" + StringUtils.facebookBaseUrl + username);
                   }
                 },
                 child: Icon(

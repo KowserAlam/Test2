@@ -5,9 +5,9 @@ import 'package:url_launcher/url_launcher.dart';
 
 class UrlLauncherHelper {
 
-  static launchFacebookUrl(String facebookUserName)async{
-    var fbProtocolUrl = "fb://$facebookUserName";
-    var fallbackUrl = "https://${StringUtils.facebookBaseUrl}$facebookUserName";
+  static launchFacebookApp(String fbID)async{
+    var fbProtocolUrl = "fb://$fbID";
+    var fallbackUrl = "https://${StringUtils.facebookBaseUrl}$fbID";
     try {
       bool launched = await launch(fbProtocolUrl, forceSafariVC: false);
       if (!launched) {

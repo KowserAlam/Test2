@@ -354,7 +354,7 @@ class DrawerListWidget extends StatelessWidget {
                   ? Theme.of(context).primaryColor
                   : Theme.of(context).scaffoldBackgroundColor,
               width: 4,
-              height: AppBar().preferredSize.height/1.5,
+              height: AppBar().preferredSize.height/1.2,
             ),
             Expanded(
               child: Row(
