@@ -97,13 +97,13 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
       appBar: AppBar(
         title: Text(StringUtils.dashBoardText),
         actions: [
-          IconButton(
-            icon: Icon(FontAwesomeIcons.solidComment),
-            onPressed: () {
-              Navigator.of(context).push(CupertinoPageRoute(
-                  builder: (BuildContext context) => MessageScreen()));
-            },
-          )
+//          IconButton(
+//            icon: Icon(FontAwesomeIcons.solidComment),
+//            onPressed: () {
+//              Navigator.of(context).push(CupertinoPageRoute(
+//                  builder: (BuildContext context) => MessageScreen()));
+//            },
+//          )
         ],
       ),
       drawer: AppDrawer(

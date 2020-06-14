@@ -103,7 +103,7 @@ class _CompanyListScreenState extends State<CompanyListScreen>
           children: [
             if (companyViewModel.isInSearchMode)
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.symmetric(horizontal:8.0,vertical: 4),
                 child: CustomTextField(
                   focusNode: _searchFieldFocusNode,
                   controller: _searchTextEditingController,
@@ -142,14 +142,13 @@ class _CompanyListScreenState extends State<CompanyListScreen>
             companyViewModel.shouldShowCompanyCount
                 ? Container(
                     padding: EdgeInsets.symmetric(vertical: 5),
-                    margin: EdgeInsets.symmetric(vertical: 5),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(companyViewModel.noOfSearchResults.toString()),
+                        Text(companyViewModel.companiesCount.toString()),
 //                                  if(companyViewModel.shouldShowCompanyCount)
-                        companyViewModel.noOfSearchResults > 1
+                        companyViewModel.companiesCount > 1
                             ? Text(' ' +
                                 StringUtils
                                     .companyListMultipleCompaniesFoundText)
@@ -167,8 +166,11 @@ class _CompanyListScreenState extends State<CompanyListScreen>
                 : Expanded(
                     child: ListView.builder(
                       controller: _scrollController,
-                        itemCount: companySuggestion.length,
+                        itemCount: companySuggestion.length+1,
                         itemBuilder: (BuildContext context, int index) {
+                        if(index ==companySuggestion.length){
+                          return  companyViewModel.isFetchingMoreData?Loader():SizedBox();
+                        }
                           return GestureDetector(
                               onTap: () {
                                 Navigator.push(

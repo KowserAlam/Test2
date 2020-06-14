@@ -321,7 +321,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
               if(pattern.length>2)
               return CompanyListRepository()
                   .getList(query: pattern)
-                  .then((value) => value.fold((l) => [], (r) => r));
+                  .then((value) => value.fold((l) => [], (r) => r.companies));
               else
                 return[];
             },
