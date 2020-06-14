@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/foundation.dart';
 import 'package:p7app/features/auth/view/login_screen.dart';
 import 'package:p7app/features/dashboard/models/info_box_data_model.dart';
@@ -12,81 +10,82 @@ class DashboardViewModel with ChangeNotifier {
   AppError _infoBoxError;
   AppError _skillJobChartError;
   InfoBoxDataModel _infoBoxData;
-  List<SkillJobChartDataModel> _skillJobChartData =[];
+  List<SkillJobChartDataModel> _skillJobChartData = [];
   bool _isLoadingInfoBoxData = false;
   bool _isLoadingSkillJobChartData = false;
   bool _idExpandedSkillList = false;
   DateTime _lastFetchTime;
   double profileCompletePercent = 0;
 
-
-
-
-  Future <AppError> getDashboardData({bool isFormOnPageLoad = false}) async{
+  Future<AppError> getDashboardData({bool isFormOnPageLoad = false}) async {
     var time = CommonServiceRule.onLoadPageReloadTime;
-    if(isFormOnPageLoad)
-      if(_lastFetchTime != null){
-        bool shouldNotFetchData = _lastFetchTime.difference(DateTime.now()) < time && _infoBoxError != null;
-        if(shouldNotFetchData)
-          return null;
-      }
+    if (isFormOnPageLoad) if (_lastFetchTime != null) {
+      bool shouldNotFetchData =
+          _lastFetchTime.difference(DateTime.now()) < time &&
+              _infoBoxError != null;
+      if (shouldNotFetchData) return null;
+    }
 
     _lastFetchTime = DateTime.now();
     _isLoadingInfoBoxData = true;
-     _isLoadingSkillJobChartData = true;
+    _isLoadingSkillJobChartData = true;
     _infoBoxError = null;
     _skillJobChartError = null;
     notifyListeners();
-     return Future.wait([
-    _getInfoBoxData(),
-    _getISkillJobChartData(),
+    return Future.wait([
+      _getInfoBoxData(),
+      _getISkillJobChartData(),
       _getProfileCompleteness(),
     ]).then((value) => _infoBoxError);
-
   }
-  Future<bool> _getInfoBoxData() async {
 
+  Future<bool> _getInfoBoxData() async {
     var result = await DashBoardRepository().getInfoBoxData();
 
-   return result.fold((l) {
-      _infoBoxError =l;
+    return result.fold((l) {
+      _infoBoxError = l;
       _isLoadingInfoBoxData = false;
       notifyListeners();
       return false;
-    }, (r){
-      _infoBoxData =r;
+    }, (r) {
+      _infoBoxData = r;
       _isLoadingInfoBoxData = false;
       notifyListeners();
       return true;
     });
   }
-  Future<bool> _getISkillJobChartData() async {
 
+  Future<bool> _getISkillJobChartData() async {
     var result = await DashBoardRepository().getSkillJobChart();
 
     return result.fold((l) {
-      _skillJobChartError =l;
+      _skillJobChartError = l;
       _isLoadingSkillJobChartData = false;
       notifyListeners();
       return false;
-    }, (r){
-      _skillJobChartData =r;
+    }, (r) {
+      _skillJobChartData = r;
       _isLoadingSkillJobChartData = false;
       notifyListeners();
       return true;
     });
   }
-  Future<double> _getProfileCompleteness()async{
+
+  Future<double> _getProfileCompleteness() async {
     return DashBoardRepository().getProfileCompletenessPercent().then((value) {
       notifyListeners();
       return profileCompletePercent = value;
-
     });
   }
 
-  bool get shouldShowInfoBoxLoader => _isLoadingInfoBoxData && (_infoBoxData == null);
-  bool get shouldShowJoChartLoader => _isLoadingSkillJobChartData && (_skillJobChartData.length == 0);
+  bool get shouldShowInfoBoxLoader =>
+      _isLoadingInfoBoxData && (_infoBoxData == null);
+
+  bool get shouldShowJoChartLoader =>
+      _isLoadingSkillJobChartData && (_skillJobChartData.length == 0);
+
   AppError get infoBoxError => _infoBoxError;
+
   AppError get skillJobChartError => _skillJobChartError;
 
   InfoBoxDataModel get infoBoxData => _infoBoxData;
@@ -98,6 +97,7 @@ class DashboardViewModel with ChangeNotifier {
   bool get isLoadingSkillJobChartData => _isLoadingSkillJobChartData;
 
   bool get idExpandedSkillList => _idExpandedSkillList;
+
   bool get shouldShowError => _infoBoxError != null && infoBoxData == null;
 
   set idExpandedSkillList(bool value) {
