@@ -81,7 +81,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                               Divider(),
                               Text(
                                 user.personalInfo.phone ?? "",
-                                style: Theme.of(context).textTheme.title,
+                                style: Theme.of(context).textTheme.subtitle1,
                               ),
                               Divider(),
                               Text(user.personalInfo.address ?? ""),
@@ -188,12 +188,12 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                   borderRadius: BorderRadius.circular(20)),
               child: InkWell(
                 onTap: () {
-                  var link =
+                  var username =
                       userProfileViewModel.userData.personalInfo.facebookId;
-                  if (link != null) {
-                    if (link.isNotEmpty)
-                      UrlLauncherHelper.launchUrl(
-                          "https://" + StringUtils.facebookBaseUrl + link);
+                  if (username.isNotEmptyOrNotNull) {
+                    UrlLauncherHelper.launchFacebookUrl(username);
+//                      UrlLauncherHelper.launchUrl(
+//                          "https://" + StringUtils.facebookBaseUrl + link);
                   }
                 },
                 child: Icon(

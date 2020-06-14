@@ -345,30 +345,39 @@ class DrawerListWidget extends StatelessWidget {
       color: isSelected
           ? Theme.of(context).scaffoldBackgroundColor
           : Colors.transparent,
-      child: Row(
-        children: <Widget>[
-          Container(
-            color: isSelected
-                ? Theme.of(context).primaryColor
-                : Theme.of(context).scaffoldBackgroundColor,
-            width: 4,
-            height: AppBar().preferredSize.height,
-          ),
-          Expanded(
-            child: ListTile(
-              onTap: onTap,
-              leading: Icon(
-                icon,
-                color: iconColor,
-              ),
-              title: Text(
-                label,
-                style: TextStyle(
-                    fontSize: 17, fontWeight: FontWeight.bold, color: color),
+      child: InkWell(
+        onTap: onTap,
+        child: Row(
+          children: <Widget>[
+            Container(
+              color: isSelected
+                  ? Theme.of(context).primaryColor
+                  : Theme.of(context).scaffoldBackgroundColor,
+              width: 4,
+              height: AppBar().preferredSize.height/1.5,
+            ),
+            Expanded(
+              child: Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Icon(
+                      icon,
+                      color: iconColor,
+                      size: 17,
+                    ),
+                  ),
+                  Text(
+                    label,
+                    style: TextStyle(
+                        fontSize: 15, fontWeight: FontWeight.w600, color: color),
+                  ),
+                ],
+
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
