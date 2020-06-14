@@ -17,29 +17,36 @@ class CompanyListViewModel with ChangeNotifier {
   bool isInSearchMode = false;
   bool _hasMoreData;
   int _page = 1;
+  AppError _appError;
+
+  AppError get appError => _appError;
 
   set query(String value) {
     _query = value;
     notifyListeners();
   }
 
+  bool get shouldShowAppError => companyList.length == 0 && _appError != null;
+
   bool get shouldShowCompanyCount =>
       _query.isNotEmptyOrNotNull && isInSearchMode && !_isFetchingData;
 
-  bool get shouldShowLoader => _isFetchingData && companyList.length ==0;
+  bool get shouldShowLoader => _isFetchingData && companyList.length == 0;
 
   Future<bool> getCompanyList() async {
     if (_query.isNotEmptyOrNotNull) {
       companyList = [];
     }
+    _appError = null;
     _isFetchingData = true;
     notifyListeners();
-    var limit = _query.isNotEmptyOrNotNull ? (_query.length > 2 ? 100 : 8) : 8;
     Either<AppError, CompanyScreenDataModel> result =
-        await _companyListRepository.getList(query: _query, pageSize: limit);
+        await _companyListRepository.getList(query: _query);
     return result.fold((l) {
       _isFetchingData = false;
       print(l);
+      _appError = l;
+      notifyListeners();
       return false;
     }, (CompanyScreenDataModel dataModel) {
       var list = dataModel.companies;
@@ -55,16 +62,18 @@ class CompanyListViewModel with ChangeNotifier {
 
   getMoreData() async {
     if (_hasMoreData && !_isFetchingMoreData && !_isFetchingData) {
+      _appError = null;
+      debugPrint("Getting more data");
       _page++;
       _isFetchingMoreData = true;
       notifyListeners();
-      var limit =
-          _query.isNotEmptyOrNotNull ? (_query.length > 2 ? 100 : 8) : 8;
+
       Either<AppError, CompanyScreenDataModel> result =
-          await _companyListRepository.getList(
-              query: _query, pageSize: limit, page: _page);
+          await _companyListRepository.getList(query: _query, page: _page);
       return result.fold((l) {
         _isFetchingMoreData = false;
+        _appError = l;
+        notifyListeners();
         print(l);
         return false;
       }, (CompanyScreenDataModel dataModel) {
@@ -96,7 +105,7 @@ class CompanyListViewModel with ChangeNotifier {
     _query = "";
   }
 
-  Future<void> refresh() async{
+  Future<void> refresh() async {
     _page = 0;
     return getCompanyList();
   }

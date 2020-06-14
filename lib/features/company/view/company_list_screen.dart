@@ -9,7 +9,9 @@ import 'package:p7app/features/company/models/company.dart';
 import 'package:p7app/features/company/view/company_list_tile.dart';
 import 'package:p7app/features/company/view_model/company_list_view_model.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
+import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/util/date_format_uitl.dart';
+import 'package:p7app/main_app/widgets/failure_widget.dart';
 import 'package:p7app/main_app/widgets/loader.dart';
 import 'company_details.dart';
 import 'package:p7app/main_app/resource/const.dart';
@@ -43,6 +45,35 @@ class _CompanyListScreenState extends State<CompanyListScreen>
         companyViewModel.getMoreData();
       }
     });
+  }
+
+  errorWidget() {
+    var vm = Provider.of<CompanyListViewModel>(context, listen: false);
+    switch (vm.appError) {
+      case AppError.serverError:
+        return FailureFullScreenWidget(
+          errorMessage: StringUtils.unableToLoadData,
+          onTap: () {
+            return vm.refresh();
+          },
+        );
+
+      case AppError.networkError:
+        return FailureFullScreenWidget(
+          errorMessage: StringUtils.unableToReachServerMessage,
+          onTap: () {
+            return vm.refresh();
+          },
+        );
+
+      default:
+        return FailureFullScreenWidget(
+          errorMessage: StringUtils.somethingIsWrong,
+          onTap: () {
+            return vm.refresh();
+          },
+        );
+    }
   }
 
   @override
@@ -105,7 +136,8 @@ class _CompanyListScreenState extends State<CompanyListScreen>
             children: [
               if (companyViewModel.isInSearchMode)
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal:8.0,vertical: 4),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4),
                   child: CustomTextField(
                     focusNode: _searchFieldFocusNode,
                     controller: _searchTextEditingController,
@@ -165,27 +197,37 @@ class _CompanyListScreenState extends State<CompanyListScreen>
                       padding: const EdgeInsets.only(top: 15),
                       child: Loader(),
                     )
-                  : Expanded(
-                      child: ListView.builder(
-                        controller: _scrollController,
-                          itemCount: companySuggestion.length+1,
-                          itemBuilder: (BuildContext context, int index) {
-                          if(index ==companySuggestion.length){
-                            return  companyViewModel.isFetchingMoreData?Loader():SizedBox();
-                          }
-                            return GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      CupertinoPageRoute(
-                                          builder: (context) => CompanyDetails(
-                                                company: companySuggestion[index],
-                                              )));
-                                },
-                                child: CompanyListTile(
-                                  company: companySuggestion[index],
-                                ));
-                          }),
+                  : Container(
+                      child: companyViewModel.shouldShowAppError
+                          ? errorWidget()
+                          : Expanded(
+                              child: ListView.builder(
+                                  controller: _scrollController,
+                                  itemCount: companySuggestion.length + 1,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    if (index == companySuggestion.length) {
+                                      return companyViewModel.isFetchingMoreData
+                                          ? Loader()
+                                          : SizedBox();
+                                    }
+                                    return GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              CupertinoPageRoute(
+                                                  builder: (context) =>
+                                                      CompanyDetails(
+                                                        company:
+                                                            companySuggestion[
+                                                                index],
+                                                      )));
+                                        },
+                                        child: CompanyListTile(
+                                          company: companySuggestion[index],
+                                        ));
+                                  }),
+                            ),
                     )
             ],
           ),
