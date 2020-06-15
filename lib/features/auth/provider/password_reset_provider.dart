@@ -127,8 +127,10 @@ class PasswordResetViewModel with ChangeNotifier {
           return false;
         }
       } catch (e) {
-        isBusyEmail = false;
+        _isBusyEmail = false;
+        _emailErrorText = StringUtils.somethingIsWrong;
         print(e);
+        notifyListeners();
 
 //      BotToast.showText(text: null);
         return false;
@@ -140,22 +142,3 @@ class PasswordResetViewModel with ChangeNotifier {
   bool get shodAllowProceedButton => _emailErrorText == null && _email.isNotEmptyOrNotNull;
 }
 
-/// performing user input validations
-final performEmailValidation = StreamTransformer<String, String>.fromHandlers(
-    handleData: (email, sink) async {
-  String result = Validator().validateEmail(email);
-  if (result == null) {
-    sink.add(email);
-  } else {
-    sink.addError(result);
-  }
-});
-final performPhoneValidation = StreamTransformer<String, String>.fromHandlers(
-    handleData: (value, sink) async {
-  String result = Validator().validatePhoneNumber(value);
-  if (result == null) {
-    sink.add(value);
-  } else {
-    sink.addError(result);
-  }
-});
