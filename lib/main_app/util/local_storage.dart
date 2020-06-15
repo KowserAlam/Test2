@@ -22,10 +22,23 @@ class LocalStorageService {
     return  _preferences.getString("${_flavorName}_${key}");
   }
 
+
+  bool getBool(String key){
+    return  _preferences.getBool("${_flavorName}_${key}");
+  }
+  Future<bool> saveBool(String key, bool value){
+    return _preferences.setBool("${_flavorName}_${key}", value);
+
+  }
+
+
+
   Future<bool> saveString(String key, String value){
     return _preferences.setString("${_flavorName}_${key}", value);
 
   }
+
+
 
   Future<bool> remove(String key){
     return _preferences.remove("${_flavorName}_${key}");

@@ -7,6 +7,7 @@ import 'package:p7app/features/onboarding_page/slide.dart';
 import 'package:p7app/features/onboarding_page/slide_dots.dart';
 import 'package:p7app/features/onboarding_page/slide_item.dart';
 import 'package:p7app/main_app/home.dart';
+import 'package:p7app/main_app/util/local_storage.dart';
 
 
 class OnboardingPage extends StatefulWidget {
@@ -113,9 +114,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
                 alignment: Alignment.bottomCenter,
                 child: GestureDetector(
                   onTap: () {
-                    Navigator.pop(context);
-                    Navigator.of(context).push(CupertinoPageRoute(
-                        builder: (context) => Home()));
+                    _setIntoDone();
+                    Navigator.of(context).pushAndRemoveUntil(CupertinoPageRoute(
+                        builder: (context) => Home()),(_)=>false);
                   },
                   child: Container(
                     height: 40,
@@ -137,9 +138,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
                   padding: const EdgeInsets.only(bottom: 12),
                   child: GestureDetector(
                       onTap: () {
-                        Navigator.pop(context);
-                        Navigator.of(context).push(CupertinoPageRoute(
-                            builder: (context) => Home()));
+                        _setIntoDone();
+                        Navigator.of(context).pushAndRemoveUntil(CupertinoPageRoute(
+                            builder: (context) => Home()),(_)=>false);
                       },
                       child: Text('Skip', style: TextStyle(color: Colors.blue,fontSize: 16),)),
                 ),
@@ -150,4 +151,10 @@ class _OnboardingPageState extends State<OnboardingPage> {
       ),
     );
   }
+
+  _setIntoDone()async{
+    var _storage = await LocalStorageService.getInstance();
+    var val = _storage.saveBool("showIntro",false);
+  }
+
 }
