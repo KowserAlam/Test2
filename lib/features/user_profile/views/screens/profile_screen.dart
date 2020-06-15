@@ -32,7 +32,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:provider/provider.dart';
-
+import 'package:p7app/main_app/util/method_extension.dart';
 import 'edit_certifications_screen.dart';
 import 'edit_memberships_screen.dart';
 
@@ -53,7 +53,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
   @override
   void afterFirstLayout(BuildContext context) {
     Provider.of<UserProfileViewModel>(context, listen: false)
-        .fetchUserData(isFormOnPageLoad: true);
+        .getUserData(isFormOnPageLoad: true);
   }
 
   Widget userContactInfo(context) => InkWell(
@@ -81,7 +81,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                               Divider(),
                               Text(
                                 user.personalInfo.phone ?? "",
-                                style: Theme.of(context).textTheme.title,
+                                style: Theme.of(context).textTheme.subtitle1,
                               ),
                               Divider(),
                               Text(user.personalInfo.address ?? ""),
@@ -154,7 +154,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
           borderRadius: BorderRadius.circular(100),
           child: CachedNetworkImage(
             fit: BoxFit.cover,
-            imageUrl: userProfileViewModel.userData.personalInfo.image,
+            imageUrl: userProfileViewModel.userData.personalInfo.profileImage,
             placeholder: (context, _) => Image.asset(
               kDefaultUserImageAsset,
               fit: BoxFit.cover,
@@ -188,12 +188,12 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                   borderRadius: BorderRadius.circular(20)),
               child: InkWell(
                 onTap: () {
-                  var link =
+                  var username =
                       userProfileViewModel.userData.personalInfo.facebookId;
-                  if (link != null) {
-                    if (link.isNotEmpty)
+                  if (username.isNotEmptyOrNotNull) {
+//                    UrlLauncherHelper.launchFacebookUrl(username);
                       UrlLauncherHelper.launchUrl(
-                          "https://" + StringUtils.facebookBaseUrl + link);
+                          "https://" + StringUtils.facebookBaseUrl + username);
                   }
                 },
                 child: Icon(
@@ -686,7 +686,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
       body: RefreshIndicator(
         onRefresh: () async {
           return Provider.of<UserProfileViewModel>(context, listen: false)
-              .fetchUserData();
+              .getUserData();
         },
         child: SingleChildScrollView(
           physics: AlwaysScrollableScrollPhysics(),
@@ -700,17 +700,17 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                     onTap: () {
                       return Provider.of<UserProfileViewModel>(context,
                               listen: false)
-                          .fetchUserData();
+                          .getUserData();
                     },
                   );
 
                 case AppError.networkError:
                   return FailureFullScreenWidget(
-                    errorMessage: StringUtils.checkInternetConnectionMessage,
+                    errorMessage: StringUtils.unableToReachServerMessage,
                     onTap: () {
                       return Provider.of<UserProfileViewModel>(context,
                               listen: false)
-                          .fetchUserData();
+                          .getUserData();
                     },
                   );
 
@@ -720,7 +720,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                     onTap: () {
                       return Provider.of<UserProfileViewModel>(context,
                               listen: false)
-                          .fetchUserData();
+                          .getUserData();
                     },
                   );
               }
@@ -774,7 +774,10 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                       SizedBox(height: 5),
                       designationWidget,
                       SizedBox(height: 8),
-                      aboutMeWidget,
+                      if (userProfileViewModel?.userData?.personalInfo?.aboutMe
+                              ?.isNotEmptyOrNotNull ??
+                          false)
+                        aboutMeWidget,
                     ],
                   ),
                 ),

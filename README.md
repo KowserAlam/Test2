@@ -1,8 +1,13 @@
-#Project Seven
+# skillExpress
 
-A new Flutter application.
+A new Flutter for jobexpress.com.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+
+```sh
+$ flutter pub get
+$ flutter run --flavor dev -t main.dart
+$ flutter run --flavor prod -t main_prod.dart
+```
 

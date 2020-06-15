@@ -118,21 +118,16 @@ class JobListViewModel with ChangeNotifier {
 
   Future<bool> getJobList({bool isFormOnPageLoad = false}) async {
 
-    var time = CommonServiceRule.onLoadPageReloadTime;
-   if(isFormOnPageLoad)
-      if(_lastFetchTime != null){
-        bool shouldNotFetchData = _lastFetchTime.difference(DateTime.now()) < time && _appError != null;
-        if(shouldNotFetchData)
-          return false;
-      }
-
-    _lastFetchTime = DateTime.now();
-    _isFetchingData = true;
     _totalJobCount = 0;
     _appError = null;
+
+    if (isFormOnPageLoad) {
+      bool shouldNotFetchData = CommonServiceRule.instance.shouldNotFetchData(_lastFetchTime, _appError);
+      if (shouldNotFetchData) return null;
+    }
+
+    _isFetchingData = true;
     notifyListeners();
-
-
 
     Either<AppError, JobListScreenDataModel> result =
         await _jobListRepository.fetchJobList(_jobListFilters);
@@ -145,6 +140,7 @@ class JobListViewModel with ChangeNotifier {
       print(l);
       return false;
     }, (JobListScreenDataModel dataModel) {
+      _lastFetchTime = DateTime.now();
       var list = dataModel.jobList;
       isFetchingData = false;
       _jobList = list;
@@ -359,8 +355,11 @@ class JobListViewModel with ChangeNotifier {
   }
 
   bool get shouldShowPageLoader =>
-      _jobList.length == 0 && _isFetchingData && !isFilterApplied && ! hasSearchQuery;
+      _jobList.length == 0 &&
+      _isFetchingData &&
+      !isFilterApplied &&
+      !hasSearchQuery;
 
   bool get shouldSearchNFilterLoader =>
-        _isFetchingData &&(hasSearchQuery || isFilterApplied);
+      _isFetchingData && (hasSearchQuery || isFilterApplied);
 }

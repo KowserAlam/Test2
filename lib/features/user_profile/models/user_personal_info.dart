@@ -11,7 +11,7 @@ class UserPersonalInfo {
   String phone;
   String address;
   String aboutMe;
-  String image;
+  String profileImage;
   String password;
   String fatherName;
   String motherName;
@@ -45,7 +45,7 @@ class UserPersonalInfo {
     this.phone,
     this.address,
     this.aboutMe,
-    this.image,
+    this.profileImage,
     this.password,
     this.fatherName,
     this.motherName,
@@ -82,7 +82,7 @@ class UserPersonalInfo {
     phone = json['phone'];
     address = json['address'];
     aboutMe = json['about_me'];
-    image = imageUlr;
+    profileImage = imageUlr;
     password = json['password'];
     fatherName = json['father_name'];
     motherName = json['mother_name'];
@@ -126,7 +126,7 @@ class UserPersonalInfo {
     data['phone'] = this.phone;
     data['address'] = this.address;
     data['about_me'] = this.aboutMe;
-    data['image'] = this.image;
+    data['image'] = this.profileImage;
     data['password'] = this.password;
     data['father_name'] = this.fatherName;
     data['mother_name'] = this.motherName;

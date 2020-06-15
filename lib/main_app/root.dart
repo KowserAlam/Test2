@@ -1,18 +1,21 @@
-import 'dart:convert';
-import 'package:bot_toast/bot_toast.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/services.dart';
 import 'package:logger/logger.dart';
 import 'package:p7app/features/job/view/job_list_screen.dart';
+import 'package:p7app/features/onboarding_page/onboarding_page.dart';
+import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/auth_service/auth_user_model.dart';
 import 'package:p7app/features/auth/view/login_screen.dart';
 import 'package:p7app/main_app/home.dart';
+import 'package:p7app/main_app/push_notification_service/push_notification_service.dart';
 import 'package:p7app/main_app/resource/const.dart';
+import 'package:p7app/main_app/service_locator/locator.dart';
+import 'package:p7app/main_app/util/local_storage.dart';
 import 'package:p7app/main_app/widgets/app_version_widget_small.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:p7app/main_app/widgets/loader.dart';
+import 'package:provider/provider.dart';
 
 class Root extends StatefulWidget {
   final bool isFromLogin;
@@ -36,11 +39,22 @@ class _RootState extends State<Root> {
 
     getAuthStatus().then((AuthUserModel user) {
       if (user != null) {
-        Future.delayed(Duration(seconds: widget.isFromLogin ? 0 : 2)).then((_) {
-          Navigator.pushAndRemoveUntil(
-              context,
-              CupertinoPageRoute(builder: (context) => Home()),
-              (Route<dynamic> route) => false);
+        _setupPushNotification();
+        _initUserdata();
+
+        Future.delayed(Duration(seconds: widget.isFromLogin ? 0 : 2))
+            .then((_) async {
+          if (await shouldShowOnBoardingScreens()) {
+            Navigator.pushAndRemoveUntil(
+                context,
+                CupertinoPageRoute(builder: (context) => OnboardingPage()),
+                (Route<dynamic> route) => false);
+          } else {
+            Navigator.pushAndRemoveUntil(
+                context,
+                CupertinoPageRoute(builder: (context) => Home()),
+                (Route<dynamic> route) => false);
+          }
         });
       } else {
         Future.delayed(Duration(seconds: 1)).then((_) {
@@ -51,42 +65,22 @@ class _RootState extends State<Root> {
         });
       }
     });
-    initFireBseFCM();
   }
 
-  initFireBseFCM() {
-    final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+  _setupPushNotification() {
+    var pushNotificationService = locator<PushNotificationService>();
+  }
 
-    _firebaseMessaging.requestNotificationPermissions();
-    _firebaseMessaging.onIosSettingsRegistered.listen((d) {
-      print(d);
-    });
+  _initUserdata() {
+    Provider.of<UserProfileViewModel>(context, listen: false).getUserData();
+  }
 
-    _firebaseMessaging.configure(
-      onMessage: (Map<String, dynamic> message) async {
-        print("onMessage: $message");
+  Future<bool> shouldShowOnBoardingScreens() async {
+    var _storage = await LocalStorageService.getInstance();
+    var val = _storage.getBool("showIntro");
+    if (val == null) return true;
 
-        BotToast.showSimpleNotification(
-          title: message['notification']['title'],
-          subTitle: message['notification']['body'],
-          duration: Duration(seconds: 2),
-        );
-
-//        if (_currentActiveChat != message["data"]["chatId"]) {}
-
-        return;
-      },
-      onLaunch: (Map<String, dynamic> message) async {
-        print("onResume: $message");
-
-        return;
-      },
-      onResume: (Map<String, dynamic> message) async {
-        print("onResume: $message");
-
-        return;
-      },
-    );
+    return val;
   }
 
   Future<AuthUserModel> getAuthStatus() async {
@@ -95,6 +89,8 @@ class _RootState extends State<Root> {
 
     if (user != null) {
       Logger().i(user.toJson());
+    } else {
+      debugPrint("User: $user");
     }
     return user;
   }
@@ -151,10 +147,10 @@ class _RootState extends State<Root> {
         ),
       ],
     );
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        body: AnnotatedRegion<SystemUiOverlayStyle>(
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: AnnotatedRegion<SystemUiOverlayStyle>(
           value: SystemUiOverlayStyle.light
               .copyWith(statusBarColor: Theme.of(context).primaryColor),
           child: widget.isFromLogin

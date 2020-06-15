@@ -160,58 +160,59 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
       ],
     );
 
-    return GestureDetector(
-      onTap: widget.onTap,
-      child: Container(
-        decoration: BoxDecoration(color: scaffoldBackgroundColor,
+    return Container(
+      decoration: BoxDecoration(color: scaffoldBackgroundColor,
 //        borderRadius: BorderRadius.circular(5),
-            boxShadow: [
-              BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 10),
-              BoxShadow(color: Colors.black.withOpacity(0.2), blurRadius: 10),
-            ]),
-        margin: EdgeInsets.fromLTRB(0, 4, 0, 4),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Container(
-              color: backgroundColor,
-              padding: EdgeInsets.all(8),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  companyLogo,
-                  SizedBox(width: 8),
-                  Expanded(
-                      child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      jobTitle,
-                      SizedBox(height: 3),
-                      companyName,
-                      SizedBox(height: 3),
-                      if (widget.jobModel.jobCity != null) companyLocation,
-                    ],
-                  )),
-                  SizedBox(width: 8),
-                  heartButton,
-                ],
+          boxShadow: [
+            BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 10),
+            BoxShadow(color: Colors.black.withOpacity(0.2), blurRadius: 10),
+          ]),
+      margin: EdgeInsets.fromLTRB(0, 4, 0, 4),
+      child: Material(
+        color: backgroundColor,
+        child: InkWell(
+          onTap: widget.onTap,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.all(8),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    companyLogo,
+                    SizedBox(width: 8),
+                    Expanded(
+                        child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        jobTitle,
+                        SizedBox(height: 3),
+                        companyName,
+                        SizedBox(height: 3),
+                        if (widget.jobModel.jobCity != null) companyLocation,
+                      ],
+                    )),
+                    SizedBox(width: 8),
+                    heartButton,
+                  ],
+                ),
               ),
-            ),
-            //Job Title
-            SizedBox(height: 1),
-            Container(
-              padding: EdgeInsets.all(8),
-              color: backgroundColor,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  publishDate,
-                  applicationDeadlineWidget,
-                  applyButton,
-                ],
+              //Job Title
+              Divider(height: 1),
+              Padding(
+                padding: EdgeInsets.all(8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    publishDate,
+                    applicationDeadlineWidget,
+                    applyButton,
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

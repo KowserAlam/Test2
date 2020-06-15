@@ -16,7 +16,7 @@ class Urls {
   /// Those url should not contain base url
   /// base url will added by [ApiClient] before sending request
 
-  static String loginUrl = "/api/sign_in/";
+  static String loginUrl = "/api/pro/signin/";
   static String signUpUrl = "/api/professional/create_with_user/";
   static String passwordResetUrl = "/api/professional/password_reset/";
   static String dashboardUrl = "/api/app-dashboard";
@@ -69,19 +69,26 @@ class Urls {
   static String appliedJobListUrl = "/api/job/applied/";
   static String favouriteJobListUrl = "/api/job/favourite/";
   static String companySearchUrl = "/api/company/search";
+  static String similarJobs = "/api/job/similar"; // /job id/
 
   /// dashboardUrl
-
-static String dashboardInfoBoxUrl = "/api/professional/info_box/";
+static String dashboardInfoBoxUrl = "/api/pro/dashboard/infobox/";
 static String dashboardSkillJobChartUrl = "/api/pro/dashboard/skill/";
 static String profileCompleteness = "/api/pro/profile-completeness/";
 
-static String settingsUrl = "/api/settings/";
-static String careerAdviceUrl = "/api/career_advise";
 
+static String careerAdviceUrl = "/api/career_advise";
 //contact us
+static String settingsUrl = "/api/settings/";
 static String contactUsSubmitUrl = "/api/send_email_to_admin_contact_us/";
 
+
+static String notificationMarkReadUrl = "/api/notification/mark-read";//  id
+static String notificationListUrl = "/api/notification";
+static String notificationGetUrl = "/api/notification/get/"; //  id
+static String messageListUrl = "/api/employer-message/";
+static String messageGetUrl = "/api/employer-message/get/"; //  id
+static String messageMarkedReadUrl = "/api/employer-message/mark-read/"; //  id
 
 
 // webUrl

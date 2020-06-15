@@ -17,7 +17,7 @@ class StringUtils {
   static String logInButtonText = "LOG IN";
   static String loginSuccessMessage = "Login Successful";
   static String loginUnsuccessfulMessage = "Login unsuccessful";
-  static String checkInternetConnectionMessage = "Check Internet Connection";
+  static String unableToReachServerMessage = "Unable To Reach Server";
   static String forgotPassword = "Forgot Password ?";
   static String welcomeBack = "Welcome back!";
   static String loginToYourExistingAccount = "Login to your existing account";
@@ -54,6 +54,8 @@ class StringUtils {
   static String doYouWantToSubmitText = "Do you want to submit?";
   static String youDoNotHaveAnyFavoriteJob = "You don't have any favorite job";
   static String youDoNotHaveAnyAppliedJob = "You don't have any applied job";
+  static String youDoNotHaveAnyNotification = "You don't have any notification";
+  static String youDoNotHaveAnyMessage = "You don't have any message";
 
   ///Reset Password Screen
   static String changePasswordAppbarText = "Change Password";
@@ -65,6 +67,7 @@ class StringUtils {
   static String noText = "No";
   static String candidateListText = "Candidate List";
   static String candidateNameText = "Candidate Name";
+  static String closeText = "Close";
 
   static String examNameText = "Exam";
   static String noExamText = "No Exam";
@@ -394,7 +397,7 @@ class StringUtils {
   static var cropImageText  = "Crop Image";
   static var cancelText  = "Cancel";
   static var facebookTrlText  = "Facebook";
-  static var facebookBaseUrl  = "facebook.com/";
+  static var facebookBaseUrl  = "fb.com/";
   static var twitterUrlText  = "Twitter";
   static var twitterBaeUrl  = "twitter.com/";
   static var linkedUrlText  = "LinkedIn";
@@ -432,6 +435,9 @@ class StringUtils {
     return paths[paths.length - 1];
   }
 
+  //NotificationScreen
+  static const String notificationsText = "Notifications";
+  static const String messagesText = "Messages";
 
   ///
 /// Jobs
@@ -498,6 +504,7 @@ static const String applicationDeadline = 'Deadline: ';
 static const String requiredSkills = 'Skill Requirement';
 static const String benefitSectionTitle = 'Benefits';
 static const String jobSource = 'Job Source';
+static const String jobsOnMapText = 'Job On Map';
 static const String doYouWantToApplyText = 'Do you want to apply for this job?';
 static const String jobsFoundText = 'jobs found';
 static const String sortBy = 'Sort By';
@@ -519,4 +526,7 @@ static const String jobSiteText  = "Job Site";
   static const String jobAdditionalRequirementsText  = "Additional Requirements";
   static const String typeAtLeast3Letter  = "Type at least 3 letter";
   static const String notFoundText  = "Not Found";
+  static const String writeYourMessageText  = "Write your message";
+  static const String monthlyJobsText  = "Monthly Jobs";
+  static const String similarJobsText  = "Similar Jobs";
 }

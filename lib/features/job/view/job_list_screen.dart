@@ -11,12 +11,14 @@ import 'package:p7app/features/job/view/widgets/job_list_tile_widget.dart';
 import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/root.dart';
 import 'package:p7app/main_app/widgets/app_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:p7app/main_app/widgets/common_prompt_dialog.dart';
 import 'package:p7app/main_app/widgets/custom_text_field.dart';
 import 'package:p7app/main_app/widgets/failure_widget.dart';
 import 'package:p7app/main_app/widgets/loader.dart';
+import 'package:p7app/main_app/widgets/restart_widget.dart';
 import 'package:provider/provider.dart';
 
 class JobListScreen extends StatefulWidget {
@@ -81,9 +83,9 @@ class _JobListScreenState extends State<JobListScreen>
   }
 
   _signOut(context) {
-    Navigator.of(context).push(
-        MaterialPageRoute(builder: (BuildContext context) => LoginScreen()));
-    AuthService.getInstance().then((value) => value.removeUser());
+    AuthService.getInstance().then((value) => value.removeUser()).then((value){
+      RestartWidget.restartApp(context);
+    });
   }
 
   @override
@@ -108,7 +110,7 @@ class _JobListScreenState extends State<JobListScreen>
 
       case AppError.networkError:
         return FailureFullScreenWidget(
-          errorMessage: StringUtils.checkInternetConnectionMessage,
+          errorMessage: StringUtils.unableToReachServerMessage,
           onTap: () {
             return Provider.of<JobListViewModel>(context, listen: false)
                 .refresh();
@@ -219,6 +221,7 @@ class _JobListScreenState extends State<JobListScreen>
               job,
               onTap: () {
                 Navigator.of(context).push(
+
                     MaterialPageRoute(
                         builder: (context) =>
                             JobDetails(

@@ -7,20 +7,25 @@ import 'package:p7app/features/job/view_model/applied_job_list_view_model.dart';
 import 'package:p7app/features/job/view_model/favourite_job_list_view_model.dart';
 import 'package:p7app/features/job/view_model/job_list_filter_widget_view_model.dart';
 import 'package:p7app/features/job/view_model/job_list_view_model.dart';
+import 'package:p7app/features/jobs_on_map/jobs_on_map_screen.dart';
+import 'package:p7app/features/onboarding_page/onboarding_page.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/features/user_profile/views/screens/profile_screen.dart';
 import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/auth_service/auth_user_model.dart';
+import 'package:p7app/main_app/p7_app.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:p7app/main_app/root.dart';
 import 'package:p7app/main_app/views/about_us_screen.dart';
 import 'package:p7app/features/career_advice/view/career_advice_screen.dart';
 import 'package:p7app/main_app/views/contact_us_screen.dart';
 import 'package:p7app/main_app/views/faq_screen.dart';
 import 'package:p7app/main_app/widgets/app_version_widget_small.dart';
+import 'package:p7app/main_app/widgets/restart_widget.dart';
 import 'package:provider/provider.dart';
 
 class AppDrawer extends StatefulWidget {
@@ -37,6 +42,17 @@ class _AppDrawerState extends State<AppDrawer> {
   var navBarTextColor = Colors.white;
 
   @override
+  void initState() {
+    Future.delayed(Duration.zero).then((value) {
+      var upvm = Provider.of<UserProfileViewModel>(context,listen: false);
+      var user = upvm?.userData?.personalInfo;
+      if (user == null) {
+        upvm.getUserData();
+      }
+    });
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
     var headerBackgroundColor = Color(0xff08233A);
     return Drawer(
@@ -45,100 +61,101 @@ class _AppDrawerState extends State<AppDrawer> {
         children: <Widget>[
           Container(
             padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-            decoration: BoxDecoration(image: DecorationImage(  image: AssetImage(kUserProfileCoverImageAsset),
-                fit: BoxFit.cover)),
-            child: FutureBuilder<AuthUserModel>(
-                future:
-                    AuthService.getInstance().then((value) => value.getUser()),
-                builder: (context, snapshot) {
+            decoration: BoxDecoration(
+              color: headerBackgroundColor,
+              image: DecorationImage(
+                  image: AssetImage(kUserProfileCoverImageAsset),
+                  fit: BoxFit.cover),
+            ),
+            child: Consumer<UserProfileViewModel>(builder: (context, upvm, _) {
 //              var baseUrl = FlavorConfig.instance.values.baseUrl;
-                  var user = snapshot.data;
-                  var imageUrl =
-                      user?.professionalImage ?? kDefaultUserImageNetwork;
-                  return Container(
-                    height: 160,
+              var user = upvm?.userData?.personalInfo;
+
+              var imageUrl = user?.profileImage ?? kDefaultUserImageNetwork;
+              return Container(
+                height: 160,
 //                  decoration: BoxDecoration(
 //                    color: headerBackgroundColor,
 //                    image: DecorationImage(
 //                        image: AssetImage(kUserProfileCoverImageAsset),
 //                        fit: BoxFit.cover),
 //                  ),
-                    child: Column(
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            IconButton(
-                              icon: Icon(
-                                Icons.settings,
-                              ),
-                              color: navBarTextColor,
-                              onPressed: () {
-                                Navigator.pop(context);
-                                Navigator.push(
-                                    context,
-                                    CupertinoPageRoute(
-                                        builder: (context) => ConfigScreen()));
-                              },
-                            ),
-                            Container(
-                              child: IconButton(
-                                icon: Icon(Icons.menu),
-                                color: navBarTextColor,
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                              ),
-                            ),
-                          ],
+                        IconButton(
+                          icon: Icon(
+                            Icons.settings,
+                          ),
+                          color: navBarTextColor,
+                          onPressed: () {
+                            Navigator.pop(context);
+                            Navigator.push(
+                                context,
+                                CupertinoPageRoute(
+                                    builder: (context) => ConfigScreen()));
+                          },
                         ),
-                        //profile image
                         Container(
-                          padding: const EdgeInsets.all(4.0),
-                          height: 65,
-                          width: 65,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
+                          child: IconButton(
+                            icon: Icon(Icons.menu),
+                            color: navBarTextColor,
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
                           ),
-                          child: ClipRRect(
-                            child: CachedNetworkImage(
-                              imageUrl: imageUrl,
-                              fit: BoxFit.cover,
-                              placeholder: (context, _) => Image.asset(
-                                kDefaultUserImageAsset,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                            borderRadius: BorderRadius.circular(100),
-                          ),
-                        ),
-                        Text(
-                          user?.fullName ?? "",
-                          style: TextStyle(color: navBarTextColor, fontSize: 18),
-                        ),
-                        Text(
-                          user?.email ?? "",
-                          style: TextStyle(color: navBarTextColor),
                         ),
                       ],
                     ),
-                  );
-                }),
+                    //profile image
+                    Container(
+                      padding: const EdgeInsets.all(4.0),
+                      height: 65,
+                      width: 65,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(100),
+                      ),
+                      child: ClipRRect(
+                        child: CachedNetworkImage(
+                          imageUrl: imageUrl,
+                          fit: BoxFit.cover,
+                          placeholder: (context, _) => Image.asset(
+                            kDefaultUserImageAsset,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        borderRadius: BorderRadius.circular(100),
+                      ),
+                    ),
+                    Text(
+                      user?.fullName ?? "",
+                      style: TextStyle(color: navBarTextColor, fontSize: 18),
+                    ),
+                    Text(
+                      user?.email ?? "",
+                      style: TextStyle(color: navBarTextColor),
+                    ),
+                  ],
+                ),
+              );
+            }),
           ),
           Expanded(
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-//                  ///Home / Jobs index = 0
+                  ///Home / Jobs on map index = 0
 //                  DrawerListWidget(
-//                    label: StringUtils.jobsText,
-//                    icon: FontAwesomeIcons.briefcase,
+//                    label: StringUtils.jobsOnMapText,
+//                    icon: FontAwesomeIcons.map,
 //                    isSelected: false,
 //                    onTap: () {
 //                      Navigator.pop(context);
-////                    Navigator.of(context).pushReplacement(CupertinoPageRoute(
-////                        builder: (context) => JobListScreen()));
+//                      Navigator.of(context).push(CupertinoPageRoute(
+//                          builder: (context) => OnboardingPage()));
 //                    },
 //                  ),
 
@@ -274,8 +291,8 @@ class _AppDrawerState extends State<AppDrawer> {
                     isSelected: false,
                     onTap: () {
                       Navigator.pop(context);
-                      Navigator.of(context).push(
-                          CupertinoPageRoute(builder: (context) => FAQScreen()));
+                      Navigator.of(context).push(CupertinoPageRoute(
+                          builder: (context) => FAQScreen()));
                     },
                   ),
                   Divider(height: 1),
@@ -302,16 +319,18 @@ class _AppDrawerState extends State<AppDrawer> {
 }
 
 _handleSignOut(context) {
-  Provider.of<LoginViewModel>(context, listen: false).signOut();
-  Provider.of<JobListViewModel>(context, listen: false).resetState();
-  Provider.of<FavouriteJobListViewModel>(context, listen: false).resetState();
-  Provider.of<AppliedJobListViewModel>(context, listen: false).resetState();
-  Provider.of<JobListFilterWidgetViewModel>(context, listen: false)
-      .resetState();
-  Provider.of<UserProfileViewModel>(context, listen: false).resetState();
+//  Provider.of<LoginViewModel>(context, listen: false).signOut();
+//  Provider.of<JobListViewModel>(context, listen: false).resetState();
+//  Provider.of<FavouriteJobListViewModel>(context, listen: false).resetState();
+//  Provider.of<AppliedJobListViewModel>(context, listen: false).resetState();
+//  Provider.of<JobListFilterWidgetViewModel>(context, listen: false)
+//      .resetState();
+//  Provider.of<UserProfileViewModel>(context, listen: false).resetState();
 
-  Navigator.pushAndRemoveUntil(context,
-      MaterialPageRoute(builder: (context) => LoginScreen()), (_) => false);
+
+  AuthService.getInstance().then((value) => value.removeUser()).then((value){
+    RestartWidget.restartApp(context);
+  });
 }
 
 /// App Drawer item widget
@@ -341,30 +360,39 @@ class DrawerListWidget extends StatelessWidget {
       color: isSelected
           ? Theme.of(context).scaffoldBackgroundColor
           : Colors.transparent,
-      child: Row(
-        children: <Widget>[
-          Container(
-            color: isSelected
-                ? Theme.of(context).primaryColor
-                : Theme.of(context).scaffoldBackgroundColor,
-            width: 4,
-            height: AppBar().preferredSize.height,
-          ),
-          Expanded(
-            child: ListTile(
-              onTap: onTap,
-              leading: Icon(
-                icon,
-                color: iconColor,
-              ),
-              title: Text(
-                label,
-                style: TextStyle(
-                    fontSize: 17, fontWeight: FontWeight.bold, color: color),
+      child: InkWell(
+        onTap: onTap,
+        child: Row(
+          children: <Widget>[
+            Container(
+              color: isSelected
+                  ? Theme.of(context).primaryColor
+                  : Theme.of(context).scaffoldBackgroundColor,
+              width: 4,
+              height: AppBar().preferredSize.height/1.2,
+            ),
+            Expanded(
+              child: Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Icon(
+                      icon,
+                      color: iconColor,
+                      size: 17,
+                    ),
+                  ),
+                  Text(
+                    label,
+                    style: TextStyle(
+                        fontSize: 15, fontWeight: FontWeight.w600, color: color),
+                  ),
+                ],
+
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

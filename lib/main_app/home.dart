@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:p7app/features/notification/views/notification_screen.dart';
 import 'package:p7app/features/dashboard/view/dash_board.dart';
 import 'package:p7app/features/job/view/applied_job_list_screen.dart';
 import 'package:p7app/features/job/view/favourite_job_list_screen.dart';
@@ -34,6 +35,8 @@ class _HomeState extends State<Home> {
         unselectedFontSize: 10,
         type: BottomNavigationBarType.fixed,
         items: [
+
+          // dashboard
           BottomNavigationBarItem(
               icon: Padding(
                 padding: const EdgeInsets.only(
@@ -44,6 +47,7 @@ class _HomeState extends State<Home> {
                 ),
               ),
               title: Text(StringUtils.dashBoardText)),
+          //jobs
           BottomNavigationBarItem(
               icon: Padding(
                 padding: const EdgeInsets.only(
@@ -54,17 +58,26 @@ class _HomeState extends State<Home> {
                 ),
               ),
               title: Text(StringUtils.jobsText)),
+          //applied
           BottomNavigationBarItem(
               icon: Padding(
                   padding: const EdgeInsets.only(bottom: 5),
                   child: Icon(FontAwesomeIcons.solidCheckSquare)),
               title: Text(StringUtils.appliedText)),
+          // favourite
           BottomNavigationBarItem(
               icon: Padding(
                 padding: const EdgeInsets.only(bottom: 5),
                 child: Icon(FontAwesomeIcons.solidHeart),
               ),
               title: Text(StringUtils.favoriteText)),
+          //notifications
+          BottomNavigationBarItem(
+              icon: Padding(
+                padding: const EdgeInsets.only(bottom: 5),
+                child: Icon(FontAwesomeIcons.solidBell),
+              ),
+              title: Text(StringUtils.notificationsText)),
         ]);
 
     return WillPopScope(
@@ -104,6 +117,7 @@ class _HomeState extends State<Home> {
               JobListScreen(),
               AppliedJobListScreen(),
               FavouriteJobListScreen(),
+              NotificationScreen(),
             ],
           ),
         ),
@@ -111,3 +125,5 @@ class _HomeState extends State<Home> {
     );
   }
 }
+
+

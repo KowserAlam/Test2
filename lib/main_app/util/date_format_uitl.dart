@@ -13,6 +13,9 @@ class DateFormatUtil{
   static String formatDate(DateTime dateTime){
     return DateFormat('dd/MM/yyyy').format(dateTime);
   }
+  static String formatDateTime(DateTime dateTime){
+    return DateFormat("dd/MM/yyyy").add_jm().format(dateTime.toLocal());
+  }
   String dateFormat1(DateTime dateTime){
     return DateFormat('dd/MM/yyyy').format(dateTime);
   }

@@ -179,7 +179,6 @@ class _EditMemberShipsState extends State<EditMemberShips> {
                     //validator: Validator().nullFieldValidate,
                     focusNode: _positionHeldFocusNode,
                     keyboardType: TextInputType.text,
-                    autofocus: true,
                     //textInputAction: TextInputAction.next,
                     onFieldSubmitted: (a) {
 //                      FocusScope.of(context)
@@ -190,13 +189,14 @@ class _EditMemberShipsState extends State<EditMemberShips> {
                     hintText: StringUtils.membershipPositionHeldText,
                   ),
                   spaceBetweenFields,
+
                   //Description
                   CustomTextFormField(
                     //validator: Validator().nullFieldValidate,
-                    maxLines: null,
+                    maxLines: 8,
+                    minLines: 4,
                     focusNode: _descriptionFocusNode,
-                    keyboardType: TextInputType.text,
-                    autofocus: true,
+                    keyboardType: TextInputType.multiline,
                     onFieldSubmitted: (a) {
 //                      FocusScope.of(context)
 //                          .requestFocus(_descriptionFocusNode);

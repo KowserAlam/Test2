@@ -2,60 +2,132 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:p7app/features/company/models/company.dart';
+import 'package:p7app/features/company/models/company_screen_data_model.dart';
 import 'package:p7app/features/company/repositories/company_list_repository.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/util/method_extension.dart';
 
 class CompanyListViewModel with ChangeNotifier {
-  List<Company> companyList;
-  bool isFetchingData = false;
+  List<Company> companyList = [];
+  bool _isFetchingData = false;
+  bool _isFetchingMoreData = false;
   CompanyListRepository _companyListRepository = CompanyListRepository();
   String _query;
-  int noOfSearchResults = 0;
-  bool searchStart = false;
+  int _companiesCount = 0;
+  bool isInSearchMode = false;
+  bool _hasMoreData;
+  int _page = 1;
+  AppError _appError;
+
+  AppError get appError => _appError;
 
   set query(String value) {
     _query = value;
     notifyListeners();
   }
 
-  bool get shouldShowCompanyCount => _query.isNotEmptyOrNotNull;
-    bool get shouldShowLoader => isFetchingData && companyList == null;
+  bool get shouldShowAppError => companyList.length == 0 && _appError != null;
+
+  bool get shouldShowCompanyCount =>
+      _query.isNotEmptyOrNotNull && isInSearchMode && !_isFetchingData;
+
+  bool get shouldShowLoader => _isFetchingData && companyList.length == 0;
 
   Future<bool> getCompanyList() async {
-    isFetchingData = true;
-    searchStart = true;
+    if (_query.isNotEmptyOrNotNull) {
+      companyList = [];
+    }
+    _appError = null;
+    _isFetchingData = true;
     notifyListeners();
-    var limit = _query.isNotEmptyOrNotNull ? (_query.length > 2 ? 100 : 8) : 8;
-    Either<AppError, List<Company>> result =
-        await _companyListRepository.getList(query: _query, limit: limit);
+    Either<AppError, CompanyScreenDataModel> result =
+        await _companyListRepository.getList(query: _query);
     return result.fold((l) {
-      isFetchingData = false;
+      _isFetchingData = false;
       print(l);
+      _appError = l;
+      notifyListeners();
       return false;
-    }, (List<Company> dataModel) {
-      print(dataModel.length);
-      noOfSearchResults = dataModel.length;
-      companyList = dataModel;
-      isFetchingData = false;
+    }, (CompanyScreenDataModel dataModel) {
+      var list = dataModel.companies;
+      print(list.length);
+      _companiesCount = dataModel.count;
+      companyList = list;
+      _isFetchingData = false;
+      _hasMoreData = dataModel.next;
       notifyListeners();
       return true;
     });
   }
 
-clearSearch(){
-      isFetchingData = false;
-    searchStart = false;
-       _query = "";
-}
+  getMoreData() async {
+    if (_hasMoreData && !_isFetchingMoreData && !_isFetchingData) {
+      _appError = null;
+      debugPrint("Getting more data");
+      _page++;
+      _isFetchingMoreData = true;
+      notifyListeners();
+
+      Either<AppError, CompanyScreenDataModel> result =
+          await _companyListRepository.getList(query: _query, page: _page);
+      return result.fold((l) {
+        _isFetchingMoreData = false;
+        _appError = l;
+        notifyListeners();
+        print(l);
+        return false;
+      }, (CompanyScreenDataModel dataModel) {
+        _companiesCount = dataModel.count;
+        companyList.addAll(dataModel.companies);
+        _isFetchingMoreData = false;
+        _hasMoreData = dataModel.next;
+        notifyListeners();
+        return true;
+      });
+    }
+  }
+
+  toggleIsInSearchMode() {
+    isInSearchMode = !isInSearchMode;
+    _page = 1;
+    if (!isInSearchMode) {
+      _query = null;
+      getCompanyList();
+    }
+    notifyListeners();
+  }
+
+  clearSearch() {
+    _page = 1;
+    _isFetchingData = false;
+    _isFetchingMoreData = false;
+    isInSearchMode = false;
+    _query = "";
+  }
+
+  Future<void> refresh() async {
+    _page = 0;
+    return getCompanyList();
+  }
+
   resetState() {
     companyList = null;
-    isFetchingData = false;
-    searchStart = false;
+    _isFetchingData = false;
+    _isFetchingMoreData = false;
+    isInSearchMode = false;
     _companyListRepository = CompanyListRepository();
-    noOfSearchResults = 0;
+    _companiesCount = 0;
     _query = "";
+    _page = 1;
     getCompanyList();
-        notifyListeners();
+    notifyListeners();
   }
+
+  bool get hasMoreData => _hasMoreData;
+
+  bool get isFetchingData => _isFetchingData;
+
+  int get companiesCount => _companiesCount;
+
+  bool get isFetchingMoreData => _isFetchingMoreData;
 }

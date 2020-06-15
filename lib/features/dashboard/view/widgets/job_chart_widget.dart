@@ -21,22 +21,22 @@ class JobChartWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var screenHeight = MediaQuery.of(context).size.height;
-    var chartHeight = screenHeight / 2.1;
+    var chartHeight = screenHeight / 2.2;
     var primaryColor = Theme.of(context).primaryColor;
 
-    var dummyDataList = [
-      SkillJobChartDataModel(month: "July", total: 40),
-      SkillJobChartDataModel(month: "August", total: 400),
-      SkillJobChartDataModel(month: "September", total: 300),
-      SkillJobChartDataModel(month: "October", total: 100),
-      SkillJobChartDataModel(month: "November", total: 80),
-      SkillJobChartDataModel(month: "December", total: 60),
-    ];
+//    var dummyDataList = [
+//      SkillJobChartDataModel(month: "July", total: 40),
+//      SkillJobChartDataModel(month: "August", total: 400),
+//      SkillJobChartDataModel(month: "September", total: 300),
+//      SkillJobChartDataModel(month: "October", total: 100),
+//      SkillJobChartDataModel(month: "November", total: 80),
+//      SkillJobChartDataModel(month: "December", total: 60),
+//    ];
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+//        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 5.0),
@@ -80,7 +80,7 @@ class JobChartWidget extends StatelessWidget {
                 bool hasMoreText = skillText.length > chLength;
                 String skillsString = (isExpanded || !hasMoreText)
                     ? skillText ?? ""
-                    : skillText?.substring(0, chLength) ?? "";
+                    : "${skillText?.substring(0, chLength)} ...." ?? "";
 
                 if (skillList.length == 0) {
                   return Padding(
@@ -115,8 +115,11 @@ class JobChartWidget extends StatelessWidget {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text(skillsString),
+                      Text(StringUtils.monthlyJobsText,style:TextStyle(fontSize: 18,fontWeight: FontWeight.bold)),
+                     SizedBox(height: 2,),
+                      Text("for Skills ($skillsString)",textAlign: TextAlign.center,),
                       if (hasMoreText)
                         Padding(
                           padding: const EdgeInsets.only(top: 5),
@@ -165,12 +168,19 @@ class JobChartWidget extends StatelessWidget {
                         ),
                       )));
             }
+
+            List<SkillJobChartDataModel> list = [];
+            if (dashboardViewModel.skillJobChartData.length >= 6)
+              list = dashboardViewModel.skillJobChartData.sublist(0, 6);
+            else
+              list = dashboardViewModel.skillJobChartData;
+
             var seriesList = [
               charts.Series<SkillJobChartDataModel, String>(
                 id: "Job Chart",
                 domainFn: (v, _) => v.month ?? "Month",
                 measureFn: (v, _) => v.total ?? 0,
-                data: dashboardViewModel.skillJobChartData,
+                data: list.reversed.toList(),
                 labelAccessorFn: (v, _) => '${v.total ?? ""}',
               )
             ];
@@ -181,7 +191,7 @@ class JobChartWidget extends StatelessWidget {
               child: charts.BarChart(
                 seriesList,
                 barGroupingType: charts.BarGroupingType.grouped,
-                vertical: false,
+//                vertical: false,
                 animate: animate,
 //        flipVerticalAxis: true,
                 barRendererDecorator: new charts.BarLabelDecorator<String>(),

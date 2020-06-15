@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:bot_toast/bot_toast.dart';
 import 'package:dartz/dartz.dart';
+import 'package:dartz/dartz_unsafe.dart';
 import 'package:flutter/foundation.dart';
 import 'package:p7app/features/job/models/job_list_model.dart';
 import 'package:p7app/features/job/models/job_model.dart';
@@ -72,7 +73,7 @@ class JobRepository {
       }
     } on SocketException catch (e) {
       print(e);
-      BotToast.showText(text: StringUtils.checkInternetConnectionMessage);
+      BotToast.showText(text: StringUtils.unableToReachServerMessage);
       return Left(AppError.networkError);
     } catch (e) {
       print(e);
@@ -111,7 +112,7 @@ class JobRepository {
       }
     } on SocketException catch (e) {
       print(e);
-      BotToast.showText(text: StringUtils.checkInternetConnectionMessage);
+      BotToast.showText(text: StringUtils.unableToReachServerMessage);
       return Left(AppError.networkError);
     } catch (e) {
       print(e);
@@ -144,7 +145,7 @@ class JobRepository {
       }
     } on SocketException catch (e) {
       BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.checkInternetConnectionMessage);
+      BotToast.showText(text: StringUtils.unableToReachServerMessage);
       print(e);
       return false;
     } catch (e) {
@@ -176,7 +177,7 @@ class JobRepository {
       }
     } on SocketException catch (e) {
       BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.checkInternetConnectionMessage);
+      BotToast.showText(text: StringUtils.unableToReachServerMessage);
       print(e);
       return false;
     } catch (e) {
@@ -184,6 +185,28 @@ class JobRepository {
       BotToast.showText(text: StringUtils.unableToAddAsFavoriteText);
       print(e);
       return false;
+    }
+  }
+
+  Future<List<JobListModel>> getSimilarJobs(String jobId) async {
+    var url = "${Urls.similarJobs}/$jobId/";
+
+    try {
+      var res = await ApiClient().getRequest(url);
+      print(res.statusCode);
+      if (res.statusCode == 200) {
+        var _list = <JobListModel>[];
+        var decodedJso = json.decode(res.body);
+        decodedJso.forEach((element) {
+          _list.add(JobListModel.fromJson(element));
+        });
+        return _list;
+      } else {
+        return [];
+      }
+    } catch (e) {
+      print(e);
+      return [];
     }
   }
 }

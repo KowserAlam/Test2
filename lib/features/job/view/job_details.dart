@@ -1,31 +1,25 @@
 import 'dart:math';
-
-import 'package:bot_toast/bot_toast.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dartz/dartz.dart' as dartZ;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:p7app/features/company/models/company.dart';
-import 'package:p7app/features/company/repositories/company_list_repository.dart';
 import 'package:p7app/features/company/view/company_details.dart';
 import 'package:p7app/features/job/models/job_model.dart';
-
 import 'package:p7app/features/job/repositories/job_repository.dart';
 import 'package:p7app/features/job/view/widgets/job_apply_button.dart';
+import 'package:p7app/features/job/view/widgets/simelar_jobs_widget.dart';
 import 'package:p7app/features/job/view_model/applied_job_list_view_model.dart';
 import 'package:p7app/features/job/view_model/favourite_job_list_view_model.dart';
 import 'package:p7app/features/job/view_model/job_list_view_model.dart';
-import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/api_helpers/url_launcher_helper.dart';
-import 'package:p7app/main_app/api_helpers/urls.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
-import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/util/date_format_uitl.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/widgets/failure_widget.dart';
 import 'package:p7app/main_app/widgets/loader.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -45,7 +39,10 @@ class JobDetails extends StatefulWidget {
 
 class _JobDetailsState extends State<JobDetails> {
   JobModel jobDetails;
+
 //  Company jobCompany;
+  bool _isBusy = false;
+  AppError _appError;
 
   @override
   void initState() {
@@ -75,16 +72,16 @@ class _JobDetailsState extends State<JobDetails> {
   }
 
   Future<bool> addToFavorite(
-      String jobId,
-      ) async {
+    String jobId,
+  ) async {
     bool res = await JobRepository().addToFavorite(jobId);
     _refreshList();
     return res;
   }
 
   Future<bool> applyForJob(
-      String jobId,
-      ) async {
+    String jobId,
+  ) async {
     bool res = await JobRepository().applyForJob(jobId);
     _refreshList();
     return res;
@@ -121,34 +118,67 @@ class _JobDetailsState extends State<JobDetails> {
 
   String skillListToString() {
     String listOfSkills = "";
-    if(jobDetails.jobSkills != null)
-    for (int i = 0; i < jobDetails.jobSkills.length; i++) {
-      if (i + 1 == jobDetails.jobSkills.length) {
-        listOfSkills += jobDetails.jobSkills[i];
-      } else {
-        listOfSkills += jobDetails.jobSkills[i] + ", ";
+    if (jobDetails.jobSkills != null)
+      for (int i = 0; i < jobDetails.jobSkills.length; i++) {
+        if (i + 1 == jobDetails.jobSkills.length) {
+          listOfSkills += jobDetails.jobSkills[i];
+        } else {
+          listOfSkills += jobDetails.jobSkills[i] + ", ";
+        }
       }
-    }
     return listOfSkills;
   }
 
-  String refactorAboutJobStrings(String value){
-    if(value=='ONSITE')return 'On-site';
-    if(value=='Remote')return 'Remote';
-    if(value=='FULLTIME')return 'Full-time';
-    if(value=='PARTTIME')return 'Part-time';
+  String refactorAboutJobStrings(String value) {
+    if (value == 'ONSITE') return 'On-site';
+    if (value == 'Remote') return 'Remote';
+    if (value == 'FULLTIME') return 'Full-time';
+    if (value == 'PARTTIME') return 'Part-time';
     return StringExtenion(value).titleCase;
   }
 
+  errorWidget() {
+    switch (_appError) {
+      case AppError.serverError:
+        return FailureFullScreenWidget(
+          errorMessage: StringUtils.unableToLoadData,
+          onTap: () {
+            return _refreshList();
+          },
+        );
+
+      case AppError.networkError:
+        return FailureFullScreenWidget(
+          errorMessage: StringUtils.unableToReachServerMessage,
+          onTap: () {
+            return _refreshList();
+          },
+        );
+
+      default:
+        return FailureFullScreenWidget(
+          errorMessage: StringUtils.somethingIsWrong,
+          onTap: () {
+            return _refreshList();
+          },
+        );
+    }
+  }
+
   getJobDetails() async {
+    _isBusy = true;
+    setState(() {});
     dartZ.Either<AppError, JobModel> result =
-    await JobRepository().fetchJobDetails(widget.slug);
+        await JobRepository().fetchJobDetails(widget.slug);
     return result.fold((l) {
+      _isBusy = false;
+      _appError = l;
+      setState(() {});
       print(l);
     }, (JobModel dataModel) {
       print(dataModel.title);
       jobDetails = dataModel;
-//      getCompany(jobDetails);
+      _isBusy = false;
       setState(() {});
     });
   }
@@ -179,21 +209,21 @@ class _JobDetailsState extends State<JobDetails> {
     Color sectionColor = Theme.of(context).backgroundColor;
     Color summerySectionBorderColor = Colors.grey[300];
     Color summerySectionColor =
-    !isDarkMode ? Colors.grey[200] : Colors.grey[600];
+        !isDarkMode ? Colors.grey[200] : Colors.grey[600];
     Color backgroundColor = !isDarkMode ? Colors.grey[200] : Colors.grey[700];
 
     //Styles
     TextStyle headerTextStyle =
-    new TextStyle(fontSize: 18, fontWeight: FontWeight.bold);
+        new TextStyle(fontSize: 18, fontWeight: FontWeight.bold);
     TextStyle sectionTitleFont =
-    TextStyle(fontSize: 17, fontWeight: FontWeight.bold);
+        TextStyle(fontSize: 17, fontWeight: FontWeight.bold);
     TextStyle descriptionFontStyle = TextStyle(fontSize: 13);
     TextStyle topSideDescriptionFontStyle = TextStyle(
         fontSize: 14, color: !isDarkMode ? Colors.grey[600] : Colors.grey[500]);
-    TextStyle hasCompanyFontStyle = TextStyle(
-        fontSize: 14, color: Colors.blueAccent);
+    TextStyle hasCompanyFontStyle =
+        TextStyle(fontSize: 14, color: Colors.blueAccent);
     TextStyle descriptionFontStyleBold =
-    TextStyle(fontSize: 12, fontWeight: FontWeight.bold);
+        TextStyle(fontSize: 12, fontWeight: FontWeight.bold);
     double fontAwesomeIconSize = 15;
 
     Text jobSummeryRichText(String title, String description) {
@@ -218,7 +248,11 @@ class _JobDetailsState extends State<JobDetails> {
           centerTitle: true,
         ),
         body: Center(
-          child: Loader(),
+          child: _isBusy
+              ? Loader()
+              : SizedBox(
+                  child: _appError != null ? errorWidget() : SizedBox(),
+                ),
         ),
       );
     }
@@ -265,8 +299,8 @@ class _JobDetailsState extends State<JobDetails> {
         onTap: isApplied
             ? null
             : () {
-          _showApplyDialog();
-        },
+                _showApplyDialog();
+              },
         borderRadius: BorderRadius.circular(5),
         child: Container(
           height: 30,
@@ -344,13 +378,19 @@ class _JobDetailsState extends State<JobDetails> {
                         jobDetails.company != null
                             ? jobDetails.company.name
                             : StringUtils.unspecifiedText,
-                        style: jobDetails.company==null?topSideDescriptionFontStyle:hasCompanyFontStyle,
+                        style: jobDetails.company == null
+                            ? topSideDescriptionFontStyle
+                            : hasCompanyFontStyle,
                       ),
-                      onTap: (){
-                        jobDetails.company!=null?Navigator.push(
-                            context,
-                            CupertinoPageRoute(
-                                builder: (context) => CompanyDetails(company: jobDetails.company,))):null;
+                      onTap: () {
+                        jobDetails.company != null
+                            ? Navigator.push(
+                                context,
+                                CupertinoPageRoute(
+                                    builder: (context) => CompanyDetails(
+                                          company: jobDetails.company,
+                                        )))
+                            : null;
                       },
                     ),
                     SizedBox(
@@ -639,12 +679,21 @@ class _JobDetailsState extends State<JobDetails> {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Text(StringUtils.jobCompanyProfileText+': ', style: descriptionFontStyleBold,),
-              jobDetails.companyProfile!=null?GestureDetector(
-                  onTap: (){
-                    UrlLauncherHelper.launchUrl(jobDetails.companyProfile.trim());
-                  },
-                  child: Text(jobDetails.companyProfile, style: TextStyle(color: Colors.lightBlue),)):Text(StringUtils.unspecifiedText),
+              Text(
+                StringUtils.jobCompanyProfileText + ': ',
+                style: descriptionFontStyleBold,
+              ),
+              jobDetails.companyProfile != null
+                  ? GestureDetector(
+                      onTap: () {
+                        UrlLauncherHelper.launchUrl(
+                            jobDetails.companyProfile.trim());
+                      },
+                      child: Text(
+                        jobDetails.companyProfile,
+                        style: TextStyle(color: Colors.lightBlue),
+                      ))
+                  : Text(StringUtils.unspecifiedText),
             ],
           ),
           SizedBox(
@@ -654,12 +703,23 @@ class _JobDetailsState extends State<JobDetails> {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Text(StringUtils.companyWebAddressText+': ', style: descriptionFontStyleBold,),
-              jobDetails.company!=null?GestureDetector(
-                  onTap: (){
-                    jobDetails.company.webAddress!=null?UrlLauncherHelper.launchUrl(jobDetails.companyProfile.trim()):null;
-                  },
-                  child: Text(jobDetails.company.webAddress ?? "", style: TextStyle(color: Colors.lightBlue),)):Text(StringUtils.unspecifiedText),
+              Text(
+                StringUtils.companyWebAddressText + ': ',
+                style: descriptionFontStyleBold,
+              ),
+              jobDetails.company != null
+                  ? GestureDetector(
+                      onTap: () {
+                        jobDetails.company.webAddress != null
+                            ? UrlLauncherHelper.launchUrl(
+                                jobDetails.companyProfile.trim())
+                            : null;
+                      },
+                      child: Text(
+                        jobDetails.company.webAddress ?? "",
+                        style: TextStyle(color: Colors.lightBlue),
+                      ))
+                  : Text(StringUtils.unspecifiedText),
             ],
           ),
           SizedBox(
@@ -696,20 +756,20 @@ class _JobDetailsState extends State<JobDetails> {
             StringUtils.currentOffer,
             jobDetails.salary != null
                 ? jobDetails.salary.toString() +
-                ' ' +
-                (jobDetails.currency != null ? jobDetails.currency : '')
+                    ' ' +
+                    (jobDetails.currency != null ? jobDetails.currency : '')
                 : StringUtils.unspecifiedText,
           ),
           jobSummeryRichText(
             StringUtils.salaryRangeText,
             (jobDetails.salaryMin != null
-                ? jobDetails.salaryMin.toString()
-                : StringUtils.unspecifiedText) +
+                    ? jobDetails.salaryMin.toString()
+                    : StringUtils.unspecifiedText) +
                 "-" +
                 (jobDetails.salaryMax != null
                     ? jobDetails.salaryMax.toString() +
-                    ' ' +
-                    (jobDetails.currency != null ? jobDetails.currency : '')
+                        ' ' +
+                        (jobDetails.currency != null ? jobDetails.currency : '')
                     : StringUtils.unspecifiedText),
           )
         ],
@@ -1072,19 +1132,26 @@ class _JobDetailsState extends State<JobDetails> {
                 ),
                 jobDetails.webAddress != null
                     ? Container(
-                  padding: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: sectionColor,
-                    borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(3),
-                        bottomRight: Radius.circular(3)),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[jobSource],
-                  ),
-                )
-                    : SizedBox()
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: sectionColor,
+                          borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(3),
+                              bottomRight: Radius.circular(3)),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[jobSource],
+                        ),
+                      )
+                    : SizedBox(),
+                SizedBox(
+                  height: 10,
+                ),
+                SimilarJobsWidget(jobDetails),
+                SizedBox(
+                  height: 10,
+                ),
               ],
             ),
           ),

@@ -46,7 +46,7 @@ class UserProfileRepository {
 
     } on SocketException catch (e) {
       print(e);
-      BotToast.showText(text: StringUtils.checkInternetConnectionMessage);
+      BotToast.showText(text: StringUtils.unableToReachServerMessage);
       return left(AppError.networkError);
     } catch (e) {
       print(e);
@@ -96,7 +96,7 @@ Logger().i(data);
       }
     } on SocketException catch (e) {
       BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.checkInternetConnectionMessage);
+      BotToast.showText(text: StringUtils.unableToReachServerMessage);
       print(e);
       return left(AppError.networkError);
     } catch (e) {

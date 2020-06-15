@@ -127,8 +127,8 @@ class LoginViewModel with ChangeNotifier {
       }
     } on SocketException catch (e) {
       isBusyLogin = false;
-      BotToast.showText(text: StringUtils.checkInternetConnectionMessage);
-      _errorMessage = StringUtils.checkInternetConnectionMessage;
+      BotToast.showText(text: StringUtils.unableToReachServerMessage);
+      _errorMessage = StringUtils.unableToReachServerMessage;
       notifyListeners();
       print(e);
       return false;

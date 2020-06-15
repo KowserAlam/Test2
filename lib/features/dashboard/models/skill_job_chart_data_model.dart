@@ -5,7 +5,23 @@ class SkillJobChartDataModel {
   int total;
   int year;
   DateTime dateTimeValue;
+
   Map<int, String> _monthsInYear = {
+    1: "Jan",
+    2: "Feb",
+    3: "Mar",
+    4: "Apr",
+    5: "May",
+    6: "Jun",
+    7: "Jul",
+    8: "Aug",
+    9: "Sep",
+    10: "Oct",
+    11: "Nov",
+    12: "Dec"
+  };
+
+  Map<int, String> _monthsInYearF = {
     1: "January",
     2: "February",
     3: "March",
@@ -29,7 +45,7 @@ class SkillJobChartDataModel {
 
   SkillJobChartDataModel.fromJson(json) {
     try {
-      month = "${_monthsInYear[json[1]]}, ${json[0].toString().substring(2)}";
+      month = "${_monthsInYear[json[1]??""]}, ${json[0].toString().substring(2)}";
       total = json[2];
       year = json[0];
       dateTimeValue = DateTime.parse(

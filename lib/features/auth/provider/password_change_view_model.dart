@@ -181,7 +181,7 @@ class PasswordChangeViewModel with ChangeNotifier {
       } on SocketException catch (e) {
         isBusy = false;
         print(e);
-        BotToast.showText(text: StringUtils.checkInternetConnectionMessage);
+        BotToast.showText(text: StringUtils.unableToReachServerMessage);
         return false;
       } catch (e) {
         isBusy = false;
