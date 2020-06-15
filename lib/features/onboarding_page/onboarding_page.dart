@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:p7app/features/chat/view/screens/chat_list_screen.dart';
 import 'package:p7app/features/dashboard/view/dash_board.dart';
@@ -51,74 +52,97 @@ class _OnboardingPageState extends State<OnboardingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
         color: Colors.white,
         child: Padding(
           padding: const EdgeInsets.all(20),
-          child: Column(
+          child: Stack(
+            fit: StackFit.expand,
+            alignment: AlignmentDirectional.bottomCenter,
             children: <Widget>[
-              Expanded(
-                child: Stack(
-                  alignment: AlignmentDirectional.bottomCenter,
+              PageView.builder(
+                scrollDirection: Axis.horizontal,
+                controller: _pageController,
+                onPageChanged: _onPageChanged,
+                itemCount: slideList.length,
+                itemBuilder: (ctx, i) => SlideItem(i),
+              ),
+              Positioned(
+                bottom: 80,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    PageView.builder(
-                      scrollDirection: Axis.horizontal,
-                      controller: _pageController,
-                      onPageChanged: _onPageChanged,
-                      itemCount: slideList.length,
-                      itemBuilder: (ctx, i) => SlideItem(i),
-                    ),
-                    Stack(
-                      alignment: AlignmentDirectional.topStart,
-                      children: <Widget>[
-                        Container(
-                          margin: const EdgeInsets.only(bottom: 35),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              for(int i = 0; i<slideList.length; i++)
-                                if( i == _currentPage )
-                                  SlideDots(true)
-                                else
-                                  SlideDots(false)
-                            ],
-                          ),
-                        )
-                      ],
-                    )
+                    for(int i = 0; i<slideList.length; i++)
+                      if( i == _currentPage )
+                        SlideDots(true)
+                      else
+                        SlideDots(false)
                   ],
                 ),
               ),
-              SizedBox(
-                height: 20,
+              _currentPage == 0?SizedBox():Positioned(
+                bottom: 5,
+                left: 5,
+                child: GestureDetector(
+                    onTap: (){
+                      _pageController.animateToPage(
+                        _currentPage-1,
+                        duration: Duration(milliseconds: 300),
+                        curve: Curves.easeIn,
+                      );
+                    },
+                    child: Icon(Icons.keyboard_arrow_left, color: Colors.blue,size: 30,)),
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 20),
-                    child: FlatButton(
-                      child: Text(
-                        'Get Started',
-                        style: TextStyle(
-                          fontSize: 18,
-                        ),
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      padding: const EdgeInsets.all(15),
-                      color: Colors.blue,
-                      textColor: Colors.white,
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => Home()),
-                        );
-                      },
+              _currentPage == 2?SizedBox():Positioned(
+                bottom: 5,
+                right: 5,
+                child: GestureDetector(
+                    onTap: (){
+                      _pageController.animateToPage(
+                        _currentPage+1,
+                        duration: Duration(milliseconds: 300),
+                        curve: Curves.easeIn,
+                      );
+                    },
+                    child: Icon(Icons.keyboard_arrow_right, color: Colors.blue,size: 30,)),
+              ),
+              _currentPage == 2?
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.of(context).push(CupertinoPageRoute(
+                        builder: (context) => Home()));
+                  },
+                  child: Container(
+                    height: 40,
+                    width: 120,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(color: Colors.blueAccent),
+                      borderRadius: BorderRadius.circular(10)
+                    ),
+                    child: Center(
+                      child: Text('Continue', style: TextStyle(color: Colors.blueAccent),),
                     ),
                   ),
-                ],
+                ),
+              ):
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 12),
+                  child: GestureDetector(
+                      onTap: () {
+                        Navigator.pop(context);
+                        Navigator.of(context).push(CupertinoPageRoute(
+                            builder: (context) => Home()));
+                      },
+                      child: Text('Skip', style: TextStyle(color: Colors.blue,fontSize: 16),)),
+                ),
               )
             ],
           ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:p7app/main_app/resource/const.dart';
 
 class Slide {
   final String imageUrl;
@@ -14,17 +15,17 @@ class Slide {
 
 final slideList = [
   Slide(
-    imageUrl: 'assets/images/job_search_logo_sq.png',
+    imageUrl: slideImageOne,
     title: 'First page title text',
     description: 'First page description page...',
   ),
   Slide(
-    imageUrl: 'assets/images/skill-check-logo.png',
+    imageUrl: slideImageTwo,
     title: 'Second page title text',
     description: 'Second page description page...',
   ),
   Slide(
-    imageUrl: 'assets/images/logo2.png',
+    imageUrl: slideImageThree,
     title: 'Third page title text',
     description: 'Third page description page...',
   ),

@@ -10,6 +10,10 @@ const String  kLoaderImage =   "assets/images/loader.gif";
 const String  kExamCoverImageAsset =   "assets/images/exam_cover.jpg";
 const String  kExamCoverImageNetwork =   "https://i.ibb.co/Wtt5Hn9/exam-cover.jpg";
 
+const String  slideImageOne =   "assets/images/slide1.png";
+const String  slideImageTwo =   "assets/images/slide2.png";
+const String  slideImageThree =   "assets/images/slide3.png";
+
 const String  kIshraakIcon = "assets/images/ishraak.png";
 const String  kIshraakLogo = "assets/images/logo.png";
 const String  kImagePlaceHolderAsset = "assets/images/image_placeholder.png";
