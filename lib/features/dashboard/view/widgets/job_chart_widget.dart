@@ -36,7 +36,7 @@ class JobChartWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+//        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 5.0),
@@ -115,10 +115,11 @@ class JobChartWidget extends StatelessWidget {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(StringUtils.monthlyJobsText,style:TextStyle(fontSize: 18,fontWeight: FontWeight.bold)),
                      SizedBox(height: 2,),
-                      Text("for Skills ($skillsString)"),
+                      Text("for Skills ($skillsString)",textAlign: TextAlign.center,),
                       if (hasMoreText)
                         Padding(
                           padding: const EdgeInsets.only(top: 5),

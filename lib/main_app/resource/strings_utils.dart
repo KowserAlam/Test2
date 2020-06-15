@@ -528,4 +528,5 @@ static const String jobSiteText  = "Job Site";
   static const String notFoundText  = "Not Found";
   static const String writeYourMessageText  = "Write your message";
   static const String monthlyJobsText  = "Monthly Jobs";
+  static const String similarJobsText  = "Similar Jobs";
 }

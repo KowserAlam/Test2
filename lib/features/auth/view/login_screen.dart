@@ -228,23 +228,24 @@ class _LoginScreenState extends State<LoginScreen> {
         );
       },
     );
-    var forgotPasswordWidget = InkWell(
-        borderRadius: BorderRadius.circular(10),
-        onTap: () {
-          Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => PasswordResetScreens()));
-        },
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: <Widget>[
-            Container(
-              padding: EdgeInsets.all(8),
-              child: Text(
-                StringUtils.forgotPassword,
-              ),
+    var forgotPasswordWidget = Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: <Widget>[
+        InkWell(
+          borderRadius: BorderRadius.circular(10),
+          onTap: () {
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => PasswordResetScreens()));
+          },
+          child: Container(
+            padding: EdgeInsets.all(8),
+            child: Text(
+              StringUtils.forgotPassword,
             ),
-          ],
-        ));
+          ),
+        ),
+      ],
+    );
     var signInButton = Consumer<LoginViewModel>(
         builder: (BuildContext context, loginProvider, Widget child) {
       if (loginProvider.isBusyLogin) {

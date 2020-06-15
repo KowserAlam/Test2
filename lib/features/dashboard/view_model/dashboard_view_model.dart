@@ -18,15 +18,11 @@ class DashboardViewModel with ChangeNotifier {
   double profileCompletePercent = 0;
 
   Future<AppError> getDashboardData({bool isFormOnPageLoad = false}) async {
-    var time = CommonServiceRule.onLoadPageReloadTime;
-    if (isFormOnPageLoad) if (_lastFetchTime != null) {
-      bool shouldNotFetchData =
-          _lastFetchTime.difference(DateTime.now()) < time &&
-              _infoBoxError != null;
+    if (isFormOnPageLoad) {
+      bool shouldNotFetchData = CommonServiceRule.instance.shouldNotFetchData(_lastFetchTime, _infoBoxError);
       if (shouldNotFetchData) return null;
     }
 
-    _lastFetchTime = DateTime.now();
     _isLoadingInfoBoxData = true;
     _isLoadingSkillJobChartData = true;
     _infoBoxError = null;
@@ -36,7 +32,11 @@ class DashboardViewModel with ChangeNotifier {
       _getInfoBoxData(),
       _getISkillJobChartData(),
       _getProfileCompleteness(),
-    ]).then((value) => _infoBoxError);
+    ]).then((value) {
+
+      _lastFetchTime = DateTime.now();
+      return _infoBoxError;
+    });
   }
 
   Future<bool> _getInfoBoxData() async {

@@ -9,6 +9,7 @@ import 'package:p7app/main_app/util/validator.dart';
 import 'package:flutter/foundation.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:http/http.dart' as http;
+import 'package:p7app/main_app/util/method_extension.dart';
 
 class PasswordResetViewModel with ChangeNotifier {
   bool _isBusyEmail = false;
@@ -97,59 +98,47 @@ class PasswordResetViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  validateEmailLocal(String email) {
+  bool validateEmailLocal(String email) {
     emailErrorText = Validator().validateEmail(email);
     _email = email;
     notifyListeners();
+    return _emailErrorText == null;
   }
 
   Future<bool> sendResetPasswordLink({ApiClient apiClient}) async {
-    var client = apiClient ?? ApiClient();
-    isBusyEmail = true;
-    var url = Urls.passwordResetUrl;
-    var body = {"email": _email};
+    if (validateEmailLocal(_email)) {
+      var client = apiClient ?? ApiClient();
+      isBusyEmail = true;
+      var url = Urls.passwordResetUrl;
+      var body = {"email": _email};
 
-    try {
-      http.Response res = await client.postRequest(url, body);
-      print(res.statusCode);
-      print(res.body);
-      if (res.statusCode == 200) {
-        isBusyEmail = false;
-        return true;
-      }
-      else{
-        var data = json.decode(res.body);
-        _emailErrorText =data['email']?.toString()??StringUtils.somethingIsWrong;
-        isBusyEmail = false;
-        return false;
-      }
-    } catch (e) {
-      isBusyEmail = false;
-      print(e);
+      try {
+        http.Response res = await client.postRequest(url, body);
+        print(res.statusCode);
+        print(res.body);
+        if (res.statusCode == 200) {
+          isBusyEmail = false;
+          return true;
+        } else {
+          var data = json.decode(res.body);
+          _emailErrorText =
+              data['email']?.toString() ?? StringUtils.somethingIsWrong;
+          isBusyEmail = false;
+          return false;
+        }
+      } catch (e) {
+        _isBusyEmail = false;
+        _emailErrorText = StringUtils.somethingIsWrong;
+        print(e);
+        notifyListeners();
 
 //      BotToast.showText(text: null);
+        return false;
+      }
+    } else {
       return false;
     }
   }
-
+  bool get shodAllowProceedButton => _emailErrorText == null && _email.isNotEmptyOrNotNull;
 }
 
-/// performing user input validations
-final performEmailValidation = StreamTransformer<String, String>.fromHandlers(
-    handleData: (email, sink) async {
-  String result = Validator().validateEmail(email);
-  if (result == null) {
-    sink.add(email);
-  } else {
-    sink.addError(result);
-  }
-});
-final performPhoneValidation = StreamTransformer<String, String>.fromHandlers(
-    handleData: (value, sink) async {
-  String result = Validator().validatePhoneNumber(value);
-  if (result == null) {
-    sink.add(value);
-  } else {
-    sink.addError(result);
-  }
-});
