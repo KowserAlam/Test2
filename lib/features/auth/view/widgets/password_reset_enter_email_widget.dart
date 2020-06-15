@@ -94,7 +94,7 @@ class _PasswordResetEmailWidgetState extends State<PasswordResetEmailWidget> {
         );
       });
 
-  Widget _proceedButton({String errorText}) {
+  Widget _proceedButton({bool enabled}) {
     var passwordResetProvider = Provider.of<PasswordResetViewModel>(context);
     return Center(
       child: passwordResetProvider.isBusyEmail
@@ -102,7 +102,7 @@ class _PasswordResetEmailWidgetState extends State<PasswordResetEmailWidget> {
           : CommonButton(
               width: 230,
               height: 50,
-              onTap: errorText != null? null: () {
+              onTap: !enabled? null: () {
                 _handleEmailSubmit(_emailTextController.text, context);
               },
               label: StringUtils.passwordResetText,
@@ -192,7 +192,7 @@ class _PasswordResetEmailWidgetState extends State<PasswordResetEmailWidget> {
                           ),
                         ),
                       SizedBox(height: 20),
-                      _proceedButton(errorText: passwordResetViewModel.emailErrorText),
+                      _proceedButton(enabled: passwordResetViewModel.shodAllowProceedButton),
                     ],
                   );
                 }),
