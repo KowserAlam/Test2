@@ -19,6 +19,8 @@ class DashBoardRepository {
         var decodedJson = json.decode(res.body);
         var model = InfoBoxDataModel.fromJson(decodedJson);
         return Right(model);
+      } else if (res.statusCode == 401) {
+        return Left(AppError.unauthorized);
       } else {
         return Left(AppError.serverError);
       }
@@ -35,14 +37,14 @@ class DashBoardRepository {
       getSkillJobChart() async {
     try {
       var res = await ApiClient().getRequest(Urls.dashboardSkillJobChartUrl);
-print(res.statusCode);
+      print(res.statusCode);
       if (res.statusCode == 200) {
         var decodedJson = json.decode(res.body);
         List<SkillJobChartDataModel> data = [];
-        decodedJson.forEach((e){
+        decodedJson.forEach((e) {
           data.add(SkillJobChartDataModel.fromJson(e));
         });
-        data.sort((a,b)=>b.dateTimeValue.compareTo(a.dateTimeValue));
+        data.sort((a, b) => b.dateTimeValue.compareTo(a.dateTimeValue));
         return Right(data);
       } else {
         return Left(AppError.serverError);
@@ -56,16 +58,16 @@ print(res.statusCode);
     }
   }
 
-  Future<double> getProfileCompletenessPercent()async{
-    try{
+  Future<double> getProfileCompletenessPercent() async {
+    try {
       var res = await ApiClient().getRequest(Urls.profileCompleteness);
-      if(res.statusCode == 200){
+      if (res.statusCode == 200) {
         var data = json.decode(res.body);
-        return data ['percent_of_profile_completeness']?.toDouble();
-      }else{
+        return data['percent_of_profile_completeness']?.toDouble();
+      } else {
         return 0;
       }
-    }catch (e){
+    } catch (e) {
       print(e);
       return 0;
     }
