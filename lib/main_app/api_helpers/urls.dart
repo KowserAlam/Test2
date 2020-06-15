@@ -69,6 +69,7 @@ class Urls {
   static String appliedJobListUrl = "/api/job/applied/";
   static String favouriteJobListUrl = "/api/job/favourite/";
   static String companySearchUrl = "/api/company/search";
+  static String similarJobs = "/api/job/similar"; // /job id/
 
   /// dashboardUrl
 static String dashboardInfoBoxUrl = "/api/pro/dashboard/infobox/";

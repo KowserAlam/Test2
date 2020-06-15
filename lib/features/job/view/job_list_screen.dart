@@ -219,6 +219,7 @@ class _JobListScreenState extends State<JobListScreen>
               job,
               onTap: () {
                 Navigator.of(context).push(
+
                     MaterialPageRoute(
                         builder: (context) =>
                             JobDetails(

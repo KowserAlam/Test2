@@ -28,7 +28,7 @@ class AppliedJobListViewModel with ChangeNotifier {
     var time = CommonServiceRule.onLoadPageReloadTime;
    if(isFormOnPageLoad)
       if(_lastFetchTime != null){
-        bool shouldNotFetchData = _lastFetchTime.difference(DateTime.now()) < time &&  _jobListApplied.length !=0 ;
+        bool shouldNotFetchData = DateTime.now().difference(_lastFetchTime) < time &&  _jobListApplied.length !=0 ;
 
         if(shouldNotFetchData)
           return false;

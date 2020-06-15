@@ -117,15 +117,15 @@ class JobListViewModel with ChangeNotifier {
   }
 
   Future<bool> getJobList({bool isFormOnPageLoad = false}) async {
+
     _totalJobCount = 0;
     _appError = null;
-    var time = CommonServiceRule.onLoadPageReloadTime;
-    if (isFormOnPageLoad) if (_lastFetchTime != null) {
-      bool shouldNotFetchData =
-          _lastFetchTime.difference(DateTime.now()) < time &&
-              _jobList.length != 0;
-      if (shouldNotFetchData) return false;
+
+    if (isFormOnPageLoad) {
+      bool shouldNotFetchData = CommonServiceRule.instance.shouldNotFetchData(_lastFetchTime, _appError);
+      if (shouldNotFetchData) return null;
     }
+
     _isFetchingData = true;
     notifyListeners();
 
