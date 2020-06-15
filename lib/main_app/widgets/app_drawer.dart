@@ -8,6 +8,7 @@ import 'package:p7app/features/job/view_model/favourite_job_list_view_model.dart
 import 'package:p7app/features/job/view_model/job_list_filter_widget_view_model.dart';
 import 'package:p7app/features/job/view_model/job_list_view_model.dart';
 import 'package:p7app/features/jobs_on_map/jobs_on_map_screen.dart';
+import 'package:p7app/features/onboarding_page/onboarding_page.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/features/user_profile/views/screens/profile_screen.dart';
 import 'package:p7app/main_app/auth_service/auth_service.dart';
@@ -146,19 +147,19 @@ class _AppDrawerState extends State<AppDrawer> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-//                  ///Home / Jobs on map index = 0
-//                  DrawerListWidget(
-//                    label: StringUtils.jobsOnMapText,
-//                    icon: FontAwesomeIcons.map,
-//                    isSelected: false,
-//                    onTap: () {
-//                      Navigator.pop(context);
-//                      Navigator.of(context).push(CupertinoPageRoute(
-//                          builder: (context) => JobsOnMap()));
-//                    },
-//                  ),
+                  ///Home / Jobs on map index = 0
+                  DrawerListWidget(
+                    label: StringUtils.jobsOnMapText,
+                    icon: FontAwesomeIcons.map,
+                    isSelected: false,
+                    onTap: () {
+                      Navigator.pop(context);
+                      Navigator.of(context).push(CupertinoPageRoute(
+                          builder: (context) => OnboardingPage()));
+                    },
+                  ),
 
-//                Divider(height: 1),
+                Divider(height: 1),
 //// favorite jobs
 //                DrawerListWidget(
 //                  label: StringUtils.favoriteJobsText,
