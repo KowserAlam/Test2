@@ -12,16 +12,19 @@ import 'package:p7app/features/user_profile/view_models/user_profile_view_model.
 import 'package:p7app/features/user_profile/views/screens/profile_screen.dart';
 import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/auth_service/auth_user_model.dart';
+import 'package:p7app/main_app/p7_app.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:p7app/main_app/root.dart';
 import 'package:p7app/main_app/views/about_us_screen.dart';
 import 'package:p7app/features/career_advice/view/career_advice_screen.dart';
 import 'package:p7app/main_app/views/contact_us_screen.dart';
 import 'package:p7app/main_app/views/faq_screen.dart';
 import 'package:p7app/main_app/widgets/app_version_widget_small.dart';
+import 'package:p7app/main_app/widgets/restart_widget.dart';
 import 'package:provider/provider.dart';
 
 class AppDrawer extends StatefulWidget {
@@ -37,6 +40,17 @@ class _AppDrawerState extends State<AppDrawer> {
   var selectedIndex = 0;
   var navBarTextColor = Colors.white;
 
+  @override
+  void initState() {
+    Future.delayed(Duration.zero).then((value) {
+      var upvm = Provider.of<UserProfileViewModel>(context,listen: false);
+      var user = upvm?.userData?.personalInfo;
+      if (user == null) {
+        upvm.getUserData();
+      }
+    });
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     var headerBackgroundColor = Color(0xff08233A);
@@ -55,9 +69,7 @@ class _AppDrawerState extends State<AppDrawer> {
             child: Consumer<UserProfileViewModel>(builder: (context, upvm, _) {
 //              var baseUrl = FlavorConfig.instance.values.baseUrl;
               var user = upvm?.userData?.personalInfo;
-              if (user == null) {
-                upvm.getUserData();
-              }
+
               var imageUrl = user?.profileImage ?? kDefaultUserImageNetwork;
               return Container(
                 height: 160,
@@ -306,16 +318,18 @@ class _AppDrawerState extends State<AppDrawer> {
 }
 
 _handleSignOut(context) {
-  Provider.of<LoginViewModel>(context, listen: false).signOut();
-  Provider.of<JobListViewModel>(context, listen: false).resetState();
-  Provider.of<FavouriteJobListViewModel>(context, listen: false).resetState();
-  Provider.of<AppliedJobListViewModel>(context, listen: false).resetState();
-  Provider.of<JobListFilterWidgetViewModel>(context, listen: false)
-      .resetState();
-  Provider.of<UserProfileViewModel>(context, listen: false).resetState();
+//  Provider.of<LoginViewModel>(context, listen: false).signOut();
+//  Provider.of<JobListViewModel>(context, listen: false).resetState();
+//  Provider.of<FavouriteJobListViewModel>(context, listen: false).resetState();
+//  Provider.of<AppliedJobListViewModel>(context, listen: false).resetState();
+//  Provider.of<JobListFilterWidgetViewModel>(context, listen: false)
+//      .resetState();
+//  Provider.of<UserProfileViewModel>(context, listen: false).resetState();
 
-  Navigator.pushAndRemoveUntil(context,
-      MaterialPageRoute(builder: (context) => LoginScreen()), (_) => false);
+
+  AuthService.getInstance().then((value) => value.removeUser()).then((value){
+    RestartWidget.restartApp(context);
+  });
 }
 
 /// App Drawer item widget

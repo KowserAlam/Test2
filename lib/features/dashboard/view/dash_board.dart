@@ -11,9 +11,12 @@ import 'package:p7app/features/messaging/view/message_screen.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
+import 'package:p7app/main_app/p7_app.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/root.dart';
 import 'package:p7app/main_app/widgets/app_drawer.dart';
 import 'package:p7app/main_app/widgets/failure_widget.dart';
+import 'package:p7app/main_app/widgets/restart_widget.dart';
 import 'package:provider/provider.dart';
 
 class DashBoard extends StatefulWidget {
@@ -48,9 +51,10 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
   }
 
   _signOut(context) {
-    Navigator.of(context).push(
-        MaterialPageRoute(builder: (BuildContext context) => LoginScreen()));
-    AuthService.getInstance().then((value) => value.removeUser());
+
+    AuthService.getInstance().then((value) => value.removeUser()).then((value){
+      RestartWidget.restartApp(context);
+    });
   }
 
   @override

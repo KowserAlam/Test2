@@ -28,12 +28,10 @@ class P7App extends StatelessWidget {
   final isEnabledDevicePreview;
   final CommonServiceRule commonServiceRule = CommonServiceRule();
 
-  P7App({this.isEnabledDevicePreview = false});
+  P7App(Key key,{this.isEnabledDevicePreview = false});
 
   @override
   Widget build(BuildContext context) {
-    
-
 
     var providers = [
       ChangeNotifierProvider(create: (context) => LoginViewModel()),
@@ -55,6 +53,7 @@ class P7App extends StatelessWidget {
     var appName = FlavorConfig.appName();
 
     return MultiProvider(
+      key: key,
       providers: providers,
       child: MaterialApp(
         navigatorObservers: [BotToastNavigatorObserver()],
