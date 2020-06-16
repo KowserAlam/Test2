@@ -77,6 +77,7 @@ static String dashboardSkillJobChartUrl = "/api/pro/dashboard/skill/";
 static String profileCompleteness = "/api/pro/profile-completeness/";
 
 
+static String jwtRefreshUrl = "/api/token/refresh/";
 static String careerAdviceUrl = "/api/career_advise";
 //contact us
 static String settingsUrl = "/api/settings/";

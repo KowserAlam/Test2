@@ -34,16 +34,14 @@ class UserProfileRepository {
       print(response.statusCode);
 //      print(response.body);
 
-      if(response.statusCode == 200){
+      if (response.statusCode == 200) {
         var mapJson = json.decode(response.body);
 //      var mapJson = json.decode(dummyData);
         var userModel = UserModel.fromJson(mapJson);
         return Right(userModel);
-      }else{
+      } else {
         return left(AppError.httpError);
       }
-
-
     } on SocketException catch (e) {
       print(e);
       BotToast.showText(text: StringUtils.unableToReachServerMessage);
@@ -55,20 +53,17 @@ class UserProfileRepository {
     }
   }
 
-  _updateLocalInfo(UserPersonalInfo user,String imageUrl)async{
-
-    AuthUserModel authUserModel = await AuthService.getInstance().then((value) => value.getUser());
+  _updateLocalInfo(UserPersonalInfo user, String imageUrl) async {
+    AuthUserModel authUserModel =
+        await AuthService.getInstance().then((value) => value.getUser());
     authUserModel.email = user.email;
     authUserModel.fullName = user.fullName;
-    authUserModel.professionalImage = imageUrl;
     print(authUserModel.professionalId);
 
     var authService = await AuthService.getInstance();
-var data = authUserModel.toJson();
-Logger().i(data);
+    var data = authUserModel.toJson();
+    Logger().i(data);
     authService.saveUser(data);
-
-
   }
 
   Future<Either<AppError, UserPersonalInfo>> updateUserBasicInfo(
@@ -85,9 +80,8 @@ Logger().i(data);
       if (response.statusCode == 200) {
         BotToast.closeAllLoading();
         var decodedJson = json.decode(response.body);
-        UserPersonalInfo data =
-            UserPersonalInfo.fromJson(decodedJson);
-        _updateLocalInfo(data,decodedJson['image']);
+        UserPersonalInfo data = UserPersonalInfo.fromJson(decodedJson);
+        _updateLocalInfo(data, decodedJson['image']);
         return Right(data);
       } else {
         BotToast.closeAllLoading();
@@ -496,11 +490,9 @@ Logger().i(data);
     }
   }
 
-  Future<Either<AppError, bool>> deleteUserEducation(
-      EduInfo edInfo) async {
+  Future<Either<AppError, bool>> deleteUserEducation(EduInfo edInfo) async {
     BotToast.showLoading();
-    var url =
-        "${Urls.professionalEducationUrl}/${edInfo.educationId}/";
+    var url = "${Urls.professionalEducationUrl}/${edInfo.educationId}/";
     var data = {"is_archived": true};
 
     try {
@@ -636,7 +628,6 @@ Logger().i(data);
     }
   }
 
-
   //Experience
   Future<Either<AppError, ExperienceInfo>> addUserExperience(
       ExperienceInfo experienceInfo) async {
@@ -654,8 +645,7 @@ Logger().i(data);
       print(response.body);
       if (response.statusCode == 200) {
         BotToast.closeAllLoading();
-        ExperienceInfo data =
-        ExperienceInfo();
+        ExperienceInfo data = ExperienceInfo();
         return Right(data);
       } else {
         BotToast.closeAllLoading();
@@ -695,8 +685,7 @@ Logger().i(data);
       if (response.statusCode == 200) {
         BotToast.closeAllLoading();
 
-        ExperienceInfo data =
-        ExperienceInfo();
+        ExperienceInfo data = ExperienceInfo();
         return Right(data);
       } else {
         BotToast.closeAllLoading();
@@ -760,8 +749,7 @@ Logger().i(data);
       print(response.body);
       if (response.statusCode == 200) {
         BotToast.closeAllLoading();
-        PortfolioInfo port =
-        PortfolioInfo.fromJson(json.decode(response.body));
+        PortfolioInfo port = PortfolioInfo.fromJson(json.decode(response.body));
         return Right(port);
       } else {
         BotToast.closeAllLoading();
@@ -792,8 +780,7 @@ Logger().i(data);
       print(response.body);
       if (response.statusCode == 200) {
         BotToast.closeAllLoading();
-        PortfolioInfo port =
-        PortfolioInfo.fromJson(json.decode(response.body));
+        PortfolioInfo port = PortfolioInfo.fromJson(json.decode(response.body));
         return Right(port);
       } else {
         BotToast.closeAllLoading();
@@ -816,8 +803,7 @@ Logger().i(data);
   Future<Either<AppError, bool>> deletePortfolio(
       PortfolioInfo portfolio) async {
     BotToast.showLoading();
-    var url =
-        "${Urls.professionalPortfolioUrl}/${portfolio.portfolioId}/";
+    var url = "${Urls.professionalPortfolioUrl}/${portfolio.portfolioId}/";
     var data = {"is_archived": true};
 
     try {

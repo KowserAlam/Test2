@@ -8,7 +8,6 @@ class AuthUserModel {
   String userId;
   String fullName;
   String professionalId;
-  String professionalImage;
 
   AuthUserModel(
       {this.refresh,
@@ -16,8 +15,7 @@ class AuthUserModel {
       this.email,
       this.userId,
       this.fullName,
-      this.professionalId,
-      this.professionalImage});
+      this.professionalId,});
 
   AuthUserModel.fromJson(Map<String, dynamic> json) {
     refresh = json['refresh'];
@@ -26,17 +24,20 @@ class AuthUserModel {
       email = json["user"]['email'];
       userId = json['user']['id']?.toString();
     }
-
     if (json['pro'] != null) {
       fullName = json['pro']['full_name'];
       professionalId = json['pro']['id'];
 
-      if (json['pro']['image'] != null) {
-        var baseUrl = FlavorConfig?.instance?.values?.baseUrl;
-        professionalImage = baseUrl + json['pro']['image'];
-      }
 
     }
+  }
+  AuthUserModel.fromJsonLocal(Map<String, dynamic> json) {
+    refresh = json['refresh'];
+    accessToken = json['access'];
+      email = json["user"];
+      fullName = json['full_name'];
+      professionalId = json['professional_id'];
+
   }
 
   Map<String, dynamic> toJson() {
@@ -47,12 +48,11 @@ class AuthUserModel {
     data['user_id'] = this.userId;
     data['full_name'] = this.fullName;
     data['professional_id'] = this.professionalId;
-    data['professional_image'] = this.professionalImage;
     return data;
   }
 
   @override
   String toString() {
-    return 'AuthUserModel{refresh: $refresh, accessToken: $accessToken, email: $email, userId: $userId, fullName: $fullName, professionalId: $professionalId, professionalImage: $professionalImage}';
+    return 'AuthUserModel{refresh: $refresh, accessToken: $accessToken, email: $email, userId: $userId, fullName: $fullName, professionalId: $professionalId}';
   }
 }

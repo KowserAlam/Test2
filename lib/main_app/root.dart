@@ -18,9 +18,9 @@ import 'package:p7app/main_app/widgets/loader.dart';
 import 'package:provider/provider.dart';
 
 class Root extends StatefulWidget {
-  final bool isFromLogin;
+  final bool showDummyLoadingTime;
 
-  Root({this.isFromLogin = false});
+  Root({this.showDummyLoadingTime = false});
 
   @override
   _RootState createState() => _RootState();
@@ -33,36 +33,47 @@ class _RootState extends State<Root> {
     super.initState();
   }
 
-  init() {
-    //    ApiHelper apiHelper = ApiHelper();
-//    apiHelper.checkInternetConnectivity();
+  init() async {
+    var authService = await AuthService.getInstance();
+authService.refreshToken();
+    if(authService.isAccessTokenValid()){
+      _naveGateToNextScreen(showDummyLoading: widget.showDummyLoadingTime);
+    }else{
+      bool isSuccess = await authService.refreshToken();
+      if(isSuccess){
+        _naveGateToNextScreen();
+      }else{
+        _navigateToLoginScreen();
+        authService.removeUser();
+      }
 
-    getAuthStatus().then((AuthUserModel user) {
-      if (user != null) {
-        _setupPushNotification();
-        _initUserdata();
+    }
 
-        Future.delayed(Duration(seconds: widget.isFromLogin ? 0 : 2))
-            .then((_) async {
-          if (await shouldShowOnBoardingScreens()) {
-            Navigator.pushAndRemoveUntil(
-                context,
-                CupertinoPageRoute(builder: (context) => OnboardingPage()),
-                (Route<dynamic> route) => false);
-          } else {
-            Navigator.pushAndRemoveUntil(
-                context,
-                CupertinoPageRoute(builder: (context) => Home()),
-                (Route<dynamic> route) => false);
-          }
-        });
-      } else {
-        Future.delayed(Duration(seconds: 1)).then((_) {
-          Navigator.pushAndRemoveUntil(
-              context,
-              CupertinoPageRoute(builder: (context) => LoginScreen()),
+  }
+  _navigateToLoginScreen(){
+    Future.delayed(Duration(seconds: 1)).then((_) {
+      Navigator.pushAndRemoveUntil(
+          context,
+          CupertinoPageRoute(builder: (context) => LoginScreen()),
               (Route<dynamic> route) => false);
-        });
+    });
+  }
+  _naveGateToNextScreen({bool showDummyLoading = false}){
+    _setupPushNotification();
+    _initUserdata();
+
+    Future.delayed(Duration(seconds: showDummyLoading ? 0 : 2))
+        .then((_) async {
+      if (await shouldShowOnBoardingScreens()) {
+        Navigator.pushAndRemoveUntil(
+            context,
+            CupertinoPageRoute(builder: (context) => OnboardingPage()),
+                (Route<dynamic> route) => false);
+      } else {
+        Navigator.pushAndRemoveUntil(
+            context,
+            CupertinoPageRoute(builder: (context) => Home()),
+                (Route<dynamic> route) => false);
       }
     });
   }
@@ -153,7 +164,7 @@ class _RootState extends State<Root> {
         child: AnnotatedRegion<SystemUiOverlayStyle>(
           value: SystemUiOverlayStyle.light
               .copyWith(statusBarColor: Theme.of(context).primaryColor),
-          child: widget.isFromLogin
+          child: widget.showDummyLoadingTime
               ? Center(
                   child: Loader(),
                 )

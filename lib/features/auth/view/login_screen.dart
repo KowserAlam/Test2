@@ -70,7 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
       if (res) {
         loginProvider.resetState();
         Navigator.of(context).pushAndRemoveUntil(
-            CupertinoPageRoute(builder: (BuildContext context) => Root(isFromLogin: true,)),
+            CupertinoPageRoute(builder: (BuildContext context) => Root(showDummyLoadingTime: true,)),
             (_) => false);
       }
     } else {

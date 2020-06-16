@@ -36,12 +36,15 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
     Provider.of<DashboardViewModel>(context, listen: false)
         .getDashboardData(isFormOnPageLoad: true)
         .then((value) {
+
       if (value == AppError.unauthorized) {
         _signOut(context);
+        return;
       }
+      Provider.of<UserProfileViewModel>(context, listen: false).getUserData();
     });
 
-    Provider.of<UserProfileViewModel>(context, listen: false).getUserData();
+
   }
 
   Future<void> _refreshData() async {
