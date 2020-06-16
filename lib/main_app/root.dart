@@ -35,47 +35,45 @@ class _RootState extends State<Root> {
 
   init() async {
     var authService = await AuthService.getInstance();
-//authService.refreshToken();
-    if(authService.isAccessTokenValid()){
+//    authService.refreshToken();
+    if (authService.isAccessTokenValid()) {
       debugPrint("user: ${authService.getUser()}");
       _naveGateToNextScreen(showDummyLoading: widget.showDummyLoadingTime);
-    }else{
+    } else {
       bool isSuccess = await authService.refreshToken();
-      if(isSuccess){
+      if (isSuccess) {
         _naveGateToNextScreen();
-      }else{
+      } else {
         _navigateToLoginScreen();
         authService.removeUser();
       }
-
     }
-
   }
-  _navigateToLoginScreen(){
 
+  _navigateToLoginScreen() {
     Future.delayed(Duration(seconds: 1)).then((_) {
       Navigator.pushAndRemoveUntil(
           context,
           CupertinoPageRoute(builder: (context) => LoginScreen()),
-              (Route<dynamic> route) => false);
+          (Route<dynamic> route) => false);
     });
   }
-  _naveGateToNextScreen({bool showDummyLoading = false}){
+
+  _naveGateToNextScreen({bool showDummyLoading = false}) {
     _setupPushNotification();
     _initUserdata();
 
-    Future.delayed(Duration(seconds: showDummyLoading ? 0 : 2))
-        .then((_) async {
+    Future.delayed(Duration(seconds: showDummyLoading ? 0 : 2)).then((_) async {
       if (await shouldShowOnBoardingScreens()) {
         Navigator.pushAndRemoveUntil(
             context,
             CupertinoPageRoute(builder: (context) => OnboardingPage()),
-                (Route<dynamic> route) => false);
+            (Route<dynamic> route) => false);
       } else {
         Navigator.pushAndRemoveUntil(
             context,
             CupertinoPageRoute(builder: (context) => Home()),
-                (Route<dynamic> route) => false);
+            (Route<dynamic> route) => false);
       }
     });
   }

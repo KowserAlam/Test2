@@ -7,6 +7,7 @@ import 'package:p7app/main_app/flavour/flavour_config.dart';
 import 'package:p7app/main_app/resource/json_keys.dart';
 import 'package:p7app/main_app/util/local_storage.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/util/token_refresh_scheduler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
@@ -69,6 +70,23 @@ class AuthService {
     return user.refresh;
   }
 
+  Duration getRefreshInterval()  {
+    DateTime expTime;
+    String token = _instance. _getAssessToken();
+    if (token != null) {
+      var payload = Jwt.parseJwt(token);
+      debugPrint(payload.toString());
+      if (payload['exp'] != null) {
+        expTime = DateTime.fromMillisecondsSinceEpoch(payload['exp'] * 1000);
+//        var isValid = DateTime.now().isBefore(expTime);
+        return expTime.difference(DateTime.now());
+      }
+
+      return null;
+    } else {
+      return null;
+    }
+  }
   bool isAccessTokenValid()  {
     DateTime expTime;
     String token = _instance. _getAssessToken();
@@ -124,6 +142,7 @@ class AuthService {
         if (res.statusCode == 200) {
           var data = json.decode(res.body);
           debugPrint("Token refreshed");
+          TokenRefreshScheduler.getInstance();
           return _instance._setJwt(data['access']).then((value) => value ? true : false);
         } else {
           return false;
