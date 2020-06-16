@@ -129,7 +129,7 @@ class _CareerAdviceScreenState extends State<CareerAdviceScreen>
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               Text(
-                                DateFormatUtil().dateFormat1(DateTime.parse(adviceList[index].createdDate)).toString(),
+                                DateFormatUtil.formatDate(adviceList[index].createdAt)??"",
                                 style: TextStyle(color: Colors.grey),
                               ),
                               Container(

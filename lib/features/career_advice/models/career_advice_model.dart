@@ -4,7 +4,7 @@ class CareerAdviceModel {
   String shortDescription;
   String description;
   String author;
-  String createdDate;
+  DateTime createdAt;
 
   CareerAdviceModel({
     this.id,
@@ -12,7 +12,7 @@ class CareerAdviceModel {
     this.shortDescription,
     this.description,
     this.author,
-    this.createdDate,
+    this.createdAt,
   });
   CareerAdviceModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -20,7 +20,10 @@ class CareerAdviceModel {
     shortDescription = json['short_description'];
     description = json['description'];
     author = json['author'];
-    createdDate = json['created_date'];
+    if(json['created_at'] != null){
+      DateTime.parse(createdAt = json['created_at']);
+    }
+
   }
 }
 
