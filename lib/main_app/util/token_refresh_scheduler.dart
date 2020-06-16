@@ -22,7 +22,7 @@ class TokenRefreshScheduler {
     var authService = await AuthService.getInstance();
     var interval = authService.getRefreshInterval();
     if (interval != null) {
-      if (interval > Duration(minutes: 3)) {
+      if (interval > Duration.zero) {
         debugPrint("Watching for token refresh !");
         Timer.periodic(interval, (timer) {
           authService.refreshToken().then((value) {
