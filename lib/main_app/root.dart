@@ -35,8 +35,9 @@ class _RootState extends State<Root> {
 
   init() async {
     var authService = await AuthService.getInstance();
-authService.refreshToken();
+//authService.refreshToken();
     if(authService.isAccessTokenValid()){
+      debugPrint("user: ${authService.getUser()}");
       _naveGateToNextScreen(showDummyLoading: widget.showDummyLoadingTime);
     }else{
       bool isSuccess = await authService.refreshToken();
@@ -51,6 +52,7 @@ authService.refreshToken();
 
   }
   _navigateToLoginScreen(){
+
     Future.delayed(Duration(seconds: 1)).then((_) {
       Navigator.pushAndRemoveUntil(
           context,

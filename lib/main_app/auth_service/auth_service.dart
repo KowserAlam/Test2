@@ -26,19 +26,14 @@ class AuthService {
 
   AuthUserModel getUser() {
     var userMap = _localStorageService.getString(JsonKeys.user);
+//    debugPrint("UserMap: ${userMap}");
     if (userMap == null) {
       return null;
     }
-    return AuthUserModel.fromJson(json.decode(userMap));
-  }
-
-  AuthUserModel getLocalUser() {
-    var userMap = _localStorageService.getString(JsonKeys.user);
-    if (userMap == null) {
-      return null;
-    }
+//    return AuthUserModel.fromJson(json.decode(userMap));
     return AuthUserModel.fromJsonLocal(json.decode(userMap));
   }
+
 
   Future<bool> saveUser(Map<String, dynamic> data) {
     var encodedData = json.encode(data);
@@ -51,10 +46,10 @@ class AuthService {
   }
 
   Future<bool> _setJwt(String jwt) async {
-    var user = _instance.getLocalUser();
+    var user = _instance.getUser();
     user.accessToken = jwt;
     var data = user.toJson();
-    debugPrint("_setJwt ${data}");
+//    debugPrint("_setJwt ${data}");
     return _instance.saveUser(data);
   }
 

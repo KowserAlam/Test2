@@ -34,7 +34,8 @@ class AuthUserModel {
   AuthUserModel.fromJsonLocal(Map<String, dynamic> json) {
     refresh = json['refresh'];
     accessToken = json['access'];
-      email = json["user"];
+    userId = json['user_id'];
+      email = json["email"];
       fullName = json['full_name'];
       professionalId = json['professional_id'];
 

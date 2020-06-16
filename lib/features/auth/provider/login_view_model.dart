@@ -152,10 +152,10 @@ class LoginViewModel with ChangeNotifier {
 
   }
 
-  _saveAuthData(Map<String, dynamic> data) async {
-    AuthUserModel.fromJson(data);
+  _saveAuthData(Map<String, dynamic> json) async {
+   var authModel =  AuthUserModel.fromJson(json);
     var auth = await AuthService.getInstance();
-    return auth.saveUser(data);
+    return auth.saveUser(authModel.toJson());
   }
 
   signOut() async {
