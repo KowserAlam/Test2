@@ -21,7 +21,7 @@ class CareerAdviceModel {
     description = json['description'];
     author = json['author'];
     if(json['created_at'] != null){
-      DateTime.parse(createdAt = json['created_at']);
+      createdAt = DateTime.parse( json['created_at']);
     }
 
   }

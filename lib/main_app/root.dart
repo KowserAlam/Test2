@@ -11,6 +11,7 @@ import 'package:p7app/main_app/push_notification_service/push_notification_servi
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/service_locator/locator.dart';
 import 'package:p7app/main_app/util/local_storage.dart';
+import 'package:p7app/main_app/util/token_refresh_scheduler.dart';
 import 'package:p7app/main_app/widgets/app_version_widget_small.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -38,6 +39,7 @@ class _RootState extends State<Root> {
 //    authService.refreshToken();
     if (authService.isAccessTokenValid()) {
       debugPrint("user: ${authService.getUser()}");
+
       _naveGateToNextScreen(showDummyLoading: widget.showDummyLoadingTime);
     } else {
       bool isSuccess = await authService.refreshToken();

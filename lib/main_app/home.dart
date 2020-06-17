@@ -7,6 +7,7 @@ import 'package:p7app/features/job/view/favourite_job_list_screen.dart';
 import 'package:p7app/features/job/view/job_list_screen.dart';
 import 'package:p7app/main_app/flavour/flavor_banner.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/util/token_refresh_scheduler.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -17,6 +18,11 @@ class _HomeState extends State<Home> {
   var _paeViewController = PageController();
   int currentIndex = 0;
 
+  @override
+  void initState() {
+    TokenRefreshScheduler.getInstance();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     var bottomNavBar = BottomNavigationBar(

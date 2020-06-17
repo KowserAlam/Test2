@@ -56,7 +56,7 @@ class AuthService {
 
   String _getAssessToken()  {
     var user = _instance.getUser();
-    if (user == null) {
+    if (user?.userId == null || user?.professionalId == null) {
       return null;
     }
     return user.accessToken;
@@ -141,9 +141,11 @@ class AuthService {
         print(res.body);
         if (res.statusCode == 200) {
           var data = json.decode(res.body);
-          debugPrint("Token refreshed");
-          TokenRefreshScheduler.getInstance();
-          return _instance._setJwt(data['access']).then((value) => value ? true : false);
+          debugPrint("Token refreshed: {${res.body}");
+
+          return _instance._setJwt(data['access']).then((value) {
+            return value ? true : false;
+          });
         } else {
           return false;
         }
