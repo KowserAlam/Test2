@@ -9,7 +9,7 @@ class StringUtils {
       "Sign up Successful \n Check your email to verify account !";
 
   static String passwordChangeSuccessful = "Password change successful";
-  static String appName = "Job Search";
+  static String appName = "Job Express";
   static String appNameDev = "$appName Dev";
   static String appNameBeta = "$appName Beta";
   static String appNameQA = "$appName  QA";
