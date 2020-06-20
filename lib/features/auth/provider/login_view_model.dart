@@ -5,6 +5,7 @@ import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/auth_service/auth_user_model.dart';
 import 'package:p7app/features/auth/models/login_signup_response_model.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
+import 'package:p7app/main_app/flavour/flavour_config.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:http/http.dart' as http;
@@ -22,7 +23,6 @@ class LoginViewModel with ChangeNotifier {
   String _errorTextEmail;
   String _errorTextPassword;
   String _errorMessage;
-
 
   String get errorMessage => _errorMessage;
 
@@ -73,17 +73,17 @@ class LoginViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  clearMessage(){
+  clearMessage() {
     _errorMessage = null;
     notifyListeners();
   }
 
-   bool validate(){
+  bool validate() {
     validateEmailLocal(_email);
     validatePasswordLocal(_password);
     return errorTextEmail == null && errorTextPassword == null;
-
   }
+
   validateEmailLocal(String val) {
     errorTextEmail = Validator().validateEmail(val?.trim());
     _email = val;
@@ -106,7 +106,10 @@ class LoginViewModel with ChangeNotifier {
     };
 
     try {
-      http.Response response = await ApiClient().postRequest(Urls.loginUrl, body);
+      var baseUrl = FlavorConfig.instance.values.baseUrl;
+      var url = "$baseUrl${Urls.loginUrl}";
+      http.Response response =
+          await http.post(url, body: body);
 
       print(response.body);
       print(response.statusCode);
@@ -149,11 +152,10 @@ class LoginViewModel with ChangeNotifier {
     _errorTextEmail = null;
     _errorTextEmail = null;
     _errorMessage = null;
-
   }
 
   _saveAuthData(Map<String, dynamic> json) async {
-   var authModel =  AuthUserModel.fromJson(json);
+    var authModel = AuthUserModel.fromJson(json);
     var auth = await AuthService.getInstance();
     return auth.saveUser(authModel.toJson());
   }
@@ -162,6 +164,4 @@ class LoginViewModel with ChangeNotifier {
     var authService = await AuthService.getInstance();
     authService.removeUser();
   }
-
-
 }
