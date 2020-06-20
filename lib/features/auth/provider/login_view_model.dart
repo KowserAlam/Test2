@@ -102,7 +102,7 @@ class LoginViewModel with ChangeNotifier {
     isBusyLogin = true;
     var body = {
       JsonKeys.email: email,
-      JsonKeys.password: password,
+      JsonKeys.password: password
     };
 
     try {
