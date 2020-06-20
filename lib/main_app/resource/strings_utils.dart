@@ -8,7 +8,7 @@ class StringUtils {
   static var signSuccessfulText =
       "Sign up Successful \n Check your email to verify account !";
 
-  static String passwordChangeSuccessful = "Password change successful";
+  static String passwordChangeSuccessful = "Your password has been changed successfully";
   static String appName = "Job Express";
   static String appNameDev = "$appName Dev";
   static String appNameBeta = "$appName Beta";

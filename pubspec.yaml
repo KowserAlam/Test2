@@ -52,6 +52,7 @@ dependencies:
   shimmer: ^1.1.1
   percent_indicator: ^2.1.4
   jwt_decode: ^0.1.0
+  flutter_html: ^0.11.0
 
 
 

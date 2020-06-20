@@ -159,14 +159,16 @@ class SignUpViewModel with ChangeNotifier {
       BotToast.showLoading();
       http.Response res = await ApiClient().postRequest(Urls.signUpUrl, body);
       print(res.statusCode);
+      print(res.body);
 
-      if(res.statusCode == 200){
+      var decodedJson = json.decode(res.body);
+      if(decodedJson["status"] == "success"){
         BotToast.showText(text: 'Sign up successful');
         BotToast.closeAllLoading();
         return true;
       }else{
         BotToast.closeAllLoading();
-        BotToast.showText(text: "Unable to complete sign up");
+        BotToast.showText(text: "${decodedJson["message"]}");
         return false;
       }
 
