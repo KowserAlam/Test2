@@ -1,17 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
-import 'package:p7app/features/auth/models/login_signup_response_model.dart';
-import 'package:p7app/main_app/api_helpers/api_client.dart';
-import 'package:p7app/main_app/api_helpers/urls.dart';
-import 'package:p7app/main_app/resource/json_keys.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
-import 'package:p7app/main_app/util/validator.dart';
+
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:rxdart/rxdart.dart';
 import 'package:http/http.dart' as http;
+import 'package:p7app/main_app/api_helpers/api_client.dart';
+import 'package:p7app/main_app/api_helpers/urls.dart';
+import 'package:p7app/main_app/util/validator.dart';
 
 class SignUpViewModel with ChangeNotifier {
   bool _isObscurePassword;

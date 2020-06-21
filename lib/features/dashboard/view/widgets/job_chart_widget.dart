@@ -82,6 +82,10 @@ class JobChartWidget extends StatelessWidget {
                     ? skillText ?? ""
                     : "${skillText?.substring(0, chLength)} ...." ?? "";
 
+                if(userProfileViewModel.appError !=  null){
+                  return SizedBox();
+                }
+
                 if (skillList.length == 0) {
                   return Padding(
                     padding: const EdgeInsets.all(4.0),
