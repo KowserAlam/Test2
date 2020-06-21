@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:logger/logger.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/auth_service/auth_user_model.dart';
@@ -139,6 +141,29 @@ class LoginViewModel with ChangeNotifier {
       print(e);
       isBusyLogin = false;
       BotToast.showText(text: StringUtils.somethingIsWrong);
+      return false;
+    }
+  }
+  Future<bool> signInWithGoogle() async {
+    BotToast.showLoading();
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+    try {
+      final GoogleSignInAuthentication googleSignInAuthentication =
+      await googleSignIn.signIn().then((a) async => await a.authentication);
+
+      print("accessToken: ${googleSignInAuthentication.accessToken}");
+      print("idToken: ${googleSignInAuthentication.idToken}");
+
+      // handle google signing with backend
+
+      BotToast.showText(text: "Unable Signin");
+      BotToast.closeAllLoading();
+      return false;
+    }  catch (e) {
+      Logger().e(e);
+      print(e);
+      BotToast.showText(text: "Unable Signin");
+      BotToast.closeAllLoading();
       return false;
     }
   }

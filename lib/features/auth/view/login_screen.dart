@@ -78,6 +78,11 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
+  _handleGoogleLogin(){
+    var loginViewModel = Provider.of<LoginViewModel>(context, listen: false);
+    loginViewModel.signInWithGoogle();
+  }
+
   _showSnackBar(String text, Color color) {
     _scaffoldKey.currentState.showSnackBar(SnackBar(
       duration: Duration(milliseconds: 600),
@@ -312,36 +317,39 @@ class _LoginScreenState extends State<LoginScreen> {
             SizedBox(
               width: 10,
             ),
-            Container(
-              height: 40,
-              width: 120,
-              padding: EdgeInsets.symmetric(vertical: 10),
-              decoration: BoxDecoration(
-                  color: Color.fromARGB(0xFF, 243, 80, 29),
-                  borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(40),
-                      bottomRight: Radius.circular(40))),
-              child: Center(
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    ClipRRect(
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(40),
-                            bottomLeft: Radius.circular(40)),
-                        child: Image.asset(
-                          'assets/images/gmail_red_icon.png',
-                          fit: BoxFit.cover,
-                        )),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Text(
-                      'Google +',
-                      style: TextStyle(color: Colors.white),
-                    )
-                  ],
+            InkWell(
+              onTap: _handleGoogleLogin,
+              child: Container(
+                height: 40,
+                width: 120,
+                padding: EdgeInsets.symmetric(vertical: 10),
+                decoration: BoxDecoration(
+                    color: Color.fromARGB(0xFF, 243, 80, 29),
+                    borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(40),
+                        bottomRight: Radius.circular(40))),
+                child: Center(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      ClipRRect(
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(40),
+                              bottomLeft: Radius.circular(40)),
+                          child: Image.asset(
+                            'assets/images/gmail_red_icon.png',
+                            fit: BoxFit.cover,
+                          )),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Text(
+                        'Google',
+                        style: TextStyle(color: Colors.white),
+                      )
+                    ],
+                  ),
                 ),
               ),
             )
@@ -362,8 +370,8 @@ class _LoginScreenState extends State<LoginScreen> {
           forgotPasswordWidget,
           SizedBox(height: 5),
           signInButton,
-//          SizedBox(height: 20),
-//          socialLogin,
+          SizedBox(height: 20),
+          socialLogin,
           SizedBox(height: 20),
           registerText,
         ],
