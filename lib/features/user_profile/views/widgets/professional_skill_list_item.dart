@@ -9,52 +9,55 @@ class ProfessionalSkillListItem extends StatelessWidget {
   final Function onTapDelete;
   final bool isInEditMode;
 
-  ProfessionalSkillListItem({Key key,
-    @required this.skillInfo,
-    this.onTapDelete,
-    this.onTapEdit,
-    this.isInEditMode = false})
+  ProfessionalSkillListItem(
+      {Key key,
+      @required this.skillInfo,
+      this.onTapDelete,
+      this.onTapEdit,
+      this.isInEditMode = false})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var titleStyle = Theme
-        .of(context)
+    var titleStyle = Theme.of(context)
         .textTheme
         .subtitle2
-        .apply(color: Theme
-        .of(context)
-        .primaryColor);
+        .apply(color: Theme.of(context).primaryColor);
     return Container(
       margin: EdgeInsets.only(bottom: 8),
       decoration: BoxDecoration(
-        color: Theme
-            .of(context)
-            .backgroundColor,
+        color: Theme.of(context).backgroundColor,
         borderRadius: BorderRadius.circular(5),
         boxShadow: CommonStyleTextField.boxShadow,
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8,),
+        padding: const EdgeInsets.symmetric(
+          horizontal: 8,
+        ),
         child: Row(
           children: [
-            skillInfo.verifiedBySkillCheck ?? false
-                ? Icon(
-              FontAwesomeIcons.checkCircle,
-              color: Colors.orange,
-              size: 17,
-            )
-                : Icon(
-              FontAwesomeIcons.circle,
-              color: Colors.orange,
-              size: 17,
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 6),
+              child: skillInfo.verifiedBySkillCheck ?? false
+                  ? Icon(
+                      FontAwesomeIcons.checkCircle,
+                      color: Colors.orange,
+                      size: 17,
+                    )
+                  : Icon(
+                      FontAwesomeIcons.circle,
+                      color: Colors.orange,
+                      size: 17,
+                    ),
             ),
             SizedBox(
               width: 5,
             ),
             Expanded(
-              child: Text(skillInfo?.skill?.name ?? "",
-                style: titleStyle,),
+              child: Text(
+                skillInfo?.skill?.name ?? "",
+                style: titleStyle,
+              ),
             ),
             Row(
               mainAxisSize: MainAxisSize.min,
@@ -72,7 +75,8 @@ class ProfessionalSkillListItem extends StatelessWidget {
                       children: [
                         InkWell(
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 12,vertical: 6),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 12, vertical: 6),
                             child: Icon(
                               FontAwesomeIcons.edit,
                               size: 17,
@@ -84,7 +88,8 @@ class ProfessionalSkillListItem extends StatelessWidget {
 //                        SizedBox(width: 25),
                         InkWell(
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 12,vertical: 6),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 12, vertical: 6),
                             child: Icon(
                               FontAwesomeIcons.trash,
                               color: Colors.black,

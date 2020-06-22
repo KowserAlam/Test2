@@ -1,7 +1,6 @@
-import 'package:after_layout/after_layout.dart';
 import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:bot_toast/bot_toast.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:p7app/features/user_profile/models/skill.dart';
@@ -9,16 +8,11 @@ import 'package:p7app/features/user_profile/models/skill_info.dart';
 import 'package:p7app/features/user_profile/repositories/skill_list_repository.dart';
 import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
-import 'package:p7app/method_extension.dart';
-import 'package:p7app/main_app/views/widgets/custom_text_from_field.dart';
-import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/validator.dart';
+import 'package:p7app/main_app/views/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/views/widgets/edit_screen_save_button.dart';
-import 'package:flutter/material.dart';
-import 'package:p7app/main_app/views/widgets/loader.dart';
 import 'package:provider/provider.dart';
-import 'package:dartz/dartz.dart' as dartZ;
 
 class AddEditProfessionalSkill extends StatefulWidget {
   final SkillInfo skillInfo;
@@ -45,7 +39,7 @@ class _AddEditProfessionalSkillState extends State<AddEditProfessionalSkill> {
 
   var _formKey = GlobalKey<FormState>();
   var _scaffoldKey = GlobalKey<ScaffoldState>();
-  List<DropdownMenuItem<Skill>> skillList = [];
+  List<Skill> skillList = [];
   static Skill _selectedSkill;
   static GlobalKey<AutoCompleteTextFieldState<Skill>> key = new GlobalKey();
 
@@ -57,10 +51,22 @@ class _AddEditProfessionalSkillState extends State<AddEditProfessionalSkill> {
     ratingController.text = widget.skillInfo == null ? "" : widget.skillInfo.rating.toString();
     searchController.text = widget.skillInfo == null ? "" : widget.skillInfo.skill.name;
     _selectedSkill = widget.skillInfo == null? null : widget.skillInfo.skill;
-    //_getSkillList();
+    _getSkillList();
     super.initState();
   }
 
+  _getSkillList()async{
+       SkillListRepository()
+          .getSkillList()
+          .then((value) => value.fold((l) => [], (r){
+         skillList = r;
+         if(this.mounted)
+         setState(() {
+
+         });
+       }));
+
+  }
   bool correctInput(String input){
     int x = 0;
     for(int i =0; i<searchList.length; i++){
@@ -147,8 +153,9 @@ class _AddEditProfessionalSkillState extends State<AddEditProfessionalSkill> {
 
   List<Skill> filter(String pattern, List<Skill> a){
     searchList = a;
-    a.removeWhere((item) => !item.name.toLowerCase().contains(pattern.toLowerCase()));
-    return a;
+   return a.where((item) => item.name.toLowerCase().contains(pattern.toLowerCase())).toList();
+//    a.removeWhere((item) => !item.name.toLowerCase().contains(pattern.toLowerCase()));
+//    return a;
   }
 
   @override
@@ -198,9 +205,7 @@ class _AddEditProfessionalSkillState extends State<AddEditProfessionalSkill> {
             ),
             suggestionsCallback: (String pattern) {
               if(pattern.length>1)
-                return SkillListRepository()
-                    .getSkillList()
-                    .then((value) => value.fold((l) => [], (r) => filter(pattern, r)));
+                return filter(pattern, skillList);
               else
                 return[];
             },

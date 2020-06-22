@@ -1,25 +1,48 @@
 import 'dart:convert';
 import 'package:dartz/dartz.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:p7app/features/user_profile/models/religion.dart';
 import 'package:p7app/features/user_profile/models/skill.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
+import 'package:p7app/main_app/resource/json_keys.dart';
 import 'package:p7app/main_app/util/local_storage.dart';
 
 class SkillListRepository {
   var _storageKey = "skillList";
 
-  Future<Either<AppError, List<Skill>>> getSkillList() async {
+  Future<Either<AppError, List<Skill>>> getSkillList(
+      {bool forceGetFromServer = false}) async {
+//    // first check in local
+//    if (!forceGetFromServer) {
+//      try {
+//        var data = await _getFromLocalStorage();
+//        if (data != null) {
+//          print(data);
+//          var difference =
+//              DateTime.now().difference(DateTime.parse(data[JsonKeys.savedAt]));
+//          print(difference);
+//          if (difference < Duration(hours: 12)) {
+//            debugPrint('getting skill list from local storage');
+//            return Right(fromJson(data['data']));
+//          }
+//        }
+//      } catch (e) {
+//        print(e);
+//      }
+//    }
+
     try {
       var res = await ApiClient().getRequest(Urls.skillListUrl);
 
       if (res.statusCode == 200) {
         var decodedJson = json.decode(res.body);
-        print(decodedJson);
+//        print(decodedJson);
 
         List<Skill> list = fromJson(decodedJson);
         _saveInLocalStorage(list);
+        debugPrint('getting skill list from server');
         return Right(list);
       } else {
         return Left(AppError.unknownError);
@@ -45,14 +68,22 @@ class SkillListRepository {
 
   _saveInLocalStorage(List<Skill> list) async {
     var storage = await LocalStorageService.getInstance();
-    var data = {"fetchAt": DateTime.now(), "data": list.map((e) => e.toJson())};
+    var data = {
+      "sateAt": DateTime.now().toIso8601String(),
+      "data": list.map((e) => e.toJson()).toList()
+    };
     storage.saveString(_storageKey, json.encode(data));
   }
 
-  Future<List<Skill>> _getFromLocalStorage() async {
+  Future<Map<String,dynamic>> _getFromLocalStorage() async {
     var storage = await LocalStorageService.getInstance();
-    var data = storage.getString(_storageKey);
-    var decodedData = json.decode(data);
-    return fromJson(decodedData);
+    String data = storage.getString(_storageKey);
+    if (data == null) {
+      return null;
+    }
+
+    Map<String, dynamic> decodedData = json.decode(data);
+    print(decodedData);
+    return decodedData;
   }
 }
