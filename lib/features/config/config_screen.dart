@@ -2,10 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:p7app/features/auth/view/passworrd_change_screen.dart';
 import 'package:p7app/main_app/repositories/app_info_repository.dart';
 import 'package:p7app/main_app/resource/const.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:p7app/main_app/widgets/app_logo.dart';
+import 'package:p7app/main_app/views/widgets/app_logo.dart';
 
 class ConfigScreen extends StatefulWidget {
   @override
@@ -18,7 +18,7 @@ class _ConfigScreenState extends State<ConfigScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(StringUtils.settingsText),
+        title: Text(StringResources.settingsText),
       ),
       body: ListView(
         children: <Widget>[
@@ -51,7 +51,7 @@ class _ConfigScreenState extends State<ConfigScreen> {
             leading: Icon(
               Icons.lock_open,
             ),
-            title: Text(StringUtils.changePassword),
+            title: Text(StringResources.changePassword),
           ),
           ListTile(
             onTap: () {
@@ -73,7 +73,7 @@ class _ConfigScreenState extends State<ConfigScreen> {
             leading: Icon(
               Icons.featured_play_list,
             ),
-            title: Text(StringUtils.licenses),
+            title: Text(StringResources.licenses),
           ),
           ListTile(
             leading: Icon(

@@ -10,11 +10,11 @@ import 'package:p7app/features/job/models/job_model.dart';
 import 'package:p7app/features/job/view/widgets/job_list_tile_widget.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
 import 'package:p7app/main_app/flavour/flavor_banner.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
-import 'package:p7app/main_app/widgets/app_drawer.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
+import 'package:p7app/main_app/views/app_drawer.dart';
 import 'package:flutter/material.dart';
-import 'package:p7app/main_app/widgets/custom_text_from_field.dart';
-import 'package:p7app/main_app/widgets/loader.dart';
+import 'package:p7app/main_app/views/widgets/custom_text_from_field.dart';
+import 'package:p7app/main_app/views/widgets/loader.dart';
 import 'package:provider/provider.dart';
 
 class AppliedJobListScreen extends StatefulWidget {
@@ -70,7 +70,7 @@ class _AppliedJobListScreenState extends State<AppliedJobListScreen>
         return Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(
-            title: Text(StringUtils.appliedJobsText),
+            title: Text(StringResources.appliedJobsText),
           ),
           drawer: AppDrawer(
             routeName: 'applied_job_list',
@@ -127,13 +127,13 @@ class _AppliedJobListScreenState extends State<AppliedJobListScreen>
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text(StringUtils.doYouWantToApplyText),
+            title: Text(StringResources.doYouWantToApplyText),
             actions: [
               RawMaterialButton(
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: Text(StringUtils.noText),
+                child: Text(StringResources.noText),
               ),
               RawMaterialButton(
                 onPressed: () {
@@ -141,7 +141,7 @@ class _AppliedJobListScreenState extends State<AppliedJobListScreen>
                       .applyForJob(jobModel.jobId, index);
                   Navigator.pop(context);
                 },
-                child: Text(StringUtils.yesText),
+                child: Text(StringResources.yesText),
               ),
             ],
           );

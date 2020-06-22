@@ -10,15 +10,15 @@ import 'package:p7app/features/job/view_model/job_list_view_model.dart';
 import 'package:p7app/features/job/view/widgets/job_list_tile_widget.dart';
 import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/root.dart';
-import 'package:p7app/main_app/widgets/app_drawer.dart';
+import 'package:p7app/main_app/views/app_drawer.dart';
 import 'package:flutter/material.dart';
-import 'package:p7app/main_app/widgets/common_prompt_dialog.dart';
-import 'package:p7app/main_app/widgets/custom_text_field.dart';
-import 'package:p7app/main_app/widgets/failure_widget.dart';
-import 'package:p7app/main_app/widgets/loader.dart';
-import 'package:p7app/main_app/widgets/restart_widget.dart';
+import 'package:p7app/main_app/views/widgets/common_prompt_dialog.dart';
+import 'package:p7app/main_app/views/widgets/custom_text_field.dart';
+import 'package:p7app/main_app/views/widgets/failure_widget.dart';
+import 'package:p7app/main_app/views/widgets/loader.dart';
+import 'package:p7app/main_app/views/widgets/restart_widget.dart';
 import 'package:provider/provider.dart';
 
 class JobListScreen extends StatefulWidget {
@@ -101,7 +101,7 @@ class _JobListScreenState extends State<JobListScreen>
     switch (jobListViewModel.appError) {
       case AppError.serverError:
         return FailureFullScreenWidget(
-          errorMessage: StringUtils.unableToLoadData,
+          errorMessage: StringResources.unableToLoadData,
           onTap: () {
             return Provider.of<JobListViewModel>(context, listen: false)
                 .refresh();
@@ -110,7 +110,7 @@ class _JobListScreenState extends State<JobListScreen>
 
       case AppError.networkError:
         return FailureFullScreenWidget(
-          errorMessage: StringUtils.unableToReachServerMessage,
+          errorMessage: StringResources.unableToReachServerMessage,
           onTap: () {
             return Provider.of<JobListViewModel>(context, listen: false)
                 .refresh();
@@ -119,7 +119,7 @@ class _JobListScreenState extends State<JobListScreen>
 
       case AppError.unauthorized:
         return FailureFullScreenWidget(
-          errorMessage: StringUtils.somethingIsWrong,
+          errorMessage: StringResources.somethingIsWrong,
           onTap: () {
             return _signOut(context);
           },
@@ -127,7 +127,7 @@ class _JobListScreenState extends State<JobListScreen>
 
       default:
         return FailureFullScreenWidget(
-          errorMessage: StringUtils.somethingIsWrong,
+          errorMessage: StringResources.somethingIsWrong,
           onTap: () {
             return Provider.of<JobListViewModel>(context, listen: false)
                 .refresh();
@@ -174,7 +174,7 @@ class _JobListScreenState extends State<JobListScreen>
                 },
               ),
               controller: _searchTextEditingController,
-              hintText: StringUtils.searchText,
+              hintText: StringResources.searchText,
             ),
           ),
           Container(
@@ -189,7 +189,7 @@ class _JobListScreenState extends State<JobListScreen>
                       padding: const EdgeInsets.only(
                           bottom: 8.0),
                       child: Text(
-                          '${jobListViewModel.totalJobCount} ${StringUtils.jobsFoundText}'),
+                          '${jobListViewModel.totalJobCount} ${StringResources.jobsFoundText}'),
                     )
               ],
             ),
@@ -248,7 +248,7 @@ class _JobListScreenState extends State<JobListScreen>
       return Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
-          title: Text(StringUtils.jobsText),
+          title: Text(StringResources.jobsText),
           actions: isMainList
               ? [
                   IconButton(
@@ -320,7 +320,7 @@ class _JobListScreenState extends State<JobListScreen>
                                           child: Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child:
-                                                Text(StringUtils.noJobsFound),
+                                                Text(StringResources.noJobsFound),
                                           ),
                                         )
                                       : jobListWidget,
@@ -340,7 +340,7 @@ class _JobListScreenState extends State<JobListScreen>
         context: context,
         builder: (context) {
           return CommonPromptDialog(
-            titleText: StringUtils.doYouWantToApplyText,
+            titleText: StringResources.doYouWantToApplyText,
             onCancel: () {
               Navigator.pop(context);
             },

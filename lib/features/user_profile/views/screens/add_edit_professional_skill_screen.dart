@@ -9,14 +9,14 @@ import 'package:p7app/features/user_profile/models/skill_info.dart';
 import 'package:p7app/features/user_profile/repositories/skill_list_repository.dart';
 import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
-import 'package:p7app/main_app/util/method_extension.dart';
-import 'package:p7app/main_app/widgets/custom_text_from_field.dart';
+import 'package:p7app/method_extension.dart';
+import 'package:p7app/main_app/views/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/validator.dart';
-import 'package:p7app/main_app/widgets/edit_screen_save_button.dart';
+import 'package:p7app/main_app/views/widgets/edit_screen_save_button.dart';
 import 'package:flutter/material.dart';
-import 'package:p7app/main_app/widgets/loader.dart';
+import 'package:p7app/main_app/views/widgets/loader.dart';
 import 'package:provider/provider.dart';
 import 'package:dartz/dartz.dart' as dartZ;
 
@@ -104,7 +104,7 @@ class _AddEditProfessionalSkillState extends State<AddEditProfessionalSkill> {
                 Navigator.pop(context);
               }
             });
-          }else{BotToast.showText(text: StringUtils.previouslyAddedSkillText);}
+          }else{BotToast.showText(text: StringResources.previouslyAddedSkillText);}
         }else{
           var updatedSKill = SkillInfo(
             profSkillId: widget.skillInfo?.profSkillId,
@@ -133,13 +133,13 @@ class _AddEditProfessionalSkillState extends State<AddEditProfessionalSkill> {
                 }
               });
             }else{
-              BotToast.showText(text: StringUtils.previouslyAddedSkillText);
+              BotToast.showText(text: StringResources.previouslyAddedSkillText);
             }
           }
 
         }
       }else{
-        BotToast.showText(text: StringUtils.enterValidSkillText);
+        BotToast.showText(text: StringResources.enterValidSkillText);
       }
     }
   }
@@ -157,7 +157,7 @@ class _AddEditProfessionalSkillState extends State<AddEditProfessionalSkill> {
     var skillName = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text("  " + StringUtils.skillNameText ?? "",
+        Text("  " + StringResources.skillNameText ?? "",
             style: TextStyle(fontWeight: FontWeight.bold)),
         SizedBox(
           height: 5,
@@ -172,7 +172,7 @@ class _AddEditProfessionalSkillState extends State<AddEditProfessionalSkill> {
             textFieldConfiguration: TextFieldConfiguration(
                 controller: searchController,
                 decoration: InputDecoration(
-                  hintText: StringUtils.searchSkillText,
+                  hintText: StringResources.searchSkillText,
                   border: InputBorder.none,
                   contentPadding:
                   const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -205,7 +205,7 @@ class _AddEditProfessionalSkillState extends State<AddEditProfessionalSkill> {
                 return[];
             },
             validator: (v) {
-              return v.length < 2 ? StringUtils.typeAtLeast2Letter : null;
+              return v.length < 2 ? StringResources.typeAtLeast2Letter : null;
             },
             noItemsFoundBuilder: (context) {
               return SizedBox();
@@ -226,7 +226,7 @@ class _AddEditProfessionalSkillState extends State<AddEditProfessionalSkill> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        title: Text(StringUtils.professionalSkillText),
+        title: Text(StringResources.professionalSkillText),
         actions: <Widget>[
           EditScreenSaveButton(
             text: "Save",
@@ -323,7 +323,7 @@ class _AddEditProfessionalSkillState extends State<AddEditProfessionalSkill> {
                   keyboardType: TextInputType.number,
                   controller: ratingController,
                   validator: Validator().expertiseFieldValidate,
-                  labelText: "${StringUtils.expertiseLevel} (0 - 10)",
+                  labelText: "${StringResources.expertiseLevel} (0 - 10)",
                 ),
                 SizedBox(height: 30,)
               ],

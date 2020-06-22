@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
-import 'package:p7app/main_app/widgets/loader.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
+import 'package:p7app/main_app/views/widgets/loader.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class PgeViewWidget extends StatefulWidget {

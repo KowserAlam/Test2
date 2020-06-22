@@ -8,7 +8,7 @@ import 'package:p7app/features/messaging/model/message_model.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 
 class MessageRepository{
   Future<Either<AppError,MessageScreenDataModel>> getMessageList() async {
@@ -22,19 +22,19 @@ class MessageRepository{
         var data = MessageScreenDataModel.fromJson(mapData);
         return Right(data);
       } else if (response.statusCode == 401) {
-        BotToast.showText(text: StringUtils.unauthorizedText);
+        BotToast.showText(text: StringResources.unauthorizedText);
         return Left(AppError.unauthorized);
       } else {
-        BotToast.showText(text: StringUtils.somethingIsWrong);
+        BotToast.showText(text: StringResources.somethingIsWrong);
         return Left(AppError.unknownError);
       }
     } on SocketException catch (e) {
       print(e);
-      BotToast.showText(text: StringUtils.unableToReachServerMessage);
+      BotToast.showText(text: StringResources.unableToReachServerMessage);
       return Left(AppError.networkError);
     } catch (e) {
       print(e);
-      BotToast.showText(text: StringUtils.somethingIsWrong);
+      BotToast.showText(text: StringResources.somethingIsWrong);
       return Left(AppError.serverError);
     }
   }

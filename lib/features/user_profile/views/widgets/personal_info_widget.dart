@@ -3,7 +3,7 @@ import 'package:p7app/features/user_profile/styles/common_style_text_field.dart'
 import 'package:p7app/features/user_profile/views/screens/edit_personal_info_screen.dart';
 import 'package:p7app/features/user_profile/views/widgets/user_info_list_item.dart';
 import 'package:p7app/main_app/resource/const.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -33,7 +33,7 @@ class PersonalInfoWidget extends StatelessWidget {
     return UserInfoListItem(
       useSeparator: false,
       icon: FontAwesomeIcons.infoCircle,
-      label: StringUtils.personalInfoText,
+      label: StringResources.personalInfoText,
       onTapEditAction: () {
         var userModel =
             Provider.of<UserProfileViewModel>(context, listen: false).userData;
@@ -64,49 +64,49 @@ class PersonalInfoWidget extends StatelessWidget {
                 //dob
                 _item(
                     context: context,
-                    label: StringUtils.dateOfBirthText,
+                    label: StringResources.dateOfBirthText,
                     value: personalInfo.dateOfBirth != null
                         ? DateFormatUtil.formatDate(personalInfo.dateOfBirth)
                         : ""),
                 //gender
                 _item(
                     context: context,
-                    label: StringUtils.genderText,
+                    label: StringResources.genderText,
                     value: personalInfo.gender ?? ""),
                 //father name
                 _item(
                     context: context,
-                    label: StringUtils.fatherNameText,
+                    label: StringResources.fatherNameText,
                     value: personalInfo.fatherName ?? ""),
                 //mother name
                 _item(
                     context: context,
-                    label: StringUtils.motherNameText,
+                    label: StringResources.motherNameText,
                     value: personalInfo.motherName ?? ""),
 
                 //current address
                 _item(
                     context: context,
-                    label: StringUtils.currentAddressText,
+                    label: StringResources.currentAddressText,
                     value: personalInfo.address ?? ""),
                 //permanent address
                 _item(
                     context: context,
-                    label: StringUtils.permanentAddressText,
+                    label: StringResources.permanentAddressText,
                     value: personalInfo.permanentAddress ?? ""),
                 //nationality
                 _item(
                     context: context,
-                    label: StringUtils.nationalityText,
+                    label: StringResources.nationalityText,
                     value: personalInfo.nationalityObj?.name ?? ""),
                 //religion
                 _item(
                     context: context,
-                    label: StringUtils.religionText,
+                    label: StringResources.religionText,
                     value: personalInfo.religionObj?.name ?? ""),
                 _item(
                     context: context,
-                    label: StringUtils.bloodGroupText,
+                    label: StringResources.bloodGroupText,
                     value: personalInfo.bloodGroup ?? ""),
               ],
             );

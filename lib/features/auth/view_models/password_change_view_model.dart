@@ -1,12 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:p7app/main_app/util/method_extension.dart';
+import 'package:p7app/method_extension.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
 import 'package:p7app/main_app/auth_service/auth_service.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/validator.dart';
 
 class PasswordChangeViewModel with ChangeNotifier {
@@ -158,7 +158,7 @@ class PasswordChangeViewModel with ChangeNotifier {
         var data = json.decode(res.body);
         print(data['status']);
         if (data['status'] == "success") {
-          BotToast.showText(text: StringUtils.passwordChangeSuccessful);
+          BotToast.showText(text: StringResources.passwordChangeSuccessful);
           resetState();
           return true;
         } else {
@@ -181,12 +181,12 @@ class PasswordChangeViewModel with ChangeNotifier {
       } on SocketException catch (e) {
         isBusy = false;
         print(e);
-        BotToast.showText(text: StringUtils.unableToReachServerMessage);
+        BotToast.showText(text: StringResources.unableToReachServerMessage);
         return false;
       } catch (e) {
         isBusy = false;
         print(e);
-        BotToast.showText(text: StringUtils.somethingIsWrong);
+        BotToast.showText(text: StringResources.somethingIsWrong);
         return false;
       }
     } else {

@@ -4,7 +4,7 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:p7app/features/company/models/company.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
 import 'package:p7app/main_app/resource/const.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/date_format_uitl.dart';
 
 class CompanyListTile extends StatefulWidget {
@@ -135,7 +135,7 @@ class _CompanyListTileState extends State<CompanyListTile> {
                 Row(
                   children: <Widget>[
                     Text(
-                      StringUtils.companyListYearOfEstablishmentText,
+                      StringResources.companyListYearOfEstablishmentText,
                       style: TextStyle(
                           color: subtitleColor,
                           fontWeight:
@@ -149,7 +149,7 @@ class _CompanyListTileState extends State<CompanyListTile> {
                           ? DateFormatUtil.formatDate(
                           widget.company
                               .yearOfEstablishment)
-                          : StringUtils
+                          : StringResources
                           .unspecifiedText,
                       style: TextStyle(
                           color: subtitleColor,

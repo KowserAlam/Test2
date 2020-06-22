@@ -7,8 +7,8 @@ import 'package:p7app/features/job/models/job_model.dart';
 import 'package:p7app/features/job/repositories/job_repository.dart';
 import 'package:p7app/features/job/view/job_details.dart';
 import 'package:p7app/features/job/view/widgets/job_list_tile_widget.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
-import 'package:p7app/main_app/widgets/loader.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
+import 'package:p7app/main_app/views/widgets/loader.dart';
 import 'package:provider/provider.dart';
 
 class SimilarJobsWidget extends StatefulWidget {
@@ -62,7 +62,7 @@ class _SimilarJobsWidgetState extends State<SimilarJobsWidget> {
                 width: 5,
               ),
               Text(
-                StringUtils.similarJobsText,
+                StringResources.similarJobsText,
                 style: sectionTitleFont,
               )
             ],

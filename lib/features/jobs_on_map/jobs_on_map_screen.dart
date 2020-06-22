@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 
 class JobsOnMap extends StatefulWidget {
   @override
@@ -11,7 +11,7 @@ class _JobsOnMapState extends State<JobsOnMap> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(StringUtils.jobsOnMapText),
+        title: Text(StringResources.jobsOnMapText),
       ),
     );
   }

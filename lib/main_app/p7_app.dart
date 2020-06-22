@@ -1,8 +1,8 @@
 
-import 'package:p7app/features/auth/provider/login_view_model.dart';
-import 'package:p7app/features/auth/provider/password_change_view_model.dart';
-import 'package:p7app/features/auth/provider/password_reset_provider.dart';
-import 'package:p7app/features/auth/provider/signup_viewmodel.dart';
+import 'package:p7app/features/auth/view_models/login_view_model.dart';
+import 'package:p7app/features/auth/view_models/password_change_view_model.dart';
+import 'package:p7app/features/auth/view_models/password_reset_view_model.dart';
+import 'package:p7app/features/auth/view_models/signup_viewmodel.dart';
 import 'package:p7app/features/career_advice/view_models/career_advice_view_model.dart';
 import 'package:p7app/features/company/view_model/company_list_view_model.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +19,7 @@ import 'package:provider/provider.dart';
 import 'package:p7app/main_app/root.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:bot_toast/bot_toast.dart';
 
 

@@ -12,7 +12,7 @@ import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
 import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 
 /// http://dev.ishraak.com/api/job_list/?page=1&q=job&location=&category=
 /// &location_from_homepage=&keyword_from_homepage=&skill=&salaryMin=
@@ -65,19 +65,19 @@ class JobRepository {
             nextPage: mapData['next_pages'] ?? false);
         return Right(dataModel);
       } else if (response.statusCode == 401) {
-        BotToast.showText(text: StringUtils.unauthorizedText);
+        BotToast.showText(text: StringResources.unauthorizedText);
         return Left(AppError.unauthorized);
       } else {
-        BotToast.showText(text: StringUtils.somethingIsWrong);
+        BotToast.showText(text: StringResources.somethingIsWrong);
         return Left(AppError.unknownError);
       }
     } on SocketException catch (e) {
       print(e);
-      BotToast.showText(text: StringUtils.unableToReachServerMessage);
+      BotToast.showText(text: StringResources.unableToReachServerMessage);
       return Left(AppError.networkError);
     } catch (e) {
       print(e);
-      BotToast.showText(text: StringUtils.somethingIsWrong);
+      BotToast.showText(text: StringResources.somethingIsWrong);
       return Left(AppError.serverError);
     }
   }
@@ -107,16 +107,16 @@ class JobRepository {
         var jobDetails = JobModel.fromJson(mapData);
         return Right(jobDetails);
       } else {
-        BotToast.showText(text: StringUtils.somethingIsWrong);
+        BotToast.showText(text: StringResources.somethingIsWrong);
         return Left(AppError.unknownError);
       }
     } on SocketException catch (e) {
       print(e);
-      BotToast.showText(text: StringUtils.unableToReachServerMessage);
+      BotToast.showText(text: StringResources.unableToReachServerMessage);
       return Left(AppError.networkError);
     } catch (e) {
       print(e);
-      BotToast.showText(text: StringUtils.somethingIsWrong);
+      BotToast.showText(text: StringResources.somethingIsWrong);
       return Left(AppError.serverError);
     }
   }
@@ -135,22 +135,22 @@ class JobRepository {
       if (res.statusCode == 200) {
         BotToast.closeAllLoading();
         BotToast.showText(
-            text: StringUtils.successfullyAppliedText,
+            text: StringResources.successfullyAppliedText,
             duration: Duration(seconds: 2));
         return true;
       } else {
         BotToast.closeAllLoading();
-        BotToast.showText(text: StringUtils.unableToApplyText);
+        BotToast.showText(text: StringResources.unableToApplyText);
         return false;
       }
     } on SocketException catch (e) {
       BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToReachServerMessage);
+      BotToast.showText(text: StringResources.unableToReachServerMessage);
       print(e);
       return false;
     } catch (e) {
       BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToApplyText);
+      BotToast.showText(text: StringResources.unableToApplyText);
       print(e);
       return false;
     }
@@ -172,17 +172,17 @@ class JobRepository {
         return true;
       } else {
         BotToast.closeAllLoading();
-        BotToast.showText(text: StringUtils.unableToAddAsFavoriteText);
+        BotToast.showText(text: StringResources.unableToAddAsFavoriteText);
         return false;
       }
     } on SocketException catch (e) {
       BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToReachServerMessage);
+      BotToast.showText(text: StringResources.unableToReachServerMessage);
       print(e);
       return false;
     } catch (e) {
       BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToAddAsFavoriteText);
+      BotToast.showText(text: StringResources.unableToAddAsFavoriteText);
       print(e);
       return false;
     }

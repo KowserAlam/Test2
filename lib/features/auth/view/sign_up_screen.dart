@@ -1,14 +1,12 @@
-import 'package:p7app/features/auth/provider/login_view_model.dart';
-import 'package:p7app/features/auth/provider/signup_viewmodel.dart';
-import 'package:p7app/features/auth/view/widgets/custom_text_field_rounded.dart';
-import 'package:p7app/main_app/resource/const.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
-import 'package:p7app/main_app/util/validator.dart';
-import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:p7app/main_app/widgets/common_button.dart';
-import 'package:p7app/main_app/widgets/loader.dart';
+import 'package:p7app/features/auth/view/widgets/custom_text_field_rounded.dart';
+import 'package:p7app/features/auth/view_models/login_view_model.dart';
+import 'package:p7app/features/auth/view_models/signup_viewmodel.dart';
+import 'package:p7app/main_app/resource/const.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
+import 'package:p7app/main_app/views/widgets/common_button.dart';
+import 'package:p7app/main_app/views/widgets/loader.dart';
 import 'package:provider/provider.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -95,7 +93,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     Widget backToSignIn = RichText(
       text: TextSpan(children: [
         TextSpan(
-          text: StringUtils.alreadyHaveAndAccountText,
+          text: StringResources.alreadyHaveAndAccountText,
           style: TextStyle(color: Colors.grey, fontSize: 15),
         ),
         WidgetSpan(
@@ -104,7 +102,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               Navigator.pop(context);
             },
             child: Text(
-              '  ${StringUtils.signInText}',
+              '  ${StringResources.signInText}',
               style: TextStyle(
                   color: primaryColor, fontWeight: FontWeight.bold, fontSize: 15),
             ),
@@ -124,7 +122,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               onTap: () {
                 _handleRegister(context);
               },
-              label: StringUtils.signUpText,
+              label: StringResources.signUpText,
             ),
           );
         });
@@ -149,7 +147,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     focusNode: _nameFocusNode,
                     textInputAction: TextInputAction.next,
                     controller: _nameEditingController,
-                    hintText: StringUtils.nameText,
+                    hintText: StringResources.nameText,
                     prefixIcon: Icon(
                       Icons.person_outline,
                     ),
@@ -174,7 +172,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     focusNode: _emailFocusNode,
                     textInputAction: TextInputAction.next,
                     controller: _emailEditingController,
-                    hintText: StringUtils.emailText,
+                    hintText: StringResources.emailText,
                     prefixIcon: Icon(
                       Icons.email,
                     ),
@@ -198,7 +196,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     focusNode: _mobileFocusNode,
                     textInputAction: TextInputAction.next,
                     controller: _mobileEditingController,
-                    hintText: StringUtils.mobileText,
+                    hintText: StringResources.mobileText,
                     prefixIcon: Icon(
                       Icons.phone_iphone,
                     ),
@@ -240,7 +238,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                     obscureText: signupViewModel.isObscurePassword,
                     controller: _passwordEditingController,
-                    hintText: StringUtils.passwordText,
+                    hintText: StringResources.passwordText,
                     onSubmitted: (s) {
                       _confirmPasswordFocusNode.unfocus();
                       FocusScope.of(_scaffoldKey.currentState.context)
@@ -278,7 +276,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                     obscureText: signupViewModel.isObscureConfirmPassword,
                     controller: _confirmPasswordEditingController,
-                    hintText: StringUtils.passwordText,
+                    hintText: StringResources.passwordText,
                     onSubmitted: (s) {
                       _handleRegister(_scaffoldKey.currentState.context);
                     },

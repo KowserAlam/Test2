@@ -1,14 +1,14 @@
-import 'package:p7app/features/auth/provider/login_view_model.dart';
-import 'package:p7app/features/auth/provider/password_reset_provider.dart';
+import 'package:p7app/features/auth/view_models/login_view_model.dart';
+import 'package:p7app/features/auth/view_models/password_reset_view_model.dart';
 
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/app_theme/comon_styles.dart';
 import 'package:p7app/main_app/resource/json_keys.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/validator.dart';
-import 'package:p7app/main_app/widgets/app_logo.dart';
-import 'package:p7app/main_app/widgets/common_button.dart';
-import 'package:p7app/main_app/widgets/loader.dart';
+import 'package:p7app/main_app/views/widgets/app_logo.dart';
+import 'package:p7app/main_app/views/widgets/common_button.dart';
+import 'package:p7app/main_app/views/widgets/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 class PasswordRestEnterNewPassword extends StatefulWidget {
@@ -92,7 +92,7 @@ class _PasswordRestEnterNewPasswordState extends State<PasswordRestEnterNewPassw
 //                              _handleSignUp(context);
                             },
                             decoration: InputDecoration(
-                                hintText: StringUtils.confirmPasswordText,
+                                hintText: StringResources.confirmPasswordText,
                                 suffixIcon: IconButton(
                                   icon: !passwordResetProvider.isObscureConfirmPassword
                                       ? Icon(
@@ -130,7 +130,7 @@ class _PasswordRestEnterNewPasswordState extends State<PasswordRestEnterNewPassw
                         onTap: () {
 
                         },
-                        label: StringUtils.setNewPasswordText,
+                        label: StringResources.setNewPasswordText,
                       ),
                     );
                   }),

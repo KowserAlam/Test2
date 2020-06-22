@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p7app/features/user_profile/models/reference_data.dart';
 import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 
 class ReferencesListItemWidget extends StatefulWidget {
   final ReferenceData referenceData;
@@ -97,8 +97,8 @@ class _ReferencesListItemWidgetState extends State<ReferencesListItemWidget> {
                   padding: const EdgeInsets.all(3.0),
                   child: Text(
                     isExpanded
-                        ? StringUtils.seeLessText
-                        : StringUtils.seeMoreText,
+                        ? StringResources.seeLessText
+                        : StringResources.seeMoreText,
                     style: TextStyle(color: Theme.of(context).primaryColor),
                   ),
                 ),

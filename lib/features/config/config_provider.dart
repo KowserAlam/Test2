@@ -1,5 +1,5 @@
 
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,7 +12,7 @@ class ConfigProvider with ChangeNotifier {
 
   initPref() async {
     var preferences = await SharedPreferences.getInstance();
-    isDarkModeOn = preferences.getBool(StringUtils.isDarkModeOn) ?? false;
+    isDarkModeOn = preferences.getBool(StringResources.isDarkModeOn) ?? false;
   }
 
   bool _isDarkModeOn = false;
@@ -28,6 +28,6 @@ class ConfigProvider with ChangeNotifier {
   void toggleThemeChangeEvent() async{
     isDarkModeOn =  !isDarkModeOn;
     var preferences = await SharedPreferences.getInstance();
-    preferences.setBool(StringUtils.isDarkModeOn, isDarkModeOn);
+    preferences.setBool(StringResources.isDarkModeOn, isDarkModeOn);
   }
 }

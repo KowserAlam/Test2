@@ -9,13 +9,13 @@ import 'package:p7app/features/auth/view/login_screen.dart';
 import 'package:p7app/main_app/home.dart';
 import 'package:p7app/main_app/push_notification_service/push_notification_service.dart';
 import 'package:p7app/main_app/resource/const.dart';
-import 'package:p7app/main_app/service_locator/locator.dart';
+import 'package:p7app/main_app/util/locator.dart';
 import 'package:p7app/main_app/util/local_storage.dart';
 import 'package:p7app/main_app/util/token_refresh_scheduler.dart';
-import 'package:p7app/main_app/widgets/app_version_widget_small.dart';
+import 'package:p7app/main_app/views/widgets/app_version_widget_small.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:p7app/main_app/widgets/loader.dart';
+import 'package:p7app/main_app/views/widgets/loader.dart';
 import 'package:provider/provider.dart';
 
 class Root extends StatefulWidget {

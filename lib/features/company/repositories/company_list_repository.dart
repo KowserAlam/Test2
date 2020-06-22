@@ -8,7 +8,7 @@ import 'package:p7app/features/company/models/company_screen_data_model.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 
 class CompanyListRepository {
   Future<Either<AppError, CompanyScreenDataModel>> getList({String query,int pageSize =10,int page=1}) async {
@@ -27,7 +27,7 @@ class CompanyListRepository {
       }
     } on SocketException catch (e) {
       print(e);
-      BotToast.showText(text: StringUtils.unableToReachServerMessage);
+      BotToast.showText(text: StringResources.unableToReachServerMessage);
       return Left(AppError.networkError);
     } catch (e) {
       print(e);

@@ -10,7 +10,7 @@ import 'package:p7app/features/job/models/job_list_model.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 
 
 class AppliedJobListRepository {
@@ -29,16 +29,16 @@ class AppliedJobListRepository {
         var jobList = fromJson(mapData);
         return Right(jobList);
       } else {
-        BotToast.showText(text: StringUtils.somethingIsWrong);
+        BotToast.showText(text: StringResources.somethingIsWrong);
         return Left(AppError.serverError);
       }
     } on SocketException catch (e) {
       print(e);
-      BotToast.showText(text: StringUtils.unableToReachServerMessage);
+      BotToast.showText(text: StringResources.unableToReachServerMessage);
       return Left(AppError.networkError);
     } catch (e) {
       print(e);
-      BotToast.showText(text: StringUtils.somethingIsWrong);
+      BotToast.showText(text: StringResources.somethingIsWrong);
       return Left(AppError.unknownError);
     }
   }

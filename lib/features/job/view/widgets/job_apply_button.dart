@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
-import 'package:p7app/main_app/util/method_extension.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
+import 'package:p7app/method_extension.dart';
 
 class JobApplyButton extends StatelessWidget {
   final Function onPressedApply;
@@ -38,7 +38,7 @@ class JobApplyButton extends StatelessWidget {
 //          padding: EdgeInsets.symmetric(vertical: 6, horizontal: 15),
 
           child: Text(
-            isApplied ? StringUtils.appliedText : StringUtils.applyText,
+            isApplied ? StringResources.appliedText : StringResources.applyText,
             style: TextStyle(
                 fontSize: 15, color: Colors.white, fontWeight: FontWeight.w600),
           ),

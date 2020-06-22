@@ -1,15 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:bot_toast/bot_toast.dart';
+import 'package:flutter/foundation.dart';
+import 'package:http/http.dart' as http;
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/validator.dart';
-import 'package:flutter/foundation.dart';
-import 'package:rxdart/rxdart.dart';
-import 'package:http/http.dart' as http;
-import 'package:p7app/main_app/util/method_extension.dart';
+import 'package:p7app/method_extension.dart';
 
 class PasswordResetViewModel with ChangeNotifier {
   bool _isBusyEmail = false;
@@ -121,14 +119,15 @@ class PasswordResetViewModel with ChangeNotifier {
           return true;
         } else {
           var data = json.decode(res.body);
+
           _emailErrorText =
-              data['email']?.toString() ?? StringUtils.somethingIsWrong;
+              data['email'][0]?? StringResources.somethingIsWrongSingleLine;
           isBusyEmail = false;
           return false;
         }
       } catch (e) {
         _isBusyEmail = false;
-        _emailErrorText = StringUtils.somethingIsWrong;
+        _emailErrorText = StringResources.somethingIsWrongSingleLine;
         print(e);
         notifyListeners();
 

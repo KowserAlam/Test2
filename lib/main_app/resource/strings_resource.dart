@@ -2,7 +2,7 @@
 import 'package:p7app/features/user_profile/models/reference_data.dart';
 import 'package:p7app/features/user_profile/views/screens/profile_header_edit_screen.dart';
 
-class StringUtils {
+class StringResources {
   /// login screen
 
   static var signSuccessfulText =
@@ -328,6 +328,7 @@ class StringUtils {
   static var emailAlreadyExistText =
       "Email Already exist! Try login or rest password";
   static var somethingIsWrong = "Something is wrong ! \nTry again later";
+  static var somethingIsWrongSingleLine = "Something is wrong!";
   static var unauthorizedText = "Unauthorized";
 
   /// AddEditSkill Screen

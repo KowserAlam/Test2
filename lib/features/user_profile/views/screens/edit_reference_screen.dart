@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:p7app/features/user_profile/models/reference_data.dart';
 import 'package:p7app/features/user_profile/repositories/user_profile_repository.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
-import 'package:p7app/main_app/widgets/custom_text_from_field.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/views/widgets/custom_text_from_field.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/validator.dart';
-import 'package:p7app/main_app/widgets/common_button.dart';
-import 'package:p7app/main_app/widgets/edit_screen_save_button.dart';
+import 'package:p7app/main_app/views/widgets/common_button.dart';
+import 'package:p7app/main_app/views/widgets/edit_screen_save_button.dart';
 import 'package:provider/provider.dart';
 
 class EditReferenceScreen extends StatefulWidget {
@@ -84,8 +84,8 @@ class _EditReferenceScreenState extends State<EditReferenceScreen> {
       validator: Validator().nullFieldValidate,
       keyboardType: TextInputType.multiline,
       controller: _descriptionController,
-      labelText: StringUtils.referenceDescriptionText,
-      hintText: StringUtils.referenceDescriptionText,
+      labelText: StringResources.referenceDescriptionText,
+      hintText: StringResources.referenceDescriptionText,
       maxLength: 800,
       minLines: 5,
       maxLines: 18,
@@ -94,10 +94,10 @@ class _EditReferenceScreenState extends State<EditReferenceScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(StringUtils.referenceAppbarText),
+        title: Text(StringResources.referenceAppbarText),
         actions: <Widget>[
           EditScreenSaveButton(
-            text: StringUtils.saveText,
+            text: StringResources.saveText,
             onPressed: _handleSave,
           ),
         ],

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 
 class NoMessagesWidget extends StatelessWidget {
   final onTap;
@@ -20,7 +20,7 @@ class NoMessagesWidget extends StatelessWidget {
           mainAxisSize:MainAxisSize.min ,children: [
           Icon(FontAwesomeIcons.solidComment,color: color,size: 40,),
           SizedBox(height: 15,),
-          Text(StringUtils.youDoNotHaveAnyMessage,style: TextStyle(color: color),)
+          Text(StringResources.youDoNotHaveAnyMessage,style: TextStyle(color: color),)
         ],),),
       ),
     );

@@ -24,15 +24,15 @@ import 'package:p7app/main_app/api_helpers/url_launcher_helper.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/resource/const.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
-import 'package:p7app/main_app/widgets/failure_widget.dart';
-import 'package:p7app/main_app/widgets/loader.dart';
-import 'package:p7app/main_app/widgets/rectangular_button.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
+import 'package:p7app/main_app/views/widgets/failure_widget.dart';
+import 'package:p7app/main_app/views/widgets/loader.dart';
+import 'package:p7app/main_app/views/widgets/rectangular_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:provider/provider.dart';
-import 'package:p7app/main_app/util/method_extension.dart';
+import 'package:p7app/method_extension.dart';
 import 'edit_certifications_screen.dart';
 import 'edit_memberships_screen.dart';
 
@@ -106,7 +106,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
               });
         },
         child: Text(
-          StringUtils.contactInfoText,
+          StringResources.contactInfoText,
           style: TextStyle(
               color: Theme.of(context).primaryColor,
               fontSize: 16,
@@ -126,7 +126,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
 //        ),
           RectangularButton(
             primaryFill: false,
-            text: StringUtils.editProfileText,
+            text: StringResources.editProfileText,
             onPressed: () {},
           )
         ],
@@ -193,7 +193,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                   if (username.isNotEmptyOrNotNull) {
 //                    UrlLauncherHelper.launchFacebookUrl(username);
                       UrlLauncherHelper.launchUrl(
-                          "https://" + StringUtils.facebookBaseUrl + username);
+                          "https://" + StringResources.facebookBaseUrl + username);
                   }
                 },
                 child: Icon(
@@ -219,7 +219,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                   if (link != null) {
                     if (link.isNotEmpty)
                       UrlLauncherHelper.launchUrl(
-                          "https://" + StringUtils.linkedBaseUrl + link);
+                          "https://" + StringResources.linkedBaseUrl + link);
                   }
                 },
                 child: Icon(
@@ -243,7 +243,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                   if (link != null) {
                     if (link.isNotEmpty)
                       UrlLauncherHelper.launchUrl(
-                          "https://" + StringUtils.twitterBaeUrl + link);
+                          "https://" + StringResources.twitterBaeUrl + link);
                   }
                 },
                 child: Icon(
@@ -371,7 +371,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         Text(
-          StringUtils.aboutMeText,
+          StringResources.aboutMeText,
           style: titleTextStyle.apply(color: Colors.white),
         ),
         SizedBox(
@@ -410,7 +410,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
           setState(() {});
         },
         icon: FontAwesomeIcons.globeEurope,
-        label: StringUtils.professionalExperienceText,
+        label: StringResources.professionalExperienceText,
         onTapAddNewAction: () {
           Navigator.push(
               context,
@@ -447,7 +447,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
       return UserInfoListItem(
         isInEditMode: isInEditModeEducation,
         icon: FontAwesomeIcons.university,
-        label: StringUtils.educationsText,
+        label: StringResources.educationsText,
         onTapEditAction: () {
           setState(() {
             isInEditModeEducation = !isInEditModeEducation;
@@ -492,7 +492,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
           setState(() {});
         },
         icon: FontAwesomeIcons.tools,
-        label: StringUtils.professionalSkillText,
+        label: StringResources.professionalSkillText,
         onTapAddNewAction: () {
           Navigator.push(
               context,
@@ -536,7 +536,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
           setState(() {});
         },
         icon: FontAwesomeIcons.wallet,
-        label: StringUtils.projectsText,
+        label: StringResources.projectsText,
         onTapAddNewAction: () {
           Navigator.push(context,
               CupertinoPageRoute(builder: (context) => EditPortfolio()));
@@ -573,7 +573,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
           setState(() {});
         },
         icon: FontAwesomeIcons.certificate,
-        label: StringUtils.certificationsText,
+        label: StringResources.certificationsText,
         onTapAddNewAction: () {
           Navigator.push(
               context,
@@ -615,7 +615,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
           setState(() {});
         },
         icon: FontAwesomeIcons.users,
-        label: StringUtils.membershipsText,
+        label: StringResources.membershipsText,
         onTapAddNewAction: () {
           Navigator.push(context,
               CupertinoPageRoute(builder: (context) => EditMemberShips()));
@@ -652,7 +652,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
           setState(() {});
         },
         icon: FontAwesomeIcons.bookReader,
-        label: StringUtils.referencesText,
+        label: StringResources.referencesText,
         onTapAddNewAction: () {
           Navigator.push(context,
               CupertinoPageRoute(builder: (context) => EditReferenceScreen()));
@@ -681,7 +681,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(StringUtils.myProfileText),
+        title: Text(StringResources.myProfileText),
       ),
       body: RefreshIndicator(
         onRefresh: () async {
@@ -696,7 +696,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
               switch (userProfileViewModel.appError) {
                 case AppError.serverError:
                   return FailureFullScreenWidget(
-                    errorMessage: StringUtils.unableToLoadData,
+                    errorMessage: StringResources.unableToLoadData,
                     onTap: () {
                       return Provider.of<UserProfileViewModel>(context,
                               listen: false)
@@ -706,7 +706,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
 
                 case AppError.networkError:
                   return FailureFullScreenWidget(
-                    errorMessage: StringUtils.unableToReachServerMessage,
+                    errorMessage: StringResources.unableToReachServerMessage,
                     onTap: () {
                       return Provider.of<UserProfileViewModel>(context,
                               listen: false)
@@ -716,7 +716,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
 
                 default:
                   return FailureFullScreenWidget(
-                    errorMessage: StringUtils.somethingIsWrong,
+                    errorMessage: StringResources.somethingIsWrong,
                     onTap: () {
                       return Provider.of<UserProfileViewModel>(context,
                               listen: false)

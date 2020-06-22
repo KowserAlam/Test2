@@ -1,5 +1,5 @@
 import 'package:p7app/main_app/app_theme/app_theme.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:flutter/material.dart';
 
 const TextStyle kTitleTextBlackStyle = TextStyle(

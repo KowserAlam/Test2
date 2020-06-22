@@ -6,7 +6,7 @@ import 'package:p7app/features/job/models/job_list_model.dart';
 import 'package:p7app/features/job/models/job_model.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
 import 'package:p7app/main_app/resource/const.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/date_format_uitl.dart';
 
 
@@ -30,11 +30,11 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
     bool isFavorite = widget.jobModel.isFavourite;
 
     String publishDateText = widget.jobModel.postDate == null
-        ? StringUtils.unspecifiedText
+        ? StringResources.unspecifiedText
         : DateFormatUtil().dateFormat1(widget.jobModel.postDate);
 
     String deadLineText = widget.jobModel.applicationDeadline == null
-        ? StringUtils.unspecifiedText
+        ? StringResources.unspecifiedText
         : DateFormatUtil().dateFormat1(widget.jobModel.applicationDeadline);
 //    bool isDateExpired = widget.jobModel.applicationDeadline != null
 //        ? DateTime.now().isAfter(widget.jobModel.applicationDeadline)

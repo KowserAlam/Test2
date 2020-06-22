@@ -1,4 +1,4 @@
-import 'package:p7app/main_app/util/method_extension.dart';
+import 'package:p7app/method_extension.dart';
 
 class MembershipInfo {
   int membershipId;

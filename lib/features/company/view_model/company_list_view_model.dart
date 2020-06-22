@@ -5,7 +5,7 @@ import 'package:p7app/features/company/models/company.dart';
 import 'package:p7app/features/company/models/company_screen_data_model.dart';
 import 'package:p7app/features/company/repositories/company_list_repository.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
-import 'package:p7app/main_app/util/method_extension.dart';
+import 'package:p7app/method_extension.dart';
 
 class CompanyListViewModel with ChangeNotifier {
   List<Company> companyList = [];

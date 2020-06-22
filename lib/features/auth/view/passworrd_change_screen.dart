@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:p7app/features/auth/provider/password_change_view_model.dart';
+import 'package:p7app/features/auth/view_models/password_change_view_model.dart';
 import 'package:p7app/features/auth/view/widgets/custom_text_field_rounded.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
-import 'package:p7app/main_app/widgets/common_button.dart';
-import 'package:p7app/main_app/widgets/loader.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
+import 'package:p7app/main_app/views/widgets/common_button.dart';
+import 'package:p7app/main_app/views/widgets/loader.dart';
 import 'package:provider/provider.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
@@ -39,7 +39,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       builder: (context, passwordChangeViewModel, _) {
         bool isObscure = passwordChangeViewModel.isObscurePasswordOld;
         return CustomTextFieldRounded(
-          labelText: StringUtils.currentPasswordText,
+          labelText: StringResources.currentPasswordText,
           onChanged: passwordChangeViewModel.onChangeOldPassword,
           errorText: passwordChangeViewModel.errorTextOldPassword,
           prefixIcon: Icon(
@@ -60,7 +60,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
           ),
           obscureText: passwordChangeViewModel.isObscurePasswordOld,
           controller: _currentPasswordTextController,
-          hintText: StringUtils.currentPasswordText,
+          hintText: StringResources.currentPasswordText,
         );
       },
     );
@@ -68,7 +68,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       builder: (context, passwordChangeViewModel, _) {
         bool isObscure = passwordChangeViewModel.isObscurePasswordNew;
         return CustomTextFieldRounded(
-          labelText: StringUtils.newPasswordText,
+          labelText: StringResources.newPasswordText,
           onChanged: passwordChangeViewModel.onChangeNewPassword,
           errorText: passwordChangeViewModel.errorTextNewPassword,
           prefixIcon: Icon(
@@ -89,7 +89,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
           ),
           obscureText: passwordChangeViewModel.isObscurePasswordNew,
           controller: _newPasswordTextController,
-          hintText: StringUtils.newPasswordText,
+          hintText: StringResources.newPasswordText,
         );
       },
     );
@@ -97,7 +97,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       builder: (context, passwordChangeViewModel, _) {
         bool isObscure = passwordChangeViewModel.isObscurePasswordConfirm;
         return CustomTextFieldRounded(
-          labelText: StringUtils.confirmPasswordText,
+          labelText: StringResources.confirmPasswordText,
           onChanged: passwordChangeViewModel.onChangeConfirmPassword,
           errorText: passwordChangeViewModel.errorTextConfirmPassword,
           prefixIcon: Icon(
@@ -118,7 +118,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
           ),
           obscureText: passwordChangeViewModel.isObscurePasswordConfirm,
           controller: _confirmPasswordTextController,
-          hintText: StringUtils.confirmPasswordText,
+          hintText: StringResources.confirmPasswordText,
         );
       },
     );
@@ -131,13 +131,13 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                 _handleChangePassword(context);
               }
             : null,
-        label: StringUtils.submitButtonText,
+        label: StringResources.submitButtonText,
       ),
     );
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(StringUtils.changePasswordAppbarText),
+        title: Text(StringResources.changePasswordAppbarText),
       ),
       body: SingleChildScrollView(
         child: Container(

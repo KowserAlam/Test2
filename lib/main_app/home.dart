@@ -6,7 +6,7 @@ import 'package:p7app/features/job/view/applied_job_list_screen.dart';
 import 'package:p7app/features/job/view/favourite_job_list_screen.dart';
 import 'package:p7app/features/job/view/job_list_screen.dart';
 import 'package:p7app/main_app/flavour/flavor_banner.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/token_refresh_scheduler.dart';
 
 class Home extends StatefulWidget {
@@ -52,7 +52,7 @@ class _HomeState extends State<Home> {
                   FontAwesomeIcons.home,
                 ),
               ),
-              title: Text(StringUtils.dashBoardText)),
+              title: Text(StringResources.dashBoardText)),
           //jobs
           BottomNavigationBarItem(
               icon: Padding(
@@ -63,27 +63,27 @@ class _HomeState extends State<Home> {
                   FontAwesomeIcons.briefcase,
                 ),
               ),
-              title: Text(StringUtils.jobsText)),
+              title: Text(StringResources.jobsText)),
           //applied
           BottomNavigationBarItem(
               icon: Padding(
                   padding: const EdgeInsets.only(bottom: 5),
                   child: Icon(FontAwesomeIcons.solidCheckSquare)),
-              title: Text(StringUtils.appliedText)),
+              title: Text(StringResources.appliedText)),
           // favourite
           BottomNavigationBarItem(
               icon: Padding(
                 padding: const EdgeInsets.only(bottom: 5),
                 child: Icon(FontAwesomeIcons.solidHeart),
               ),
-              title: Text(StringUtils.favoriteText)),
+              title: Text(StringResources.favoriteText)),
           //notifications
           BottomNavigationBarItem(
               icon: Padding(
                 padding: const EdgeInsets.only(bottom: 5),
                 child: Icon(FontAwesomeIcons.solidBell),
               ),
-              title: Text(StringUtils.notificationsText)),
+              title: Text(StringResources.notificationsText)),
         ]);
 
     return WillPopScope(

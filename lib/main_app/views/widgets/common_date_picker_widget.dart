@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/date_format_uitl.dart';
 
 class CommonDatePickerWidget extends StatefulWidget {
@@ -74,7 +74,7 @@ class _CommonDatePickerWidgetState extends State<CommonDatePickerWidget> {
                   Text(
                     widget.date != null
                         ? DateFormatUtil.formatDate(widget.date)
-                        : StringUtils.chooseDateText,
+                        : StringResources.chooseDateText,
                   ),
                   if (widget.onTapDateClear != null)
                     widget.date != null
