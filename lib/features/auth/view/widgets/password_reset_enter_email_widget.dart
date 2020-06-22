@@ -1,4 +1,4 @@
-import 'package:p7app/features/auth/provider/password_reset_view_model.dart';
+import 'package:p7app/features/auth/view_models/password_reset_view_model.dart';
 import 'package:p7app/features/auth/view/login_screen.dart';
 import 'package:p7app/features/auth/view/widgets/title_widget.dart';
 import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';

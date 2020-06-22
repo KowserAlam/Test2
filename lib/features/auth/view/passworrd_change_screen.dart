@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:p7app/features/auth/provider/password_change_view_model.dart';
+import 'package:p7app/features/auth/view_models/password_change_view_model.dart';
 import 'package:p7app/features/auth/view/widgets/custom_text_field_rounded.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/widgets/common_button.dart';

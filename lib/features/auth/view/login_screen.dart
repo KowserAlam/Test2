@@ -1,6 +1,6 @@
 import 'package:p7app/features/auth/view/password_reset_screens.dart';
 import 'package:p7app/features/auth/view/sign_up_screen.dart';
-import 'package:p7app/features/auth/provider/login_view_model.dart';
+import 'package:p7app/features/auth/view_models/login_view_model.dart';
 import 'package:p7app/features/auth/view/widgets/custom_text_field_rounded.dart';
 import 'package:p7app/main_app/flavour/flavor_banner.dart';
 import 'package:p7app/main_app/root.dart';
