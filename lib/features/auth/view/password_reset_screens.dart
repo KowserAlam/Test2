@@ -4,7 +4,7 @@ import 'package:p7app/features/auth/view/widgets/password_reset_verify_code_widg
 import 'package:flutter/material.dart';
 import 'package:p7app/features/auth/view/widgets/password_rest_link_success_widget.dart';
 import 'package:p7app/features/auth/view/widgets/title_widget.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:page_view_indicators/circle_page_indicator.dart';
 
 class PasswordResetScreens extends StatefulWidget {
@@ -25,7 +25,7 @@ class _PasswordResetScreensState extends State<PasswordResetScreens> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        title: Text(StringUtils.passwordResetText),
+        title: Text(StringResources.passwordResetText),
       ),
       body: Column(
         children: <Widget>[

@@ -3,11 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:p7app/features/user_profile/models/member_ship_info.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
-import 'package:p7app/main_app/widgets/common_date_picker_widget.dart';
-import 'package:p7app/main_app/widgets/custom_text_from_field.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/views/widgets/common_date_picker_widget.dart';
+import 'package:p7app/main_app/views/widgets/custom_text_from_field.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/validator.dart';
-import 'package:p7app/main_app/widgets/edit_screen_save_button.dart';
+import 'package:p7app/main_app/views/widgets/edit_screen_save_button.dart';
 import 'package:provider/provider.dart';
 
 class EditMemberShips extends StatefulWidget {
@@ -92,12 +92,12 @@ class _EditMemberShipsState extends State<EditMemberShips> {
             blankEndingDateWarningText = null;
             return true;
           }else{
-            blankEndingDateWarningText = StringUtils.membershipBlankEndDateWarningText;
+            blankEndingDateWarningText = StringResources.membershipBlankEndDateWarningText;
             return false;
           }
         }
       }else{
-        blankStartingDateWarningText = StringUtils.membershipBlankStartDateWarningText;
+        blankStartingDateWarningText = StringResources.membershipBlankStartDateWarningText;
         return false;
       }
     }
@@ -125,7 +125,7 @@ class _EditMemberShipsState extends State<EditMemberShips> {
         if(_startDate.isBefore(_endDate)){
           submitData(membershipInfo);
         }else{
-          BotToast.showText(text: StringUtils.membershipDateLogicWarningText);
+          BotToast.showText(text: StringResources.membershipDateLogicWarningText);
         }
       }
     }else{
@@ -140,10 +140,10 @@ class _EditMemberShipsState extends State<EditMemberShips> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(StringUtils.membershipAppbarText),
+        title: Text(StringResources.membershipAppbarText),
         actions: <Widget>[
           EditScreenSaveButton(
-            text: StringUtils.saveText,
+            text: StringResources.saveText,
             onPressed: _handleSave,
           ),
         ],
@@ -170,8 +170,8 @@ class _EditMemberShipsState extends State<EditMemberShips> {
 //                          .requestFocus(_positionHeldFocusNode);
                     },
                     controller: _orgNameController,
-                    labelText: StringUtils.membershipOrgNameText,
-                    hintText: StringUtils.membershipOrgNameText,
+                    labelText: StringResources.membershipOrgNameText,
+                    hintText: StringResources.membershipOrgNameText,
                   ),
                   spaceBetweenFields,
                   //Position Held
@@ -185,8 +185,8 @@ class _EditMemberShipsState extends State<EditMemberShips> {
 //                          .requestFocus(_descriptionFocusNode);
                     },
                     controller: _positionHeldController,
-                    labelText: StringUtils.membershipPositionHeldText,
-                    hintText: StringUtils.membershipPositionHeldText,
+                    labelText: StringResources.membershipPositionHeldText,
+                    hintText: StringResources.membershipPositionHeldText,
                   ),
                   spaceBetweenFields,
 
@@ -202,14 +202,14 @@ class _EditMemberShipsState extends State<EditMemberShips> {
 //                          .requestFocus(_descriptionFocusNode);
                     },
                     controller: _descriptionController,
-                    labelText: StringUtils.membershipDescriptionText,
-                    hintText: StringUtils.membershipDescriptionText,
+                    labelText: StringResources.membershipDescriptionText,
+                    hintText: StringResources.membershipDescriptionText,
                   ),
                   spaceBetweenFields,
                   //Start Date
                   CommonDatePickerWidget(
                     errorText: blankStartingDateWarningText,
-                    label: StringUtils.startingDateText,
+                    label: StringResources.startingDateText,
                     date: _startDate,
                     onDateTimeChanged: (v){setState(() {
                       _startDate = v;
@@ -223,7 +223,7 @@ class _EditMemberShipsState extends State<EditMemberShips> {
                   //End Date
                   !_membershipOngoing?CommonDatePickerWidget(
                     errorText: blankEndingDateWarningText,
-                    label: StringUtils.membershipEndDateText,
+                    label: StringResources.membershipEndDateText,
                     date: _endDate,
                     onDateTimeChanged: (v){setState(() {
                       _endDate = v;

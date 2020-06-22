@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/validator.dart';
 import 'package:p7app/method_extension.dart';
 
@@ -121,13 +121,13 @@ class PasswordResetViewModel with ChangeNotifier {
           var data = json.decode(res.body);
 
           _emailErrorText =
-              data['email'][0]?? StringUtils.somethingIsWrongSingleLine;
+              data['email'][0]?? StringResources.somethingIsWrongSingleLine;
           isBusyEmail = false;
           return false;
         }
       } catch (e) {
         _isBusyEmail = false;
-        _emailErrorText = StringUtils.somethingIsWrongSingleLine;
+        _emailErrorText = StringResources.somethingIsWrongSingleLine;
         print(e);
         notifyListeners();
 

@@ -4,7 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p7app/features/user_profile/models/portfolio_info.dart';
 import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
 import 'package:p7app/main_app/resource/const.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 
 class PortfolioListItemWidget extends StatefulWidget {
   final PortfolioInfo portfolioInfo;
@@ -116,8 +116,8 @@ class _PortfolioListItemWidgetState extends State<PortfolioListItemWidget> {
                     children: [
                       Text(
                         isExpanded
-                            ? StringUtils.seeLessText
-                            : StringUtils.seeMoreText,
+                            ? StringResources.seeLessText
+                            : StringResources.seeMoreText,
                         style: TextStyle(color: Theme.of(context).primaryColor),
                       ),
                     ],

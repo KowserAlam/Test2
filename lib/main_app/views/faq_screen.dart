@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
 import 'package:p7app/main_app/flavour/flavour_config.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/views/widgets/pge_view_widget.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -19,7 +19,7 @@ class _FAQScreenState extends State<FAQScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(StringUtils.faqText),
+        title: Text(StringResources.faqText),
       ),
       body: PgeViewWidget(url: url,),
     );

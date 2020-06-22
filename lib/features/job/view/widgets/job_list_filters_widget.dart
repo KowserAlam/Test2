@@ -9,9 +9,9 @@ import 'package:p7app/features/job/view_model/job_list_view_model.dart';
 import 'package:p7app/features/user_profile/models/skill.dart';
 import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
 import 'package:p7app/features/user_profile/views/widgets/custom_dropdown_button_form_field.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
-import 'package:p7app/main_app/widgets/common_button.dart';
-import 'package:p7app/main_app/widgets/custom_text_from_field.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
+import 'package:p7app/main_app/views/widgets/common_button.dart';
+import 'package:p7app/main_app/views/widgets/custom_text_from_field.dart';
 import 'package:provider/provider.dart';
 import 'package:p7app/method_extension.dart';
 
@@ -173,7 +173,7 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
               children: [
                 Expanded(
                   child: Text(
-                    StringUtils.advanceFilterText,
+                    StringResources.advanceFilterText,
                     style: Theme.of(context).textTheme.subtitle1,
                   ),
                 ),
@@ -233,8 +233,8 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
                   spaceBetween,
                   // sort by
                   CustomDropdownButtonFormField<SortItem>(
-                    labelText: StringUtils.sortBy,
-                    hint: Text(StringUtils.tapToSelectText),
+                    labelText: StringResources.sortBy,
+                    hint: Text(StringResources.tapToSelectText),
                     value: jobListFilterWidgetViewModel.selectedSortBy ??
                         jobListFilterWidgetViewModel.sortByList[0],
                     onChanged: (v) =>
@@ -244,8 +244,8 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
                   spaceBetween,
                   //job category
                   CustomDropdownButtonFormField<String>(
-                    labelText: StringUtils.jobCategoryText,
-                    hint: Text(StringUtils.tapToSelectText),
+                    labelText: StringResources.jobCategoryText,
+                    hint: Text(StringResources.tapToSelectText),
                     onChanged: (value) {
                       jobListFilterWidgetViewModel.selectedCategory = value;
                     },
@@ -256,9 +256,9 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
                   spaceBetween,
                   //location
                   CustomTextFormField(
-                    labelText: StringUtils.locationText,
+                    labelText: StringResources.locationText,
                     controller: _jobCityTextController,
-                    hintText: StringUtils.jobCityHintText,
+                    hintText: StringResources.jobCityHintText,
                     onChanged: (v){
                       jobListFilterWidgetViewModel.selectedLocation = v;
                     },
@@ -275,8 +275,8 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
                   spaceBetween,
                   //skill
                   CustomDropdownButtonFormField(
-                    labelText: StringUtils.skillText,
-                    hint: Text(StringUtils.tapToSelectText),
+                    labelText: StringResources.skillText,
+                    hint: Text(StringResources.tapToSelectText),
                     onChanged: (value) {
                       jobListFilterWidgetViewModel.selectedSkill = value;
                     },
@@ -286,8 +286,8 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
                   spaceBetween,
                   // jobType
                   CustomDropdownButtonFormField<JobType>(
-                    labelText: StringUtils.jobTypeText,
-                    hint: Text(StringUtils.tapToSelectText),
+                    labelText: StringResources.jobTypeText,
+                    hint: Text(StringResources.tapToSelectText),
                     onChanged: (value) {
                       jobListFilterWidgetViewModel.selectedJobType = value;
                     },
@@ -297,7 +297,7 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
                   spaceBetween,
                   // salary range
                   CustomRangeSlider(
-                    labelText: StringUtils.salaryRangeText,
+                    labelText: StringResources.salaryRangeText,
                     max: maxSalary,
                     min: minSalary,
                     values: salaryRange,
@@ -308,7 +308,7 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
                   spaceBetween,
                   // experience
                   CustomRangeSlider(
-                    labelText: StringUtils.experienceText,
+                    labelText: StringResources.experienceText,
                     max: experienceMax,
                     min: experienceMin,
                     values: experienceRange,
@@ -320,8 +320,8 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
                   spaceBetween,
                   //qualification
                   CustomDropdownButtonFormField(
-                    labelText: StringUtils.qualificationText,
-                    hint: Text(StringUtils.tapToSelectText),
+                    labelText: StringResources.qualificationText,
+                    hint: Text(StringResources.tapToSelectText),
                     onChanged: (value) {
                       jobListFilterWidgetViewModel.selectedQualification =
                           value;
@@ -332,8 +332,8 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
                   spaceBetween,
                   //gender
                   CustomDropdownButtonFormField(
-                    labelText: StringUtils.genderText,
-                    hint: Text(StringUtils.tapToSelectText),
+                    labelText: StringResources.genderText,
+                    hint: Text(StringResources.tapToSelectText),
                     onChanged: (value) {
                       jobListFilterWidgetViewModel.selectedGender = value;
                     },
@@ -342,8 +342,8 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
                   ),
                   spaceBetween,
                   CustomDropdownButtonFormField(
-                    labelText: StringUtils.datePosted,
-                    hint: Text(StringUtils.tapToSelectText),
+                    labelText: StringResources.datePosted,
+                    hint: Text(StringResources.tapToSelectText),
                     onChanged: (value) {
                       jobListFilterWidgetViewModel.selectedDatePosted = value;
                     },
@@ -367,7 +367,7 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
               onTap: () {
                 _handleApply();
               },
-              label: StringUtils.applyFilterText,
+              label: StringResources.applyFilterText,
             ),
           ),
         ],

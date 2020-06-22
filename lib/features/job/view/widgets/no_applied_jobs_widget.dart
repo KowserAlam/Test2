@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 
 class NoAppliedJobsWidget extends StatelessWidget {
   final onTap;
@@ -18,7 +18,7 @@ class NoAppliedJobsWidget extends StatelessWidget {
           mainAxisSize:MainAxisSize.min ,children: [
           Icon(FontAwesomeIcons.checkCircle,color: color,),
           SizedBox(height: 15,),
-          Text(StringUtils.youDoNotHaveAnyAppliedJob,style: TextStyle(color: color),)
+          Text(StringResources.youDoNotHaveAnyAppliedJob,style: TextStyle(color: color),)
         ],),),
       ),
     );

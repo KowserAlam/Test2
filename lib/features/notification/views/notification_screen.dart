@@ -7,11 +7,11 @@ import 'package:p7app/features/notification/view_models/notificaion_view_model.d
 import 'package:p7app/features/notification/views/widgets/no_notification_widget.dart';
 import 'package:p7app/features/notification/views/widgets/notification_tile_widget.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/date_format_uitl.dart';
-import 'package:p7app/main_app/widgets/app_drawer.dart';
-import 'package:p7app/main_app/widgets/failure_widget.dart';
-import 'package:p7app/main_app/widgets/loader.dart';
+import 'package:p7app/main_app/views/app_drawer.dart';
+import 'package:p7app/main_app/views/widgets/failure_widget.dart';
+import 'package:p7app/main_app/views/widgets/loader.dart';
 import 'package:provider/provider.dart';
 
 class NotificationScreen extends StatefulWidget {
@@ -41,7 +41,7 @@ class _NotificationScreenState extends State<NotificationScreen>
     switch (jobListViewModel.appError) {
       case AppError.serverError:
         return FailureFullScreenWidget(
-          errorMessage: StringUtils.unableToLoadData,
+          errorMessage: StringResources.unableToLoadData,
           onTap: () {
             return Provider.of<NotificationViewModel>(context, listen: false)
                 .refresh();
@@ -50,7 +50,7 @@ class _NotificationScreenState extends State<NotificationScreen>
 
       case AppError.networkError:
         return FailureFullScreenWidget(
-          errorMessage: StringUtils.unableToReachServerMessage,
+          errorMessage: StringResources.unableToReachServerMessage,
           onTap: () {
             return Provider.of<NotificationViewModel>(context, listen: false)
                 .refresh();
@@ -59,7 +59,7 @@ class _NotificationScreenState extends State<NotificationScreen>
 
       default:
         return FailureFullScreenWidget(
-          errorMessage: StringUtils.somethingIsWrong,
+          errorMessage: StringResources.somethingIsWrong,
           onTap: () {
             return Provider.of<NotificationViewModel>(context, listen: false)
                 .refresh();
@@ -72,7 +72,7 @@ class _NotificationScreenState extends State<NotificationScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(StringUtils.notificationsText),
+        title: Text(StringResources.notificationsText),
       ),
       drawer: AppDrawer(),
       body: Consumer<NotificationViewModel>(
@@ -144,7 +144,7 @@ _showDialog(context, NotificationModel notification, int index) {
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: Text(StringUtils.closeText),
+              child: Text(StringResources.closeText),
             ),
 //      IconButton(icon: Icon(Icons.close),onPressed: (){},),
           ],

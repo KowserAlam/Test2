@@ -1,4 +1,4 @@
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:flutter/material.dart';
 
 enum Flavor { DEV, QA, PRODUCTION }
@@ -22,7 +22,7 @@ class FlavorConfig {
       Color color: Colors.blue,
       @required FlavorValues values}) {
     _instance ??= FlavorConfig._internal(
-        flavor, StringUtils.enumName(flavor.toString()), color, values);
+        flavor, StringResources.enumName(flavor.toString()), color, values);
     return _instance;
   }
 
@@ -40,11 +40,11 @@ class FlavorConfig {
 
   static String appName() {
     if (_instance.flavor == Flavor.QA) {
-      return StringUtils.appNameQA;
+      return StringResources.appNameQA;
     } else if (_instance.flavor == Flavor.DEV) {
-      return StringUtils.appNameDev;
+      return StringResources.appNameDev;
     } else {
-      return StringUtils.appName;
+      return StringResources.appName;
     }
   }
 }

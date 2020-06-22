@@ -10,12 +10,12 @@ import 'package:p7app/features/company/repositories/company_list_repository.dart
 import 'package:p7app/features/user_profile/models/experience_info.dart';
 import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
-import 'package:p7app/main_app/widgets/common_date_picker_widget.dart';
+import 'package:p7app/main_app/views/widgets/common_date_picker_widget.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/util/debouncer.dart';
-import 'package:p7app/main_app/widgets/custom_text_from_field.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
-import 'package:p7app/main_app/widgets/edit_screen_save_button.dart';
+import 'package:p7app/main_app/views/widgets/custom_text_from_field.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
+import 'package:p7app/main_app/views/widgets/edit_screen_save_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -140,7 +140,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
   bool validate() {
     bool isNotEmpty = _companyNameController.text.isNotEmpty;
     _companyNameErrorText =
-        !isNotEmpty ? StringUtils.thisFieldIsRequired : null;
+        !isNotEmpty ? StringResources.thisFieldIsRequired : null;
     bool dateCheck(){
       if(_joiningDate != null){
         _joiningDateErrorText = null;
@@ -154,16 +154,16 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
             if(_joiningDate.isBefore(_leavingDate)){
               return true;
             }else{
-              BotToast.showText(text: StringUtils.joiningLeavingDateLogic);
+              BotToast.showText(text: StringResources.joiningLeavingDateLogic);
               return false;
             }
           }else{
-            _leavingDateErrorText = StringUtils.blankLeavingDateErrorText;
+            _leavingDateErrorText = StringResources.blankLeavingDateErrorText;
             return false;
           }
         }
       }else{
-        _joiningDateErrorText = StringUtils.blankJoiningDateErrorText;
+        _joiningDateErrorText = StringResources.blankJoiningDateErrorText;
         return false;
       }
     }
@@ -209,7 +209,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
     var nameOfCompany = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text("  " + StringUtils.nameOfCompany ?? "",
+        Text("  " + StringResources.nameOfCompany ?? "",
             style: TextStyle(fontWeight: FontWeight.bold)),
         SizedBox(
           height: 5,
@@ -223,7 +223,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
           child: AutoCompleteTextField<Company>(
             focusNode: _companyNameFocusNode,
             decoration: InputDecoration(
-              hintText: StringUtils.currentCompanyHint,
+              hintText: StringResources.currentCompanyHint,
               border: InputBorder.none,
               contentPadding:
                   const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -261,7 +261,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
     var name = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text("  " + StringUtils.nameOfCompany ?? "",
+        Text("  " + StringResources.nameOfCompany ?? "",
             style: TextStyle(fontWeight: FontWeight.bold)),
         SizedBox(
           height: 5,
@@ -276,7 +276,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
             textFieldConfiguration: TextFieldConfiguration(
               controller: _companyNameController,
                 decoration: InputDecoration(
-              hintText: StringUtils.currentCompanyHint,
+              hintText: StringResources.currentCompanyHint,
               border: InputBorder.none,
               contentPadding:
                   const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -326,7 +326,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
                 return[];
             },
             validator: (v) {
-              return v.length < 3 ? StringUtils.typeAtLeast3Letter : null;
+              return v.length < 3 ? StringResources.typeAtLeast3Letter : null;
             },
             noItemsFoundBuilder: (context) {
               return SizedBox();
@@ -352,10 +352,10 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
         key: _scaffoldKey,
         backgroundColor: Theme.of(context).backgroundColor,
         appBar: AppBar(
-          title: Text(StringUtils.professionalExperienceText),
+          title: Text(StringResources.professionalExperienceText),
           actions: <Widget>[
             EditScreenSaveButton(
-              text: StringUtils.saveText,
+              text: StringResources.saveText,
               onPressed: _handleSave,
             ),
           ],
@@ -379,8 +379,8 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
                       CustomTextFormField(
                         //validator: Validator().nullFieldValidate,
                         controller: positionNameController,
-                        labelText: StringUtils.positionText,
-                        hintText: StringUtils.positionTextEg,
+                        labelText: StringResources.positionText,
+                        hintText: StringResources.positionTextEg,
                         autofocus: false,
                       ),
                       spaceBetweenSections,
@@ -388,7 +388,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
                       /// Joining Date
                       CommonDatePickerWidget(
                         errorText: _joiningDateErrorText,
-                        label: StringUtils.joiningDateText,
+                        label: StringResources.joiningDateText,
                         date: _joiningDate,
                         onDateTimeChanged: (v) {
                           setState(() {
@@ -405,7 +405,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          Text(StringUtils.currentlyWorkingHereText),
+                          Text(StringResources.currentlyWorkingHereText),
                           Checkbox(
                             onChanged: (bool value) {
                               currentLyWorkingHere = value;
@@ -423,7 +423,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
                       if (!currentLyWorkingHere)
                         CommonDatePickerWidget(
                           errorText: _leavingDateErrorText,
-                          label: StringUtils.leavingDateText,
+                          label: StringResources.leavingDateText,
                           date: _leavingDate,
                           onDateTimeChanged: (v) {
                             setState(() {

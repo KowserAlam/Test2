@@ -3,7 +3,7 @@ import 'package:p7app/features/user_profile/styles/common_style_text_field.dart'
 import 'package:p7app/features/user_profile/views/screens/edit_personal_info_screen.dart';
 import 'package:p7app/features/user_profile/views/widgets/user_info_list_item.dart';
 import 'package:p7app/main_app/resource/const.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -40,7 +40,7 @@ class ContactInfoWidget extends StatelessWidget {
     return UserInfoListItem(
       useSeparator: false,
       icon: FontAwesomeIcons.infoCircle,
-      label: StringUtils.contactInfo,
+      label: StringResources.contactInfo,
       onTapEditAction: (){
         var userModel =  Provider.of<UserProfileViewModel>(context, listen: false).userData;
         Navigator.push(
@@ -64,17 +64,17 @@ class ContactInfoWidget extends StatelessWidget {
                 //phone
                 _item(
                     context: context,
-                    label: StringUtils.phoneText,
+                    label: StringResources.phoneText,
                     value: personalInfo.phone != null? personalInfo.phone:""),
                 //email
                 _item(
                     context: context,
-                    label: StringUtils.emailText,
+                    label: StringResources.emailText,
                     value: personalInfo.email != null? personalInfo.email:""),
                 //address
                 _item(
                     context: context,
-                    label: StringUtils.addressText,
+                    label: StringResources.addressText,
                     value: personalInfo.address != null? personalInfo.address:""),
               ],
             );

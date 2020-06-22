@@ -8,7 +8,7 @@ import 'package:p7app/features/user_profile/models/skill_info.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/features/user_profile/views/screens/add_edit_professional_skill_screen.dart';
 import 'package:p7app/features/user_profile/views/widgets/professional_skill_list_item.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -98,7 +98,7 @@ class JobChartWidget extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            StringUtils.addSkillText,
+                            StringResources.addSkillText,
                             style: TextStyle(color: primaryColor),
                           ),
                           Icon(
@@ -121,7 +121,7 @@ class JobChartWidget extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text(StringUtils.monthlyJobsText,style:TextStyle(fontSize: 18,fontWeight: FontWeight.bold)),
+                      Text(StringResources.monthlyJobsText,style:TextStyle(fontSize: 18,fontWeight: FontWeight.bold)),
                      SizedBox(height: 2,),
                       Text("for Skills ($skillsString)",textAlign: TextAlign.center,),
                       if (hasMoreText)
@@ -139,8 +139,8 @@ class JobChartWidget extends StatelessWidget {
                                 children: [
                                   Text(
                                     isExpanded
-                                        ? StringUtils.seeLessText
-                                        : StringUtils.seeMoreText,
+                                        ? StringResources.seeLessText
+                                        : StringResources.seeMoreText,
                                     style: TextStyle(
                                         color: Theme.of(context).primaryColor),
                                   ),

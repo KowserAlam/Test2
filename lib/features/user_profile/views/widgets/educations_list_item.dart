@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/date_format_uitl.dart';
 
 import '../screens/add_edit_education_screen.dart';
@@ -29,7 +29,7 @@ class EducationsListItem extends StatelessWidget {
     var backgroundColor = Theme.of(context).backgroundColor;
     String graduationDateText = eduInfoModel.graduationDate != null
         ? DateFormatUtil.formatDate(eduInfoModel.graduationDate)
-        : StringUtils.ongoingText;
+        : StringResources.ongoingText;
     String date =
         "${eduInfoModel.enrolledDate != null ? DateFormatUtil.formatDate(eduInfoModel.enrolledDate) : ""} - $graduationDateText";
     return Container(

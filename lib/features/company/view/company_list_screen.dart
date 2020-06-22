@@ -11,13 +11,13 @@ import 'package:p7app/features/company/view_model/company_list_view_model.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/util/date_format_uitl.dart';
-import 'package:p7app/main_app/widgets/failure_widget.dart';
-import 'package:p7app/main_app/widgets/loader.dart';
+import 'package:p7app/main_app/views/widgets/failure_widget.dart';
+import 'package:p7app/main_app/views/widgets/loader.dart';
 import 'company_details.dart';
 import 'package:p7app/main_app/resource/const.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/debouncer.dart';
-import 'package:p7app/main_app/widgets/custom_text_field.dart';
+import 'package:p7app/main_app/views/widgets/custom_text_field.dart';
 import 'package:provider/provider.dart';
 
 class CompanyListScreen extends StatefulWidget {
@@ -52,7 +52,7 @@ class _CompanyListScreenState extends State<CompanyListScreen>
     switch (vm.appError) {
       case AppError.serverError:
         return FailureFullScreenWidget(
-          errorMessage: StringUtils.unableToLoadData,
+          errorMessage: StringResources.unableToLoadData,
           onTap: () {
             return vm.refresh();
           },
@@ -60,7 +60,7 @@ class _CompanyListScreenState extends State<CompanyListScreen>
 
       case AppError.networkError:
         return FailureFullScreenWidget(
-          errorMessage: StringUtils.unableToReachServerMessage,
+          errorMessage: StringResources.unableToReachServerMessage,
           onTap: () {
             return vm.refresh();
           },
@@ -68,7 +68,7 @@ class _CompanyListScreenState extends State<CompanyListScreen>
 
       default:
         return FailureFullScreenWidget(
-          errorMessage: StringUtils.somethingIsWrong,
+          errorMessage: StringResources.somethingIsWrong,
           onTap: () {
             return vm.refresh();
           },
@@ -107,7 +107,7 @@ class _CompanyListScreenState extends State<CompanyListScreen>
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text(StringUtils.companyListAppbarText),
+          title: Text(StringResources.companyListAppbarText),
           actions: [
             IconButton(
               icon: Icon(isInSearchMode ? Icons.close : Icons.search),
@@ -141,7 +141,7 @@ class _CompanyListScreenState extends State<CompanyListScreen>
                   child: CustomTextField(
                     focusNode: _searchFieldFocusNode,
                     controller: _searchTextEditingController,
-                    hintText: StringUtils.companyListSearchText,
+                    hintText: StringResources.companyListSearchText,
                     autofocus: true,
                     textInputAction: TextInputAction.search,
                     onSubmitted: (v) {
@@ -184,10 +184,10 @@ class _CompanyListScreenState extends State<CompanyListScreen>
 //                                  if(companyViewModel.shouldShowCompanyCount)
                           companyViewModel.companiesCount > 1
                               ? Text(' ' +
-                                  StringUtils
+                                  StringResources
                                       .companyListMultipleCompaniesFoundText)
                               : Text(' ' +
-                                  StringUtils.companyListSingleCompanyFoundText)
+                                  StringResources.companyListSingleCompanyFoundText)
                         ],
                       ))
                   : SizedBox(),

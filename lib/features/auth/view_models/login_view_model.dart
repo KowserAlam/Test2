@@ -9,7 +9,7 @@ import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/auth_service/auth_user_model.dart';
 import 'package:p7app/main_app/flavour/flavour_config.dart';
 import 'package:p7app/main_app/resource/json_keys.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/validator.dart';
 
 class LoginViewModel with ChangeNotifier {
@@ -128,15 +128,15 @@ class LoginViewModel with ChangeNotifier {
       }
     } on SocketException catch (e) {
       isBusyLogin = false;
-      BotToast.showText(text: StringUtils.unableToReachServerMessage);
-      _errorMessage = StringUtils.unableToReachServerMessage;
+      BotToast.showText(text: StringResources.unableToReachServerMessage);
+      _errorMessage = StringResources.unableToReachServerMessage;
       notifyListeners();
       print(e);
       return false;
     } catch (e) {
       print(e);
       isBusyLogin = false;
-      BotToast.showText(text: StringUtils.somethingIsWrong);
+      BotToast.showText(text: StringResources.somethingIsWrong);
       return false;
     }
   }

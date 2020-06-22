@@ -1,4 +1,4 @@
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/validator.dart';
 import 'package:test/test.dart';
 
@@ -19,34 +19,34 @@ main(){
     Validator validator = Validator();
 
     var actual = validator.validateEmail("shofiishraak.com");
-    expect(actual, StringUtils.pleaseEnterAValidEmailText);
+    expect(actual, StringResources.pleaseEnterAValidEmailText);
 
   });
 
-  test("Empty Email Testing, Should return ${StringUtils.pleaseEnterEmailText}",(){
+  test("Empty Email Testing, Should return ${StringResources.pleaseEnterEmailText}",(){
 
     Validator validator = Validator();
 
     var actual = validator.validateEmail("");
-    expect(actual, StringUtils.pleaseEnterEmailText);
+    expect(actual, StringResources.pleaseEnterEmailText);
 
   });
 
-  test("Invalid Email Testing, Should return ${StringUtils.pleaseEnterAValidEmailText}",(){
+  test("Invalid Email Testing, Should return ${StringResources.pleaseEnterAValidEmailText}",(){
 
     Validator validator = Validator();
 
     var actual = validator.validateEmail("sfsdffsdf@");
-    expect(actual, StringUtils.pleaseEnterAValidEmailText);
+    expect(actual, StringResources.pleaseEnterAValidEmailText);
 
   });
 
-  test("Invalid Email Testing with white space, Should return ${StringUtils.pleaseEnterAValidEmailText}",(){
+  test("Invalid Email Testing with white space, Should return ${StringResources.pleaseEnterAValidEmailText}",(){
 
     Validator validator = Validator();
 
     var actual = validator.validateEmail("sfsdffsd f@");
-    expect(actual, StringUtils.pleaseEnterAValidEmailText);
+    expect(actual, StringResources.pleaseEnterAValidEmailText);
 
   });
 

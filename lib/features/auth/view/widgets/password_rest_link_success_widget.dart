@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:p7app/features/auth/view_models/password_reset_view_model.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
-import 'package:p7app/main_app/widgets/common_button.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
+import 'package:p7app/main_app/views/widgets/common_button.dart';
 import 'package:provider/provider.dart';
 
 class PasswordRestLinkSuccessWidget extends StatelessWidget {
@@ -11,7 +11,7 @@ class PasswordRestLinkSuccessWidget extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Text(StringUtils.aPasswordRestLinkHasBeenSentToText),
+        Text(StringResources.aPasswordRestLinkHasBeenSentToText),
       SizedBox(height: 10,),
       Consumer<PasswordResetViewModel>(
         builder: (context,passwordResetViewModel,_) {
@@ -19,7 +19,7 @@ class PasswordRestLinkSuccessWidget extends StatelessWidget {
         }
       ),
         SizedBox(height: 10,),
-        CommonButton(label: StringUtils.backText,onTap: (){Navigator.pop(context);},),
+        CommonButton(label: StringResources.backText,onTap: (){Navigator.pop(context);},),
       ],
     ),);
   }

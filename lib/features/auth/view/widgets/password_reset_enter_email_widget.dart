@@ -4,9 +4,9 @@ import 'package:p7app/features/auth/view/widgets/title_widget.dart';
 import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
 
 import 'package:p7app/main_app/resource/const.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
-import 'package:p7app/main_app/widgets/common_button.dart';
-import 'package:p7app/main_app/widgets/loader.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
+import 'package:p7app/main_app/views/widgets/common_button.dart';
+import 'package:p7app/main_app/views/widgets/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -41,7 +41,7 @@ class _PasswordResetEmailWidgetState extends State<PasswordResetEmailWidget> {
 
   Widget _titleText() {
     return TitleWidget(
-      labelText: StringUtils.passwordResetText,
+      labelText: StringResources.passwordResetText,
     );
   }
 
@@ -69,7 +69,7 @@ class _PasswordResetEmailWidgetState extends State<PasswordResetEmailWidget> {
         return Row(
           children: <Widget>[
             _inputTypeSelectionItemWidget(
-                label: StringUtils.emailText,
+                label: StringResources.emailText,
                 onChanged: (value) {
                   /// Email
                   passwordResetProvider.passwordResetMethodIsEmail = true;
@@ -82,7 +82,7 @@ class _PasswordResetEmailWidgetState extends State<PasswordResetEmailWidget> {
             ),
             _inputTypeSelectionItemWidget(
                 groupValue: false,
-                label: StringUtils.smsText,
+                label: StringResources.smsText,
                 onChanged: (value) {
                   /// Phone
                   passwordResetProvider.passwordResetMethodIsEmail = false;
@@ -105,7 +105,7 @@ class _PasswordResetEmailWidgetState extends State<PasswordResetEmailWidget> {
               onTap: !enabled? null: () {
                 _handleEmailSubmit(_emailTextController.text, context);
               },
-              label: StringUtils.passwordResetText,
+              label: StringResources.passwordResetText,
             ),
     );
   }
@@ -124,8 +124,8 @@ class _PasswordResetEmailWidgetState extends State<PasswordResetEmailWidget> {
 
     var passwordResetProvider = Provider.of<PasswordResetViewModel>(context);
     var hintText = passwordResetProvider.passwordResetMethodIsEmail
-        ? StringUtils.emailText
-        : StringUtils.phoneText;
+        ? StringResources.emailText
+        : StringResources.phoneText;
     var iconPrefix = passwordResetProvider.passwordResetMethodIsEmail
         ? Icons.mail
         : Icons.phone_android;

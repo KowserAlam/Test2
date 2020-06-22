@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 
 class NoFavouriteJobsWidget extends StatelessWidget {
   final onTap;
@@ -17,7 +17,7 @@ class NoFavouriteJobsWidget extends StatelessWidget {
           mainAxisSize:MainAxisSize.min ,children: [
           Icon(FontAwesomeIcons.heart,color: color,),
           SizedBox(height: 15,),
-          Text(StringUtils.youDoNotHaveAnyFavoriteJob,style: TextStyle(color: color),)
+          Text(StringResources.youDoNotHaveAnyFavoriteJob,style: TextStyle(color: color),)
         ],),),
       ),
     );

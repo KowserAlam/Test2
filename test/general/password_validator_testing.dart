@@ -1,6 +1,6 @@
 
 
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/validator.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -10,7 +10,7 @@ main() {
     Validator validator = Validator();
 
     var actual = validator.validatePassword("?=*");
-    expect(actual, StringUtils.passwordMustBeEight);
+    expect(actual, StringResources.passwordMustBeEight);
 
   });
 
@@ -30,7 +30,7 @@ main() {
     Validator validator = Validator();
 
     var actual = validator.validatePassword("passw ord123");
-    expect(actual, StringUtils.passwordMustBeEight);
+    expect(actual, StringResources.passwordMustBeEight);
 
   });
 
@@ -40,7 +40,7 @@ main() {
     Validator validator = Validator();
 
     var actual = validator.validatePassword("1234 1678q");
-    expect(actual, StringUtils.passwordMustBeEight);
+    expect(actual, StringResources.passwordMustBeEight);
 
   });
 }

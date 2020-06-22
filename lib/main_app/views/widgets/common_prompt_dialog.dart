@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 
 class CommonPromptDialog extends StatelessWidget {
   final String titleText;
@@ -16,12 +16,12 @@ class CommonPromptDialog extends StatelessWidget {
       actions: [
         RawMaterialButton(
           onPressed: onCancel,
-          child: Text(StringUtils.noText, style: buttonTextStyles),
+          child: Text(StringResources.noText, style: buttonTextStyles),
         ),
         RawMaterialButton(
           onPressed: onAccept,
           child: Text(
-            StringUtils.yesText,
+            StringResources.yesText,
             style: buttonTextStyles,
           ),
         ),

@@ -12,12 +12,12 @@ import 'package:p7app/features/job/models/job_model.dart';
 import 'package:p7app/features/job/view/widgets/job_list_tile_widget.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
 import 'package:p7app/main_app/flavour/flavor_banner.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
-import 'package:p7app/main_app/widgets/app_drawer.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
+import 'package:p7app/main_app/views/app_drawer.dart';
 import 'package:flutter/material.dart';
-import 'package:p7app/main_app/widgets/common_prompt_dialog.dart';
-import 'package:p7app/main_app/widgets/custom_text_from_field.dart';
-import 'package:p7app/main_app/widgets/loader.dart';
+import 'package:p7app/main_app/views/widgets/common_prompt_dialog.dart';
+import 'package:p7app/main_app/views/widgets/custom_text_from_field.dart';
+import 'package:p7app/main_app/views/widgets/loader.dart';
 import 'package:provider/provider.dart';
 
 class FavouriteJobListScreen extends StatefulWidget {
@@ -71,7 +71,7 @@ class _FavouriteJobListScreenState extends State<FavouriteJobListScreen>
         debugPrint("${jobList.length}");
         return Scaffold(
           appBar: AppBar(
-            title: Text(StringUtils.favoriteJobsText),
+            title: Text(StringResources.favoriteJobsText),
           ),
           drawer: AppDrawer(
             routeName: 'favorite_job_list',
@@ -134,7 +134,7 @@ class _FavouriteJobListScreenState extends State<FavouriteJobListScreen>
         context: context,
         builder: (context) {
           return CommonPromptDialog(
-            titleText: StringUtils.doYouWantToApplyText,
+            titleText: StringResources.doYouWantToApplyText,
             onCancel: () {
               Navigator.pop(context);
             },

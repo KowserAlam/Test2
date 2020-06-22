@@ -1,4 +1,4 @@
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:flutter/material.dart';
 
 class SearchBarViewWidget extends StatelessWidget {
@@ -29,7 +29,7 @@ class SearchBarViewWidget extends StatelessWidget {
               width: 15,
             ),
             Text(
-              StringUtils.searchText,
+              StringResources.searchText,
               style: TextStyle(
                 color: Colors.grey,
               ),

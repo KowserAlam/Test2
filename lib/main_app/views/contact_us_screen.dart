@@ -15,13 +15,13 @@ import 'package:p7app/main_app/models/contact_us_model.dart';
 import 'package:p7app/main_app/models/settings_model.dart';
 import 'package:p7app/main_app/repositories/contact_us_submit_repository.dart';
 import 'package:p7app/main_app/repositories/setting_repository.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/validator.dart';
 import 'package:p7app/main_app/views/widgets/pge_view_widget.dart';
-import 'package:p7app/main_app/widgets/common_button.dart';
-import 'package:p7app/main_app/widgets/custom_text_field.dart';
-import 'package:p7app/main_app/widgets/custom_text_from_field.dart';
-import 'package:p7app/main_app/widgets/loader.dart';
+import 'package:p7app/main_app/views/widgets/common_button.dart';
+import 'package:p7app/main_app/views/widgets/custom_text_field.dart';
+import 'package:p7app/main_app/views/widgets/custom_text_from_field.dart';
+import 'package:p7app/main_app/views/widgets/loader.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:dartz/dartz.dart' as dartZ;
 
@@ -73,7 +73,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
         print(l);
         return false;
       }, (r){
-        BotToast.showText(text: StringUtils.contactUsSubmittedText);
+        BotToast.showText(text: StringResources.contactUsSubmittedText);
         _submitted = true;
         nameController.clear();
         emailController.clear();
@@ -172,7 +172,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
               width: 5,
             ),
             Text(
-              StringUtils.contactUsLocationText,
+              StringResources.contactUsLocationText,
               style: sectionTitleFont,
             )
           ],
@@ -207,7 +207,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
     if(_settingsModel == null)
       return Scaffold(
         appBar: AppBar(
-          title: Text(StringUtils.contactUsText),
+          title: Text(StringResources.contactUsText),
         ),
         body: Center(
           child: Loader(),
@@ -215,7 +215,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
       );
     return Scaffold(
       appBar: AppBar(
-        title: Text(StringUtils.contactUsText),
+        title: Text(StringResources.contactUsText),
       ),
       body: ListView(
         children: [
@@ -237,7 +237,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(StringUtils.contactUsContactInfoText,style: titleStyle,),
+                        Text(StringResources.contactUsContactInfoText,style: titleStyle,),
                         Divider(height: 25,),
                         contactInfoItems(Icons.pin_drop, _settingsModel.address),
                         spaceBetweenLines,
@@ -251,10 +251,10 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(height: 30,),
-                      Text(StringUtils.contactUsKeepInTouchText, style: titleStyle,),
+                      Text(StringResources.contactUsKeepInTouchText, style: titleStyle,),
                       SizedBox(height: 10,),
                       CustomTextFormField(
-                        hintText: StringUtils.contactUsNameText,
+                        hintText: StringResources.contactUsNameText,
                         controller: nameController,
                         validator: Validator().nullFieldValidate,
                         onFieldSubmitted: (v){
@@ -264,7 +264,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                       ),
                       spaceBetweenLines,
                       CustomTextFormField(
-                        hintText: StringUtils.contactUsEmailText,
+                        hintText: StringResources.contactUsEmailText,
                         controller: emailController,
                         keyboardType: TextInputType.emailAddress,
                         validator: Validator().validateEmail,
@@ -276,7 +276,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                       ),
                       spaceBetweenLines,
                       CustomTextFormField(
-                        hintText: StringUtils.contactUsPhoneText,
+                        hintText: StringResources.contactUsPhoneText,
                         controller: phoneController,
                         keyboardType: TextInputType.number,
                         validator: Validator().validatePhoneNumber,
@@ -288,7 +288,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                       ),
                       spaceBetweenLines,
                       CustomTextFormField(
-                        hintText: StringUtils.contactUsSubjectText,
+                        hintText: StringResources.contactUsSubjectText,
                         controller: subjectController,
                         validator: Validator().nullFieldValidate,
                         focusNode: subjectFocusNode,
@@ -299,7 +299,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                       ),
                       spaceBetweenLines,
                       CustomTextFormField(
-                        hintText: StringUtils.contactUsMessageText,
+                        hintText: StringResources.contactUsMessageText,
                         controller: messageController,
                         validator: Validator().nullFieldValidate,
                         maxLines: 5,

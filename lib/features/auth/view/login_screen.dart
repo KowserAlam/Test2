@@ -6,11 +6,11 @@ import 'package:p7app/main_app/flavour/flavor_banner.dart';
 import 'package:p7app/main_app/root.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/app_theme/comon_styles.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/validator.dart';
-import 'package:p7app/main_app/widgets/app_version_widget_small.dart';
-import 'package:p7app/main_app/widgets/common_button.dart';
-import 'package:p7app/main_app/widgets/loader.dart';
+import 'package:p7app/main_app/views/widgets/app_version_widget_small.dart';
+import 'package:p7app/main_app/views/widgets/common_button.dart';
+import 'package:p7app/main_app/views/widgets/loader.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -44,7 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
           padding: EdgeInsets.all(8),
           decoration: BoxDecoration(color: Colors.green.withOpacity(0.1)),
           child: Text(
-            StringUtils.signSuccessfulText,
+            StringResources.signSuccessfulText,
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.subtitle1.apply(color: Colors.green),
           ),
@@ -74,7 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
             (_) => false);
       }
     } else {
-      _showSnackBar(StringUtils.checkRequiredField, Colors.red[800]);
+      _showSnackBar(StringResources.checkRequiredField, Colors.red[800]);
     }
   }
 
@@ -120,14 +120,14 @@ class _LoginScreenState extends State<LoginScreen> {
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         Text(
-          StringUtils.welcomeBack,
+          StringResources.welcomeBack,
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
         ),
         SizedBox(
           height: 10,
         ),
         Text(
-          StringUtils.loginToYourExistingAccount,
+          StringResources.loginToYourExistingAccount,
           style: TextStyle(fontSize: 15, color: Colors.grey[400]),
         )
       ],
@@ -144,7 +144,7 @@ class _LoginScreenState extends State<LoginScreen> {
     var registerText = RichText(
       text: TextSpan(children: [
         TextSpan(
-          text: StringUtils.doNotHaveAccountText,
+          text: StringResources.doNotHaveAccountText,
           style: TextStyle(color: Colors.grey, fontSize: 15),
         ),
         WidgetSpan(
@@ -164,7 +164,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   MaterialPageRoute(builder: (context) => SignUpScreen()));
             },
             child: Text(
-              '  ${StringUtils.signupText}',
+              '  ${StringResources.signupText}',
               style: TextStyle(
                   color: Theme.of(context).primaryColor,
                   fontWeight: FontWeight.bold,
@@ -182,7 +182,7 @@ class _LoginScreenState extends State<LoginScreen> {
           focusNode: _emailFocus,
           textInputAction: TextInputAction.next,
           controller: _emailTextController,
-          hintText: StringUtils.emailText,
+          hintText: StringResources.emailText,
           prefixIcon: Icon(
             Icons.person_outline,
           ),
@@ -221,7 +221,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           obscureText: signViewModel.isObscurePassword,
           controller: _passwordTextController,
-          hintText: StringUtils.passwordText,
+          hintText: StringResources.passwordText,
           onSubmitted: (s) {
             _handleLogin(_scaffoldKey.currentState.context);
           },
@@ -240,7 +240,7 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Container(
             padding: EdgeInsets.all(8),
             child: Text(
-              StringUtils.forgotPassword,
+              StringResources.forgotPassword,
             ),
           ),
         ),
@@ -258,7 +258,7 @@ class _LoginScreenState extends State<LoginScreen> {
           onTap: () {
             _handleLogin(context);
           },
-          label: StringUtils.logInButtonText,
+          label: StringResources.logInButtonText,
         ),
       );
     });

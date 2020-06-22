@@ -6,9 +6,9 @@ import 'package:p7app/features/career_advice/models/career_advice_model.dart';
 import 'package:p7app/features/career_advice/view/career_advice_details_screen.dart';
 import 'package:p7app/features/career_advice/view_models/career_advice_view_model.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/date_format_uitl.dart';
-import 'package:p7app/main_app/widgets/loader.dart';
+import 'package:p7app/main_app/views/widgets/loader.dart';
 import 'package:provider/provider.dart';
 
 class CareerAdviceScreen extends StatefulWidget {
@@ -49,7 +49,7 @@ class _CareerAdviceScreenState extends State<CareerAdviceScreen>
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(StringUtils.careerAdviceText),
+        title: Text(StringResources.careerAdviceText),
       ),
       body: RefreshIndicator(
         onRefresh: vm.refresh,
@@ -147,7 +147,7 @@ class _CareerAdviceScreenState extends State<CareerAdviceScreen>
                                 ),
                                 child: Center(
                                   child: Text(
-                                    StringUtils.readMoreText,
+                                    StringResources.readMoreText,
                                     style: TextStyle(color: Colors.blueAccent),
                                   ),
                                 ),

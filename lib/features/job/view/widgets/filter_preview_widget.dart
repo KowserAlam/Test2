@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:p7app/features/job/view_model/job_list_filter_widget_view_model.dart';
 import 'package:p7app/features/job/view_model/job_list_view_model.dart';
 import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:provider/provider.dart';
 import 'package:p7app/method_extension.dart';
 
@@ -64,7 +64,7 @@ class FilterPreviewWidget extends StatelessWidget {
             if (jobListViewModel.hasSortBy)
               filterItem(
                   context: context,
-                  name: StringUtils.sortBy,
+                  name: StringResources.sortBy,
                   value: filters.sort?.value,
                   onClear: () {
                     jobListViewModel.clearSort();
@@ -74,7 +74,7 @@ class FilterPreviewWidget extends StatelessWidget {
             if (jobListViewModel.hasCategory)
               filterItem(
                   context: context,
-                  name: StringUtils.jobCategoryText,
+                  name: StringResources.jobCategoryText,
                   value: filters.category.replaceAmpWith26,
                   onClear: () {
                     jobListViewModel.clearCategory();
@@ -83,7 +83,7 @@ class FilterPreviewWidget extends StatelessWidget {
             if (jobListViewModel.hasLocation)
               filterItem(
                   context: context,
-                  name: StringUtils.locationText,
+                  name: StringResources.locationText,
                   value: filters.location,
                   onClear: () {
                     jobListViewModel.clearLocation();
@@ -93,7 +93,7 @@ class FilterPreviewWidget extends StatelessWidget {
               filterItem(
                   value: filters.skill.name,
                   context: context,
-                  name: StringUtils.skillText,
+                  name: StringResources.skillText,
                   onClear: () {
                     jobListViewModel.clearSkill();
                     jobListFilterWidgetViewModel.selectedSkill = null;
@@ -102,7 +102,7 @@ class FilterPreviewWidget extends StatelessWidget {
             if (jobListViewModel.hasExperienceRange)
               filterItem(
                   context: context,
-                  name: StringUtils.experienceText,
+                  name: StringResources.experienceText,
                   value: "${filters.experienceMin} - ${filters.experienceMax}",
                   onClear: () {
                     jobListViewModel.clearExperienceRange();
@@ -112,7 +112,7 @@ class FilterPreviewWidget extends StatelessWidget {
             if (jobListViewModel.hasJobType)
               filterItem(
                   context: context,
-                  name: StringUtils.jobTypeText,
+                  name: StringResources.jobTypeText,
                   value: filters.jobType?.name,
                   onClear: () {
                     jobListViewModel.clearJobType();
@@ -122,7 +122,7 @@ class FilterPreviewWidget extends StatelessWidget {
             if (jobListViewModel.hasSalaryRange)
               filterItem(
                   context: context,
-                  name: StringUtils.salaryRangeText,
+                  name: StringResources.salaryRangeText,
                   value: "${filters.salaryMin} - ${filters.salaryMax}",
                   onClear: () {
                     jobListViewModel.clearSalaryRange();
@@ -137,7 +137,7 @@ class FilterPreviewWidget extends StatelessWidget {
               filterItem(
                   context: context,
                   value: filters.qualification,
-                  name: StringUtils.qualificationText,
+                  name: StringResources.qualificationText,
                   onClear: () {
                     jobListViewModel.clearQualification();
                     jobListFilterWidgetViewModel.selectedQualification = null;
@@ -145,7 +145,7 @@ class FilterPreviewWidget extends StatelessWidget {
             if (jobListViewModel.hasGender)
               filterItem(
                   context: context,
-                  name: StringUtils.genderText,
+                  name: StringResources.genderText,
                   value: filters.gender,
                   onClear: () {
                     jobListViewModel.clearGender();
@@ -154,7 +154,7 @@ class FilterPreviewWidget extends StatelessWidget {
             if (jobListViewModel.hasDatePosted)
               filterItem(
                   context: context,
-                  name: StringUtils.datePosted,
+                  name: StringResources.datePosted,
                   value: filters.datePosted,
                   onClear: () {
                     jobListViewModel.clearDatePosted();

@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:p7app/features/auth/view_models/password_reset_view_model.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 
 
 class MockApiClient extends Mock implements ApiClient {}
@@ -23,7 +23,7 @@ main() {
 
     test("Testing with invalid valid email,", () {
       passwordResetViewModel.validateEmailLocal("email");
-      expect(passwordResetViewModel.emailErrorText, StringUtils.pleaseEnterAValidEmailText);
+      expect(passwordResetViewModel.emailErrorText, StringResources.pleaseEnterAValidEmailText);
     });
 
   });

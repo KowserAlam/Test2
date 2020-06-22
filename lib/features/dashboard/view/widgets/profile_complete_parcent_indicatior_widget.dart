@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class ProfileCompletePercentIndicatorWidget extends StatelessWidget {
@@ -19,7 +19,7 @@ class ProfileCompletePercentIndicatorWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "${StringUtils.profileText.toUpperCase()}",
+                  "${StringResources.profileText.toUpperCase()}",
                   style: TextStyle(fontWeight: FontWeight.w500),
                 ),
                 Text("${(percent * 100).toInt()}%"),

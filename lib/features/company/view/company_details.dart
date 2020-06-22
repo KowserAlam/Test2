@@ -11,7 +11,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:p7app/features/company/models/company.dart';
 import 'package:p7app/main_app/api_helpers/url_launcher_helper.dart';
 import 'package:p7app/main_app/resource/const.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/date_format_uitl.dart';
 import 'package:p7app/method_extension.dart';
 import 'package:uuid/uuid.dart';
@@ -101,7 +101,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
           TextSpan(text: ': ', style: descriptionFontStyleBold),
           TextSpan(
               text: description == null
-                  ? StringUtils.unspecifiedText
+                  ? StringResources.unspecifiedText
                   : description,
               style: descriptionFontStyle),
         ]),
@@ -142,7 +142,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                         child: Text(
                           companyDetails.name != null
                               ? companyDetails.name
-                              : StringUtils.unspecifiedText,
+                              : StringResources.unspecifiedText,
                           style: headerTextStyle,
                         ),
                       ),
@@ -173,7 +173,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                 width: 5,
               ),
               Text(
-                StringUtils.companyBasicInfoSectionText,
+                StringResources.companyBasicInfoSectionText,
                 style: sectionTitleFont,
               )
             ],
@@ -190,7 +190,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                   children: [
                     Text.rich(TextSpan(children: [
                       TextSpan(
-                          text: StringUtils.companyProfileText + ': ',
+                          text: StringResources.companyProfileText + ': ',
                           style: descriptionFontStyleBold),
                       WidgetSpan(
                           child: GestureDetector(
@@ -231,16 +231,16 @@ class _CompanyDetailsState extends State<CompanyDetails> {
 //          SizedBox(height: 5,),
 
           richText(
-              StringUtils.companyYearsOfEstablishmentText,
+              StringResources.companyYearsOfEstablishmentText,
               companyDetails.yearOfEstablishment != null
                   ? DateFormatUtil.formatDate(
                       companyDetails.yearOfEstablishment)
-                  : StringUtils.unspecifiedText),
+                  : StringResources.unspecifiedText),
           SizedBox(
             height: 5,
           ),
 
-          richText(StringUtils.companyBasisMembershipNoText,
+          richText(StringResources.companyBasisMembershipNoText,
               companyDetails.basisMemberShipNo),
           SizedBox(
             height: 5,
@@ -263,7 +263,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                 width: 5,
               ),
               Text(
-                StringUtils.companyAddressSectionText,
+                StringResources.companyAddressSectionText,
                 style: sectionTitleFont,
               )
             ],
@@ -272,7 +272,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
             height: 5,
           ),
 
-          richText(StringUtils.companyAddressText, companyDetails.address),
+          richText(StringResources.companyAddressText, companyDetails.address),
           SizedBox(
             height: 5,
           ),
@@ -280,12 +280,12 @@ class _CompanyDetailsState extends State<CompanyDetails> {
 //          richText(StringUtils.companyIndustryText, companyDetails.companyProfile),
 //          SizedBox(height: 5,),
 
-          richText(StringUtils.companyDistrictText, companyDetails.district),
+          richText(StringResources.companyDistrictText, companyDetails.district),
           SizedBox(
             height: 5,
           ),
 
-          richText(StringUtils.companyPostCodeText, companyDetails.postCode),
+          richText(StringResources.companyPostCodeText, companyDetails.postCode),
           SizedBox(
             height: 5,
           ),
@@ -307,7 +307,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                 width: 5,
               ),
               Text(
-                StringUtils.companyContactSectionText,
+                StringResources.companyContactSectionText,
                 style: sectionTitleFont,
               )
             ],
@@ -398,7 +398,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
               children: [
                 Row(
                   children: [
-                    Text(StringUtils.companyEmailText + ': ',
+                    Text(StringResources.companyEmailText + ': ',
                         style: descriptionFontStyleBold),
                     SizedBox(
                       width: 5,
@@ -428,7 +428,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                   children: [
                     Row(
                       children: [
-                        Text(StringUtils.companyWebAddressText + ': ',
+                        Text(StringResources.companyWebAddressText + ': ',
                             style: descriptionFontStyleBold),
                         SizedBox(
                           width: 5,
@@ -470,7 +470,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                 width: 5,
               ),
               Text(
-                StringUtils.companySocialNetworksSectionText,
+                StringResources.companySocialNetworksSectionText,
                 style: sectionTitleFont,
               )
             ],
@@ -586,7 +586,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                 width: 5,
               ),
               Text(
-                StringUtils.companyOrganizationHeadSectionText,
+                StringResources.companyOrganizationHeadSectionText,
                 style: sectionTitleFont,
               )
             ],
@@ -595,19 +595,19 @@ class _CompanyDetailsState extends State<CompanyDetails> {
             height: 5,
           ),
 
-          richText(StringUtils.companyOrganizationHeadNameText,
+          richText(StringResources.companyOrganizationHeadNameText,
               companyDetails.organizationHead),
           SizedBox(
             height: 5,
           ),
 
-          richText(StringUtils.companyOrganizationHeadDesignationText,
+          richText(StringResources.companyOrganizationHeadDesignationText,
               companyDetails.organizationHeadDesignation),
           SizedBox(
             height: 5,
           ),
 
-          richText(StringUtils.companyOrganizationHeadMobileNoText,
+          richText(StringResources.companyOrganizationHeadMobileNoText,
               companyDetails.organizationHeadNumber),
           SizedBox(
             height: 5,
@@ -633,7 +633,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                 width: 5,
               ),
               Text(
-                StringUtils.companyContactPersonSectionText,
+                StringResources.companyContactPersonSectionText,
                 style: sectionTitleFont,
               )
             ],
@@ -642,25 +642,25 @@ class _CompanyDetailsState extends State<CompanyDetails> {
             height: 5,
           ),
 
-          richText(StringUtils.companyContactPersonNameText,
+          richText(StringResources.companyContactPersonNameText,
               companyDetails.contactPerson),
           SizedBox(
             height: 5,
           ),
 
-          richText(StringUtils.companyContactPersonDesignationText,
+          richText(StringResources.companyContactPersonDesignationText,
               companyDetails.contactPersonDesignation),
           SizedBox(
             height: 5,
           ),
 
-          richText(StringUtils.companyContactPersonMobileNoText,
+          richText(StringResources.companyContactPersonMobileNoText,
               companyDetails.contactPersonMobileNo),
           SizedBox(
             height: 5,
           ),
 
-          richText(StringUtils.companyContactPersonEmailText,
+          richText(StringResources.companyContactPersonEmailText,
               companyDetails.contactPersonEmail),
           SizedBox(
             height: 5,
@@ -686,7 +686,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                 width: 5,
               ),
               Text(
-                StringUtils.companyOtherInformationText,
+                StringResources.companyOtherInformationText,
                 style: sectionTitleFont,
               )
             ],
@@ -694,17 +694,17 @@ class _CompanyDetailsState extends State<CompanyDetails> {
           SizedBox(
             height: 5,
           ),
-          richText(StringUtils.companyLegalStructureText,
+          richText(StringResources.companyLegalStructureText,
               companyDetails.legalStructure),
           SizedBox(
             height: 5,
           ),
-          richText(StringUtils.companyNoOFHumanResourcesText,
+          richText(StringResources.companyNoOFHumanResourcesText,
               companyDetails.noOfHumanResources),
           SizedBox(
             height: 5,
           ),
-          richText(StringUtils.companyNoOFItResourcesText,
+          richText(StringResources.companyNoOFItResourcesText,
               companyDetails.noOfResources),
           SizedBox(
             height: 5,
@@ -725,7 +725,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
               width: 5,
             ),
             Text(
-              StringUtils.companyLocationOnMapText,
+              StringResources.companyLocationOnMapText,
               style: sectionTitleFont,
             )
           ],
@@ -756,7 +756,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(StringUtils.companyDetailsText),
+        title: Text(StringResources.companyDetailsText),
       ),
       body: ListView(
         children: [

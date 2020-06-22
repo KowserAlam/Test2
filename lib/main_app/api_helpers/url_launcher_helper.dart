@@ -1,13 +1,13 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class UrlLauncherHelper {
 
   static launchFacebookApp(String fbID)async{
     var fbProtocolUrl = "fb://$fbID";
-    var fallbackUrl = "https://${StringUtils.facebookBaseUrl}$fbID";
+    var fallbackUrl = "https://${StringResources.facebookBaseUrl}$fbID";
     try {
       bool launched = await launch(fbProtocolUrl, forceSafariVC: false);
       if (!launched) {

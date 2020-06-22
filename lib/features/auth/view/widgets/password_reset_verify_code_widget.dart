@@ -1,9 +1,9 @@
 import 'package:p7app/features/auth/view_models/password_reset_view_model.dart';
 import 'package:p7app/main_app/resource/const.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
-import 'package:p7app/main_app/widgets/common_button.dart';
-import 'package:p7app/main_app/widgets/loader.dart';
-import 'package:p7app/main_app/widgets/verification_code_input.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
+import 'package:p7app/main_app/views/widgets/common_button.dart';
+import 'package:p7app/main_app/views/widgets/loader.dart';
+import 'package:p7app/main_app/views/verification_code_input.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -38,14 +38,14 @@ class _PasswordResetVerifyCodeWidgetState
       );
 
   Widget _headingWidget() => Text(
-        StringUtils.resetYourPassword,
+        StringResources.resetYourPassword,
         style: Theme.of(context).textTheme.display1,
       );
 
   Widget _resetInformationWidget() => Column(
         children: <Widget>[
           Text(
-            StringUtils.an6DigitCodeSentToText,
+            StringResources.an6DigitCodeSentToText,
             style: TextStyle(
               fontSize: 16,
             ),
@@ -74,7 +74,7 @@ class _PasswordResetVerifyCodeWidgetState
   Widget _resendCodeWidget() => Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Text(StringUtils.didNotReceiveTheCodeText,
+          Text(StringResources.didNotReceiveTheCodeText,
               style: TextStyle(
                 fontSize: 16,
               )),
@@ -84,7 +84,7 @@ class _PasswordResetVerifyCodeWidgetState
           Consumer<PasswordResetViewModel>(
               builder: (context, passwordResetProvider, _) {
             if (passwordResetProvider.isCodeResend) {
-              return Text(StringUtils.resendText,
+              return Text(StringResources.resendText,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.grey,
@@ -96,7 +96,7 @@ class _PasswordResetVerifyCodeWidgetState
 //                          signUpProvider.checkingEmail(signUpProvider.email);
 //                          signUpProvider.isCodeResend = true;
               },
-              child: Text(StringUtils.resendText,
+              child: Text(StringResources.resendText,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 16,

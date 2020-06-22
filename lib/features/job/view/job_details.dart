@@ -18,9 +18,9 @@ import 'package:p7app/main_app/app_theme/app_theme.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/util/date_format_uitl.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
-import 'package:p7app/main_app/widgets/failure_widget.dart';
-import 'package:p7app/main_app/widgets/loader.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
+import 'package:p7app/main_app/views/widgets/failure_widget.dart';
+import 'package:p7app/main_app/views/widgets/loader.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:p7app/method_extension.dart';
@@ -92,13 +92,13 @@ class _JobDetailsState extends State<JobDetails> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text(StringUtils.doYouWantToApplyText),
+            title: Text(StringResources.doYouWantToApplyText),
             actions: [
               RawMaterialButton(
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: Text(StringUtils.noText),
+                child: Text(StringResources.noText),
               ),
               RawMaterialButton(
                 onPressed: () {
@@ -109,7 +109,7 @@ class _JobDetailsState extends State<JobDetails> {
                   });
                   Navigator.pop(context);
                 },
-                child: Text(StringUtils.yesText),
+                child: Text(StringResources.yesText),
               ),
             ],
           );
@@ -141,7 +141,7 @@ class _JobDetailsState extends State<JobDetails> {
     switch (_appError) {
       case AppError.serverError:
         return FailureFullScreenWidget(
-          errorMessage: StringUtils.unableToLoadData,
+          errorMessage: StringResources.unableToLoadData,
           onTap: () {
             return _refreshList();
           },
@@ -149,7 +149,7 @@ class _JobDetailsState extends State<JobDetails> {
 
       case AppError.networkError:
         return FailureFullScreenWidget(
-          errorMessage: StringUtils.unableToReachServerMessage,
+          errorMessage: StringResources.unableToReachServerMessage,
           onTap: () {
             return _refreshList();
           },
@@ -157,7 +157,7 @@ class _JobDetailsState extends State<JobDetails> {
 
       default:
         return FailureFullScreenWidget(
-          errorMessage: StringUtils.somethingIsWrong,
+          errorMessage: StringResources.somethingIsWrong,
           onTap: () {
             return _refreshList();
           },
@@ -242,7 +242,7 @@ class _JobDetailsState extends State<JobDetails> {
         appBar: AppBar(
           elevation: 2,
           title: Text(
-            StringUtils.jobDetailsAppBarTitle,
+            StringResources.jobDetailsAppBarTitle,
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
           centerTitle: true,
@@ -309,7 +309,7 @@ class _JobDetailsState extends State<JobDetails> {
 //          padding: EdgeInsets.symmetric(vertical: 6, horizontal: 15),
 
           child: Text(
-            isApplied ? StringUtils.appliedText : StringUtils.applyText,
+            isApplied ? StringResources.appliedText : StringResources.applyText,
             style: TextStyle(
                 fontSize: 15, color: Colors.white, fontWeight: FontWeight.w600),
           ),
@@ -359,7 +359,7 @@ class _JobDetailsState extends State<JobDetails> {
                         child: Text(
                           jobDetails.title != null
                               ? jobDetails.title
-                              : StringUtils.unspecifiedText,
+                              : StringResources.unspecifiedText,
                           style: headerTextStyle,
                         ),
                       ),
@@ -377,7 +377,7 @@ class _JobDetailsState extends State<JobDetails> {
                       child: Text(
                         jobDetails.company != null
                             ? jobDetails.company.name
-                            : StringUtils.unspecifiedText,
+                            : StringResources.unspecifiedText,
                         style: jobDetails.company == null
                             ? topSideDescriptionFontStyle
                             : hasCompanyFontStyle,
@@ -442,7 +442,7 @@ class _JobDetailsState extends State<JobDetails> {
                 width: 5,
               ),
               Text(
-                StringUtils.jobDescriptionTitle,
+                StringResources.jobDescriptionTitle,
                 style: sectionTitleFont,
               )
             ],
@@ -453,7 +453,7 @@ class _JobDetailsState extends State<JobDetails> {
           Text(
             jobDetails.descriptions != null
                 ? jobDetails.descriptions
-                : StringUtils.unspecifiedText,
+                : StringResources.unspecifiedText,
             style: descriptionFontStyle,
           )
         ],
@@ -473,7 +473,7 @@ class _JobDetailsState extends State<JobDetails> {
                 width: 5,
               ),
               Text(
-                StringUtils.responsibilitiesTitle,
+                StringResources.responsibilitiesTitle,
                 style: sectionTitleFont,
               )
             ],
@@ -484,7 +484,7 @@ class _JobDetailsState extends State<JobDetails> {
           Text(
             jobDetails.responsibilities != null
                 ? jobDetails.responsibilities
-                : StringUtils.unspecifiedText,
+                : StringResources.unspecifiedText,
             style: descriptionFontStyle,
           )
         ],
@@ -504,7 +504,7 @@ class _JobDetailsState extends State<JobDetails> {
                 width: 5,
               ),
               Text(
-                StringUtils.educationTitle,
+                StringResources.educationTitle,
                 style: sectionTitleFont,
               )
             ],
@@ -515,7 +515,7 @@ class _JobDetailsState extends State<JobDetails> {
           Text(
             jobDetails.education != null
                 ? jobDetails.education
-                : StringUtils.unspecifiedText,
+                : StringResources.unspecifiedText,
             style: descriptionFontStyle,
           )
         ],
@@ -529,7 +529,7 @@ class _JobDetailsState extends State<JobDetails> {
           Row(
             children: <Widget>[
               Text(
-                StringUtils.jobAdditionalRequirementsText,
+                StringResources.jobAdditionalRequirementsText,
                 style: sectionTitleFont,
               )
             ],
@@ -540,7 +540,7 @@ class _JobDetailsState extends State<JobDetails> {
           Text(
             jobDetails.additionalRequirements != null
                 ? jobDetails.additionalRequirements
-                : StringUtils.unspecifiedText,
+                : StringResources.unspecifiedText,
             style: descriptionFontStyle,
           )
         ],
@@ -561,7 +561,7 @@ class _JobDetailsState extends State<JobDetails> {
                 width: 5,
               ),
               Text(
-                StringUtils.jobLocation,
+                StringResources.jobLocation,
                 style: sectionTitleFont,
               )
             ],
@@ -570,34 +570,34 @@ class _JobDetailsState extends State<JobDetails> {
             height: 5,
           ),
           jobSummeryRichText(
-              StringUtils.jobAddressText,
+              StringResources.jobAddressText,
               jobDetails.jobAddress != null
                   ? jobDetails.jobAddress
-                  : StringUtils.unspecifiedText),
+                  : StringResources.unspecifiedText),
           SizedBox(
             height: 5,
           ),
           jobSummeryRichText(
-              StringUtils.jobAreaText,
+              StringResources.jobAreaText,
               jobDetails.jobArea != null
                   ? jobDetails.jobArea
-                  : StringUtils.unspecifiedText),
+                  : StringResources.unspecifiedText),
           SizedBox(
             height: 5,
           ),
           jobSummeryRichText(
-              StringUtils.jobCityText,
+              StringResources.jobCityText,
               jobDetails.jobCity != null
                   ? jobDetails.jobCity
-                  : StringUtils.unspecifiedText),
+                  : StringResources.unspecifiedText),
           SizedBox(
             height: 5,
           ),
           jobSummeryRichText(
-              StringUtils.jobCountryText,
+              StringResources.jobCountryText,
               jobDetails.jobCountry != null
                   ? jobDetails.jobCountry
-                  : StringUtils.unspecifiedText),
+                  : StringResources.unspecifiedText),
           SizedBox(
             height: 5,
           ),
@@ -618,7 +618,7 @@ class _JobDetailsState extends State<JobDetails> {
                 width: 5,
               ),
               Text(
-                StringUtils.jobAboutText,
+                StringResources.jobAboutText,
                 style: sectionTitleFont,
               )
             ],
@@ -627,26 +627,26 @@ class _JobDetailsState extends State<JobDetails> {
             height: 5,
           ),
           jobSummeryRichText(
-              StringUtils.jobTypeText,
+              StringResources.jobTypeText,
               jobDetails.jobType != null
                   ? refactorAboutJobStrings(jobDetails.jobType)
-                  : StringUtils.unspecifiedText),
+                  : StringResources.unspecifiedText),
           SizedBox(
             height: 5,
           ),
           jobSummeryRichText(
-              StringUtils.jobNature,
+              StringResources.jobNature,
               jobDetails.jobNature != null
                   ? refactorAboutJobStrings(jobDetails.jobNature)
-                  : StringUtils.unspecifiedText),
+                  : StringResources.unspecifiedText),
           SizedBox(
             height: 5,
           ),
           jobSummeryRichText(
-              StringUtils.jobSiteText,
+              StringResources.jobSiteText,
               jobDetails.jobSite != null
                   ? refactorAboutJobStrings(jobDetails.jobSite)
-                  : StringUtils.unspecifiedText),
+                  : StringResources.unspecifiedText),
           SizedBox(
             height: 5,
           ),
@@ -667,7 +667,7 @@ class _JobDetailsState extends State<JobDetails> {
                 width: 5,
               ),
               Text(
-                StringUtils.jobAboutCompanyText,
+                StringResources.jobAboutCompanyText,
                 style: sectionTitleFont,
               )
             ],
@@ -680,7 +680,7 @@ class _JobDetailsState extends State<JobDetails> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Text(
-                StringUtils.jobCompanyProfileText + ': ',
+                StringResources.jobCompanyProfileText + ': ',
                 style: descriptionFontStyleBold,
               ),
               jobDetails.companyProfile != null
@@ -693,7 +693,7 @@ class _JobDetailsState extends State<JobDetails> {
                         jobDetails.companyProfile,
                         style: TextStyle(color: Colors.lightBlue),
                       ))
-                  : Text(StringUtils.unspecifiedText),
+                  : Text(StringResources.unspecifiedText),
             ],
           ),
           SizedBox(
@@ -704,7 +704,7 @@ class _JobDetailsState extends State<JobDetails> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Text(
-                StringUtils.companyWebAddressText + ': ',
+                StringResources.companyWebAddressText + ': ',
                 style: descriptionFontStyleBold,
               ),
               jobDetails.company != null
@@ -719,7 +719,7 @@ class _JobDetailsState extends State<JobDetails> {
                         jobDetails.company.webAddress ?? "",
                         style: TextStyle(color: Colors.lightBlue),
                       ))
-                  : Text(StringUtils.unspecifiedText),
+                  : Text(StringResources.unspecifiedText),
             ],
           ),
           SizedBox(
@@ -744,7 +744,7 @@ class _JobDetailsState extends State<JobDetails> {
                 width: 5,
               ),
               Text(
-                StringUtils.salaryTitle,
+                StringResources.salaryTitle,
                 style: sectionTitleFont,
               )
             ],
@@ -753,24 +753,24 @@ class _JobDetailsState extends State<JobDetails> {
             height: 5,
           ),
           jobSummeryRichText(
-            StringUtils.currentOffer,
+            StringResources.currentOffer,
             jobDetails.salary != null
                 ? jobDetails.salary.toString() +
                     ' ' +
                     (jobDetails.currency != null ? jobDetails.currency : '')
-                : StringUtils.unspecifiedText,
+                : StringResources.unspecifiedText,
           ),
           jobSummeryRichText(
-            StringUtils.salaryRangeText,
+            StringResources.salaryRangeText,
             (jobDetails.salaryMin != null
                     ? jobDetails.salaryMin.toString()
-                    : StringUtils.unspecifiedText) +
+                    : StringResources.unspecifiedText) +
                 "-" +
                 (jobDetails.salaryMax != null
                     ? jobDetails.salaryMax.toString() +
                         ' ' +
                         (jobDetails.currency != null ? jobDetails.currency : '')
-                    : StringUtils.unspecifiedText),
+                    : StringResources.unspecifiedText),
           )
         ],
       ),
@@ -789,7 +789,7 @@ class _JobDetailsState extends State<JobDetails> {
                 width: 5,
               ),
               Text(
-                StringUtils.otherBenefitsTitle,
+                StringResources.otherBenefitsTitle,
                 style: sectionTitleFont,
               )
             ],
@@ -800,7 +800,7 @@ class _JobDetailsState extends State<JobDetails> {
           Text(
             jobDetails.otherBenefits != null
                 ? jobDetails.otherBenefits
-                : StringUtils.unspecifiedText,
+                : StringResources.unspecifiedText,
             style: descriptionFontStyle,
           )
         ],
@@ -812,7 +812,7 @@ class _JobDetailsState extends State<JobDetails> {
           children: <Widget>[
             Icon(Icons.list),
             Text(
-              StringUtils.jobSummeryTitle,
+              StringResources.jobSummeryTitle,
               style: sectionTitleFont,
             ),
           ],
@@ -834,10 +834,10 @@ class _JobDetailsState extends State<JobDetails> {
               Row(
                 children: <Widget>[
                   jobSummeryRichText(
-                      StringUtils.category,
+                      StringResources.category,
                       jobDetails.jobCategory != null
                           ? jobDetails.jobCategory
-                          : StringUtils.unspecifiedText)
+                          : StringResources.unspecifiedText)
                 ],
               ),
               SizedBox(
@@ -846,10 +846,10 @@ class _JobDetailsState extends State<JobDetails> {
               Row(
                 children: <Widget>[
                   jobSummeryRichText(
-                      StringUtils.vacancy,
+                      StringResources.vacancy,
                       jobDetails.vacancy != null
                           ? jobDetails.vacancy.toString()
-                          : StringUtils.unspecifiedText)
+                          : StringResources.unspecifiedText)
                 ],
               ),
               SizedBox(
@@ -858,10 +858,10 @@ class _JobDetailsState extends State<JobDetails> {
               Row(
                 children: <Widget>[
                   jobSummeryRichText(
-                      StringUtils.qualificationText,
+                      StringResources.qualificationText,
                       jobDetails.qualification != null
                           ? jobDetails.qualification
-                          : StringUtils.unspecifiedText)
+                          : StringResources.unspecifiedText)
                 ],
               ),
               SizedBox(
@@ -870,10 +870,10 @@ class _JobDetailsState extends State<JobDetails> {
               Row(
                 children: <Widget>[
                   jobSummeryRichText(
-                      StringUtils.gender,
+                      StringResources.gender,
                       jobDetails.gender != null
                           ? jobDetails.gender
-                          : StringUtils.unspecifiedText)
+                          : StringResources.unspecifiedText)
                 ],
               ),
               SizedBox(
@@ -882,10 +882,10 @@ class _JobDetailsState extends State<JobDetails> {
               Row(
                 children: <Widget>[
                   jobSummeryRichText(
-                      StringUtils.experience,
+                      StringResources.experience,
                       jobDetails.experience != null
                           ? jobDetails.experience
-                          : StringUtils.unspecifiedText)
+                          : StringResources.unspecifiedText)
                 ],
               ),
               SizedBox(
@@ -910,7 +910,7 @@ class _JobDetailsState extends State<JobDetails> {
                 width: 5,
               ),
               Text(
-                StringUtils.requiredSkills,
+                StringResources.requiredSkills,
                 style: sectionTitleFont,
               )
             ],
@@ -945,7 +945,7 @@ class _JobDetailsState extends State<JobDetails> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              StringUtils.benefitSectionTitle,
+              StringResources.benefitSectionTitle,
               style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
             )
           ],
@@ -966,7 +966,7 @@ class _JobDetailsState extends State<JobDetails> {
             Text(
               jobDetails.postDate != null
                   ? DateFormatUtil.formatDate(jobDetails.postDate)
-                  : StringUtils.unspecifiedText,
+                  : StringResources.unspecifiedText,
               style: topSideDescriptionFontStyle,
             ),
           ],
@@ -985,7 +985,7 @@ class _JobDetailsState extends State<JobDetails> {
             Text(
               jobDetails.applicationDeadline != null
                   ? DateFormatUtil.formatDate(jobDetails.applicationDeadline)
-                  : StringUtils.unspecifiedText,
+                  : StringResources.unspecifiedText,
               style: topSideDescriptionFontStyle,
             ),
           ],
@@ -1005,7 +1005,7 @@ class _JobDetailsState extends State<JobDetails> {
                   launch(jobDetails.webAddress);
                 },
                 child: Text(
-                  StringUtils.jobSource,
+                  StringResources.jobSource,
                   style: TextStyle(fontSize: 15, color: Colors.blueAccent),
                 ))
           ],
@@ -1017,7 +1017,7 @@ class _JobDetailsState extends State<JobDetails> {
       appBar: AppBar(
         elevation: 2,
         title: Text(
-          StringUtils.jobDetailsAppBarTitle,
+          StringResources.jobDetailsAppBarTitle,
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
         centerTitle: true,

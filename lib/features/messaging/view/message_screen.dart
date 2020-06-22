@@ -6,10 +6,10 @@ import 'package:p7app/features/messaging/view_mpdel/message_screen_view_model.da
 import 'package:p7app/features/notification/view_models/notificaion_view_model.dart';
 import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
-import 'package:p7app/main_app/widgets/app_drawer.dart';
-import 'package:p7app/main_app/widgets/failure_widget.dart';
-import 'package:p7app/main_app/widgets/loader.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
+import 'package:p7app/main_app/views/app_drawer.dart';
+import 'package:p7app/main_app/views/widgets/failure_widget.dart';
+import 'package:p7app/main_app/views/widgets/loader.dart';
 import 'package:provider/provider.dart';
 
 class MessageScreen extends StatefulWidget {
@@ -41,7 +41,7 @@ class _MessageScreenState extends State<MessageScreen> with AfterLayoutMixin {
     switch (jobListViewModel.appError) {
       case AppError.serverError:
         return FailureFullScreenWidget(
-          errorMessage: StringUtils.unableToLoadData,
+          errorMessage: StringResources.unableToLoadData,
           onTap: () {
             return Provider.of<NotificationViewModel>(context, listen: false)
                 .refresh();
@@ -50,7 +50,7 @@ class _MessageScreenState extends State<MessageScreen> with AfterLayoutMixin {
 
       case AppError.networkError:
         return FailureFullScreenWidget(
-          errorMessage: StringUtils.unableToReachServerMessage,
+          errorMessage: StringResources.unableToReachServerMessage,
           onTap: () {
             return Provider.of<NotificationViewModel>(context, listen: false)
                 .refresh();
@@ -59,7 +59,7 @@ class _MessageScreenState extends State<MessageScreen> with AfterLayoutMixin {
 
       default:
         return FailureFullScreenWidget(
-          errorMessage: StringUtils.somethingIsWrong,
+          errorMessage: StringResources.somethingIsWrong,
           onTap: () {
             return Provider.of<NotificationViewModel>(context, listen: false)
                 .refresh();
@@ -72,7 +72,7 @@ class _MessageScreenState extends State<MessageScreen> with AfterLayoutMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(StringUtils.messagesText),
+        title: Text(StringResources.messagesText),
       ),
 //      drawer: AppDrawer(),
       body: Consumer<MessageScreenViewModel>(
@@ -131,7 +131,7 @@ class _MessageScreenState extends State<MessageScreen> with AfterLayoutMixin {
                             child: TextField(
                               controller: _messageInoutTextEditingController,
                               decoration: InputDecoration(
-                                  hintText: StringUtils.writeYourMessageText,
+                                  hintText: StringResources.writeYourMessageText,
                                   border: InputBorder.none),
                             ),
                           ),

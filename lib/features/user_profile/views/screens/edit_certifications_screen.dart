@@ -3,14 +3,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:p7app/features/user_profile/models/certification_info.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
-import 'package:p7app/main_app/widgets/common_date_picker_widget.dart';
-import 'package:p7app/main_app/widgets/custom_text_from_field.dart';
+import 'package:p7app/main_app/views/widgets/common_date_picker_widget.dart';
+import 'package:p7app/main_app/views/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/resource/const.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/date_format_uitl.dart';
 import 'package:p7app/main_app/util/validator.dart';
-import 'package:p7app/main_app/widgets/common_button.dart';
-import 'package:p7app/main_app/widgets/edit_screen_save_button.dart';
+import 'package:p7app/main_app/views/widgets/common_button.dart';
+import 'package:p7app/main_app/views/widgets/edit_screen_save_button.dart';
 import 'package:provider/provider.dart';
 
 class EditCertification extends StatefulWidget {
@@ -87,7 +87,7 @@ class _EditCertificationState extends State<EditCertification> {
             blankExpiryDateErrorText = null;
             return true;
           }else{
-            blankExpiryDateErrorText = StringUtils.blankExpiryDateWarningText;
+            blankExpiryDateErrorText = StringResources.blankExpiryDateWarningText;
             return false;
           }
         }else{
@@ -95,7 +95,7 @@ class _EditCertificationState extends State<EditCertification> {
           return true;
         }
       }else{
-        blankIssueDateErrorText = StringUtils.blankIssueDateWarningText;
+        blankIssueDateErrorText = StringResources.blankIssueDateWarningText;
         return false;
       }
     }
@@ -124,7 +124,7 @@ class _EditCertificationState extends State<EditCertification> {
         if(_issueDate.isBefore(_expirydate)){
           submitData(certificationInfo);
         }else{
-          BotToast.showText(text: StringUtils.dateLogicWarningText);
+          BotToast.showText(text: StringResources.dateLogicWarningText);
         }
       }
     }else{
@@ -156,7 +156,7 @@ class _EditCertificationState extends State<EditCertification> {
         title: Text('Cetification'),
         actions: <Widget>[
           EditScreenSaveButton(
-            text: StringUtils.saveText,
+            text: StringResources.saveText,
             onPressed: _handleSave,
           ),
         ],
@@ -182,8 +182,8 @@ class _EditCertificationState extends State<EditCertification> {
                           .requestFocus(_organizationNameFocusNode);
                     },
                     controller: _certificationNameController,
-                    labelText: StringUtils.certificationNameText,
-                    hintText: StringUtils.certificationNameText,
+                    labelText: StringResources.certificationNameText,
+                    hintText: StringResources.certificationNameText,
                   ),
                   spaceBetweenFields,
                   //Organization Name
@@ -197,8 +197,8 @@ class _EditCertificationState extends State<EditCertification> {
                           .requestFocus(_credentialIdFocusNode);
                     },
                     controller: _organizationNameController,
-                    labelText: StringUtils.certificationOrganizationNameText,
-                    hintText: StringUtils.certificationOrganizationNameText,
+                    labelText: StringResources.certificationOrganizationNameText,
+                    hintText: StringResources.certificationOrganizationNameText,
                   ),
                   //Credential Id
                   spaceBetweenFields,
@@ -212,8 +212,8 @@ class _EditCertificationState extends State<EditCertification> {
                           .requestFocus(_credentialUrlFocusNode);
                     },
                     controller: _credentialIdController,
-                    labelText: StringUtils.certificationCredentialIdText,
-                    hintText: StringUtils.certificationCredentialIdText,
+                    labelText: StringResources.certificationCredentialIdText,
+                    hintText: StringResources.certificationCredentialIdText,
                   ),
                   spaceBetweenFields,
                   //Credential URL
@@ -227,13 +227,13 @@ class _EditCertificationState extends State<EditCertification> {
 //                          .requestFocus(_organizationNameFocusNode);
                     },
                     controller: _credentialUrlController,
-                    labelText: StringUtils.certificationCredentialUrlText,
-                    hintText: StringUtils.certificationCredentialUrlText,
+                    labelText: StringResources.certificationCredentialUrlText,
+                    hintText: StringResources.certificationCredentialUrlText,
                   ),
                   spaceBetweenFields,
                   CommonDatePickerWidget(
                     errorText: blankIssueDateErrorText,
-                    label: StringUtils.certificationIssueDateText,
+                    label: StringResources.certificationIssueDateText,
                     date: _issueDate,
                     onDateTimeChanged: (v){
                       setState(() {_issueDate = v;});
@@ -270,7 +270,7 @@ class _EditCertificationState extends State<EditCertification> {
                   //ExpiryDate
                   hasExpiryDate?CommonDatePickerWidget(
                     errorText: blankExpiryDateErrorText,
-                    label: StringUtils.certificationExpiryDateText,
+                    label: StringResources.certificationExpiryDateText,
                     date: _expirydate,
                     onDateTimeChanged: (v){
                       setState(() {_expirydate = v;});

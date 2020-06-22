@@ -8,14 +8,14 @@ import 'package:image_crop/image_crop.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:p7app/features/user_profile/models/portfolio_info.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
-import 'package:p7app/main_app/widgets/custom_text_from_field.dart';
+import 'package:p7app/main_app/views/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/resource/const.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/image_compress_util.dart';
 import 'package:p7app/main_app/util/validator.dart';
-import 'package:p7app/main_app/widgets/edit_screen_save_button.dart';
-import 'package:p7app/main_app/widgets/loader.dart';
+import 'package:p7app/main_app/views/widgets/edit_screen_save_button.dart';
+import 'package:p7app/main_app/views/widgets/loader.dart';
 import 'package:provider/provider.dart';
 
 class EditPortfolio extends StatefulWidget {
@@ -186,10 +186,10 @@ class _EditPortfolioState extends State<EditPortfolio> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(StringUtils.portfolioText),
+        title: Text(StringResources.portfolioText),
         actions: <Widget>[
           EditScreenSaveButton(
-            text: StringUtils.saveText,
+            text: StringResources.saveText,
             onPressed: _handleSave,
           ),
         ],
@@ -222,8 +222,8 @@ class _EditPortfolioState extends State<EditPortfolio> {
                           .requestFocus(_portfolioDescriptionFocusNode);
                     },
                     controller: _portfolioNameController,
-                    labelText: StringUtils.portfolioNameText,
-                    hintText: StringUtils.portfolioNameText,
+                    labelText: StringResources.portfolioNameText,
+                    hintText: StringResources.portfolioNameText,
                   ),
                   spaceBetweenFields,
                   //Description
@@ -235,8 +235,8 @@ class _EditPortfolioState extends State<EditPortfolio> {
                     maxLength: 800,
                     focusNode: _portfolioDescriptionFocusNode,
                     controller: _portfolioDescriptionController,
-                    labelText: StringUtils.portfolioDescriptionText,
-                    hintText: StringUtils.portfolioDescriptionText,
+                    labelText: StringResources.portfolioDescriptionText,
+                    hintText: StringResources.portfolioDescriptionText,
                   ),
                   spaceBetweenFields,
                 ],
@@ -277,7 +277,7 @@ class _EditPortfolioState extends State<EditPortfolio> {
                     children: <Widget>[
                       RawMaterialButton(
                         child: Text(
-                          StringUtils.cancelText,
+                          StringResources.cancelText,
                           style: Theme.of(context)
                               .textTheme
                               .button
@@ -290,7 +290,7 @@ class _EditPortfolioState extends State<EditPortfolio> {
                       ),
                       RawMaterialButton(
                         child: Text(
-                          StringUtils.cropImageText,
+                          StringResources.cropImageText,
                           style: Theme.of(context)
                               .textTheme
                               .button

@@ -8,16 +8,16 @@ import 'package:p7app/features/user_profile/repositories/institution_list_reposi
 import 'package:p7app/features/user_profile/repositories/major_subject_list_repository.dart';
 import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
-import 'package:p7app/main_app/widgets/common_date_picker_widget.dart';
+import 'package:p7app/main_app/views/widgets/common_date_picker_widget.dart';
 import 'package:p7app/features/user_profile/views/widgets/custom_dropdown_button_form_field.dart';
-import 'package:p7app/main_app/widgets/custom_text_from_field.dart';
+import 'package:p7app/main_app/views/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/validator.dart';
-import 'package:p7app/main_app/widgets/edit_screen_save_button.dart';
+import 'package:p7app/main_app/views/widgets/edit_screen_save_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:p7app/main_app/widgets/loader.dart';
+import 'package:p7app/main_app/views/widgets/loader.dart';
 import 'package:provider/provider.dart';
 import 'package:dartz/dartz.dart' as dartZ;
 import 'package:rxdart/rxdart.dart';
@@ -114,7 +114,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
         return true;
       }else{
         if(_graduationDate == null){
-          graduationDateErrorText = StringUtils.blankGraduationDateWarningText;
+          graduationDateErrorText = StringResources.blankGraduationDateWarningText;
           return false;
         }else{
           graduationDateErrorText = null;
@@ -124,10 +124,10 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
     }
 
     institutionNameErrorText = institutionNameController.text.isEmpty
-        ? StringUtils.thisFieldIsRequired
+        ? StringResources.thisFieldIsRequired
         : null;
     enrollDateErrorText =
-        isEnrollDateCorrect ? null : StringUtils.thisFieldIsRequired;
+        isEnrollDateCorrect ? null : StringResources.thisFieldIsRequired;
     setState(() {});
 
     return isFormValid &&
@@ -156,7 +156,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
 
     if (isSuccess) {
       if (selectedDegree == null) {
-        BotToast.showText(text: StringUtils.noDegreeChosen);
+        BotToast.showText(text: StringResources.noDegreeChosen);
       } else {
         var insId = selectedInstitute?.id;
 
@@ -184,7 +184,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
           if(_enrollDate.isBefore(_graduationDate)){
             submitData(education);
           }else{
-            BotToast.showText(text: StringUtils.graduationDateLogicText);
+            BotToast.showText(text: StringResources.graduationDateLogicText);
           }
         }
       }
@@ -204,7 +204,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text("  " + StringUtils.nameOfOInstitutionText ?? "",
+                Text("  " + StringResources.nameOfOInstitutionText ?? "",
                     style: TextStyle(fontWeight: FontWeight.bold)),
                 SizedBox(
                   height: 5,
@@ -217,7 +217,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
                   ),
                   child: AutoCompleteTextField<Institution>(
                     decoration: InputDecoration(
-                      hintText: StringUtils.nameOfOInstitutionHintText,
+                      hintText: StringResources.nameOfOInstitutionHintText,
                       border: InputBorder.none,
                       contentPadding: const EdgeInsets.symmetric(
                           horizontal: 10, vertical: 5),
@@ -261,8 +261,8 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
           return CustomTextFormField(
             validator: Validator().nullFieldValidate,
             controller: institutionNameController,
-            labelText: StringUtils.nameOfOInstitutionText,
-            hintText: StringUtils.nameOfOInstitutionHintText,
+            labelText: StringResources.nameOfOInstitutionText,
+            hintText: StringResources.nameOfOInstitutionHintText,
           );
         });
 
@@ -285,8 +285,8 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
           });
           return CustomDropdownButtonFormField<String>(
             validator: Validator().nullFieldValidate,
-            labelText: StringUtils.nameOfODegreeText,
-            hint: Text(StringUtils.tapToSelectText),
+            labelText: StringResources.nameOfODegreeText,
+            hint: Text(StringResources.tapToSelectText),
             value: selectedDegree,
             items: items,
             onChanged: (v) {
@@ -317,8 +317,8 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
                 .toList();
 
             return CustomDropdownButtonFormField<MajorSubject>(
-              labelText: StringUtils.majorDateText,
-              hint: Text(StringUtils.tapToSelectText),
+              labelText: StringResources.majorDateText,
+              hint: Text(StringResources.tapToSelectText),
               value: selectedMajorSubject,
               items: items,
               onChanged: (v) {
@@ -336,7 +336,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
     var enrolledDate = CommonDatePickerWidget(
       errorText: enrollDateErrorText,
       date: _enrollDate,
-      label: StringUtils.enrollDate,
+      label: StringResources.enrollDate,
       onTapDateClear: () {
         setState(() {
           _enrollDate = null;
@@ -351,7 +351,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
     var graduationDate = CommonDatePickerWidget(
       errorText: graduationDateErrorText,
       date: _graduationDate,
-      label: StringUtils.graduationDate,
+      label: StringResources.graduationDate,
       onTapDateClear: () {
         setState(() {
           _graduationDate = null;
@@ -365,15 +365,15 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
     );
     var cgpa = CustomTextFormField(
       controller: gpaTextController,
-      labelText: StringUtils.gpaText,
-      hintText: StringUtils.gpaHintText,
+      labelText: StringResources.gpaText,
+      hintText: StringResources.gpaHintText,
       validator: Validator().numberFieldValidateOptional,
       keyboardType: TextInputType.number,
     );
     var ongoing = Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        Text(StringUtils.currentlyStudyingHereText),
+        Text(StringResources.currentlyStudyingHereText),
         Checkbox(
           onChanged: (bool value) {
             currentLyStudyingHere = value;
@@ -391,10 +391,10 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
       key: _scaffoldKey,
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
-        title: Text(StringUtils.educationsText),
+        title: Text(StringResources.educationsText),
         actions: <Widget>[
           EditScreenSaveButton(
-            text: StringUtils.saveText,
+            text: StringResources.saveText,
             onPressed: _handleSave,
           ),
         ],

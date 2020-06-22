@@ -12,11 +12,11 @@ import 'package:p7app/features/user_profile/view_models/user_profile_view_model.
 import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/p7_app.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/root.dart';
-import 'package:p7app/main_app/widgets/app_drawer.dart';
-import 'package:p7app/main_app/widgets/failure_widget.dart';
-import 'package:p7app/main_app/widgets/restart_widget.dart';
+import 'package:p7app/main_app/views/app_drawer.dart';
+import 'package:p7app/main_app/views/widgets/failure_widget.dart';
+import 'package:p7app/main_app/views/widgets/restart_widget.dart';
 import 'package:provider/provider.dart';
 
 class DashBoard extends StatefulWidget {
@@ -68,7 +68,7 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
       switch (dashboardViewModel.infoBoxError) {
         case AppError.serverError:
           return FailureFullScreenWidget(
-            errorMessage: StringUtils.unableToLoadData,
+            errorMessage: StringResources.unableToLoadData,
             onTap: () {
               return _refreshData();
             },
@@ -76,7 +76,7 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
 
         case AppError.networkError:
           return FailureFullScreenWidget(
-            errorMessage: StringUtils.unableToReachServerMessage,
+            errorMessage: StringResources.unableToReachServerMessage,
             onTap: () {
               return _refreshData();
             },
@@ -84,7 +84,7 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
 
         case AppError.unauthorized:
           return FailureFullScreenWidget(
-            errorMessage: StringUtils.unauthorizedText,
+            errorMessage: StringResources.unauthorizedText,
             onTap: () {
               return _signOut(context);
             },
@@ -92,7 +92,7 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
 
         default:
           return FailureFullScreenWidget(
-            errorMessage: StringUtils.somethingIsWrong,
+            errorMessage: StringResources.somethingIsWrong,
             onTap: () {
               return _refreshData();
             },
@@ -102,7 +102,7 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(StringUtils.dashBoardText),
+        title: Text(StringResources.dashBoardText),
         actions: [
 //          IconButton(
 //            icon: Icon(FontAwesomeIcons.solidComment),

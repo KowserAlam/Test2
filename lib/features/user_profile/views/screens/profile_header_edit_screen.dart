@@ -8,14 +8,14 @@ import 'package:p7app/features/user_profile/models/user_personal_info.dart';
 import 'package:p7app/features/user_profile/repositories/industry_list_repository.dart';
 import 'package:p7app/features/user_profile/repositories/user_profile_repository.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
-import 'package:p7app/main_app/widgets/custom_text_from_field.dart';
+import 'package:p7app/main_app/views/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/resource/const.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/image_compress_util.dart';
 import 'package:p7app/main_app/util/validator.dart';
-import 'package:p7app/main_app/widgets/edit_screen_save_button.dart';
-import 'package:p7app/main_app/widgets/loader.dart';
+import 'package:p7app/main_app/views/widgets/edit_screen_save_button.dart';
+import 'package:p7app/main_app/views/widgets/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_crop/image_crop.dart';
@@ -142,10 +142,10 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        title: Text(StringUtils.editProfileText),
+        title: Text(StringResources.editProfileText),
         actions: <Widget>[
           EditScreenSaveButton(
-            text: StringUtils.saveText,
+            text: StringResources.saveText,
             onPressed: () {
               _handleSave();
             },
@@ -246,7 +246,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
             CustomTextFormField(
               controller: _fullNameTextEditingController,
               validator: Validator().nullFieldValidate,
-              labelText: StringUtils.nameText,
+              labelText: StringResources.nameText,
               hintText: "eg. Bill Gates",
             ),
             SizedBox(height: 10),
@@ -270,8 +270,8 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
               keyboardType: TextInputType.multiline,
               minLines: 3,
               maxLines: 8,
-              labelText: StringUtils.aboutMeText,
-              hintText: StringUtils.aboutHintText,
+              labelText: StringResources.aboutMeText,
+              hintText: StringResources.aboutHintText,
             ),
 
             SizedBox(height: 10),
@@ -282,8 +282,8 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
               controller: _phoneEditingController,
               validator: Validator().validatePhoneNumber,
               keyboardType: TextInputType.phone,
-              labelText: StringUtils.mobileText,
-              hintText: StringUtils.phoneHintText,
+              labelText: StringResources.mobileText,
+              hintText: StringResources.phoneHintText,
             ),
 
             SizedBox(height: 10),
@@ -292,8 +292,8 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
             CustomTextFormField(
               controller: _currentCompanyEditingController,
               keyboardType: TextInputType.multiline,
-              labelText: StringUtils.currentCompany,
-              hintText: StringUtils.currentCompanyHint,
+              labelText: StringResources.currentCompany,
+              hintText: StringResources.currentCompanyHint,
             ),
             SizedBox(height: 10),
 
@@ -301,8 +301,8 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
             CustomTextFormField(
               controller: _currentDesignationEditingController,
               keyboardType: TextInputType.multiline,
-              labelText: StringUtils.currentDesignation,
-              hintText: StringUtils.currentDesignationHint,
+              labelText: StringResources.currentDesignation,
+              hintText: StringResources.currentDesignationHint,
             ),
             SizedBox(height: 10),
 
@@ -310,8 +310,8 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
             CustomTextFormField(
               controller: _locationEditingController,
               keyboardType: TextInputType.multiline,
-              labelText: StringUtils.locationText,
-              hintText: StringUtils.locationHintText,
+              labelText: StringResources.locationText,
+              hintText: StringResources.locationHintText,
             ),
             SizedBox(height: 10),
 
@@ -319,8 +319,8 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
             CustomTextFormField(
               controller: _facebookEditingController,
               keyboardType: TextInputType.multiline,
-              labelText: StringUtils.facebookTrlText,
-              prefix: Text(StringUtils.facebookBaseUrl),
+              labelText: StringResources.facebookTrlText,
+              prefix: Text(StringResources.facebookBaseUrl),
             ),
             SizedBox(height: 10),
 
@@ -328,8 +328,8 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
             CustomTextFormField(
               controller: _twitterEditingController,
               keyboardType: TextInputType.multiline,
-              labelText: StringUtils.twitterUrlText,
-              prefix: Text(StringUtils.twitterBaeUrl),
+              labelText: StringResources.twitterUrlText,
+              prefix: Text(StringResources.twitterBaeUrl),
             ),
             SizedBox(height: 10),
 
@@ -337,8 +337,8 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
             CustomTextFormField(
               controller: _linkedInEditingController,
               keyboardType: TextInputType.multiline,
-              labelText: StringUtils.linkedUrlText,
-              prefix: Text(StringUtils.linkedBaseUrl),
+              labelText: StringResources.linkedUrlText,
+              prefix: Text(StringResources.linkedBaseUrl),
             ),
             SizedBox(height: 10),
           ],
@@ -376,7 +376,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
                     children: <Widget>[
                       RawMaterialButton(
                         child: Text(
-                          StringUtils.cancelText,
+                          StringResources.cancelText,
                           style: Theme.of(context)
                               .textTheme
                               .button
@@ -389,7 +389,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
                       ),
                       RawMaterialButton(
                         child: Text(
-                          StringUtils.cropImageText,
+                          StringResources.cropImageText,
                           style: Theme.of(context)
                               .textTheme
                               .button
