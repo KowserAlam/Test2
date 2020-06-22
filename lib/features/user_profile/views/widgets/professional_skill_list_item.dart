@@ -36,7 +36,7 @@ class ProfessionalSkillListItem extends StatelessWidget {
         boxShadow: CommonStyleTextField.boxShadow,
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+        padding: const EdgeInsets.symmetric(horizontal: 8,),
         child: Row(
           children: [
             skillInfo.verifiedBySkillCheck ?? false
@@ -71,25 +71,30 @@ class ProfessionalSkillListItem extends StatelessWidget {
                     color: Colors.transparent,
                     child: Row(
                       children: [
-                        SizedBox(width: 15),
                         InkWell(
-                          child: Icon(
-                            FontAwesomeIcons.edit,
-                            size: 17,
-                            color: Colors.black,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 12,vertical: 6),
+                            child: Icon(
+                              FontAwesomeIcons.edit,
+                              size: 17,
+                              color: Colors.black,
+                            ),
                           ),
                           onTap: onTapEdit,
                         ),
-                        SizedBox(width: 25),
+//                        SizedBox(width: 25),
                         InkWell(
-                          child: Icon(
-                            FontAwesomeIcons.trash,
-                            color: Colors.black,
-                            size: 17,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 12,vertical: 6),
+                            child: Icon(
+                              FontAwesomeIcons.trash,
+                              color: Colors.black,
+                              size: 17,
+                            ),
                           ),
                           onTap: onTapDelete,
                         ),
-                        SizedBox(width: 15),
+//                        SizedBox(width: 15),
                       ],
                     ),
                   ),
