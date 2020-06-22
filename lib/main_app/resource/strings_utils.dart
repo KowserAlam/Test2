@@ -328,6 +328,7 @@ class StringUtils {
   static var emailAlreadyExistText =
       "Email Already exist! Try login or rest password";
   static var somethingIsWrong = "Something is wrong ! \nTry again later";
+  static var somethingIsWrongSingleLine = "Something is wrong!";
   static var unauthorizedText = "Unauthorized";
 
   /// AddEditSkill Screen

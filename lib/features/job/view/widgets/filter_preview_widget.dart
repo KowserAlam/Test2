@@ -4,7 +4,7 @@ import 'package:p7app/features/job/view_model/job_list_view_model.dart';
 import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:provider/provider.dart';
-import 'package:p7app/main_app/util/method_extension.dart';
+import 'package:p7app/method_extension.dart';
 
 class FilterPreviewWidget extends StatelessWidget {
   Widget filterItem(

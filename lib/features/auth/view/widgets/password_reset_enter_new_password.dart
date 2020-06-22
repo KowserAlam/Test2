@@ -1,5 +1,5 @@
 import 'package:p7app/features/auth/provider/login_view_model.dart';
-import 'package:p7app/features/auth/provider/password_reset_provider.dart';
+import 'package:p7app/features/auth/provider/password_reset_view_model.dart';
 
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/app_theme/comon_styles.dart';

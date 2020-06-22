@@ -21,7 +21,7 @@ extension DateTimeExtension on DateTime {
   }
 }
 
-extension StringExtenion on String {
+extension StringExtension on String {
   bool get isEmptyOrNull {
     if (this != null) {
       return this.isEmpty;
@@ -53,4 +53,13 @@ extension StringExtenion on String {
     }else
       return null;
   }
+}
+extension ListExtension<T> on List<T>{
+
+  T get firstOrNull {
+    if(this.isEmpty)
+      return null;
+    return this.first;
+  }
+
 }

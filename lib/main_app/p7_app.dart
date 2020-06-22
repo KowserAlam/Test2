@@ -1,7 +1,7 @@
 
 import 'package:p7app/features/auth/provider/login_view_model.dart';
 import 'package:p7app/features/auth/provider/password_change_view_model.dart';
-import 'package:p7app/features/auth/provider/password_reset_provider.dart';
+import 'package:p7app/features/auth/provider/password_reset_view_model.dart';
 import 'package:p7app/features/auth/provider/signup_viewmodel.dart';
 import 'package:p7app/features/career_advice/view_models/career_advice_view_model.dart';
 import 'package:p7app/features/company/view_model/company_list_view_model.dart';

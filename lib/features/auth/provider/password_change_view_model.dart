@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:p7app/main_app/util/method_extension.dart';
+import 'package:p7app/method_extension.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';

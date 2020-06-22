@@ -13,7 +13,7 @@ import 'package:p7app/main_app/api_helpers/url_launcher_helper.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/util/date_format_uitl.dart';
-import 'package:p7app/main_app/util/method_extension.dart';
+import 'package:p7app/method_extension.dart';
 import 'package:uuid/uuid.dart';
 
 class CompanyDetails extends StatefulWidget {

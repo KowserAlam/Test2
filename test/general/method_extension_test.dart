@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:p7app/main_app/util/method_extension.dart';
+import 'package:p7app/method_extension.dart';
 
 main(){
 
@@ -7,16 +7,16 @@ main(){
   group("StringExtensionTest,isEmptyOrNullTest",(){
 
     test("isEmptyOrNullTest, should return true", (){
-      var re = StringExtenion("").isEmptyOrNull;
+      var re = StringExtension("").isEmptyOrNull;
       expect(re, true);
     });
     test("isEmptyOrNullTest, should return true", (){
-      var re = StringExtenion(null).isEmptyOrNull;
+      var re = StringExtension(null).isEmptyOrNull;
       expect(re, true);
     });
 
     test("isEmptyOrNullTest,should return false", (){
-      var re = StringExtenion("hi").isEmptyOrNull;
+      var re = StringExtension("hi").isEmptyOrNull;
       expect(re, false);
     });
   });
@@ -24,16 +24,16 @@ main(){
   group("StringExtensionTest,isNotEmptyOrNullTest",(){
 
     test("isNotEmptyOrNullTest, should return true", (){
-      var re = StringExtenion("").isNotEmptyOrNotNull;
+      var re = StringExtension("").isNotEmptyOrNotNull;
       expect(re, false);
     });
     test("isNotEmptyOrNullTest, should return true", (){
-      var re = StringExtenion(null).isNotEmptyOrNotNull;
+      var re = StringExtension(null).isNotEmptyOrNotNull;
       expect(re, false);
     });
 
     test("isNotEmptyOrNullTest,should return false", (){
-      var re = StringExtenion("hi").isNotEmptyOrNotNull;
+      var re = StringExtension("hi").isNotEmptyOrNotNull;
       expect(re, true);
     });
   });

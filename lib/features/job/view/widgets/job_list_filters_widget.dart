@@ -13,7 +13,7 @@ import 'package:p7app/main_app/resource/strings_utils.dart';
 import 'package:p7app/main_app/widgets/common_button.dart';
 import 'package:p7app/main_app/widgets/custom_text_from_field.dart';
 import 'package:provider/provider.dart';
-import 'package:p7app/main_app/util/method_extension.dart';
+import 'package:p7app/method_extension.dart';
 
 class JobListFilterWidget extends StatefulWidget {
   @override

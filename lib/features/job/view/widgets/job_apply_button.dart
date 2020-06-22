@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:p7app/main_app/resource/strings_utils.dart';
-import 'package:p7app/main_app/util/method_extension.dart';
+import 'package:p7app/method_extension.dart';
 
 class JobApplyButton extends StatelessWidget {
   final Function onPressedApply;

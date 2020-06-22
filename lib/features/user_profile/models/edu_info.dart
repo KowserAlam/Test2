@@ -1,7 +1,7 @@
 import 'package:p7app/features/user_profile/models/institution.dart';
 import 'package:p7app/features/user_profile/models/major.dart';
 import 'package:p7app/main_app/util/date_format_uitl.dart';
-import 'package:p7app/main_app/util/method_extension.dart';
+import 'package:p7app/method_extension.dart';
 
 class EduInfo {
   int educationId;

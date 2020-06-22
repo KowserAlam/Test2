@@ -23,7 +23,7 @@ import 'package:p7app/main_app/widgets/failure_widget.dart';
 import 'package:p7app/main_app/widgets/loader.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:p7app/main_app/util/method_extension.dart';
+import 'package:p7app/method_extension.dart';
 
 enum JobListScreenType { main, applied, favorite }
 
@@ -134,7 +134,7 @@ class _JobDetailsState extends State<JobDetails> {
     if (value == 'Remote') return 'Remote';
     if (value == 'FULLTIME') return 'Full-time';
     if (value == 'PARTTIME') return 'Part-time';
-    return StringExtenion(value).titleCase;
+    return value.titleCase;
   }
 
   errorWidget() {

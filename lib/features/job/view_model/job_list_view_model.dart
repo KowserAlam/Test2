@@ -8,7 +8,7 @@ import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/util/common_serviec_rule.dart';
 import 'package:p7app/main_app/util/debouncer.dart';
-import 'package:p7app/main_app/util/method_extension.dart';
+import 'package:p7app/method_extension.dart';
 
 class JobListViewModel with ChangeNotifier {
   List<JobListModel> _jobList = [];
