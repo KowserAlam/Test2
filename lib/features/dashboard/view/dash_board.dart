@@ -118,13 +118,9 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
       ),
       body: RefreshIndicator(
         onRefresh: _refreshData,
-        child: dashboardViewModel.shouldShowError
-            ? ListView(
-                children: [
-                  errorWidget(),
-                ],
-              )
-            : ListView(
+        child:
+//        dashboardViewModel.shouldShowError ?ListView(children: [errorWidget()]) :
+        ListView(
                 children: [
                   ProfileCompletePercentIndicatorWidget(
                       dashboardViewModel.profileCompletePercent / 100),

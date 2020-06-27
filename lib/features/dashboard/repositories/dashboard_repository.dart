@@ -15,6 +15,7 @@ class DashBoardRepository {
     try {
       var res = await ApiClient().getRequest(Urls.dashboardInfoBoxUrl);
       print(res.statusCode);
+//      print(res.body);
       if (res.statusCode == 200) {
         var decodedJson = json.decode(res.body);
         var model = InfoBoxDataModel.fromJson(decodedJson);

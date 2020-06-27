@@ -14,28 +14,28 @@ class SkillListRepository {
 
   Future<Either<AppError, List<Skill>>> getSkillList(
       {bool forceGetFromServer = false}) async {
-//    // first check in local
-//    if (!forceGetFromServer) {
-//      try {
-//        var data = await _getFromLocalStorage();
-//        if (data != null) {
+    // first check in local
+    if (!forceGetFromServer) {
+      try {
+        var data = await _getFromLocalStorage();
+        if (data != null) {
 //          print(data);
-//          var difference =
-//              DateTime.now().difference(DateTime.parse(data[JsonKeys.savedAt]));
-//          print(difference);
-//          if (difference < Duration(hours: 12)) {
-//            debugPrint('getting skill list from local storage');
-//            return Right(fromJson(data['data']));
-//          }
-//        }
-//      } catch (e) {
-//        print(e);
-//      }
-//    }
+          var difference =
+              DateTime.now().difference(DateTime.parse(data[JsonKeys.savedAt]));
+          print(difference);
+          if (difference < Duration(hours: 12)) {
+            debugPrint('getting skill list from local storage');
+            return Right(fromJson(data['data']));
+          }
+        }
+      } catch (e) {
+        print(e);
+      }
+    }
 
     try {
       var res = await ApiClient().getRequest(Urls.skillListUrl);
-
+      print(res.statusCode);
       if (res.statusCode == 200) {
         var decodedJson = json.decode(res.body);
 //        print(decodedJson);
@@ -69,13 +69,13 @@ class SkillListRepository {
   _saveInLocalStorage(List<Skill> list) async {
     var storage = await LocalStorageService.getInstance();
     var data = {
-      "sateAt": DateTime.now().toIso8601String(),
+      JsonKeys.savedAt: DateTime.now().toIso8601String(),
       "data": list.map((e) => e.toJson()).toList()
     };
     storage.saveString(_storageKey, json.encode(data));
   }
 
-  Future<Map<String,dynamic>> _getFromLocalStorage() async {
+  Future<Map<String, dynamic>> _getFromLocalStorage() async {
     var storage = await LocalStorageService.getInstance();
     String data = storage.getString(_storageKey);
     if (data == null) {
@@ -83,7 +83,7 @@ class SkillListRepository {
     }
 
     Map<String, dynamic> decodedData = json.decode(data);
-    print(decodedData);
+//    print(decodedData);
     return decodedData;
   }
 }

@@ -4,12 +4,7 @@
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 
 const String kBaseUrDev = "http://dev.ishraak.com";
-
-////rashed vai
-//const String kBaseUrDev = "http://192.168.1.51:8000";
-
-const String kBaseUrlQA = "http://dev.ishraak.com";
-const String kBaseUrlProd = "http://100.25.85.115";
+const String kBaseUrlProd = "http://jobxprss.com";
 
 class Urls {
   /// new
