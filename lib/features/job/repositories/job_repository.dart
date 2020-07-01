@@ -209,6 +209,27 @@ class JobRepository {
       return [];
     }
   }
+  Future<List<JobListModel>> getOpenJobs(String companyName) async {
+    var url = "${Urls.openJobsCompany}$companyName";
+
+    try {
+      var res = await ApiClient().getRequest(url);
+      print(res.statusCode);
+      if (res.statusCode == 200) {
+        var _list = <JobListModel>[];
+        var decodedJso = json.decode(res.body);
+        decodedJso['results'].forEach((element) {
+          _list.add(JobListModel.fromJson(element));
+        });
+        return _list;
+      } else {
+        return [];
+      }
+    } catch (e) {
+      print(e);
+      return [];
+    }
+  }
 }
 
 class JobListScreenDataModel {

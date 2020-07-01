@@ -16,6 +16,7 @@ class Urls {
   static String passwordResetUrl = "/api/professional/password_reset/";
   static String dashboardUrl = "/api/app-dashboard";
   static String passwordChangeUrl = "/api/pro/change-password/";
+  static String openJobsCompany = "/api/job/search/?company="; //cname
 
   static String userProfileUrl = "/api/professional/profile";
   static String userProfileUpdateUrlPartial = "/api/professional/profile_update_partial";

@@ -32,7 +32,7 @@ class Company extends Equatable {
   double longitude;
   String createdDate;
   String division;
-  String district;
+  String city;
 
   Company(
       {this.name,
@@ -64,7 +64,7 @@ class Company extends Equatable {
       this.longitude,
       this.createdDate,
       this.division,
-      this.district});
+      this.city});
 
   Company.fromJson(Map<String, dynamic> json) {
     String baseUrl = FlavorConfig?.instance?.values?.baseUrl;
@@ -111,7 +111,7 @@ class Company extends Equatable {
 
     createdDate = json['created_date']?.toString();
     division = json['division']?.toString();
-    district = json['district']?.toString();
+    city = json['city']?.toString();
   }
 
   Map<String, dynamic> toJson() {
@@ -145,7 +145,7 @@ class Company extends Equatable {
     data['longitude'] = this.longitude;
     data['created_date'] = this.createdDate;
     data['division'] = this.division;
-    data['district'] = this.district;
+    data['city'] = this.city;
     return data;
   }
 
