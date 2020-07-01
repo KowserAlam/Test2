@@ -4,6 +4,7 @@ import 'package:dartz/dartz.dart' as dartZ;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p7app/features/company/view/company_details.dart';
 import 'package:p7app/features/job/models/job_model.dart';
@@ -292,30 +293,7 @@ class _JobDetailsState extends State<JobDetails> {
         ),
       ),
     );
-    var applyButtonOld = Material(
-      color: isApplied ? Colors.grey : Theme.of(context).accentColor,
-      borderRadius: BorderRadius.circular(5),
-      child: InkWell(
-        onTap: isApplied
-            ? null
-            : () {
-                _showApplyDialog();
-              },
-        borderRadius: BorderRadius.circular(5),
-        child: Container(
-          height: 30,
-          width: 65,
-          alignment: Alignment.center,
-//          padding: EdgeInsets.symmetric(vertical: 6, horizontal: 15),
 
-          child: Text(
-            isApplied ? StringResources.appliedText : StringResources.applyText,
-            style: TextStyle(
-                fontSize: 15, color: Colors.white, fontWeight: FontWeight.w600),
-          ),
-        ),
-      ),
-    );
     var applyButton = JobApplyButton(
       isApplied: isApplied,
       applicationDeadline: jobDetails.applicationDeadline,
@@ -481,12 +459,14 @@ class _JobDetailsState extends State<JobDetails> {
           SizedBox(
             height: 5,
           ),
-          Text(
-            jobDetails.responsibilities != null
-                ? jobDetails.responsibilities
-                : StringResources.unspecifiedText,
-            style: descriptionFontStyle,
-          )
+          HtmlWidget(
+           jobDetails?.responsibilities ?? "",
+            textStyle: descriptionFontStyle,
+          ),
+//          Text(
+//            jobDetails?.responsibilities ?? "",
+//            style: descriptionFontStyle,
+//          )
         ],
       ),
     );
@@ -537,12 +517,10 @@ class _JobDetailsState extends State<JobDetails> {
           SizedBox(
             height: 5,
           ),
-          Text(
-            jobDetails.additionalRequirements != null
-                ? jobDetails.additionalRequirements
-                : StringResources.unspecifiedText,
-            style: descriptionFontStyle,
-          )
+          HtmlWidget(
+            jobDetails?.additionalRequirements ?? "",
+            textStyle: descriptionFontStyle,
+          ),
         ],
       ),
     );

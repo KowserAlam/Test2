@@ -170,21 +170,27 @@ class _CompanyDetailsState extends State<CompanyDetails> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           if (companyDetails?.companyProfile != null)
-            Text.rich(TextSpan(children: [
-              TextSpan(
-                  text: StringResources.companyProfileText + ': ',
-                  style: descriptionFontStyleBold),
-              WidgetSpan(
-                  child: GestureDetector(
-                      onTap: () {
-                        UrlLauncherHelper.launchUrl(
-                            companyDetails.companyProfile.trim());
-                      },
-                      child: Text(
-                        companyDetails.companyProfile,
-                        style: TextStyle(color: Colors.lightBlue),
-                      )))
-            ])),
+            Text.rich(
+              TextSpan(children: [
+                TextSpan(
+                    text: StringResources.companyProfileText + ': ',
+                    style: descriptionFontStyleBold),
+                TextSpan(
+                    text: companyDetails.companyProfile,
+                    style: descriptionFontStyle),
+//              WidgetSpan(
+//                  child: GestureDetector(
+//                      onTap: () {
+//                        UrlLauncherHelper.launchUrl(
+//                            companyDetails.companyProfile.trim());
+//                      },
+//                      child: Text(
+//                        companyDetails.companyProfile,
+//                        style: TextStyle(color: Colors.lightBlue),
+//                      )))
+              ]),
+              textAlign: TextAlign.justify,
+            ),
           SizedBox(height: 5),
           richText(
               StringResources.companyYearsOfEstablishmentText,
@@ -219,8 +225,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
           richText(StringResources.companyCityText, companyDetails.city),
           SizedBox(height: 5),
 
-          richText(
-              StringResources.companyPostCodeText, companyDetails.postCode),
+          richText(StringResources.companyCountryText, companyDetails.country),
           SizedBox(height: 5),
         ],
       ),
@@ -611,22 +616,12 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                 SizedBox(height: 2),
                 address,
                 SizedBox(height: 2),
-                address,
-                SizedBox(
-                  height: 2,
-                ),
                 contact,
-                SizedBox(
-                  height: 2,
-                ),
+                SizedBox(height: 2),
                 organizationHead,
-                SizedBox(
-                  height: 2,
-                ),
+                SizedBox(height: 2),
                 contactPerson,
-                SizedBox(
-                  height: 2,
-                ),
+                SizedBox(height: 2),
                 socialNetworks,
                 SizedBox(height: 2),
                 otherInfo,

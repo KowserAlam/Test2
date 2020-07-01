@@ -37,6 +37,7 @@ class _HomeState extends State<Home> {
         },
         currentIndex: currentIndex,
         iconSize: 17,
+        selectedItemColor: Theme.of(context).accentColor,
         selectedLabelStyle: TextStyle(fontWeight: FontWeight.w600),
         unselectedLabelStyle: TextStyle(fontWeight: FontWeight.w600),
         selectedFontSize: 10,

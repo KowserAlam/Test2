@@ -1,7 +1,7 @@
 import 'package:after_layout/after_layout.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:p7app/features/career_advice/models/career_advice_model.dart';
 import 'package:p7app/features/career_advice/view/career_advice_details_screen.dart';
 import 'package:p7app/features/career_advice/view_models/career_advice_view_model.dart';
@@ -109,9 +109,9 @@ class _CareerAdviceScreenState extends State<CareerAdviceScreen>
                           SizedBox(
                             height: 10,
                           ),
-                          Html(
-                            data: adviceList[index].shortDescription,
-                            defaultTextStyle: TextStyle(
+                          HtmlWidget(
+                             adviceList[index].shortDescription,
+                            textStyle: TextStyle(
                               fontSize: 14,
                             ),
                           ),

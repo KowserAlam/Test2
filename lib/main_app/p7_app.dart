@@ -1,4 +1,4 @@
-
+import 'package:google_fonts/google_fonts.dart';
 import 'package:p7app/features/auth/view_models/login_view_model.dart';
 import 'package:p7app/features/auth/view_models/password_change_view_model.dart';
 import 'package:p7app/features/auth/view_models/password_reset_view_model.dart';
@@ -22,17 +22,14 @@ import 'package:p7app/main_app/app_theme/app_theme.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:bot_toast/bot_toast.dart';
 
-
-
 class P7App extends StatelessWidget {
   final isEnabledDevicePreview;
   final CommonServiceRule commonServiceRule = CommonServiceRule();
 
-  P7App(Key key,{this.isEnabledDevicePreview = false});
+  P7App(Key key, {this.isEnabledDevicePreview = false});
 
   @override
   Widget build(BuildContext context) {
-
     var providers = [
       ChangeNotifierProvider(create: (context) => LoginViewModel()),
       ChangeNotifierProvider(create: (context) => SignUpViewModel()),
@@ -43,7 +40,8 @@ class P7App extends StatelessWidget {
       ChangeNotifierProvider(create: (context) => PasswordResetViewModel()),
       ChangeNotifierProvider(create: (context) => UserProfileViewModel()),
       ChangeNotifierProvider(create: (context) => SignUpViewModel()),
-      ChangeNotifierProvider(create: (context) => JobListFilterWidgetViewModel()),
+      ChangeNotifierProvider(
+          create: (context) => JobListFilterWidgetViewModel()),
       ChangeNotifierProvider(create: (context) => PasswordChangeViewModel()),
       ChangeNotifierProvider(create: (context) => DashboardViewModel()),
       ChangeNotifierProvider(create: (context) => CareerAdviceViewModel()),
@@ -60,7 +58,9 @@ class P7App extends StatelessWidget {
         builder: BotToastInit(),
         debugShowCheckedModeBanner: false,
         title: appName,
-        theme: AppTheme.lightTheme,
+        theme: AppTheme.lightTheme.copyWith(
+          textTheme: GoogleFonts.robotoTextTheme(Theme.of(context).textTheme),
+        ),
 //      darkTheme: AppTheme.darkTheme,
         home: Root(),
       ),

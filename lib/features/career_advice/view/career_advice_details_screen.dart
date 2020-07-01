@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:p7app/features/career_advice/models/career_advice_model.dart';
 import 'package:p7app/main_app/util/date_format_uitl.dart';
 
@@ -45,9 +45,9 @@ class CareerAdviceDetailsScreen extends StatelessWidget {
                   SizedBox(
                     height: 12,
                   ),
-                  Html(
-                    data: careerAdviceModel.description,
-                    defaultTextStyle: TextStyle(
+                  HtmlWidget(
+                     careerAdviceModel.description,
+                    textStyle: TextStyle(
                       fontSize: 15,
                     ),
                   ),

@@ -26,9 +26,10 @@ class AppTheme {
   static Color linkedInColor = Color(0xff0076B4);
   static Color twitterColor = Color(0xff55ABEE);
 
-  static Color colorPrimary = Color(0xff0A5394);
+//  static Color colorPrimary = Color(0xff0A5394);
+  static Color colorPrimary = Color(0xffF7E01E);
   static Color colorPrimaryDark = Color(0xff1085eb);
-  static Color colorAccent = Color(0xff1C4587);
+  static Color colorAccent = Color(0xfff7cc1e);
   static Color lightBG = Colors.grey[100];
   static Color lightScaffoldColor = Colors.white;
 
@@ -60,24 +61,19 @@ class AppTheme {
       end: Alignment.topCenter,
       colors: [Colors.grey[600], Colors.grey[500]]);
 
-  var fontFamily = GoogleFonts.roboto().fontFamily;
+  static final fontFamily = GoogleFonts.roboto().fontFamily;
 
-  static ThemeData lightTheme = ThemeData(
+  static final ThemeData lightTheme = ThemeData(
+    fontFamily: fontFamily,
     visualDensity: VisualDensity.adaptivePlatformDensity,
       brightness: Brightness.light,
       backgroundColor: lightScaffoldColor,
       primaryColor: colorPrimary,
       accentColor: colorAccent,
-      buttonTheme: ButtonThemeData(buttonColor: colorPrimary),
       scaffoldBackgroundColor: lightBG,
-      textTheme: GoogleFonts.robotoTextTheme(),
+
     appBarTheme: AppBarTheme(
-      textTheme: TextTheme(
-        title: TextStyle(
-          fontSize: 16.0,
-          fontWeight: FontWeight.w800,
-        ),
-      ),
+      textTheme: GoogleFonts.robotoTextTheme().apply()
     ),
   );
 

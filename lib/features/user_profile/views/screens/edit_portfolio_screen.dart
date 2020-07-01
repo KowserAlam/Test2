@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:image_crop/image_crop.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:p7app/features/user_profile/models/portfolio_info.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
@@ -35,7 +35,6 @@ class _EditPortfolioState extends State<EditPortfolio> {
   bool isBusyImageCrop = false;
   final _formKey = GlobalKey<FormState>();
   File fileImage;
-  final cropKey = GlobalKey<CropState>();
 
   //TextEditingController
   final _portfolioNameController = TextEditingController();
@@ -68,10 +67,31 @@ class _EditPortfolioState extends State<EditPortfolio> {
   }
 
   Future getImage() async {
-    File image = await ImagePicker.pickImage(source: ImageSource.gallery);
-    if (image != null) {
-      var compressedImage = await ImageCompressUtil.compressImage(image, 40);
-      _showCropDialog(compressedImage);
+    var file = await ImagePicker().getImage(source: ImageSource.gallery);
+    if (file != null) {
+
+      Future<File> croppedFile =  ImageCropper.cropImage(
+          sourcePath: file.path,
+          aspectRatioPresets: [
+            CropAspectRatioPreset.square,
+          ],
+          androidUiSettings: AndroidUiSettings(
+              toolbarTitle: 'Cropper',
+              toolbarColor: Theme.of(context).primaryColor,
+              toolbarWidgetColor: Colors.white,
+              initAspectRatio: CropAspectRatioPreset.original,
+              lockAspectRatio: false),
+          iosUiSettings: IOSUiSettings(
+            minimumAspectRatio: 1.0,
+          )
+      );
+
+      croppedFile.then((value) {
+        fileImage = value;
+        setState(() {
+
+        });
+      });
     } else {}
   }
 
@@ -248,99 +268,5 @@ class _EditPortfolioState extends State<EditPortfolio> {
     );
   }
 
-  /// Image Crop Screen with dialog
-  _showCropDialog(File image) async {
-    var primaryColor = Theme.of(context).primaryColor;
-    final sample = await ImageCrop.sampleImage(
-      file: image,
-      preferredSize: context.size.longestSide.ceil(),
-    );
-    showDialog(
-        context: context,
-        builder: (context) {
-          return Material(
-            color: Colors.black,
-            child: Column(
-              children: <Widget>[
-                Expanded(
-                  child: Crop.file(
-                    sample,
-                    key: cropKey,
-                    aspectRatio: 1 / 1,
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.only(top: 20.0),
-                  alignment: AlignmentDirectional.center,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      RawMaterialButton(
-                        child: Text(
-                          StringResources.cancelText,
-                          style: Theme.of(context)
-                              .textTheme
-                              .button
-                              .copyWith(color: Colors.white),
-                        ),
-                        fillColor: primaryColor,
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                      ),
-                      RawMaterialButton(
-                        child: Text(
-                          StringResources.cropImageText,
-                          style: Theme.of(context)
-                              .textTheme
-                              .button
-                              .copyWith(color: Colors.white),
-                        ),
-                        fillColor: primaryColor,
-                        onPressed: () {
-                          _cropImage(image);
-                          Navigator.pop(context);
-                        },
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          );
-        });
-  }
 
-  /// Method to crop Image file
-  Future<void> _cropImage(File image) async {
-    final scale = cropKey.currentState.scale;
-    final area = cropKey.currentState.area;
-    if (area == null) {
-      isBusyImageCrop = false;
-      setState(() {});
-      // cannot crop, widget is not setup
-      return;
-    }
-
-    final sample = await ImageCrop.sampleImage(
-      file: image,
-      preferredSize: (2000 / scale).round(),
-    );
-
-    final file = await ImageCrop.cropImage(
-      file: sample,
-      area: area,
-    );
-
-    sample.delete();
-
-    fileImage = file;
-    isBusyImageCrop = false;
-    setState(() {});
-
-//    _lastCropped?.delete();
-//    _lastCropped = file;
-
-    debugPrint('$file');
-  }
 }
