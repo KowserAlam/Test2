@@ -26,7 +26,8 @@ class ApiClient {
   Future<http.Response> getRequest(String url) async {
     var completeUrl = _buildUrl(url);
     var headers = await _getHeaders();
-    return httClient.get(completeUrl, headers: headers);
+    return _checkTokenValidity().then((value) => httClient.get(completeUrl, headers: headers));
+//    return httClient.get(completeUrl, headers: headers);
   }
 
   Future<http.Response> postRequest(
@@ -35,7 +36,9 @@ class ApiClient {
     var headers = await _getHeaders();
     var encodedBody = json.encode(body);
 //    print(headers);
-    return httClient.post(completeUrl, headers: headers, body: encodedBody);
+    return _checkTokenValidity().then((value) => httClient.post(completeUrl, headers: headers, body: encodedBody));
+
+//    return httClient.post(completeUrl, headers: headers, body: encodedBody);
   }
 
   Future<http.Response> putRequest(
@@ -43,7 +46,9 @@ class ApiClient {
     var completeUrl = _buildUrl(url);
     var headers = await _getHeaders();
     var encodedBody = json.encode(body);
-    return httClient.put(completeUrl, headers: headers, body: encodedBody);
+    return _checkTokenValidity().then((value) => httClient.put(completeUrl, headers: headers, body: encodedBody));
+
+//    return httClient.put(completeUrl, headers: headers, body: encodedBody);
   }
 
   Future<Map<String, String>> _getHeaders() async {
@@ -64,5 +69,14 @@ class ApiClient {
   _buildUrl(String partialUrl) {
     String baseUrl = FlavorConfig.instance.values.baseUrl;
     return baseUrl + partialUrl;
+  }
+
+  Future<bool> _checkTokenValidity()async{
+    var authService = await AuthService.getInstance();
+    if(!authService.isAccessTokenValid())
+      return authService.refreshToken();
+    else{
+      return true;
+    }
   }
 }
