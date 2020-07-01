@@ -2,7 +2,7 @@ name: p7app
 description: A new Flutter application for Project Seven.
 
 
-version: 0.0.147+121
+version: 0.0.148+122
 
 
 environment:
@@ -115,18 +115,16 @@ flutter:
 
   assets:
     - assets/
-    - assets/google_fonts/
     - assets/images/
-    - assets/images/icons/
 
-  fonts:
-    - family: Roboto
-      fonts:
-        - asset: assets/fonts/Roboto-Regular.ttf
-        - asset: assets/fonts/Roboto-Bold.ttf
-          weight: 800
-        - asset: assets/fonts/Roboto-RegularItalic.ttf
-          style: italic
+#  fonts:
+#    - family: Roboto
+#      fonts:
+#        - asset: assets/fonts/Roboto-Regular.ttf
+#        - asset: assets/fonts/Roboto-Bold.ttf
+#          weight: 800
+#        - asset: assets/fonts/Roboto-RegularItalic.ttf
+#          style: italic
 
 
 
