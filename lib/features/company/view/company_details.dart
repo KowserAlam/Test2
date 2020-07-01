@@ -29,6 +29,7 @@ class CompanyDetails extends StatefulWidget {
 
 class _CompanyDetailsState extends State<CompanyDetails> {
   static double _cameraZoom = 10.4746;
+  var mapLoadDelay = Duration(milliseconds: 600);
   Completer<GoogleMapController> _controller = Completer();
   final CameraPosition initialCameraPosition = CameraPosition(
     target: LatLng(23.7104, 90.40744),
@@ -63,9 +64,12 @@ class _CompanyDetailsState extends State<CompanyDetails> {
     double lat = widget.company.latitude;
     double long = widget.company.longitude;
 
-    if (lat != null && long != null) {
-      _goToPosition(lat: lat, long: long);
-    }
+    Future.delayed(mapLoadDelay).then((value) {
+      if (lat != null && long != null) {
+        _goToPosition(lat: lat, long: long);
+      }
+    });
+
     super.initState();
   }
 
@@ -110,6 +114,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
         style: descriptionFontStyle,
       );
     }
+
     var header = ProfileSectionBase(
       sectionBody: Container(
         padding: EdgeInsets.only(bottom: 20),
@@ -185,7 +190,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
               StringResources.companyYearsOfEstablishmentText,
               companyDetails.yearOfEstablishment != null
                   ? DateFormatUtil.formatDate(
-                  companyDetails.yearOfEstablishment)
+                      companyDetails.yearOfEstablishment)
                   : StringResources.unspecifiedText),
           SizedBox(
             height: 5,
@@ -211,8 +216,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
 //          richText(StringUtils.companyIndustryText, companyDetails.companyProfile),
 //          SizedBox(height: 5,),
 
-          richText(
-              StringResources.companyCityText, companyDetails.city),
+          richText(StringResources.companyCityText, companyDetails.city),
           SizedBox(height: 5),
 
           richText(
@@ -222,357 +226,287 @@ class _CompanyDetailsState extends State<CompanyDetails> {
       ),
     );
 
+    var contact = ProfileSectionBase(
+      sectionLabel: StringResources.companyContactSectionText,
+      sectionIcon: FeatherIcons.userCheck,
+      sectionBody: Container(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            //Company contact one
+            companyDetails.companyContactNoOne == null
+                ? SizedBox()
+                : Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.phone_android,
+                            size: fontAwesomeIconSize,
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text(companyDetails.companyContactNoOne),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                    ],
+                  ),
 
+            //Company contact two
+            companyDetails.companyContactNoTwo == null
+                ? SizedBox()
+                : Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.phone_android,
+                            size: fontAwesomeIconSize,
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text(companyDetails.companyContactNoTwo),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                    ],
+                  ),
 
-    var contact = Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              FaIcon(
-                FeatherIcons.userCheck,
-                size: fontAwesomeIconSize,
-              ),
-              SizedBox(
-                width: 5,
-              ),
-              Text(
-                StringResources.companyContactSectionText,
-                style: sectionTitleFont,
-              )
-            ],
-          ),
-          SizedBox(
-            height: 5,
-          ),
-
-          //Company contact one
-          companyDetails.companyContactNoOne == null
-              ? SizedBox()
-              : Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.phone_android,
-                          size: fontAwesomeIconSize,
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Text(companyDetails.companyContactNoOne),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                  ],
-                ),
-
-          //Company contact two
-          companyDetails.companyContactNoTwo == null
-              ? SizedBox()
-              : Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.phone_android,
-                          size: fontAwesomeIconSize,
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Text(companyDetails.companyContactNoTwo),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                  ],
-                ),
-
-          //Company contact three
-          companyDetails.companyContactNoThree == null
-              ? SizedBox()
-              : Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.phone_android,
-                          size: fontAwesomeIconSize,
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Text(companyDetails.companyContactNoThree),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                  ],
-                ),
+            //Company contact three
+            companyDetails.companyContactNoThree == null
+                ? SizedBox()
+                : Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.phone_android,
+                            size: fontAwesomeIconSize,
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text(companyDetails.companyContactNoThree),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                    ],
+                  ),
 //
 //          richText(StringUtils.companyIndustryText, companyDetails.companyProfile),
 //          SizedBox(height: 5,),
 
-          //Email
-          if (companyDetails.email != null)
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Text(StringResources.companyEmailText + ': ',
+            //Email
+            if (companyDetails.email != null)
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text.rich(TextSpan(children: [
+                    TextSpan(
+                        text: StringResources.companyEmailText + ': ',
                         style: descriptionFontStyleBold),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    GestureDetector(
-                        onTap: () {
-                          UrlLauncherHelper.sendMail(
-                              companyDetails.email.trim());
-                        },
-                        child: Text(
-                          companyDetails.email ?? "",
-                          style: TextStyle(color: Colors.lightBlue),
-                        )),
-                  ],
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-              ],
+                    WidgetSpan(
+                      child: GestureDetector(
+                          onTap: () {
+                            UrlLauncherHelper.sendMail(
+                                companyDetails.email.trim());
+                          },
+                          child: Text(
+                            companyDetails.email ?? "",
+                            softWrap: true,
+                            style: TextStyle(color: Colors.lightBlue),
+                          )),
+                    )
+                  ])),
+                  SizedBox(
+                    height: 5,
+                  ),
+                ],
+              ),
+
+            //Web address
+            companyDetails.webAddress == null
+                ? SizedBox()
+                : Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text.rich(
+                        TextSpan(children: [
+                          TextSpan(
+                              text:
+                                  StringResources.companyWebAddressText + ': ',
+                              style: descriptionFontStyleBold),
+                          WidgetSpan(
+                            child: GestureDetector(
+                                onTap: () {
+                                  UrlLauncherHelper.launchUrl(
+                                      companyDetails.webAddress.trim());
+                                },
+                                child: Text(
+                                  companyDetails.webAddress,
+                                  style: TextStyle(color: Colors.lightBlue),
+                                )),
+                          )
+                        ]),
+                        softWrap: true,
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                    ],
+                  ),
+            SizedBox(
+              height: 5,
             ),
-
-          //Web address
-          companyDetails.webAddress == null
-              ? SizedBox()
-              : Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Text(StringResources.companyWebAddressText + ': ',
-                            style: descriptionFontStyleBold),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        GestureDetector(
-                            onTap: () {
-                              UrlLauncherHelper.launchUrl(
-                                  companyDetails.webAddress.trim());
-                            },
-                            child: Text(
-                              companyDetails.webAddress,
-                              style: TextStyle(color: Colors.lightBlue),
-                            )),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                  ],
-                ),
-          SizedBox(
-            height: 5,
-          ),
-        ],
+          ],
+        ),
       ),
     );
 
-    var socialNetworks = Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              FaIcon(
-                FeatherIcons.cast,
-                size: fontAwesomeIconSize,
-              ),
-              SizedBox(
-                width: 5,
-              ),
-              Text(
-                StringResources.companySocialNetworksSectionText,
-                style: sectionTitleFont,
-              )
-            ],
-          ),
-          SizedBox(
-            height: 5,
-          ),
+    var socialNetworks = ProfileSectionBase(
+      sectionLabel: StringResources.companySocialNetworksSectionText,
+      sectionIcon: FeatherIcons.cast,
+      sectionBody: Container(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            //Company facebook
+            companyDetails.companyNameFacebook == null
+                ? SizedBox()
+                : Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Text('Facebook: ', style: descriptionFontStyleBold),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          GestureDetector(
+                              onTap: () {
+                                UrlLauncherHelper.launchUrl(
+                                    companyDetails.companyNameFacebook.trim());
+                              },
+                              child: Text(
+                                companyDetails.companyNameFacebook,
+                                style: TextStyle(color: Colors.lightBlue),
+                              )),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                    ],
+                  ),
 
-          //Company facebook
-          companyDetails.companyNameFacebook == null
-              ? SizedBox()
-              : Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Text('Facebook: ', style: descriptionFontStyleBold),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        GestureDetector(
-                            onTap: () {
-                              UrlLauncherHelper.launchUrl(
-                                  companyDetails.companyNameFacebook.trim());
-                            },
-                            child: Text(
-                              companyDetails.companyNameFacebook,
-                              style: TextStyle(color: Colors.lightBlue),
-                            )),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                  ],
-                ),
+            //Company bdjobs
+            companyDetails.companyNameBdjobs == null
+                ? SizedBox()
+                : Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Text('BdJobs: ', style: descriptionFontStyleBold),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          GestureDetector(
+                              onTap: () {
+                                UrlLauncherHelper.launchUrl(
+                                    companyDetails.companyNameFacebook.trim());
+                              },
+                              child: Text(
+                                companyDetails.companyNameBdjobs,
+                                style: TextStyle(color: Colors.lightBlue),
+                              )),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                    ],
+                  ),
 
-          //Company bdjobs
-          companyDetails.companyNameBdjobs == null
-              ? SizedBox()
-              : Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Text('BdJobs: ', style: descriptionFontStyleBold),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        GestureDetector(
-                            onTap: () {
-                              UrlLauncherHelper.launchUrl(
-                                  companyDetails.companyNameFacebook.trim());
-                            },
-                            child: Text(
-                              companyDetails.companyNameBdjobs,
-                              style: TextStyle(color: Colors.lightBlue),
-                            )),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                  ],
-                ),
-
-          //Company google
-          companyDetails.companyNameGoogle == null
-              ? SizedBox()
-              : Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                          'Google: ',
-                          style: descriptionFontStyleBold,
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        GestureDetector(
-                            onTap: () {
-                              UrlLauncherHelper.launchUrl(
-                                  companyDetails.companyNameGoogle.trim());
-                            },
-                            child: Text(
-                              companyDetails.companyNameGoogle,
-                              style: TextStyle(color: Colors.lightBlue),
-                            )),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                  ],
-                ),
-        ],
+            //Company google
+            companyDetails.companyNameGoogle == null
+                ? SizedBox()
+                : Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Text(
+                            'Google: ',
+                            style: descriptionFontStyleBold,
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          GestureDetector(
+                              onTap: () {
+                                UrlLauncherHelper.launchUrl(
+                                    companyDetails.companyNameGoogle.trim());
+                              },
+                              child: Text(
+                                companyDetails.companyNameGoogle,
+                                style: TextStyle(color: Colors.lightBlue),
+                              )),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                    ],
+                  ),
+          ],
+        ),
       ),
     );
 
-    var organizationHead = Container(
-      child: Column(
+    var organizationHead = ProfileSectionBase(
+      sectionIcon: FeatherIcons.userCheck,
+      sectionLabel: StringResources.companyOrganizationHeadSectionText,
+      sectionBody: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Row(
-            children: <Widget>[
-              FaIcon(
-                FeatherIcons.userCheck,
-                size: fontAwesomeIconSize,
-              ),
-              SizedBox(
-                width: 5,
-              ),
-              Text(
-                StringResources.companyOrganizationHeadSectionText,
-                style: sectionTitleFont,
-              )
-            ],
-          ),
-          SizedBox(
-            height: 5,
-          ),
-
           richText(StringResources.companyOrganizationHeadNameText,
               companyDetails.organizationHead),
           SizedBox(
             height: 5,
           ),
-
           richText(StringResources.companyOrganizationHeadDesignationText,
               companyDetails.organizationHeadDesignation),
           SizedBox(
             height: 5,
           ),
-
           richText(StringResources.companyOrganizationHeadMobileNoText,
               companyDetails.organizationHeadNumber),
           SizedBox(
             height: 5,
           ),
-//
-//          richText(StringUtils.companyPostCodeText, companyDetails.postCode),
-//          SizedBox(height: 5,),
         ],
       ),
     );
 
-    var contactPerson = Container(
-      child: Column(
+    var contactPerson = ProfileSectionBase(
+      sectionLabel: StringResources.companyContactPersonSectionText,
+      sectionIcon: FeatherIcons.userCheck,
+      sectionBody: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Row(
-            children: <Widget>[
-              FaIcon(
-                FeatherIcons.userCheck,
-                size: fontAwesomeIconSize,
-              ),
-              SizedBox(
-                width: 5,
-              ),
-              Text(
-                StringResources.companyContactPersonSectionText,
-                style: sectionTitleFont,
-              )
-            ],
-          ),
-          SizedBox(
-            height: 5,
-          ),
-
           richText(StringResources.companyContactPersonNameText,
               companyDetails.contactPerson),
           SizedBox(
@@ -603,28 +537,12 @@ class _CompanyDetailsState extends State<CompanyDetails> {
       ),
     );
 
-    var otherInfo = Container(
-      child: Column(
+    var otherInfo = ProfileSectionBase(
+      sectionLabel: StringResources.companyOtherInformationText,
+      sectionIcon: FontAwesomeIcons.exclamationCircle,
+      sectionBody: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Row(
-            children: <Widget>[
-              FaIcon(
-                FontAwesomeIcons.exclamationCircle,
-                size: fontAwesomeIconSize,
-              ),
-              SizedBox(
-                width: 5,
-              ),
-              Text(
-                StringResources.companyOtherInformationText,
-                style: sectionTitleFont,
-              )
-            ],
-          ),
-          SizedBox(
-            height: 5,
-          ),
           richText(StringResources.companyLegalStructureText,
               companyDetails.legalStructure),
           SizedBox(
@@ -644,47 +562,36 @@ class _CompanyDetailsState extends State<CompanyDetails> {
       ),
     );
 
-    var googleMap = Column(
-      children: <Widget>[
-        Row(
-          children: <Widget>[
-            FaIcon(
-              FeatherIcons.mapPin,
-              size: fontAwesomeIconSize,
-            ),
-            SizedBox(
-              width: 5,
-            ),
-            Text(
-              StringResources.companyLocationOnMapText,
-              style: sectionTitleFont,
-            )
-          ],
-        ),
-        SizedBox(
-          height: 5,
-        ),
-        Container(
-          height: MediaQuery.of(context).size.width,
-          width: MediaQuery.of(context).size.width,
-          child: GoogleMap(
-            markers: markers.toSet(),
-            gestureRecognizers: Set()
-              ..add(Factory<PanGestureRecognizer>(() => PanGestureRecognizer()))
-              ..add(Factory<ScaleGestureRecognizer>(
-                  () => ScaleGestureRecognizer()))
-              ..add(Factory<TapGestureRecognizer>(() => TapGestureRecognizer()))
-              ..add(Factory<VerticalDragGestureRecognizer>(
-                  () => VerticalDragGestureRecognizer())),
-            onMapCreated: (GoogleMapController controller) {
-              _controller.complete(controller);
-            },
-            initialCameraPosition: initialCameraPosition,
-          ),
-        ),
-      ],
+    var googleMap = ProfileSectionBase(
+      sectionLabel: StringResources.companyLocationOnMapText,
+      sectionIcon: FeatherIcons.mapPin,
+      sectionBody: Container(
+        height: MediaQuery.of(context).size.width,
+        width: MediaQuery.of(context).size.width,
+        child: FutureBuilder<bool>(
+            future: Future.delayed(mapLoadDelay).then((value) => true),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) return SizedBox();
+              return GoogleMap(
+                markers: markers.toSet(),
+                gestureRecognizers: Set()
+                  ..add(Factory<PanGestureRecognizer>(
+                      () => PanGestureRecognizer()))
+                  ..add(Factory<ScaleGestureRecognizer>(
+                      () => ScaleGestureRecognizer()))
+                  ..add(Factory<TapGestureRecognizer>(
+                      () => TapGestureRecognizer()))
+                  ..add(Factory<VerticalDragGestureRecognizer>(
+                      () => VerticalDragGestureRecognizer())),
+                onMapCreated: (GoogleMapController controller) {
+                  _controller.complete(controller);
+                },
+                initialCameraPosition: initialCameraPosition,
+              );
+            }),
+      ),
     );
-    
+
     var openJobs = OpenJobsWidget(companyDetails.name);
 
     return Scaffold(
@@ -699,94 +606,32 @@ class _CompanyDetailsState extends State<CompanyDetails> {
             child: Column(
               children: [
                 header,
-                SizedBox(
-                    height: 2
-                ),
-basicInfo,
-                SizedBox(
-                    height: 2
-                ),
+                SizedBox(height: 2),
+                basicInfo,
+                SizedBox(height: 2),
+                address,
+                SizedBox(height: 2),
                 address,
                 SizedBox(
-                  height: 2
+                  height: 2,
                 ),
-                Container(
-                  padding: EdgeInsets.symmetric(vertical: 18, horizontal: 10),
-                  decoration: BoxDecoration(
-                      color: sectionColor,
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(3),
-                          topRight: Radius.circular(3))),
-                  child: address,
-                ),
+                contact,
                 SizedBox(
                   height: 2,
                 ),
-                Container(
-                  padding: EdgeInsets.symmetric(vertical: 18, horizontal: 10),
-                  decoration: BoxDecoration(
-                      color: sectionColor,
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(3),
-                          topRight: Radius.circular(3))),
-                  child: contact,
-                ),
+                organizationHead,
                 SizedBox(
                   height: 2,
                 ),
-                Container(
-                  padding: EdgeInsets.symmetric(vertical: 18, horizontal: 10),
-                  decoration: BoxDecoration(
-                      color: sectionColor,
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(3),
-                          topRight: Radius.circular(3))),
-                  child: organizationHead,
-                ),
+                contactPerson,
                 SizedBox(
                   height: 2,
                 ),
-                Container(
-                  padding: EdgeInsets.symmetric(vertical: 18, horizontal: 10),
-                  decoration: BoxDecoration(
-                      color: sectionColor,
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(3),
-                          topRight: Radius.circular(3))),
-                  child: contactPerson,
-                ),
-                SizedBox(
-                  height: 2,
-                ),
-                Container(
-                  padding: EdgeInsets.symmetric(vertical: 18, horizontal: 10),
-                  decoration: BoxDecoration(
-                      color: sectionColor,
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(3),
-                          topRight: Radius.circular(3))),
-                  child: socialNetworks,
-                ),
+                socialNetworks,
                 SizedBox(height: 2),
-                Container(
-                  padding: EdgeInsets.symmetric(vertical: 18, horizontal: 10),
-                  decoration: BoxDecoration(
-                      color: sectionColor,
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(3),
-                          topRight: Radius.circular(3))),
-                  child: otherInfo,
-                ),
+                otherInfo,
                 SizedBox(height: 2),
-                Container(
-                  padding: EdgeInsets.symmetric(vertical: 18, horizontal: 10),
-                  decoration: BoxDecoration(
-                      color: sectionColor,
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(3),
-                          topRight: Radius.circular(3))),
-                  child: googleMap,
-                ),
+                googleMap,
                 SizedBox(height: 2),
                 openJobs
               ],
