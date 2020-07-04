@@ -996,7 +996,6 @@ class _JobDetailsState extends State<JobDetails> {
         elevation: 2,
         title: Text(
           StringResources.jobDetailsAppBarTitle,
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
       ),

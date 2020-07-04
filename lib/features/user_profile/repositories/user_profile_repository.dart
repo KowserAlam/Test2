@@ -29,7 +29,7 @@ class UserProfileRepository {
       var professionalId = authUser.getUser().professionalId;
       debugPrint(professionalId);
 
-      var url = "${Urls.userProfileUrl}/$professionalId";
+      var url = "${Urls.userProfileUrl}/";
       var response = await ApiClient().getRequest(url);
       print(response.statusCode);
 //      print(response.body);

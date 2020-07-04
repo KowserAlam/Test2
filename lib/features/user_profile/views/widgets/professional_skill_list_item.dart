@@ -22,7 +22,7 @@ class ProfessionalSkillListItem extends StatelessWidget {
     var titleStyle = Theme.of(context)
         .textTheme
         .subtitle2
-        .apply(color: Theme.of(context).primaryColor);
+        .apply();
     return Container(
       margin: EdgeInsets.only(bottom: 8),
       decoration: BoxDecoration(
