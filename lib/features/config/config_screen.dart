@@ -65,7 +65,7 @@ class _ConfigScreenState extends State<ConfigScreen> {
                               height: 30,
                               width: 30,
                               decoration: BoxDecoration(
-                                image: DecorationImage(image: AssetImage(kDefaultLogo))
+                                image: DecorationImage(image: AssetImage(kDefaultLogoSq))
                               ),
                             ),
                           )));

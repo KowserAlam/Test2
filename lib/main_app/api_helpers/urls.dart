@@ -1,5 +1,3 @@
-
-
 //dev server
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 
@@ -17,18 +15,28 @@ class Urls {
   static String dashboardUrl = "/api/app-dashboard";
   static String passwordChangeUrl = "/api/pro/change-password/";
   static String openJobsCompany = "/api/job/search/?company="; //cname
+  static String jobAlertStatusUrl =
+      "/api/professional/job_alert_notification/"; //cname
+  static String jobAlertOnOffUrl =
+      "/api/professional/email-subscription-on-off/"; //c8eb21a2-0bb6-46ec-add6-0de5336e1723/
 
   static String userProfileUrl = "/api/professional/profile";
-  static String userProfileUpdateUrlPartial = "/api/professional/profile_update_partial";
+  static String userProfileUpdateUrlPartial =
+      "/api/professional/profile_update_partial";
   static String userProfileUpdateUrl = "/api/professional/profile_update";
-  static String professionalReference = "/api/professional/professional_reference";
+  static String professionalReference =
+      "/api/professional/professional_reference";
   static String professionalSkillUrl = "/api/professional/professional_skill";
-  static String professionalEducationUrl = "/api/professional/professional_education";
-  static String professionalMembershipUrl = "/api/professional/professional_membership";
-  static String professionalCertificationUrl = "/api/professional/professional_certification";
-  static String professionalPortfolioUrl = "/api/professional/professional_portfolio";
-  static String professionalExperienceUrl = "/api/professional/professional_work_experience";
-
+  static String professionalEducationUrl =
+      "/api/professional/professional_education";
+  static String professionalMembershipUrl =
+      "/api/professional/professional_membership";
+  static String professionalCertificationUrl =
+      "/api/professional/professional_certification";
+  static String professionalPortfolioUrl =
+      "/api/professional/professional_portfolio";
+  static String professionalExperienceUrl =
+      "/api/professional/professional_work_experience";
 
   static String industryListUrl = "/api/industry/";
   static String companyListUrl = "/api/company/";
@@ -68,32 +76,28 @@ class Urls {
   static String similarJobs = "/api/job/similar"; // /job id/
 
   /// dashboardUrl
-static String dashboardInfoBoxUrl = "/api/pro/dashboard/infobox/";
-static String dashboardSkillJobChartUrl = "/api/pro/dashboard/skill/";
-static String profileCompleteness = "/api/pro/profile-completeness/";
+  static String dashboardInfoBoxUrl = "/api/pro/dashboard/infobox/";
+  static String dashboardSkillJobChartUrl = "/api/pro/dashboard/skill/";
+  static String profileCompleteness = "/api/pro/profile-completeness/";
 
+  static String jwtRefreshUrl = "/api/token/refresh/";
+  static String careerAdviceUrl = "/api/career_advise";
 
-static String jwtRefreshUrl = "/api/token/refresh/";
-static String careerAdviceUrl = "/api/career_advise";
 //contact us
-static String settingsUrl = "/api/settings/";
-static String contactUsSubmitUrl = "/api/send_email_to_admin_contact_us/";
+  static String settingsUrl = "/api/settings/";
+  static String contactUsSubmitUrl = "/api/send_email_to_admin_contact_us/";
 
-
-static String notificationMarkReadUrl = "/api/notification/mark-read";//  id
-static String notificationListUrl = "/api/notification";
-static String notificationGetUrl = "/api/notification/get/"; //  id
-static String messageListUrl = "/api/employer-message/";
-static String messageGetUrl = "/api/employer-message/get/"; //  id
-static String messageMarkedReadUrl = "/api/employer-message/mark-read/"; //  id
-
+  static String notificationMarkReadUrl = "/api/notification/mark-read"; //  id
+  static String notificationListUrl = "/api/notification";
+  static String notificationGetUrl = "/api/notification/get/"; //  id
+  static String messageListUrl = "/api/employer-message/";
+  static String messageGetUrl = "/api/employer-message/get/"; //  id
+  static String messageMarkedReadUrl =
+      "/api/employer-message/mark-read/"; //  id
 
 // webUrl
   static String aboutUsWeb = "/about-us-app/";
   static String contactUsWeb = "/contact-us-app/";
   static String careerAdviceWeb = "/career-advice-app/";
   static String faqWeb = "/FAQ-app/";
-
-
-
 }

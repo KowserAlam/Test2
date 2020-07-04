@@ -111,20 +111,23 @@ class _RootState extends State<Root> {
   var appLogoText = Column(
     mainAxisSize: MainAxisSize.min,
     children: <Widget>[
-      Container(
-        width: 170,
-        child: Hero(
-            tag: kDefaultLogo,
-            child: Image.asset(
-              kDefaultLogo,
-              fit: BoxFit.cover,
-            )),
-      ),
+//      Container(
+//        width: 170,
+//        child: Hero(
+//            tag: kDefaultLogoSq,
+//            child: Image.asset(
+//              kDefaultLogoSq,
+//              fit: BoxFit.cover,
+//            )),
+//      ),
       Container(
         width: 250,
-        child: Image.asset(
-          kDefaultLogoText,
-          fit: BoxFit.cover,
+        child: Hero(
+          tag: kDefaultLogoSq,
+          child: Image.asset(
+            kDefaultLogoFull,
+            fit: BoxFit.cover,
+          ),
         ),
       ),
     ],
@@ -142,20 +145,23 @@ class _RootState extends State<Root> {
     var appLogoText = Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
+//        Container(
+//          width: width * 0.3,
+//          child: Hero(
+//              tag: kDefaultLogoSq,
+//              child: Image.asset(
+//                kDefaultLogoSq,
+//                fit: BoxFit.cover,
+//              )),
+//        ),
         Container(
-          width: width * 0.3,
+          width: width * 0.7,
           child: Hero(
-              tag: kDefaultLogo,
-              child: Image.asset(
-                kDefaultLogo,
-                fit: BoxFit.cover,
-              )),
-        ),
-        Container(
-          width: width * 0.5,
-          child: Image.asset(
-            kDefaultLogoText,
-            fit: BoxFit.cover,
+            tag: kDefaultLogoSq,
+            child: Image.asset(
+              kDefaultLogoFull,
+              fit: BoxFit.cover,
+            ),
           ),
         ),
       ],

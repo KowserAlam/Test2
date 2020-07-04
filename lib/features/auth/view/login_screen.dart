@@ -133,9 +133,9 @@ class _LoginScreenState extends State<LoginScreen> {
       ],
     );
     var logo = Hero(
-      tag: kDefaultLogo,
+      tag: kDefaultLogoSq,
       child: Image.asset(
-        kDefaultLogo,
+        kDefaultLogoSq,
         width: logoWidth,
         fit: BoxFit.contain,
       ),

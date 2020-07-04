@@ -88,7 +88,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     Widget logo = Container(
       height: 60,
       width: 150,
-      child: Image.asset(kDefaultLogo),
+      child: Image.asset(kDefaultLogoSq),
     );
     Widget backToSignIn = RichText(
       text: TextSpan(children: [
