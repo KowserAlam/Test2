@@ -11,7 +11,7 @@ class InstitutionListRepository {
     try {
       var res = await ApiClient().getRequest(Urls.instituteListUrl);
       print(res.statusCode);
-      print(res.body);
+//      print(res.body);
       if (res.statusCode == 200) {
         var decodedJson = json.decode(res.body);
         print(decodedJson);

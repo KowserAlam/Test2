@@ -61,7 +61,7 @@ class CustomDropdownSearchFormField<T> extends StatelessWidget {
     this.mode = Mode.MENU,
     this.loadingBuilder,
     this.contentPadding =
-        const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        const EdgeInsets.symmetric(horizontal: 10,),
   });
 
   @override
@@ -93,7 +93,7 @@ class CustomDropdownSearchFormField<T> extends StatelessWidget {
             onChanged: onChanged,
             validator: validator,
             showSearchBox: true,
-            mode: Mode.MENU,
+            mode: mode,
             showSelectedItem: false,
             compareFn: compareFn,
             items: items,

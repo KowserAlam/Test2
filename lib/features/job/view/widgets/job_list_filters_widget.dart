@@ -270,7 +270,7 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
 //                      ),
                       CustomDropdownSearchFormField<String>(
                           popupItemDisabled: (String s) => s.startsWith('I'),
-                          mode: Mode.MENU,
+                          mode: Mode.DIALOG,
                           labelText: StringResources.jobCategoryText,
                           hintText: StringResources.tapToSelectText,
                           items: jobListFilterWidgetViewModel.jobCategories,
@@ -317,7 +317,7 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
                         compareFn: (Skill v1, Skill v2) {
                           return v1.name == v2.name;
                         },
-                        mode: Mode.MENU,
+                        mode: Mode.DIALOG,
                         labelText: StringResources.skillText,
                         hintText: StringResources.tapToSelectText,
                         items: jobListFilterWidgetViewModel.skills,

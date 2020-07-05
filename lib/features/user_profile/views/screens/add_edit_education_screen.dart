@@ -228,7 +228,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
                     itemFilter: (Institution suggestion, String query) =>
                         suggestion.name
                             .toLowerCase()
-                            .startsWith(query.toLowerCase()),
+                            .contains(query.toLowerCase()),
                     suggestions: snapshot.data,
                     itemSorter: (Institution a, Institution b) =>
                         a.name.compareTo(b.name),
