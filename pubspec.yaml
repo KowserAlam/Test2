@@ -2,7 +2,7 @@ name: p7app
 description: A new Flutter application for Project Seven.
 
 
-version: 0.0.152+126
+version: 0.0.153+127
 
 
 environment:
@@ -116,6 +116,7 @@ flutter:
   assets:
     - assets/
     - assets/images/
+    - assets/certification/
 
 #  fonts:
 #    - family: Roboto
