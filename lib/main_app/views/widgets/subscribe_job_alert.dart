@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
@@ -78,8 +77,9 @@ class _SubscribeJobAlertState extends State<SubscribeJobAlert> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(StringResources.subscribeForJobAlertText),
+        Text(jobAlerSstatus?StringResources.unSubscribeForJobAlertText:StringResources.subscribeForJobAlertText),
         Container(
+          height: 40,width: 40,
           child: busy
               ? Padding(
                   padding: const EdgeInsets.all(8.0),

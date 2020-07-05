@@ -289,6 +289,7 @@ class StringResources {
   static String blankJoiningDateErrorText = "Please enter joining date";
   static String blankLeavingDateErrorText = "Please enter leaving date";
   static String subscribeForJobAlertText = "Subscribe for job alert.";
+  static String unSubscribeForJobAlertText = "Unsubscribe for job alert.";
 
 
 

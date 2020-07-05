@@ -1,25 +1,21 @@
 import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter_typeahead/cupertino_flutter_typeahead.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:flutter_typeahead/flutter_typeahead.dart' as TypeAhead;
-
 import 'package:p7app/features/company/models/company.dart';
 import 'package:p7app/features/company/repositories/company_list_repository.dart';
 import 'package:p7app/features/user_profile/models/experience_info.dart';
 import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
-import 'package:p7app/main_app/views/widgets/common_date_picker_widget.dart';
 import 'package:p7app/main_app/resource/const.dart';
-import 'package:p7app/main_app/util/debouncer.dart';
-import 'package:p7app/main_app/views/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
+import 'package:p7app/main_app/util/debouncer.dart';
+import 'package:p7app/main_app/views/widgets/common_date_picker_widget.dart';
+import 'package:p7app/main_app/views/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/views/widgets/edit_screen_save_button.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:dartz/dartz.dart' as dartZ;
 
 class AddNewExperienceScreen extends StatefulWidget {
   final ExperienceInfo experienceInfoModel;
@@ -70,32 +66,6 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
       _experienceId = widget.experienceInfoModel.experienceId ?? null;
       currentLyWorkingHere = _leavingDate == null;
     }
-
-//    _companyNameController.addListener(() {
-//      if (_companyNameController.text.length > 3) {
-//        _companyAutocompleteKey.currentState.suggestions = [];
-//        _debouncer.run(() {
-//          CompanyListRepository()
-//              .getList(query: _companyNameController.text)
-//              .then((value) {
-//            value.fold((l) {
-//              //left
-//              print(l);
-//              _companyAutocompleteKey.currentState.suggestions = [];
-//            }, (List<Company> r) {
-////              //right
-//              companySuggestion = r;
-//              _companyAutocompleteKey.currentState.updateSuggestions(r);
-//              _companyAutocompleteKey.currentState.updateOverlay();
-//
-////            setState(() {
-////
-////            });
-//            });
-//          });
-//        });
-//      }
-//    });
     super.initState();
   }
 
@@ -141,28 +111,28 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
     bool isNotEmpty = _companyNameController.text.isNotEmpty;
     _companyNameErrorText =
         !isNotEmpty ? StringResources.thisFieldIsRequired : null;
-    bool dateCheck(){
-      if(_joiningDate != null){
+    bool dateCheck() {
+      if (_joiningDate != null) {
         _joiningDateErrorText = null;
-        if(currentLyWorkingHere){
+        if (currentLyWorkingHere) {
           _leavingDateErrorText = null;
           _leavingDate = null;
           return true;
-        }else{
-          if(_leavingDate != null){
+        } else {
+          if (_leavingDate != null) {
             _leavingDateErrorText = null;
-            if(_joiningDate.isBefore(_leavingDate)){
+            if (_joiningDate.isBefore(_leavingDate)) {
               return true;
-            }else{
+            } else {
               BotToast.showText(text: StringResources.joiningLeavingDateLogic);
               return false;
             }
-          }else{
+          } else {
             _leavingDateErrorText = StringResources.blankLeavingDateErrorText;
             return false;
           }
         }
-      }else{
+      } else {
         _joiningDateErrorText = StringResources.blankJoiningDateErrorText;
         return false;
       }
@@ -183,18 +153,17 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
         }
       }
       var experienceInfo = ExperienceInfo(
-          experienceId: widget.experienceInfoModel?.experienceId,
-          companyName: _companyNameController.text,
-          designation: positionNameController.text,
-          companyId: selectedCompany?.name ?? _selectedCompanyId,
-          startDate: _joiningDate,
-          endDate:  _leavingDate,
+        experienceId: widget.experienceInfoModel?.experienceId,
+        companyName: _companyNameController.text,
+        designation: positionNameController.text,
+        companyId: selectedCompany?.name ?? _selectedCompanyId,
+        startDate: _joiningDate,
+        endDate: _leavingDate,
       );
 
-
-      if(widget.experienceInfoModel == null){
+      if (widget.experienceInfoModel == null) {
         addExp(experienceInfo);
-      }else{
+      } else {
         updateExp(experienceInfo);
       }
     }
@@ -206,58 +175,27 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
       height: 20,
     );
 
-    var nameOfCompany = Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text("  " + StringResources.nameOfCompany ?? "",
-            style: TextStyle(fontWeight: FontWeight.bold)),
-        SizedBox(
-          height: 5,
-        ),
-        Container(
-          decoration: BoxDecoration(
-            color: Theme.of(context).backgroundColor,
-            borderRadius: BorderRadius.circular(7),
-            boxShadow: CommonStyleTextField.boxShadow,
-          ),
-          child: AutoCompleteTextField<Company>(
-            focusNode: _companyNameFocusNode,
-            decoration: InputDecoration(
-              hintText: StringResources.currentCompanyHint,
-              border: InputBorder.none,
-              contentPadding:
-                  const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-              focusedBorder: CommonStyleTextField.focusedBorder(context),
-            ),
-            controller: _companyNameController,
-            itemFilter: (Company suggestion, String query) => true,
-            suggestions: companySuggestion,
-            itemSorter: (Company a, Company b) => a.name.compareTo(b.name),
-            key: _companyAutocompleteKey,
-            itemBuilder: (BuildContext context, Company suggestion) {
-              return ListTile(
-                title: Text(suggestion.name ?? ""),
-              );
-            },
-            clearOnSubmit: false,
-            itemSubmitted: (Company data) {
-              selectedCompany = data;
-//                    _companyNameController.text = data.name;
-              _companyAutocompleteKey.currentState.updateSuggestions([]);
-              setState(() {});
-            },
-          ),
-        ),
-        if (_companyNameErrorText != null)
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              _companyNameErrorText,
-              style: TextStyle(color: Colors.red),
-            ),
-          ),
-      ],
-    );
+//    var nameOfCompany = CustomDropdownSearchFormField<Company>(
+//        popupItemDisabled: (Company s) => s.name.startsWith('I'),
+//        compareFn: (Company v1, Company v2) {
+//          return v1.name == v2.name;
+//        },
+//        mode: Mode.MENU,
+//        labelText: StringResources.skillText,
+//        hintText: StringResources.tapToSelectText,
+//        onFind: (String pattern) async {
+//          if (pattern.length > 2)
+//            return CompanyListRepository()
+//                .getList(query: pattern)
+//                .then((value) => value.fold((l) => [], (r) => r.companies));
+//          else
+//            return [];
+//        },
+//        itemAsString: (Company u) => u.name,
+//        onChanged: (value) {
+//          selectedCompany = value;
+//        },
+//        selectedItem: selectedCompany);
     var name = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -274,17 +212,17 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
           ),
           child: TypeAheadFormField<Company>(
             textFieldConfiguration: TextFieldConfiguration(
-              controller: _companyNameController,
+                controller: _companyNameController,
                 decoration: InputDecoration(
-              hintText: StringResources.currentCompanyHint,
-              border: InputBorder.none,
-              contentPadding:
-                  const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-              focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(7),
-                  borderSide:
-                      BorderSide(color: Theme.of(context).primaryColor)),
-            )),
+                  hintText: StringResources.currentCompanyHint,
+                  border: InputBorder.none,
+                  contentPadding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(7),
+                      borderSide:
+                          BorderSide(color: Theme.of(context).primaryColor)),
+                )),
             itemBuilder: (BuildContext context, Company suggestion) {
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
@@ -318,12 +256,12 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
               borderRadius: BorderRadius.circular(5),
             ),
             suggestionsCallback: (String pattern) {
-              if(pattern.length>2)
-              return CompanyListRepository()
-                  .getList(query: pattern)
-                  .then((value) => value.fold((l) => [], (r) => r.companies));
+              if (pattern.length > 2)
+                return CompanyListRepository()
+                    .getList(query: pattern)
+                    .then((value) => value.fold((l) => [], (r) => r.companies));
               else
-                return[];
+                return [];
             },
             validator: (v) {
               return v.length < 3 ? StringResources.typeAtLeast3Letter : null;

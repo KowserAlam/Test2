@@ -10,7 +10,8 @@ class InstitutionListRepository {
   Future<Either<AppError, List<Institution>>> getList() async {
     try {
       var res = await ApiClient().getRequest(Urls.instituteListUrl);
-
+      print(res.statusCode);
+      print(res.body);
       if (res.statusCode == 200) {
         var decodedJson = json.decode(res.body);
         print(decodedJson);

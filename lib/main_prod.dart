@@ -15,6 +15,7 @@ import 'main_app/flavour/flavour_config.dart';
 
 void main() async {
   await WidgetsFlutterBinding.ensureInitialized();
+  // user trust SSL certificate for jobxprss.com
   await _loadCertificate();
 
   setupLocator();
