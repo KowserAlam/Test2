@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:http/io_client.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
 import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/flavour/flavour_config.dart';
@@ -19,6 +20,11 @@ class ApiClient {
 
   ApiClient({this.httClient}) {
     if (httClient == null) {
+//      // temporary disable bad certificate  call back
+//      HttpClient client = new HttpClient()
+//        ..badCertificateCallback =
+//        ((X509Certificate cert, String host, int port) => true);
+//      var ioClient = new IOClient(client);
       httClient = http.Client();
     }
   }

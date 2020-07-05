@@ -10,7 +10,7 @@ class PushNotificationService{
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
   PushNotificationService(){
 
-    if(Platform.isAndroid && Platform.isIOS){
+    if(Platform.isAndroid || Platform.isIOS){
       _init();
       getToken();
     }else{

@@ -24,7 +24,7 @@ void main() async {
     RestartWidget(
       child: ChangeNotifierProvider(
         create: (context) => ConfigProvider(),
-        child:P7App(Key(Uuid().v4())),
+        child:P7App(UniqueKey()),
       ),
     ),
   );

@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:p7app/features/config/config_provider.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
@@ -11,10 +14,12 @@ import 'package:uuid/uuid.dart';
 import 'main_app/flavour/flavour_config.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  await WidgetsFlutterBinding.ensureInitialized();
+  await _loadCertificate();
+
   setupLocator();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-  var key =Key(Uuid().v4());
+  var key =UniqueKey();
   FlavorConfig(
     flavor: Flavor.PRODUCTION,
     color: Colors.deepPurpleAccent,
@@ -28,4 +33,10 @@ void main() async {
       ),
     ),
   );
+}
+
+Future _loadCertificate()async{
+  ByteData data = await rootBundle.load('assets/certification/jobxprss-com-chain.pem');
+  SecurityContext context = SecurityContext.defaultContext;
+  return context.setTrustedCertificatesBytes(data.buffer.asUint8List());
 }

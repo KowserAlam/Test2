@@ -4,6 +4,8 @@ import 'dart:io';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:http/io_client.dart';
+import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
 import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/auth_service/auth_user_model.dart';
@@ -98,16 +100,15 @@ class LoginViewModel with ChangeNotifier {
 
   Future<bool> loginWithEmailAndPassword() async {
     isBusyLogin = true;
-    var body = {
-      JsonKeys.email: email,
-      JsonKeys.password: password
-    };
+    var body = {JsonKeys.email: email, JsonKeys.password: password};
 
     try {
+
+
       var baseUrl = FlavorConfig.instance.values.baseUrl;
-      var url = "$baseUrl${Urls.loginUrl}";
-      http.Response response =
-          await http.post(url, body: body);
+//      var url = "$baseUrl${Urls.loginUrl}";
+
+      http.Response response = await ApiClient().postRequest(Urls.loginUrl, body);
 
       print(response.body);
       print(response.statusCode);
