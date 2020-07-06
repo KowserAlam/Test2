@@ -9,14 +9,14 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:p7app/features/company/models/company.dart';
-import 'package:p7app/features/company/view/company_section_base.dart';
+import 'package:p7app/features/company/view/widgets/company_details_formatted_text.dart';
+import 'package:p7app/features/company/view/widgets/company_section_base.dart';
 import 'package:p7app/features/company/view/open_jobs_widget.dart';
 import 'package:p7app/main_app/api_helpers/url_launcher_helper.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/date_format_uitl.dart';
-import 'package:p7app/method_extension.dart';
-import 'package:uuid/uuid.dart';
+import 'package:p7app/main_app/views/widgets/show_location_on_map_widget.dart';
 
 class CompanyDetails extends StatefulWidget {
   final Company company;
@@ -28,51 +28,6 @@ class CompanyDetails extends StatefulWidget {
 }
 
 class _CompanyDetailsState extends State<CompanyDetails> {
-  static double _cameraZoom = 10.4746;
-  var mapLoadDelay = Duration(milliseconds: 600);
-  Completer<GoogleMapController> _controller = Completer();
-  final CameraPosition initialCameraPosition = CameraPosition(
-    target: LatLng(23.7104, 90.40744),
-    zoom: _cameraZoom,
-  );
-
-  List<Marker> markers = [];
-
-  Future<void> _goToPosition({double lat, double long}) async {
-    var markId = MarkerId(widget.company.name);
-    Marker _marker = Marker(
-      onTap: () {
-        print("tapped");
-      },
-      position: LatLng(lat, long),
-      infoWindow: InfoWindow(title: widget.company.name ?? ""),
-      markerId: markId,
-    );
-    markers.add(_marker);
-    final GoogleMapController _googleMapController = await _controller.future;
-    var position = CameraPosition(
-      target: LatLng(lat, long),
-      zoom: _cameraZoom,
-    );
-
-    _googleMapController
-        .animateCamera(CameraUpdate.newCameraPosition(position));
-  }
-
-  @override
-  void initState() {
-    double lat = widget.company.latitude;
-    double long = widget.company.longitude;
-
-    Future.delayed(mapLoadDelay).then((value) {
-      if (lat != null && long != null) {
-        _goToPosition(lat: lat, long: long);
-      }
-    });
-
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     Company companyDetails = widget.company;
@@ -96,26 +51,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
         TextStyle(fontSize: 12, fontWeight: FontWeight.bold);
     double fontAwesomeIconSize = 15;
 
-    double iconSize = 14;
-    double sectionIconSize = 20;
-    Color clockIconColor = Colors.orange;
-
-    Text richText(String title, String description) {
-      return Text.rich(
-        TextSpan(children: <TextSpan>[
-          TextSpan(text: title, style: descriptionFontStyleBold),
-          TextSpan(text: ': ', style: descriptionFontStyleBold),
-          TextSpan(
-              text: description == null
-                  ? StringResources.unspecifiedText
-                  : description,
-              style: descriptionFontStyle),
-        ]),
-        style: descriptionFontStyle,
-      );
-    }
-
-    var header = ProfileSectionBase(
+    var header = CompanySectionBase(
       sectionBody: Container(
         padding: EdgeInsets.only(bottom: 20),
         child: Row(
@@ -163,7 +99,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
         ),
       ),
     );
-    var basicInfo = ProfileSectionBase(
+    var basicInfo = CompanySectionBase(
       sectionIcon: FeatherIcons.userCheck,
       sectionLabel: StringResources.companyBasicInfoSectionText,
       sectionBody: Column(
@@ -192,7 +128,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
               textAlign: TextAlign.justify,
             ),
           SizedBox(height: 5),
-          richText(
+          CompanyDetailsFormattedText(
               StringResources.companyYearsOfEstablishmentText,
               companyDetails.yearOfEstablishment != null
                   ? DateFormatUtil.formatDate(
@@ -201,7 +137,8 @@ class _CompanyDetailsState extends State<CompanyDetails> {
           SizedBox(
             height: 5,
           ),
-          richText(StringResources.companyBasisMembershipNoText,
+          CompanyDetailsFormattedText(
+              StringResources.companyBasisMembershipNoText,
               companyDetails.basisMemberShipNo),
           SizedBox(
             height: 5,
@@ -210,28 +147,31 @@ class _CompanyDetailsState extends State<CompanyDetails> {
       ),
     );
 
-    var address = ProfileSectionBase(
+    var address = CompanySectionBase(
       sectionLabel: StringResources.companyAddressSectionText,
       sectionIcon: FeatherIcons.map,
       sectionBody: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          richText(StringResources.companyAddressText, companyDetails.address),
+          CompanyDetailsFormattedText(
+              StringResources.companyAddressText, companyDetails.address),
           SizedBox(height: 5),
 //
 //          richText(StringUtils.companyIndustryText, companyDetails.companyProfile),
 //          SizedBox(height: 5,),
 
-          richText(StringResources.companyCityText, companyDetails.city),
+          CompanyDetailsFormattedText(
+              StringResources.companyCityText, companyDetails.city),
           SizedBox(height: 5),
 
-          richText(StringResources.companyCountryText, companyDetails.country),
+          CompanyDetailsFormattedText(
+              StringResources.companyCountryText, companyDetails.country),
           SizedBox(height: 5),
         ],
       ),
     );
 
-    var contact = ProfileSectionBase(
+    var contact = CompanySectionBase(
       sectionLabel: StringResources.companyContactSectionText,
       sectionIcon: FeatherIcons.userCheck,
       sectionBody: Container(
@@ -384,7 +324,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
             companyDetails.companyNameFacebook == null &&
             companyDetails.companyNameGoogle == null)
         ? SizedBox()
-        : ProfileSectionBase(
+        : CompanySectionBase(
             sectionLabel: StringResources.companySocialNetworksSectionText,
             sectionIcon: FeatherIcons.cast,
             sectionBody: Container(
@@ -490,23 +430,26 @@ class _CompanyDetailsState extends State<CompanyDetails> {
             ),
           );
 
-    var organizationHead = ProfileSectionBase(
+    var organizationHead = CompanySectionBase(
       sectionIcon: FeatherIcons.userCheck,
       sectionLabel: StringResources.companyOrganizationHeadSectionText,
       sectionBody: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          richText(StringResources.companyOrganizationHeadNameText,
+          CompanyDetailsFormattedText(
+              StringResources.companyOrganizationHeadNameText,
               companyDetails.organizationHead),
           SizedBox(
             height: 5,
           ),
-          richText(StringResources.companyOrganizationHeadDesignationText,
+          CompanyDetailsFormattedText(
+              StringResources.companyOrganizationHeadDesignationText,
               companyDetails.organizationHeadDesignation),
           SizedBox(
             height: 5,
           ),
-          richText(StringResources.companyOrganizationHeadMobileNoText,
+          CompanyDetailsFormattedText(
+              StringResources.companyOrganizationHeadMobileNoText,
               companyDetails.organizationHeadNumber),
           SizedBox(
             height: 5,
@@ -515,31 +458,35 @@ class _CompanyDetailsState extends State<CompanyDetails> {
       ),
     );
 
-    var contactPerson = ProfileSectionBase(
+    var contactPerson = CompanySectionBase(
       sectionLabel: StringResources.companyContactPersonSectionText,
       sectionIcon: FeatherIcons.userCheck,
       sectionBody: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          richText(StringResources.companyContactPersonNameText,
+          CompanyDetailsFormattedText(
+              StringResources.companyContactPersonNameText,
               companyDetails.contactPerson),
           SizedBox(
             height: 5,
           ),
 
-          richText(StringResources.companyContactPersonDesignationText,
+          CompanyDetailsFormattedText(
+              StringResources.companyContactPersonDesignationText,
               companyDetails.contactPersonDesignation),
           SizedBox(
             height: 5,
           ),
 
-          richText(StringResources.companyContactPersonMobileNoText,
+          CompanyDetailsFormattedText(
+              StringResources.companyContactPersonMobileNoText,
               companyDetails.contactPersonMobileNo),
           SizedBox(
             height: 5,
           ),
 
-          richText(StringResources.companyContactPersonEmailText,
+          CompanyDetailsFormattedText(
+              StringResources.companyContactPersonEmailText,
               companyDetails.contactPersonEmail),
           SizedBox(
             height: 5,
@@ -551,23 +498,25 @@ class _CompanyDetailsState extends State<CompanyDetails> {
       ),
     );
 
-    var otherInfo = ProfileSectionBase(
+    var otherInfo = CompanySectionBase(
       sectionLabel: StringResources.companyOtherInformationText,
       sectionIcon: FontAwesomeIcons.exclamationCircle,
       sectionBody: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          richText(StringResources.companyLegalStructureText,
+          CompanyDetailsFormattedText(StringResources.companyLegalStructureText,
               companyDetails.legalStructure),
           SizedBox(
             height: 5,
           ),
-          richText(StringResources.companyNoOFHumanResourcesText,
+          CompanyDetailsFormattedText(
+              StringResources.companyNoOFHumanResourcesText,
               companyDetails.noOfHumanResources),
           SizedBox(
             height: 5,
           ),
-          richText(StringResources.companyNoOFItResourcesText,
+          CompanyDetailsFormattedText(
+              StringResources.companyNoOFItResourcesText,
               companyDetails.noOfResources),
           SizedBox(
             height: 5,
@@ -576,35 +525,16 @@ class _CompanyDetailsState extends State<CompanyDetails> {
       ),
     );
 
-    var googleMap = ProfileSectionBase(
-      sectionLabel: StringResources.companyLocationOnMapText,
-      sectionIcon: FeatherIcons.mapPin,
-      sectionBody: Container(
-        height: MediaQuery.of(context).size.width,
-        width: MediaQuery.of(context).size.width,
-        child: FutureBuilder<bool>(
-            future: Future.delayed(mapLoadDelay).then((value) => true),
-            builder: (context, snapshot) {
-              if (!snapshot.hasData) return SizedBox();
-              return GoogleMap(
-                markers: markers.toSet(),
-                gestureRecognizers: Set()
-                  ..add(Factory<PanGestureRecognizer>(
-                      () => PanGestureRecognizer()))
-                  ..add(Factory<ScaleGestureRecognizer>(
-                      () => ScaleGestureRecognizer()))
-                  ..add(Factory<TapGestureRecognizer>(
-                      () => TapGestureRecognizer()))
-                  ..add(Factory<VerticalDragGestureRecognizer>(
-                      () => VerticalDragGestureRecognizer())),
-                onMapCreated: (GoogleMapController controller) {
-                  _controller.complete(controller);
-                },
-                initialCameraPosition: initialCameraPosition,
-              );
-            }),
-      ),
-    );
+    var googleMap = (companyDetails?.latitude != null &&
+            companyDetails?.longitude != null)
+        ? CompanySectionBase(
+            sectionLabel: StringResources.companyLocationOnMapText,
+            sectionIcon: FeatherIcons.mapPin,
+            sectionBody: ShowLocationOnMapWidget(
+              latLng: LatLng(companyDetails.latitude, companyDetails.longitude),
+              markerLabel: companyDetails.name,
+            ))
+        : SizedBox();
 
     var openJobs = OpenJobsWidget(companyDetails.name);
 

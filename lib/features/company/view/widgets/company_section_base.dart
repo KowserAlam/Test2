@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-class ProfileSectionBase extends StatelessWidget {
+class CompanySectionBase extends StatelessWidget {
   final Widget sectionBody;
   final IconData sectionIcon;
   final String sectionLabel;
 
-  ProfileSectionBase({
+  CompanySectionBase({
     @required this.sectionBody,
     this.sectionIcon,
     this.sectionLabel,
