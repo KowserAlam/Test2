@@ -102,24 +102,21 @@ class _EditReferenceScreenState extends State<EditReferenceScreen> {
           ),
         ],
       ),
-      body: Container(
-        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
-        child: SingleChildScrollView(
-          child: Form(
-            key: _formKey,
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  //Name
-                  description,
-                  spaceBetweenFields,
-                  SizedBox(
-                    height: 40,
-                  ),
-                ],
-              ),
+      body: SingleChildScrollView(
+        child: Form(
+          key: _formKey,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                //Name
+                description,
+                spaceBetweenFields,
+                SizedBox(
+                  height: 40,
+                ),
+              ],
             ),
           ),
         ),

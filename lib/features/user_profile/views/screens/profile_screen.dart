@@ -3,7 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:p7app/features/user_profile/views/screens/edit_portfolio_screen.dart';
 import 'package:p7app/features/user_profile/views/screens/edit_reference_screen.dart';
 import 'package:p7app/features/user_profile/views/widgets/portfolio_list_item_widget.dart';
-import 'package:p7app/features/user_profile/views/screens/certifications_list_item_widget.dart';
+import 'package:p7app/features/user_profile/views/widgets/certifications_list_item_widget.dart';
 import 'package:p7app/features/user_profile/views/widgets/contact_info_widget.dart';
 import 'package:p7app/features/user_profile/views/widgets/references_list_item_widget.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

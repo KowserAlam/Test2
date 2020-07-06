@@ -380,106 +380,115 @@ class _CompanyDetailsState extends State<CompanyDetails> {
       ),
     );
 
-    var socialNetworks = ProfileSectionBase(
-      sectionLabel: StringResources.companySocialNetworksSectionText,
-      sectionIcon: FeatherIcons.cast,
-      sectionBody: Container(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            //Company facebook
-            companyDetails.companyNameFacebook == null
-                ? SizedBox()
-                : Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Text('Facebook: ', style: descriptionFontStyleBold),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          GestureDetector(
-                              onTap: () {
-                                UrlLauncherHelper.launchUrl(
-                                    companyDetails.companyNameFacebook.trim());
-                              },
-                              child: Text(
-                                companyDetails.companyNameFacebook,
-                                style: TextStyle(color: Colors.lightBlue),
-                              )),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                    ],
-                  ),
+    var socialNetworks = (companyDetails.companyNameFacebook == null &&
+            companyDetails.companyNameFacebook == null &&
+            companyDetails.companyNameGoogle == null)
+        ? SizedBox()
+        : ProfileSectionBase(
+            sectionLabel: StringResources.companySocialNetworksSectionText,
+            sectionIcon: FeatherIcons.cast,
+            sectionBody: Container(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  //Company facebook
+                  companyDetails.companyNameFacebook == null
+                      ? SizedBox()
+                      : Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Text('Facebook: ',
+                                    style: descriptionFontStyleBold),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                GestureDetector(
+                                    onTap: () {
+                                      UrlLauncherHelper.launchUrl(companyDetails
+                                          .companyNameFacebook
+                                          .trim());
+                                    },
+                                    child: Text(
+                                      companyDetails.companyNameFacebook,
+                                      style: TextStyle(color: Colors.lightBlue),
+                                    )),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                          ],
+                        ),
 
-            //Company bdjobs
-            companyDetails.companyNameBdjobs == null
-                ? SizedBox()
-                : Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Text('BdJobs: ', style: descriptionFontStyleBold),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          GestureDetector(
-                              onTap: () {
-                                UrlLauncherHelper.launchUrl(
-                                    companyDetails.companyNameFacebook.trim());
-                              },
-                              child: Text(
-                                companyDetails.companyNameBdjobs,
-                                style: TextStyle(color: Colors.lightBlue),
-                              )),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                    ],
-                  ),
+                  //Company bdjobs
+                  companyDetails.companyNameBdjobs == null
+                      ? SizedBox()
+                      : Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Text('BdJobs: ',
+                                    style: descriptionFontStyleBold),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                GestureDetector(
+                                    onTap: () {
+                                      UrlLauncherHelper.launchUrl(companyDetails
+                                          .companyNameFacebook
+                                          .trim());
+                                    },
+                                    child: Text(
+                                      companyDetails.companyNameBdjobs,
+                                      style: TextStyle(color: Colors.lightBlue),
+                                    )),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                          ],
+                        ),
 
-            //Company google
-            companyDetails.companyNameGoogle == null
-                ? SizedBox()
-                : Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Text(
-                            'Google: ',
-                            style: descriptionFontStyleBold,
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          GestureDetector(
-                              onTap: () {
-                                UrlLauncherHelper.launchUrl(
-                                    companyDetails.companyNameGoogle.trim());
-                              },
-                              child: Text(
-                                companyDetails.companyNameGoogle,
-                                style: TextStyle(color: Colors.lightBlue),
-                              )),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                    ],
-                  ),
-          ],
-        ),
-      ),
-    );
+                  //Company google
+                  companyDetails.companyNameGoogle == null
+                      ? SizedBox()
+                      : Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Text(
+                                  'Google: ',
+                                  style: descriptionFontStyleBold,
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                GestureDetector(
+                                    onTap: () {
+                                      UrlLauncherHelper.launchUrl(companyDetails
+                                          .companyNameGoogle
+                                          .trim());
+                                    },
+                                    child: Text(
+                                      companyDetails.companyNameGoogle,
+                                      style: TextStyle(color: Colors.lightBlue),
+                                    )),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                          ],
+                        ),
+                ],
+              ),
+            ),
+          );
 
     var organizationHead = ProfileSectionBase(
       sectionIcon: FeatherIcons.userCheck,

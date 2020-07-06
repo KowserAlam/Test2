@@ -12,7 +12,7 @@ import 'package:p7app/features/user_profile/view_models/user_profile_view_model.
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/debouncer.dart';
-import 'package:p7app/main_app/views/widgets/common_date_picker_widget.dart';
+import 'package:p7app/main_app/views/widgets/common_date_picker_form_field.dart';
 import 'package:p7app/main_app/views/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/views/widgets/edit_screen_save_button.dart';
 import 'package:provider/provider.dart';
@@ -175,27 +175,6 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
       height: 20,
     );
 
-//    var nameOfCompany = CustomDropdownSearchFormField<Company>(
-//        popupItemDisabled: (Company s) => s.name.startsWith('I'),
-//        compareFn: (Company v1, Company v2) {
-//          return v1.name == v2.name;
-//        },
-//        mode: Mode.MENU,
-//        labelText: StringResources.skillText,
-//        hintText: StringResources.tapToSelectText,
-//        onFind: (String pattern) async {
-//          if (pattern.length > 2)
-//            return CompanyListRepository()
-//                .getList(query: pattern)
-//                .then((value) => value.fold((l) => [], (r) => r.companies));
-//          else
-//            return [];
-//        },
-//        itemAsString: (Company u) => u.name,
-//        onChanged: (value) {
-//          selectedCompany = value;
-//        },
-//        selectedItem: selectedCompany);
     var name = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -303,7 +282,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
           child: Consumer<UserProfileViewModel>(
             builder: (context, addEditExperienceProvider, ch) {
               return Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(8.0),
                 child: Form(
                   key: _formKey,
                   child: Column(
@@ -324,7 +303,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
                       spaceBetweenSections,
 
                       /// Joining Date
-                      CommonDatePickerWidget(
+                      CommonDatePickerFormField(
                         errorText: _joiningDateErrorText,
                         label: StringResources.joiningDateText,
                         date: _joiningDate,
@@ -359,7 +338,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
 
                       /// Leaving Date
                       if (!currentLyWorkingHere)
-                        CommonDatePickerWidget(
+                        CommonDatePickerFormField(
                           errorText: _leavingDateErrorText,
                           label: StringResources.leavingDateText,
                           date: _leavingDate,
@@ -387,33 +366,33 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
   }
 }
 
-class ErrorWidget extends StatelessWidget {
-  final String errorText;
-  final Widget child;
-
-  ErrorWidget({
-    this.errorText,
-    @required this.child,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    if (errorText == null) {
-      return child;
-    } else {
-      return Container(
-        child: Wrap(
-          children: <Widget>[
-            Container(
-              padding: EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                  border: Border.all(
-                      color: Theme.of(context).errorColor, width: 2)),
-              child: child,
-            )
-          ],
-        ),
-      );
-    }
-  }
-}
+//class ErrorWidget extends StatelessWidget {
+//  final String errorText;
+//  final Widget child;
+//
+//  ErrorWidget({
+//    this.errorText,
+//    @required this.child,
+//  });
+//
+//  @override
+//  Widget build(BuildContext context) {
+//    if (errorText == null) {
+//      return child;
+//    } else {
+//      return Container(
+//        child: Wrap(
+//          children: <Widget>[
+//            Container(
+//              padding: EdgeInsets.all(8),
+//              decoration: BoxDecoration(
+//                  border: Border.all(
+//                      color: Theme.of(context).errorColor, width: 2)),
+//              child: child,
+//            )
+//          ],
+//        ),
+//      );
+//    }
+//  }
+//}

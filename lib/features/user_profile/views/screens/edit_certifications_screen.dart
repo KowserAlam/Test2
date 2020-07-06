@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:p7app/features/user_profile/models/certification_info.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
-import 'package:p7app/main_app/views/widgets/common_date_picker_widget.dart';
+import 'package:p7app/main_app/views/widgets/common_date_picker_form_field.dart';
 import 'package:p7app/main_app/views/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
@@ -150,7 +150,7 @@ class _EditCertificationState extends State<EditCertification> {
 
   @override
   Widget build(BuildContext context) {
-    var spaceBetweenFields = SizedBox(height: 15,);;
+    var spaceBetweenFields = SizedBox(height: 8,);;
     return Scaffold(
       appBar: AppBar(
         title: Text('Cetification'),
@@ -161,126 +161,123 @@ class _EditCertificationState extends State<EditCertification> {
           ),
         ],
       ),
-      body: Container(
-        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
-        child: SingleChildScrollView(
-          child: Form(
-            key: _formKey,
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  //Certification Name
-                  CustomTextFormField(
-                    validator: Validator().nullFieldValidate,
-                    keyboardType: TextInputType.text,
-                    focusNode: _certificationNameFocusNode,
-                    textInputAction: TextInputAction.next,
-                    onFieldSubmitted: (a) {
-                      FocusScope.of(context)
-                          .requestFocus(_organizationNameFocusNode);
-                    },
-                    controller: _certificationNameController,
-                    labelText: StringResources.certificationNameText,
-                    hintText: StringResources.certificationNameText,
-                  ),
-                  spaceBetweenFields,
-                  //Organization Name
-                  CustomTextFormField(
-                    //validator: Validator().nullFieldValidate,
-                    keyboardType: TextInputType.text,
-                    focusNode: _organizationNameFocusNode,
-                    textInputAction: TextInputAction.next,
-                    onFieldSubmitted: (a) {
-                      FocusScope.of(context)
-                          .requestFocus(_credentialIdFocusNode);
-                    },
-                    controller: _organizationNameController,
-                    labelText: StringResources.certificationOrganizationNameText,
-                    hintText: StringResources.certificationOrganizationNameText,
-                  ),
-                  //Credential Id
-                  spaceBetweenFields,
-                  CustomTextFormField(
-                    //validator: Validator().nullFieldValidate,
-                    keyboardType: TextInputType.text,
-                    focusNode: _credentialIdFocusNode,
-                    textInputAction: TextInputAction.next,
-                    onFieldSubmitted: (a) {
-                      FocusScope.of(context)
-                          .requestFocus(_credentialUrlFocusNode);
-                    },
-                    controller: _credentialIdController,
-                    labelText: StringResources.certificationCredentialIdText,
-                    hintText: StringResources.certificationCredentialIdText,
-                  ),
-                  spaceBetweenFields,
-                  //Credential URL
-                  CustomTextFormField(
-                    //validator: Validator().nullFieldValidate,
-                    keyboardType: TextInputType.text,
-                    focusNode: _credentialUrlFocusNode,
-                    textInputAction: TextInputAction.next,
-                    onFieldSubmitted: (a) {
+      body: SingleChildScrollView(
+        child: Form(
+          key: _formKey,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                //Certification Name
+                CustomTextFormField(
+                  validator: Validator().nullFieldValidate,
+                  keyboardType: TextInputType.text,
+                  focusNode: _certificationNameFocusNode,
+                  textInputAction: TextInputAction.next,
+                  onFieldSubmitted: (a) {
+                    FocusScope.of(context)
+                        .requestFocus(_organizationNameFocusNode);
+                  },
+                  controller: _certificationNameController,
+                  labelText: StringResources.certificationNameText,
+                  hintText: StringResources.certificationNameText,
+                ),
+                spaceBetweenFields,
+                //Organization Name
+                CustomTextFormField(
+                  //validator: Validator().nullFieldValidate,
+                  keyboardType: TextInputType.text,
+                  focusNode: _organizationNameFocusNode,
+                  textInputAction: TextInputAction.next,
+                  onFieldSubmitted: (a) {
+                    FocusScope.of(context)
+                        .requestFocus(_credentialIdFocusNode);
+                  },
+                  controller: _organizationNameController,
+                  labelText: StringResources.certificationOrganizationNameText,
+                  hintText: StringResources.certificationOrganizationNameText,
+                ),
+                //Credential Id
+                spaceBetweenFields,
+                CustomTextFormField(
+                  //validator: Validator().nullFieldValidate,
+                  keyboardType: TextInputType.text,
+                  focusNode: _credentialIdFocusNode,
+                  textInputAction: TextInputAction.next,
+                  onFieldSubmitted: (a) {
+                    FocusScope.of(context)
+                        .requestFocus(_credentialUrlFocusNode);
+                  },
+                  controller: _credentialIdController,
+                  labelText: StringResources.certificationCredentialIdText,
+                  hintText: StringResources.certificationCredentialIdText,
+                ),
+                spaceBetweenFields,
+                //Credential URL
+                CustomTextFormField(
+                  //validator: Validator().nullFieldValidate,
+                  keyboardType: TextInputType.text,
+                  focusNode: _credentialUrlFocusNode,
+                  textInputAction: TextInputAction.next,
+                  onFieldSubmitted: (a) {
 //                      FocusScope.of(context)
 //                          .requestFocus(_organizationNameFocusNode);
-                    },
-                    controller: _credentialUrlController,
-                    labelText: StringResources.certificationCredentialUrlText,
-                    hintText: StringResources.certificationCredentialUrlText,
-                  ),
-                  spaceBetweenFields,
-                  CommonDatePickerWidget(
-                    errorText: blankIssueDateErrorText,
-                    label: StringResources.certificationIssueDateText,
-                    date: _issueDate,
-                    onDateTimeChanged: (v){
-                      setState(() {_issueDate = v;});
-                    },
-                    onTapDateClear: (){
-                      setState(() {_issueDate = null;});
-                    },
-                  ),
-                  //Has Expiry Date
-                  Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          Text('Has Expiry date'),
-                          Checkbox(
-                            value: hasExpiryDate,
-                            onChanged: (bool newValue){
-                              if(newValue){
-                                hasExpiryDate = newValue;
-                                setState(() {});
-                              }else{
-                                hasExpiryDate = newValue;
-                                setState(() {});
-                              }
-                            },
-                          )
-                        ],
-                      )
-                    ],
-                  ),
-                  spaceBetweenFields,
-                  //ExpiryDate
-                  hasExpiryDate?CommonDatePickerWidget(
-                    errorText: blankExpiryDateErrorText,
-                    label: StringResources.certificationExpiryDateText,
-                    date: _expirydate,
-                    onDateTimeChanged: (v){
-                      setState(() {_expirydate = v;});
-                    },
-                    onTapDateClear: (){
-                      setState(() {_expirydate = null;});
-                    },
-                  ):SizedBox(),
-                ],
-              ),
+                  },
+                  controller: _credentialUrlController,
+                  labelText: StringResources.certificationCredentialUrlText,
+                  hintText: StringResources.certificationCredentialUrlText,
+                ),
+                spaceBetweenFields,
+                CommonDatePickerFormField(
+                  errorText: blankIssueDateErrorText,
+                  label: StringResources.certificationIssueDateText,
+                  date: _issueDate,
+                  onDateTimeChanged: (v){
+                    setState(() {_issueDate = v;});
+                  },
+                  onTapDateClear: (){
+                    setState(() {_issueDate = null;});
+                  },
+                ),
+                //Has Expiry Date
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        Text('Has Expiry date'),
+                        Checkbox(
+                          value: hasExpiryDate,
+                          onChanged: (bool newValue){
+                            if(newValue){
+                              hasExpiryDate = newValue;
+                              setState(() {});
+                            }else{
+                              hasExpiryDate = newValue;
+                              setState(() {});
+                            }
+                          },
+                        )
+                      ],
+                    )
+                  ],
+                ),
+                spaceBetweenFields,
+                //ExpiryDate
+                hasExpiryDate?CommonDatePickerFormField(
+                  errorText: blankExpiryDateErrorText,
+                  label: StringResources.certificationExpiryDateText,
+                  date: _expirydate,
+                  onDateTimeChanged: (v){
+                    setState(() {_expirydate = v;});
+                  },
+                  onTapDateClear: (){
+                    setState(() {_expirydate = null;});
+                  },
+                ):SizedBox(),
+              ],
             ),
           ),
         ),

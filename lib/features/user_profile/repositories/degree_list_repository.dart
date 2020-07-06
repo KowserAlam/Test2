@@ -1,24 +1,40 @@
 import 'dart:convert';
 import 'package:dartz/dartz.dart';
+import 'package:flutter_cache/flutter_cache.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
 
 class DegreeListRepository{
+  var _cacheKey = "qualificationListUrl";
+
+  Future<String> _getData() async {
+    var cache = await Cache.load(_cacheKey);
+    if (cache != null) {
+      return cache;
+    } else {
+      var res = await ApiClient().getRequest(Urls.qualificationListUrl);
+      print(res.statusCode);
+//      print(res.body);
+      if (res.statusCode == 200) {
+        Cache.remember(_cacheKey, res.body, 60 * 60);
+        return res.body;
+      }
+      return res.body;
+    }
+  }
 
   Future<Either<AppError,List<String>>> getList() async{
     try{
-      var res = await ApiClient().getRequest(Urls.qualificationListUrl);
+//      var res = await ApiClient().getRequest(Urls.qualificationListUrl);
 
-      if(res.statusCode == 200){
-        var decodedJson = json.decode(res.body);
-        print(decodedJson);
+
+        var decodedJson = json.decode(await _getData());
+//        print(decodedJson);
 
         List<String> list = fromJson(decodedJson);
         return Right(list);
-      }else{
-        return Left(AppError.unknownError);
-      }
+
     }catch (e){
       print(e);
       return Left(AppError.serverError);

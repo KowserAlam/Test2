@@ -8,7 +8,7 @@ import 'package:p7app/features/user_profile/repositories/institution_list_reposi
 import 'package:p7app/features/user_profile/repositories/major_subject_list_repository.dart';
 import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
-import 'package:p7app/main_app/views/widgets/common_date_picker_widget.dart';
+import 'package:p7app/main_app/views/widgets/common_date_picker_form_field.dart';
 import 'package:p7app/features/user_profile/views/widgets/custom_dropdown_button_form_field.dart';
 import 'package:p7app/main_app/views/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
@@ -97,11 +97,9 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
       // error
       print(l);
     }, (List<Institution> r) {
-      print(r);
+//      print(r);
       _institutionListStreamController.sink.add(r);
-//      setState(() {
-//        _institutionList = r;
-//      });
+
     });
   }
 
@@ -333,7 +331,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
         }
       },
     );
-    var enrolledDate = CommonDatePickerWidget(
+    var enrolledDate = CommonDatePickerFormField(
       errorText: enrollDateErrorText,
       date: _enrollDate,
       label: StringResources.enrollDate,
@@ -348,7 +346,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
         });
       },
     );
-    var graduationDate = CommonDatePickerWidget(
+    var graduationDate = CommonDatePickerFormField(
       errorText: graduationDateErrorText,
       date: _graduationDate,
       label: StringResources.graduationDate,
@@ -406,7 +404,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
             return Form(
               key: _formKey,
               child: Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(8.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[

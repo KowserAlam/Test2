@@ -7,7 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:p7app/features/user_profile/models/skill.dart';
 import 'package:p7app/features/user_profile/models/skill_info.dart';
-import 'package:p7app/features/user_profile/repositories/skill_list_repository.dart';
+import 'package:p7app/main_app/repositories/skill_list_repository.dart';
 import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';

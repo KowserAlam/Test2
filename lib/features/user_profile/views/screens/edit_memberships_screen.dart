@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:p7app/features/user_profile/models/member_ship_info.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
-import 'package:p7app/main_app/views/widgets/common_date_picker_widget.dart';
+import 'package:p7app/main_app/views/widgets/common_date_picker_form_field.dart';
 import 'package:p7app/main_app/views/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/validator.dart';
@@ -148,119 +148,116 @@ class _EditMemberShipsState extends State<EditMemberShips> {
           ),
         ],
       ),
-      body: Container(
-        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
-        child: SingleChildScrollView(
-          child: Form(
-            key: _formKey,
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  //Organization Name
-                  CustomTextFormField(
-                    validator: Validator().nullFieldValidate,
-                    keyboardType: TextInputType.text,
-                    focusNode: _orgNameFocusNode,
-                    autofocus: true,
-                    //textInputAction: TextInputAction.next,
-                    onFieldSubmitted: (a) {
+      body: SingleChildScrollView(
+        child: Form(
+          key: _formKey,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                //Organization Name
+                CustomTextFormField(
+                  validator: Validator().nullFieldValidate,
+                  keyboardType: TextInputType.text,
+                  focusNode: _orgNameFocusNode,
+                  autofocus: true,
+                  //textInputAction: TextInputAction.next,
+                  onFieldSubmitted: (a) {
 //                      FocusScope.of(context)
 //                          .requestFocus(_positionHeldFocusNode);
-                    },
-                    controller: _orgNameController,
-                    labelText: StringResources.membershipOrgNameText,
-                    hintText: StringResources.membershipOrgNameText,
-                  ),
-                  spaceBetweenFields,
-                  //Position Held
-                  CustomTextFormField(
-                    //validator: Validator().nullFieldValidate,
-                    focusNode: _positionHeldFocusNode,
-                    keyboardType: TextInputType.text,
-                    //textInputAction: TextInputAction.next,
-                    onFieldSubmitted: (a) {
+                  },
+                  controller: _orgNameController,
+                  labelText: StringResources.membershipOrgNameText,
+                  hintText: StringResources.membershipOrgNameText,
+                ),
+                spaceBetweenFields,
+                //Position Held
+                CustomTextFormField(
+                  //validator: Validator().nullFieldValidate,
+                  focusNode: _positionHeldFocusNode,
+                  keyboardType: TextInputType.text,
+                  //textInputAction: TextInputAction.next,
+                  onFieldSubmitted: (a) {
 //                      FocusScope.of(context)
 //                          .requestFocus(_descriptionFocusNode);
-                    },
-                    controller: _positionHeldController,
-                    labelText: StringResources.membershipPositionHeldText,
-                    hintText: StringResources.membershipPositionHeldText,
-                  ),
-                  spaceBetweenFields,
+                  },
+                  controller: _positionHeldController,
+                  labelText: StringResources.membershipPositionHeldText,
+                  hintText: StringResources.membershipPositionHeldText,
+                ),
+                spaceBetweenFields,
 
-                  //Description
-                  CustomTextFormField(
-                    //validator: Validator().nullFieldValidate,
-                    maxLines: 8,
-                    minLines: 4,
-                    focusNode: _descriptionFocusNode,
-                    keyboardType: TextInputType.multiline,
-                    onFieldSubmitted: (a) {
+                //Description
+                CustomTextFormField(
+                  //validator: Validator().nullFieldValidate,
+                  maxLines: 8,
+                  minLines: 4,
+                  focusNode: _descriptionFocusNode,
+                  keyboardType: TextInputType.multiline,
+                  onFieldSubmitted: (a) {
 //                      FocusScope.of(context)
 //                          .requestFocus(_descriptionFocusNode);
-                    },
-                    controller: _descriptionController,
-                    labelText: StringResources.membershipDescriptionText,
-                    hintText: StringResources.membershipDescriptionText,
-                  ),
-                  spaceBetweenFields,
-                  //Start Date
-                  CommonDatePickerWidget(
-                    errorText: blankStartingDateWarningText,
-                    label: StringResources.startingDateText,
-                    date: _startDate,
-                    onDateTimeChanged: (v){setState(() {
-                      _startDate = v;
-                    });},
-                    onTapDateClear: (){
-                      setState(() {
-                        _startDate = null;
-                      });
-                    },
-                  ),
-                  //End Date
-                  !_membershipOngoing?CommonDatePickerWidget(
-                    errorText: blankEndingDateWarningText,
-                    label: StringResources.membershipEndDateText,
-                    date: _endDate,
-                    onDateTimeChanged: (v){setState(() {
-                      _endDate = v;
-                    });},
-                    onTapDateClear: (){
-                      setState(() {
-                        _endDate = null;
-                      });
-                    },
-                  ):SizedBox(),
-                  //Membership Ongoing
-                  Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          Checkbox(
-                            value: _membershipOngoing,
-                            onChanged: (bool newValue){
-                              if(newValue){
-                                _membershipOngoing = newValue;
-                                setState(() {});
-                              }else{
-                                _membershipOngoing = newValue;
-                                setState(() {});
-                              }
-                            },
-                          ),
-                          Text('Membership ongoing'),
-                        ],
-                      )
-                    ],
-                  ),
-                  spaceBetweenFields,
-                ],
-              ),
+                  },
+                  controller: _descriptionController,
+                  labelText: StringResources.membershipDescriptionText,
+                  hintText: StringResources.membershipDescriptionText,
+                ),
+                spaceBetweenFields,
+                //Start Date
+                CommonDatePickerFormField(
+                  errorText: blankStartingDateWarningText,
+                  label: StringResources.startingDateText,
+                  date: _startDate,
+                  onDateTimeChanged: (v){setState(() {
+                    _startDate = v;
+                  });},
+                  onTapDateClear: (){
+                    setState(() {
+                      _startDate = null;
+                    });
+                  },
+                ),
+                //End Date
+                !_membershipOngoing?CommonDatePickerFormField(
+                  errorText: blankEndingDateWarningText,
+                  label: StringResources.membershipEndDateText,
+                  date: _endDate,
+                  onDateTimeChanged: (v){setState(() {
+                    _endDate = v;
+                  });},
+                  onTapDateClear: (){
+                    setState(() {
+                      _endDate = null;
+                    });
+                  },
+                ):SizedBox(),
+                //Membership Ongoing
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        Checkbox(
+                          value: _membershipOngoing,
+                          onChanged: (bool newValue){
+                            if(newValue){
+                              _membershipOngoing = newValue;
+                              setState(() {});
+                            }else{
+                              _membershipOngoing = newValue;
+                              setState(() {});
+                            }
+                          },
+                        ),
+                        Text('Membership ongoing'),
+                      ],
+                    )
+                  ],
+                ),
+                spaceBetweenFields,
+              ],
             ),
           ),
         ),

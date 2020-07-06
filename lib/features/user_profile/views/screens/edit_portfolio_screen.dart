@@ -214,53 +214,50 @@ class _EditPortfolioState extends State<EditPortfolio> {
           ),
         ],
       ),
-      body: Container(
-        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
-        child: SingleChildScrollView(
-          child: Form(
-            key: _formKey,
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  SizedBox(
-                    height: 10,
-                  ),
-                  portfolioImage,
-                  //Name
-                  SizedBox(
-                    height: 10,
-                  ),
-                  CustomTextFormField(
-                    validator: Validator().nullFieldValidate,
-                    keyboardType: TextInputType.text,
-                    focusNode: _portfolioNameFocusNode,
-                    textInputAction: TextInputAction.next,
-                    onFieldSubmitted: (a) {
-                      FocusScope.of(context)
-                          .requestFocus(_portfolioDescriptionFocusNode);
-                    },
-                    controller: _portfolioNameController,
-                    labelText: StringResources.portfolioNameText,
-                    hintText: StringResources.portfolioNameText,
-                  ),
-                  spaceBetweenFields,
-                  //Description
-                  //Name
-                  CustomTextFormField(
-                    keyboardType: TextInputType.multiline,
-                    minLines: 5,
-                    maxLines: 12,
-                    maxLength: 800,
-                    focusNode: _portfolioDescriptionFocusNode,
-                    controller: _portfolioDescriptionController,
-                    labelText: StringResources.portfolioDescriptionText,
-                    hintText: StringResources.portfolioDescriptionText,
-                  ),
-                  spaceBetweenFields,
-                ],
-              ),
+      body: SingleChildScrollView(
+        child: Form(
+          key: _formKey,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                SizedBox(
+                  height: 10,
+                ),
+                portfolioImage,
+                //Name
+                SizedBox(
+                  height: 10,
+                ),
+                CustomTextFormField(
+                  validator: Validator().nullFieldValidate,
+                  keyboardType: TextInputType.text,
+                  focusNode: _portfolioNameFocusNode,
+                  textInputAction: TextInputAction.next,
+                  onFieldSubmitted: (a) {
+                    FocusScope.of(context)
+                        .requestFocus(_portfolioDescriptionFocusNode);
+                  },
+                  controller: _portfolioNameController,
+                  labelText: StringResources.portfolioNameText,
+                  hintText: StringResources.portfolioNameText,
+                ),
+                spaceBetweenFields,
+                //Description
+                //Name
+                CustomTextFormField(
+                  keyboardType: TextInputType.multiline,
+                  minLines: 5,
+                  maxLines: 12,
+                  maxLength: 800,
+                  focusNode: _portfolioDescriptionFocusNode,
+                  controller: _portfolioDescriptionController,
+                  labelText: StringResources.portfolioDescriptionText,
+                  hintText: StringResources.portfolioDescriptionText,
+                ),
+                spaceBetweenFields,
+              ],
             ),
           ),
         ),

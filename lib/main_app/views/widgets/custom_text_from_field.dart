@@ -12,14 +12,20 @@ class CustomTextFormField extends StatelessWidget {
   final EdgeInsetsGeometry contentPadding;
   final FocusNode focusNode;
   final bool autofocus;
+  final bool enabled;
+  final bool readOnly;
   final bool autovalidate;
   final TextInputAction textInputAction;
   final ValueChanged<String> onFieldSubmitted;
   final Widget prefix;
   final Function onChanged;
-  final   int maxLength;
+  final int maxLength;
+  final GestureTapCallback onTap;
 
   const CustomTextFormField({
+    this.enabled,
+    this.readOnly = false,
+    this.onTap,
     this.maxLength,
     this.validator,
     this.prefix,
@@ -37,21 +43,18 @@ class CustomTextFormField extends StatelessWidget {
     this.contentPadding =
         const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
     this.maxLines = 1,
-
   });
 
   @override
   Widget build(BuildContext context) {
-
     FocusScopeNode currentFocus = FocusScope.of(context);
-
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        if(labelText != null)
-        Text("  ${labelText ?? ""}",
-            style: TextStyle(fontWeight: FontWeight.bold)),
+        if (labelText != null)
+          Text("  ${labelText ?? ""}",
+              style: TextStyle(fontWeight: FontWeight.bold)),
         SizedBox(
           height: 5,
         ),
@@ -67,6 +70,9 @@ class CustomTextFormField extends StatelessWidget {
             ],
           ),
           child: TextFormField(
+            enabled: enabled,
+            readOnly: readOnly,
+            onTap: onTap,
             maxLength: maxLength,
             minLines: minLines,
             onChanged: onChanged,

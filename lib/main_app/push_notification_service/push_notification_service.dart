@@ -19,12 +19,21 @@ class PushNotificationService{
 
   }
 
+  void fcmSubscribe() {
+    _firebaseMessaging.subscribeToTopic('news');
+
+  }
+
+  void fcmUnSubscribe() {
+    _firebaseMessaging.unsubscribeFromTopic('news');
+  }
+
   _init() async{
     _firebaseMessaging.requestNotificationPermissions();
     _firebaseMessaging.onIosSettingsRegistered.listen((d) {
       print(d);
     });
-
+    fcmSubscribe();
     _firebaseMessaging.configure(
       onMessage: (Map<String, dynamic> message) async {
         print("onMessage: $message");
@@ -56,7 +65,7 @@ class PushNotificationService{
 
   Future<String> getToken()async{
     var token = await     _firebaseMessaging.getToken();
-    print(token);
+    debugPrint("FCMT Token: $token");
     return token;
   }
 }
