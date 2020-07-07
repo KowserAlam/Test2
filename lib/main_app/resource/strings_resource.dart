@@ -418,6 +418,7 @@ class StringResources {
   static var unableToSaveData = "Unable to save data";
   static var unableToLoadData= "Unable to load data";
   static var unableToApplyText = "Unable to apply";
+  static var couldNotReachServer = "Couldn't reach server";
   static var unableToAddAsFavoriteText = "Unable to add as favorite";
   static var aPasswordRestLinkHasBeenSentToText = "A password reset email has been sent to";
 

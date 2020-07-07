@@ -8,6 +8,7 @@ import 'package:p7app/features/job/repositories/job_repository.dart';
 import 'package:p7app/features/job/view/job_details.dart';
 import 'package:p7app/features/job/view/widgets/job_list_tile_widget.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
+import 'package:p7app/main_app/views/widgets/common_prompt_dialog.dart';
 import 'package:p7app/main_app/views/widgets/loader.dart';
 import 'package:provider/provider.dart';
 
@@ -26,6 +27,28 @@ class _OpenJobsWidgetState extends State<OpenJobsWidget> {
   List<JobListModel> _jobs = [];
   bool _isBusy = true;
 
+
+  _showApplyForJobDialog(JobListModel job, int index) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return CommonPromptDialog(
+            titleText: StringResources.doYouWantToApplyText,
+            onCancel: () {
+              Navigator.pop(context);
+            },
+            onAccept: () async{
+              bool isSuccessful =
+              await JobRepository().applyForJob(job.jobId);
+              if (isSuccessful) {
+                _jobs[index].isApplied = true;
+                if(this.mounted)
+                  setState(() {});
+              }
+            },
+          );
+        });
+  }
   @override
   void initState() {
     JobRepository().getOpenJobs(widget.companyName).then((value) {
@@ -80,18 +103,14 @@ class _OpenJobsWidgetState extends State<OpenJobsWidget> {
             return JobListTileWidget(
               job,
               onApply: () async {
-                bool isSuccessful =
-                    await JobRepository().applyForJob(job.jobId);
-                if (isSuccessful) {
-                  _jobs[index].isApplied = true;
-                  setState(() {});
-                }
+                _showApplyForJobDialog(job,index);
               },
               onFavorite: () async {
                 bool isSuccessful =
                     await JobRepository().addToFavorite(job.jobId);
                 if (isSuccessful) {
                   _jobs[index].isFavourite = !_jobs[index].isFavourite;
+                  if(this.mounted)
                   setState(() {});
                 }
               },

@@ -47,8 +47,6 @@ class _JobDetailsState extends State<JobDetails> {
 
   @override
   void initState() {
-    // TODO: implement initState
-//    getDetails();
     print(widget.slug);
     getJobDetails();
     super.initState();
@@ -224,7 +222,6 @@ class _JobDetailsState extends State<JobDetails> {
           elevation: 2,
           title: Text(
             StringResources.jobDetailsAppBarTitle,
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
           centerTitle: true,
         ),
@@ -356,540 +353,590 @@ class _JobDetailsState extends State<JobDetails> {
         ],
       ),
     );
-    var description = Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              Transform.rotate(
-                  angle: pi,
-                  child: Transform(
-                      alignment: Alignment.center,
-                      transform: Matrix4.rotationY(pi),
-                      child: FaIcon(
-                        FontAwesomeIcons.alignLeft,
-                        size: fontAwesomeIconSize,
-                      ))),
-              SizedBox(
-                width: 5,
-              ),
-              Text(
-                StringResources.jobDescriptionTitle,
-                style: sectionTitleFont,
-              )
-            ],
-          ),
-          SizedBox(
-            height: 5,
-          ),
-          Text(
-            jobDetails.descriptions != null
-                ? jobDetails.descriptions
-                : StringResources.unspecifiedText,
-            style: descriptionFontStyle,
-          )
-        ],
-      ),
-    );
-    var responsibilities = Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              FaIcon(
-                FontAwesomeIcons.bolt,
-                size: fontAwesomeIconSize,
-              ),
-              SizedBox(
-                width: 5,
-              ),
-              Text(
-                StringResources.responsibilitiesTitle,
-                style: sectionTitleFont,
-              )
-            ],
-          ),
-          SizedBox(
-            height: 5,
-          ),
-          HtmlWidget(
-            jobDetails?.responsibilities ?? "",
-            textStyle: descriptionFontStyle,
-          ),
+
+    var description = (jobDetails.descriptions.isEmptyOrNull)
+        ? SizedBox()
+        : Container(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                spaceBetweenSections,
+                Row(
+                  children: <Widget>[
+                    Transform.rotate(
+                        angle: pi,
+                        child: FaIcon(
+                          FontAwesomeIcons.alignLeft,
+                          size: fontAwesomeIconSize,
+                        )),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text(
+                      StringResources.jobDescriptionTitle,
+                      style: sectionTitleFont,
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Text(
+                  jobDetails.descriptions != null
+                      ? jobDetails.descriptions
+                      : StringResources.unspecifiedText,
+                  style: descriptionFontStyle,
+                )
+              ],
+            ),
+          );
+    var responsibilities = (jobDetails.responsibilities.isEmptyOrNull)
+        ? SizedBox()
+        : Container(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                spaceBetweenSections,
+                Row(
+                  children: <Widget>[
+                    FaIcon(
+                      FontAwesomeIcons.bolt,
+                      size: fontAwesomeIconSize,
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text(
+                      StringResources.responsibilitiesTitle,
+                      style: sectionTitleFont,
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                HtmlWidget(
+                  jobDetails?.responsibilities ?? "",
+                  textStyle: descriptionFontStyle,
+                ),
 //          Text(
 //            jobDetails?.responsibilities ?? "",
 //            style: descriptionFontStyle,
 //          )
-        ],
-      ),
-    );
-    var education = Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              FaIcon(
-                FontAwesomeIcons.book,
-                size: fontAwesomeIconSize,
-              ),
-              SizedBox(
-                width: 5,
-              ),
-              Text(
-                StringResources.educationTitle,
-                style: sectionTitleFont,
-              )
-            ],
-          ),
-          SizedBox(
-            height: 5,
-          ),
-          Text(
-            jobDetails.education != null
-                ? jobDetails.education
-                : StringResources.unspecifiedText,
-            style: descriptionFontStyle,
-          )
-        ],
-      ),
-    );
+              ],
+            ),
+          );
+    var education = (jobDetails.education.isEmptyOrNull)
+        ? SizedBox()
+        : Container(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                spaceBetweenSections,
+                Row(
+                  children: <Widget>[
+                    FaIcon(
+                      FontAwesomeIcons.book,
+                      size: fontAwesomeIconSize,
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text(
+                      StringResources.educationTitle,
+                      style: sectionTitleFont,
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Text(
+                  jobDetails.education != null
+                      ? jobDetails.education
+                      : StringResources.unspecifiedText,
+                  style: descriptionFontStyle,
+                )
+              ],
+            ),
+          );
 
-    var additionalRequirements = Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              FaIcon(
-                FontAwesomeIcons.tools,
-                size: fontAwesomeIconSize,
-              ),
-              SizedBox(
-                width: 5,
-              ),
-              Text(
-                StringResources.jobAdditionalRequirementsText,
-                style: sectionTitleFont,
-              )
-            ],
-          ),
-          SizedBox(
-            height: 5,
-          ),
-          HtmlWidget(
-            jobDetails?.additionalRequirements ?? "",
-            textStyle: descriptionFontStyle,
-          ),
-        ],
-      ),
-    );
+    var additionalRequirements =
+        (jobDetails.additionalRequirements.isEmptyOrNull)
+            ? SizedBox()
+            : Container(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    spaceBetweenSections,
+                    Row(
+                      children: <Widget>[
+                        FaIcon(
+                          FontAwesomeIcons.tools,
+                          size: fontAwesomeIconSize,
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                          StringResources.jobAdditionalRequirementsText,
+                          style: sectionTitleFont,
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    HtmlWidget(
+                      jobDetails?.additionalRequirements ?? "",
+                      textStyle: descriptionFontStyle,
+                    ),
+                  ],
+                ),
+              );
 
-    var location = Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              FaIcon(
-                Icons.pin_drop,
-                size: fontAwesomeIconSize,
-              ),
-              SizedBox(
-                width: 5,
-              ),
-              Text(
-                StringResources.jobLocation,
-                style: sectionTitleFont,
-              )
-            ],
-          ),
-          SizedBox(
-            height: 5,
-          ),
-          jobSummeryRichText(
-              StringResources.jobAddressText,
-              jobDetails.jobAddress != null
-                  ? jobDetails.jobAddress
-                  : StringResources.unspecifiedText),
-          SizedBox(
-            height: 5,
-          ),
-          jobSummeryRichText(
-              StringResources.jobAreaText,
-              jobDetails.jobArea != null
-                  ? jobDetails.jobArea
-                  : StringResources.unspecifiedText),
-          SizedBox(
-            height: 5,
-          ),
-          jobSummeryRichText(
-              StringResources.jobCityText,
-              jobDetails.jobCity != null
-                  ? jobDetails.jobCity
-                  : StringResources.unspecifiedText),
-          SizedBox(
-            height: 5,
-          ),
-          jobSummeryRichText(
-              StringResources.jobCountryText,
-              jobDetails.jobCountry != null
-                  ? jobDetails.jobCountry
-                  : StringResources.unspecifiedText),
-          SizedBox(
-            height: 5,
-          ),
-        ],
-      ),
-    );
-    var aboutJob = Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              FaIcon(
-                FontAwesomeIcons.exclamationCircle,
-                size: fontAwesomeIconSize,
-              ),
-              SizedBox(
-                width: 5,
-              ),
-              Text(
-                StringResources.jobAboutText,
-                style: sectionTitleFont,
-              )
-            ],
-          ),
-          SizedBox(
-            height: 5,
-          ),
-          if (jobDetails.jobType.isNotEmptyOrNotNull)
-            jobSummeryRichText(StringResources.jobTypeText,
-                refactorAboutJobStrings(jobDetails.jobType)),
-          SizedBox(
-            height: 5,
-          ),
-          jobSummeryRichText(
-              StringResources.jobNature,
-              jobDetails.jobNature != null
-                  ? refactorAboutJobStrings(jobDetails.jobNature)
-                  : StringResources.unspecifiedText),
-          SizedBox(
-            height: 5,
-          ),
-          jobSummeryRichText(
-              StringResources.jobSiteText,
-              jobDetails.jobSite != null
-                  ? refactorAboutJobStrings(jobDetails.jobSite)
-                  : StringResources.unspecifiedText),
-          SizedBox(
-            height: 5,
-          ),
-        ],
-      ),
-    );
-    var aboutCompany = Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              FaIcon(
-                FontAwesomeIcons.solidBuilding,
-                size: fontAwesomeIconSize,
-              ),
-              SizedBox(
-                width: 5,
-              ),
-              Text(
-                StringResources.jobAboutCompanyText,
-                style: sectionTitleFont,
-              )
-            ],
-          ),
-          SizedBox(
-            height: 5,
-          ),
-          Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Text(
-                StringResources.jobCompanyProfileText + ': ',
-                style: descriptionFontStyleBold,
-              ),
-              jobDetails.companyProfile != null
-                  ? GestureDetector(
-                      onTap: () {
-                        UrlLauncherHelper.launchUrl(
-                            jobDetails.companyProfile.trim());
-                      },
-                      child: Text(
-                        jobDetails.companyProfile,
-                        style: TextStyle(color: Colors.lightBlue),
-                      ))
-                  : Text(StringResources.unspecifiedText),
-            ],
-          ),
-          SizedBox(
-            height: 5,
-          ),
-          Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Text(
-                StringResources.companyWebAddressText + ': ',
-                style: descriptionFontStyleBold,
-              ),
-              jobDetails.company != null
-                  ? GestureDetector(
-                      onTap: () {
-                        jobDetails.company.webAddress != null
-                            ? UrlLauncherHelper.launchUrl(
-                                jobDetails.companyProfile.trim())
-                            : null;
-                      },
-                      child: Text(
-                        jobDetails.company.webAddress ?? "",
-                        style: TextStyle(color: Colors.lightBlue),
-                      ))
-                  : Text(StringResources.unspecifiedText),
-            ],
-          ),
-          SizedBox(
-            height: 5,
-          ),
+    var location = (jobDetails.jobAddress.isEmptyOrNull &&
+            jobDetails.jobArea.isEmptyOrNull &&
+            jobDetails.jobCity.isEmptyOrNull &&
+            jobDetails.jobCountry.isEmptyOrNull)
+        ? SizedBox()
+        : Container(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                spaceBetweenSections,
+                Row(
+                  children: <Widget>[
+                    FaIcon(
+                      Icons.pin_drop,
+                      size: fontAwesomeIconSize,
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text(
+                      StringResources.jobLocation,
+                      style: sectionTitleFont,
+                    )
+                  ],
+                ),
+                SizedBox(height: 5),
+                jobSummeryRichText(
+                    StringResources.jobAddressText,
+                    jobDetails.jobAddress != null
+                        ? jobDetails.jobAddress
+                        : StringResources.unspecifiedText),
+                SizedBox(
+                  height: 5,
+                ),
+                jobSummeryRichText(
+                    StringResources.jobAreaText,
+                    jobDetails.jobArea != null
+                        ? jobDetails.jobArea
+                        : StringResources.unspecifiedText),
+                SizedBox(
+                  height: 5,
+                ),
+                jobSummeryRichText(
+                    StringResources.jobCityText,
+                    jobDetails.jobCity != null
+                        ? jobDetails.jobCity
+                        : StringResources.unspecifiedText),
+                SizedBox(
+                  height: 5,
+                ),
+                jobSummeryRichText(
+                    StringResources.jobCountryText,
+                    jobDetails.jobCountry != null
+                        ? jobDetails.jobCountry
+                        : StringResources.unspecifiedText),
+                SizedBox(
+                  height: 5,
+                ),
+              ],
+            ),
+          );
+
+    var aboutJob = (jobDetails.jobType.isEmptyOrNull &&
+            jobDetails.jobSite.isEmptyOrNull &&
+            jobDetails.jobNature.isEmptyOrNull)
+        ? SizedBox()
+        : Container(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                spaceBetweenSections,
+                Row(
+                  children: <Widget>[
+                    FaIcon(
+                      FontAwesomeIcons.exclamationCircle,
+                      size: fontAwesomeIconSize,
+                    ),
+                    SizedBox(width: 5),
+                    Text(
+                      StringResources.jobAboutText,
+                      style: sectionTitleFont,
+                    )
+                  ],
+                ),
+                SizedBox(height: 5),
+                if (jobDetails.jobType.isNotEmptyOrNotNull)
+                  jobSummeryRichText(StringResources.jobTypeText,
+                      refactorAboutJobStrings(jobDetails.jobType)),
+                SizedBox(
+                  height: 5,
+                ),
+                jobSummeryRichText(
+                    StringResources.jobNature,
+                    jobDetails.jobNature != null
+                        ? refactorAboutJobStrings(jobDetails.jobNature)
+                        : StringResources.unspecifiedText),
+                SizedBox(
+                  height: 5,
+                ),
+                jobSummeryRichText(
+                    StringResources.jobSiteText,
+                    jobDetails.jobSite != null
+                        ? refactorAboutJobStrings(jobDetails.jobSite)
+                        : StringResources.unspecifiedText),
+                SizedBox(
+                  height: 5,
+                ),
+              ],
+            ),
+          );
+
+    var aboutCompany = (jobDetails.companyProfile.isEmptyOrNull &&
+            jobDetails?.company?.webAddress == null)
+        ? SizedBox()
+        : Container(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                spaceBetweenSections,
+                Row(
+                  children: <Widget>[
+                    FaIcon(
+                      FontAwesomeIcons.solidBuilding,
+                      size: fontAwesomeIconSize,
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text(
+                      StringResources.jobAboutCompanyText,
+                      style: sectionTitleFont,
+                    )
+                  ],
+                ),
+                SizedBox(height: 5),
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      StringResources.jobCompanyProfileText + ': ',
+                      style: descriptionFontStyleBold,
+                    ),
+                    jobDetails.companyProfile != null
+                        ? GestureDetector(
+                            onTap: () {
+                              UrlLauncherHelper.launchUrl(
+                                  jobDetails.companyProfile.trim());
+                            },
+                            child: Text(
+                              jobDetails.companyProfile,
+                              style: TextStyle(color: Colors.lightBlue),
+                            ))
+                        : Text(StringResources.unspecifiedText),
+                  ],
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      StringResources.companyWebAddressText + ': ',
+                      style: descriptionFontStyleBold,
+                    ),
+                    jobDetails.company != null
+                        ? GestureDetector(
+                            onTap: () {
+                              jobDetails.company.webAddress != null
+                                  ? UrlLauncherHelper.launchUrl(
+                                      jobDetails.companyProfile.trim())
+                                  : null;
+                            },
+                            child: Text(
+                              jobDetails.company.webAddress ?? "",
+                              style: TextStyle(color: Colors.lightBlue),
+                            ))
+                        : Text(StringResources.unspecifiedText),
+                  ],
+                ),
+                SizedBox(
+                  height: 5,
+                ),
 //          jobSummeryRichText(StringUtils.jobNature, jobDetails.jobNature!=null?jobDetails.jobNature:StringUtils.unspecifiedText),
 //          SizedBox(height: 5,),
-        ],
-      ),
-    );
-    var salary = Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              FaIcon(
-                FontAwesomeIcons.moneyBillWave,
-                size: fontAwesomeIconSize,
-              ),
-              SizedBox(
-                width: 5,
-              ),
-              Text(
-                StringResources.salaryTitle,
-                style: sectionTitleFont,
-              )
-            ],
-          ),
-          SizedBox(
-            height: 5,
-          ),
-          jobSummeryRichText(
-            StringResources.currentOffer,
-            jobDetails.salary != null
-                ? jobDetails.salary.toString() +
-                    ' ' +
-                    (jobDetails.currency != null ? jobDetails.currency : '')
-                : StringResources.unspecifiedText,
-          ),
-          jobSummeryRichText(
-            StringResources.salaryRangeText,
-            (jobDetails.salaryMin != null
-                    ? jobDetails.salaryMin.toString()
-                    : StringResources.unspecifiedText) +
-                "-" +
-                (jobDetails.salaryMax != null
-                    ? jobDetails.salaryMax.toString() +
-                        ' ' +
-                        (jobDetails.currency != null ? jobDetails.currency : '')
-                    : StringResources.unspecifiedText),
-          )
-        ],
-      ),
-    );
-    var otherBenefits = Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              FaIcon(
-                FontAwesomeIcons.gift,
-                size: fontAwesomeIconSize,
-              ),
-              SizedBox(
-                width: 5,
-              ),
-              Text(
-                StringResources.otherBenefitsTitle,
-                style: sectionTitleFont,
-              )
-            ],
-          ),
-          SizedBox(
-            height: 5,
-          ),
-          Text(
-            jobDetails.otherBenefits != null
-                ? jobDetails.otherBenefits
-                : StringResources.unspecifiedText,
-            style: descriptionFontStyle,
-          )
-        ],
-      ),
-    );
-    var jobSummary = Column(
-      children: <Widget>[
-        Row(
-          children: <Widget>[
-            Icon(Icons.list),
-            Text(
-              StringResources.jobSummeryTitle,
-              style: sectionTitleFont,
+              ],
             ),
-          ],
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        Container(
-          width: double.infinity,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5),
-              //gradient: isDarkMode?AppTheme.darkLinearGradient:AppTheme.lightLinearGradient,
-              border: Border.all(width: 1, color: summerySectionBorderColor),
-              color: summerySectionColor),
-          padding: EdgeInsets.all(10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          );
+
+    var jobSummary = (jobDetails.jobCategory.isEmptyOrNull &&
+            jobDetails.vacancy != null &&
+            jobDetails.qualification.isEmptyOrNull &&
+            jobDetails.gender.isEmptyOrNull &&
+            jobDetails.experience.isEmptyOrNull)
+        ? SizedBox()
+        : Column(
             children: <Widget>[
               Row(
                 children: <Widget>[
-                  jobSummeryRichText(
-                      StringResources.category,
-                      jobDetails.jobCategory != null
-                          ? jobDetails.jobCategory
-                          : StringResources.unspecifiedText)
+                  Icon(Icons.list),
+                  Text(
+                    StringResources.jobSummeryTitle,
+                    style: sectionTitleFont,
+                  ),
                 ],
               ),
               SizedBox(
-                height: 5,
+                height: 10,
               ),
-              Row(
-                children: <Widget>[
-                  jobSummeryRichText(
-                      StringResources.vacancy,
-                      jobDetails.vacancy != null
-                          ? jobDetails.vacancy.toString()
-                          : StringResources.unspecifiedText)
-                ],
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              Row(
-                children: <Widget>[
-                  jobSummeryRichText(
-                      StringResources.qualificationText,
-                      jobDetails.qualification != null
-                          ? jobDetails.qualification
-                          : StringResources.unspecifiedText)
-                ],
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              Row(
-                children: <Widget>[
-                  jobSummeryRichText(
-                      StringResources.gender,
-                      jobDetails.gender != null
-                          ? jobDetails.gender
-                          : StringResources.unspecifiedText)
-                ],
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              Row(
-                children: <Widget>[
-                  jobSummeryRichText(
-                      StringResources.experience,
-                      jobDetails.experience != null
-                          ? jobDetails.experience
-                          : StringResources.unspecifiedText)
-                ],
-              ),
-              SizedBox(
-                height: 5,
-              ),
-            ],
-          ),
-        )
-      ],
-    );
-    var requiredSkills = Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              FaIcon(
-                FontAwesomeIcons.tools,
-                size: fontAwesomeIconSize,
-              ),
-              SizedBox(
-                width: 5,
-              ),
-              Text(
-                StringResources.requiredSkills,
-                style: sectionTitleFont,
+              Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    //gradient: isDarkMode?AppTheme.darkLinearGradient:AppTheme.lightLinearGradient,
+                    border:
+                        Border.all(width: 1, color: summerySectionBorderColor),
+                    color: summerySectionColor),
+                padding: EdgeInsets.all(10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        jobSummeryRichText(
+                            StringResources.category,
+                            jobDetails.jobCategory != null
+                                ? jobDetails.jobCategory
+                                : StringResources.unspecifiedText)
+                      ],
+                    ),
+                    SizedBox(height: 5),
+                    Row(
+                      children: <Widget>[
+                        jobSummeryRichText(
+                            StringResources.vacancy,
+                            jobDetails.vacancy != null
+                                ? jobDetails.vacancy.toString()
+                                : StringResources.unspecifiedText)
+                      ],
+                    ),
+                    SizedBox(height: 5),
+                    Row(
+                      children: <Widget>[
+                        jobSummeryRichText(
+                            StringResources.qualificationText,
+                            jobDetails.qualification != null
+                                ? jobDetails.qualification
+                                : StringResources.unspecifiedText)
+                      ],
+                    ),
+                    SizedBox(height: 5),
+                    Row(
+                      children: <Widget>[
+                        jobSummeryRichText(
+                            StringResources.gender,
+                            jobDetails.gender != null
+                                ? jobDetails.gender
+                                : StringResources.unspecifiedText)
+                      ],
+                    ),
+                    SizedBox(height: 5),
+                    Row(
+                      children: <Widget>[
+                        jobSummeryRichText(
+                            StringResources.experience,
+                            jobDetails.experience != null
+                                ? jobDetails.experience
+                                : StringResources.unspecifiedText)
+                      ],
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                  ],
+                ),
               )
             ],
-          ),
-          SizedBox(
-            height: 5,
-          ),
-          Text(
-            skillListToString(),
-            style: descriptionFontStyle,
-          )
-        ],
-      ),
-    );
+          );
 
-    var benefits = Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        SizedBox(
-          height: 5,
-        ),
-        salary,
-        spaceBetweenSections,
-        otherBenefits
-      ],
-    );
+    var requiredSkills = skillListToString().isEmptyOrNull
+        ? SizedBox()
+        : Container(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                spaceBetweenSections,
+                Row(
+                  children: <Widget>[
+                    FaIcon(
+                      FontAwesomeIcons.tools,
+                      size: fontAwesomeIconSize,
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text(
+                      StringResources.requiredSkills,
+                      style: sectionTitleFont,
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Text(
+                  skillListToString(),
+                  style: descriptionFontStyle,
+                )
+              ],
+            ),
+          );
 
-    var benefitsHeader = Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              StringResources.benefitSectionTitle,
-              style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-            )
-          ],
-        ),
-      ],
-    );
+    bool hideSalary = (jobDetails.salary == null &&
+        jobDetails.salaryMin.isEmptyOrNull &&
+        jobDetails.salaryMax.isEmptyOrNull);
+    var salary = hideSalary
+        ? SizedBox()
+        : Container(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    FaIcon(
+                      FontAwesomeIcons.moneyBillWave,
+                      size: fontAwesomeIconSize,
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text(
+                      StringResources.salaryTitle,
+                      style: sectionTitleFont,
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                jobSummeryRichText(
+                  StringResources.currentOffer,
+                  jobDetails.salary != null
+                      ? jobDetails.salary.toString() +
+                          ' ' +
+                          (jobDetails.currency != null
+                              ? jobDetails.currency
+                              : '')
+                      : StringResources.unspecifiedText,
+                ),
+                jobSummeryRichText(
+                  StringResources.salaryRangeText,
+                  (jobDetails.salaryMin != null
+                          ? jobDetails.salaryMin.toString()
+                          : StringResources.unspecifiedText) +
+                      "-" +
+                      (jobDetails.salaryMax != null
+                          ? jobDetails.salaryMax.toString() +
+                              ' ' +
+                              (jobDetails.currency != null
+                                  ? jobDetails.currency
+                                  : '')
+                          : StringResources.unspecifiedText),
+                )
+              ],
+            ),
+          );
+
+    bool hideOtherBenefits = jobDetails.otherBenefits.isEmptyOrNull;
+    var otherBenefits = hideOtherBenefits
+        ? SizedBox()
+        : Container(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    FaIcon(
+                      FontAwesomeIcons.gift,
+                      size: fontAwesomeIconSize,
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text(
+                      StringResources.otherBenefitsTitle,
+                      style: sectionTitleFont,
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Text(
+                  jobDetails.otherBenefits != null
+                      ? jobDetails.otherBenefits
+                      : StringResources.unspecifiedText,
+                  style: descriptionFontStyle,
+                )
+              ],
+            ),
+          );
+    bool hideBenefits = hideSalary && hideOtherBenefits;
+    var benefits = hideBenefits
+        ? SizedBox()
+        : Container(
+            padding: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: sectionColor,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                SizedBox(
+                  height: 5,
+                ),
+                salary,
+                spaceBetweenSections,
+                otherBenefits,
+                SizedBox(height: 5),
+              ],
+            ),
+          );
+
+    var benefitsHeader = hideBenefits
+        ? SizedBox()
+        : Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              spaceBetweenSections,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    StringResources.benefitSectionTitle,
+                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                  )
+                ],
+              ),
+            ],
+          );
 
     var betweenDividerSection = Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -1010,46 +1057,21 @@ class _JobDetailsState extends State<JobDetails> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       jobSummary,
-                      spaceBetweenSections,
                       aboutJob,
-                      spaceBetweenSections,
                       description,
-                      spaceBetweenSections,
                       responsibilities,
-                      spaceBetweenSections,
                       requiredSkills,
-                      spaceBetweenSections,
                       education,
-                      spaceBetweenSections,
                       additionalRequirements,
-                      spaceBetweenSections,
                       location,
-                      spaceBetweenSections,
                       aboutCompany,
-                      spaceBetweenSections,
                       benefitsHeader,
                     ],
                   ),
                 ),
                 SizedBox(height: 2),
-                Container(
-                  padding: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: sectionColor,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      benefits,
-                      SizedBox(
-                        height: 5,
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 2,
-                ),
+                benefits,
+                SizedBox(height: 2),
                 Container(
                   padding: EdgeInsets.all(10),
                   decoration: BoxDecoration(

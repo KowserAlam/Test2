@@ -5,6 +5,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dartz/dartz_unsafe.dart';
 import 'package:flutter/foundation.dart';
+import 'package:logger/logger.dart';
 import 'package:p7app/features/job/models/job_list_model.dart';
 import 'package:p7app/features/job/models/job_model.dart';
 import 'package:p7app/features/job/models/job_list_filters.dart';
@@ -103,7 +104,7 @@ class JobRepository {
 //      print(response.body);
       if (response.statusCode == 200) {
         var mapData = json.decode(utf8.decode(response.bodyBytes));
-
+//        Logger().i(mapData);
         var jobDetails = JobModel.fromJson(mapData);
         return Right(jobDetails);
       } else {
