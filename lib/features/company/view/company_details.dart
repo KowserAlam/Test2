@@ -17,6 +17,7 @@ import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/date_format_uitl.dart';
 import 'package:p7app/main_app/views/widgets/show_location_on_map_widget.dart';
+import 'package:p7app/method_extension.dart';
 
 class CompanyDetails extends StatefulWidget {
   final Company company;
@@ -50,6 +51,17 @@ class _CompanyDetailsState extends State<CompanyDetails> {
     TextStyle descriptionFontStyleBold =
         TextStyle(fontSize: 12, fontWeight: FontWeight.bold);
     double fontAwesomeIconSize = 15;
+
+    bool hideBasicInfo = (companyDetails.companyProfile.isEmptyOrNull &&
+        companyDetails.yearOfEstablishment == null &&
+        companyDetails.basisMemberShipNo.isEmptyOrNull);
+    bool hideSocialNetwork = (companyDetails.companyNameFacebook == null &&
+        companyDetails.companyNameFacebook == null &&
+        companyDetails.companyNameGoogle == null);
+    bool hideContactPerson = (companyDetails.contactPerson.isEmptyOrNull &&
+        companyDetails.contactPersonDesignation.isEmptyOrNull &&
+        companyDetails.contactPersonMobileNo.isEmptyOrNull &&
+        companyDetails.contactPersonEmail.isEmptyOrNull);
 
     var header = CompanySectionBase(
       sectionBody: Container(
@@ -99,21 +111,23 @@ class _CompanyDetailsState extends State<CompanyDetails> {
         ),
       ),
     );
-    var basicInfo = CompanySectionBase(
-      sectionIcon: FeatherIcons.userCheck,
-      sectionLabel: StringResources.companyBasicInfoSectionText,
-      sectionBody: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          if (companyDetails?.companyProfile != null)
-            Text.rich(
-              TextSpan(children: [
-                TextSpan(
-                    text: StringResources.companyProfileText + ': ',
-                    style: descriptionFontStyleBold),
-                TextSpan(
-                    text: companyDetails.companyProfile,
-                    style: descriptionFontStyle),
+    var basicInfo = hideBasicInfo
+        ? SizedBox()
+        : CompanySectionBase(
+            sectionIcon: FeatherIcons.userCheck,
+            sectionLabel: StringResources.companyBasicInfoSectionText,
+            sectionBody: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (companyDetails?.companyProfile != null)
+                  Text.rich(
+                    TextSpan(children: [
+                      TextSpan(
+                          text: StringResources.companyProfileText + ': ',
+                          style: descriptionFontStyleBold),
+                      TextSpan(
+                          text: companyDetails.companyProfile,
+                          style: descriptionFontStyle),
 //              WidgetSpan(
 //                  child: GestureDetector(
 //                      onTap: () {
@@ -124,205 +138,213 @@ class _CompanyDetailsState extends State<CompanyDetails> {
 //                        companyDetails.companyProfile,
 //                        style: TextStyle(color: Colors.lightBlue),
 //                      )))
-              ]),
-              textAlign: TextAlign.justify,
+                    ]),
+                    textAlign: TextAlign.justify,
+                  ),
+                SizedBox(height: 5),
+                CompanyDetailsFormattedText(
+                    StringResources.companyYearsOfEstablishmentText,
+                    companyDetails.yearOfEstablishment != null
+                        ? DateFormatUtil.formatDate(
+                            companyDetails.yearOfEstablishment)
+                        : StringResources.unspecifiedText),
+                SizedBox(
+                  height: 5,
+                ),
+                CompanyDetailsFormattedText(
+                    StringResources.companyBasisMembershipNoText,
+                    companyDetails.basisMemberShipNo),
+                SizedBox(
+                  height: 5,
+                ),
+              ],
             ),
-          SizedBox(height: 5),
-          CompanyDetailsFormattedText(
-              StringResources.companyYearsOfEstablishmentText,
-              companyDetails.yearOfEstablishment != null
-                  ? DateFormatUtil.formatDate(
-                      companyDetails.yearOfEstablishment)
-                  : StringResources.unspecifiedText),
-          SizedBox(
-            height: 5,
-          ),
-          CompanyDetailsFormattedText(
-              StringResources.companyBasisMembershipNoText,
-              companyDetails.basisMemberShipNo),
-          SizedBox(
-            height: 5,
-          ),
-        ],
-      ),
-    );
+          );
 
-    var address = CompanySectionBase(
-      sectionLabel: StringResources.companyAddressSectionText,
-      sectionIcon: FeatherIcons.map,
-      sectionBody: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          CompanyDetailsFormattedText(
-              StringResources.companyAddressText, companyDetails.address),
-          SizedBox(height: 5),
+    var address = (companyDetails.address.isEmptyOrNull &&
+            companyDetails.city.isEmptyOrNull &&
+            companyDetails.country.isEmptyOrNull)
+        ? SizedBox()
+        : CompanySectionBase(
+            sectionLabel: StringResources.companyAddressSectionText,
+            sectionIcon: FeatherIcons.map,
+            sectionBody: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                CompanyDetailsFormattedText(
+                    StringResources.companyAddressText, companyDetails.address),
+                SizedBox(height: 5),
 //
 //          richText(StringUtils.companyIndustryText, companyDetails.companyProfile),
 //          SizedBox(height: 5,),
 
-          CompanyDetailsFormattedText(
-              StringResources.companyCityText, companyDetails.city),
-          SizedBox(height: 5),
+                CompanyDetailsFormattedText(
+                    StringResources.companyCityText, companyDetails.city),
+                SizedBox(height: 5),
 
-          CompanyDetailsFormattedText(
-              StringResources.companyCountryText, companyDetails.country),
-          SizedBox(height: 5),
-        ],
-      ),
-    );
+                CompanyDetailsFormattedText(
+                    StringResources.companyCountryText, companyDetails.country),
+                SizedBox(height: 5),
+              ],
+            ),
+          );
 
-    var contact = CompanySectionBase(
-      sectionLabel: StringResources.companyContactSectionText,
-      sectionIcon: FeatherIcons.userCheck,
-      sectionBody: Container(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            //Company contact one
-            companyDetails.companyContactNoOne == null
-                ? SizedBox()
-                : Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.phone_android,
-                            size: fontAwesomeIconSize,
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Text(companyDetails.companyContactNoOne),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                    ],
-                  ),
-
-            //Company contact two
-            companyDetails.companyContactNoTwo == null
-                ? SizedBox()
-                : Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.phone_android,
-                            size: fontAwesomeIconSize,
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Text(companyDetails.companyContactNoTwo),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                    ],
-                  ),
-
-            //Company contact three
-            companyDetails.companyContactNoThree == null
-                ? SizedBox()
-                : Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.phone_android,
-                            size: fontAwesomeIconSize,
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Text(companyDetails.companyContactNoThree),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                    ],
-                  ),
-//
-//          richText(StringUtils.companyIndustryText, companyDetails.companyProfile),
-//          SizedBox(height: 5,),
-
-            //Email
-            if (companyDetails.email != null)
-              Column(
+    var contact = (companyDetails.companyContactNoOne.isEmptyOrNull &&
+            companyDetails.companyContactNoTwo.isEmptyOrNull &&
+            companyDetails.companyContactNoThree.isEmptyOrNull)
+        ? SizedBox()
+        : CompanySectionBase(
+            sectionLabel: StringResources.companyContactSectionText,
+            sectionIcon: FeatherIcons.userCheck,
+            sectionBody: Container(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text.rich(TextSpan(children: [
-                    TextSpan(
-                        text: StringResources.companyEmailText + ': ',
-                        style: descriptionFontStyleBold),
-                    WidgetSpan(
-                      child: GestureDetector(
-                          onTap: () {
-                            UrlLauncherHelper.sendMail(
-                                companyDetails.email.trim());
-                          },
-                          child: Text(
-                            companyDetails.email ?? "",
-                            softWrap: true,
-                            style: TextStyle(color: Colors.lightBlue),
-                          )),
-                    )
-                  ])),
+                children: <Widget>[
+                  //Company contact one
+                  companyDetails.companyContactNoOne == null
+                      ? SizedBox()
+                      : Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.phone_android,
+                                  size: fontAwesomeIconSize,
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Text(companyDetails.companyContactNoOne),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                          ],
+                        ),
+
+                  //Company contact two
+                  companyDetails.companyContactNoTwo == null
+                      ? SizedBox()
+                      : Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.phone_android,
+                                  size: fontAwesomeIconSize,
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Text(companyDetails.companyContactNoTwo),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                          ],
+                        ),
+
+                  //Company contact three
+                  companyDetails.companyContactNoThree == null
+                      ? SizedBox()
+                      : Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.phone_android,
+                                  size: fontAwesomeIconSize,
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Text(companyDetails.companyContactNoThree),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                          ],
+                        ),
+//
+//          richText(StringUtils.companyIndustryText, companyDetails.companyProfile),
+//          SizedBox(height: 5,),
+
+                  //Email
+                  if (companyDetails.email != null)
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text.rich(TextSpan(children: [
+                          TextSpan(
+                              text: StringResources.companyEmailText + ': ',
+                              style: descriptionFontStyleBold),
+                          WidgetSpan(
+                            child: GestureDetector(
+                                onTap: () {
+                                  UrlLauncherHelper.sendMail(
+                                      companyDetails.email.trim());
+                                },
+                                child: Text(
+                                  companyDetails.email ?? "",
+                                  softWrap: true,
+                                  style: TextStyle(color: Colors.lightBlue),
+                                )),
+                          )
+                        ])),
+                        SizedBox(
+                          height: 5,
+                        ),
+                      ],
+                    ),
+
+                  //Web address
+                  companyDetails.webAddress == null
+                      ? SizedBox()
+                      : Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text.rich(
+                              TextSpan(children: [
+                                TextSpan(
+                                    text:
+                                        StringResources.companyWebAddressText +
+                                            ': ',
+                                    style: descriptionFontStyleBold),
+                                WidgetSpan(
+                                  child: GestureDetector(
+                                      onTap: () {
+                                        UrlLauncherHelper.launchUrl(
+                                            companyDetails.webAddress.trim());
+                                      },
+                                      child: Text(
+                                        companyDetails.webAddress,
+                                        style:
+                                            TextStyle(color: Colors.lightBlue),
+                                      )),
+                                )
+                              ]),
+                              softWrap: true,
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                          ],
+                        ),
                   SizedBox(
                     height: 5,
                   ),
                 ],
               ),
-
-            //Web address
-            companyDetails.webAddress == null
-                ? SizedBox()
-                : Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text.rich(
-                        TextSpan(children: [
-                          TextSpan(
-                              text:
-                                  StringResources.companyWebAddressText + ': ',
-                              style: descriptionFontStyleBold),
-                          WidgetSpan(
-                            child: GestureDetector(
-                                onTap: () {
-                                  UrlLauncherHelper.launchUrl(
-                                      companyDetails.webAddress.trim());
-                                },
-                                child: Text(
-                                  companyDetails.webAddress,
-                                  style: TextStyle(color: Colors.lightBlue),
-                                )),
-                          )
-                        ]),
-                        softWrap: true,
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                    ],
-                  ),
-            SizedBox(
-              height: 5,
             ),
-          ],
-        ),
-      ),
-    );
+          );
 
-    var socialNetworks = (companyDetails.companyNameFacebook == null &&
-            companyDetails.companyNameFacebook == null &&
-            companyDetails.companyNameGoogle == null)
+    var socialNetworks = hideSocialNetwork
         ? SizedBox()
         : CompanySectionBase(
             sectionLabel: StringResources.companySocialNetworksSectionText,
@@ -430,100 +452,95 @@ class _CompanyDetailsState extends State<CompanyDetails> {
             ),
           );
 
-    var organizationHead = CompanySectionBase(
-      sectionIcon: FeatherIcons.userCheck,
-      sectionLabel: StringResources.companyOrganizationHeadSectionText,
-      sectionBody: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          CompanyDetailsFormattedText(
-              StringResources.companyOrganizationHeadNameText,
-              companyDetails.organizationHead),
-          SizedBox(
-            height: 5,
-          ),
-          CompanyDetailsFormattedText(
-              StringResources.companyOrganizationHeadDesignationText,
-              companyDetails.organizationHeadDesignation),
-          SizedBox(
-            height: 5,
-          ),
-          CompanyDetailsFormattedText(
-              StringResources.companyOrganizationHeadMobileNoText,
-              companyDetails.organizationHeadNumber),
-          SizedBox(
-            height: 5,
-          ),
-        ],
-      ),
-    );
+    var organizationHead = (companyDetails.organizationHead.isEmptyOrNull &&
+            companyDetails.organizationHeadDesignation.isEmptyOrNull &&
+            companyDetails.organizationHeadNumber.isEmptyOrNull)
+        ? SizedBox()
+        : CompanySectionBase(
+            sectionIcon: FeatherIcons.userCheck,
+            sectionLabel: StringResources.companyOrganizationHeadSectionText,
+            sectionBody: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                CompanyDetailsFormattedText(
+                    StringResources.companyOrganizationHeadNameText,
+                    companyDetails.organizationHead),
+                SizedBox(height: 5),
+                CompanyDetailsFormattedText(
+                    StringResources.companyOrganizationHeadDesignationText,
+                    companyDetails.organizationHeadDesignation),
+                SizedBox(
+                  height: 5,
+                ),
+                CompanyDetailsFormattedText(
+                    StringResources.companyOrganizationHeadMobileNoText,
+                    companyDetails.organizationHeadNumber),
+                SizedBox(
+                  height: 5,
+                ),
+              ],
+            ),
+          );
 
-    var contactPerson = CompanySectionBase(
-      sectionLabel: StringResources.companyContactPersonSectionText,
-      sectionIcon: FeatherIcons.userCheck,
-      sectionBody: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          CompanyDetailsFormattedText(
-              StringResources.companyContactPersonNameText,
-              companyDetails.contactPerson),
-          SizedBox(
-            height: 5,
-          ),
+    var contactPerson = hideContactPerson
+        ? SizedBox()
+        : CompanySectionBase(
+            sectionLabel: StringResources.companyContactPersonSectionText,
+            sectionIcon: FeatherIcons.userCheck,
+            sectionBody: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                CompanyDetailsFormattedText(
+                    StringResources.companyContactPersonNameText,
+                    companyDetails.contactPerson),
+                SizedBox(height: 5),
+                CompanyDetailsFormattedText(
+                    StringResources.companyContactPersonDesignationText,
+                    companyDetails.contactPersonDesignation),
+                SizedBox(height: 5),
+                CompanyDetailsFormattedText(
+                    StringResources.companyContactPersonMobileNoText,
+                    companyDetails.contactPersonMobileNo),
+                SizedBox(height: 5),
+                CompanyDetailsFormattedText(
+                    StringResources.companyContactPersonEmailText,
+                    companyDetails.contactPersonEmail),
+                SizedBox(height: 5),
+              ],
+            ),
+          );
 
-          CompanyDetailsFormattedText(
-              StringResources.companyContactPersonDesignationText,
-              companyDetails.contactPersonDesignation),
-          SizedBox(
-            height: 5,
-          ),
-
-          CompanyDetailsFormattedText(
-              StringResources.companyContactPersonMobileNoText,
-              companyDetails.contactPersonMobileNo),
-          SizedBox(
-            height: 5,
-          ),
-
-          CompanyDetailsFormattedText(
-              StringResources.companyContactPersonEmailText,
-              companyDetails.contactPersonEmail),
-          SizedBox(
-            height: 5,
-          ),
-//
-//          richText(StringUtils.companyPostCodeText, companyDetails.postCode),
-//          SizedBox(height: 5,),
-        ],
-      ),
-    );
-
-    var otherInfo = CompanySectionBase(
-      sectionLabel: StringResources.companyOtherInformationText,
-      sectionIcon: FontAwesomeIcons.exclamationCircle,
-      sectionBody: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          CompanyDetailsFormattedText(StringResources.companyLegalStructureText,
-              companyDetails.legalStructure),
-          SizedBox(
-            height: 5,
-          ),
-          CompanyDetailsFormattedText(
-              StringResources.companyNoOFHumanResourcesText,
-              companyDetails.noOfHumanResources),
-          SizedBox(
-            height: 5,
-          ),
-          CompanyDetailsFormattedText(
-              StringResources.companyNoOFItResourcesText,
-              companyDetails.noOfResources),
-          SizedBox(
-            height: 5,
-          ),
-        ],
-      ),
-    );
+    var otherInfo = (companyDetails.legalStructure.isEmptyOrNull &&
+            companyDetails.noOfHumanResources.isEmptyOrNull &&
+            companyDetails.noOfResources.isEmptyOrNull)
+        ? SizedBox()
+        : CompanySectionBase(
+            sectionLabel: StringResources.companyOtherInformationText,
+            sectionIcon: FontAwesomeIcons.exclamationCircle,
+            sectionBody: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                CompanyDetailsFormattedText(
+                    StringResources.companyLegalStructureText,
+                    companyDetails.legalStructure),
+                SizedBox(
+                  height: 5,
+                ),
+                CompanyDetailsFormattedText(
+                    StringResources.companyNoOFHumanResourcesText,
+                    companyDetails.noOfHumanResources),
+                SizedBox(
+                  height: 5,
+                ),
+                CompanyDetailsFormattedText(
+                    StringResources.companyNoOFItResourcesText,
+                    companyDetails.noOfResources),
+                SizedBox(
+                  height: 5,
+                ),
+              ],
+            ),
+          );
 
     var googleMap = (companyDetails?.latitude != null &&
             companyDetails?.longitude != null)

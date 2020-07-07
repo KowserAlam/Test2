@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
+import 'package:p7app/method_extension.dart';
 
 class CompanyDetailsFormattedText extends StatelessWidget {
   final String title;
@@ -9,6 +10,9 @@ class CompanyDetailsFormattedText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if(description.isEmptyOrNull){
+      return SizedBox();
+    }
 
     bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     TextStyle descriptionFontStyleBold =
