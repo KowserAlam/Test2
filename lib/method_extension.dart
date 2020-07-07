@@ -43,7 +43,7 @@ extension StringExtension on String {
       return null;
   }
 
-  String get titleCase {
+  String get toSentenceCase {
     if(this != null){
       String x = '';
       for(int i=1; i<this.length; i++){

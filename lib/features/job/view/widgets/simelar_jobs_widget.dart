@@ -45,6 +45,10 @@ class _SimilarJobsWidgetState extends State<SimilarJobsWidget> {
     if (_isBusy) {
       return Loader();
     }
+
+    if(_jobs.length == 0){
+      return SizedBox();
+    }
     return Column(
       children: [
         Container(
