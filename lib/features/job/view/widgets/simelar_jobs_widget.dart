@@ -5,7 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p7app/features/job/models/job_list_model.dart';
 import 'package:p7app/features/job/models/job_model.dart';
 import 'package:p7app/features/job/repositories/job_repository.dart';
-import 'package:p7app/features/job/view/job_details.dart';
+import 'package:p7app/features/job/view/job_details_screen.dart';
 import 'package:p7app/features/job/view/widgets/job_list_tile_widget.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/views/widgets/common_prompt_dialog.dart';
@@ -39,6 +39,7 @@ class _SimilarJobsWidgetState extends State<SimilarJobsWidget> {
     });
     super.initState();
   }
+
   _showApplyForJobDialog(JobListModel job, int index) {
     showDialog(
         context: context,
@@ -48,18 +49,17 @@ class _SimilarJobsWidgetState extends State<SimilarJobsWidget> {
             onCancel: () {
               Navigator.pop(context);
             },
-            onAccept: () async{
-              bool isSuccessful =
-                  await JobRepository().applyForJob(job.jobId);
+            onAccept: () async {
+              bool isSuccessful = await JobRepository().applyForJob(job.jobId);
               if (isSuccessful) {
                 _jobs[index].isApplied = true;
-                if(this.mounted)
-                setState(() {});
+                if (this.mounted) setState(() {});
               }
             },
           );
         });
   }
+
   @override
   Widget build(BuildContext context) {
     final Color sectionColor = Theme.of(context).backgroundColor;
@@ -67,9 +67,6 @@ class _SimilarJobsWidgetState extends State<SimilarJobsWidget> {
       return Loader();
     }
 
-    if(_jobs.length == 0){
-      return SizedBox();
-    }
     return Column(
       children: [
         Container(
@@ -94,34 +91,47 @@ class _SimilarJobsWidgetState extends State<SimilarJobsWidget> {
           ),
         ),
         SizedBox(
-          height: 10,
+          height: 2
         ),
-        Column(
-          children: List.generate(_jobs.length, (index) {
-            var job = _jobs[index];
-            return JobListTileWidget(
-              job,
-              onApply: () async {
-                _showApplyForJobDialog(job, index);
-              },
-              onFavorite: () async {
-                bool isSuccessful =
-                    await JobRepository().addToFavorite(job.jobId);
-                if (isSuccessful) {
-                  _jobs[index].isFavourite = !_jobs[index].isFavourite;
-                  if(this.mounted)
-                  setState(() {});
-                }
-              },
-              onTap: () {
-                Navigator.of(context).push(CupertinoPageRoute(
-                    builder: (context) => JobDetails(
-                          slug: job.slug,
-                        )));
-              },
-            );
-          }),
-        ),
+        (_jobs.length == 0)
+            ? Container(
+                height: 80,
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: sectionColor,
+                ),
+                child: Center(
+                  child: Text(StringResources.noSimilarJobsFound),
+                ),
+              )
+            : Padding(
+                padding: const EdgeInsets.only(top: 2),
+                child: Column(
+                  children: List.generate(_jobs.length, (index) {
+                    var job = _jobs[index];
+                    return JobListTileWidget(
+                      job,
+                      onApply: () async {
+                        _showApplyForJobDialog(job, index);
+                      },
+                      onFavorite: () async {
+                        bool isSuccessful =
+                            await JobRepository().addToFavorite(job.jobId);
+                        if (isSuccessful) {
+                          _jobs[index].isFavourite = !_jobs[index].isFavourite;
+                          if (this.mounted) setState(() {});
+                        }
+                      },
+                      onTap: () {
+                        Navigator.of(context).push(CupertinoPageRoute(
+                            builder: (context) => JobDetailsScreen(
+                                  slug: job.slug,
+                                )));
+                      },
+                    );
+                  }),
+                ),
+              ),
       ],
     );
   }

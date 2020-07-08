@@ -2,7 +2,7 @@ import 'package:after_layout/after_layout.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:p7app/features/auth/view/login_screen.dart';
 import 'package:p7app/features/job/models/job_list_model.dart';
-import 'package:p7app/features/job/view/job_details.dart';
+import 'package:p7app/features/job/view/job_details_screen.dart';
 import 'package:p7app/features/job/view/widgets/filter_preview_widget.dart';
 import 'package:p7app/features/job/view/widgets/job_list_filters_widget.dart';
 import 'package:p7app/features/job/view_model/job_list_filter_widget_view_model.dart';
@@ -224,7 +224,7 @@ class _JobListScreenState extends State<JobListScreen>
 
                     MaterialPageRoute(
                         builder: (context) =>
-                            JobDetails(
+                            JobDetailsScreen(
                               slug: job.slug,
                               fromJobListScreenType:
                               JobListScreenType

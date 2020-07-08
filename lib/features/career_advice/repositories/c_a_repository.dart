@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:dartz/dartz.dart';
+import 'package:logger/logger.dart';
 import 'package:p7app/features/career_advice/models/career_advice_screen_data_model.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
@@ -19,6 +20,7 @@ class CareerAdviceRepository {
       if (res.statusCode == 200) {
 
         var decodedJson =json.decode(utf8.decode(res.bodyBytes));
+        Logger().i(decodedJson);
         return Right(CareerAdviceScreenDataModel.fromJson(decodedJson));
       } else {
         return Left(AppError.httpError);

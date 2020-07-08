@@ -29,17 +29,17 @@ import 'package:p7app/method_extension.dart';
 
 enum JobListScreenType { main, applied, favorite }
 
-class JobDetails extends StatefulWidget {
+class JobDetailsScreen extends StatefulWidget {
   final String slug;
   final JobListScreenType fromJobListScreenType;
 
-  JobDetails({@required this.slug, this.fromJobListScreenType});
+  JobDetailsScreen({@required this.slug, this.fromJobListScreenType});
 
   @override
-  _JobDetailsState createState() => _JobDetailsState();
+  _JobDetailsScreenState createState() => _JobDetailsScreenState();
 }
 
-class _JobDetailsState extends State<JobDetails> {
+class _JobDetailsScreenState extends State<JobDetailsScreen> {
   JobModel jobDetails;
 
 //  Company jobCompany;

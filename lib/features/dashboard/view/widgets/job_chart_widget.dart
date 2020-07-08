@@ -142,7 +142,7 @@ class JobChartWidget extends StatelessWidget {
                                         ? StringResources.seeLessText
                                         : StringResources.seeMoreText,
                                     style: TextStyle(
-                                        color: Theme.of(context).primaryColor),
+                                        color: Colors.blue),
                                   ),
                                 ],
                               ),

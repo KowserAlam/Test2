@@ -8,6 +8,7 @@ import 'package:p7app/main_app/app_theme/app_theme.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/date_format_uitl.dart';
+import 'package:p7app/main_app/views/widgets/loader.dart';
 
 
 import 'job_apply_button.dart';
@@ -58,9 +59,9 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
         color: scaffoldBackgroundColor,
       ),
       child: CachedNetworkImage(
-
         imageUrl: widget.jobModel.profilePicture ?? "",
         placeholder: (context, _) => Image.asset(kCompanyImagePlaceholder),
+        progressIndicatorBuilder: (c,_,p)=> Loader(),
       ),
     ); //That pointless fruit logo
     var jobTitle = Text(

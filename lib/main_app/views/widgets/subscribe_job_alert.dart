@@ -34,12 +34,14 @@ class _SubscribeJobAlertState extends State<SubscribeJobAlert> {
       busy = true;
       var proID = await AuthService.getInstance()
           .then((value) => value.getUser().professionalId);
-      var url = "${Urls.jobAlertOnOffUrl}$proID/";
+      var url = "${Urls.jobAlertOnOffUrl}";
       var res = await ApiClient()
           .putRequest(url, {"job_alert_status": !jobAlerSstatus});
+//      var res = await ApiClient().getRequest(Urls.jobAlertOnOffUrl);
+      print(res.body);
       var decodedJson = json.decode(res.body);
       print(decodedJson);
-      jobAlerSstatus = decodedJson["job_alert_status"];
+      jobAlerSstatus = decodedJson["job_alert_status"]??false;
       busy = false;
       _updateUI();
     } catch (e) {

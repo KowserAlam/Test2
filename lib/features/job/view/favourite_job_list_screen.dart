@@ -2,7 +2,7 @@ import 'package:after_layout/after_layout.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:p7app/features/auth/view/widgets/custom_text_field_rounded.dart';
 import 'package:p7app/features/job/models/job_list_model.dart';
-import 'package:p7app/features/job/view/job_details.dart';
+import 'package:p7app/features/job/view/job_details_screen.dart';
 
 import 'package:p7app/features/job/view/widgets/no_favourite_jobs_widget.dart';
 import 'package:p7app/features/job/view_model/applied_job_list_view_model.dart';
@@ -100,7 +100,7 @@ class _FavouriteJobListScreenState extends State<FavouriteJobListScreen>
                                 onTap: () {
                                   Navigator.of(context)
                                       .push(MaterialPageRoute(
-                                          builder: (context) => JobDetails(
+                                          builder: (context) => JobDetailsScreen(
                                                 slug: job.slug,
                                                 fromJobListScreenType:
                                                     JobListScreenType

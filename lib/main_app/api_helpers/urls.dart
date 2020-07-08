@@ -19,7 +19,6 @@ class Urls {
       "/api/professional/job_alert_notification/"; //cname
   static String jobAlertOnOffUrl =
       "/api/professional/email-subscription-on-off/"; //c8eb21a2-0bb6-46ec-add6-0de5336e1723/
-
   static String countryListUrl = "/api/country/list/";
   static String userProfileUrl = "/api/professional/profile";
   static String userProfileUpdateUrlPartial =

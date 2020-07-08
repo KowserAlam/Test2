@@ -192,6 +192,7 @@ class StringResources {
   static String saveText = "Save";
   static String ongoingText = "Ongoing";
   static String readMoreText = 'Read More';
+  static String moreTextSl = 'more';
 
   //Company List Screen
   static var companyListAppbarText = "Companies";
@@ -461,6 +462,8 @@ static const String successfullyAppliedText = "Successfully Applied";
 static const String savedText = "Saved";
 static const String typeToSearch = "Type to search";
 static const String noJobsFound = "No jobs found";
+static const String noSimilarJobsFound = "No Similar Job(s) Found.";
+static const String noOpenJobsFound = "No Open Job(s) Found.";
 static const String noFavouriteJobsFound = "No favourite jobs found";
 static const String noAppliedJobsFound = "No applied jobs found";
 

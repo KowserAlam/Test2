@@ -65,7 +65,9 @@ class JobRepository {
         var dataModel = JobListScreenDataModel(
             jobList: jobList,
             count: mapData['count'],
-            nextPage: mapData['next_pages'] ?? false);
+            nextPage: mapData['pages'] != null
+                ? mapData['pages']['next_url'] != null
+                : false);
         return Right(dataModel);
       } else if (response.statusCode == 401) {
         BotToast.showText(text: StringResources.unauthorizedText);
@@ -96,7 +98,8 @@ class JobRepository {
   }
 
   /// JOB Details
-  Future<Map<String, dynamic>> _getJobDetailsBody(String url,bool forceFromServer) async {
+  Future<Map<String, dynamic>> _getJobDetailsBody(
+      String url, bool forceFromServer) async {
     var cache = await Cache.load(url);
 //    print(cache);
     if (cache != null && !forceFromServer) {
@@ -116,12 +119,14 @@ class JobRepository {
     }
   }
 
-  Future<Either<AppError, JobModel>> fetchJobDetails(String slug,{bool forceFromServer = false}) async {
+  Future<Either<AppError, JobModel>> fetchJobDetails(String slug,
+      {bool forceFromServer = false}) async {
     //var url = "/api/load_job/seo-expert-78caf3ac";
     var url = "${Urls.jobDetailsUrl}${slug}";
 
     try {
-      Map<String, dynamic> decodedJson = await _getJobDetailsBody(url,forceFromServer);
+      Map<String, dynamic> decodedJson =
+          await _getJobDetailsBody(url, forceFromServer);
 
       var jobDetails = JobModel.fromJson(decodedJson);
       return Right(jobDetails);

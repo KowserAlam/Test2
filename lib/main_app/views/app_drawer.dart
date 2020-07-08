@@ -21,7 +21,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p7app/main_app/root.dart';
 import 'package:p7app/main_app/views/about_us_screen.dart';
-import 'package:p7app/features/career_advice/view/career_advice_screen.dart';
+import 'package:p7app/features/career_advice/view/career_advice_list_screen.dart';
 import 'package:p7app/main_app/views/contact_us_screen.dart';
 import 'package:p7app/main_app/views/faq_screen.dart';
 import 'package:p7app/main_app/views/widgets/app_version_widget_small.dart';
@@ -254,7 +254,7 @@ class _AppDrawerState extends State<AppDrawer> {
                     onTap: () {
                       Navigator.pop(context);
                       Navigator.of(context).push(CupertinoPageRoute(
-                          builder: (context) => CareerAdviceScreen()));
+                          builder: (context) => CareerAdviceListScreen()));
                     },
                   ),
 
