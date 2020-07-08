@@ -71,7 +71,7 @@ class UserProfileRepository {
     BotToast.showLoading();
     var authUser = await AuthService.getInstance();
     var professionalId = authUser.getUser().professionalId;
-    var url = "${Urls.userProfileUpdateUrlPartial}/$professionalId/";
+    var url = "${Urls.userProfileUpdateUrlPartial}/";
 
     try {
       var response = await ApiClient().putRequest(url, body);

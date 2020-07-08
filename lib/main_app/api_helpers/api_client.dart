@@ -63,8 +63,8 @@ class ApiClient {
 
     Map<String, String> headers = {
       'Api-Key': _apiKey,
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
+      'Content-Type': 'application/json; charset=utf-8',
+      'Accept': 'application/json; charset=utf-8',
     };
 
     if (token != null) headers.addAll({HttpHeaders.authorizationHeader: "Bearer $token"});

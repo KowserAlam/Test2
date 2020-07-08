@@ -13,6 +13,7 @@ import 'package:p7app/features/company/view/widgets/company_details_formatted_te
 import 'package:p7app/features/company/view/widgets/company_section_base.dart';
 import 'package:p7app/features/company/view/open_jobs_widget.dart';
 import 'package:p7app/main_app/api_helpers/url_launcher_helper.dart';
+import 'package:p7app/main_app/repositories/country_repository.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/date_format_uitl.dart';
@@ -182,8 +183,20 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                     StringResources.companyCityText, companyDetails.city),
                 SizedBox(height: 5),
 
-                CompanyDetailsFormattedText(
-                    StringResources.companyCountryText, companyDetails.country),
+                (companyDetails.country.isEmptyOrNull)
+                    ? SizedBox()
+                    : FutureBuilder<String>(
+                  future: CountryRepository()
+                      .getCountryNameFromCode(companyDetails.country),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<String> snapshot) {
+                    return CompanyDetailsFormattedText(
+                        StringResources.jobCountryText,
+                        snapshot.data ??  companyDetails.country);
+                  },
+                ),
+//                CompanyDetailsFormattedText(
+//                    StringResources.companyCountryText, companyDetails.country),
                 SizedBox(height: 5),
               ],
             ),
@@ -583,8 +596,9 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                 otherInfo,
                 SizedBox(height: 2),
                 googleMap,
-                SizedBox(height: 2),
-                openJobs
+                SizedBox(height: 10),
+                openJobs,
+                SizedBox(height: 10),
               ],
             ),
           )

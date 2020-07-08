@@ -17,6 +17,7 @@ import 'package:p7app/features/job/view_model/job_list_view_model.dart';
 import 'package:p7app/main_app/api_helpers/url_launcher_helper.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
+import 'package:p7app/main_app/repositories/country_repository.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/util/date_format_uitl.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
@@ -52,7 +53,7 @@ class _JobDetailsState extends State<JobDetails> {
     super.initState();
   }
 
-  _refreshList() {
+  _refreshJobList() {
     Provider.of<JobListViewModel>(context, listen: false).refresh();
     if (widget.fromJobListScreenType != null) {
       switch (widget.fromJobListScreenType) {
@@ -74,7 +75,7 @@ class _JobDetailsState extends State<JobDetails> {
     String jobId,
   ) async {
     bool res = await JobRepository().addToFavorite(jobId);
-    _refreshList();
+    _refreshJobList();
     return res;
   }
 
@@ -82,7 +83,7 @@ class _JobDetailsState extends State<JobDetails> {
     String jobId,
   ) async {
     bool res = await JobRepository().applyForJob(jobId);
-    _refreshList();
+    _refreshJobList();
     return res;
   }
 
@@ -142,7 +143,7 @@ class _JobDetailsState extends State<JobDetails> {
         return FailureFullScreenWidget(
           errorMessage: StringResources.unableToLoadData,
           onTap: () {
-            return _refreshList();
+            return getJobDetails();
           },
         );
 
@@ -150,7 +151,7 @@ class _JobDetailsState extends State<JobDetails> {
         return FailureFullScreenWidget(
           errorMessage: StringResources.unableToReachServerMessage,
           onTap: () {
-            return _refreshList();
+            return getJobDetails();
           },
         );
 
@@ -158,27 +159,30 @@ class _JobDetailsState extends State<JobDetails> {
         return FailureFullScreenWidget(
           errorMessage: StringResources.somethingIsWrong,
           onTap: () {
-            return _refreshList();
+            return getJobDetails();
           },
         );
     }
   }
 
-  getJobDetails() async {
+  Future<void> getJobDetails({bool force = false}) async {
     _isBusy = true;
     setState(() {});
-    dartZ.Either<AppError, JobModel> result =
-        await JobRepository().fetchJobDetails(widget.slug);
+    dartZ.Either<AppError, JobModel> result = await JobRepository()
+        .fetchJobDetails(widget.slug, forceFromServer: force);
     return result.fold((l) {
       _isBusy = false;
       _appError = l;
-      setState(() {});
+      if (this.mounted) setState(() {});
+
       print(l);
+      return;
     }, (JobModel dataModel) {
       print(dataModel.title);
       jobDetails = dataModel;
       _isBusy = false;
-      setState(() {});
+      if (this.mounted) setState(() {});
+      return;
     });
   }
 
@@ -275,9 +279,7 @@ class _JobDetailsState extends State<JobDetails> {
       },
     );
 
-    var spaceBetweenSections = SizedBox(
-      height: 30,
-    );
+    var spaceBetweenSections = SizedBox(height: 30);
     var jobHeader = Container(
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -545,11 +547,18 @@ class _JobDetailsState extends State<JobDetails> {
                 SizedBox(
                   height: 5,
                 ),
-                jobSummeryRichText(
-                    StringResources.jobCountryText,
-                    jobDetails.jobCountry != null
-                        ? jobDetails.jobCountry
-                        : StringResources.unspecifiedText),
+                (jobDetails.jobCountry.isEmptyOrNull)
+                    ? SizedBox()
+                    : FutureBuilder<String>(
+                        future: CountryRepository()
+                            .getCountryNameFromCode(jobDetails.jobCountry),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<String> snapshot) {
+                          return jobSummeryRichText(
+                              StringResources.jobCountryText,
+                              snapshot.data ?? jobDetails.jobCountry);
+                        },
+                      ),
                 SizedBox(
                   height: 5,
                 ),
@@ -1004,106 +1013,111 @@ class _JobDetailsState extends State<JobDetails> {
         ),
         centerTitle: true,
       ),
-      body: ListView(
-        children: <Widget>[
-          Container(
-            padding: EdgeInsets.all(10),
-            color: backgroundColor,
-            child: Column(
-              children: <Widget>[
-                Container(
-                  padding: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                      color: sectionColor,
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(3),
-                          topRight: Radius.circular(3))),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      jobHeader,
-                      SizedBox(
-                        height: 10,
-                      ),
-                    ],
+      body: RefreshIndicator(
+        onRefresh: () async {
+          return getJobDetails(force: true);
+        },
+        child: ListView(
+          children: <Widget>[
+            Container(
+              padding: EdgeInsets.all(10),
+              color: backgroundColor,
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    padding: EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                        color: sectionColor,
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(3),
+                            topRight: Radius.circular(3))),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        jobHeader,
+                        SizedBox(
+                          height: 10,
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: 2,
-                ),
-                Container(
-                  padding: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: sectionColor,
+                  SizedBox(
+                    height: 2,
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      betweenDividerSection,
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 2,
-                ),
-                Container(
-                  padding: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: sectionColor,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      jobSummary,
-                      aboutJob,
-                      description,
-                      responsibilities,
-                      requiredSkills,
-                      education,
-                      additionalRequirements,
-                      location,
-                      aboutCompany,
-                      benefitsHeader,
-                    ],
-                  ),
-                ),
-                SizedBox(height: 2),
-                benefits,
-                SizedBox(height: 2),
-                Container(
-                  padding: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: sectionColor,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      betweenDividerSection,
-                    ],
-                  ),
-                ),
-                SizedBox(height: 2),
-                if (jobDetails.webAddress.isNotEmptyOrNotNull)
                   Container(
                     padding: EdgeInsets.all(10),
                     decoration: BoxDecoration(
                       color: sectionColor,
-                      borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(3),
-                          bottomRight: Radius.circular(3)),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[jobSource],
+                      children: <Widget>[
+                        betweenDividerSection,
+                      ],
                     ),
                   ),
-                SizedBox(height: 10),
-                SimilarJobsWidget(jobDetails),
-                SizedBox(height: 10),
-              ],
+                  SizedBox(
+                    height: 2,
+                  ),
+                  Container(
+                    padding: EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: sectionColor,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        jobSummary,
+                        aboutJob,
+                        description,
+                        responsibilities,
+                        requiredSkills,
+                        education,
+                        additionalRequirements,
+                        location,
+                        aboutCompany,
+                        benefitsHeader,
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 2),
+                  benefits,
+                  SizedBox(height: 2),
+                  Container(
+                    padding: EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: sectionColor,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        betweenDividerSection,
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 2),
+                  if (jobDetails.webAddress.isNotEmptyOrNotNull)
+                    Container(
+                      padding: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: sectionColor,
+                        borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(3),
+                            bottomRight: Radius.circular(3)),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[jobSource],
+                      ),
+                    ),
+                  SizedBox(height: 10),
+                  SimilarJobsWidget(jobDetails),
+                  SizedBox(height: 10),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
