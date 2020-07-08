@@ -50,6 +50,7 @@ class _CareerAdviceListScreenState extends State<CareerAdviceListScreen>
     List<CareerAdviceModel> adviceList = vm.careerAdviceList;
 
     return Scaffold(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         title: Text(StringResources.careerAdviceText),
       ),
@@ -60,9 +61,10 @@ class _CareerAdviceListScreenState extends State<CareerAdviceListScreen>
                 child: Loader(),
               )
             : ListView.separated(
+          padding: EdgeInsets.symmetric(vertical: 8),
                 controller: _scrollController,
                 itemCount: adviceList.length + 1,
-                separatorBuilder: (context,index)=>Divider(thickness: 1,),
+                separatorBuilder: (context,index)=>SizedBox(height: 8,),
                 itemBuilder: (BuildContext context, int index) {
                   if (index == adviceList.length) {
                     return vm.isFetchingMoreData
@@ -90,7 +92,8 @@ class CareerAdviceListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      type: MaterialType.transparency,
+      elevation: 2,
+      color: Theme.of(context).backgroundColor,
       child: InkWell(
         onTap: () {
           Navigator.of(context).push(CupertinoPageRoute(
@@ -144,7 +147,7 @@ class CareerAdviceListTile extends StatelessWidget {
                         SizedBox(height: 2),
                         Text(
                           DateFormatUtil.formatDate(advice.createdAt) ?? "",
-                          style: TextStyle(color: Colors.grey),
+                          style: TextStyle(color: Colors.grey[600]),
                         )
                       ],
                     ),
