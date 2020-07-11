@@ -62,7 +62,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
           widget.experienceInfoModel.designation ?? "";
       _joiningDate = widget.experienceInfoModel.startDate;
       _leavingDate = widget.experienceInfoModel.endDate;
-      _selectedCompanyId = widget.experienceInfoModel.companyId;
+      _selectedCompanyId = widget.experienceInfoModel.companyName;
       _experienceId = widget.experienceInfoModel.experienceId ?? null;
       currentLyWorkingHere = _leavingDate == null;
     }
@@ -145,7 +145,8 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
   _handleSave() {
     var isSuccess = validate();
     if (isSuccess) {
-      //Form validated
+
+//      Form validated
       if (_selectedCompanyId != null) {
         if (_companyNameController.text != _selectedCompanyId) {
           _selectedCompanyId = null;
@@ -156,7 +157,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
         experienceId: widget.experienceInfoModel?.experienceId,
         companyName: _companyNameController.text,
         designation: positionNameController.text,
-        companyId: selectedCompany?.name ?? _selectedCompanyId,
+        companyId: selectedCompany?.name ?? _companyNameController.text,
         startDate: _joiningDate,
         endDate: _leavingDate,
       );
