@@ -68,9 +68,6 @@ class _OpenJobsWidgetState extends State<OpenJobsWidget> {
     if (_isBusy) {
       return Loader();
     }
-    if (_jobs.length == 0) {
-      return SizedBox();
-    }
     return Column(
       children: [
         Container(

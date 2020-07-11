@@ -158,10 +158,10 @@ class JobModel {
 
     isApplied = json['is_applied'] == null
         ? false
-        : (json['is_applied'] == "True" ? true : false);
+        : (json['is_applied'].toString() == "1" ? true : false);
     isFavourite = json['is_favourite'] == null
         ? false
-        : (json['is_favourite'] == "True" ? true : false);
+        : (json['is_favourite'].toString() == "1" ? true : false);
 
 //    if (json['profile_picture'] != null) {
 //      profilePicture = "$baseUrl${json['profile_picture']}";

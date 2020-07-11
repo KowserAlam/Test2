@@ -59,15 +59,18 @@ class JobRepository {
       print(response.statusCode);
 //      print(response.body);
       if (response.statusCode == 200) {
-        var mapData = json.decode(utf8.decode(response.bodyBytes));
-
-        var jobList = fromJson(mapData);
+        var decodedJson = json.decode(utf8.decode(response.bodyBytes));
+//        Logger().i(decodedJson);
+        var jobList = fromJson(decodedJson);
         var dataModel = JobListScreenDataModel(
-            jobList: jobList,
-            count: mapData['count'],
-            nextPage: mapData['pages'] != null
-                ? mapData['pages']['next_url'] != null
-                : false);
+          jobList: jobList,
+          count: decodedJson['count'],
+//          nextPage: decodedJson['pages'] != null
+//              ? decodedJson['pages']['next_url'] != null
+//              : false,
+        nextPage: decodedJson["next_pages"]??false,
+
+        );
         return Right(dataModel);
       } else if (response.statusCode == 401) {
         BotToast.showText(text: StringResources.unauthorizedText);
@@ -128,6 +131,7 @@ class JobRepository {
       Map<String, dynamic> decodedJson =
           await _getJobDetailsBody(url, forceFromServer);
 
+//      Logger().i(decodedJson);
       var jobDetails = JobModel.fromJson(decodedJson);
       return Right(jobDetails);
     } on SocketException catch (e) {
