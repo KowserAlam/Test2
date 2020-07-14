@@ -7,7 +7,7 @@ import 'package:p7app/features/job/repositories/job_gender_list_repository.dart'
 import 'package:p7app/features/job/repositories/job_list_sort_items_repository.dart';
 import 'package:p7app/features/job/repositories/job_location_list_repository.dart';
 import 'package:p7app/features/job/repositories/job_type_list_repository.dart';
-import 'package:p7app/features/job/repositories/popular_jobs_categories_list_repository.dart';
+import 'package:p7app/features/job/repositories/job_categories_list_repository.dart';
 import 'package:p7app/features/user_profile/models/skill.dart';
 import 'package:p7app/features/user_profile/repositories/degree_list_repository.dart';
 import 'package:p7app/features/user_profile/repositories/gender_list_repository.dart';
@@ -209,7 +209,7 @@ class JobListFilterWidgetViewModel with ChangeNotifier {
 
   Future<List<String>> _getJobCategoriesList() async {
     Either<AppError, List<String>> res =
-        await PopularJobCategoriesLisRepository().getList();
+        await JobCategoriesLisRepository().getList();
     return res.fold((l) {
       print(l);
       return [];
