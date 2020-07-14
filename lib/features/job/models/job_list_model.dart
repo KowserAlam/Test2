@@ -47,17 +47,24 @@ class JobListModel {
 //      profilePicture = "$baseUrl/media/${json['profile_picture']}";
 //    }
 
-    if(json['company'] != null){
-      profilePicture = "$baseUrl${json['company']['profile_picture']}";
+    if (json['company'] != null) {
+      if (json['company']['profile_picture'] != null) {
+
+        String url = json['company']['profile_picture'];
+        if (url.contains(baseUrl))
+          profilePicture = json['company']['profile_picture'];
+        else
+          profilePicture = "$baseUrl$url";
+      }
       companyName = json['company']['name'];
     }
+
     jobNature = json['job_nature'];
     jobSite = json['job_site'];
     jobType = json['job_type'];
 
-    isApplied = json['is_applied']  as bool?? false;
-    isFavourite = json['is_favourite'] as bool?? false;
-
+    isApplied = json['is_applied'] as bool ?? false;
+    isFavourite = json['is_favourite'] as bool ?? false;
 
     if (json['application_deadline'] != null) {
       applicationDeadline = DateTime.parse(json['application_deadline']);
@@ -66,6 +73,5 @@ class JobListModel {
     if (json['post_date'] != null) {
       postDate = DateTime.parse(json['post_date']);
     }
-
   }
 }
