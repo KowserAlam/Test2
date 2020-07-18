@@ -49,12 +49,8 @@ class JobListModel {
 
     if (json['company'] != null) {
       if (json['company']['profile_picture'] != null) {
-
         String url = json['company']['profile_picture'];
-        if (url.contains(baseUrl))
-          profilePicture = json['company']['profile_picture'];
-        else
-          profilePicture = "$baseUrl$url";
+        profilePicture = "$baseUrl$url";
       }
       companyName = json['company']['name'];
     }

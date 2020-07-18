@@ -2,7 +2,7 @@
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 
 const String kBaseUrDev = "http://dev.ishraak.com";
-const String kBaseUrlProd = "http://jobxprss.com";
+const String kBaseUrlProd = "https://jobxprss.com";
 
 class Urls {
   /// new
