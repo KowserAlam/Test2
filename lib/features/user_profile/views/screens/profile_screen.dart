@@ -411,7 +411,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
           setState(() {});
         },
         icon: FontAwesomeIcons.globeEurope,
-        label: StringResources.professionalExperienceText,
+        label: StringResources.workExperienceText,
         onTapAddNewAction: () {
           Navigator.push(
               context,

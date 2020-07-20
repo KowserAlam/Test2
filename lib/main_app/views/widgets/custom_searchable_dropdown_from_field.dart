@@ -24,6 +24,7 @@ class CustomDropdownSearchFormField<T> extends StatelessWidget {
 
   ///select the selected item in the menu/dialog/bottomSheet of items
   final bool showSelectedItem;
+  final bool showSearchBox;
   final bool autoFocusSearchBox;
 
   ///custom layout for empty results
@@ -38,8 +39,10 @@ class CustomDropdownSearchFormField<T> extends StatelessWidget {
 
   ///function that compares two object with the same type to detected if it's the selected item or not
   final DropdownSearchCompareFn<T> compareFn;
+
   ///function that returns item from API
   final DropdownSearchOnFind<T> onFind;
+
   const CustomDropdownSearchFormField({
     this.showSelectedItem = false,
     this.autoFocusSearchBox = false,
@@ -53,6 +56,7 @@ class CustomDropdownSearchFormField<T> extends StatelessWidget {
     this.onChanged,
     this.compareFn,
     this.labelText,
+    this.showSearchBox = false,
     this.hintText,
     this.dialogMaxWidth,
     this.maxHeight,
@@ -60,8 +64,9 @@ class CustomDropdownSearchFormField<T> extends StatelessWidget {
     this.popupItemDisabled,
     this.mode = Mode.MENU,
     this.loadingBuilder,
-    this.contentPadding =
-        const EdgeInsets.symmetric(horizontal: 10,),
+    this.contentPadding = const EdgeInsets.symmetric(
+      horizontal: 10,
+    ),
   });
 
   @override
@@ -92,12 +97,15 @@ class CustomDropdownSearchFormField<T> extends StatelessWidget {
             itemAsString: itemAsString,
             onChanged: onChanged,
             validator: validator,
-            showSearchBox: true,
+            showSearchBox: showSearchBox,
             mode: mode,
             showSelectedItem: false,
             compareFn: compareFn,
             items: items,
             onFind: onFind,
+            popupShape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+            dropdownBuilderSupportsNullItem: true,
             autoFocusSearchBox: autoFocusSearchBox,
             popupItemDisabled: popupItemDisabled,
             selectedItem: selectedItem,

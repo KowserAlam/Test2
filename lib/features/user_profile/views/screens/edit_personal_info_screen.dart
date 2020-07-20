@@ -295,8 +295,8 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
 //                          .requestFocus(_permanentAddressFocusNode);
                   },
                   controller: _currentAddressController,
-                  labelText: StringResources.currentAddressText,
-                  hintText: StringResources.currentAddressText,
+                  labelText: StringResources.addressText,
+                  hintText: StringResources.addressText,
                 ),
                 spaceBetweenFields,
                 //Permanent Address

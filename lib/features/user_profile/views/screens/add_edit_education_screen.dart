@@ -99,22 +99,22 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
     }, (List<Institution> r) {
 //      print(r);
       _institutionListStreamController.sink.add(r);
-
     });
   }
 
   bool validate() {
     bool isFormValid = _formKey.currentState.validate();
     bool isEnrollDateCorrect = _enrollDate != null;
-    bool isGraduationDateCorrect(){
-      if(currentLyStudyingHere){
+    bool isGraduationDateCorrect() {
+      if (currentLyStudyingHere) {
         _graduationDate = null;
         return true;
-      }else{
-        if(_graduationDate == null){
-          graduationDateErrorText = StringResources.blankGraduationDateWarningText;
+      } else {
+        if (_graduationDate == null) {
+          graduationDateErrorText =
+              StringResources.blankGraduationDateWarningText;
           return false;
-        }else{
+        } else {
           graduationDateErrorText = null;
           return true;
         }
@@ -134,21 +134,26 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
         institutionNameErrorText == null;
   }
 
-  void submitData(EduInfo education){
-    if(widget.educationModel != null){
-      Provider.of<UserProfileViewModel>(context, listen: false).updateEduInfo(education, index).then((value) {
+  void submitData(EduInfo education) {
+    if (widget.educationModel != null) {
+      Provider.of<UserProfileViewModel>(context, listen: false)
+          .updateEduInfo(education, index)
+          .then((value) {
         if (value) {
           Navigator.pop(context);
         }
       });
-    }else{
-      Provider.of<UserProfileViewModel>(context, listen: false).addEduInfo(education).then((value) {
+    } else {
+      Provider.of<UserProfileViewModel>(context, listen: false)
+          .addEduInfo(education)
+          .then((value) {
         if (value) {
           Navigator.pop(context);
         }
       });
     }
   }
+
   _handleSave() {
     var isSuccess = validate();
 
@@ -176,12 +181,12 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
         );
         print("Degree: " + education.degree);
 
-        if(currentLyStudyingHere){
+        if (currentLyStudyingHere) {
           submitData(education);
-        }else{
-          if(_enrollDate.isBefore(_graduationDate)){
+        } else {
+          if (_enrollDate.isBefore(_graduationDate)) {
             submitData(education);
-          }else{
+          } else {
             BotToast.showText(text: StringResources.graduationDateLogicText);
           }
         }
@@ -268,9 +273,8 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
       future: DegreeListRepository().getList(),
       builder:
           (context, AsyncSnapshot<dartZ.Either<AppError, List<String>>> snap) {
-
         if (snap.hasData) {
-          var items =  snap.data.fold((l) {
+          var items = snap.data.fold((l) {
             return null;
           }, (r) {
             return r
@@ -283,7 +287,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
           });
           return CustomDropdownButtonFormField<String>(
             validator: Validator().nullFieldValidate,
-            labelText: StringResources.nameOfODegreeText,
+            labelText: StringResources.levelOfEducation,
             hint: Text(StringResources.tapToSelectText),
             value: selectedDegree,
             items: items,
@@ -422,6 +426,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
 
                     /// gpaText
                     cgpa,
+                    spaceBetween,
                     enrolledDate,
                     spaceBetween,
                     ongoing,

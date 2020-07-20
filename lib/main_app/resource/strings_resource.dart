@@ -68,6 +68,7 @@ class StringResources {
   static String candidateListText = "Candidate List";
   static String candidateNameText = "Candidate Name";
   static String closeText = "Close";
+  static String clearAll = "Clear All";
 
   static String examNameText = "Exam";
   static String noExamText = "No Exam";
@@ -171,7 +172,7 @@ class StringResources {
 
   static String contactInfoText = "Contact info";
 
-  static var professionalExperienceText = "Professional Experience";
+  static var workExperienceText = "Work Experience";
   static var experienceText = "Experience";
   static var educationsText = "Education";
   static var skillsText = "Skills";
@@ -299,7 +300,7 @@ class StringResources {
 
   static String nameOfOInstitutionText = "Name of Institution";
   static String nameOfOInstitutionHintText = "eg. ABC Institution";
-  static String nameOfODegreeText = "Degree";
+  static String levelOfEducation = "Level Of Education";
   static String nameOfODegreeHintText = "eg. Bachelor of Science";
   static String gpaText = "Percentage/CGPA";
   static String gpaHintText = "eg. 4.0";
@@ -446,7 +447,7 @@ class StringResources {
 
   ///
 /// Jobs
-static const String unspecifiedText = "Unspecified";
+static const String noneText = "None";
 static const String deadlineText = "Deadline";
 static const String applyText = "Apply";
 static const String applyFilterText = "Apply Filter";

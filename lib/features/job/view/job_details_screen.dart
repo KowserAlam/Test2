@@ -312,7 +312,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                         child: Text(
                           jobDetails.title != null
                               ? jobDetails.title
-                              : StringResources.unspecifiedText,
+                              : StringResources.noneText,
                           style: headerTextStyle,
                         ),
                       ),
@@ -330,7 +330,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                       child: Text(
                         jobDetails.company != null
                             ? jobDetails.company.name
-                            : StringResources.unspecifiedText,
+                            : StringResources.noneText,
                         style: jobDetails.company == null
                             ? topSideDescriptionFontStyle
                             : hasCompanyFontStyle,
@@ -386,7 +386,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                 Text(
                   jobDetails.descriptions != null
                       ? jobDetails.descriptions
-                      : StringResources.unspecifiedText,
+                      : StringResources.noneText,
                   style: descriptionFontStyle,
                 )
               ],
@@ -456,7 +456,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                 Text(
                   jobDetails.education != null
                       ? jobDetails.education
-                      : StringResources.unspecifiedText,
+                      : StringResources.noneText,
                   style: descriptionFontStyle,
                 )
               ],
@@ -527,7 +527,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                     StringResources.jobAddressText,
                     jobDetails.jobAddress != null
                         ? jobDetails.jobAddress
-                        : StringResources.unspecifiedText),
+                        : StringResources.noneText),
                 SizedBox(
                   height: 5,
                 ),
@@ -535,7 +535,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                     StringResources.jobAreaText,
                     jobDetails.jobArea != null
                         ? jobDetails.jobArea
-                        : StringResources.unspecifiedText),
+                        : StringResources.noneText),
                 SizedBox(
                   height: 5,
                 ),
@@ -543,7 +543,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                     StringResources.jobCityText,
                     jobDetails.jobCity != null
                         ? jobDetails.jobCity
-                        : StringResources.unspecifiedText),
+                        : StringResources.noneText),
                 SizedBox(
                   height: 5,
                 ),
@@ -599,7 +599,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                     StringResources.jobNature,
                     jobDetails.jobNature != null
                         ? refactorAboutJobStrings(jobDetails.jobNature)
-                        : StringResources.unspecifiedText),
+                        : StringResources.noneText),
                 SizedBox(
                   height: 5,
                 ),
@@ -607,7 +607,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                     StringResources.jobSiteText,
                     jobDetails.jobSite != null
                         ? refactorAboutJobStrings(jobDetails.jobSite)
-                        : StringResources.unspecifiedText),
+                        : StringResources.noneText),
                 SizedBox(
                   height: 5,
                 ),
@@ -657,7 +657,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                               jobDetails.companyProfile,
                               style: TextStyle(color: Colors.lightBlue),
                             ))
-                        : Text(StringResources.unspecifiedText),
+                        : Text(StringResources.noneText),
                   ],
                 ),
                 SizedBox(
@@ -683,7 +683,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                               jobDetails.company.webAddress ?? "",
                               style: TextStyle(color: Colors.lightBlue),
                             ))
-                        : Text(StringResources.unspecifiedText),
+                        : Text(StringResources.noneText),
                   ],
                 ),
                 SizedBox(
@@ -731,7 +731,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                             StringResources.category,
                             jobDetails.jobCategory != null
                                 ? jobDetails.jobCategory
-                                : StringResources.unspecifiedText)
+                                : StringResources.noneText)
                       ],
                     ),
                     SizedBox(height: 5),
@@ -741,7 +741,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                             StringResources.vacancy,
                             jobDetails.vacancy != null
                                 ? jobDetails.vacancy.toString()
-                                : StringResources.unspecifiedText)
+                                : StringResources.noneText)
                       ],
                     ),
                     SizedBox(height: 5),
@@ -751,7 +751,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                             StringResources.qualificationText,
                             jobDetails.qualification != null
                                 ? jobDetails.qualification
-                                : StringResources.unspecifiedText)
+                                : StringResources.noneText)
                       ],
                     ),
                     SizedBox(height: 5),
@@ -761,7 +761,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                             StringResources.gender,
                             jobDetails.gender != null
                                 ? jobDetails.gender
-                                : StringResources.unspecifiedText)
+                                : StringResources.noneText)
                       ],
                     ),
                     SizedBox(height: 5),
@@ -771,7 +771,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                             StringResources.experience,
                             jobDetails.experience != null
                                 ? jobDetails.experience
-                                : StringResources.unspecifiedText)
+                                : StringResources.noneText)
                       ],
                     ),
                     SizedBox(
@@ -851,13 +851,13 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                           (jobDetails.currency != null
                               ? jobDetails.currency
                               : '')
-                      : StringResources.unspecifiedText,
+                      : StringResources.noneText,
                 ),
                 jobSummeryRichText(
                   StringResources.salaryRangeText,
                   (jobDetails.salaryMin != null
                           ? jobDetails.salaryMin.toString()
-                          : StringResources.unspecifiedText) +
+                          : StringResources.noneText) +
                       "-" +
                       (jobDetails.salaryMax != null
                           ? jobDetails.salaryMax.toString() +
@@ -865,7 +865,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                               (jobDetails.currency != null
                                   ? jobDetails.currency
                                   : '')
-                          : StringResources.unspecifiedText),
+                          : StringResources.noneText),
                 )
               ],
             ),
@@ -899,7 +899,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                 Text(
                   jobDetails.otherBenefits != null
                       ? jobDetails.otherBenefits
-                      : StringResources.unspecifiedText,
+                      : StringResources.noneText,
                   style: descriptionFontStyle,
                 )
               ],
@@ -958,7 +958,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
             Text(
               jobDetails.postDate != null
                   ? DateFormatUtil.formatDate(jobDetails.postDate)
-                  : StringResources.unspecifiedText,
+                  : StringResources.noneText,
               style: topSideDescriptionFontStyle,
             ),
           ],
@@ -977,7 +977,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
             Text(
               jobDetails.applicationDeadline != null
                   ? DateFormatUtil.formatDate(jobDetails.applicationDeadline)
-                  : StringResources.unspecifiedText,
+                  : StringResources.noneText,
               style: topSideDescriptionFontStyle,
             ),
           ],

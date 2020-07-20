@@ -96,7 +96,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                       Flexible(
                         child: Text(
                           companyDetails.name ??
-                              StringResources.unspecifiedText,
+                              StringResources.noneText,
                           style: headerTextStyle,
                         ),
                       ),
@@ -148,7 +148,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                     companyDetails.yearOfEstablishment != null
                         ? DateFormatUtil.formatDate(
                             companyDetails.yearOfEstablishment)
-                        : StringResources.unspecifiedText),
+                        : StringResources.noneText),
                 SizedBox(
                   height: 5,
                 ),

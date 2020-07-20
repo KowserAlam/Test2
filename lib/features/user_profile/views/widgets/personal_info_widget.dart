@@ -87,7 +87,7 @@ class PersonalInfoWidget extends StatelessWidget {
                 //current address
                 _item(
                     context: context,
-                    label: StringResources.currentAddressText,
+                    label: StringResources.addressText,
                     value: personalInfo.address ?? ""),
                 //permanent address
                 _item(

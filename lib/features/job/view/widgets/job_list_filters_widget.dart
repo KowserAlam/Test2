@@ -83,40 +83,6 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
               jobListFilterWidgetViewModel.experienceMin ?? experienceMin,
               jobListFilterWidgetViewModel.experienceMax ?? experienceMax);
 
-          var skillDropDownMenuItems = jobListFilterWidgetViewModel.skills
-              .map((e) =>
-              DropdownMenuItem<Skill>(
-                key: Key(e.id.toString()),
-                value: e,
-                child: Text(
-                  e.name,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ))
-              .toList();
-          var locationDropDownMenuItems = jobListFilterWidgetViewModel.jobCity
-              .map((e) =>
-              DropdownMenuItem<String>(
-                key: Key(e),
-                value: e,
-                child: Text(
-                  e,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ))
-              .toList();
-          var jobCategoriesDropDownMenuItems =
-          jobListFilterWidgetViewModel.jobCategories
-              .map((e) =>
-              DropdownMenuItem<String>(
-                key: Key(e),
-                value: e,
-                child: Text(
-                  e.trim(),
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ))
-              .toList();
           var qualificationDropDownMenuItems =
           jobListFilterWidgetViewModel.qualifications
               .map((e) =>
@@ -193,9 +159,9 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
                       ),
                     ),
                     //reset button
-                    IconButton(
-                      icon: Icon(FontAwesomeIcons.redo),
-                      iconSize: 20,
+                    RaisedButton(
+                      color: Theme.of(context).primaryColor,
+                      child: Text(StringResources.clearAll),
                       onPressed: () {
                         Provider.of<JobListFilterWidgetViewModel>(context,
                             listen: false)
@@ -223,27 +189,6 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
                   child: ListView(
                     padding: EdgeInsets.all(8),
                     children: [
-//          Row(
-//            children: [
-//              Text(
-//                StringUtils.skillText,
-//                style: Theme.of(context).textTheme.subtitle1,
-//              ),
-//              Expanded(
-//                child: SearchableDropdown<Skill>.single(
-//                  isExpanded: true,
-//                  hint: Text(StringUtils.tapToSelectText),
-//                  value: jobListFilterWidgetViewModel.selectedSkill,
-//                  items: skillDropDownMenuItems,
-//                  onChanged: (v) {
-//                    debugPrint(v.toString());
-//                    jobListFilterWidgetViewModel.selectedSkill = v;
-//                  },
-//                ),
-//              ),
-//
-//            ],
-//          ),
 
                       spaceBetween,
                       // sort by
@@ -257,18 +202,8 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
                         items: sortByListDropDownMenuItems,
                       ),
                       spaceBetween,
-                      //job category
-//                      CustomDropdownButtonFormField<String>(
-//                        labelText: StringResources.jobCategoryText,
-//                        hint: Text(StringResources.tapToSelectText),
-//                        onChanged: (value) {
-//                          jobListFilterWidgetViewModel.selectedCategory = value;
-//                        },
-//                        isExpanded: true,
-//                        value: jobListFilterWidgetViewModel.selectedCategory,
-//                        items: jobCategoriesDropDownMenuItems,
-//                      ),
                       CustomDropdownSearchFormField<String>(
+                        showSearchBox: true,
                           popupItemDisabled: (String s) => s.startsWith('I'),
                           mode: Mode.DIALOG,
                           labelText: StringResources.jobCategoryText,
@@ -313,6 +248,7 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
 //                  spaceBetween,
 
                       CustomDropdownSearchFormField<Skill>(
+                        showSearchBox: true,
                         popupItemDisabled: (Skill s) => s.name.startsWith('I'),
                         compareFn: (Skill v1, Skill v2) {
                           return v1.name == v2.name;

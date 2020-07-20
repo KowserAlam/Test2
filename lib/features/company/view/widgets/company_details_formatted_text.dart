@@ -27,7 +27,7 @@ class CompanyDetailsFormattedText extends StatelessWidget {
         TextSpan(text: ': ', style: descriptionFontStyleBold),
         TextSpan(
             text: description == null
-                ? StringResources.unspecifiedText
+                ? StringResources.noneText
                 : description,
             style: descriptionFontStyle),
       ]),
