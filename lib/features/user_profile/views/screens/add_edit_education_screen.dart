@@ -10,6 +10,7 @@ import 'package:p7app/features/user_profile/styles/common_style_text_field.dart'
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/main_app/views/widgets/common_date_picker_form_field.dart';
 import 'package:p7app/features/user_profile/views/widgets/custom_dropdown_button_form_field.dart';
+import 'package:p7app/main_app/views/widgets/custom_auto_complete_text_field.dart';
 import 'package:p7app/main_app/views/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
@@ -48,6 +49,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
   TextEditingController institutionNameController = TextEditingController();
   TextEditingController gpaTextController = TextEditingController();
   TextEditingController degreeTextController = TextEditingController();
+  TextEditingController majorTextController = TextEditingController();
   var _formKey = GlobalKey<FormState>();
   var _scaffoldKey = GlobalKey<ScaffoldState>();
   DateTime _enrollDate;
@@ -57,10 +59,9 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
   String enrollDateErrorText;
   String graduationDateErrorText;
   bool currentLyStudyingHere = false;
-
+  Future<List<MajorSubject>> majorList;
   String selectedDegree;
   MajorSubject selectedMajorSubject;
-
   var autoCompleteTextKey =
       GlobalKey<AutoCompleteTextFieldState<Institution>>();
   final _institutionListStreamController = BehaviorSubject<List<Institution>>();
@@ -76,6 +77,8 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
       gpaTextController.text = widget.educationModel.cgpa ?? "";
       selectedDegree = widget.educationModel.degree;
       selectedMajorSubject = widget.educationModel.major ?? null;
+      majorTextController.text = widget.educationModel?.major?.name ??
+          widget.educationModel?.majorText;
       _enrollDate = widget.educationModel.enrolledDate;
       _graduationDate = widget.educationModel.graduationDate;
       currentLyStudyingHere = widget.educationModel.graduationDate == null;
@@ -100,6 +103,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
 //      print(r);
       _institutionListStreamController.sink.add(r);
     });
+    majorList = MajorSubListListRepository().getList();
   }
 
   bool validate() {
@@ -154,6 +158,17 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
     }
   }
 
+  MajorSubject getSelectedMajor() {
+    if (selectedMajorSubject != null) {
+      if (selectedMajorSubject.name == majorTextController.text) {
+        return selectedMajorSubject;
+      } else {
+        return null;
+      }
+    }
+    return null;
+  }
+
   _handleSave() {
     var isSuccess = validate();
 
@@ -174,7 +189,8 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
           institutionId: insId,
           cgpa: gpaTextController.text,
           degree: selectedDegree,
-          major: selectedMajorSubject,
+          major: getSelectedMajor(),
+          majorText: majorTextController.text,
           enrolledDate: _enrollDate,
           graduationDate: _graduationDate,
           institutionText: institutionNameController.text,
@@ -302,37 +318,28 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
         }
       },
     );
-    var major = FutureBuilder<dartZ.Either<AppError, List<MajorSubject>>>(
-      future: MajorSubListListRepository().getList(),
-      builder: (context,
-          AsyncSnapshot<dartZ.Either<AppError, List<MajorSubject>>> snap) {
-        if (snap.hasData) {
-          return snap.data.fold((l) {
-            return SizedBox();
-          }, (r) {
-            var items = r
-                .map((e) => DropdownMenuItem<MajorSubject>(
-                      key: Key(e.name),
-                      value: e,
-                      child: Text(e.name ?? ""),
-                    ))
-                .toList();
 
-            return CustomDropdownButtonFormField<MajorSubject>(
-              labelText: StringResources.majorDateText,
-              hint: Text(StringResources.tapToSelectText),
-              value: selectedMajorSubject,
-              items: items,
-              onChanged: (v) {
-                selectedMajorSubject = v;
-                print(v);
-                setState(() {});
-              },
-            );
-          });
-        } else {
-          return Loader();
-        }
+    var major = CustomAutoCompleteTextField<MajorSubject>(
+      labelText: StringResources.majorText,
+      onSuggestionSelected: (v) {
+        majorTextController.text = v.name;
+        selectedMajorSubject = v;
+      },
+      controller: majorTextController,
+      itemBuilder: (context, m) {
+        return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(m.name),
+        );
+      },
+      suggestionsCallback: (q) async {
+        return majorList.then((value) {
+          if(q.length<=1){
+            return [];
+          }
+          return value.where(
+            (element) => element.name.toLowerCase().contains(q.toLowerCase()));
+        });
       },
     );
 

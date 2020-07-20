@@ -310,7 +310,7 @@ class StringResources {
   static String currentlyStudyingHereText = "I'm currently studying here";
   static String startingDateText = "Starting Date";
   static String chooseDateText = "Choose Date";
-  static String majorDateText = "Major";
+  static String majorText = "Major";
   static String noDegreeChosen = "You need to choose a degree";
   static String blankGraduationDateWarningText = "Please enter your graduation date";
   static String blankEnrollDateWarningText = "Please enter your enroll date";

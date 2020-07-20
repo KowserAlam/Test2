@@ -27,7 +27,7 @@ class MajorSubListListRepository {
     }
   }
 
-  Future<Either<AppError, List<MajorSubject>>> getList() async {
+   Future<List<MajorSubject>> getList() async {
     try {
 //      var res = await ApiClient().getRequest(Urls.majorListUrl);
 
@@ -35,11 +35,11 @@ class MajorSubListListRepository {
       var decodedJson = json.decode(body);
 //      print(decodedJson);
       List<MajorSubject> list = fromJson(decodedJson);
-      return Right(list);
+      return list;
     } catch (e) {
       print(e);
 
-      return Left(AppError.serverError);
+      return [];
     }
   }
 
