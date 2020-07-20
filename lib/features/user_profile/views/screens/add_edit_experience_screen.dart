@@ -13,6 +13,7 @@ import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/debouncer.dart';
 import 'package:p7app/main_app/views/widgets/common_date_picker_form_field.dart';
+import 'package:p7app/main_app/views/widgets/custom_text_field_rich_html.dart';
 import 'package:p7app/main_app/views/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/views/widgets/edit_screen_save_button.dart';
 import 'package:provider/provider.dart';
@@ -40,12 +41,9 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
   String _experienceId;
   TextEditingController _companyNameController = TextEditingController();
   TextEditingController positionNameController = TextEditingController();
-  Debouncer _debouncer = Debouncer(milliseconds: 400);
-  var _companyNameFocusNode = FocusNode();
-  var _companyAutocompleteKey =
-      new GlobalKey<AutoCompleteTextFieldState<Company>>();
   var _formKey = GlobalKey<FormState>();
   var _scaffoldKey = GlobalKey<ScaffoldState>();
+  String descriptionText = "";
   List<Company> companySuggestion = [];
   String _companyNameErrorText;
   String _joiningDateErrorText;
@@ -65,6 +63,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
       _selectedCompanyId = widget.experienceInfoModel.companyName;
       _experienceId = widget.experienceInfoModel.experienceId ?? null;
       currentLyWorkingHere = _leavingDate == null;
+      descriptionText = widget.experienceInfoModel.description;
     }
     super.initState();
   }
@@ -160,6 +159,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
         companyId: selectedCompany?.name ?? _companyNameController.text,
         startDate: _joiningDate,
         endDate: _leavingDate,
+        description: descriptionText
       );
 
       if (widget.experienceInfoModel == null) {
@@ -179,8 +179,17 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
     var name = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text("  " + StringResources.nameOfCompany ?? "",
-            style: TextStyle(fontWeight: FontWeight.bold)),
+
+        Row(
+          children: [
+            Text("  " + StringResources.company ?? "",
+                style: TextStyle(fontWeight: FontWeight.bold)),
+              Text(
+                " *",
+                style: TextStyle(color: Colors.red),
+              )
+          ],
+        ),
         SizedBox(
           height: 5,
         ),
@@ -289,22 +298,33 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
+                      spaceBetweenSections,
                       name,
 //                      nameOfCompany,
                       spaceBetweenSections,
 
-                      /// Position
+                      /// designation
                       CustomTextFormField(
                         //validator: Validator().nullFieldValidate,
                         controller: positionNameController,
-                        labelText: StringResources.positionText,
-                        hintText: StringResources.positionTextEg,
+                        labelText: StringResources.designationText,
+                        hintText: StringResources.designationHintText,
                         autofocus: false,
                       ),
                       spaceBetweenSections,
 
+                      CustomTextFieldRichHtml(
+                        labelText: StringResources.descriptionText,
+                        value: descriptionText,
+                        onDone: (v){
+                          descriptionText = v;
+
+                        },
+                      ),
+                      spaceBetweenSections,
                       /// Joining Date
                       CommonDatePickerFormField(
+                        isRequired: true,
                         errorText: _joiningDateErrorText,
                         label: StringResources.joiningDateText,
                         date: _joiningDate,
@@ -340,6 +360,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
                       /// Leaving Date
                       if (!currentLyWorkingHere)
                         CommonDatePickerFormField(
+                          isRequired: true,
                           errorText: _leavingDateErrorText,
                           label: StringResources.leavingDateText,
                           date: _leavingDate,

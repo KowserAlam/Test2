@@ -335,6 +335,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
         }
       },
     );
+
     var enrolledDate = CommonDatePickerFormField(
       errorText: enrollDateErrorText,
       date: _enrollDate,

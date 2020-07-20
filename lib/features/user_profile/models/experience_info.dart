@@ -6,12 +6,14 @@ class ExperienceInfo {
   String companyName;
   String companyId;
   String designation;
+  String description;
   DateTime startDate;
   DateTime endDate;
   String companyProfilePic;
   bool isCurrentlyWorkingHere;
 
   ExperienceInfo({
+    this.description,
     this.companyName,
     this.designation,
     this.startDate,
@@ -30,6 +32,7 @@ class ExperienceInfo {
     companyName = json['company_text'];
     companyId = json['company_id'];
     designation = json['designation'];
+    description = json['description'];
     if (json['start_date'] != null) {
       startDate = DateTime.parse(json['start_date']);
     }
@@ -48,6 +51,7 @@ class ExperienceInfo {
     data['company_text'] = this.companyName;
     data['company_id'] = this.companyId;
     data['designation'] = this.designation;
+    data['description'] = this.description;
     data['start_date'] = this.startDate.toYYYMMDDString;
     data['end_date'] = this.endDate.toYYYMMDDString;
     return data;

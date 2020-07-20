@@ -218,21 +218,7 @@ class _EditMemberShipsState extends State<EditMemberShips> {
                     });
                   },
                 ),
-                //End Date
-                !_membershipOngoing?CommonDatePickerFormField(
-                  errorText: blankEndingDateWarningText,
-                  label: StringResources.membershipEndDateText,
-                  date: _endDate,
-                  onDateTimeChanged: (v){setState(() {
-                    _endDate = v;
-                  });},
-                  onTapDateClear: (){
-                    setState(() {
-                      _endDate = null;
-                    });
-                  },
-                ):SizedBox(),
-                //Membership Ongoing
+                spaceBetweenFields,
                 Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -256,6 +242,24 @@ class _EditMemberShipsState extends State<EditMemberShips> {
                     )
                   ],
                 ),
+                spaceBetweenFields,
+                //End Date
+                !_membershipOngoing?CommonDatePickerFormField(
+                  errorText: blankEndingDateWarningText,
+                  label: StringResources.membershipEndDateText,
+                  date: _endDate,
+                  onDateTimeChanged: (v){setState(() {
+                    _endDate = v;
+                  });},
+                  onTapDateClear: (){
+                    setState(() {
+                      _endDate = null;
+                    });
+                  },
+                ):SizedBox(),
+                //Membership Ongoing
+
+
                 spaceBetweenFields,
               ],
             ),

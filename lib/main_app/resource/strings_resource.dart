@@ -42,6 +42,7 @@ class StringResources {
   static String twoDecimal = "Please enter a value within 0-9 and with two decimal values max";
 
   ///
+  static String doneText = "Done";
   static String passwordText = "Password";
   static String confirmPasswordText = "Confirm Password";
   static String labelTextFullName = "Full Name";
@@ -358,6 +359,7 @@ class StringResources {
   static var fullNameText = "Name";
   static var fullNameHintText = "eg. John Doe";
   static var designationText = "Designation";
+  static var descriptionText = "Description";
   static var designationHintText = "eg. Software Engineer";
   static var aboutHintText = " ...";
   static var phoneText = "Phone";
@@ -369,7 +371,7 @@ class StringResources {
 
   static var locationText = "Location";
   static var currentCompany = "Current Company";
-  static var nameOfCompany = "Name Of Company";
+  static var company = "Company";
   static var currentCompanyHint = "eg. ABC Corporation";
   static var currentDesignation = "Current Designation";
   static var currentDesignationHint =  "eg. Software Engineer";

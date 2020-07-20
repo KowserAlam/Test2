@@ -13,8 +13,9 @@ class CustomTextFormField extends StatelessWidget {
   final FocusNode focusNode;
   final bool autofocus;
   final bool enabled;
-  final bool readOnly;
   final bool autovalidate;
+  final bool readOnly;
+  final bool isRequired;
   final TextInputAction textInputAction;
   final ValueChanged<String> onFieldSubmitted;
   final Widget prefix;
@@ -23,9 +24,8 @@ class CustomTextFormField extends StatelessWidget {
   final GestureTapCallback onTap;
 
   const CustomTextFormField({
-    this.enabled,
     this.readOnly = false,
-    this.onTap,
+    this.enabled = true,
     this.maxLength,
     this.validator,
     this.prefix,
@@ -35,10 +35,12 @@ class CustomTextFormField extends StatelessWidget {
     this.controller,
     this.onFieldSubmitted,
     this.focusNode,
+    this.isRequired = false,
     this.autofocus = false,
     this.labelText,
     this.hintText,
     this.minLines,
+    this.onTap,
     this.keyboardType,
     this.contentPadding =
         const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -53,8 +55,19 @@ class CustomTextFormField extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         if (labelText != null)
-          Text("  ${labelText ?? ""}",
-              style: TextStyle(fontWeight: FontWeight.bold)),
+          Row(
+            children: [
+              Flexible(
+                child: Text("  ${labelText ?? ""}",
+                    style: TextStyle(fontWeight: FontWeight.bold)),
+              ),
+              if (isRequired)
+                Text(
+                  " *",
+                  style: TextStyle(color: Colors.red),
+                )
+            ],
+          ),
         SizedBox(
           height: 5,
         ),
@@ -70,9 +83,9 @@ class CustomTextFormField extends StatelessWidget {
             ],
           ),
           child: TextFormField(
-            enabled: enabled,
-            readOnly: readOnly,
             onTap: onTap,
+            readOnly: readOnly,
+            enabled: enabled,
             maxLength: maxLength,
             minLines: minLines,
             onChanged: onChanged,
@@ -82,7 +95,8 @@ class CustomTextFormField extends StatelessWidget {
             maxLines: maxLines,
             autovalidate: autovalidate,
             keyboardType: keyboardType,
-            validator: validator,
+            validator:
+                validator ?? (isRequired ? Validator().nullFieldValidate : null),
             controller: controller,
             textInputAction: textInputAction,
             decoration: InputDecoration(

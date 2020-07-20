@@ -13,6 +13,7 @@ class CommonDatePickerFormField extends StatefulWidget {
   final DateTime minDate;
   final DateTime maxDate;
   final FocusNode focusNode;
+  final bool isRequired;
 
   const CommonDatePickerFormField({
     @required this.label,
@@ -23,6 +24,7 @@ class CommonDatePickerFormField extends StatefulWidget {
     this.minDate,
     this.errorText,
     this.focusNode,
+    this.isRequired = false,
   });
 
   @override
@@ -46,6 +48,7 @@ class _CommonDatePickerFormFieldState extends State<CommonDatePickerFormField> {
 //          height: 8,
 //        ),
         CustomTextFormField(
+          isRequired: widget.isRequired,
           labelText: widget.label,
           onTap: () {
             FocusScopeNode currentFocus = FocusScope.of(context);
