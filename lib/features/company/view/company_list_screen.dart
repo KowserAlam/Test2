@@ -1,24 +1,18 @@
 import 'package:after_layout/after_layout.dart';
-import 'package:autocomplete_textfield/autocomplete_textfield.dart';
-import 'package:bot_toast/bot_toast.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:p7app/features/company/models/company.dart';
 import 'package:p7app/features/company/view/company_list_tile.dart';
 import 'package:p7app/features/company/view_model/company_list_view_model.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
-import 'package:p7app/main_app/util/date_format_uitl.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
+import 'package:p7app/main_app/views/widgets/custom_text_field.dart';
 import 'package:p7app/main_app/views/widgets/failure_widget.dart';
 import 'package:p7app/main_app/views/widgets/loader.dart';
-import 'company_details.dart';
-import 'package:p7app/main_app/resource/const.dart';
-import 'package:p7app/main_app/resource/strings_resource.dart';
-import 'package:p7app/main_app/util/debouncer.dart';
-import 'package:p7app/main_app/views/widgets/custom_text_field.dart';
 import 'package:provider/provider.dart';
+
+import 'company_details.dart';
 
 class CompanyListScreen extends StatefulWidget {
   @override

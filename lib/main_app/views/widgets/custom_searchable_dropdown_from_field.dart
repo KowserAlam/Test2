@@ -42,6 +42,7 @@ class CustomDropdownSearchFormField<T> extends StatelessWidget {
 
   ///function that returns item from API
   final DropdownSearchOnFind<T> onFind;
+  final bool isRequired;
 
   const CustomDropdownSearchFormField({
     this.showSelectedItem = false,
@@ -52,6 +53,7 @@ class CustomDropdownSearchFormField<T> extends StatelessWidget {
     this.maxLength,
     this.itemAsString,
     this.validator,
+    this.isRequired=false,
     this.prefix,
     this.onChanged,
     this.compareFn,
@@ -74,9 +76,17 @@ class CustomDropdownSearchFormField<T> extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        if (labelText != null)
-          Text("  ${labelText ?? ""}",
-              style: TextStyle(fontWeight: FontWeight.bold)),
+        Row(
+          children: [
+            Text("  ${labelText ?? ""}",
+                style: TextStyle(fontWeight: FontWeight.bold)),
+            if (isRequired)
+              Text(
+                " *",
+                style: TextStyle(color: Colors.red),
+              )
+          ],
+        ),
         SizedBox(
           height: 5,
         ),
@@ -93,6 +103,7 @@ class CustomDropdownSearchFormField<T> extends StatelessWidget {
             ],
           ),
           child: DropdownSearch<T>(
+            loadingBuilder:loadingBuilder ,
             hint: hintText,
             itemAsString: itemAsString,
             onChanged: onChanged,

@@ -1,27 +1,22 @@
-import 'package:autocomplete_textfield/autocomplete_textfield.dart';
+
 import 'package:bot_toast/bot_toast.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:p7app/features/user_profile/models/edu_info.dart';
 import 'package:p7app/features/user_profile/models/institution.dart';
 import 'package:p7app/features/user_profile/models/major.dart';
 import 'package:p7app/features/user_profile/repositories/degree_list_repository.dart';
 import 'package:p7app/features/user_profile/repositories/institution_list_repository.dart';
 import 'package:p7app/features/user_profile/repositories/major_subject_list_repository.dart';
-import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
-import 'package:p7app/main_app/views/widgets/common_date_picker_form_field.dart';
-import 'package:p7app/features/user_profile/views/widgets/custom_dropdown_button_form_field.dart';
-import 'package:p7app/main_app/views/widgets/custom_auto_complete_text_field.dart';
-import 'package:p7app/main_app/views/widgets/custom_text_from_field.dart';
-import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/validator.dart';
+import 'package:p7app/main_app/views/widgets/common_date_picker_form_field.dart';
+import 'package:p7app/main_app/views/widgets/custom_auto_complete_text_field.dart';
+import 'package:p7app/main_app/views/widgets/custom_searchable_dropdown_from_field.dart';
+import 'package:p7app/main_app/views/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/views/widgets/edit_screen_save_button.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:p7app/main_app/views/widgets/loader.dart';
 import 'package:provider/provider.dart';
-import 'package:dartz/dartz.dart' as dartZ;
-import 'package:rxdart/rxdart.dart';
 
 class AddEditEducationScreen extends StatefulWidget {
   final EduInfo educationModel;
@@ -54,17 +49,15 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
   var _scaffoldKey = GlobalKey<ScaffoldState>();
   DateTime _enrollDate;
   DateTime _graduationDate;
-  Institution selectedInstitute;
   String institutionNameErrorText;
   String enrollDateErrorText;
   String graduationDateErrorText;
   bool currentLyStudyingHere = false;
   Future<List<MajorSubject>> majorList;
+  Future<List<Institution>> institutionList;
   String selectedDegree;
   MajorSubject selectedMajorSubject;
-  var autoCompleteTextKey =
-      GlobalKey<AutoCompleteTextFieldState<Institution>>();
-  final _institutionListStreamController = BehaviorSubject<List<Institution>>();
+  Institution selectedInstitute;
 
   initState() {
     if (widget.educationModel != null) {
@@ -89,21 +82,12 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
   }
 
   dispose() {
-    _institutionListStreamController.close();
     super.dispose();
   }
 
   _initRepos() async {
-    dartZ.Either<AppError, List<Institution>> res =
-        await InstitutionListRepository().getList();
-    res.fold((l) {
-      // error
-      print(l);
-    }, (List<Institution> r) {
-//      print(r);
-      _institutionListStreamController.sink.add(r);
-    });
     majorList = MajorSubListListRepository().getList();
+    institutionList = InstitutionListRepository().getList();
   }
 
   bool validate() {
@@ -216,106 +200,51 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
       height: 15,
     );
 
-    var nameOfInstitution = StreamBuilder<List<Institution>>(
-        stream: _institutionListStreamController.stream,
-        builder: (context, AsyncSnapshot<List<Institution>> snapshot) {
-          if (snapshot.hasData)
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text("  " + StringResources.nameOfOInstitutionText ?? "",
-                    style: TextStyle(fontWeight: FontWeight.bold)),
-                SizedBox(
-                  height: 5,
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).backgroundColor,
-                    borderRadius: BorderRadius.circular(7),
-                    boxShadow: CommonStyleTextField.boxShadow,
-                  ),
-                  child: AutoCompleteTextField<Institution>(
-                    decoration: InputDecoration(
-                      hintText: StringResources.nameOfOInstitutionHintText,
-                      border: InputBorder.none,
-                      contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 5),
-                      focusedBorder:
-                          CommonStyleTextField.focusedBorder(context),
-                    ),
-                    controller: institutionNameController,
-                    itemFilter: (Institution suggestion, String query) =>
-                        suggestion.name
-                            .toLowerCase()
-                            .contains(query.toLowerCase()),
-                    suggestions: snapshot.data,
-                    itemSorter: (Institution a, Institution b) =>
-                        a.name.compareTo(b.name),
-                    key: autoCompleteTextKey,
-                    itemBuilder:
-                        (BuildContext context, Institution suggestion) {
-                      return ListTile(
-                        title: Text(suggestion.name ?? ""),
-                      );
-                    },
-                    clearOnSubmit: false,
-                    itemSubmitted: (Institution data) {
-                      selectedInstitute = data;
-                      institutionNameController.text = data.name;
-                      setState(() {});
-                    },
-                  ),
-                ),
-                if (institutionNameErrorText != null)
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      institutionNameErrorText,
-                      style: TextStyle(color: Colors.red),
-                    ),
-                  ),
-              ],
-            );
-
-          return CustomTextFormField(
-            validator: Validator().nullFieldValidate,
-            controller: institutionNameController,
-            labelText: StringResources.nameOfOInstitutionText,
-            hintText: StringResources.nameOfOInstitutionHintText,
-          );
+    var nameOfInstitution = CustomAutoCompleteTextField<Institution>(
+      isRequired: true,
+      labelText: StringResources.nameOfOInstitutionText,
+      hintText: StringResources.nameOfOInstitutionHintText,
+      validator: Validator().nullFieldValidate,
+      onSuggestionSelected: (v) {
+        institutionNameController.text = v.name;
+        selectedInstitute = v;
+      },
+      controller: institutionNameController,
+      itemBuilder: (context, m) {
+        return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(m.name),
+        );
+      },
+      suggestionsCallback: (q) async {
+        return institutionList.then((value) {
+          if (q.length <= 1) {
+            return [];
+          }
+          return value.where((element) =>
+              element.name.toLowerCase().contains(q.toLowerCase()));
         });
+      },
+    );
 
-    var degree = FutureBuilder<dartZ.Either<AppError, List<String>>>(
+    var levelOfEducation = FutureBuilder<List<String>>(
       future: DegreeListRepository().getList(),
-      builder:
-          (context, AsyncSnapshot<dartZ.Either<AppError, List<String>>> snap) {
-        if (snap.hasData) {
-          var items = snap.data.fold((l) {
-            return null;
-          }, (r) {
-            return r
-                .map((e) => DropdownMenuItem<String>(
-                      key: Key(e),
-                      value: e,
-                      child: Text(e ?? ""),
-                    ))
-                .toList();
-          });
-          return CustomDropdownButtonFormField<String>(
-            validator: Validator().nullFieldValidate,
-            labelText: StringResources.levelOfEducation,
-            hint: Text(StringResources.tapToSelectText),
-            value: selectedDegree,
-            items: items,
-            onChanged: (v) {
-              selectedDegree = v;
-              print(selectedDegree);
-              setState(() {});
-            },
-          );
-        } else {
-          return Loader();
-        }
+      builder: (context, AsyncSnapshot<List<String>> snap) {
+        return CustomDropdownSearchFormField<String>(
+          isRequired: true,
+          showSearchBox: true,
+          compareFn: (s1, s2) => s1.toLowerCase().contains(s2.toLowerCase()),
+          validator: Validator().nullFieldValidate,
+          labelText: StringResources.levelOfEducation,
+          hintText: StringResources.tapToSelectText,
+          selectedItem: selectedDegree,
+          items: snap.data,
+          onChanged: (v) {
+            selectedDegree = v;
+            print(selectedDegree);
+            setState(() {});
+          },
+        );
       },
     );
 
@@ -334,16 +263,17 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
       },
       suggestionsCallback: (q) async {
         return majorList.then((value) {
-          if(q.length<=1){
+          if (q.length <= 1) {
             return [];
           }
-          return value.where(
-            (element) => element.name.toLowerCase().contains(q.toLowerCase()));
+          return value.where((element) =>
+              element.name.toLowerCase().contains(q.toLowerCase()));
         });
       },
     );
 
     var enrolledDate = CommonDatePickerFormField(
+      isRequired: true,
       errorText: enrollDateErrorText,
       date: _enrollDate,
       label: StringResources.enrollDate,
@@ -426,11 +356,13 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
                     nameOfInstitution,
                     spaceBetween,
 
-                    ///Degree
-                    degree,
-                    SizedBox(height: 15),
+                    ///level of edu
+                    levelOfEducation,
+
+                    spaceBetween,
+
                     major,
-                    SizedBox(height: 15),
+                    spaceBetween,
 
                     /// gpaText
                     cgpa,
@@ -440,6 +372,11 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
                     ongoing,
 //                    spaceBetween,
                     if (!currentLyStudyingHere) graduationDate,
+                    spaceBetween,
+                    spaceBetween,
+                    spaceBetween,
+                    spaceBetween,
+                    spaceBetween,
                   ],
                 ),
               ),

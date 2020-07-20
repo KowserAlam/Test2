@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -44,7 +42,7 @@ class _AddEditProfessionalSkillState extends State<AddEditProfessionalSkill> {
   var _scaffoldKey = GlobalKey<ScaffoldState>();
   Future<List<Skill>> _skillList;
   static Skill _selectedSkill;
-  static GlobalKey<AutoCompleteTextFieldState<Skill>> key = new GlobalKey();
+
 
   initState() {
     loading = true;

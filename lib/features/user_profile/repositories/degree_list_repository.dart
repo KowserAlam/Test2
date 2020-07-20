@@ -24,7 +24,7 @@ class DegreeListRepository{
     }
   }
 
-  Future<Either<AppError,List<String>>> getList() async{
+  Future<List<String>>getList() async{
     try{
 //      var res = await ApiClient().getRequest(Urls.qualificationListUrl);
 
@@ -33,11 +33,11 @@ class DegreeListRepository{
 //        print(decodedJson);
 
         List<String> list = fromJson(decodedJson);
-        return Right(list);
+        return list;
 
     }catch (e){
       print(e);
-      return Left(AppError.serverError);
+      return [];
     }
   }
 

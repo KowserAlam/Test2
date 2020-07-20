@@ -26,7 +26,7 @@ class InstitutionListRepository {
     }
   }
 
-  Future<Either<AppError, List<Institution>>> getList() async {
+  Future< List<Institution>> getList() async {
     try {
 
 //      var res = await  ApiClient().getRequest(Urls.instituteListUrl);
@@ -36,12 +36,12 @@ class InstitutionListRepository {
         var decodedJson = json.decode(body);
 //        print(decodedJson);
         List<Institution> list = fromJson(decodedJson);
-        return Right(list);
+        return list;
 
     } catch (e) {
       print(e);
 
-      return Left(AppError.serverError);
+      return [];
     }
   }
 

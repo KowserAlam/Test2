@@ -217,11 +217,8 @@ class JobListFilterWidgetViewModel with ChangeNotifier {
   }
 
   Future<List<String>> _getQualificationList() async {
-    Either<AppError, List<String>> res = await DegreeListRepository().getList();
-    return res.fold((l) {
-      print(l);
-      return [];
-    }, (r) => r);
+ List<String> res = await DegreeListRepository().getList();
+    return res;
   }
 
   Future<List<String>> _getGenderList() async {
