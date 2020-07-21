@@ -2,7 +2,7 @@ name: p7app
 description: A new Flutter application for Project Seven.
 
 
-version: 0.0.167+141
+version: 0.0.168+142
 
 
 environment:
@@ -51,9 +51,6 @@ dependencies:
   percent_indicator: ^2.1.5
   jwt_decode: ^0.1.0
   flutter_cache: ^0.0.6
-  flutter_summernote:
-    git:
-      url: git://github.com/shofizone/flutter_summernote.git
   flutter_widget_from_html_core: ^0.4.2
   quill_delta: ^1.0.2
   notustohtml: ^0.0.7
