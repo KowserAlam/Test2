@@ -11,11 +11,9 @@ import 'package:p7app/features/user_profile/styles/common_style_text_field.dart'
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
-import 'package:p7app/main_app/util/debouncer.dart';
 import 'package:p7app/main_app/views/widgets/common_date_picker_form_field.dart';
-import 'package:p7app/main_app/views/widgets/custom_rich_text_from_field.dart';
-import 'package:p7app/main_app/views/widgets/custom_text_field_rich_html.dart';
 import 'package:p7app/main_app/views/widgets/custom_text_from_field.dart';
+import 'package:p7app/main_app/views/widgets/custom_zefyr_rich_text_from_field.dart';
 import 'package:p7app/main_app/views/widgets/edit_screen_save_button.dart';
 import 'package:provider/provider.dart';
 
@@ -319,7 +317,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
                           autofocus: false,
                         ),
                         spaceBetweenSections,
-                        CustomRichTextFormField(
+                        CustomZefyrRichTextFormField(
                           labelText: StringResources.descriptionText,
                           focusNode: _descriptionFocusNode,
                           controller: _descriptionZefyrController,

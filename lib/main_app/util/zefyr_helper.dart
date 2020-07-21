@@ -1,5 +1,5 @@
 import 'package:notustohtml/notustohtml.dart';
-import 'package:p7app/main_app/views/widgets/custom_rich_text_from_field.dart';
+import 'package:p7app/main_app/views/widgets/custom_zefyr_rich_text_from_field.dart';
 import 'package:quill_delta/quill_delta.dart';
 
 class ZeyfrHelper {

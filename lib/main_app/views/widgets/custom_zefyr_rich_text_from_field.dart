@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:p7app/main_app/util/validator.dart';
 import 'package:zefyr/zefyr.dart';
-export 'package:zefyr/zefyr.dart';
-import  'package:notustohtml/notustohtml.dart';
+
 export 'package:notustohtml/notustohtml.dart';
 export 'package:p7app/main_app/util/zefyr_helper.dart';
+export 'package:zefyr/zefyr.dart';
 
-class CustomRichTextFormField extends StatelessWidget {
+class CustomZefyrRichTextFormField extends StatelessWidget {
   final ZefyrController controller;
   final String labelText;
   final String hintText;
@@ -17,7 +16,7 @@ class CustomRichTextFormField extends StatelessWidget {
   final Widget prefix;
   final double height;
 
-  const CustomRichTextFormField({
+  const CustomZefyrRichTextFormField({
     this.prefix,
     @required this.controller,
     @required this.focusNode,

@@ -14,7 +14,7 @@ import 'package:p7app/main_app/util/validator.dart';
 import 'package:p7app/main_app/util/zefyr_helper.dart';
 import 'package:p7app/main_app/views/widgets/common_date_picker_form_field.dart';
 import 'package:p7app/main_app/views/widgets/custom_auto_complete_text_field.dart';
-import 'package:p7app/main_app/views/widgets/custom_rich_text_from_field.dart';
+import 'package:p7app/main_app/views/widgets/custom_zefyr_rich_text_from_field.dart';
 import 'package:p7app/main_app/views/widgets/custom_searchable_dropdown_from_field.dart';
 import 'package:p7app/main_app/views/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/views/widgets/edit_screen_save_button.dart';
@@ -324,7 +324,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
       validator: Validator().numberFieldValidateOptional,
       keyboardType: TextInputType.number,
     );
-    var description = CustomRichTextFormField(
+    var description = CustomZefyrRichTextFormField(
       labelText: StringResources.descriptionText,
       focusNode: _descriptionFocusNode,
       controller: _descriptionZefyrController,
