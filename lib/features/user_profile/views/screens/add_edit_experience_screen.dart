@@ -13,6 +13,7 @@ import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/debouncer.dart';
 import 'package:p7app/main_app/views/widgets/common_date_picker_form_field.dart';
+import 'package:p7app/main_app/views/widgets/custom_rich_text_from_field.dart';
 import 'package:p7app/main_app/views/widgets/custom_text_field_rich_html.dart';
 import 'package:p7app/main_app/views/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/views/widgets/edit_screen_save_button.dart';
@@ -43,11 +44,14 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
   TextEditingController positionNameController = TextEditingController();
   var _formKey = GlobalKey<FormState>();
   var _scaffoldKey = GlobalKey<ScaffoldState>();
-  String descriptionText = "";
   List<Company> companySuggestion = [];
   String _companyNameErrorText;
   String _joiningDateErrorText;
   String _leavingDateErrorText;
+
+  ZefyrController _descriptionZefyrController =
+  ZefyrController(NotusDocument());
+  final FocusNode _descriptionFocusNode = FocusNode();
 
   _AddNewExperienceScreenState(this.experienceModel, this.index);
 
@@ -63,7 +67,9 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
       _selectedCompanyId = widget.experienceInfoModel.companyName;
       _experienceId = widget.experienceInfoModel.experienceId ?? null;
       currentLyWorkingHere = _leavingDate == null;
-      descriptionText = widget.experienceInfoModel.description;
+      _descriptionZefyrController = ZefyrController(
+          ZeyfrHelper.htmlToNotusDocument(
+              widget.experienceInfoModel?.description ?? " "));
     }
     super.initState();
   }
@@ -159,7 +165,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
         companyId: selectedCompany?.name ?? _companyNameController.text,
         startDate: _joiningDate,
         endDate: _leavingDate,
-        description: descriptionText
+        description: ZeyfrHelper.notusDocumentToHTML(_descriptionZefyrController.document),
       );
 
       if (widget.experienceInfoModel == null) {
@@ -287,100 +293,98 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
             ),
           ],
         ),
-        body: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
-          child: Consumer<UserProfileViewModel>(
-            builder: (context, addEditExperienceProvider, ch) {
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      spaceBetweenSections,
-                      name,
+        body: ZefyrScaffold(
+          child: SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
+            child: Consumer<UserProfileViewModel>(
+              builder: (context, addEditExperienceProvider, ch) {
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        spaceBetweenSections,
+                        name,
 //                      nameOfCompany,
-                      spaceBetweenSections,
+                        spaceBetweenSections,
 
-                      /// designation
-                      CustomTextFormField(
-                        //validator: Validator().nullFieldValidate,
-                        controller: positionNameController,
-                        labelText: StringResources.designationText,
-                        hintText: StringResources.designationHintText,
-                        autofocus: false,
-                      ),
-                      spaceBetweenSections,
-
-                      CustomTextFieldRichHtml(
-                        labelText: StringResources.descriptionText,
-                        value: descriptionText,
-                        onDone: (v){
-                          descriptionText = v;
-
-                        },
-                      ),
-                      spaceBetweenSections,
-                      /// Joining Date
-                      CommonDatePickerFormField(
-                        isRequired: true,
-                        errorText: _joiningDateErrorText,
-                        label: StringResources.joiningDateText,
-                        date: _joiningDate,
-                        onDateTimeChanged: (v) {
-                          setState(() {
-                            _joiningDate = v;
-                          });
-                        },
-                        onTapDateClear: () {
-                          setState(() {
-                            _joiningDate = null;
-                          });
-                        },
-                      ),
-                      spaceBetweenSections,
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Text(StringResources.currentlyWorkingHereText),
-                          Checkbox(
-                            onChanged: (bool value) {
-                              currentLyWorkingHere = value;
-                              if (!currentLyWorkingHere) {
-                                _leavingDate = null;
-                              }
-                              setState(() {});
-                            },
-                            value: currentLyWorkingHere,
-                          ),
-                        ],
-                      ),
-
-                      /// Leaving Date
-                      if (!currentLyWorkingHere)
+                        /// designation
+                        CustomTextFormField(
+                          //validator: Validator().nullFieldValidate,
+                          controller: positionNameController,
+                          labelText: StringResources.designationText,
+                          hintText: StringResources.designationHintText,
+                          autofocus: false,
+                        ),
+                        spaceBetweenSections,
+                        CustomRichTextFormField(
+                          labelText: StringResources.descriptionText,
+                          focusNode: _descriptionFocusNode,
+                          controller: _descriptionZefyrController,
+                        ),
+                        spaceBetweenSections,
+                        /// Joining Date
                         CommonDatePickerFormField(
                           isRequired: true,
-                          errorText: _leavingDateErrorText,
-                          label: StringResources.leavingDateText,
-                          date: _leavingDate,
+                          errorText: _joiningDateErrorText,
+                          label: StringResources.joiningDateText,
+                          date: _joiningDate,
                           onDateTimeChanged: (v) {
                             setState(() {
-                              _leavingDate = v;
-                              print(_leavingDate);
+                              _joiningDate = v;
                             });
                           },
                           onTapDateClear: () {
                             setState(() {
-                              _leavingDate = null;
+                              _joiningDate = null;
                             });
                           },
                         ),
-                    ],
+                        spaceBetweenSections,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text(StringResources.currentlyWorkingHereText),
+                            Checkbox(
+                              onChanged: (bool value) {
+                                currentLyWorkingHere = value;
+                                if (!currentLyWorkingHere) {
+                                  _leavingDate = null;
+                                }
+                                setState(() {});
+                              },
+                              value: currentLyWorkingHere,
+                            ),
+                          ],
+                        ),
+
+                        /// Leaving Date
+                        if (!currentLyWorkingHere)
+                          CommonDatePickerFormField(
+                            isRequired: true,
+                            errorText: _leavingDateErrorText,
+                            label: StringResources.leavingDateText,
+                            date: _leavingDate,
+                            onDateTimeChanged: (v) {
+                              setState(() {
+                                _leavingDate = v;
+                                print(_leavingDate);
+                              });
+                            },
+                            onTapDateClear: () {
+                              setState(() {
+                                _leavingDate = null;
+                              });
+                            },
+                          ),
+                      ],
+                    ),
                   ),
-                ),
-              );
-            },
+                );
+              },
+            ),
           ),
         ),
       ),

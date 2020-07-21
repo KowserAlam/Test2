@@ -13,6 +13,7 @@ class EduInfo {
   String majorText;
   DateTime enrolledDate;
   DateTime graduationDate;
+  String description;
   Institution institutionObj;
 
   EduInfo(
@@ -25,11 +26,13 @@ class EduInfo {
       this.majorText,
       this.enrolledDate,
       this.graduationDate,
+      this.description,
       this.institutionObj});
 
   EduInfo.fromJson(Map<String, dynamic> json) {
     educationId = json['id'];
     degree = json['degree'];
+    description = json['description'];
     institutionId = json['institution_id'];
     institutionText = json['institution_text'];
     cgpa = json['cgpa'];
@@ -57,10 +60,10 @@ class EduInfo {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['degree_id'] = this.degree;
     data['institution_id'] = this.institutionId;
+    data['description'] = this.description;
     data['institution_text'] = this.institutionText;
     data['cgpa'] = this.cgpa;
     data['major_id'] = this.major?.id;
-
     data['major_text'] = this.majorText;
     data['enrolled_date'] = this.enrolledDate.toYYYMMDDString;
     data['graduation_date'] = this.graduationDate.toYYYMMDDString;

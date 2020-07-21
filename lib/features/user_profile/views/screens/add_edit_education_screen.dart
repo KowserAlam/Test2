@@ -1,7 +1,7 @@
-
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:notustohtml/notustohtml.dart';
 import 'package:p7app/features/user_profile/models/edu_info.dart';
 import 'package:p7app/features/user_profile/models/institution.dart';
 import 'package:p7app/features/user_profile/models/major.dart';
@@ -11,12 +11,15 @@ import 'package:p7app/features/user_profile/repositories/major_subject_list_repo
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/validator.dart';
+import 'package:p7app/main_app/util/zefyr_helper.dart';
 import 'package:p7app/main_app/views/widgets/common_date_picker_form_field.dart';
 import 'package:p7app/main_app/views/widgets/custom_auto_complete_text_field.dart';
+import 'package:p7app/main_app/views/widgets/custom_rich_text_from_field.dart';
 import 'package:p7app/main_app/views/widgets/custom_searchable_dropdown_from_field.dart';
 import 'package:p7app/main_app/views/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/views/widgets/edit_screen_save_button.dart';
 import 'package:provider/provider.dart';
+import 'package:quill_delta/quill_delta.dart';
 
 class AddEditEducationScreen extends StatefulWidget {
   final EduInfo educationModel;
@@ -45,6 +48,11 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
   TextEditingController gpaTextController = TextEditingController();
   TextEditingController degreeTextController = TextEditingController();
   TextEditingController majorTextController = TextEditingController();
+
+  ZefyrController _descriptionZefyrController =
+      ZefyrController(NotusDocument());
+  final FocusNode _descriptionFocusNode = FocusNode();
+
   var _formKey = GlobalKey<FormState>();
   var _scaffoldKey = GlobalKey<ScaffoldState>();
   DateTime _enrollDate;
@@ -75,6 +83,9 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
       _enrollDate = widget.educationModel.enrolledDate;
       _graduationDate = widget.educationModel.graduationDate;
       currentLyStudyingHere = widget.educationModel.graduationDate == null;
+      _descriptionZefyrController = ZefyrController(
+          ZeyfrHelper.htmlToNotusDocument(
+              widget.educationModel?.description ?? " "));
     }
 
     _initRepos();
@@ -177,6 +188,8 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
           majorText: majorTextController.text,
           enrolledDate: _enrollDate,
           graduationDate: _graduationDate,
+          description: ZeyfrHelper.notusDocumentToHTML(
+              _descriptionZefyrController.document),
           institutionText: institutionNameController.text,
         );
         print("Degree: " + education.degree);
@@ -311,6 +324,11 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
       validator: Validator().numberFieldValidateOptional,
       keyboardType: TextInputType.number,
     );
+    var description = CustomRichTextFormField(
+      labelText: StringResources.descriptionText,
+      focusNode: _descriptionFocusNode,
+      controller: _descriptionZefyrController,
+    );
     var ongoing = Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
@@ -340,49 +358,53 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
-        child: Consumer<UserProfileViewModel>(
-          builder: (context, addEditEducationProvider, ch) {
-            return Form(
-              key: _formKey,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    SizedBox(
-                      height: 10,
-                    ),
-                    nameOfInstitution,
-                    spaceBetween,
+      body: ZefyrScaffold(
+        child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
+          child: Consumer<UserProfileViewModel>(
+            builder: (context, addEditEducationProvider, ch) {
+              return Form(
+                key: _formKey,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      SizedBox(
+                        height: 10,
+                      ),
+                      nameOfInstitution,
+                      spaceBetween,
 
-                    ///level of edu
-                    levelOfEducation,
+                      ///level of edu
+                      levelOfEducation,
 
-                    spaceBetween,
+                      spaceBetween,
 
-                    major,
-                    spaceBetween,
+                      major,
+                      spaceBetween,
 
-                    /// gpaText
-                    cgpa,
-                    spaceBetween,
-                    enrolledDate,
-                    spaceBetween,
-                    ongoing,
+                      /// gpaText
+                      cgpa,
+                      spaceBetween,
+                      description,
+                      spaceBetween,
+                      enrolledDate,
+                      spaceBetween,
+                      ongoing,
 //                    spaceBetween,
-                    if (!currentLyStudyingHere) graduationDate,
-                    spaceBetween,
-                    spaceBetween,
-                    spaceBetween,
-                    spaceBetween,
-                    spaceBetween,
-                  ],
+                      if (!currentLyStudyingHere) graduationDate,
+                      spaceBetween,
+                      spaceBetween,
+                      spaceBetween,
+                      spaceBetween,
+                      spaceBetween,
+                    ],
+                  ),
                 ),
-              ),
-            );
-          },
+              );
+            },
+          ),
         ),
       ),
     );
