@@ -17,6 +17,9 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
   String appVersion = "";
+  var divider = Divider(
+    height: 1,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -52,52 +55,58 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   CupertinoPageRoute(
                       builder: (context) => ChangePasswordScreen()));
             },
-            leading: Icon(
-              Icons.lock_open,
-            ),
+//            leading: Icon(
+//              Icons.lock_open,
+//            ),
             title: Text(StringResources.changePassword),
+            subtitle: Text(StringResources.changePasswordInfoText),
+//            trailing: Icon(Icons.chevron_right),
           ),
+          divider,
+//          ListTile(
+//            trailing: Icon(Icons.chevron_right),
+//            onTap: () {
+//              Navigator.push(
+//                  context,
+//                  CupertinoPageRoute(
+//                      builder: (context) => LicensePage(
+//                            applicationLegalese: "Copyright © 2020 Job Search",
+//                            applicationVersion: appVersion,
+//                            applicationIcon: Container(
+//                              height: 30,
+//                              width: 30,
+//                              decoration: BoxDecoration(
+//                                  image: DecorationImage(
+//                                      image: AssetImage(kDefaultLogoSq))),
+//                            ),
+//                          )));
+//            },
+////            leading: Icon(
+////              Icons.featured_play_list,
+////            ),
+//          subtitle: Text("Show licences"),
+//            title: Text(StringResources.licenses),
+//          ),
           ListTile(
             onTap: () {
-              Navigator.push(
-                  context,
-                  CupertinoPageRoute(
-                      builder: (context) => LicensePage(
-                            applicationLegalese: "Copyright © 2020 Job Search",
-                            applicationVersion: appVersion,
-                            applicationIcon: Container(
-                              height: 30,
-                              width: 30,
-                              decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      image: AssetImage(kDefaultLogoSq))),
-                            ),
-                          )));
+              _showClearCacheDialog();
             },
-            leading: Icon(
-              Icons.featured_play_list,
-            ),
-            title: Text(StringResources.licenses),
-          ),
-          ListTile(
-            onTap: () {_showClearCacheDialog();},
-            leading: Icon(
-              FontAwesomeIcons.eraser,
-              size: 20,
-            ),
             title: Text(StringResources.clearCachedData),
+            subtitle: Text(StringResources.clearCachedDataInfo),
           ),
+          divider,
+
           ListTile(
-            leading: Icon(
-              FontAwesomeIcons.infoCircle,
-              size: 22,
-            ),
-            title: FutureBuilder(
+//            leading: Icon(
+//              FontAwesomeIcons.infoCircle,
+//              size: 22,
+//            ),
+            subtitle: FutureBuilder(
               future: AppInfoRepository().getAppVersion(),
               builder: (c, snapshot) {
                 appVersion = snapshot.data ?? "";
                 return Text(
-                  snapshot.hasData ? "Version: ${snapshot.data}" : "",
+                  snapshot.hasData ? "VERSION: ${snapshot.data}" : "",
                   style: TextStyle(color: Colors.grey),
                 );
               },
@@ -119,7 +128,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
             },
             onCancel: () {
               Navigator.pop(context);
-            }, titleText: StringResources.doYouWantToClearAllCacheText,
+            },
+            titleText: StringResources.doYouWantToClearAllCacheText,
           );
         });
   }
