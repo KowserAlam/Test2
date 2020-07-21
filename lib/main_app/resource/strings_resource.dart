@@ -299,18 +299,19 @@ class StringResources {
 
   /// Add or Edit New Education
 
-  static String nameOfOInstitutionText = "Name of Institution";
-  static String nameOfOInstitutionHintText = "eg. ABC Institution";
-  static String levelOfEducation = "Level Of Education";
+  static String InstitutionText = "Institution";
+  static String InstitutionHintText = "eg. ABC Institution";
+  static String levelOfEducation = "Level of Education";
   static String nameOfODegreeHintText = "eg. Bachelor of Science";
-  static String gpaText = "Percentage/CGPA";
+  static String gpaText = "CGPA";
   static String gpaHintText = "eg. 4.0";
-  static String enrollDate = "Enrolled Date";
-  static String graduationDate = "Graduation Date";
+  static String Enrolled = "Enrolled";
+  static String graduationText = "Graduation";
   static String currentlyStudyingHereText = "I'm currently studying here";
   static String startingDateText = "Starting Date";
   static String chooseDateText = "Choose Date";
   static String majorText = "Major";
+  static String majorHint = "eg. English";
   static String noDegreeChosen = "You need to choose a degree";
   static String blankGraduationDateWarningText = "Please enter your graduation date";
   static String blankEnrollDateWarningText = "Please enter your enroll date";
@@ -509,6 +510,10 @@ static const String changePassword = 'Change Password';
 static const String changePasswordInfoText = 'Choose a unique password to protect your account';
 static const String licenses = 'Licenses';
 static const String clearCachedData = 'Clear Cached Data';
+static const String emailSubscriptionText = 'Email subscription';
+static const String pushNotificationText = 'Push Notification';
+static const String managePushNotificationText = 'Manage Push Notification';
+static const String emailSubscriptionInfo = 'Job alert email subscription';
 static const String clearCachedDataInfo = "Clear you all cached data eg. Images";
 static const String seeMoreText = "See More";
 static const String seeLessText = "See Less";

@@ -202,8 +202,8 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
 
     var nameOfInstitution = CustomAutoCompleteTextField<Institution>(
       isRequired: true,
-      labelText: StringResources.nameOfOInstitutionText,
-      hintText: StringResources.nameOfOInstitutionHintText,
+      labelText: StringResources.InstitutionText,
+      hintText: StringResources.InstitutionHintText,
       validator: Validator().nullFieldValidate,
       onSuggestionSelected: (v) {
         institutionNameController.text = v.name;
@@ -250,6 +250,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
 
     var major = CustomAutoCompleteTextField<MajorSubject>(
       labelText: StringResources.majorText,
+      hintText: StringResources.majorHint,
       onSuggestionSelected: (v) {
         majorTextController.text = v.name;
         selectedMajorSubject = v;
@@ -276,7 +277,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
       isRequired: true,
       errorText: enrollDateErrorText,
       date: _enrollDate,
-      label: StringResources.enrollDate,
+      label: StringResources.Enrolled,
       onTapDateClear: () {
         setState(() {
           _enrollDate = null;
@@ -291,7 +292,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
     var graduationDate = CommonDatePickerFormField(
       errorText: graduationDateErrorText,
       date: _graduationDate,
-      label: StringResources.graduationDate,
+      label: StringResources.graduationText,
       onTapDateClear: () {
         setState(() {
           _graduationDate = null;

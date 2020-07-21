@@ -3,6 +3,7 @@ import 'package:flutter_summernote/flutter_summernote.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 export 'package:flutter_summernote/flutter_summernote.dart';
+
 class CustomTextFieldRichHtml extends StatefulWidget {
   final String labelText;
   final String hint;
@@ -32,7 +33,6 @@ class _CustomTextFieldRichHtmlState extends State<CustomTextFieldRichHtml> {
   final GlobalKey<FlutterSummernoteState> _editingKey = GlobalKey();
   String value;
 
-
   _CustomTextFieldRichHtmlState(this.value);
 
   @override
@@ -58,8 +58,7 @@ class _CustomTextFieldRichHtmlState extends State<CustomTextFieldRichHtml> {
         Container(
           width: double.infinity,
           constraints: BoxConstraints(
-            minHeight: 100,
-
+            minHeight: 80,
           ),
           decoration: BoxDecoration(
             color: Theme.of(context).backgroundColor,
@@ -78,7 +77,7 @@ class _CustomTextFieldRichHtmlState extends State<CustomTextFieldRichHtml> {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: HtmlWidget(
-               value ?? "",
+                value ?? "",
               ),
             ),
           ),
@@ -97,8 +96,9 @@ class _CustomTextFieldRichHtmlState extends State<CustomTextFieldRichHtml> {
       context: context,
       pageBuilder: (context, animation, secondaryAnimation) {
         return AlertDialog(
-          contentPadding: EdgeInsets.all(0),
+          contentPadding: EdgeInsets.all(5),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
+          insetPadding: EdgeInsets.all(8),
           content: FlutterSummernote(
             value: value,
             height: widget.height,
@@ -116,18 +116,15 @@ class _CustomTextFieldRichHtmlState extends State<CustomTextFieldRichHtml> {
           actions: [
             RaisedButton(
               onPressed: () async {
-
                 _editingKey.currentState.getText().then((v) {
                   widget.onDone(v);
                   value = v;
-                  if(this.mounted)
-                  setState(() {});
+                  if (this.mounted) setState(() {});
 
                   FocusScopeNode currentFocus = FocusScope.of(context);
                   currentFocus?.unfocus();
                 });
                 Navigator.pop(context);
-
               },
               child: Text(StringResources.doneText),
             )
@@ -136,4 +133,5 @@ class _CustomTextFieldRichHtmlState extends State<CustomTextFieldRichHtml> {
       },
     );
   }
+
 }

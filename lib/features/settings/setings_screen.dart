@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_cache/flutter_cache.dart';
 import 'package:p7app/features/auth/view/passworrd_change_screen.dart';
 import 'package:p7app/features/auth/view_models/login_view_model.dart';
+import 'package:p7app/features/settings/email_subscriptions_screen.dart';
+import 'package:p7app/features/settings/push_notificaiton_manage_screen.dart';
 import 'package:p7app/features/settings/settings_view_model.dart';
 import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/repositories/app_info_repository.dart';
@@ -27,6 +29,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
     height: 1,
   );
 
+  _navigateTo(Widget screen) {
+    Navigator.push(context, CupertinoPageRoute(builder: (context) => screen));
+  }
+
   @override
   Widget build(BuildContext context) {
     var darkMode = ListTile(
@@ -47,8 +53,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
     var changePassword = ListTile(
       onTap: () {
-        Navigator.push(context,
-            CupertinoPageRoute(builder: (context) => ChangePasswordScreen()));
+        _navigateTo(ChangePasswordScreen());
       },
 //            leading: Icon(
 //              Icons.lock_open,
@@ -56,6 +61,21 @@ class _SettingsScreenState extends State<SettingsScreen> {
       title: Text(StringResources.changePassword),
       subtitle: Text(StringResources.changePasswordInfoText),
 //            trailing: Icon(Icons.chevron_right),
+    );
+
+    var emailSubscriptions = ListTile(
+      onTap: () {
+        _navigateTo(EmailSubscriptionsScreen());
+      },
+      title: Text(StringResources.emailSubscriptionText),
+      subtitle: Text(StringResources.emailSubscriptionInfo),
+    );
+    var pushNotification = ListTile(
+      onTap: () {
+        _navigateTo(PushNotificationManageScreen());
+      },
+      title: Text(StringResources.pushNotificationText),
+      subtitle: Text(StringResources.managePushNotificationText),
     );
     var clearCache = ListTile(
       onTap: () {
@@ -122,6 +142,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
       body: ListView(
         children: <Widget>[
           changePassword,
+          divider,
+          pushNotification,
+          divider,
+          emailSubscriptions,
           divider,
           clearCache,
           divider,
