@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:p7app/features/config/config_provider.dart';
+import 'package:p7app/features/settings/settings_view_model.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
 import 'package:p7app/main_app/p7_app.dart';
 import 'package:p7app/main_app/util/locator.dart';
@@ -27,7 +27,7 @@ void main() async {
   runApp(
     RestartWidget(
       child: ChangeNotifierProvider(
-        create: (context) => ConfigProvider(),
+        create: (context) => SettingsViewModel(),
         child: P7App(key),
       ),
     ),

@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:p7app/features/auth/view_models/login_view_model.dart';
 import 'package:p7app/features/auth/view/login_screen.dart';
 import 'package:p7app/features/company/view/company_list_screen.dart';
-import 'package:p7app/features/config/config_screen.dart';
+import 'package:p7app/features/settings/setings_screen.dart';
 import 'package:p7app/features/job/view_model/applied_job_list_view_model.dart';
 import 'package:p7app/features/job/view_model/favourite_job_list_view_model.dart';
 import 'package:p7app/features/job/view_model/job_list_filter_widget_view_model.dart';
@@ -95,7 +95,7 @@ class _AppDrawerState extends State<AppDrawer> {
                             Navigator.push(
                                 context,
                                 CupertinoPageRoute(
-                                    builder: (context) => ConfigScreen()));
+                                    builder: (context) => SettingsScreen()));
                           },
                         ),
                         Container(

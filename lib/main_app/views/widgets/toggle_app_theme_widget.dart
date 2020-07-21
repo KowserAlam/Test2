@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:p7app/features/config/config_provider.dart';
+import 'package:p7app/features/settings/settings_view_model.dart';
 import 'package:provider/provider.dart';
 
 class ToggleAppThemeWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return       Consumer<ConfigProvider>(
+    return       Consumer<SettingsViewModel>(
         builder: (context, configProvider, child) {
           return IconButton(
             icon: configProvider.isDarkModeOn

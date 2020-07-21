@@ -1,11 +1,16 @@
 
+import 'package:bot_toast/bot_toast.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_cache/flutter_cache.dart';
+//import 'package:cached_network_image/';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
-class ConfigProvider with ChangeNotifier {
-  ConfigProvider() {
+class SettingsViewModel with ChangeNotifier {
+  SettingsViewModel() {
     initPref();
   }
 
@@ -24,10 +29,17 @@ class ConfigProvider with ChangeNotifier {
     notifyListeners();
   }
 
-
   void toggleThemeChangeEvent() async{
     isDarkModeOn =  !isDarkModeOn;
     var preferences = await SharedPreferences.getInstance();
     preferences.setBool(StringResources.isDarkModeOn, isDarkModeOn);
+  }
+
+  void clearAllCachedData(){
+
+    Cache.clear();
+    DefaultCacheManager().emptyCache().then((value){
+      BotToast.showText(text: StringResources.clearedText);
+    });
   }
 }
