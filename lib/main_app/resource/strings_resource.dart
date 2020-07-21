@@ -499,6 +499,7 @@ static const String publishedOn = 'Published on';
 static const String vacancy = 'Vacancy';
 static const String category = 'Category';
 static const String doYouWantToClearAllCacheText = "Do you want to clear all cache ?";
+static const String doYouWantToSignOutText = "Do you want to sign out ?";
 static const String jobNature = 'Nature';
 static const String experience = 'Experience';
 static const String jobLocation = 'Job Location';

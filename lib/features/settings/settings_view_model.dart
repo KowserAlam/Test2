@@ -2,6 +2,7 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_cache/flutter_cache.dart';
+import 'package:p7app/main_app/auth_service/auth_service.dart';
 //import 'package:cached_network_image/';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:flutter/cupertino.dart';
@@ -35,11 +36,10 @@ class SettingsViewModel with ChangeNotifier {
     preferences.setBool(StringResources.isDarkModeOn, isDarkModeOn);
   }
 
-  void clearAllCachedData(){
+  Future<void> clearAllCachedData()async{
 
-    Cache.clear();
-    DefaultCacheManager().emptyCache().then((value){
-      BotToast.showText(text: StringResources.clearedText);
-    });
+
+    return DefaultCacheManager().emptyCache();
   }
+
 }

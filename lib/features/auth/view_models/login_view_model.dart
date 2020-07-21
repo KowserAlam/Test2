@@ -5,6 +5,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/io_client.dart';
+import 'package:p7app/features/settings/settings_view_model.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
 import 'package:p7app/main_app/auth_service/auth_service.dart';
@@ -12,6 +13,7 @@ import 'package:p7app/main_app/auth_service/auth_user_model.dart';
 import 'package:p7app/main_app/flavour/flavour_config.dart';
 import 'package:p7app/main_app/resource/json_keys.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
+import 'package:p7app/main_app/util/locator.dart';
 import 'package:p7app/main_app/util/validator.dart';
 
 class LoginViewModel with ChangeNotifier {
@@ -159,8 +161,7 @@ class LoginViewModel with ChangeNotifier {
     return auth.saveUser(authModel.toJson());
   }
 
-  signOut() async {
-    var authService = await AuthService.getInstance();
-    authService.removeUser();
-  }
+//  signOut() async {
+//    locator<SettingsViewModel>().signOut();
+//  }
 }
