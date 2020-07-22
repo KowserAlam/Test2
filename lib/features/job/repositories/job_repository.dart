@@ -65,10 +65,10 @@ class JobRepository {
         var dataModel = JobListScreenDataModel(
           jobList: jobList,
           count: decodedJson['count'],
-//          nextPage: decodedJson['pages'] != null
-//              ? decodedJson['pages']['next_url'] != null
-//              : false,
-        nextPage: decodedJson["next_pages"]??false,
+          nextPage: decodedJson['pages'] != null
+              ? decodedJson['pages']['next_url'] != null
+              : false,
+//        nextPage: decodedJson["next_pages"]??false,
 
         );
         return Right(dataModel);

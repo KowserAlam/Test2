@@ -1,5 +1,6 @@
 import 'package:after_layout/after_layout.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:p7app/features/user_profile/views/screens/edit_portfolio_screen.dart';
 import 'package:p7app/features/user_profile/views/screens/edit_reference_screen.dart';
 import 'package:p7app/features/user_profile/views/widgets/portfolio_list_item_widget.dart';
@@ -371,6 +372,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
     var aboutMeWidget = Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
+
         Text(
           StringResources.aboutMeText,
           style: titleTextStyle.apply(color: Colors.white),
@@ -391,10 +393,11 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                 selector: (_, userProfileViewModel) =>
                     userProfileViewModel.userData.personalInfo.aboutMe ?? "",
                 builder: (context, String data, _) {
-                  return Text(
-                    data,
-                    textAlign: TextAlign.left,
-                  );
+                  return HtmlWidget(data);
+//                  return Text(
+//                    data,
+//                    textAlign: TextAlign.left,
+//                  );
                 }),
           ),
         ),

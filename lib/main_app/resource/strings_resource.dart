@@ -98,6 +98,7 @@ class StringResources {
   static String recentExamsText = "Recent Exams";
 
   static String viewMoreText = "View More";
+  static String viewAllText = "View All";
 
   /// ***************** Feature Assessment ***********************
   static String questionTextUpperCase = "QUESTIONS";

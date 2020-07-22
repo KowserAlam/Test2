@@ -16,6 +16,7 @@ import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/validator.dart';
 import 'package:p7app/main_app/views/widgets/custom_text_from_field.dart';
+import 'package:p7app/main_app/views/widgets/custom_zefyr_rich_text_from_field.dart';
 import 'package:p7app/main_app/views/widgets/edit_screen_save_button.dart';
 import 'package:p7app/main_app/views/widgets/loader.dart';
 import 'package:provider/provider.dart';
@@ -39,7 +40,6 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
   File imageFile;
 
   var _fullNameTextEditingController = TextEditingController();
-  var _aboutTextEditingController = TextEditingController();
   var _locationEditingController = TextEditingController();
   var _phoneEditingController = TextEditingController();
   var _facebookEditingController = TextEditingController();
@@ -50,6 +50,8 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
 
   List<DropdownMenuItem<String>> _industryExpertiseList = [];
   String _selectedIndustryExpertiseDropDownItem;
+  ZefyrController _aboutMeZefyrController =
+  ZefyrController(NotusDocument());
 
   @override
   void initState() {
@@ -57,7 +59,9 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
 
     _phoneEditingController.text = personalInfo.phone ?? "";
     _locationEditingController.text = personalInfo.currentLocation ?? "";
-    _aboutTextEditingController.text = personalInfo.aboutMe ?? "";
+    _aboutMeZefyrController = ZefyrController(
+        ZeyfrHelper.htmlToNotusDocument(
+            personalInfo.aboutMe ?? ""));
     _fullNameTextEditingController.text = personalInfo.fullName ?? "";
     _selectedIndustryExpertiseDropDownItem = personalInfo.industryExpertise;
     _facebookEditingController.text = personalInfo.facebookId ?? "";
@@ -123,7 +127,8 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
             : _locationEditingController.text,
         "full_name": _fullNameTextEditingController.text,
         "industry_expertise": _selectedIndustryExpertiseDropDownItem,
-        "about_me": _aboutTextEditingController.text,
+        "about_me": ZeyfrHelper.notusDocumentToHTML(
+            _aboutMeZefyrController.document),
         "phone": _phoneEditingController.text,
         "facebook_id": _facebookEditingController.text,
         "twitter_id": _twitterEditingController.text,
@@ -170,18 +175,20 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
-        child: Column(
-          children: <Widget>[
-            SizedBox(
-              width: double.infinity,
-            ),
-            SizedBox(height: 20),
-            _buildEditProfileImage(),
-            SizedBox(height: 20),
-            _buildInformationFields(),
-          ],
+      body: ZefyrScaffold(
+        child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
+          child: Column(
+            children: <Widget>[
+              SizedBox(
+                width: double.infinity,
+              ),
+              SizedBox(height: 20),
+              _buildEditProfileImage(),
+              SizedBox(height: 20),
+              _buildInformationFields(),
+            ],
+          ),
         ),
       ),
     );
@@ -283,14 +290,19 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
             SizedBox(height: 10),
 
             ///about
-            CustomTextFormField(
-              controller: _aboutTextEditingController,
-              keyboardType: TextInputType.multiline,
-              minLines: 3,
-              maxLines: 8,
-              labelText: StringResources.aboutMeText,
-              hintText: StringResources.aboutHintText,
+            CustomZefyrRichTextFormField(
+              labelText: StringResources.descriptionText,
+              focusNode: FocusNode(),
+              controller: _aboutMeZefyrController,
             ),
+//            CustomTextFormField(
+//              controller: _aboutTextEditingController,
+//              keyboardType: TextInputType.multiline,
+//              minLines: 3,
+//              maxLines: 8,
+//              labelText: StringResources.aboutMeText,
+//              hintText: StringResources.aboutHintText,
+//            ),
 
             SizedBox(height: 10),
 

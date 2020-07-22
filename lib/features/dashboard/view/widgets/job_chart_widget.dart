@@ -21,7 +21,7 @@ class JobChartWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var screenHeight = MediaQuery.of(context).size.height;
-    var chartHeight = screenHeight / 2.2;
+    var chartHeight = 230.0; //screenHeight / 2.2;
     var primaryColor = Theme.of(context).primaryColor;
 
 //    var dummyDataList = [
