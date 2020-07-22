@@ -32,18 +32,19 @@ class _HomeState extends State<Home> {
 //        unselectedItemColor: Colors.grey,
         onTap: (int index) async{
 
-          int quickJumpTarget;
+          if(currentIndex !=index){
+            int quickJumpTarget;
+            if (index > currentIndex) {
+              quickJumpTarget = currentIndex + 1;
+            } else if (index < currentIndex) {
+              quickJumpTarget = currentIndex - 1;
+            }
 
-          if (index > currentIndex) {
-            quickJumpTarget = currentIndex + 1;
-          } else if (index < currentIndex) {
-            quickJumpTarget = currentIndex - 1;
+            await _paeViewController.animateToPage(quickJumpTarget,
+                duration: const Duration(milliseconds: 400), curve: Curves.easeInOut);
+            _paeViewController.jumpToPage(index);
           }
 
-          await _paeViewController.animateToPage(quickJumpTarget,
-              duration: const Duration(milliseconds: 400), curve: Curves.easeInOut);
-// quickJumpTarget.compareTo(index).modInverse(modulus);
-          _paeViewController.jumpToPage(index);
 
 //
 //          _paeViewController.animateToPage(index,
