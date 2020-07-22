@@ -8,10 +8,12 @@ import 'package:p7app/features/job/view/widgets/job_list_filters_widget.dart';
 import 'package:p7app/features/job/view_model/job_list_filter_widget_view_model.dart';
 import 'package:p7app/features/job/view_model/job_list_view_model.dart';
 import 'package:p7app/features/job/view/widgets/job_list_tile_widget.dart';
+import 'package:p7app/features/settings/settings_view_model.dart';
 import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/root.dart';
+import 'package:p7app/main_app/util/locator.dart';
 import 'package:p7app/main_app/views/app_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:p7app/main_app/views/widgets/common_prompt_dialog.dart';
@@ -60,7 +62,7 @@ class _JobListScreenState extends State<JobListScreen>
     jobListViewModel.getJobList(isFormOnPageLoad: true).then((v) {
       if (jobListViewModel.appError != null) {
         if (jobListViewModel.appError == AppError.unauthorized) {
-          _signOut(context);
+          locator<SettingsViewModel>().signOut();
         }
       }
     });
@@ -82,11 +84,6 @@ class _JobListScreenState extends State<JobListScreen>
     });
   }
 
-  _signOut(context) {
-    AuthService.getInstance().then((value) => value.removeUser()).then((value){
-      RestartWidget.restartApp(context);
-    });
-  }
 
   @override
   void dispose() {
@@ -121,7 +118,7 @@ class _JobListScreenState extends State<JobListScreen>
         return FailureFullScreenWidget(
           errorMessage: StringResources.somethingIsWrong,
           onTap: () {
-            return _signOut(context);
+            return   locator<SettingsViewModel>().signOut();
           },
         );
 

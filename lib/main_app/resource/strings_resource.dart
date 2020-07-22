@@ -267,7 +267,7 @@ class StringResources {
   static var dateLogicWarningText = "Issue date needs to occur before expiry date";
 
   //Portfolio Edit Screen
-  static var portfolioNameText = "Name";
+  static var titleText = "Title";
   static var portfolioImageText = "Upload Image";
   static var portfolioDescriptionText = "Description";
 

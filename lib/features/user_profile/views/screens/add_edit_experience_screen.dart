@@ -1,4 +1,3 @@
-
 import 'package:bot_toast/bot_toast.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
@@ -48,7 +47,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
   String _leavingDateErrorText;
 
   ZefyrController _descriptionZefyrController =
-  ZefyrController(NotusDocument());
+      ZefyrController(NotusDocument());
   final FocusNode _descriptionFocusNode = FocusNode();
 
   _AddNewExperienceScreenState(this.experienceModel, this.index);
@@ -66,8 +65,9 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
       _experienceId = widget.experienceInfoModel.experienceId ?? null;
       currentLyWorkingHere = _leavingDate == null;
       _descriptionZefyrController = ZefyrController(
-          ZeyfrHelper.htmlToNotusDocument(
-              widget.experienceInfoModel?.description ?? " "));
+        ZeyfrHelper.htmlToNotusDocument(
+            widget.experienceInfoModel?.description ?? " "),
+      );
     }
     super.initState();
   }
@@ -148,7 +148,6 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
   _handleSave() {
     var isSuccess = validate();
     if (isSuccess) {
-
 //      Form validated
       if (_selectedCompanyId != null) {
         if (_companyNameController.text != _selectedCompanyId) {
@@ -163,7 +162,8 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
         companyId: selectedCompany?.name ?? _companyNameController.text,
         startDate: _joiningDate,
         endDate: _leavingDate,
-        description: ZeyfrHelper.notusDocumentToHTML(_descriptionZefyrController.document),
+        description: ZeyfrHelper.notusDocumentToHTML(
+            _descriptionZefyrController.document),
       );
 
       if (widget.experienceInfoModel == null) {
@@ -183,15 +183,14 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
     var name = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-
         Row(
           children: [
             Text("  " + StringResources.company ?? "",
                 style: TextStyle(fontWeight: FontWeight.bold)),
-              Text(
-                " *",
-                style: TextStyle(color: Colors.red),
-              )
+            Text(
+              " *",
+              style: TextStyle(color: Colors.red),
+            )
           ],
         ),
         SizedBox(
@@ -323,6 +322,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
                           controller: _descriptionZefyrController,
                         ),
                         spaceBetweenSections,
+
                         /// Joining Date
                         CommonDatePickerFormField(
                           isRequired: true,

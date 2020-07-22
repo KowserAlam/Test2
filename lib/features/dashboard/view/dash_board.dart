@@ -5,10 +5,12 @@ import 'package:p7app/features/dashboard/view/widgets/info_box_widget.dart';
 import 'package:p7app/features/dashboard/view/widgets/job_chart_widget.dart';
 import 'package:p7app/features/dashboard/view/widgets/profile_complete_parcent_indicatior_widget.dart';
 import 'package:p7app/features/dashboard/view_model/dashboard_view_model.dart';
+import 'package:p7app/features/settings/settings_view_model.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
+import 'package:p7app/main_app/util/locator.dart';
 import 'package:p7app/main_app/views/app_drawer.dart';
 import 'package:p7app/main_app/views/widgets/failure_widget.dart';
 import 'package:p7app/main_app/views/widgets/restart_widget.dart';
@@ -31,15 +33,12 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
     Provider.of<DashboardViewModel>(context, listen: false)
         .getDashboardData(isFormOnPageLoad: true)
         .then((value) {
-
       if (value == AppError.unauthorized) {
         _signOut(context);
         return;
       }
       Provider.of<UserProfileViewModel>(context, listen: false).getUserData();
     });
-
-
   }
 
   Future<void> _refreshData() async {
@@ -49,10 +48,7 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
   }
 
   _signOut(context) {
-
-    AuthService.getInstance().then((value) => value.removeUser()).then((value){
-      RestartWidget.restartApp(context);
-    });
+    locator<SettingsViewModel>().signOut();
   }
 
   @override
@@ -115,19 +111,19 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
         onRefresh: _refreshData,
         child:
 //        dashboardViewModel.shouldShowError ?ListView(children: [errorWidget()]) :
-        ListView(
-                children: [
-                  ProfileCompletePercentIndicatorWidget(
-                      dashboardViewModel.profileCompletePercent / 100),
-                  InfoBoxWidget(
-                    onTapApplied: widget.onTapApplied,
-                    onTapFavourite: widget.onTapFavourite,
-                  ),
-                  JobChartWidget(
-                    animate: true,
-                  ),
-                ],
-              ),
+            ListView(
+          children: [
+            ProfileCompletePercentIndicatorWidget(
+                dashboardViewModel.profileCompletePercent / 100),
+            InfoBoxWidget(
+              onTapApplied: widget.onTapApplied,
+              onTapFavourite: widget.onTapFavourite,
+            ),
+            JobChartWidget(
+              animate: true,
+            ),
+          ],
+        ),
       ),
     );
   }

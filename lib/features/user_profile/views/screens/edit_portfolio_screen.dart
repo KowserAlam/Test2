@@ -14,6 +14,7 @@ import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/image_compress_util.dart';
 import 'package:p7app/main_app/util/validator.dart';
+import 'package:p7app/main_app/views/widgets/custom_zefyr_rich_text_from_field.dart';
 import 'package:p7app/main_app/views/widgets/edit_screen_save_button.dart';
 import 'package:p7app/main_app/views/widgets/loader.dart';
 import 'package:provider/provider.dart';
@@ -38,8 +39,8 @@ class _EditPortfolioState extends State<EditPortfolio> {
 
   //TextEditingController
   final _portfolioNameController = TextEditingController();
-  final _portfolioDescriptionController = TextEditingController();
-
+  ZefyrController _descriptionZefyrController =
+  ZefyrController(NotusDocument());
   //FocusNodes
   final _portfolioNameFocusNode = FocusNode();
   final _portfolioDescriptionFocusNode = FocusNode();
@@ -49,11 +50,15 @@ class _EditPortfolioState extends State<EditPortfolio> {
     height: 15,
   );
 
+
   initState() {
-    if (widget.portfolioInfo != null) {}
-    _portfolioDescriptionController.text =
-        widget.portfolioInfo?.description ?? "";
-    _portfolioNameController.text = widget.portfolioInfo?.name ?? "";
+    if (widget.portfolioInfo != null) {
+      _descriptionZefyrController = ZefyrController(
+          ZeyfrHelper.htmlToNotusDocument(
+              widget.portfolioInfo?.description  ?? " "));
+      _portfolioNameController.text = widget.portfolioInfo?.name ?? "";
+    }
+
     super.initState();
   }
 
@@ -104,7 +109,8 @@ class _EditPortfolioState extends State<EditPortfolio> {
 
       var data = {
         "name": _portfolioNameController.text,
-        "description": _portfolioDescriptionController.text,
+        "description": ZeyfrHelper.notusDocumentToHTML(
+            _descriptionZefyrController.document),
         "professional_id": professionalId
       };
 
@@ -214,50 +220,57 @@ class _EditPortfolioState extends State<EditPortfolio> {
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        child: Form(
-          key: _formKey,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                SizedBox(
-                  height: 10,
-                ),
-                portfolioImage,
-                //Name
-                SizedBox(
-                  height: 10,
-                ),
-                CustomTextFormField(
-                  validator: Validator().nullFieldValidate,
-                  keyboardType: TextInputType.text,
-                  focusNode: _portfolioNameFocusNode,
-                  textInputAction: TextInputAction.next,
-                  onFieldSubmitted: (a) {
-                    FocusScope.of(context)
-                        .requestFocus(_portfolioDescriptionFocusNode);
-                  },
-                  controller: _portfolioNameController,
-                  labelText: StringResources.portfolioNameText,
-                  hintText: StringResources.portfolioNameText,
-                ),
-                spaceBetweenFields,
-                //Description
-                //Name
-                CustomTextFormField(
-                  keyboardType: TextInputType.multiline,
-                  minLines: 5,
-                  maxLines: 12,
-                  maxLength: 800,
-                  focusNode: _portfolioDescriptionFocusNode,
-                  controller: _portfolioDescriptionController,
-                  labelText: StringResources.portfolioDescriptionText,
-                  hintText: StringResources.portfolioDescriptionText,
-                ),
-                spaceBetweenFields,
-              ],
+      body: ZefyrScaffold(
+        child: SingleChildScrollView(
+          child: Form(
+            key: _formKey,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  SizedBox(
+                    height: 10,
+                  ),
+                  portfolioImage,
+                  //Name
+                  SizedBox(
+                    height: 10,
+                  ),
+                  CustomTextFormField(
+                    validator: Validator().nullFieldValidate,
+                    keyboardType: TextInputType.text,
+                    focusNode: _portfolioNameFocusNode,
+                    textInputAction: TextInputAction.next,
+                    onFieldSubmitted: (a) {
+                      FocusScope.of(context)
+                          .requestFocus(_portfolioDescriptionFocusNode);
+                    },
+                    controller: _portfolioNameController,
+                    labelText: StringResources.titleText,
+                    hintText: StringResources.titleText,
+                  ),
+                  spaceBetweenFields,
+                  //Description
+
+                  CustomZefyrRichTextFormField(
+                    labelText: StringResources.descriptionText,
+                    focusNode: _portfolioDescriptionFocusNode,
+                    controller: _descriptionZefyrController,
+                  ),
+//                CustomTextFormField(
+//                  keyboardType: TextInputType.multiline,
+//                  minLines: 5,
+//                  maxLines: 12,
+//                  maxLength: 800,
+//                  focusNode: _portfolioDescriptionFocusNode,
+//                  controller: _portfolioDescriptionController,
+//                  labelText: StringResources.portfolioDescriptionText,
+//                  hintText: StringResources.portfolioDescriptionText,
+//                ),
+                  spaceBetweenFields,
+                ],
+              ),
             ),
           ),
         ),

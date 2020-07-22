@@ -183,13 +183,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           return CommonPromptDialog(
             onAccept: () {
               Navigator.pop(context);
-              AuthService.getInstance()
-                  .then((value) => value.removeUser())
-                  .then((value) {
-                locator<SettingsViewModel>().clearAllCachedData();
-                Cache.clear();
-                RestartWidget.restartApp(context);
-              });
+              locator<SettingsViewModel>().signOut();
             },
             onCancel: () {
               Navigator.pop(context);
