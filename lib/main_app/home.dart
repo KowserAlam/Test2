@@ -30,10 +30,25 @@ class _HomeState extends State<Home> {
     var bottomNavBar = BottomNavigationBar(
 //        selectedItemColor: Theme.of(context).primaryColor,
 //        unselectedItemColor: Colors.grey,
-        onTap: (int index) {
-          _paeViewController.animateToPage(index,
-              duration: const Duration(milliseconds: 400),
-              curve: Curves.easeInOut);
+        onTap: (int index) async{
+
+          int quickJumpTarget;
+
+          if (index > currentIndex) {
+            quickJumpTarget = currentIndex + 1;
+          } else if (index < currentIndex) {
+            quickJumpTarget = currentIndex - 1;
+          }
+
+          await _paeViewController.animateToPage(quickJumpTarget,
+              duration: const Duration(milliseconds: 400), curve: Curves.easeInOut);
+// quickJumpTarget.compareTo(index).modInverse(modulus);
+          _paeViewController.jumpToPage(index);
+
+//
+//          _paeViewController.animateToPage(index,
+//              duration: const Duration(milliseconds: 400),
+//              curve: Curves.easeInOut);
         },
         currentIndex: currentIndex,
         iconSize: 17,

@@ -69,7 +69,6 @@ class JobRepository {
               ? decodedJson['pages']['next_url'] != null
               : false,
 //        nextPage: decodedJson["next_pages"]??false,
-
         );
         return Right(dataModel);
       } else if (response.statusCode == 401) {
