@@ -73,7 +73,7 @@ class CareerAdviceDetailsScreen extends StatelessWidget {
                 ],
               ),
               Container(
-                color: Colors.white,
+
                 padding: EdgeInsets.all(10),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -113,6 +113,7 @@ class CareerAdviceDetailsScreen extends StatelessWidget {
                         fontSize: 15,
                       ),
                     ),
+
 //                  Text(
 //                    careerAdviceModel.description,
 //                    style: TextStyle(fontSize: 15),
