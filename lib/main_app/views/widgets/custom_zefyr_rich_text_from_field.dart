@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-export 'package:zefyr_plus/zefyr.dart';
-import 'package:zefyr_plus/zefyr.dart';
+import 'package:zefyr/zefyr.dart';
+export 'package:zefyr/zefyr.dart';
 export 'package:notustohtml/notustohtml.dart';
 export 'package:p7app/main_app/util/zefyr_helper.dart';
 
