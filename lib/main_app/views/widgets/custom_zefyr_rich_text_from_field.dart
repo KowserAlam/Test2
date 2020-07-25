@@ -32,7 +32,6 @@ class CustomZefyrRichTextFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     FocusScopeNode currentFocus = FocusScope.of(context);
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
