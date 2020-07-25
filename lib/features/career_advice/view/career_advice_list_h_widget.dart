@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:p7app/features/career_advice/models/career_advice_model.dart';
 import 'package:p7app/features/career_advice/view/career_advice_details_screen.dart';
 import 'package:p7app/features/career_advice/view/career_advice_list_screen.dart';
+import 'package:p7app/features/career_advice/view/widget/career_advice_list_tile_h.dart';
 import 'package:p7app/features/career_advice/view_models/career_advice_view_model.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
@@ -29,7 +30,6 @@ class _CareerAdviceListHWidgetState extends State<CareerAdviceListHWidget> {
 
   @override
   Widget build(BuildContext context) {
-
     var vm = Provider.of<CareerAdviceViewModel>(context);
     var list = vm.careerAdviceList;
     var length = list.length < 5 ? list.length : 5;
@@ -49,8 +49,7 @@ class _CareerAdviceListHWidgetState extends State<CareerAdviceListHWidget> {
               onPressed: () {
                 Navigator.of(context).push(CupertinoPageRoute(
                     builder: (BuildContext context) =>
-                        CareerAdviceListScreen(
-                        )));
+                        CareerAdviceListScreen()));
               },
               child: Text(
                 StringResources.viewAllText,
@@ -78,84 +77,4 @@ class _CareerAdviceListHWidgetState extends State<CareerAdviceListHWidget> {
   }
 }
 
-class CareerAdviceListTileH extends StatelessWidget {
-  final CareerAdviceModel adviceModel;
 
-  CareerAdviceListTileH(this.adviceModel);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(4.0),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(7),
-        child: Container(
-          width: 180,
-          child: Stack(
-            children: [
-              CachedNetworkImage(
-                width: double.infinity,
-                height: double.infinity,
-                fit: BoxFit.cover,
-                imageUrl: adviceModel.featuredImage ?? "",
-                placeholder: (c, i) => Image.asset(
-                  kCareerAdvicePlaceholder,
-                  colorBlendMode: BlendMode.color,
-                  width: double.infinity,
-                  height: double.infinity,
-                  fit: BoxFit.cover,
-                ),
-              ),
-              Image.asset(
-                kCareerAdvicePlaceholder,
-                colorBlendMode: BlendMode.color,
-                width: double.infinity,
-                height: double.infinity,
-                fit: BoxFit.cover,
-              ),
-              Container(
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                      Colors.transparent,
-                      Colors.transparent,
-                      Colors.black87,
-                    ])),
-              ),
-              Column(
-                children: [
-                  Spacer(),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      adviceModel.title ?? "",
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                ],
-              ),
-              Material(
-                  type: MaterialType.transparency,
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.of(context).push(CupertinoPageRoute(
-                          builder: (BuildContext context) =>
-                              CareerAdviceDetailsScreen(
-                                careerAdviceModel: adviceModel,
-                              )));
-                    },
-                    child: Center(),
-                  ))
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}

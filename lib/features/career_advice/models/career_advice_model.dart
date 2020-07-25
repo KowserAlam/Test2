@@ -40,4 +40,9 @@ class CareerAdviceModel {
       featuredImage = "$baseUrl${json['featured_image']}";
     }
   }
+
+  @override
+  String toString() {
+    return 'CareerAdviceModel{id: $id, title: $title, shortDescription: $shortDescription, description: $description, author: $author, thumbnailImage: $thumbnailImage, featuredImage: $featuredImage, createdAt: $createdAt}';
+  }
 }
