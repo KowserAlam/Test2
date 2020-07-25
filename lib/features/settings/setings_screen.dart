@@ -62,7 +62,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
       subtitle: Text(StringResources.changePasswordInfoText),
 //            trailing: Icon(Icons.chevron_right),
     );
-
     var emailSubscriptions = ListTile(
       onTap: () {
         _navigateTo(EmailSubscriptionsScreen());
@@ -113,22 +112,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
       builder: (c, AsyncSnapshot<PackageInfo> snapshot) {
         appVersion = snapshot.data?.version ?? "";
         var buildNumber = snapshot.data?.buildNumber ?? "";
-        return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-          child: Text(
+        return ListTile(
+          title: Text(
             snapshot.hasData ? "VERSION: $appVersion.$buildNumber" : "",
-            style: TextStyle(color: Colors.grey[600]),
+            style: TextStyle(color: Colors.grey[600],fontSize: 15,fontWeight: FontWeight.bold),
           ),
         );
       },
     );
-    var signOut = InkWell(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-        child: Text(
-          StringResources.signOutText,
-          style: TextStyle(color: Colors.grey[600]),
-        ),
+    var signOut = ListTile(
+      title: Text(
+        StringResources.signOutText,
+        style: TextStyle(color: Colors.grey[600],fontSize: 15,fontWeight: FontWeight.bold),
       ),
       onTap: () {
         _showSignOutDialog();

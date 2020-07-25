@@ -99,6 +99,7 @@ class DashboardViewModel with ChangeNotifier {
   bool get idExpandedSkillList => _idExpandedSkillList;
 
   bool get shouldShowError => _infoBoxError != null && infoBoxData == null;
+  bool get showProfileCompletePercentIndicatorWidget => profileCompletePercent != 100;
 
   set idExpandedSkillList(bool value) {
     _idExpandedSkillList = value;
