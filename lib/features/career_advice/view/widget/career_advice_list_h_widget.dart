@@ -9,6 +9,7 @@ import 'package:p7app/features/career_advice/view_models/career_advice_view_mode
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 
 class CareerAdviceListHWidget extends StatefulWidget {
   @override
@@ -61,20 +62,41 @@ class _CareerAdviceListHWidgetState extends State<CareerAdviceListHWidget> {
             ),
           ],
         ),
-        Container(
-          height: 120,
-          child: ListView.builder(
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              scrollDirection: Axis.horizontal,
-              itemCount: length,
-              itemBuilder: (context, index) {
-                var advice = list[index];
-                return CareerAdviceListTileH(advice);
-              }),
-        ),
+        vm.isFetchingData
+            ? Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10),
+              child: SizedBox(
+                  height: 120.0,
+                  child: Shimmer.fromColors(
+                    baseColor: Colors.grey[300],
+                    highlightColor: Colors.white,
+                    child: Row(
+                      children: List.generate(2, (index) =>  Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Material(
+                            color: Colors.grey,
+                            borderRadius: BorderRadius.circular(5),
+                            child: Center(),
+                          ),
+                        ),
+                      ))
+                    ),
+                  ),
+                ),
+            )
+            : Container(
+                height: 120,
+                child: ListView.builder(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    scrollDirection: Axis.horizontal,
+                    itemCount: length,
+                    itemBuilder: (context, index) {
+                      var advice = list[index];
+                      return CareerAdviceListTileH(advice);
+                    }),
+              ),
       ],
     );
   }
 }
-
-

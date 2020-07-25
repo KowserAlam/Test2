@@ -38,6 +38,7 @@ class CareerAdviceDetailsScreen extends StatelessWidget {
                       height: coverImageHeight,
                       fit: BoxFit.cover,
                       imageUrl: careerAdviceModel.featuredImage ?? "",
+
                       placeholder: (c, i) => Image.asset(
                         kCareerAdvicePlaceholder,
                         colorBlendMode: BlendMode.color,
@@ -60,6 +61,7 @@ class CareerAdviceDetailsScreen extends StatelessWidget {
                           child: CachedNetworkImage(
                             fit: BoxFit.cover,
                             imageUrl: careerAdviceModel.thumbnailImage ?? "",
+
                             placeholder: (context, _) => Image.asset(
                               kDefaultUserImageAsset,
                               fit: BoxFit.cover,

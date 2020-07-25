@@ -1,7 +1,8 @@
 import 'package:after_layout/after_layout.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:p7app/features/career_advice/view/career_advice_list_h_widget.dart';
+import 'package:p7app/features/career_advice/view/widget/career_advice_list_h_widget.dart';
+import 'package:p7app/features/career_advice/view_models/career_advice_view_model.dart';
 import 'package:p7app/features/dashboard/view/widgets/info_box_widget.dart';
 import 'package:p7app/features/dashboard/view/widgets/job_chart_widget.dart';
 import 'package:p7app/features/dashboard/view/widgets/profile_complete_parcent_indicatior_widget.dart';
@@ -45,7 +46,8 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
   Future<void> _refreshData() async {
     var dbVM = Provider.of<DashboardViewModel>(context, listen: false);
     var upVM = Provider.of<UserProfileViewModel>(context, listen: false);
-    return Future.wait([dbVM.getDashboardData(), upVM.getUserData()]);
+    var cvm = Provider.of<CareerAdviceViewModel>(context, listen: false);
+    return Future.wait([dbVM.getDashboardData(), upVM.getUserData(),cvm.refresh()]);
   }
 
   _signOut(context) {

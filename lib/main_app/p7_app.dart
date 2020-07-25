@@ -15,6 +15,7 @@ import 'package:p7app/features/messaging/view_mpdel/message_screen_view_model.da
 import 'package:p7app/features/notification/view_models/notificaion_view_model.dart';
 import 'package:p7app/main_app/flavour/flavour_config.dart';
 import 'package:p7app/main_app/util/common_serviec_rule.dart';
+import 'package:p7app/main_app/util/locator.dart';
 import 'package:provider/provider.dart';
 import 'package:p7app/main_app/root.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
@@ -44,7 +45,7 @@ class P7App extends StatelessWidget {
           create: (context) => JobListFilterWidgetViewModel()),
       ChangeNotifierProvider(create: (context) => PasswordChangeViewModel()),
       ChangeNotifierProvider(create: (context) => DashboardViewModel()),
-      ChangeNotifierProvider(create: (context) => CareerAdviceViewModel()),
+      ChangeNotifierProvider(create: (context) => locator<CareerAdviceViewModel>()),
       ChangeNotifierProvider(create: (context) => NotificationViewModel()),
       ChangeNotifierProvider(create: (context) => MessageScreenViewModel()),
     ];
