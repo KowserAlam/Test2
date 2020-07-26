@@ -8,17 +8,22 @@ class CommonPromptDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var accentColor = Theme.of(context).accentColor;
-    var buttonTextStyles = TextStyle(color: accentColor);
-    
+//    var accentColor = Theme.of(context).accentColor;
+    var buttonTextStyles = TextStyle(color: Colors.black);
+
     return AlertDialog(
       title: Text(titleText),
       actions: [
-        RawMaterialButton(
+        FlatButton(
+          color: Theme.of(context).accentColor,
           onPressed: onCancel,
           child: Text(StringResources.noText, style: buttonTextStyles),
         ),
-        RawMaterialButton(
+        SizedBox(
+          width: 8,
+        ),
+        FlatButton(
+          color: Theme.of(context).accentColor,
           onPressed: onAccept,
           child: Text(
             StringResources.yesText,

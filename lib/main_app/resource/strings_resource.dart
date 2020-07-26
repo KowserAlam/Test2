@@ -528,6 +528,7 @@ static const String benefitSectionTitle = 'Benefits';
 static const String jobSource = 'Job Source';
 static const String jobsOnMapText = 'Job On Map';
 static const String doYouWantToApplyText = 'Do you want to apply for this job?';
+static const String doYouWantToDeleteText = "Do You Want to delete?";
 static const String jobsFoundText = 'jobs found';
 static const String sortBy = 'Sort By';
 static const String advanceFilterText = "Advance Filter";

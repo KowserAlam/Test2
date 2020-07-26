@@ -26,6 +26,7 @@ import 'package:p7app/main_app/app_theme/app_theme.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
+import 'package:p7app/main_app/views/widgets/common_prompt_dialog.dart';
 import 'package:p7app/main_app/views/widgets/failure_widget.dart';
 import 'package:p7app/main_app/views/widgets/loader.dart';
 import 'package:p7app/main_app/views/widgets/rectangular_button.dart';
@@ -194,8 +195,9 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                       userProfileViewModel.userData.personalInfo.facebookId;
                   if (username.isNotEmptyOrNotNull) {
 //                    UrlLauncherHelper.launchFacebookUrl(username);
-                      UrlLauncherHelper.launchUrl(
-                          "https://" + StringResources.facebookBaseUrl + username);
+                    UrlLauncherHelper.launchUrl("https://" +
+                        StringResources.facebookBaseUrl +
+                        username);
                   }
                 },
                 child: Icon(
@@ -372,7 +374,6 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
     var aboutMeWidget = Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-
         Text(
           StringResources.aboutMeText,
           style: titleTextStyle.apply(color: Colors.white),
@@ -437,8 +438,9 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                             previouslyAddedExp: expList,
                           )));
             },
-            onTapDelete: () {
-              userProfileViewModel.deleteExperienceData(exp, index);
+            onTapDelete: () async {
+              var val = await _deleteConfirmationDialog();
+              if (val) userProfileViewModel.deleteExperienceData(exp, index);
             },
           );
         }),
@@ -468,9 +470,11 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
             eduInfoModel: eduList[i],
             index: i,
             isInEditMode: isInEditModeEducation,
-            onTapDelete: () {
-              Provider.of<UserProfileViewModel>(context, listen: false)
-                  .deleteEduInfo(eduList[i], i);
+            onTapDelete: () async {
+              var val = await _deleteConfirmationDialog();
+              if (val)
+                Provider.of<UserProfileViewModel>(context, listen: false)
+                    .deleteEduInfo(eduList[i], i);
             },
             onTapEdit: () {
               Navigator.push(
@@ -510,8 +514,9 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
           return ProfessionalSkillListItem(
             isInEditMode: isInEditModeSkill,
             skillInfo: skill,
-            onTapDelete: () {
-              userProfileViewModel.deleteSkillData(skill, index);
+            onTapDelete: () async {
+              var val = await _deleteConfirmationDialog();
+              if (val) userProfileViewModel.deleteSkillData(skill, index);
             },
             onTapEdit: () {
               Navigator.push(
@@ -549,8 +554,9 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
           var port = list[index];
           return PortfolioListItemWidget(
             isInEditMode: isInEditModePortfolio,
-            onTapDelete: () {
-              userProfileViewModel.deletePortfolio(port, index);
+            onTapDelete: () async {
+              var val = await _deleteConfirmationDialog();
+              if (val) userProfileViewModel.deletePortfolio(port, index);
             },
             portfolioInfo: port,
             onTapEdit: () {
@@ -591,8 +597,9 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
           return CertificationsListItemWidget(
             isInEditMode: isInEditModeCertifications,
             certificationInfo: cer,
-            onTapDelete: () {
-              userProfileViewModel.deleteCertificationData(cer, index);
+            onTapDelete: () async {
+              var val = await _deleteConfirmationDialog();
+              if (val) userProfileViewModel.deleteCertificationData(cer, index);
             },
             onTapEdit: () {
               Navigator.push(
@@ -638,8 +645,10 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                             index: index,
                           )));
             },
-            onTapDelete: () {
-              userProfileViewModel.deleteMembershipData(memberShip, index);
+            onTapDelete: () async {
+              var val = await _deleteConfirmationDialog();
+              if (val)
+                userProfileViewModel.deleteMembershipData(memberShip, index);
             },
           );
         }),
@@ -666,8 +675,9 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
           return ReferencesListItemWidget(
             isInEditMode: isInEditModeReferences,
             referenceData: ref,
-            onTapDelete: () {
-              userProfileViewModel.deleteReferenceData(ref, index);
+            onTapDelete: () async {
+              var val = await _deleteConfirmationDialog();
+              if (val) userProfileViewModel.deleteReferenceData(ref, index);
             },
             onTapEdit: () {
               Navigator.push(
@@ -838,5 +848,25 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
         ),
       ),
     );
+  }
+
+  Future<bool> _deleteConfirmationDialog() async {
+    return showDialog(
+        context: context,
+        barrierDismissible: true,
+        builder: (context) {
+          return CommonPromptDialog(
+            titleText: StringResources.doYouWantToDeleteText,
+            onCancel: () {
+              Navigator.of(context).pop(false);
+            },
+            onAccept: () {
+              Navigator.of(context).pop(true);
+            },
+          );
+        }).then((value) {
+      if (value == null) return false;
+      return value;
+    });
   }
 }
