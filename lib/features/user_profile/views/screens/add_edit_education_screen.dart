@@ -85,7 +85,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
       currentLyStudyingHere = widget.educationModel.graduationDate == null;
       _descriptionZefyrController = ZefyrController(
           ZeyfrHelper.htmlToNotusDocument(
-              widget.educationModel?.description ?? " "));
+              widget.educationModel?.description ?? ""));
     }
 
     _initRepos();

@@ -68,64 +68,6 @@ class _CommonDatePickerFormFieldState extends State<CommonDatePickerFormField> {
                 : "",
           hintText: StringResources.chooseDateText,
         ),
-//        InkWell(
-//          onTap: () {
-//            FocusScopeNode currentFocus = FocusScope.of(context);
-//            currentFocus?.unfocus();
-//            _showCupertinoDatePicker(context);
-////            Theme.of(context).platform == TargetPlatform.iOS
-////                ?
-////            _showCupertinoDatePicker(context):
-////            _showDatePicker(context);
-////            _selectDateAndroid(context);
-//          },
-//          child: Container(
-//            height: 40,
-//            width: double.infinity,
-//            decoration: BoxDecoration(
-//              color: Theme.of(context).backgroundColor,
-//              borderRadius: BorderRadius.circular(7),
-//              boxShadow: [
-//                BoxShadow(
-//                    color: Color(0xff000000).withOpacity(0.2), blurRadius: 20),
-//                BoxShadow(
-//                    color: Color(0xfffafafa).withOpacity(0.2), blurRadius: 20),
-//              ],
-//            ),
-//            padding: EdgeInsets.symmetric(horizontal: 8),
-//            child: Material(
-//              color: Colors.transparent,
-//              child: Row(
-//                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                children: <Widget>[
-//                  Text(
-//                    widget.date != null
-//                        ? DateFormatUtil.formatDate(widget.date)
-//                        : StringResources.chooseDateText,
-//                  ),
-//                  if (widget.onTapDateClear != null)
-//                    widget.date != null
-//                        ? InkWell(
-//                            child: Padding(
-//                              padding: const EdgeInsets.all(4.0),
-//                              child: Icon(Icons.close),
-//                            ),
-//                            onTap: widget.onTapDateClear,
-//                          )
-//                        : SizedBox(),
-//                ],
-//              ),
-//            ),
-//          ),
-//        ),
-        if (widget.errorText != null)
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              widget.errorText,
-              style: TextStyle(color: Colors.red),
-            ),
-          ),
       ],
     );
   }
