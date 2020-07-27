@@ -54,7 +54,7 @@ class _EditMemberShipsState extends State<EditMemberShips> {
       _positionHeldController.text = widget.membershipInfo.positionHeld;
       _descriptionZefyrController = ZefyrController(
           ZeyfrHelper.htmlToNotusDocument(
-              widget.membershipInfo?.description ?? " "));
+              widget.membershipInfo?.description));
       _startDate = widget.membershipInfo.startDate;
       _endDate = widget.membershipInfo.endDate;
       _membershipOngoing = widget.membershipInfo.membershipOngoing ?? false;

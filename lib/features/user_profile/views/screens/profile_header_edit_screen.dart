@@ -61,7 +61,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
     _locationEditingController.text = personalInfo.currentLocation ?? "";
     _aboutMeZefyrController = ZefyrController(
         ZeyfrHelper.htmlToNotusDocument(
-            personalInfo.aboutMe ?? ""));
+            personalInfo.aboutMe));
     _fullNameTextEditingController.text = personalInfo.fullName ?? "";
     _selectedIndustryExpertiseDropDownItem = personalInfo.industryExpertise;
     _facebookEditingController.text = personalInfo.facebookId ?? "";

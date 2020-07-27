@@ -55,7 +55,7 @@ class _EditPortfolioState extends State<EditPortfolio> {
     if (widget.portfolioInfo != null) {
       _descriptionZefyrController = ZefyrController(
           ZeyfrHelper.htmlToNotusDocument(
-              widget.portfolioInfo?.description  ?? " "));
+              widget.portfolioInfo?.description));
       _portfolioNameController.text = widget.portfolioInfo?.name ?? "";
     }
 
