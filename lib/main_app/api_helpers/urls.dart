@@ -37,7 +37,7 @@ class Urls {
       "/api/professional/professional_portfolio";
   static String professionalExperienceUrl =
       "/api/professional/professional_work_experience";
-
+  static String jobExperienceList = "/api/experience/list";
   static String industryListUrl = "/api/industry/";
   static String companyListUrl = "/api/company/";
   static String genderListUrl = "/api/gender/list";

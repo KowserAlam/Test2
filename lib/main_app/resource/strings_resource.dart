@@ -191,6 +191,7 @@ class StringResources {
   static var editPersonalInfoText = "Edit Personal Information";
   static var contactText = "Contact";
   static var contactInfo = "Contact Info";
+  static var continueText = 'Continue';
   static var qualificationText = "Qualification";
 
   static String saveText = "Save";
