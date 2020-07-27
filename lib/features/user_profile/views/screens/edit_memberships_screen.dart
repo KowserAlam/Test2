@@ -23,8 +23,8 @@ class EditMemberShips extends StatefulWidget {
 
 class _EditMemberShipsState extends State<EditMemberShips> {
   final _formKey = GlobalKey<FormState>();
-  bool _membershipOngoing = false;
-  String blankStartingDateWarningText, blankEndingDateWarningText;
+  bool _membershipOngoing = true;
+  String startDateErrorText, endDateErrorText;
 
   //TextEditingController
   final _orgNameController = TextEditingController();
@@ -53,8 +53,7 @@ class _EditMemberShipsState extends State<EditMemberShips> {
       _orgNameController.text = widget.membershipInfo.orgName;
       _positionHeldController.text = widget.membershipInfo.positionHeld;
       _descriptionZefyrController = ZefyrController(
-          ZeyfrHelper.htmlToNotusDocument(
-              widget.membershipInfo?.description));
+          ZeyfrHelper.htmlToNotusDocument(widget.membershipInfo?.description));
       _startDate = widget.membershipInfo.startDate;
       _endDate = widget.membershipInfo.endDate;
       _membershipOngoing = widget.membershipInfo.membershipOngoing ?? false;
@@ -81,35 +80,31 @@ class _EditMemberShipsState extends State<EditMemberShips> {
       });
     }
   }
+  bool _validateDate() {
+    if (!_membershipOngoing) {
+      if (_startDate != null && _endDate != null) {
+        bool isIssueDateBeforeExpireDate = _startDate.isBefore(_endDate);
+        if (!isIssueDateBeforeExpireDate) {
+          endDateErrorText =
+              StringResources.endDateCanNotBeBeforeIssueDateText;
+          setState(() {});
+        }
+        debugPrint("isBefore:$isIssueDateBeforeExpireDate");
+        return isIssueDateBeforeExpireDate;
+      }
+      debugPrint("Null Date");
+      return false;
+    }
+
+    return _startDate != null;
+  }
 
   bool validate() {
     bool isValid = _formKey.currentState.validate();
-    bool checkDate() {
-      if (_startDate != null) {
-        blankStartingDateWarningText = null;
-        if (_membershipOngoing) {
-          _endDate = null;
-          blankEndingDateWarningText = null;
-          return true;
-        } else {
-          if (_endDate != null) {
-            blankEndingDateWarningText = null;
-            return true;
-          } else {
-            blankEndingDateWarningText =
-                StringResources.membershipBlankEndDateWarningText;
-            return false;
-          }
-        }
-      } else {
-        blankStartingDateWarningText =
-            StringResources.membershipBlankStartDateWarningText;
-        return false;
-      }
-    }
+    
 
     setState(() {});
-    return isValid && checkDate();
+    return isValid && _validateDate();
   }
 
   _handleSave() {
@@ -163,6 +158,7 @@ class _EditMemberShipsState extends State<EditMemberShips> {
                 children: <Widget>[
                   //Organization Name
                   CustomTextFormField(
+                    isRequired: true,
                     validator: Validator().nullFieldValidate,
                     keyboardType: TextInputType.text,
                     focusNode: _orgNameFocusNode,
@@ -202,7 +198,8 @@ class _EditMemberShipsState extends State<EditMemberShips> {
                   spaceBetweenFields,
                   //Start Date
                   CommonDatePickerFormField(
-                    errorText: blankStartingDateWarningText,
+                    isRequired: true,
+                    errorText: startDateErrorText,
                     label: StringResources.startingDateText,
                     date: _startDate,
                     onDateTimeChanged: (v) {
@@ -235,7 +232,7 @@ class _EditMemberShipsState extends State<EditMemberShips> {
                               }
                             },
                           ),
-                          Text('Membership ongoing'),
+                          Text(StringResources.membershipOngoingText),
                         ],
                       )
                     ],
@@ -244,7 +241,8 @@ class _EditMemberShipsState extends State<EditMemberShips> {
                   //End Date
                   !_membershipOngoing
                       ? CommonDatePickerFormField(
-                          errorText: blankEndingDateWarningText,
+                          isRequired: !_membershipOngoing,
+                          errorText: endDateErrorText,
                           label: StringResources.membershipEndDateText,
                           date: _endDate,
                           onDateTimeChanged: (v) {

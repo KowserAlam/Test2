@@ -1,4 +1,3 @@
-
 import 'package:p7app/features/user_profile/models/reference_data.dart';
 import 'package:p7app/features/user_profile/views/screens/profile_header_edit_screen.dart';
 
@@ -8,7 +7,8 @@ class StringResources {
   static var signSuccessfulText =
       "Sign up Successful \n Check your email to verify account !";
 
-  static String passwordChangeSuccessful = "Your password has been changed successfully";
+  static String passwordChangeSuccessful =
+      "Your password has been changed successfully";
   static String appName = "Job Xprss";
   static String appNameDev = "$appName Dev";
   static String appNameBeta = "$appName Beta";
@@ -39,7 +39,8 @@ class StringResources {
   static String passwordDoesNotMatch = "Password doesn't match";
   static String enterValidEmail = 'Enter Valid Email';
   static String enterValidPhoneNumber = 'Enter Valid Phone Number';
-  static String twoDecimal = "Please enter a value within 0-9 and with two decimal values max";
+  static String twoDecimal =
+      "Please enter a value within 0-9 and with two decimal values max";
 
   ///
   static String doneText = "Done";
@@ -170,7 +171,7 @@ class StringResources {
   static String editProfileText = "EDIT PROFILE";
   static String aboutText = "About";
   static String aboutMeText = "About Me";
-  static String industryExpertiseText  = "Industry Expertise";
+  static String industryExpertiseText = "Industry Expertise";
 
   static String contactInfoText = "Contact info";
 
@@ -182,6 +183,7 @@ class StringResources {
   static var professionalSkillText = "Professional Skills";
   static var projectsText = "Portfolio";
   static var certificationsText = "Certifications";
+  static var hasExpiryDateText = "Has Expiry date";
   static var membershipsText = "Memberships";
   static var otherText = "Other";
   static var referencesText = "References";
@@ -190,7 +192,6 @@ class StringResources {
   static var contactText = "Contact";
   static var contactInfo = "Contact Info";
   static var qualificationText = "Qualification";
-
 
   static String saveText = "Save";
   static String ongoingText = "Ongoing";
@@ -237,11 +238,9 @@ class StringResources {
   static var companyLocationText = "LOCATION";
   static var companyLocationOnMapText = "LOCATION ON MAP";
 
-
   //Reference Edit Screen
   static var referenceDescriptionText = "Description";
   static var referenceAppbarText = "Reference";
-
 
   //Membership Edit Screen
   static var membershipAppbarText = "Membership";
@@ -251,9 +250,12 @@ class StringResources {
   static var membershipStartDateText = "Start Date";
   static var membershipEndDateText = "End Date";
   static var membershipDescriptionText = "Description";
-  static var membershipBlankStartDateWarningText = "Please enter your membership starting date";
-  static var membershipBlankEndDateWarningText = "Please enter your membership ending date";
-  static var membershipDateLogicWarningText = "Your starting date needs to occur before ending date";
+  static var membershipBlankStartDateWarningText =
+      "Please enter your membership starting date";
+  static var membershipBlankEndDateWarningText =
+      "Please enter your membership ending date";
+  static var membershipDateLogicWarningText =
+      "Your starting date needs to occur before ending date";
 
   //Certifications Edit Screen
   static var certificationNameText = "Certification Name";
@@ -262,10 +264,14 @@ class StringResources {
   static var certificationExpiryDateText = "Expiry Date";
   static var certificationCredentialIdText = "Credential Id";
   static var certificationCredentialUrlText = "Credential URL";
-  static var previouslyAddedCertificateText  = "You have already added this certificate before";
+  static var previouslyAddedCertificateText =
+      "You have already added this certificate before";
   static var blankIssueDateWarningText = "Issue date can not be blank";
   static var blankExpiryDateWarningText = "Please insert the expiry date";
-  static var dateLogicWarningText = "Issue date needs to occur before expiry date";
+
+//  static var dateLogicWarningText = "Issue date needs to occur before expiry date";
+  static var expireDateCanNotBeBeforeIssueDateText = "Expiry date can't be before issue date";
+  static var endDateCanNotBeBeforeIssueDateText = "End date can't be before issue date";
 
   //Portfolio Edit Screen
   static var titleText = "Title";
@@ -287,16 +293,16 @@ class StringResources {
   static String leavingDateText = "Leaving Date";
   static String currentlyWorkingHereText = "Currently working here";
   static String joining = "Currently working here";
-  static String joiningLeavingDateLogic = "Please make sure your joining date occurs before your leaving date";
-  static String sameExperience = "You\'ve already added this experience before.";
-  static String graduationDateShouldBeAfterEnrollDate = "Graduation date should be after enroll date";
+  static String joiningLeavingDateLogic =
+      "Please make sure your joining date occurs before your leaving date";
+  static String sameExperience =
+      "You\'ve already added this experience before.";
+  static String graduationDateShouldBeAfterEnrollDate =
+      "Graduation date should be after enroll date";
   static String blankJoiningDateErrorText = "Please enter joining date";
   static String blankLeavingDateErrorText = "Please enter leaving date";
   static String subscribeForJobAlertText = "Subscribe for job alert.";
   static String unSubscribeForJobAlertText = "Unsubscribe for job alert.";
-
-
-
 
   /// Add or Edit New Education
 
@@ -314,15 +320,16 @@ class StringResources {
   static String majorText = "Major";
   static String majorHint = "eg. English";
   static String noDegreeChosen = "You need to choose a degree";
-  static String blankGraduationDateWarningText = "Please enter your graduation date";
+  static String blankGraduationDateWarningText =
+      "Please enter your graduation date";
   static String blankEnrollDateWarningText = "Please enter your enroll date";
-  static String graduationDateLogicText = "Your enroll date needs to occur before your graduation date";
+  static String graduationDateLogicText =
+      "Your enroll date needs to occur before your graduation date";
 
   /// login screen
 
   static var doNotHaveAccountText = "Don't have an account?";
-  static var alreadyHaveAndAccountText =
-      "Already have an account?";
+  static var alreadyHaveAndAccountText = "Already have an account?";
 
   /// SignUp Screen
 
@@ -344,7 +351,7 @@ class StringResources {
   static var skillNameExample = "eg. Python";
   static var expertiseLevel = "Expertise level:";
   static var searchSkillText = "Search your skill";
-  static const String typeAtLeast2Letter  = "Type at least 2 letter";
+  static const String typeAtLeast2Letter = "Type at least 2 letter";
 
   /// Verify Screen
 
@@ -368,19 +375,17 @@ class StringResources {
   static var mobileText = "Mobile";
   static var phoneHintText = "+8801XXXXXXXX";
   static var addressText = "Address";
-  static var addressHintText =
-      "";
+  static var addressHintText = "";
 
   static var locationText = "Location";
   static var currentCompany = "Current Company";
   static var company = "Company";
   static var currentCompanyHint = "eg. ABC Corporation";
   static var currentDesignation = "Current Designation";
-  static var currentDesignationHint =  "eg. Software Engineer";
+  static var currentDesignationHint = "eg. Software Engineer";
   static var locationHintText = "eg. Dhaka, Bangladesh";
   static var editText = "Edit";
   static var portfolioText = "Portfolio";
-
 
   //Company List Screen
   static var companyListSearchText = "Search";
@@ -402,31 +407,32 @@ class StringResources {
   static var bloodGroupText = "Blood Group";
   static var genderText = "Gender";
   static var nationalityText = "Nationality";
-  static var languagesKnown  = "Languages Known ";
-  static var cropImageText  = "Crop Image";
-  static var cancelText  = "Cancel";
-  static var facebookTrlText  = "Facebook";
-  static var facebookBaseUrl  = "fb.com/";
-  static var twitterUrlText  = "Twitter";
-  static var twitterBaeUrl  = "twitter.com/";
-  static var linkedUrlText  = "LinkedIn";
-  static var linkedBaseUrl  = "linkedin.com/in/";
-  static var unableToLoadExpertiseListText  = "Unable to load expertise list";
-  static var unableToLoadSkillListText  = "Unable to load skill list";
-  static var enterValidSkillText  = "Please enter a valid skill";
-  static var previouslyAddedSkillText  = "You have already added this skill before";
-
+  static var languagesKnown = "Languages Known ";
+  static var cropImageText = "Crop Image";
+  static var cancelText = "Cancel";
+  static var facebookTrlText = "Facebook";
+  static var facebookBaseUrl = "fb.com/";
+  static var twitterUrlText = "Twitter";
+  static var twitterBaeUrl = "twitter.com/";
+  static var linkedUrlText = "LinkedIn";
+  static var linkedBaseUrl = "linkedin.com/in/";
+  static var unableToLoadExpertiseListText = "Unable to load expertise list";
+  static var unableToLoadSkillListText = "Unable to load skill list";
+  static var enterValidSkillText = "Please enter a valid skill";
+  static var previouslyAddedSkillText =
+      "You have already added this skill before";
 
   /// password reset
   static var passwordResetText = "Reset Password";
   static var setNewPasswordText = "Set new password";
   static var resetYourPassword = "Reset your Password";
   static var unableToSaveData = "Unable to save data";
-  static var unableToLoadData= "Unable to load data";
+  static var unableToLoadData = "Unable to load data";
   static var unableToApplyText = "Unable to apply";
   static var couldNotReachServer = "Couldn't reach server";
   static var unableToAddAsFavoriteText = "Unable to add as favorite";
-  static var aPasswordRestLinkHasBeenSentToText = "A password reset email has been sent to";
+  static var aPasswordRestLinkHasBeenSentToText =
+      "A password reset email has been sent to";
 
   /// Result Screen
 
@@ -450,107 +456,111 @@ class StringResources {
   static const String messagesText = "Messages";
 
   ///
-/// Jobs
-static const String noneText = "None";
-static const String deadlineText = "Deadline";
-static const String applyText = "Apply";
-static const String applyFilterText = "Apply Filter";
-static const String appliedText = "Applied";
+  /// Jobs
+  static const String noneText = "None";
+  static const String deadlineText = "Deadline";
+  static const String applyText = "Apply";
+  static const String applyFilterText = "Apply Filter";
+  static const String appliedText = "Applied";
 
-static const String favoriteText = "Favorite";
-static const String jobsText = "Jobs";
-static const String careerAdviceText = "Career Advice";
-static const String aboutUsText = "About Us";
-static const String contactUsText = "Contact Us";
-static const String faqText = "FAQ";
-static const String successfullyAppliedText = "Successfully Applied";
-static const String savedText = "Saved";
-static const String typeToSearch = "Type to search";
-static const String noJobsFound = "No jobs found";
-static const String noSimilarJobsFound = "No Similar Job(s) Found.";
-static const String noOpenJobsFound = "No Open Job(s) Found.";
-static const String noFavouriteJobsFound = "No favourite jobs found";
-static const String noAppliedJobsFound = "No applied jobs found";
+  static const String favoriteText = "Favorite";
+  static const String jobsText = "Jobs";
+  static const String careerAdviceText = "Career Advice";
+  static const String aboutUsText = "About Us";
+  static const String contactUsText = "Contact Us";
+  static const String faqText = "FAQ";
+  static const String successfullyAppliedText = "Successfully Applied";
+  static const String savedText = "Saved";
+  static const String typeToSearch = "Type to search";
+  static const String noJobsFound = "No jobs found";
+  static const String noSimilarJobsFound = "No Similar Job(s) Found.";
+  static const String noOpenJobsFound = "No Open Job(s) Found.";
+  static const String noFavouriteJobsFound = "No favourite jobs found";
+  static const String noAppliedJobsFound = "No applied jobs found";
 
 //Contact Us
-static const String contactUsContactInfoText = 'Contact Info';
-static const String contactUsKeepInTouchText = 'Keep In Touch';
-static const String contactUsNameText = 'Name';
-static const String contactUsEmailText = 'Email';
-static const String contactUsPhoneText = 'Phone';
-static const String contactUsSubjectText = 'Subject';
-static const String contactUsMessageText = 'Message';
-static const String contactUsLocationText = 'Location';
-static const String contactUsSubmittedText = 'Thanks for contacting us! We will get in touch with you shortly.';
+  static const String contactUsContactInfoText = 'Contact Info';
+  static const String contactUsKeepInTouchText = 'Keep In Touch';
+  static const String contactUsNameText = 'Name';
+  static const String contactUsEmailText = 'Email';
+  static const String contactUsPhoneText = 'Phone';
+  static const String contactUsSubjectText = 'Subject';
+  static const String contactUsMessageText = 'Message';
+  static const String contactUsLocationText = 'Location';
+  static const String contactUsSubmittedText =
+      'Thanks for contacting us! We will get in touch with you shortly.';
 
-
-///Job Details
-static const String jobDetailsAppBarTitle = 'Job Details';
-static const String applyButtonText = 'Apply';
-static const String saveJobButtonText = 'Save Job';
-static const String jobDescriptionTitle = 'Description';
-static const String responsibilitiesTitle = 'Responsibilities';
-static const String currentOffer = 'Current Offer';
-static const String educationTitle = 'Education';
-static const String salaryTitle = 'Salary';
-static const String otherBenefitsTitle = 'Other Benefits';
-static const String secondApplyButtonText = 'Apply Online';
-static const String emailJobButtonText = 'Email Job';
-static const String jobSummeryTitle = 'Summary';
-static const String publishedOn = 'Published on';
-static const String vacancy = 'Vacancy';
-static const String category = 'Category';
-static const String doYouWantToClearAllCacheText = "Do you want to clear all cache ?";
-static const String doYouWantToSignOutText = "Do you want to sign out ?";
-static const String jobNature = 'Nature';
-static const String experience = 'Experience';
-static const String jobLocation = 'Job Location';
-static const String salary = 'Salary';
-static const String clearedText = 'Cleared';
-static const String changePassword = 'Change Password';
-static const String changePasswordInfoText = 'Choose a unique password to protect your account';
-static const String licenses = 'Licenses';
-static const String clearCachedData = 'Clear Cached Data';
-static const String emailSubscriptionText = 'Email subscription';
-static const String pushNotificationText = 'Push Notification';
-static const String managePushNotificationText = 'Manage push notification';
-static const String emailSubscriptionInfo = 'Job alert email subscription';
-static const String clearCachedDataInfo = "Clear you all cached data eg. Images";
-static const String seeMoreText = "See More";
-static const String seeLessText = "See Less";
-static const String salaryRangeText = 'Salary Range';
-static const String gender = 'Gender';
-static const String addSkillText = 'Add Skill';
-static const String tapToSelectText = 'Tap to select';
-static const String applicationDeadline = 'Deadline: ';
-static const String requiredSkills = 'Skill Requirement';
-static const String benefitSectionTitle = 'Benefits';
-static const String jobSource = 'Job Source';
-static const String jobsOnMapText = 'Job On Map';
-static const String doYouWantToApplyText = 'Do you want to apply for this job?';
-static const String doYouWantToDeleteText = "Do You Want to delete?";
-static const String jobsFoundText = 'jobs found';
-static const String sortBy = 'Sort By';
-static const String advanceFilterText = "Advance Filter";
-static const String jobCategoryText = "Job Category";
-static const String jobTypeText  = "Job Type";
-static const String datePosted  = "Date Posted";
-static const String jobSiteText  = "Job Site";
-  static const String jobNatureText  = "Job Nature";
-  static const String jobAddressText  = "Address";
-  static const String jobAreaText  = "Area";
-  static const String jobCityText  = "City";
-  static const String jobCityHintText  = "eg. Dhaka";
-  static const String jobCountryText  = "Country";
-  static const String jobAboutText  = "About Job";
-  static const String jobAboutCompanyText  = "About Company";
-  static const String jobCompanyProfileText  = "Company Profile";
-  static const String jobCompanyWebAddressText  = "Web Address";
-  static const String jobAdditionalRequirementsText  = "Additional Requirements";
-  static const String typeAtLeast3Letter  = "Type at least 3 letter";
-  static const String notFoundText  = "Not Found";
-  static const String writeYourMessageText  = "Write your message";
-  static const String monthlyJobsText  = "Monthly Jobs";
-  static const String similarJobsText  = "Similar Jobs";
-  static const String openJobsText  = "Open Jobs";
+  ///Job Details
+  static const String jobDetailsAppBarTitle = 'Job Details';
+  static const String applyButtonText = 'Apply';
+  static const String saveJobButtonText = 'Save Job';
+  static const String jobDescriptionTitle = 'Description';
+  static const String responsibilitiesTitle = 'Responsibilities';
+  static const String currentOffer = 'Current Offer';
+  static const String educationTitle = 'Education';
+  static const String salaryTitle = 'Salary';
+  static const String otherBenefitsTitle = 'Other Benefits';
+  static const String secondApplyButtonText = 'Apply Online';
+  static const String emailJobButtonText = 'Email Job';
+  static const String jobSummeryTitle = 'Summary';
+  static const String publishedOn = 'Published on';
+  static const String vacancy = 'Vacancy';
+  static const String category = 'Category';
+  static const String doYouWantToClearAllCacheText =
+      "Do you want to clear all cache ?";
+  static const String doYouWantToSignOutText = "Do you want to sign out ?";
+  static const String jobNature = 'Nature';
+  static const String experience = 'Experience';
+  static const String jobLocation = 'Job Location';
+  static const String salary = 'Salary';
+  static const String clearedText = 'Cleared';
+  static const String changePassword = 'Change Password';
+  static const String changePasswordInfoText =
+      'Choose a unique password to protect your account';
+  static const String licenses = 'Licenses';
+  static const String clearCachedData = 'Clear Cached Data';
+  static const String emailSubscriptionText = 'Email subscription';
+  static const String pushNotificationText = 'Push Notification';
+  static const String managePushNotificationText = 'Manage push notification';
+  static const String emailSubscriptionInfo = 'Job alert email subscription';
+  static const String clearCachedDataInfo =
+      "Clear you all cached data eg. Images";
+  static const String seeMoreText = "See More";
+  static const String seeLessText = "See Less";
+  static const String salaryRangeText = 'Salary Range';
+  static const String gender = 'Gender';
+  static const String addSkillText = 'Add Skill';
+  static const String tapToSelectText = 'Tap to select';
+  static const String applicationDeadline = 'Deadline: ';
+  static const String requiredSkills = 'Skill Requirement';
+  static const String benefitSectionTitle = 'Benefits';
+  static const String jobSource = 'Job Source';
+  static const String jobsOnMapText = 'Job On Map';
+  static const String doYouWantToApplyText =
+      'Do you want to apply for this job?';
+  static const String doYouWantToDeleteText = "Do You Want to delete?";
+  static const String jobsFoundText = 'jobs found';
+  static const String sortBy = 'Sort By';
+  static const String advanceFilterText = "Advance Filter";
+  static const String jobCategoryText = "Job Category";
+  static const String jobTypeText = "Job Type";
+  static const String datePosted = "Date Posted";
+  static const String jobSiteText = "Job Site";
+  static const String jobNatureText = "Job Nature";
+  static const String jobAddressText = "Address";
+  static const String jobAreaText = "Area";
+  static const String jobCityText = "City";
+  static const String jobCityHintText = "eg. Dhaka";
+  static const String jobCountryText = "Country";
+  static const String jobAboutText = "About Job";
+  static const String jobAboutCompanyText = "About Company";
+  static const String jobCompanyProfileText = "Company Profile";
+  static const String jobCompanyWebAddressText = "Web Address";
+  static const String jobAdditionalRequirementsText = "Additional Requirements";
+  static const String typeAtLeast3Letter = "Type at least 3 letter";
+  static const String notFoundText = "Not Found";
+  static const String writeYourMessageText = "Write your message";
+  static const String monthlyJobsText = "Monthly Jobs";
+  static const String similarJobsText = "Similar Jobs";
+  static const String openJobsText = "Open Jobs";
 }

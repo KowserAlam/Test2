@@ -48,6 +48,7 @@ class _CommonDatePickerFormFieldState extends State<CommonDatePickerFormField> {
 //          height: 8,
 //        ),
         CustomTextFormField(
+          errorText: widget.errorText,
           isRequired: widget.isRequired,
           labelText: widget.label,
           onTap: () {
