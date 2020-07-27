@@ -32,7 +32,7 @@ class _AddEditProfessionalSkillState extends State<AddEditProfessionalSkill> {
   final SkillInfo technicalSkill;
   final int index;
   bool loading;
-  static List<Skill> searchList;
+  static List<Skill> searchList=[];
   static TextEditingController searchController = new TextEditingController();
   TextEditingController ratingController = new TextEditingController();
 

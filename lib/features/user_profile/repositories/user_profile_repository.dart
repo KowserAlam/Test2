@@ -744,6 +744,7 @@ class UserProfileRepository {
     BotToast.showLoading();
 
     var url = "${Urls.professionalPortfolioUrl}/$portfolioId/";
+    debugPrint(url);
     try {
       var response = await ApiClient().putRequest(url, data);
       print(response.statusCode);
