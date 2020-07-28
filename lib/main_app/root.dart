@@ -2,7 +2,7 @@ import 'package:flutter/services.dart';
 import 'package:logger/logger.dart';
 import 'package:p7app/features/job/view/job_list_screen.dart';
 import 'package:p7app/features/onboarding_page/view/additional_info_screens.dart';
-import 'package:p7app/features/onboarding_page/onboarding_page.dart';
+import 'package:p7app/features/onboarding_page/view/onboarding_page.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/auth_service/auth_user_model.dart';

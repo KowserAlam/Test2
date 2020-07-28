@@ -180,6 +180,9 @@ class StringResources {
   static var educationsText = "Education";
   static var skillsText = "Skills";
   static var skillText = "Skill";
+  static var addYourTopSkillText = "Add your top skills";
+  static var skipText = "Skip";
+  static var jobLocationPrefText = "Job Location Preference";
   static var professionalSkillText = "Professional Skills";
   static var projectsText = "Portfolio";
   static var certificationsText = "Certifications";
@@ -242,9 +245,11 @@ class StringResources {
   //Reference Edit Screen
   static var referenceDescriptionText = "Description";
   static var referenceAppbarText = "Reference";
-
-  //Membership Edit Screen
+  static var pleaseProvideSomeAdditionalInfoText =  "Please provide some additional information.";
+  static var itWillHelpUsSupportYouWithJobText =  "It will help us  support you with job  recommendations better suited for you. ";
   static var membershipAppbarText = "Membership";
+  //Membership Edit Screen
+  static var areYouLookingForJobText = "Are you currently looking for a job?";
   static var membershipOrgNameText = "Organization Name";
   static var membershipPositionHeldText = "Position Held";
   static var membershipOngoingText = "Ongoing";
@@ -512,6 +517,7 @@ class StringResources {
   static const String doYouWantToSignOutText = "Do you want to sign out ?";
   static const String jobNature = 'Nature';
   static const String experience = 'Experience';
+  static const String yearsOfExperience = 'Years of experience';
   static const String jobLocation = 'Job Location';
   static const String salary = 'Salary';
   static const String clearedText = 'Cleared';

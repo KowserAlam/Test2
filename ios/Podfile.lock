@@ -252,7 +252,7 @@ SPEC CHECKSUMS:
   Mantle: 35238ae6f2e2b2d474fa7b67fee82a59fea71915
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   package_info: 873975fc26034f0b863a300ad47e7f1ac6c7ec62
-  path_provider: fb74bd0465e96b594bb3b5088ee4a4e7bb1f2a9d
+  path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   Protobuf: 176220c526ad8bd09ab1fb40a978eac3fef665f7
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96

@@ -3,9 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:p7app/features/chat/view/screens/chat_list_screen.dart';
 import 'package:p7app/features/dashboard/view/dash_board.dart';
-import 'package:p7app/features/onboarding_page/slide.dart';
-import 'package:p7app/features/onboarding_page/slide_dots.dart';
-import 'package:p7app/features/onboarding_page/slide_item.dart';
+import 'package:p7app/features/onboarding_page/models/slide.dart';
+import 'package:p7app/features/onboarding_page/view/widgets/slide_dots.dart';
+import 'package:p7app/features/onboarding_page/view/widgets/slide_item.dart';
 import 'package:p7app/main_app/home.dart';
 import 'package:p7app/main_app/util/local_storage.dart';
 
