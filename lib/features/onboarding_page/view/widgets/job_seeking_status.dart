@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:p7app/features/onboarding_page/view/widgets/select_top_skill.dart';
 import 'package:p7app/features/onboarding_page/view_models/additional_info_view_model.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/views/widgets/custom_searchable_dropdown_from_field.dart';
@@ -16,7 +17,7 @@ class _JobSeekingStatusState extends State<JobSeekingStatus> {
     var jobSeekingStatusList = vm.jobSeekingStatusList;
     var experienceList = vm.experienceList;
     return Center(
-      child: Container(
+      child: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
@@ -64,7 +65,7 @@ class _JobSeekingStatusState extends State<JobSeekingStatus> {
                 height: 10,
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
+                padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 16),
                 child: CustomDropdownSearchFormField<String>(
                   labelText: StringResources.yearsOfExperience,
                   items: experienceList,
@@ -74,7 +75,8 @@ class _JobSeekingStatusState extends State<JobSeekingStatus> {
                     vm.selectedExperience = v;
                   },
                 ),
-              )
+              ),
+//            SelectTopSkill(),
             ],
           ),
         ),

@@ -66,15 +66,13 @@ class AppTheme {
   static final ThemeData lightTheme = ThemeData(
     fontFamily: fontFamily,
     visualDensity: VisualDensity.adaptivePlatformDensity,
-      brightness: Brightness.light,
-      backgroundColor: lightScaffoldColor,
-      primaryColor: colorPrimary,
-      accentColor: colorAccent,
-      scaffoldBackgroundColor: lightBG,
-
-    appBarTheme: AppBarTheme(
-      textTheme: GoogleFonts.robotoTextTheme().apply()
-    ),
+    brightness: Brightness.light,
+    backgroundColor: lightScaffoldColor,
+    primaryColor: colorPrimary,
+    accentColor: colorAccent,
+    scaffoldBackgroundColor: lightBG,
+    buttonColor: colorAccent,
+    appBarTheme: AppBarTheme(textTheme: GoogleFonts.robotoTextTheme().apply()),
   );
 
   static ThemeData darkTheme = ThemeData(

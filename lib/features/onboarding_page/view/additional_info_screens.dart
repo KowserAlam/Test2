@@ -185,7 +185,7 @@ class _AdditionalInfoScreensState extends State<AdditionalInfoScreens> {
                     children: List.generate(_pages.length,
                         (index) => SlideDots(index == _currentPage))),
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [

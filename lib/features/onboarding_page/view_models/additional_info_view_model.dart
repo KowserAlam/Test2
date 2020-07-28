@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:p7app/features/user_profile/models/skill.dart';
+import 'package:p7app/features/user_profile/models/skill_info.dart';
 import 'package:p7app/main_app/repositories/job_experience_list_repository.dart';
 import 'package:p7app/main_app/repositories/skill_list_repository.dart';
 
@@ -10,8 +13,7 @@ class AdditionalInfoViewModel with ChangeNotifier {
     "Just exploring",
   ];
 
-
-  List<Skill> _selectedSkills = [];
+  List<SkillInfo> _selectedSkills = [];
   List<Skill> skillList = [];
   List<String> experienceList = [];
   String _radioValue; //
@@ -26,13 +28,15 @@ class AdditionalInfoViewModel with ChangeNotifier {
     _getExpList();
     _getSkillList();
   }
-  addSkill(Skill skill){
-    _selectedSkills.add(skill);
+
+  Future<void> addSkill(SkillInfo skillInfo) async {
+    _selectedSkills.add(skillInfo);
     notifyListeners();
+    return;
   }
 
-  removeSkill(int index){
-    _selectedSkills.removeAt(index);
+  removeSkill(int id) {
+    _selectedSkills.removeWhere((element) => element.profSkillId == id);
     notifyListeners();
   }
 
@@ -43,7 +47,7 @@ class AdditionalInfoViewModel with ChangeNotifier {
     });
   }
 
-  _getSkillList(){
+  _getSkillList() {
     SkillListRepository().getSkillList().then((value) {
       skillList = value.fold((l) => [], (r) => r);
       notifyListeners();
@@ -62,5 +66,5 @@ class AdditionalInfoViewModel with ChangeNotifier {
     _radioValue = value;
   }
 
-  List<Skill> get selectedSkills => _selectedSkills;
+  List<SkillInfo> get selectedSkills => _selectedSkills;
 }
