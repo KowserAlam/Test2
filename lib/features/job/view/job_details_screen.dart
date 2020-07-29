@@ -549,16 +549,8 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                 ),
                 (jobDetails.jobCountry.isEmptyOrNull)
                     ? SizedBox()
-                    : FutureBuilder<String>(
-                        future: CountryRepository()
-                            .getCountryNameFromCode(jobDetails.jobCountry),
-                        builder: (BuildContext context,
-                            AsyncSnapshot<String> snapshot) {
-                          return jobSummeryRichText(
-                              StringResources.jobCountryText,
-                              snapshot.data ?? jobDetails.jobCountry);
-                        },
-                      ),
+                    : jobSummeryRichText(
+                        StringResources.jobCountryText, jobDetails.jobCountry),
                 SizedBox(
                   height: 5,
                 ),
@@ -639,27 +631,22 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                   ],
                 ),
                 SizedBox(height: 5),
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      StringResources.jobCompanyProfileText + ': ',
-                      style: descriptionFontStyleBold,
-                    ),
-                    jobDetails.companyProfile != null
-                        ? GestureDetector(
-                            onTap: () {
-                              UrlLauncherHelper.launchUrl(
-                                  jobDetails.companyProfile.trim());
-                            },
-                            child: Text(
-                              jobDetails.companyProfile,
-                              style: TextStyle(color: Colors.lightBlue),
-                            ))
-                        : Text(StringResources.noneText),
-                  ],
-                ),
+                jobSummeryRichText(StringResources.jobCompanyProfileText,     jobDetails.companyProfile,),
+//                Row(
+//                  mainAxisSize: MainAxisSize.max,
+//                  mainAxisAlignment: MainAxisAlignment.start,
+//                  children: [
+//                    Text(
+//                      StringResources.jobCompanyProfileText + ': ',
+//                      style: descriptionFontStyleBold,
+//                    ),
+//                    jobDetails.companyProfile != null
+//                        ? Text(
+//                          jobDetails.companyProfile,
+//                        )
+//                        : Text(StringResources.noneText),
+//                  ],
+//                ),
                 SizedBox(
                   height: 5,
                 ),

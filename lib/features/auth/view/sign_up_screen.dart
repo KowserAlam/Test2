@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:p7app/features/auth/view/widgets/custom_text_field_rounded.dart';
-import 'package:p7app/features/auth/view_models/login_view_model.dart';
+import 'package:p7app/features/auth/view_models/sign_in_view_model.dart';
 import 'package:p7app/features/auth/view_models/signup_viewmodel.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
@@ -69,7 +69,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           signUpProvider.resetState();
           Navigator.pop(context);
 //          BotToast.showSimpleNotification(title: "Check your email verify account");
-          Provider.of<LoginViewModel>(context,listen: false).isFromSuccessfulSignUp = true;
+          Provider.of<SignInViewModel>(context,listen: false).isFromSuccessfulSignUp = true;
 
         }
       });

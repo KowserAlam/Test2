@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:p7app/features/onboarding_page/view/widgets/select_location.dart';
 import 'package:p7app/features/onboarding_page/view/widgets/select_top_skill.dart';
 import 'package:p7app/features/onboarding_page/view_models/additional_info_view_model.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
@@ -76,7 +77,7 @@ class _JobSeekingStatusState extends State<JobSeekingStatus> {
                   },
                 ),
               ),
-//            SelectTopSkill(),
+              SelectLocation(),
             ],
           ),
         ),

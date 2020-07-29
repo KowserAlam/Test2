@@ -1,7 +1,7 @@
 import 'package:google_fonts/google_fonts.dart';
-import 'package:p7app/features/auth/view_models/login_view_model.dart';
 import 'package:p7app/features/auth/view_models/password_change_view_model.dart';
 import 'package:p7app/features/auth/view_models/password_reset_view_model.dart';
+import 'package:p7app/features/auth/view_models/sign_in_view_model.dart';
 import 'package:p7app/features/auth/view_models/signup_viewmodel.dart';
 import 'package:p7app/features/career_advice/view_models/career_advice_view_model.dart';
 import 'package:p7app/features/company/view_model/company_list_view_model.dart';
@@ -13,9 +13,11 @@ import 'package:p7app/features/job/view_model/job_list_filter_widget_view_model.
 import 'package:p7app/features/job/view_model/job_list_view_model.dart';
 import 'package:p7app/features/messaging/view_mpdel/message_screen_view_model.dart';
 import 'package:p7app/features/notification/view_models/notificaion_view_model.dart';
+import 'package:p7app/features/settings/settings_view_model.dart';
 import 'package:p7app/main_app/flavour/flavour_config.dart';
 import 'package:p7app/main_app/util/common_serviec_rule.dart';
 import 'package:p7app/main_app/util/locator.dart';
+import 'package:p7app/main_app/views/widgets/restart_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:p7app/main_app/root.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
@@ -27,12 +29,12 @@ class P7App extends StatelessWidget {
   final isEnabledDevicePreview;
   final CommonServiceRule commonServiceRule = CommonServiceRule();
 
-  P7App(Key key, {this.isEnabledDevicePreview = false});
+  P7App({this.isEnabledDevicePreview = false});
 
   @override
   Widget build(BuildContext context) {
     var providers = [
-      ChangeNotifierProvider(create: (context) => LoginViewModel()),
+      ChangeNotifierProvider(create: (context) => SignInViewModel()),
       ChangeNotifierProvider(create: (context) => SignUpViewModel()),
       ChangeNotifierProvider(create: (context) => JobListViewModel()),
       ChangeNotifierProvider(create: (context) => AppliedJobListViewModel()),
@@ -45,14 +47,14 @@ class P7App extends StatelessWidget {
           create: (context) => JobListFilterWidgetViewModel()),
       ChangeNotifierProvider(create: (context) => PasswordChangeViewModel()),
       ChangeNotifierProvider(create: (context) => DashboardViewModel()),
-      ChangeNotifierProvider(create: (context) => locator<CareerAdviceViewModel>()),
+      ChangeNotifierProvider(create: (context) => CareerAdviceViewModel()),
+      ChangeNotifierProvider(create: (context) => locator<SettingsViewModel>()),
       ChangeNotifierProvider(create: (context) => NotificationViewModel()),
       ChangeNotifierProvider(create: (context) => MessageScreenViewModel()),
     ];
     var appName = FlavorConfig.appName();
 
     return MultiProvider(
-      key: key,
       providers: providers,
       child: MaterialApp(
         navigatorObservers: [BotToastNavigatorObserver()],

@@ -53,6 +53,7 @@ class _AddSkillWidgetState extends State<AddSkillWidget> {
               selectedSkill = v;
             },
             labelText: StringResources.skillText,
+            hintText: StringResources.tapToSelectText,
             selectedItem: selectedSkill,
             showSelectedItem: true,
             showSearchBox: true,

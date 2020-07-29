@@ -24,7 +24,6 @@ class _AdditionalInfoScreensState extends State<AdditionalInfoScreens> {
   var _pages = [
     JobSeekingStatus(),
     SelectTopSkill(),
-    SelectLocation(),
   ];
 
   initState() {

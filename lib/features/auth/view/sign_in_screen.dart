@@ -1,13 +1,11 @@
 import 'package:p7app/features/auth/view/password_reset_screens.dart';
 import 'package:p7app/features/auth/view/sign_up_screen.dart';
-import 'package:p7app/features/auth/view_models/login_view_model.dart';
 import 'package:p7app/features/auth/view/widgets/custom_text_field_rounded.dart';
+import 'package:p7app/features/auth/view_models/sign_in_view_model.dart';
 import 'package:p7app/main_app/flavour/flavor_banner.dart';
 import 'package:p7app/main_app/root.dart';
 import 'package:p7app/main_app/resource/const.dart';
-import 'package:p7app/main_app/app_theme/comon_styles.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
-import 'package:p7app/main_app/util/validator.dart';
 import 'package:p7app/main_app/views/widgets/app_version_widget_small.dart';
 import 'package:p7app/main_app/views/widgets/common_button.dart';
 import 'package:p7app/main_app/views/widgets/loader.dart';
@@ -15,12 +13,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class LoginScreen extends StatefulWidget {
+class SignInScreen extends StatefulWidget {
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _SignInScreenState createState() => _SignInScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignInScreenState extends State<SignInScreen> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   final _emailTextController = TextEditingController();
@@ -36,7 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget _successfulSignUorLoginText() {
-    return Consumer<LoginViewModel>(
+    return Consumer<SignInViewModel>(
         builder: (BuildContext context, loginProvider, Widget child) {
       if (loginProvider.isFromSuccessfulSignUp) {
         return Container(
@@ -46,7 +44,10 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Text(
             StringResources.signSuccessfulText,
             textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.subtitle1.apply(color: Colors.green),
+            style: Theme.of(context)
+                .textTheme
+                .subtitle1
+                .apply(color: Colors.green),
           ),
         );
       }
@@ -55,7 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   _handleLogin(BuildContext context) async {
-    var loginProvider = Provider.of<LoginViewModel>(context, listen: false);
+    var loginProvider = Provider.of<SignInViewModel>(context, listen: false);
     if (loginProvider.isFromSuccessfulSignUp) {
       loginProvider.isFromSuccessfulSignUp = false;
     }
@@ -70,7 +71,10 @@ class _LoginScreenState extends State<LoginScreen> {
       if (res) {
         loginProvider.resetState();
         Navigator.of(context).pushAndRemoveUntil(
-            CupertinoPageRoute(builder: (BuildContext context) => Root(showDummyLoadingTime: true,)),
+            CupertinoPageRoute(
+                builder: (BuildContext context) => Root(
+                      showDummyLoadingTime: true,
+                    )),
             (_) => false);
       }
     } else {
@@ -99,7 +103,7 @@ class _LoginScreenState extends State<LoginScreen> {
     double logoWidth = width > kMidDeviceScreenSize ? 160 : height * 0.085;
 
     var errorMessage =
-        Consumer<LoginViewModel>(builder: (context, signViewModel, _) {
+        Consumer<SignInViewModel>(builder: (context, signViewModel, _) {
       if (signViewModel.errorMessage == null) {
         return SizedBox();
       }
@@ -152,7 +156,7 @@ class _LoginScreenState extends State<LoginScreen> {
             onTap: () {
               /// disabling login successful message
               var loginProvider =
-                  Provider.of<LoginViewModel>(context, listen: false);
+                  Provider.of<SignInViewModel>(context, listen: false);
               if (loginProvider.isFromSuccessfulSignUp) {
                 loginProvider.isFromSuccessfulSignUp = false;
               }
@@ -174,7 +178,7 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ]),
     );
-    var email = Consumer<LoginViewModel>(
+    var email = Consumer<SignInViewModel>(
       builder: (context, signViewModel, _) {
         return CustomTextFieldRounded(
           errorText: signViewModel.errorTextEmail,
@@ -195,7 +199,7 @@ class _LoginScreenState extends State<LoginScreen> {
         );
       },
     );
-    var password = Consumer<LoginViewModel>(
+    var password = Consumer<SignInViewModel>(
       builder: (context, signViewModel, _) {
         bool isObscure = signViewModel.isObscurePassword;
         return CustomTextFieldRounded(
@@ -203,9 +207,7 @@ class _LoginScreenState extends State<LoginScreen> {
           errorText: signViewModel.errorTextPassword,
           focusNode: _passwordFocus,
           textInputAction: TextInputAction.done,
-          prefixIcon: Icon(
-            Icons.lock
-          ),
+          prefixIcon: Icon(Icons.lock),
           suffixIcon: IconButton(
             icon: !isObscure
                 ? Icon(
@@ -234,8 +236,8 @@ class _LoginScreenState extends State<LoginScreen> {
         InkWell(
           borderRadius: BorderRadius.circular(10),
           onTap: () {
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => PasswordResetScreens()));
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => PasswordResetScreens()));
           },
           child: Container(
             padding: EdgeInsets.all(8),
@@ -246,7 +248,7 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ],
     );
-    var signInButton = Consumer<LoginViewModel>(
+    var signInButton = Consumer<SignInViewModel>(
         builder: (BuildContext context, loginProvider, Widget child) {
       if (loginProvider.isBusyLogin) {
         return Loader();

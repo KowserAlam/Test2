@@ -44,6 +44,7 @@ class SettingsViewModel with ChangeNotifier {
   signOut() {
     AuthService.getInstance().then((value) => value.removeUser()).then((value) {
       clearAllCachedData();
+      Cache.clear();
       locator<RestartNotifier>().restartApp();
     });
   }

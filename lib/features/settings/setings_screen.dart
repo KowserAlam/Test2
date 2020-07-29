@@ -2,7 +2,6 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_cache/flutter_cache.dart';
 import 'package:p7app/features/auth/view/passworrd_change_screen.dart';
-import 'package:p7app/features/auth/view_models/login_view_model.dart';
 import 'package:p7app/features/settings/email_subscriptions_screen.dart';
 import 'package:p7app/features/settings/push_notificaiton_manage_screen.dart';
 import 'package:p7app/features/settings/settings_view_model.dart';

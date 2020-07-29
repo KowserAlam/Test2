@@ -22,10 +22,7 @@ void main() async {
 
   runApp(
     RestartWidget(
-      child: ChangeNotifierProvider(
-        create: (context) => locator<SettingsViewModel>(),
-        child: P7App(UniqueKey()),
-      ),
+      child: P7App(),
     ),
   );
 }

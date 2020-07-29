@@ -16,7 +16,7 @@ import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/locator.dart';
 import 'package:p7app/main_app/util/validator.dart';
 
-class LoginViewModel with ChangeNotifier {
+class SignInViewModel with ChangeNotifier {
   bool _isObscurePassword = true;
   String _email = "";
   String _password = "";
