@@ -63,7 +63,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
   bool currentLyStudyingHere = false;
   Future<List<MajorSubject>> majorList;
   Future<List<Institution>> institutionList;
-  String selectedDegree;
+  String selectedLevelOfEducation;
   MajorSubject selectedMajorSubject;
   Institution selectedInstitute;
 
@@ -76,7 +76,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
           widget.educationModel.institutionText ??
           "";
       gpaTextController.text = widget.educationModel.cgpa ?? "";
-      selectedDegree = widget.educationModel.degree;
+      selectedLevelOfEducation = widget.educationModel.educationLevel;
       selectedMajorSubject = widget.educationModel.major ?? null;
       majorTextController.text = widget.educationModel?.major?.name ??
           widget.educationModel?.majorText;
@@ -168,7 +168,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
     var isSuccess = validate();
 
     if (isSuccess) {
-      if (selectedDegree == null) {
+      if (selectedLevelOfEducation == null) {
         BotToast.showText(text: StringResources.noDegreeChosen);
       } else {
         var insId = selectedInstitute?.id;
@@ -183,7 +183,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
           educationId: widget.educationModel?.educationId,
           institutionId: insId,
           cgpa: gpaTextController.text,
-          degree: selectedDegree,
+          educationLevel: selectedLevelOfEducation,
           major: getSelectedMajor(),
           majorText: majorTextController.text,
           enrolledDate: _enrollDate,
@@ -192,7 +192,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
               _descriptionZefyrController.document),
           institutionText: institutionNameController.text,
         );
-        print("Degree: " + education.degree);
+        print("Degree: ${education?.educationLevel}" );
 
         if (currentLyStudyingHere) {
           submitData(education);
@@ -241,7 +241,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
     );
 
     var levelOfEducation = FutureBuilder<List<String>>(
-      future: DegreeListRepository().getList(),
+      future: EducationLevelListRepository().getList(),
       builder: (context, AsyncSnapshot<List<String>> snap) {
         return CustomDropdownSearchFormField<String>(
           isRequired: true,
@@ -250,11 +250,11 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
           validator: Validator().nullFieldValidate,
           labelText: StringResources.levelOfEducation,
           hintText: StringResources.tapToSelectText,
-          selectedItem: selectedDegree,
+          selectedItem: selectedLevelOfEducation,
           items: snap.data,
           onChanged: (v) {
-            selectedDegree = v;
-            print(selectedDegree);
+            selectedLevelOfEducation = v;
+            print(selectedLevelOfEducation);
             setState(() {});
           },
         );

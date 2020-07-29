@@ -18,14 +18,23 @@ class PersonalInfoWidget extends StatelessWidget {
     double width = MediaQuery.of(context).size.width > 720 ? 160 : 130;
     return Padding(
       padding: const EdgeInsets.all(5.0),
-      child: Text.rich(TextSpan(children: [
-        TextSpan(
-          text: "$label",
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-        TextSpan(text: ": ${value ?? ""}"),
-      ])),
+      child: Row(
+        crossAxisAlignment:CrossAxisAlignment.start,
+          children: [
+        Text("$label: ",style: TextStyle(fontWeight: FontWeight.bold)),
+        Expanded(child: Text("${value ?? ""}")),
+      ],),
     );
+//    return Padding(
+//      padding: const EdgeInsets.all(5.0),
+//      child: Text.rich(TextSpan(children: [
+//        TextSpan(
+//          text: "$label",
+//          style: TextStyle(fontWeight: FontWeight.bold),
+//        ),
+//        TextSpan(text: ": ${value ?? ""}"),
+//      ])),
+//    );
   }
 
   @override

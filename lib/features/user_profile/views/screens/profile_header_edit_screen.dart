@@ -48,10 +48,9 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
   var _linkedInEditingController = TextEditingController();
   var _currentCompanyEditingController = TextEditingController();
   var _currentDesignationEditingController = TextEditingController();
-  List<String> _experienceList=[];
+  List<String> _experienceList = [];
   String _selectedExperience;
-  ZefyrController _aboutMeZefyrController =
-  ZefyrController(NotusDocument());
+  ZefyrController _aboutMeZefyrController = ZefyrController(NotusDocument());
 
   @override
   void initState() {
@@ -59,9 +58,8 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
 
     _phoneEditingController.text = personalInfo.phone ?? "";
     _locationEditingController.text = personalInfo.currentLocation ?? "";
-    _aboutMeZefyrController = ZefyrController(
-        ZeyfrHelper.htmlToNotusDocument(
-            personalInfo.aboutMe));
+    _aboutMeZefyrController =
+        ZefyrController(ZeyfrHelper.htmlToNotusDocument(personalInfo.aboutMe));
     _fullNameTextEditingController.text = personalInfo.fullName ?? "";
     _selectedExperience = personalInfo.experience;
     _facebookEditingController.text = personalInfo.facebookId ?? "";
@@ -70,15 +68,13 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
     _currentCompanyEditingController.text = personalInfo.currentCompany ?? "";
     _currentDesignationEditingController.text =
         personalInfo.currentDesignation ?? "";
-JobExperienceListRepository().getList().then((value) {
-  _experienceList = value.fold((l) => [], (r) => r);
-  setState(() {
-
-  });
-});
+    JobExperienceListRepository().getList().then((value) {
+      _experienceList = value.fold((l) => [], (r) => r);
+      setState(() {});
+    });
     super.initState();
   }
-  
+
   String getBase64Image() {
     List<int> imageBytes = imageFile.readAsBytesSync();
 //    print(imageBytes);
@@ -89,10 +85,11 @@ JobExperienceListRepository().getList().then((value) {
   }
 
   Future getImage() async {
-    PickedFile pickedFile = await ImagePicker().getImage(source: ImageSource.gallery);
+    PickedFile pickedFile =
+        await ImagePicker().getImage(source: ImageSource.gallery);
     if (pickedFile != null) {
 //      var compressedImage = await ImageCompressUtil.compressImage(file, 80);
-      Future<File> croppedFile =  ImageCropper.cropImage(
+      Future<File> croppedFile = ImageCropper.cropImage(
           sourcePath: pickedFile.path,
           aspectRatioPresets: [
             CropAspectRatioPreset.square,
@@ -105,14 +102,11 @@ JobExperienceListRepository().getList().then((value) {
               lockAspectRatio: false),
           iosUiSettings: IOSUiSettings(
             minimumAspectRatio: 1.0,
-          )
-      );
-      
+          ));
+
       croppedFile.then((value) {
         imageFile = value;
-        setState(() {
-          
-        });
+        setState(() {});
       });
     } else {}
   }
@@ -132,8 +126,8 @@ JobExperienceListRepository().getList().then((value) {
             ? null
             : _locationEditingController.text,
         "full_name": _fullNameTextEditingController.text,
-        "about_me": ZeyfrHelper.notusDocumentToHTML(
-            _aboutMeZefyrController.document),
+        "about_me":
+            ZeyfrHelper.notusDocumentToHTML(_aboutMeZefyrController.document),
         "phone": _phoneEditingController.text,
         "facebook_id": _facebookEditingController.text,
         "twitter_id": _twitterEditingController.text,
@@ -281,9 +275,6 @@ JobExperienceListRepository().getList().then((value) {
             ),
             SizedBox(height: 10),
 
-
-
-
             ///about
             CustomZefyrRichTextFormField(
               labelText: StringResources.descriptionText,
@@ -304,11 +295,12 @@ JobExperienceListRepository().getList().then((value) {
               labelText: StringResources.experienceInYear,
               items: _experienceList,
               selectedItem: _selectedExperience,
-              onChanged: (v){
+              onChanged: (v) {
                 _selectedExperience = v;
               },
             ),
             SizedBox(height: 10),
+
             /// phone
 
             CustomTextFormField(
@@ -379,5 +371,4 @@ JobExperienceListRepository().getList().then((value) {
       ),
     );
   }
-
 }

@@ -6,6 +6,7 @@ import 'package:p7app/method_extension.dart';
 class EduInfo {
   int educationId;
   String degree;
+  String educationLevel;
   int institutionId;
   String institutionText;
   String cgpa;
@@ -18,6 +19,7 @@ class EduInfo {
 
   EduInfo(
       {this.educationId,
+      this.educationLevel,
       this.degree,
       this.institutionId,
       this.institutionText,
@@ -32,6 +34,7 @@ class EduInfo {
   EduInfo.fromJson(Map<String, dynamic> json) {
     educationId = json['id'];
     degree = json['degree'];
+    educationLevel = json['education_level'];
     description = json['description'];
     institutionId = json['institution_id'];
     institutionText = json['institution_text'];
@@ -60,6 +63,7 @@ class EduInfo {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['degree_id'] = this.degree;
     data['institution_id'] = this.institutionId;
+    data['education_level_id'] = this.educationLevel;
     data['description'] = this.description;
     data['institution_text'] = this.institutionText;
     data['cgpa'] = this.cgpa;
