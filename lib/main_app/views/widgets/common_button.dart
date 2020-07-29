@@ -6,6 +6,7 @@ class CommonButton extends StatelessWidget {
   final String label;
   final Function onTap;
   final double circularRadius;
+  final Key key;
 
   /// width could be null
   /// default width 135 for large device and 115 for mobile device
@@ -13,9 +14,9 @@ class CommonButton extends StatelessWidget {
   final double height;
 
   const CommonButton({
-    Key key,
     @required this.label,
     @required this.onTap,
+    this.key,
     this.width = 115,
     this.height = 60,
     this.circularRadius = 60,
@@ -39,6 +40,7 @@ class CommonButton extends StatelessWidget {
           child: Material(
             color: Colors.transparent,
             child: InkWell(
+              key: key,
               borderRadius: BorderRadius.circular(circularRadius),
               onTap: onTap,
               child: Center(
