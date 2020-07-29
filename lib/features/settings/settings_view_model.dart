@@ -2,19 +2,31 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_cache/flutter_cache.dart';
 import 'package:p7app/main_app/auth_service/auth_service.dart';
+import 'package:p7app/main_app/push_notification_service/push_notification_service.dart';
 
 //import 'package:cached_network_image/';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:p7app/main_app/util/local_storage.dart';
 import 'package:p7app/main_app/util/locator.dart';
 import 'package:p7app/main_app/views/widgets/restart_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
 class SettingsViewModel with ChangeNotifier {
+  String _isEnabledNewsPushKey = "isEnabledNewsPush";
+  bool isEnabledNewsPush =false;
+
   SettingsViewModel() {
-    initPref();
+//    initPref();
+    initSettings();
+  }
+
+  initSettings() {
+    Future.wait([
+      getNewsPushStatus(),
+    ]).then((value) {notifyListeners();});
   }
 
   initPref() async {
@@ -39,6 +51,26 @@ class SettingsViewModel with ChangeNotifier {
 
   Future<void> clearAllCachedData() async {
     return DefaultCacheManager().emptyCache();
+  }
+
+  togglePushNotificationNewUpdate() async {
+    isEnabledNewsPush = !isEnabledNewsPush;
+    var storage = await LocalStorageService.getInstance();
+   var pushService =  locator<PushNotificationService>();
+    if(isEnabledNewsPush){
+      pushService.fcmSubscribeNews();
+    }else{
+      pushService.fcmUnSubscribeNews();
+    }
+    storage.saveBool(_isEnabledNewsPushKey, isEnabledNewsPush);
+    notifyListeners();
+  }
+
+  Future<bool> getNewsPushStatus() async {
+    var storage = await LocalStorageService.getInstance();
+    var val = storage.getBool(_isEnabledNewsPushKey) ?? true;
+    isEnabledNewsPush = val;
+    return val;
   }
 
   signOut() {

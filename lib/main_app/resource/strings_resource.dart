@@ -155,6 +155,7 @@ class StringResources {
   static String signOutText = "Sign out";
 
   static String darkModeText = "DarkMode";
+  static String receiveNewsNUpdatesText = "Receive news & updates";
 
   /// **************** Dashboard *****************
 
@@ -310,6 +311,7 @@ class StringResources {
   static String blankLeavingDateErrorText = "Please enter leaving date";
   static String subscribeForJobAlertText = "Subscribe for job alert.";
   static String unSubscribeForJobAlertText = "Unsubscribe for job alert.";
+  static String getJobAlertByEmailText = "Get job alert by email";
 
   /// Add or Edit New Education
 

@@ -71,14 +71,14 @@ class _RootState extends State<Root> {
 
 
       if (await shouldShowOnBoardingScreens()) {
-        Navigator.pushAndRemoveUntil(
-            context,
-            CupertinoPageRoute(builder: (context) => AdditionalInfoScreens()),
-                (Route<dynamic> route) => false);
 //        Navigator.pushAndRemoveUntil(
 //            context,
-//            CupertinoPageRoute(builder: (context) => OnboardingPage()),
-//            (Route<dynamic> route) => false);
+//            CupertinoPageRoute(builder: (context) => AdditionalInfoScreens()),
+//                (Route<dynamic> route) => false);
+        Navigator.pushAndRemoveUntil(
+            context,
+            CupertinoPageRoute(builder: (context) => OnboardingPage()),
+            (Route<dynamic> route) => false);
       } else {
         Navigator.pushAndRemoveUntil(
             context,

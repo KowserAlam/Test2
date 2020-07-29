@@ -34,7 +34,7 @@ class JobListModel {
   });
 
   JobListModel.fromJson(Map<String, dynamic> json) {
-    String baseUrl = FlavorConfig?.instance?.values?.baseUrl;
+
 
     jobId = json['job_id'];
     slug = json['slug'];
@@ -50,7 +50,13 @@ class JobListModel {
     if (json['company'] != null) {
       if (json['company']['profile_picture'] != null) {
         String url = json['company']['profile_picture'];
-        profilePicture = "$baseUrl$url";
+        String baseUrl = FlavorConfig?.instance?.values?.baseUrl;
+        if(url.contains(baseUrl)){
+          profilePicture = url;
+        }else{
+          profilePicture = "$baseUrl$url";
+        }
+
       }
       companyName = json['company']['name'];
     }

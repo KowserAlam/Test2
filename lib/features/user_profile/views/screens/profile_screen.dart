@@ -33,7 +33,7 @@ import 'package:p7app/main_app/views/widgets/rectangular_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'package:p7app/main_app/views/widgets/subscribe_job_alert.dart';
+import 'package:p7app/features/settings/widgets/subscribe_job_alert.dart';
 import 'package:provider/provider.dart';
 import 'package:p7app/method_extension.dart';
 import 'edit_certifications_screen.dart';
@@ -837,8 +837,8 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                       /// Personal info
                       personalInfoWidget,
                       SizedBox(height: 15),
-                      SubscribeJobAlert(),
-                      SizedBox(height: 15),
+//                      SubscribeJobAlert(),
+//                      SizedBox(height: 15),
                     ],
                   ),
                 ),

@@ -1,39 +1,44 @@
-
 import 'dart:io';
 
 import 'package:bot_toast/bot_toast.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:logger/logger.dart';
+import 'package:p7app/features/settings/settings_view_model.dart';
+import 'package:p7app/main_app/util/locator.dart';
 
-class PushNotificationService{
+class PushNotificationService {
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
-  PushNotificationService(){
 
-    if(Platform.isAndroid || Platform.isIOS){
+  PushNotificationService() {
+    if (Platform.isAndroid || Platform.isIOS) {
       _init();
       getToken();
-    }else{
-      Logger().i("Notification service not implemented for ${Platform.operatingSystem}!");
+    } else {
+      Logger().i(
+          "Notification service not implemented for ${Platform.operatingSystem}!");
     }
-
   }
 
-  void fcmSubscribe() {
+  void fcmSubscribeNews() {
     _firebaseMessaging.subscribeToTopic('news');
-
+    debugPrint("subscribeToTopic - news");
   }
 
-  void fcmUnSubscribe() {
+  void fcmUnSubscribeNews() {
     _firebaseMessaging.unsubscribeFromTopic('news');
+    debugPrint("unsubscribeFromTopic - news");
   }
 
-  _init() async{
+  _init() async {
     _firebaseMessaging.requestNotificationPermissions();
     _firebaseMessaging.onIosSettingsRegistered.listen((d) {
       print(d);
     });
-    fcmSubscribe();
+    if (await locator<SettingsViewModel>().getNewsPushStatus()) {
+      fcmSubscribeNews();
+    }
+
     _firebaseMessaging.configure(
       onMessage: (Map<String, dynamic> message) async {
         print("onMessage: $message");
@@ -59,12 +64,10 @@ class PushNotificationService{
         return;
       },
     );
-
-
   }
 
-  Future<String> getToken()async{
-    var token = await     _firebaseMessaging.getToken();
+  Future<String> getToken() async {
+    var token = await _firebaseMessaging.getToken();
     debugPrint("FCMT Token: $token");
     return token;
   }
