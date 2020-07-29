@@ -12,9 +12,11 @@ import 'package:p7app/features/user_profile/models/user_personal_info.dart';
 import 'package:p7app/features/user_profile/repositories/user_profile_repository.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
+import 'package:p7app/main_app/repositories/job_experience_list_repository.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/validator.dart';
+import 'package:p7app/main_app/views/widgets/custom_searchable_dropdown_from_field.dart';
 import 'package:p7app/main_app/views/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/views/widgets/custom_zefyr_rich_text_from_field.dart';
 import 'package:p7app/main_app/views/widgets/edit_screen_save_button.dart';
@@ -38,7 +40,6 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
   final _formKey = GlobalKey<FormState>();
   bool isBusyImageCrop = false;
   File imageFile;
-
   var _fullNameTextEditingController = TextEditingController();
   var _locationEditingController = TextEditingController();
   var _phoneEditingController = TextEditingController();
@@ -47,9 +48,8 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
   var _linkedInEditingController = TextEditingController();
   var _currentCompanyEditingController = TextEditingController();
   var _currentDesignationEditingController = TextEditingController();
-
-  List<DropdownMenuItem<String>> _industryExpertiseList = [];
-  String _selectedIndustryExpertiseDropDownItem;
+  List<String> _experienceList=[];
+  String _selectedExperience;
   ZefyrController _aboutMeZefyrController =
   ZefyrController(NotusDocument());
 
@@ -63,17 +63,22 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
         ZeyfrHelper.htmlToNotusDocument(
             personalInfo.aboutMe));
     _fullNameTextEditingController.text = personalInfo.fullName ?? "";
-    _selectedIndustryExpertiseDropDownItem = personalInfo.industryExpertise;
+    _selectedExperience = personalInfo.experience;
     _facebookEditingController.text = personalInfo.facebookId ?? "";
     _twitterEditingController.text = personalInfo.twitterId ?? "";
     _linkedInEditingController.text = personalInfo.linkedinId ?? "";
     _currentCompanyEditingController.text = personalInfo.currentCompany ?? "";
     _currentDesignationEditingController.text =
         personalInfo.currentDesignation ?? "";
+JobExperienceListRepository().getList().then((value) {
+  _experienceList = value.fold((l) => [], (r) => r);
+  setState(() {
 
+  });
+});
     super.initState();
   }
-
+  
   String getBase64Image() {
     List<int> imageBytes = imageFile.readAsBytesSync();
 //    print(imageBytes);
@@ -122,11 +127,11 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
       UserPersonalInfo personalInfo = userViewModel.userData.personalInfo;
 
       var data = {
+        "experience": _selectedExperience,
         "current_location": _locationEditingController.text.isEmpty
             ? null
             : _locationEditingController.text,
         "full_name": _fullNameTextEditingController.text,
-        "industry_expertise": _selectedIndustryExpertiseDropDownItem,
         "about_me": ZeyfrHelper.notusDocumentToHTML(
             _aboutMeZefyrController.document),
         "phone": _phoneEditingController.text,
@@ -276,18 +281,8 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
             ),
             SizedBox(height: 10),
 
-//            CustomDropdownButtonFormField<String>(
-//              labelText: StringUtils.industryExpertiseText,
-//              hint: Text('Tap to select'),
-//              value: _selectedIndustryExpertiseDropDownItem,
-//              onChanged: (value) {
-//                _selectedIndustryExpertiseDropDownItem = value;
-//                setState(() {});
-//              },
-//              items: _industryExpertiseList,
-//            ),
 
-            SizedBox(height: 10),
+
 
             ///about
             CustomZefyrRichTextFormField(
@@ -305,7 +300,15 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
 //            ),
 
             SizedBox(height: 10),
-
+            CustomDropdownSearchFormField<String>(
+              labelText: StringResources.experienceInYear,
+              items: _experienceList,
+              selectedItem: _selectedExperience,
+              onChanged: (v){
+                _selectedExperience = v;
+              },
+            ),
+            SizedBox(height: 10),
             /// phone
 
             CustomTextFormField(

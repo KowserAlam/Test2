@@ -60,7 +60,7 @@ class CustomDropdownSearchFormField<T> extends StatelessWidget {
     this.compareFn,
     this.labelText,
     this.showSearchBox = false,
-    this.hintText,
+    this.hintText = StringResources.tapToSelectText,
     this.dialogMaxWidth,
     this.maxHeight,
     this.emptyBuilder,

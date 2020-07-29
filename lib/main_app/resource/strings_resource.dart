@@ -518,6 +518,7 @@ class StringResources {
   static const String doYouWantToSignOutText = "Do you want to sign out ?";
   static const String jobNature = 'Nature';
   static const String experience = 'Experience';
+  static const String experienceInYear = 'Experience in year';
   static const String yearsOfExperience = 'Years of experience';
   static const String jobLocation = 'Job Location';
   static const String salary = 'Salary';
