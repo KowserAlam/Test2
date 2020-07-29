@@ -60,7 +60,6 @@ class JobListModel {
       }
       companyName = json['company']['name'];
     }
-
     jobNature = json['job_nature'];
     jobSite = json['job_site'];
     jobType = json['job_type'];
@@ -71,7 +70,6 @@ class JobListModel {
     if (json['application_deadline'] != null) {
       applicationDeadline = DateTime.parse(json['application_deadline']);
     }
-
     if (json['post_date'] != null) {
       postDate = DateTime.parse(json['post_date']);
     }
