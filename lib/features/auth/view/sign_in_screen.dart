@@ -257,6 +257,7 @@ class _SignInScreenState extends State<SignInScreen> {
         height: 50,
         width: 200,
         child: CommonButton(
+          key: Key(StringResources.signInText),
           onTap: () {
             _handleLogin(context);
           },
