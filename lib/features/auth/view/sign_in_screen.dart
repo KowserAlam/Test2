@@ -260,7 +260,7 @@ class _SignInScreenState extends State<SignInScreen> {
           onTap: () {
             _handleLogin(context);
           },
-          label: StringResources.logInButtonText,
+          label: StringResources.signInText,
         ),
       );
     });
