@@ -37,7 +37,7 @@ class UserProfileRepository {
       if (response.statusCode == 200) {
         var mapJson = json.decode(response.body);
 //      var mapJson = json.decode(dummyData);
-//        Logger().i(mapJson);
+        Logger().i(mapJson);
         var userModel = UserModel.fromJson(mapJson);
         return Right(userModel);
       } else {

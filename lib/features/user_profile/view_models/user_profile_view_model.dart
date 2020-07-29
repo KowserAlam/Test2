@@ -71,9 +71,6 @@ class UserProfileViewModel with ChangeNotifier {
         return false;
     }
 
-
-
-
     _isBusyLoading = true;
     _appError = null;
     notifyListeners();
