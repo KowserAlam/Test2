@@ -39,13 +39,13 @@ android {
     productFlavors {
         prod {
             dimension "flavor-type"
-            applicationId "com.ishraak.jobexpress"
-            resValue "string", "app_name", "Job Xprss"
+            applicationId "com.ishraak.jobxprss"
+            resValue "string", "app_name", "JobXprss"
         }
         dev {
             dimension "flavor-type"
 //            applicationId "com.ishraak.p7app"
-            resValue "string", "app_name", "Job Xprss Dev"
+            resValue "string", "app_name", "JobXprss Dev"
             versionNameSuffix "-dev"
         }
     }
