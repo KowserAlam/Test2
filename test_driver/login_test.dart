@@ -1,8 +1,6 @@
-import 'package:flutter_driver/driver_extension.dart';
 import 'package:flutter_driver/flutter_driver.dart';
-import 'package:p7app/main.dart' as app;
-import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:test/test.dart';
+
 
 void main() {
 
@@ -10,7 +8,7 @@ void main() {
 
     final emailField = find.byValueKey('signInEmail');
     final passwordField = find.byValueKey('signInPassword');
-    final buttonClick = find.byValueKey('signInButton');
+    final buttonClick = find.byTooltip('signInButton');
 
     FlutterDriver driver;
     // Connect to the Flutter driver before running any tests.
@@ -31,6 +29,7 @@ void main() {
       await driver.tap(passwordField);
       await driver.enterText('12345');
       await driver.tap(buttonClick);
+      await driver.waitUntilNoTransientCallbacks();
     });
 
   });

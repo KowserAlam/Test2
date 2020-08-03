@@ -181,7 +181,7 @@ class _SignInScreenState extends State<SignInScreen> {
     var email = Consumer<SignInViewModel>(
       builder: (context, signViewModel, _) {
         return CustomTextFieldRounded(
-          textFieldKey: Key("signInEmail"),
+          key: Key('signInEmail'),
           errorText: signViewModel.errorTextEmail,
           keyboardType: TextInputType.emailAddress,
           focusNode: _emailFocus,
@@ -204,7 +204,7 @@ class _SignInScreenState extends State<SignInScreen> {
       builder: (context, signViewModel, _) {
         bool isObscure = signViewModel.isObscurePassword;
         return CustomTextFieldRounded(
-          textFieldKey: Key("signInPassword"),
+          key: Key("signInPassword"),
           onChanged: signViewModel.validatePasswordLocal,
           errorText: signViewModel.errorTextPassword,
           focusNode: _passwordFocus,
