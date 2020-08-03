@@ -5,19 +5,12 @@ import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:test/test.dart';
 
 void main() {
-  // This line enables the extension.
-  enableFlutterDriverExtension();
-  // Call the `main()` function of the app, or call `runApp` with
-  app.main();
-
-  //................................................
 
   group('Login Test', () {
 
-    final emailField = find.byValueKey('email');
-    final passwordField = find.byValueKey('password');
-    final buttonClick = find.byValueKey('signInText');
-    final errorMassage = find.byType('welcomeBack');
+    final emailField = find.byValueKey('signInEmail');
+    final passwordField = find.byValueKey('signInPassword');
+    final buttonClick = find.byValueKey('signInButton');
 
     FlutterDriver driver;
     // Connect to the Flutter driver before running any tests.
@@ -38,7 +31,6 @@ void main() {
       await driver.tap(passwordField);
       await driver.enterText('12345');
       await driver.tap(buttonClick);
-      await driver.waitFor(errorMassage);
     });
 
   });
