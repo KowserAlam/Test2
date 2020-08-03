@@ -169,6 +169,7 @@ class _SignInScreenState extends State<SignInScreen> {
             },
             child: Text(
               '  ${StringResources.signupText}',
+              key: Key('signUpButton'),
               style: TextStyle(
                   color: Theme.of(context).primaryColor,
                   fontWeight: FontWeight.bold,
