@@ -318,7 +318,9 @@ class StringResources {
   static String InstitutionText = "Institution";
   static String InstitutionHintText = "eg. ABC Institution";
   static String levelOfEducation = "Level of Education";
+
   static String nameOfODegreeHintText = "eg. Bachelor of Science";
+  static String degreeHText = "Degree";
   static String gpaText = "CGPA";
   static String gpaHintText = "eg. 4.0";
   static String Enrolled = "Enrolled";

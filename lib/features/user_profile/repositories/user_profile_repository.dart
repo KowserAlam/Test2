@@ -520,6 +520,29 @@ class UserProfileRepository {
       return left(AppError.serverError);
     }
   }
+  Future<Either<AppError, EduInfo>> getUserEducation(int id) async {
+    var url = "${Urls.professionalEducationObjUrl}/${id}/";
+    debugPrint(url);
+
+    try {
+      var response = await ApiClient().getRequest(url);
+      print(response.statusCode);
+//      print(response.body);
+      if (response.statusCode == 200) {
+
+         var decodedJson = json.decode(response.body);
+        return Right(EduInfo.fromJson(decodedJson['edu_info']));
+      } else {
+        return Left(AppError.unknownError);
+      }
+    } on SocketException catch (e) {
+      print(e);
+      return left(AppError.networkError);
+    } catch (e) {
+      print(e);
+      return left(AppError.serverError);
+    }
+  }
 
   //Certification
   Future<Either<AppError, CertificationInfo>> addUserCertification(

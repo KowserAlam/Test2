@@ -4,8 +4,10 @@ import 'package:p7app/main_app/util/date_format_uitl.dart';
 import 'package:p7app/method_extension.dart';
 
 class EduInfo {
+  bool isOnGoing;
   int educationId;
   String degree;
+  String degreeText;
   String educationLevel;
   int institutionId;
   String institutionText;
@@ -17,23 +19,28 @@ class EduInfo {
   String description;
   Institution institutionObj;
 
+
   EduInfo(
       {this.educationId,
       this.educationLevel,
       this.degree,
       this.institutionId,
       this.institutionText,
+        this.degreeText,
       this.cgpa,
       this.major,
       this.majorText,
       this.enrolledDate,
       this.graduationDate,
       this.description,
+      this.isOnGoing,
       this.institutionObj});
 
   EduInfo.fromJson(Map<String, dynamic> json) {
+    isOnGoing = json['is_ongoing']??false;
     educationId = json['id'];
     degree = json['degree'];
+    degreeText = json['degree_text'];
     educationLevel = json['education_level']?.toString();
     description = json['description'];
     institutionId = json['institution_id'];
@@ -61,7 +68,8 @@ class EduInfo {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['degree_id'] = this.degree;
+    data['degree_text'] = this.degree;
+    data['is_ongoing'] = this.isOnGoing;
     data['institution_id'] = this.institutionId;
     data['education_level_id'] = this.educationLevel;
     data['description'] = this.description;
