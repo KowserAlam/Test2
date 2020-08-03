@@ -84,6 +84,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   test:
+  flutter_driver:
+    sdk: flutter
   #  mockito used for mocking
   mockito: 4.1.0
   flutter_launcher_icons: ^0.7.5
