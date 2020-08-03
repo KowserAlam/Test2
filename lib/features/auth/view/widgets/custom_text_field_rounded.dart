@@ -19,10 +19,10 @@ class CustomTextFieldRounded extends StatelessWidget {
   final Widget suffixIcon;
   final Function onChanged;
   final String errorText;
-  final Key key;
+  final Key textFieldKey;
 
   const CustomTextFieldRounded({
-    this.key,
+    this.textFieldKey,
     this.errorText,
     this.prefix,
     this.prefixIcon,
@@ -69,7 +69,7 @@ class CustomTextFieldRounded extends StatelessWidget {
               ],
             ),
             child: TextField(
-              key: key,
+              key: textFieldKey,
               minLines: minLines,
               onChanged: onChanged,
               onSubmitted: onSubmitted,

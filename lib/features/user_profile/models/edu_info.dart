@@ -34,7 +34,7 @@ class EduInfo {
   EduInfo.fromJson(Map<String, dynamic> json) {
     educationId = json['id'];
     degree = json['degree'];
-    educationLevel = json['education_level'];
+    educationLevel = json['education_level']?.toString();
     description = json['description'];
     institutionId = json['institution_id'];
     institutionText = json['institution_text'];

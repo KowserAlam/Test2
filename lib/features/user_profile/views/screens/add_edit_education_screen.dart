@@ -6,6 +6,7 @@ import 'package:p7app/features/user_profile/models/edu_info.dart';
 import 'package:p7app/features/user_profile/models/institution.dart';
 import 'package:p7app/features/user_profile/models/major.dart';
 import 'package:p7app/features/user_profile/repositories/degree_list_repository.dart';
+import 'package:p7app/features/user_profile/repositories/education_level_list_repository.dart';
 import 'package:p7app/features/user_profile/repositories/institution_list_repository.dart';
 import 'package:p7app/features/user_profile/repositories/major_subject_list_repository.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
@@ -63,7 +64,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
   bool currentLyStudyingHere = false;
   Future<List<MajorSubject>> majorList;
   Future<List<Institution>> institutionList;
-  String selectedLevelOfEducation;
+  EducationLevel selectedLevelOfEducation;
   MajorSubject selectedMajorSubject;
   Institution selectedInstitute;
 
@@ -76,7 +77,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
           widget.educationModel.institutionText ??
           "";
       gpaTextController.text = widget.educationModel.cgpa ?? "";
-      selectedLevelOfEducation = widget.educationModel.educationLevel;
+
       selectedMajorSubject = widget.educationModel.major ?? null;
       majorTextController.text = widget.educationModel?.major?.name ??
           widget.educationModel?.majorText;
@@ -86,6 +87,16 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
       _descriptionZefyrController = ZefyrController(
           ZeyfrHelper.htmlToNotusDocument(
               widget.educationModel?.description));
+      EducationLevelListRepository().getEducationLevelFromId( widget.educationModel.educationLevel).then((value) {
+        setState(() {
+          selectedLevelOfEducation = value;
+
+        });
+
+
+      });
+
+
     }
 
     _initRepos();
@@ -183,7 +194,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
           educationId: widget.educationModel?.educationId,
           institutionId: insId,
           cgpa: gpaTextController.text,
-          educationLevel: selectedLevelOfEducation,
+          educationLevel: selectedLevelOfEducation.id,
           major: getSelectedMajor(),
           majorText: majorTextController.text,
           enrolledDate: _enrollDate,
@@ -240,14 +251,14 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
       },
     );
 
-    var levelOfEducation = FutureBuilder<List<String>>(
+    var levelOfEducation = FutureBuilder<List<EducationLevel>>(
       future: EducationLevelListRepository().getList(),
-      builder: (context, AsyncSnapshot<List<String>> snap) {
-        return CustomDropdownSearchFormField<String>(
+      builder: (context, AsyncSnapshot<List<EducationLevel>> snap) {
+        return CustomDropdownSearchFormField<EducationLevel>(
           isRequired: true,
           showSearchBox: true,
-          compareFn: (s1, s2) => s1.toLowerCase().contains(s2.toLowerCase()),
-          validator: Validator().nullFieldValidate,
+          compareFn: (s1, s2) => s1.name.toLowerCase().contains(s2.name.toLowerCase()),
+          validator:(v)=> Validator().nullFieldValidate(v.name),
           labelText: StringResources.levelOfEducation,
           hintText: StringResources.tapToSelectText,
           selectedItem: selectedLevelOfEducation,

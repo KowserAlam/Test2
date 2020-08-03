@@ -40,7 +40,6 @@ class CommonButton extends StatelessWidget {
           child: Material(
             color: Colors.transparent,
             child: InkWell(
-              key: key,
               borderRadius: BorderRadius.circular(circularRadius),
               onTap: onTap,
               child: Center(
