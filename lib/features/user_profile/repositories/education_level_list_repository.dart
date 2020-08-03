@@ -23,17 +23,17 @@ class EducationLevelListRepository {
   }
 
   Future<List<EducationLevel>> getList() async {
-    try {
+//    try {
 //      var res = await ApiClient().getRequest(Urls.qualificationListUrl);
       var decodedJson = json.decode(await _getData());
 //        print(decodedJson);
 
       List<EducationLevel> list = _fromJson(decodedJson);
       return list;
-    } catch (e) {
-      print(e);
-      return [];
-    }
+//    } catch (e) {
+//      print(e);
+//      return [];
+//    }
   }
 
   List<EducationLevel> _fromJson(json) {

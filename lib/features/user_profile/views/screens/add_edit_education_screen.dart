@@ -85,18 +85,16 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
       _graduationDate = widget.educationModel.graduationDate;
       currentLyStudyingHere = widget.educationModel.graduationDate == null;
       _descriptionZefyrController = ZefyrController(
-          ZeyfrHelper.htmlToNotusDocument(
-              widget.educationModel?.description));
-      EducationLevelListRepository().getEducationLevelFromId( widget.educationModel.educationLevel).then((value) {
+          ZeyfrHelper.htmlToNotusDocument(widget.educationModel?.description));
+
+      EducationLevelListRepository()
+          .getEducationLevelFromId(widget.educationModel.educationLevel)
+          .then((value) {
+            print(value);
         setState(() {
           selectedLevelOfEducation = value;
-
         });
-
-
       });
-
-
     }
 
     _initRepos();
@@ -203,7 +201,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
               _descriptionZefyrController.document),
           institutionText: institutionNameController.text,
         );
-        print("Degree: ${education?.educationLevel}" );
+        print("Degree: ${education?.educationLevel}");
 
         if (currentLyStudyingHere) {
           submitData(education);
@@ -257,8 +255,9 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
         return CustomDropdownSearchFormField<EducationLevel>(
           isRequired: true,
           showSearchBox: true,
-          compareFn: (s1, s2) => s1.name.toLowerCase().contains(s2.name.toLowerCase()),
-          validator:(v)=> Validator().nullFieldValidate(v.name),
+          compareFn: (s1, s2) =>
+              s1.name.toLowerCase().contains(s2.name.toLowerCase()),
+          validator: (v) => Validator().nullFieldValidate(v.name),
           labelText: StringResources.levelOfEducation,
           hintText: StringResources.tapToSelectText,
           selectedItem: selectedLevelOfEducation,
@@ -381,10 +380,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-
-                      SizedBox(
-                        height: 10
-                      ),
+                      SizedBox(height: 10),
                       nameOfInstitution,
                       spaceBetween,
 
