@@ -2,7 +2,7 @@ name: p7app
 description: A new Flutter application for Project Seven.
 
 
-version: 0.0.178+152
+version: 0.0.179+153
 
 
 environment:
@@ -119,7 +119,7 @@ dev_dependencies:
 flutter_icons:
   android: true
   ios: true
-  image_path: "assets/images/job_search_logo_sq.png"
+  image_path: "assets/images/logo_sq.png"
 
 
 
