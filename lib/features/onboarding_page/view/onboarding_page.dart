@@ -3,9 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:p7app/features/chat/view/screens/chat_list_screen.dart';
 import 'package:p7app/features/dashboard/view/dash_board.dart';
-import 'package:p7app/features/onboarding_page/slide.dart';
-import 'package:p7app/features/onboarding_page/slide_dots.dart';
-import 'package:p7app/features/onboarding_page/slide_item.dart';
+import 'package:p7app/features/onboarding_page/models/slide.dart';
+import 'package:p7app/features/onboarding_page/view/widgets/slide_dots.dart';
+import 'package:p7app/features/onboarding_page/view/widgets/slide_item.dart';
 import 'package:p7app/main_app/home.dart';
 import 'package:p7app/main_app/util/local_storage.dart';
 
@@ -23,25 +23,11 @@ class _OnboardingPageState extends State<OnboardingPage> {
   @override
   void initState() {
     super.initState();
-//    _timer = Timer.periodic(Duration(seconds: 1200), (Timer timer) {
-//      if (_currentPage < 2) {
-//        _currentPage++;
-//      } else {
-//        _currentPage = 0;
-//      }
-//
-//      _pageController.animateToPage(
-//        _currentPage,
-//        duration: Duration(milliseconds: 300),
-//        curve: Curves.easeIn,
-//      );
-//    });
   }
 
   @override
   void dispose() {
     super.dispose();
-//    _timer?.cancel();
     _pageController.dispose();
   }
 

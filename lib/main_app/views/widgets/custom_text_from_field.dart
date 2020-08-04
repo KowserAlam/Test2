@@ -6,6 +6,7 @@ class CustomTextFormField extends StatelessWidget {
   final TextEditingController controller;
   final String labelText;
   final String hintText;
+  final String errorText;
   final TextInputType keyboardType;
   final int maxLines;
   final int minLines;
@@ -29,6 +30,7 @@ class CustomTextFormField extends StatelessWidget {
     this.maxLength,
     this.validator,
     this.prefix,
+    this.errorText,
     this.onChanged,
     this.textInputAction,
     this.autovalidate = false,
@@ -102,6 +104,7 @@ class CustomTextFormField extends StatelessWidget {
             decoration: InputDecoration(
               prefix: prefix,
               border: InputBorder.none,
+              errorText: errorText,
               hintText: hintText,
               contentPadding: contentPadding,
               focusedBorder: OutlineInputBorder(

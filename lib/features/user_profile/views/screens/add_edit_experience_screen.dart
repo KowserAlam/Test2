@@ -66,7 +66,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
       currentLyWorkingHere = _leavingDate == null;
       _descriptionZefyrController = ZefyrController(
         ZeyfrHelper.htmlToNotusDocument(
-            widget.experienceInfoModel?.description ?? " "),
+            widget.experienceInfoModel?.description),
       );
     }
     super.initState();

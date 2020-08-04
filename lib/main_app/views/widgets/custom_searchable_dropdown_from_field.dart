@@ -1,5 +1,6 @@
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 export 'package:dropdown_search/dropdown_search.dart';
 
 class CustomDropdownSearchFormField<T> extends StatelessWidget {
@@ -59,7 +60,7 @@ class CustomDropdownSearchFormField<T> extends StatelessWidget {
     this.compareFn,
     this.labelText,
     this.showSearchBox = false,
-    this.hintText,
+    this.hintText = StringResources.tapToSelectText,
     this.dialogMaxWidth,
     this.maxHeight,
     this.emptyBuilder,
@@ -103,6 +104,9 @@ class CustomDropdownSearchFormField<T> extends StatelessWidget {
             ],
           ),
           child: DropdownSearch<T>(
+            searchBoxDecoration: InputDecoration(
+              hintText: StringResources.searchHere
+            ),
             loadingBuilder:loadingBuilder ,
             hint: hintText,
             itemAsString: itemAsString,

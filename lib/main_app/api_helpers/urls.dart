@@ -27,8 +27,8 @@ class Urls {
   static String professionalReference =
       "/api/professional/professional_reference";
   static String professionalSkillUrl = "/api/professional/professional_skill";
-  static String professionalEducationUrl =
-      "/api/professional/professional_education";
+  static String professionalEducationUrl = "/api/professional/professional_education";
+  static String professionalEducationObjUrl = "/api/professional/professional_education_object";
   static String professionalMembershipUrl =
       "/api/professional/professional_membership";
   static String professionalCertificationUrl =
@@ -37,7 +37,7 @@ class Urls {
       "/api/professional/professional_portfolio";
   static String professionalExperienceUrl =
       "/api/professional/professional_work_experience";
-
+  static String jobExperienceList = "/api/experience/list";
   static String industryListUrl = "/api/industry/";
   static String companyListUrl = "/api/company/";
   static String genderListUrl = "/api/gender/list";
@@ -58,6 +58,7 @@ class Urls {
   static String jobGenderList = "/api/job-gender/list/";
   static String jobSiteList = "/api/job-site/list";
   static String jobNatureList = "/api/job-nature/list";
+  static String educationLevelListURl = "/api/professional/education_level/";
 
   static String jobDetailsUrl = "/api/job/get/";
   static String favouriteJobAddUrl = "/api/job/favourite/toggle";

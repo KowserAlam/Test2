@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:p7app/features/auth/view/login_screen.dart';
+import 'package:p7app/features/auth/view/sign_in_screen.dart';
 import 'package:p7app/features/dashboard/models/info_box_data_model.dart';
 import 'package:p7app/features/dashboard/models/skill_job_chart_data_model.dart';
 import 'package:p7app/features/dashboard/repositories/dashboard_repository.dart';

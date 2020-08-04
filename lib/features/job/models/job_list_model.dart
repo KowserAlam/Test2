@@ -34,8 +34,6 @@ class JobListModel {
   });
 
   JobListModel.fromJson(Map<String, dynamic> json) {
-    String baseUrl = FlavorConfig?.instance?.values?.baseUrl;
-
     jobId = json['job_id'];
     slug = json['slug'];
     title = json['title'];
@@ -50,11 +48,15 @@ class JobListModel {
     if (json['company'] != null) {
       if (json['company']['profile_picture'] != null) {
         String url = json['company']['profile_picture'];
-        profilePicture = "$baseUrl$url";
+        String baseUrl = FlavorConfig?.instance?.values?.baseUrl;
+        if (url.contains(baseUrl) || url.contains('http://jobxprss.com')) {
+          profilePicture = url;
+        } else {
+          profilePicture = "$baseUrl$url";
+        }
       }
       companyName = json['company']['name'];
     }
-
     jobNature = json['job_nature'];
     jobSite = json['job_site'];
     jobType = json['job_type'];
@@ -65,7 +67,6 @@ class JobListModel {
     if (json['application_deadline'] != null) {
       applicationDeadline = DateTime.parse(json['application_deadline']);
     }
-
     if (json['post_date'] != null) {
       postDate = DateTime.parse(json['post_date']);
     }

@@ -16,17 +16,17 @@ class Slide {
 final slideList = [
   Slide(
     imageUrl: slideImageOne,
-    title: 'First page title text',
-    description: 'First page description page...',
+    title: 'All jobs in one place.',
+    description: '',
   ),
   Slide(
     imageUrl: slideImageTwo,
-    title: 'Second page title text',
-    description: 'Second page description page...',
+    title: 'Build your profile, fortify your career.',
+    description: '',
   ),
   Slide(
     imageUrl: slideImageThree,
-    title: 'Third page title text',
-    description: 'Third page description page...',
+    title: 'Get notified of jobs best suited for you.',
+    description: '',
   ),
 ];

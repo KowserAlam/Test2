@@ -1,6 +1,6 @@
 import 'package:after_layout/after_layout.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:p7app/features/auth/view/login_screen.dart';
+import 'package:p7app/features/auth/view/sign_in_screen.dart';
 import 'package:p7app/features/job/models/job_list_model.dart';
 import 'package:p7app/features/job/view/job_details_screen.dart';
 import 'package:p7app/features/job/view/widgets/filter_preview_widget.dart';

@@ -7,8 +7,10 @@ import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/views/widgets/loader.dart';
 
 class SubscribeJobAlert extends StatefulWidget {
-  MainAxisAlignment mainAxisAlignment;
-  SubscribeJobAlert({Key key,this.mainAxisAlignment= MainAxisAlignment.center,}) : super(key: key);
+
+  SubscribeJobAlert({
+    Key key,
+  }) : super(key: key);
 
   @override
   _SubscribeJobAlertState createState() => _SubscribeJobAlertState();
@@ -42,7 +44,7 @@ class _SubscribeJobAlertState extends State<SubscribeJobAlert> {
       print(res.body);
       var decodedJson = json.decode(res.body);
       print(decodedJson);
-      jobAlerSstatus = decodedJson["job_alert_status"]??false;
+      jobAlerSstatus = decodedJson["job_alert_status"] ?? false;
       busy = false;
       _updateUI();
     } catch (e) {
@@ -77,27 +79,47 @@ class _SubscribeJobAlertState extends State<SubscribeJobAlert> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: widget.mainAxisAlignment,
-      children: [
-        Text(jobAlerSstatus?StringResources.unSubscribeForJobAlertText:StringResources.subscribeForJobAlertText),
-        Container(
-          height: 40,width: 40,
-          child: busy
-              ? Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Loader(),
-                )
-              : Container(
-                  child: Checkbox(
-                    value: jobAlerSstatus,
-                    onChanged: (bool value) {
-                      _toggle();
-                    },
-                  ),
-                ),
+    return ListTile(
+      title:     Text(StringResources.getJobAlertByEmailText),
+      trailing: busy
+          ? Container(
+        height: 40,
+        width: 40,
+        padding: const EdgeInsets.all(8.0),
+        child: Loader(),
+      )
+          : Container(
+        child: Switch(
+          value: jobAlerSstatus,
+          onChanged: (bool value) {
+            _toggle();
+          },
         ),
-      ],
+      ),
     );
+//    return Row(
+//      children: [
+//        Text(jobAlerSstatus
+//            ? StringResources.unSubscribeForJobAlertText
+//            : StringResources.subscribeForJobAlertText),
+//        Container(
+//          height: 40,
+//          width: 40,
+//          child: busy
+//              ? Padding(
+//                  padding: const EdgeInsets.all(8.0),
+//                  child: Loader(),
+//                )
+//              : Container(
+//                  child: Checkbox(
+//                    value: jobAlerSstatus,
+//                    onChanged: (bool value) {
+//                      _toggle();
+//                    },
+//                  ),
+//                ),
+//        ),
+//      ],
+//    );
   }
 }

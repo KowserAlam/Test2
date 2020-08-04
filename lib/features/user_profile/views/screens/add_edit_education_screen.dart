@@ -6,8 +6,10 @@ import 'package:p7app/features/user_profile/models/edu_info.dart';
 import 'package:p7app/features/user_profile/models/institution.dart';
 import 'package:p7app/features/user_profile/models/major.dart';
 import 'package:p7app/features/user_profile/repositories/degree_list_repository.dart';
+import 'package:p7app/features/user_profile/repositories/education_level_list_repository.dart';
 import 'package:p7app/features/user_profile/repositories/institution_list_repository.dart';
 import 'package:p7app/features/user_profile/repositories/major_subject_list_repository.dart';
+import 'package:p7app/features/user_profile/repositories/user_profile_repository.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/validator.dart';
@@ -46,6 +48,8 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
 
   TextEditingController institutionNameController = TextEditingController();
   TextEditingController gpaTextController = TextEditingController();
+  TextEditingController levelOfEducationTextController =
+      TextEditingController();
   TextEditingController degreeTextController = TextEditingController();
   TextEditingController majorTextController = TextEditingController();
 
@@ -60,11 +64,13 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
   String institutionNameErrorText;
   String enrollDateErrorText;
   String graduationDateErrorText;
-  bool currentLyStudyingHere = false;
+  bool isOnGoing = false;
   Future<List<MajorSubject>> majorList;
+  Future<List<String>> degreeList;
   Future<List<Institution>> institutionList;
-  String selectedDegree;
+  EducationLevel selectedLevelOfEducation;
   MajorSubject selectedMajorSubject;
+  String selectedDegree;
   Institution selectedInstitute;
 
   initState() {
@@ -76,16 +82,23 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
           widget.educationModel.institutionText ??
           "";
       gpaTextController.text = widget.educationModel.cgpa ?? "";
-      selectedDegree = widget.educationModel.degree;
+      degreeTextController.text = widget.educationModel.degreeText;
       selectedMajorSubject = widget.educationModel.major ?? null;
       majorTextController.text = widget.educationModel?.major?.name ??
           widget.educationModel?.majorText;
       _enrollDate = widget.educationModel.enrolledDate;
       _graduationDate = widget.educationModel.graduationDate;
-      currentLyStudyingHere = widget.educationModel.graduationDate == null;
+      isOnGoing = widget.educationModel.isOnGoing;
       _descriptionZefyrController = ZefyrController(
-          ZeyfrHelper.htmlToNotusDocument(
-              widget.educationModel?.description ?? " "));
+          ZeyfrHelper.htmlToNotusDocument(widget.educationModel?.description));
+
+      _setLevelOfEducation(widget.educationModel.educationLevel);
+      UserProfileRepository()
+          .getUserEducation(widget.educationModel.educationId)
+          .then((value) {
+        var eduInfo = value.fold((l) => null, (r) => r);
+        _setLevelOfEducation(eduInfo?.educationLevel);
+      });
     }
 
     _initRepos();
@@ -101,11 +114,22 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
     institutionList = InstitutionListRepository().getList();
   }
 
+  _setLevelOfEducation(String levelOfEduId) {
+    EducationLevelListRepository()
+        .getEducationLevelFromId(levelOfEduId)
+        .then((value) {
+//      print(value);
+      setState(() {
+        selectedLevelOfEducation = value;
+      });
+    });
+  }
+
   bool validate() {
     bool isFormValid = _formKey.currentState.validate();
     bool isEnrollDateCorrect = _enrollDate != null;
     bool isGraduationDateCorrect() {
-      if (currentLyStudyingHere) {
+      if (isOnGoing) {
         _graduationDate = null;
         return true;
       } else {
@@ -168,7 +192,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
     var isSuccess = validate();
 
     if (isSuccess) {
-      if (selectedDegree == null) {
+      if (selectedLevelOfEducation == null) {
         BotToast.showText(text: StringResources.noDegreeChosen);
       } else {
         var insId = selectedInstitute?.id;
@@ -183,18 +207,20 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
           educationId: widget.educationModel?.educationId,
           institutionId: insId,
           cgpa: gpaTextController.text,
-          degree: selectedDegree,
+          educationLevel: selectedLevelOfEducation.id,
           major: getSelectedMajor(),
           majorText: majorTextController.text,
           enrolledDate: _enrollDate,
+          degree: degreeTextController.text,
           graduationDate: _graduationDate,
+          isOnGoing: isOnGoing,
           description: ZeyfrHelper.notusDocumentToHTML(
               _descriptionZefyrController.document),
           institutionText: institutionNameController.text,
         );
-        print("Degree: " + education.degree);
+        print("Degree: ${education?.educationLevel}");
 
-        if (currentLyStudyingHere) {
+        if (isOnGoing) {
           submitData(education);
         } else {
           if (_enrollDate.isBefore(_graduationDate)) {
@@ -240,21 +266,23 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
       },
     );
 
-    var levelOfEducation = FutureBuilder<List<String>>(
-      future: DegreeListRepository().getList(),
-      builder: (context, AsyncSnapshot<List<String>> snap) {
-        return CustomDropdownSearchFormField<String>(
+    var levelOfEducation = FutureBuilder<List<EducationLevel>>(
+      future: EducationLevelListRepository().getList(),
+      builder: (context, AsyncSnapshot<List<EducationLevel>> snap) {
+        return CustomDropdownSearchFormField<EducationLevel>(
           isRequired: true,
           showSearchBox: true,
-          compareFn: (s1, s2) => s1.toLowerCase().contains(s2.toLowerCase()),
-          validator: Validator().nullFieldValidate,
+          itemAsString: (v) => v.name,
+          compareFn: (s1, s2) =>
+              s1.name.toLowerCase().contains(s2.name.toLowerCase()),
+          validator: (v) => Validator().nullFieldValidate(v.name),
           labelText: StringResources.levelOfEducation,
           hintText: StringResources.tapToSelectText,
-          selectedItem: selectedDegree,
+          selectedItem: selectedLevelOfEducation,
           items: snap.data,
           onChanged: (v) {
-            selectedDegree = v;
-            print(selectedDegree);
+            selectedLevelOfEducation = v;
+            print(selectedLevelOfEducation);
             setState(() {});
           },
         );
@@ -284,6 +312,23 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
               element.name.toLowerCase().contains(q.toLowerCase()));
         });
       },
+    );
+    var degree = CustomAutoCompleteTextField<String>(
+      labelText: StringResources.degreeHText,
+      hintText: StringResources.nameOfODegreeHintText,
+      isRequired: true,
+      onSuggestionSelected: (v) {
+        degreeTextController.text = v;
+        selectedDegree = v;
+      },
+      controller: degreeTextController,
+      itemBuilder: (context, m) {
+        return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(m),
+        );
+      },
+      suggestionsCallback: DegreeListRepository().searchList,
     );
 
     var enrolledDate = CommonDatePickerFormField(
@@ -335,13 +380,13 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
         Text(StringResources.currentlyStudyingHereText),
         Checkbox(
           onChanged: (bool value) {
-            currentLyStudyingHere = value;
-            if (!currentLyStudyingHere) {
+            isOnGoing = value;
+            if (!isOnGoing) {
               _graduationDate = null;
             }
             setState(() {});
           },
-          value: currentLyStudyingHere,
+          value: isOnGoing,
         ),
       ],
     );
@@ -370,15 +415,15 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      SizedBox(
-                        height: 10,
-                      ),
+                      SizedBox(height: 10),
                       nameOfInstitution,
                       spaceBetween,
 
                       ///level of edu
                       levelOfEducation,
 
+                      spaceBetween,
+                      degree,
                       spaceBetween,
 
                       major,
@@ -393,7 +438,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
                       spaceBetween,
                       ongoing,
 //                    spaceBetween,
-                      if (!currentLyStudyingHere) graduationDate,
+                      if (!isOnGoing) graduationDate,
                       spaceBetween,
                       spaceBetween,
                       spaceBetween,

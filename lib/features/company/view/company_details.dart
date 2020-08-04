@@ -95,8 +95,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                     children: <Widget>[
                       Flexible(
                         child: Text(
-                          companyDetails.name ??
-                              StringResources.noneText,
+                          companyDetails.name ?? StringResources.noneText,
                           style: headerTextStyle,
                         ),
                       ),
@@ -185,16 +184,8 @@ class _CompanyDetailsState extends State<CompanyDetails> {
 
                 (companyDetails.country.isEmptyOrNull)
                     ? SizedBox()
-                    : FutureBuilder<String>(
-                  future: CountryRepository()
-                      .getCountryNameFromCode(companyDetails.country),
-                  builder: (BuildContext context,
-                      AsyncSnapshot<String> snapshot) {
-                    return CompanyDetailsFormattedText(
-                        StringResources.jobCountryText,
-                        snapshot.data ??  companyDetails.country);
-                  },
-                ),
+                    : CompanyDetailsFormattedText(
+                        StringResources.jobCountryText, companyDetails.country),
 //                CompanyDetailsFormattedText(
 //                    StringResources.companyCountryText, companyDetails.country),
                 SizedBox(height: 5),

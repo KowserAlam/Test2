@@ -15,68 +15,71 @@ class CareerAdviceListTileH extends StatelessWidget {
   Widget build(BuildContext context) {
 //    print(adviceModel.featuredImage);
     return Padding(
-      padding: const EdgeInsets.all(4.0),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(7),
-        child: Container(
-          width: 180,
-          child: Stack(
-            children: [
-              CachedNetworkImage(
-                width: double.infinity,
-                height: double.infinity,
-                fit: BoxFit.cover,
-                imageUrl: adviceModel.featuredImage ?? "",
-                placeholder: (c, i) => Image.asset(
-                  kCareerAdvicePlaceholder,
-                  colorBlendMode: BlendMode.color,
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: Card(
+        elevation: 4,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(4),
+          child: Container(
+            width: 180,
+            child: Stack(
+              children: [
+                CachedNetworkImage(
                   width: double.infinity,
                   height: double.infinity,
                   fit: BoxFit.cover,
-                ),
-              ),
-              Container(
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          Colors.transparent,
-                          Colors.transparent,
-                          Colors.black12,
-                          Colors.black45,
-                          Colors.black87,
-                        ])),
-              ),
-              Column(
-                children: [
-                  Spacer(),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      adviceModel.title ?? "",
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
+                  imageUrl: adviceModel.featuredImage ?? "",
+                  placeholder: (c, i) => Image.asset(
+                    kCareerAdvicePlaceholder,
+                    colorBlendMode: BlendMode.color,
+                    width: double.infinity,
+                    height: double.infinity,
+                    fit: BoxFit.cover,
                   ),
-                ],
-              ),
-              Material(
-                  type: MaterialType.transparency,
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.of(context).push(CupertinoPageRoute(
-                          builder: (BuildContext context) =>
-                              CareerAdviceDetailsScreen(
-                                careerAdviceModel: adviceModel,
-                              )));
-                    },
-                    child: Center(),
-                  ))
-            ],
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Colors.transparent,
+                            Colors.transparent,
+                            Colors.black12,
+                            Colors.black45,
+                            Colors.black87,
+                          ])),
+                ),
+                Column(
+                  children: [
+                    Spacer(),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        adviceModel.title ?? "",
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
+                ),
+                Material(
+                    type: MaterialType.transparency,
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.of(context).push(CupertinoPageRoute(
+                            builder: (BuildContext context) =>
+                                CareerAdviceDetailsScreen(
+                                  careerAdviceModel: adviceModel,
+                                )));
+                      },
+                      child: Center(),
+                    ))
+              ],
+            ),
           ),
         ),
       ),

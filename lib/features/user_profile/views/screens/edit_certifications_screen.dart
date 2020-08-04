@@ -18,20 +18,18 @@ class EditCertification extends StatefulWidget {
   final int index;
   final List<CertificationInfo> previouslyAddedCertificates;
 
-  const EditCertification({
-    this.certificationInfo ,
-    this.index,
-    this.previouslyAddedCertificates
-  });
+  const EditCertification(
+      {this.certificationInfo, this.index, this.previouslyAddedCertificates});
+
   @override
   _EditCertificationState createState() => _EditCertificationState();
 }
 
 class _EditCertificationState extends State<EditCertification> {
   final _formKey = GlobalKey<FormState>();
-  bool  hasExpiryDate;
-  DateTime _issueDate, _expirydate;
-  String blankExpiryDateErrorText,blankIssueDateErrorText;
+  bool hasExpiryDate;
+  DateTime _issueDate, _expiryDate;
+  String expiryDateErrorText, IssueDateErrorText;
 
   //TextEditingController
   final _certificationNameController = TextEditingController();
@@ -39,26 +37,14 @@ class _EditCertificationState extends State<EditCertification> {
   final _credentialIdController = TextEditingController();
   final _credentialUrlController = TextEditingController();
 
-
   //FocusNode
   final _certificationNameFocusNode = FocusNode();
   final _organizationNameFocusNode = FocusNode();
   final _credentialIdFocusNode = FocusNode();
   final _credentialUrlFocusNode = FocusNode();
 
-  bool sameSkill(String input){
-    int x = 0;
-    for(int i =0; i<widget.previouslyAddedCertificates.length; i++){
-      if(input == widget.previouslyAddedCertificates[i].certificationName) {
-        x++;
-      }
-    }
-    if(x==0){return true;}else {return false;};
-  }
-
-
-  void submitData(CertificationInfo certificationInfo){
-    if(widget.certificationInfo == null){
+  void submitData(CertificationInfo certificationInfo) {
+    if (widget.certificationInfo == null) {
       Provider.of<UserProfileViewModel>(context, listen: false)
           .addCertificationData(certificationInfo)
           .then((value) {
@@ -66,7 +52,7 @@ class _EditCertificationState extends State<EditCertification> {
           Navigator.pop(context);
         }
       });
-    }else{
+    } else {
       Provider.of<UserProfileViewModel>(context, listen: false)
           .updateCertificationData(certificationInfo, widget.index)
           .then((value) {
@@ -77,36 +63,33 @@ class _EditCertificationState extends State<EditCertification> {
     }
   }
 
-  bool validate(){
-    bool isValid = _formKey.currentState.validate();
-    bool dateCheck(){
-      if(_issueDate != null){
-        blankIssueDateErrorText = null;
-        if(hasExpiryDate){
-          if(_expirydate != null){
-            blankExpiryDateErrorText = null;
-            return true;
-          }else{
-            blankExpiryDateErrorText = StringResources.blankExpiryDateWarningText;
-            return false;
-          }
-        }else{
-          _expirydate = null;
-          return true;
+  bool _validateDate() {
+    if (hasExpiryDate) {
+      if (_issueDate != null && _expiryDate != null) {
+        bool isIssueDateBeforeExpireDate = _issueDate.isBefore(_expiryDate);
+        if (!isIssueDateBeforeExpireDate) {
+          expiryDateErrorText =
+              StringResources.expireDateCanNotBeBeforeIssueDateText;
+          setState(() {});
         }
-      }else{
-        blankIssueDateErrorText = StringResources.blankIssueDateWarningText;
-        return false;
+        debugPrint("isBefore:$isIssueDateBeforeExpireDate");
+        return isIssueDateBeforeExpireDate;
       }
+      debugPrint("Null Date");
+      return false;
     }
-    setState(() {
 
-    });
-    return isValid && dateCheck();
+    return _issueDate != null;
+  }
+
+  bool validate() {
+    bool isValid = _formKey.currentState.validate();
+    setState(() {});
+    return isValid && _validateDate();
   }
 
   _handleSave() {
-    if(validate()){
+    if (validate()) {
       var certificationInfo = CertificationInfo(
           certificationId: widget.certificationInfo?.certificationId,
           certificationName: _certificationNameController.text,
@@ -115,19 +98,10 @@ class _EditCertificationState extends State<EditCertification> {
           credentialId: _credentialIdController.text,
           hasExpiryPeriod: hasExpiryDate,
           issueDate: _issueDate,
-          expiryDate:  _expirydate
-      );
+          expiryDate: _expiryDate);
 
-      if(!hasExpiryDate){
-        submitData(certificationInfo);
-      }else{
-        if(_issueDate.isBefore(_expirydate)){
-          submitData(certificationInfo);
-        }else{
-          BotToast.showText(text: StringResources.dateLogicWarningText);
-        }
-      }
-    }else{
+      submitData(certificationInfo);
+    } else {
       print('not validated');
     }
   }
@@ -136,24 +110,31 @@ class _EditCertificationState extends State<EditCertification> {
   void initState() {
     // TODO: implement initState
     hasExpiryDate = false;
-    if(widget.certificationInfo != null){
-      _certificationNameController.text = widget.certificationInfo.certificationName?? "";
-      _organizationNameController.text = widget.certificationInfo.organizationName?? "";
-      _credentialIdController.text = widget.certificationInfo.credentialId?? "";
-      _credentialUrlController.text = widget.certificationInfo.credentialUrl?? "";
-      _issueDate = widget.certificationInfo.issueDate??null;
-      _expirydate = widget.certificationInfo.expiryDate??null;
-      hasExpiryDate = widget.certificationInfo.hasExpiryPeriod??false;
+    if (widget.certificationInfo != null) {
+      _certificationNameController.text =
+          widget.certificationInfo.certificationName ?? "";
+      _organizationNameController.text =
+          widget.certificationInfo.organizationName ?? "";
+      _credentialIdController.text =
+          widget.certificationInfo.credentialId ?? "";
+      _credentialUrlController.text =
+          widget.certificationInfo.credentialUrl ?? "";
+      _issueDate = widget.certificationInfo.issueDate ?? null;
+      _expiryDate = widget.certificationInfo.expiryDate ?? null;
+      hasExpiryDate = widget.certificationInfo.hasExpiryPeriod ?? false;
     }
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    var spaceBetweenFields = SizedBox(height: 8,);;
+    var spaceBetweenFields = SizedBox(
+      height: 8,
+    );
+    ;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Cetification'),
+        title: Text(StringResources.certificationsText),
         actions: <Widget>[
           EditScreenSaveButton(
             text: StringResources.saveText,
@@ -171,6 +152,7 @@ class _EditCertificationState extends State<EditCertification> {
               children: <Widget>[
                 //Certification Name
                 CustomTextFormField(
+                  isRequired: true,
                   validator: Validator().nullFieldValidate,
                   keyboardType: TextInputType.text,
                   focusNode: _certificationNameFocusNode,
@@ -191,8 +173,7 @@ class _EditCertificationState extends State<EditCertification> {
                   focusNode: _organizationNameFocusNode,
                   textInputAction: TextInputAction.next,
                   onFieldSubmitted: (a) {
-                    FocusScope.of(context)
-                        .requestFocus(_credentialIdFocusNode);
+                    FocusScope.of(context).requestFocus(_credentialIdFocusNode);
                   },
                   controller: _organizationNameController,
                   labelText: StringResources.certificationOrganizationNameText,
@@ -230,14 +211,19 @@ class _EditCertificationState extends State<EditCertification> {
                 ),
                 spaceBetweenFields,
                 CommonDatePickerFormField(
-                  errorText: blankIssueDateErrorText,
+                  isRequired: true,
+                  errorText: IssueDateErrorText,
                   label: StringResources.certificationIssueDateText,
                   date: _issueDate,
-                  onDateTimeChanged: (v){
-                    setState(() {_issueDate = v;});
+                  onDateTimeChanged: (v) {
+                    setState(() {
+                      _issueDate = v;
+                    });
                   },
-                  onTapDateClear: (){
-                    setState(() {_issueDate = null;});
+                  onTapDateClear: () {
+                    setState(() {
+                      _issueDate = null;
+                    });
                   },
                 ),
                 //Has Expiry Date
@@ -247,14 +233,14 @@ class _EditCertificationState extends State<EditCertification> {
                   children: <Widget>[
                     Row(
                       children: <Widget>[
-                        Text('Has Expiry date'),
+                        Text(StringResources.hasExpiryDateText),
                         Checkbox(
                           value: hasExpiryDate,
-                          onChanged: (bool newValue){
-                            if(newValue){
+                          onChanged: (bool newValue) {
+                            if (newValue) {
                               hasExpiryDate = newValue;
                               setState(() {});
-                            }else{
+                            } else {
                               hasExpiryDate = newValue;
                               setState(() {});
                             }
@@ -266,17 +252,24 @@ class _EditCertificationState extends State<EditCertification> {
                 ),
                 spaceBetweenFields,
                 //ExpiryDate
-                hasExpiryDate?CommonDatePickerFormField(
-                  errorText: blankExpiryDateErrorText,
-                  label: StringResources.certificationExpiryDateText,
-                  date: _expirydate,
-                  onDateTimeChanged: (v){
-                    setState(() {_expirydate = v;});
-                  },
-                  onTapDateClear: (){
-                    setState(() {_expirydate = null;});
-                  },
-                ):SizedBox(),
+                hasExpiryDate
+                    ? CommonDatePickerFormField(
+                        isRequired: hasExpiryDate,
+                        errorText: expiryDateErrorText,
+                        label: StringResources.certificationExpiryDateText,
+                        date: _expiryDate,
+                        onDateTimeChanged: (v) {
+                          setState(() {
+                            _expiryDate = v;
+                          });
+                        },
+                        onTapDateClear: () {
+                          setState(() {
+                            _expiryDate = null;
+                          });
+                        },
+                      )
+                    : SizedBox(),
               ],
             ),
           ),

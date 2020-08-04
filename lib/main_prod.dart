@@ -18,7 +18,6 @@ void main() async {
 
   setupLocator();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-  var key = UniqueKey();
   FlavorConfig(
     flavor: Flavor.PRODUCTION,
     color: Colors.deepPurpleAccent,
@@ -26,10 +25,7 @@ void main() async {
   );
   runApp(
     RestartWidget(
-      child: ChangeNotifierProvider(
-        create: (context) => SettingsViewModel(),
-        child: P7App(key),
-      ),
+      child: P7App(),
     ),
   );
 }

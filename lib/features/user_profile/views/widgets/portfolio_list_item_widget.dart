@@ -1,10 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p7app/features/user_profile/models/portfolio_info.dart';
 import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
+import 'package:p7app/main_app/views/widgets/custom_zefyr_rich_text_from_field.dart';
 
 class PortfolioListItemWidget extends StatefulWidget {
   final PortfolioInfo portfolioInfo;
@@ -69,13 +71,15 @@ class _PortfolioListItemWidgetState extends State<PortfolioListItemWidget> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+
                     Text(
                       widget.portfolioInfo.name ?? "",
                       maxLines: 1,
                       style: Theme.of(context).textTheme.subtitle1,
                     ),
-                    Text(descriptionText ?? "",style: TextStyle(color: Colors.grey),),
-
+                    HtmlWidget(descriptionText,textStyle: TextStyle(color: Colors.grey)),
+//                    Text(descriptionText ?? "",style: TextStyle(color: Colors.grey),),
+////                    ZefyrView(document: ZeyfrHelper.htmlToNotusDocument(descriptionText),),
                   ],
                 ),
               ),

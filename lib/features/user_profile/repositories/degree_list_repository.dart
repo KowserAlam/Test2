@@ -1,9 +1,8 @@
 import 'dart:convert';
-import 'package:dartz/dartz.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_cache/flutter_cache.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
-import 'package:p7app/main_app/failure/app_error.dart';
 
 class DegreeListRepository{
   var _cacheKey = "qualificationListUrl";
@@ -40,6 +39,27 @@ class DegreeListRepository{
       return [];
     }
   }
+  Future<List<String>>searchList(String query) async{
+    try{
+      var url = "${Urls.qualificationListUrl}?name=${query??""}";
+      debugPrint(url);
+      var res = await ApiClient().getRequest(url);
+      print(res.statusCode);
+//      print(res.body);
+      if (res.statusCode == 200) {
+        var decodedJson = json.decode(res.body);
+        List<String> list = fromJson(decodedJson);
+        return list;
+      }
+      return [];
+
+
+    }catch (e){
+      print(e);
+      return [];
+    }
+  }
+
 
   List<String> fromJson(json){
    List<String> list = [];

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
-import 'package:p7app/main_app/views/widgets/subscribe_job_alert.dart';
+import 'package:p7app/features/settings/widgets/subscribe_job_alert.dart';
 
 class EmailSubscriptionsScreen extends StatelessWidget {
   @override
@@ -11,9 +11,7 @@ class EmailSubscriptionsScreen extends StatelessWidget {
       ),
       body: ListView(
         children: [
-          ListTile(
-              title: SubscribeJobAlert(
-            mainAxisAlignment: MainAxisAlignment.start,
+          ListTile(title: SubscribeJobAlert(
           ))
         ],
       ),

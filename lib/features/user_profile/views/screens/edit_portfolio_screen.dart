@@ -55,7 +55,7 @@ class _EditPortfolioState extends State<EditPortfolio> {
     if (widget.portfolioInfo != null) {
       _descriptionZefyrController = ZefyrController(
           ZeyfrHelper.htmlToNotusDocument(
-              widget.portfolioInfo?.description  ?? " "));
+              widget.portfolioInfo?.description));
       _portfolioNameController.text = widget.portfolioInfo?.name ?? "";
     }
 
@@ -132,11 +132,12 @@ class _EditPortfolioState extends State<EditPortfolio> {
 
       } else {
         // update existing item
+        print(widget.portfolioInfo.toString());
         userProviderViewModel
             .updatePortfolio(
                 data: data,
                 index: widget.index,
-                portfolioId: widget.portfolioInfo.portfolioId.toString())
+                portfolioId: widget.portfolioInfo?.portfolioId?.toString())
             .then((value) {
           if (value) {
             Navigator.pop(context);

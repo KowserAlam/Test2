@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-export 'package:zefyr_plus/zefyr.dart';
-import 'package:zefyr_plus/zefyr.dart';
+import 'package:zefyr/zefyr.dart';
+export 'package:zefyr/zefyr.dart';
 export 'package:notustohtml/notustohtml.dart';
 export 'package:p7app/main_app/util/zefyr_helper.dart';
 
@@ -24,15 +24,13 @@ class CustomZefyrRichTextFormField extends StatelessWidget {
     this.autofocus = false,
     this.labelText,
     this.hintText,
-    this.height = 100.0,
+    this.height = 120.0,
     this.contentPadding =
-        const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
   });
 
   @override
   Widget build(BuildContext context) {
-    FocusScopeNode currentFocus = FocusScope.of(context);
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[

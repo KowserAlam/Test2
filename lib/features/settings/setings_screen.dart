@@ -1,21 +1,16 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_cache/flutter_cache.dart';
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p7app/features/auth/view/passworrd_change_screen.dart';
-import 'package:p7app/features/auth/view_models/login_view_model.dart';
 import 'package:p7app/features/settings/email_subscriptions_screen.dart';
 import 'package:p7app/features/settings/push_notificaiton_manage_screen.dart';
 import 'package:p7app/features/settings/settings_view_model.dart';
-import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/repositories/app_info_repository.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
-import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p7app/main_app/util/locator.dart';
-import 'package:p7app/main_app/views/widgets/app_logo.dart';
 import 'package:p7app/main_app/views/widgets/common_prompt_dialog.dart';
-import 'package:p7app/main_app/views/widgets/restart_widget.dart';
 import 'package:provider/provider.dart';
 
 class SettingsScreen extends StatefulWidget {

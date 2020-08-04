@@ -1,11 +1,12 @@
 import 'package:flutter/services.dart';
 import 'package:logger/logger.dart';
 import 'package:p7app/features/job/view/job_list_screen.dart';
-import 'package:p7app/features/onboarding_page/onboarding_page.dart';
+import 'package:p7app/features/onboarding_page/view/additional_info_screens.dart';
+import 'package:p7app/features/onboarding_page/view/onboarding_page.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/auth_service/auth_user_model.dart';
-import 'package:p7app/features/auth/view/login_screen.dart';
+import 'package:p7app/features/auth/view/sign_in_screen.dart';
 import 'package:p7app/main_app/home.dart';
 import 'package:p7app/main_app/push_notification_service/push_notification_service.dart';
 import 'package:p7app/main_app/resource/const.dart';
@@ -56,7 +57,7 @@ class _RootState extends State<Root> {
     Future.delayed(Duration(seconds: 1)).then((_) {
       Navigator.pushAndRemoveUntil(
           context,
-          CupertinoPageRoute(builder: (context) => LoginScreen()),
+          CupertinoPageRoute(builder: (context) => SignInScreen()),
           (Route<dynamic> route) => false);
     });
   }
@@ -66,7 +67,14 @@ class _RootState extends State<Root> {
     _initUserdata();
 
     Future.delayed(Duration(seconds: showDummyLoading ? 0 : 2)).then((_) async {
+
+
+
       if (await shouldShowOnBoardingScreens()) {
+//        Navigator.pushAndRemoveUntil(
+//            context,
+//            CupertinoPageRoute(builder: (context) => AdditionalInfoScreens()),
+//                (Route<dynamic> route) => false);
         Navigator.pushAndRemoveUntil(
             context,
             CupertinoPageRoute(builder: (context) => OnboardingPage()),

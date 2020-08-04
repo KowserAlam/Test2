@@ -66,7 +66,7 @@ class _CareerAdviceListHWidgetState extends State<CareerAdviceListHWidget> {
             ? Padding(
           padding: EdgeInsets.symmetric(horizontal: 10),
               child: SizedBox(
-                  height: 120.0,
+                  height: 130.0,
                   child: Shimmer.fromColors(
                     baseColor: Colors.grey[300],
                     highlightColor: Colors.white,
@@ -86,7 +86,7 @@ class _CareerAdviceListHWidgetState extends State<CareerAdviceListHWidget> {
                 ),
             )
             : Container(
-                height: 120,
+                height: 130,
                 child: ListView.builder(
                     padding: EdgeInsets.symmetric(horizontal: 10),
                     scrollDirection: Axis.horizontal,
