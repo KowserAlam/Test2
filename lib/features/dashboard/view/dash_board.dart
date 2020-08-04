@@ -108,9 +108,9 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
 //          )
         ],
       ),
-      drawer: AppDrawer(
-        routeName: 'dashboard',
-      ),
+//      drawer: AppDrawer(
+//        routeName: 'dashboard',
+//      ),
       body: RefreshIndicator(
         onRefresh: _refreshData,
         child:
