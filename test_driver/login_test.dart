@@ -6,14 +6,14 @@ void main() {
 
   group('Login Test', () {
 
-    final emailField = find.byValueKey('signInEmail');
-    final passwordField = find.byValueKey('signInPassword');
-    final buttonClick = find.byValueKey('signInButton');
+    final signinEmailField = find.byValueKey('signInEmail');
+    final signinPasswordField = find.byValueKey('signInPassword');
+    final signinButtonClick = find.byValueKey('signInButton');
     final forgotPasswordLink = find.text('Forgot Password ?');
     final backButton = find.byTooltip('Back');
     final signUpButton = find.byValueKey('signUpButton');
-    //final emailErrorMessage = find.byType('errorTextEmail');
-    //final passwordErrorMessage = find.byType('errorTextPassword');
+    final skipOnboardingScreen = find.text('Skip');
+    final findSigninButtonfromSignup = find.text('Sign In');
 
     FlutterDriver driver;
     // Connect to the Flutter driver before running any tests.
@@ -30,75 +30,93 @@ void main() {
     //test cases are started from here
 
     test('Try to login without email & password', () async {
-      await driver.tap(buttonClick);
-      await Future.delayed(const Duration(seconds: 2), (){});
+      await driver.tap(signinButtonClick);
+      await Future.delayed(const Duration(seconds: 3), (){});
     });
 
     test('Try to login without email', () async {
-      await driver.tap(passwordField);
+      await driver.tap(signinPasswordField);
       await driver.enterText('1234567r');
-      await driver.tap(buttonClick);
-      await Future.delayed(const Duration(seconds: 2), (){});
+      await driver.tap(signinButtonClick);
+      await Future.delayed(const Duration(seconds: 3), (){});
     });
     test('Try to login without password', () async {
-      await driver.tap(emailField);
+      await driver.tap(signinEmailField);
       await driver.enterText('example@ishraak.com');
-      await driver.tap(passwordField);
+      await driver.tap(signinPasswordField);
       await driver.enterText('');
-      await driver.tap(buttonClick);
-      await Future.delayed(const Duration(seconds: 2), (){});
+      await driver.tap(signinButtonClick);
+      await Future.delayed(const Duration(seconds: 3), (){});
 
     });
     test('Try to login with, which is actually not an email', () async {
-      await driver.tap(emailField);
+      await driver.tap(signinEmailField);
       await driver.enterText('emailField');
-      await driver.tap(passwordField);
+      await driver.tap(signinPasswordField);
       await driver.enterText('1234567r');
-      await driver.tap(buttonClick);
-      await Future.delayed(const Duration(seconds: 2), (){});
+      await driver.tap(signinButtonClick);
+      await Future.delayed(const Duration(seconds: 3), (){});
     });
     test('Try to login with wrong format of password, all numaric ', () async {
-      await driver.tap(emailField);
+      await driver.tap(signinEmailField);
       await driver.enterText('example@ishraak.com');
-      await driver.tap(passwordField);
+      await driver.tap(signinPasswordField);
       await driver.enterText('0123456789');
-      await driver.tap(buttonClick);
-      await Future.delayed(const Duration(seconds: 2), (){});
+      await driver.tap(signinButtonClick);
+      await Future.delayed(const Duration(seconds: 3), (){});
     });
     test('Try to login with wrong format of password, all alphabet ', () async {
-      await driver.tap(emailField);
+      await driver.tap(signinEmailField);
       await driver.enterText('example@ishraak.com');
-      await driver.tap(passwordField);
+      await driver.tap(signinPasswordField);
       await driver.enterText('abcdefghijkl');
-      await driver.tap(buttonClick);
-      await Future.delayed(const Duration(seconds: 2), (){});
+      await driver.tap(signinButtonClick);
+      await Future.delayed(const Duration(seconds: 3), (){});
     });
 
     test('Try to login with unregistered email and password', () async {
 
-      await driver.tap(emailField);
+      await driver.tap(signinEmailField);
       await driver.enterText('unregistered@ishraak.com');
-      await driver.tap(passwordField);
+      await driver.tap(signinPasswordField);
       await driver.enterText('1234567r');
-      await driver.tap(buttonClick);
-      await Future.delayed(const Duration(seconds: 2), (){});
+      await driver.tap(signinButtonClick);
+      await Future.delayed(const Duration(seconds: 3), (){});
     });
 
     test('Check Forgot Password link is working', () async {
       await driver.tap(forgotPasswordLink);
-      await Future.delayed(const Duration(seconds: 2), (){});
+      await Future.delayed(const Duration(seconds: 3), (){});
       await driver.tap(backButton);
     });
 
-    test('Try to login with registered email and password', () async {
-
-      await driver.tap(emailField);
-      await driver.enterText('mahmudoni01@gmail.com');
-      await driver.tap(passwordField);
-      await driver.enterText('1234567r');
-      await driver.tap(buttonClick);
+   /* test('Check SignUp button is working', () async {
+      await driver.tap(signUpButton);
       await Future.delayed(const Duration(seconds: 2), (){});
     });
+
+    test('Go back to the sign in page after checking the signup link', () async {
+      await driver.tap(findSigninButtonfromSignup);
+      await Future.delayed(const Duration(seconds: 2), (){});
+    });*/
+
+    test('Try to login with registered email and password', () async {
+
+      await driver.tap(signinEmailField);
+      await driver.enterText('mahmudoni01@gmail.com');
+      await driver.tap(signinPasswordField);
+      await driver.enterText('1234567r');
+      await driver.tap(signinButtonClick);
+      await Future.delayed(const Duration(seconds: 3), (){});
+    });
+
+    test('Skipping the Onboarding screan and wait for dashboard', () async {
+      await driver.tap(skipOnboardingScreen);
+      await Future.delayed(const Duration(seconds: 5), (){});
+    });
+
+
+
 
 
   });
