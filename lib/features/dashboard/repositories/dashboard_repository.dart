@@ -6,6 +6,7 @@ import 'package:dartz/dartz_unsafe.dart';
 import 'package:logger/logger.dart';
 import 'package:p7app/features/dashboard/models/info_box_data_model.dart';
 import 'package:p7app/features/dashboard/models/skill_job_chart_data_model.dart';
+import 'package:p7app/features/dashboard/models/top_categories_model.dart';
 import 'package:p7app/features/dashboard/models/vital_stats_data_model.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
@@ -83,7 +84,7 @@ class DashBoardRepository {
       if (res.statusCode == 200) {
         var decodedJson = json.decode(res.body);
 //        Logger().i(decodedJson);
-       var data =  VitalStatsDataModel.fromJson(decodedJson);
+        var data = VitalStatsDataModel.fromJson(decodedJson);
         return Right(data);
       } else {
         return Left(AppError.serverError);
@@ -96,5 +97,26 @@ class DashBoardRepository {
       return Left(AppError.unknownError);
     }
   }
-}
 
+  Future<Either<AppError, List<TopCategoriesModel>>> getTopCategories() async {
+    try {
+      var res = await ApiClient().getRequest(Urls.topCategoriesListUrl);
+      print(res.statusCode);
+      if (res.statusCode == 200) {
+        var decodedJson = json.decode(res.body);
+        Logger().i(decodedJson);
+        List<TopCategoriesModel> list = [];
+        decodedJson.forEach((e)=>list.add(TopCategoriesModel.fromJson(e)));
+        return Right(list);
+      } else {
+        return Left(AppError.serverError);
+      }
+    } on SocketException catch (e) {
+      print(e);
+      return Left(AppError.networkError);
+    } catch (e) {
+      print(e);
+      return Left(AppError.unknownError);
+    }
+  }
+}
