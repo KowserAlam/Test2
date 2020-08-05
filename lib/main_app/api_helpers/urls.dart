@@ -80,6 +80,7 @@ class Urls {
   static String dashboardInfoBoxUrl = "/api/pro/dashboard/infobox/";
   static String dashboardSkillJobChartUrl = "/api/pro/dashboard/skill/";
   static String profileCompleteness = "/api/pro/profile-completeness/";
+  static String vitalStatsUrl = "/api/vital_stats/get/";
 
   static String jwtRefreshUrl = "/api/token/refresh/";
   static String careerAdviceUrl = "/api/career_advise";
