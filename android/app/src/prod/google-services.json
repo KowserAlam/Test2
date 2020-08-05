@@ -52,6 +52,50 @@
     },
     {
       "client_info": {
+        "mobilesdk_app_id": "1:282452792859:android:f7f125e3c198b03bb7cabe",
+        "android_client_info": {
+          "package_name": "com.ishraak.jobxprss"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "282452792859-l38d76n00da0fqd0g4mqcufcfa7dprl1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ishraak.jobxprss",
+            "certificate_hash": "b9b4c298494352e95708df3f8fa54e2e7814565e"
+          }
+        },
+        {
+          "client_id": "282452792859-1pu8vul874uskifva0ug37iktfrk6rkj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFF0JesPkE5sLt7jumN2FOt_WN1KowK2E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "282452792859-1pu8vul874uskifva0ug37iktfrk6rkj.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "282452792859-94e2psnnesrh4smaldg7bnh2n5qagjmp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ishraak.p7app"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:282452792859:android:a925700933ba7c46b7cabe",
         "android_client_info": {
           "package_name": "com.ishraak.p7app"

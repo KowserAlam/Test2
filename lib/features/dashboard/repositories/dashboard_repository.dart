@@ -3,8 +3,10 @@ import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:dartz/dartz_unsafe.dart';
+import 'package:logger/logger.dart';
 import 'package:p7app/features/dashboard/models/info_box_data_model.dart';
 import 'package:p7app/features/dashboard/models/skill_job_chart_data_model.dart';
+import 'package:p7app/features/dashboard/models/vital_stats_data_model.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
@@ -73,4 +75,26 @@ class DashBoardRepository {
       return 0;
     }
   }
+
+  Future<Either<AppError, VitalStatsDataModel>> getVitalStats() async {
+    try {
+      var res = await ApiClient().getRequest(Urls.vitalStatsUrl);
+      print(res.statusCode);
+      if (res.statusCode == 200) {
+        var decodedJson = json.decode(res.body);
+//        Logger().i(decodedJson);
+       var data =  VitalStatsDataModel.fromJson(decodedJson);
+        return Right(data);
+      } else {
+        return Left(AppError.serverError);
+      }
+    } on SocketException catch (e) {
+      print(e);
+      return Left(AppError.networkError);
+    } catch (e) {
+      print(e);
+      return Left(AppError.unknownError);
+    }
+  }
 }
+

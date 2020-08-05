@@ -15,7 +15,7 @@ class PersonalInfoWidget extends StatelessWidget {
       {@required BuildContext context,
       @required String label,
       @required String value}) {
-    double width = MediaQuery.of(context).size.width > 720 ? 160 : 130;
+//    double width = MediaQuery.of(context).size.width > 720 ? 160 : 130;
     return Padding(
       padding: const EdgeInsets.all(5.0),
       child: Row(

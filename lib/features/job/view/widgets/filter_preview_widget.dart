@@ -8,10 +8,12 @@ import 'package:p7app/method_extension.dart';
 
 class FilterPreviewWidget extends StatelessWidget {
   Widget filterItem(
-      {@required String name,@required String value, BuildContext context, Function onClear}) {
+      {@required String name,
+      @required String value,
+      BuildContext context,
+      Function onClear}) {
     return Container(
         margin: EdgeInsets.only(left: 2, right: 2),
-        padding: EdgeInsets.symmetric(horizontal: 8),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),
             border: Border.all(
@@ -20,24 +22,40 @@ class FilterPreviewWidget extends StatelessWidget {
             color: Theme.of(context).backgroundColor),
         child: Row(
           children: [
-            Text.rich(TextSpan(children: [
-              TextSpan(text:"${ name ?? ""} : ",style: TextStyle(fontWeight: FontWeight.bold)),
-              TextSpan(text: value ?? "",)
-            ])),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 8),
+              child: Text.rich(TextSpan(children: [
+                TextSpan(
+                    text: "${name ?? ""} : ",
+                    style: TextStyle(fontWeight: FontWeight.bold)),
+                TextSpan(
+                  text: value ?? "",
+                )
+              ])),
+            ),
             SizedBox(
               width: 2,
             ),
-            InkWell(
-                onTap: onClear,
-                child: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        color: Colors.red[100]),
-                    child: Icon(
-                      Icons.clear,
-                      size: 17,
-                      color: Colors.red,
-                    )))
+            Material(
+              type: MaterialType.transparency,
+              child: InkWell(
+                  onTap: onClear,
+                  child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: Container(
+                          padding: EdgeInsets.all(2),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              color: Colors.red[100]),
+                          child: Icon(
+                            Icons.clear,
+                            size: 17,
+                            color: Colors.red,
+                          )),
+                    ),
+                  )),
+            )
           ],
         ));
   }
@@ -45,19 +63,22 @@ class FilterPreviewWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var backgroundColor = Theme.of(context).backgroundColor;
-    var jobListFilterWidgetViewModel = Provider.of<JobListFilterWidgetViewModel>(context);
+    var jobListFilterWidgetViewModel =
+        Provider.of<JobListFilterWidgetViewModel>(context);
     return Consumer<JobListViewModel>(builder: (context, jobListViewModel, _) {
       var filters = jobListViewModel.jobListFilters;
       return Container(
         height: 36,
         width: double.infinity,
         decoration: BoxDecoration(
-            border: Border(bottom: BorderSide(color: Colors.grey[200])),
-            color: backgroundColor,
-            boxShadow: [
-              BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 10),
-              BoxShadow(color: Colors.black.withOpacity(0.2), blurRadius: 10),
-            ]),
+          border: Border(bottom: BorderSide(color: Colors.grey[200])),
+          color: backgroundColor,
+boxShadow: CommonStyleTextField.boxShadow
+//          boxShadow: [
+//            BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 10),
+//            BoxShadow(color: Colors.black.withOpacity(0.2), blurRadius: 10),
+//          ],
+        ),
         child: ListView(
           scrollDirection: Axis.horizontal,
           children: [
@@ -69,7 +90,6 @@ class FilterPreviewWidget extends StatelessWidget {
                   onClear: () {
                     jobListViewModel.clearSort();
                     jobListFilterWidgetViewModel.selectedSortBy = null;
-
                   }),
             if (jobListViewModel.hasCategory)
               filterItem(
@@ -98,7 +118,6 @@ class FilterPreviewWidget extends StatelessWidget {
                     jobListViewModel.clearSkill();
                     jobListFilterWidgetViewModel.selectedSkill = null;
                   }),
-
             if (jobListViewModel.hasExperienceRange)
               filterItem(
                   context: context,
@@ -118,7 +137,6 @@ class FilterPreviewWidget extends StatelessWidget {
                     jobListViewModel.clearJobType();
                     jobListFilterWidgetViewModel.selectedJobType = null;
                   }),
-
             if (jobListViewModel.hasSalaryRange)
               filterItem(
                   context: context,
@@ -129,10 +147,6 @@ class FilterPreviewWidget extends StatelessWidget {
                     jobListFilterWidgetViewModel.salaryMin = null;
                     jobListFilterWidgetViewModel.salaryMax = null;
                   }),
-
-
-
-
             if (jobListViewModel.hasQualification)
               filterItem(
                   context: context,
@@ -160,7 +174,6 @@ class FilterPreviewWidget extends StatelessWidget {
                     jobListViewModel.clearDatePosted();
                     jobListFilterWidgetViewModel.selectedDatePosted = null;
                   }),
-
           ],
         ),
       );

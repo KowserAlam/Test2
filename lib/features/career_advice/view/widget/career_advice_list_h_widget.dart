@@ -88,7 +88,7 @@ class _CareerAdviceListHWidgetState extends State<CareerAdviceListHWidget> {
             : Container(
                 height: 130,
                 child: ListView.builder(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    padding: EdgeInsets.only(left: 10,right: 10,bottom: 10),
                     scrollDirection: Axis.horizontal,
                     itemCount: length,
                     itemBuilder: (context, index) {

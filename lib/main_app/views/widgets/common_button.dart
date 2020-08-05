@@ -34,9 +34,9 @@ class CommonButton extends StatelessWidget {
           width: width,
           height: height,
           decoration: BoxDecoration(
-              color: onTap == null ? Colors.grey : null,
-              borderRadius: BorderRadius.circular(circularRadius),
-              gradient: onTap == null ? null : AppTheme.defaultLinearGradient),
+            color: onTap == null ? Colors.grey : Theme.of(context).primaryColor,
+            borderRadius: BorderRadius.circular(circularRadius),
+          ),
           child: Material(
             color: Colors.transparent,
             child: InkWell(

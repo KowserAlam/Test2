@@ -186,6 +186,7 @@ class StringResources {
   static var skipText = "Skip";
   static var jobLocationPrefText = "Job Location Preference";
   static var professionalSkillText = "Professional Skills";
+  static var professionalsText = "Professionals";
   static var projectsText = "Portfolio";
   static var certificationsText = "Certifications";
   static var hasExpiryDateText = "Has Expiry date";
@@ -318,7 +319,9 @@ class StringResources {
   static String InstitutionText = "Institution";
   static String InstitutionHintText = "eg. ABC Institution";
   static String levelOfEducation = "Level of Education";
+
   static String nameOfODegreeHintText = "eg. Bachelor of Science";
+  static String degreeHText = "Degree";
   static String gpaText = "CGPA";
   static String gpaHintText = "eg. 4.0";
   static String Enrolled = "Enrolled";
@@ -389,6 +392,7 @@ class StringResources {
   static var locationText = "Location";
   static var currentCompany = "Current Company";
   static var company = "Company";
+  static var companiesText = "Companies";
   static var currentCompanyHint = "eg. ABC Corporation";
   static var currentDesignation = "Current Designation";
   static var currentDesignationHint = "eg. Software Engineer";
