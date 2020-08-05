@@ -27,8 +27,8 @@ class Urls {
   static String professionalReference =
       "/api/professional/professional_reference";
   static String professionalSkillUrl = "/api/professional/professional_skill";
-  static String professionalEducationUrl =
-      "/api/professional/professional_education";
+  static String professionalEducationUrl = "/api/professional/professional_education";
+  static String professionalEducationObjUrl = "/api/professional/professional_education_object";
   static String professionalMembershipUrl =
       "/api/professional/professional_membership";
   static String professionalCertificationUrl =
@@ -80,6 +80,7 @@ class Urls {
   static String dashboardInfoBoxUrl = "/api/pro/dashboard/infobox/";
   static String dashboardSkillJobChartUrl = "/api/pro/dashboard/skill/";
   static String profileCompleteness = "/api/pro/profile-completeness/";
+  static String vitalStatsUrl = "/api/vital_stats/get/";
 
   static String jwtRefreshUrl = "/api/token/refresh/";
   static String careerAdviceUrl = "/api/career_advise";

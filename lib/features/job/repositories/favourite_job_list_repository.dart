@@ -15,9 +15,7 @@ import 'package:p7app/main_app/resource/strings_resource.dart';
 /// &salaryMax=&experienceMin=&experienceMax=null&datePosted=&gender=
 /// &qualification=&sort=&page_size=10
 class FavoriteJobListRepository {
-
   Future<Either<AppError, List<JobListModel>>> fetchJobList() async {
-
     var url = "${Urls.favouriteJobListUrl}";
 
     try {
@@ -26,7 +24,7 @@ class FavoriteJobListRepository {
       print(response.statusCode);
 //      print(response.body);
       if (response.statusCode == 200) {
-        var mapData = json.decode(response.body);
+        var mapData = json.decode(utf8.decode(response.bodyBytes));
         var jobList = fromJson(mapData);
         return Right(jobList);
       } else {
@@ -44,7 +42,7 @@ class FavoriteJobListRepository {
     }
   }
 
-  List<JobListModel> fromJson( json) {
+  List<JobListModel> fromJson(json) {
     List<JobListModel> jobList = new List<JobListModel>();
     if (json != null) {
       json.forEach((v) {

@@ -22,6 +22,7 @@ const String  kImagePlaceHolderAsset = "assets/images/image_placeholder.png";
 const String  kUserProfileCoverImageAsset = "assets/images/user_profile_cover.jpg";
 const String  kCompanyImagePlaceholder = "assets/images/company_placeholder.png";
 const String  kCareerAdvicePlaceholder = "assets/images/career_advice_place_holder.jpeg";
+const String  kVitalStatsBg = "assets/images/bg_vital_stats.png";
 
 const Duration  kDefaultTimeToPreventAutoRefresh = const Duration(minutes: 5);
 

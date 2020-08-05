@@ -1,6 +1,7 @@
 import 'package:after_layout/after_layout.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
+import 'package:p7app/features/settings/setings_screen.dart';
 import 'package:p7app/features/user_profile/views/screens/edit_portfolio_screen.dart';
 import 'package:p7app/features/user_profile/views/screens/edit_reference_screen.dart';
 import 'package:p7app/features/user_profile/views/widgets/portfolio_list_item_widget.dart';
@@ -696,6 +697,19 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
     return Scaffold(
       appBar: AppBar(
         title: Text(StringResources.myProfileText),
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.settings,
+            ),
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  CupertinoPageRoute(
+                      builder: (context) => SettingsScreen()));
+            },
+          ),
+        ],
       ),
       body: RefreshIndicator(
         onRefresh: () async {
