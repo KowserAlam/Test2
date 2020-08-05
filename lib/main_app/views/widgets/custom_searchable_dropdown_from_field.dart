@@ -27,6 +27,7 @@ class CustomDropdownSearchFormField<T> extends StatelessWidget {
   final bool showSelectedItem;
   final bool showSearchBox;
   final bool autoFocusSearchBox;
+  final bool autoValidate;
 
   ///custom layout for empty results
   final WidgetBuilder emptyBuilder;
@@ -51,6 +52,7 @@ class CustomDropdownSearchFormField<T> extends StatelessWidget {
     this.selectedItem,
     this.onFind,
     this.items,
+    this.autoValidate=false,
     this.maxLength,
     this.itemAsString,
     this.validator,
@@ -112,6 +114,7 @@ class CustomDropdownSearchFormField<T> extends StatelessWidget {
             itemAsString: itemAsString,
             onChanged: onChanged,
             validator: validator,
+            autoValidate: autoValidate,
             showSearchBox: showSearchBox,
             mode: mode,
             showSelectedItem: false,

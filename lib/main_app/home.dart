@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p7app/features/company/view/company_list_screen.dart';
 import 'package:p7app/features/job/view/jobs_screen.dart';
+import 'package:p7app/features/job/view_model/job_screen_view_model.dart';
 import 'package:p7app/features/notification/views/notification_screen.dart';
 import 'package:p7app/features/dashboard/view/dash_board.dart';
 import 'package:p7app/features/job/view/applied_job_list_screen.dart';
@@ -10,6 +11,7 @@ import 'package:p7app/features/user_profile/views/screens/profile_screen.dart';
 import 'package:p7app/main_app/flavour/flavor_banner.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/token_refresh_scheduler.dart';
+import 'package:provider/provider.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class Home extends StatefulWidget {
@@ -129,14 +131,17 @@ class _HomeState extends State<Home> {
             children: <Widget>[
               DashBoard(
                 onTapApplied: () {
-                  _paeViewController.animateToPage(2,
+                  _paeViewController.animateToPage(1,
                       duration: const Duration(milliseconds: 400),
                       curve: Curves.easeInOut);
+                  Provider.of<JobScreenViewModel>(context,listen: false).onChange(1);
                 },
                 onTapFavourite: () {
-                  _paeViewController.animateToPage(3,
+                  _paeViewController.animateToPage(1,
                       duration: const Duration(milliseconds: 400),
                       curve: Curves.easeInOut);
+                  Provider.of<JobScreenViewModel>(context,listen: false).onChange(2);
+
                 },
               ),
               JobsScreen(),
