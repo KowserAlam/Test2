@@ -11,6 +11,7 @@ import 'package:p7app/features/job/view_model/applied_job_list_view_model.dart';
 import 'package:p7app/features/job/view_model/favourite_job_list_view_model.dart';
 import 'package:p7app/features/job/view_model/job_list_filter_widget_view_model.dart';
 import 'package:p7app/features/job/view_model/job_list_view_model.dart';
+import 'package:p7app/features/job/view_model/job_screen_view_model.dart';
 import 'package:p7app/features/messaging/view_mpdel/message_screen_view_model.dart';
 import 'package:p7app/features/notification/view_models/notificaion_view_model.dart';
 import 'package:p7app/features/settings/settings_view_model.dart';
@@ -51,6 +52,7 @@ class P7App extends StatelessWidget {
       ChangeNotifierProvider(create: (context) => locator<SettingsViewModel>()),
       ChangeNotifierProvider(create: (context) => NotificationViewModel()),
       ChangeNotifierProvider(create: (context) => MessageScreenViewModel()),
+      ChangeNotifierProvider(create: (context) => JobScreenViewModel()),
     ];
     var appName = FlavorConfig.appName();
 

@@ -17,7 +17,7 @@ class CareerAdviceListTileH extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: Card(
-        elevation: 4,
+        elevation: 2,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(4),
           child: Container(

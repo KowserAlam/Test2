@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:p7app/features/company/view/company_list_screen.dart';
+import 'package:p7app/features/job/view/jobs_screen.dart';
 import 'package:p7app/features/notification/views/notification_screen.dart';
 import 'package:p7app/features/dashboard/view/dash_board.dart';
 import 'package:p7app/features/job/view/applied_job_list_screen.dart';
 import 'package:p7app/features/job/view/favourite_job_list_screen.dart';
-import 'package:p7app/features/job/view/job_list_screen.dart';
+import 'package:p7app/features/user_profile/views/screens/profile_screen.dart';
 import 'package:p7app/main_app/flavour/flavor_banner.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/token_refresh_scheduler.dart';
@@ -24,15 +26,14 @@ class _HomeState extends State<Home> {
     TokenRefreshScheduler.getInstance();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
-
     var bottomNavBar = BottomNavigationBar(
 //        selectedItemColor: Theme.of(context).primaryColor,
 //        unselectedItemColor: Colors.grey,
-        onTap: (int index) async{
-
-          if(currentIndex !=index){
+        onTap: (int index) async {
+          if (currentIndex != index) {
             int quickJumpTarget;
             if (index > currentIndex) {
               quickJumpTarget = currentIndex + 1;
@@ -41,10 +42,10 @@ class _HomeState extends State<Home> {
             }
 
             await _paeViewController.animateToPage(quickJumpTarget,
-                duration: const Duration(milliseconds: 400), curve: Curves.easeInOut);
+                duration: const Duration(milliseconds: 400),
+                curve: Curves.easeInOut);
             _paeViewController.jumpToPage(index);
           }
-
 
 //
 //          _paeViewController.animateToPage(index,
@@ -60,7 +61,6 @@ class _HomeState extends State<Home> {
         unselectedFontSize: 10,
         type: BottomNavigationBarType.fixed,
         items: [
-
           // dashboard
           BottomNavigationBarItem(
               icon: Padding(
@@ -83,19 +83,12 @@ class _HomeState extends State<Home> {
                 ),
               ),
               title: Text(StringResources.jobsText)),
-          //applied
-          BottomNavigationBarItem(
-              icon: Padding(
-                  padding: const EdgeInsets.only(bottom: 5),
-                  child: Icon(FontAwesomeIcons.solidCheckSquare)),
-              title: Text(StringResources.appliedText)),
-          // favourite
           BottomNavigationBarItem(
               icon: Padding(
                 padding: const EdgeInsets.only(bottom: 5),
-                child: Icon(FontAwesomeIcons.solidHeart),
+                child: Icon(FontAwesomeIcons.solidBuilding),
               ),
-              title: Text(StringResources.favoriteText)),
+              title: Text(StringResources.companyListAppbarText)),
           //notifications
           BottomNavigationBarItem(
               icon: Padding(
@@ -103,6 +96,13 @@ class _HomeState extends State<Home> {
                 child: Icon(FontAwesomeIcons.solidBell),
               ),
               title: Text(StringResources.notificationsText)),
+          // profile
+          BottomNavigationBarItem(
+              icon: Padding(
+                padding: const EdgeInsets.only(bottom: 5),
+                child: Icon(FontAwesomeIcons.solidUserCircle),
+              ),
+              title: Text(StringResources.myProfileText)),
         ]);
 
     return WillPopScope(
@@ -139,10 +139,12 @@ class _HomeState extends State<Home> {
                       curve: Curves.easeInOut);
                 },
               ),
-              JobListScreen(),
-              AppliedJobListScreen(),
-              FavouriteJobListScreen(),
+              JobsScreen(),
+//              AppliedJobListScreen(),
+//              FavouriteJobListScreen(),
+              CompanyListScreen(),
               NotificationScreen(),
+              ProfileScreen()
             ],
           ),
         ),
@@ -150,5 +152,3 @@ class _HomeState extends State<Home> {
     );
   }
 }
-
-
