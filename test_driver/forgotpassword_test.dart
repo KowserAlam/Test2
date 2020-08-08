@@ -32,17 +32,10 @@ void main() {
       await driver.tap(passwordResetButton);
 
     });
-    test('Try to change password with wrong email format', () async {
-      await driver.tap(passwordResetTextField);
-      await driver.enterText('wrongEmailFormat');
-      await driver.tap(passwordResetButton);
-      await Future.delayed(const Duration(seconds: 3), () {});
-    });
     test('Try to change password with Unregistered email', () async {
       await driver.tap(passwordResetTextField);
       await driver.enterText('unregistered@ishraak.com');
       await driver.tap(passwordResetButton);
-     // await driver.getText(forgotResetErrorText);
       await Future.delayed(const Duration(seconds: 3), () {});
     });
     test('Try to change password with Registered email', () async {
