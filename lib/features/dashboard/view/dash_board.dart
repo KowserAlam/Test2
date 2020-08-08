@@ -1,6 +1,7 @@
 import 'package:after_layout/after_layout.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p7app/features/career_advice/view/widget/career_advice_list_h_widget.dart';
 import 'package:p7app/features/career_advice/view_models/career_advice_view_model.dart';
 import 'package:p7app/features/dashboard/view/widgets/info_box_widget.dart';
@@ -10,6 +11,7 @@ import 'package:p7app/features/dashboard/view/widgets/profile_complete_parcent_i
 import 'package:p7app/features/dashboard/view/widgets/top_categories_widget.dart';
 import 'package:p7app/features/dashboard/view/widgets/vital_state_widget.dart';
 import 'package:p7app/features/dashboard/view_model/dashboard_view_model.dart';
+import 'package:p7app/features/messaging/view/message_screen.dart';
 import 'package:p7app/features/settings/settings_view_model.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/main_app/auth_service/auth_service.dart';
@@ -101,13 +103,13 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
       appBar: AppBar(
         title: Text(StringResources.dashBoardText),
         actions: [
-//          IconButton(
-//            icon: Icon(FontAwesomeIcons.solidComment),
-//            onPressed: () {
-//              Navigator.of(context).push(CupertinoPageRoute(
-//                  builder: (BuildContext context) => MessageScreen()));
-//            },
-//          )
+          IconButton(
+            icon: Icon(FontAwesomeIcons.solidComment),
+            onPressed: () {
+              Navigator.of(context).push(CupertinoPageRoute(
+                  builder: (BuildContext context) => MessageScreen()));
+            },
+          )
         ],
       ),
 //      drawer: AppDrawer(
