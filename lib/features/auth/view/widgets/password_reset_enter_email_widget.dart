@@ -100,6 +100,7 @@ class _PasswordResetEmailWidgetState extends State<PasswordResetEmailWidget> {
       child: passwordResetProvider.isBusyEmail
           ? Loader()
           : CommonButton(
+        key: Key('passwordResetButton'),
               width: 230,
               height: 50,
               onTap: !enabled? null: () {
@@ -157,6 +158,7 @@ class _PasswordResetEmailWidgetState extends State<PasswordResetEmailWidget> {
                                 CommonStyleTextField.borderRadiusRound,
                             color: Theme.of(context).backgroundColor),
                         child: TextField(
+                          key: Key("passwordResetTextField"),
                           keyboardType: keyboardType,
                           onChanged: passwordResetViewModel.validateEmailLocal,
                           focusNode: _emailFocus,
