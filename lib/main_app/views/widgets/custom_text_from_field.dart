@@ -23,6 +23,7 @@ class CustomTextFormField extends StatelessWidget {
   final Function onChanged;
   final int maxLength;
   final GestureTapCallback onTap;
+  final Key key;
 
   const CustomTextFormField({
     this.readOnly = false,
@@ -47,6 +48,7 @@ class CustomTextFormField extends StatelessWidget {
     this.contentPadding =
         const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
     this.maxLines = 1,
+    this.key
   });
 
   @override
@@ -85,6 +87,7 @@ class CustomTextFormField extends StatelessWidget {
             ],
           ),
           child: TextFormField(
+            key: key,
             onTap: onTap,
             readOnly: readOnly,
             enabled: enabled,
