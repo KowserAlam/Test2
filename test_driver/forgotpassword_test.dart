@@ -3,12 +3,10 @@ import 'package:test/test.dart';
 
 void main() {
   group('Forgot Password test', () {
-    final signinEmailField = find.byValueKey('signInEmail');
-    final signinPasswordField = find.byValueKey('signInPassword');
-    final signinButtonClick = find.byValueKey('signInButton');
+    final passwordResetTextField = find.byValueKey('passwordResetTextField');
+    final passwordResetButton = find.byValueKey('passwordResetButton');
     final forgotPasswordLink = find.text('Forgot Password ?');
     final backButton = find.byTooltip('Back');
-    final skipOnboardingScreen = find.text('Skip');
 
     FlutterDriver driver;
     // Connect to the Flutter driver before running any tests.
@@ -26,12 +24,31 @@ void main() {
     test('Click on forgot password link from login page', () async {
       await driver.tap(forgotPasswordLink);
       await Future.delayed(const Duration(seconds: 3), () {});
+    });
+    test('Try to change password with wrong email format', () async {
+      await driver.tap(passwordResetTextField);
+      await driver.enterText('wrongEmailFormat');
+      await Future.delayed(const Duration(seconds: 3), () {});
+      await driver.tap(passwordResetButton);
       await driver.tap(backButton);
     });
     test('Try to change password with wrong email format', () async {
-      await driver.tap(forgotPasswordLink);
+      await driver.tap(passwordResetTextField);
+      await driver.enterText('wrongEmailFormat');
+      await driver.tap(passwordResetButton);
       await Future.delayed(const Duration(seconds: 3), () {});
-      await driver.tap(backButton);
+    });
+    test('Try to change password with Unregistered email', () async {
+      await driver.tap(passwordResetTextField);
+      await driver.enterText('unregistered@ishraak.com');
+      await driver.tap(passwordResetButton);
+      await Future.delayed(const Duration(seconds: 3), () {});
+    });
+    test('Try to change password with Registered email', () async {
+      await driver.tap(passwordResetTextField);
+      await driver.enterText('mahmudoni01@ishraak.com');
+      await driver.tap(passwordResetButton);
+      await Future.delayed(const Duration(seconds: 3), () {});
     });
 
   });
