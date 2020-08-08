@@ -5,6 +5,8 @@ import 'package:p7app/features/job/view/jobs_screen.dart';
 import 'package:p7app/features/job/view_model/job_screen_view_model.dart';
 import 'package:p7app/features/notification/views/notification_screen.dart';
 import 'package:p7app/features/dashboard/view/dash_board.dart';
+import 'package:p7app/features/job/view/applied_job_list_screen.dart';
+import 'package:p7app/features/job/view/favourite_job_list_screen.dart';
 import 'package:p7app/features/user_profile/views/screens/profile_screen.dart';
 import 'package:p7app/main_app/flavour/flavor_banner.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
