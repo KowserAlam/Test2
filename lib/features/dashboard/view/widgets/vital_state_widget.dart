@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p7app/features/dashboard/view_model/dashboard_view_model.dart';
+import 'package:p7app/main_app/repositories/skill_list_repository.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:provider/provider.dart';
@@ -15,14 +16,12 @@ class VitalStateWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: Color(0xff121212),
         image: DecorationImage(
-          image: AssetImage(
-            kVitalStatsBg,
-          ),
-          fit: BoxFit.cover,
-            colorFilter:
-            ColorFilter.mode(Colors.black.withOpacity(0.3),
-                BlendMode.dstATop)
-        ),
+            image: AssetImage(
+              kVitalStatsBg,
+            ),
+            fit: BoxFit.cover,
+            colorFilter: ColorFilter.mode(
+                Colors.black.withOpacity(0.3), BlendMode.dstATop)),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -43,10 +42,18 @@ class VitalStateWidget extends StatelessWidget {
           Row(
 //            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              vitalStateItem(
-                  label: StringResources.skillsText,
-                  count: vitalStatsData?.resume,
-                  iconData: FontAwesomeIcons.tools),
+              FutureBuilder(
+                future: SkillListRepository()
+                    .getSkillList()
+                    .then((value) => value.fold((l) => 0, (r) => r.length)),
+                builder:
+                    (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                  return vitalStateItem(
+                      label: StringResources.skillsText,
+                      count: snapshot.data?.toString(),
+                      iconData: FontAwesomeIcons.tools);
+                },
+              ),
               vitalStateItem(
                   label: StringResources.companiesText,
                   count: vitalStatsData?.companyCount,
@@ -88,6 +95,7 @@ class VitalStateWidget extends StatelessWidget {
                 ),
                 Text(
                   label ?? "",
+                  overflow: TextOverflow.ellipsis,
                   style: TextStyle(color: primaryColor),
                 ),
               ]),

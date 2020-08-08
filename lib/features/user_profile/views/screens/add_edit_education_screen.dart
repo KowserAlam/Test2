@@ -230,6 +230,8 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
           }
         }
       }
+    }else{
+      BotToast.showText(text: StringResources.checkRequiredField);
     }
   }
 
@@ -272,10 +274,10 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
         return CustomDropdownSearchFormField<EducationLevel>(
           isRequired: true,
           showSearchBox: true,
-          itemAsString: (v) => v.name,
+          itemAsString: (v) => v?.name,
           compareFn: (s1, s2) =>
-              s1.name.toLowerCase().contains(s2.name.toLowerCase()),
-          validator: (v) => Validator().nullFieldValidate(v.name),
+              s1.name.toLowerCase().contains(s2?.name?.toLowerCase()),
+          validator: (v) => Validator().nullFieldValidate(v?.name),
           labelText: StringResources.levelOfEducation,
           hintText: StringResources.tapToSelectText,
           selectedItem: selectedLevelOfEducation,
@@ -317,6 +319,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
       labelText: StringResources.degreeHText,
       hintText: StringResources.nameOfODegreeHintText,
       isRequired: true,
+      validator: Validator().nullFieldValidate,
       onSuggestionSelected: (v) {
         degreeTextController.text = v;
         selectedDegree = v;
