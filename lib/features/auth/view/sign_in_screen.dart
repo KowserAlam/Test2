@@ -174,6 +174,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   color: Theme.of(context).primaryColor,
                   fontWeight: FontWeight.bold,
                   fontSize: 15),
+              key: Key('signUpText'),
             ),
           ),
         ),

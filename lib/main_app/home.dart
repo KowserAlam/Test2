@@ -102,7 +102,7 @@ class _HomeState extends State<Home> {
           BottomNavigationBarItem(
               icon: Padding(
                 padding: const EdgeInsets.only(bottom: 5),
-                child: Icon(FontAwesomeIcons.solidUserCircle),
+                child: Icon(FontAwesomeIcons.solidUserCircle, key: Key('bottomNavigationBarMyProfile'),),
               ),
               title: Text(StringResources.myProfileText)),
         ]);
