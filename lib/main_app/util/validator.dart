@@ -1,9 +1,9 @@
-import 'package:p7app/main_app/resource/strings_utils.dart';
-import 'package:p7app/main_app/util/method_extension.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
+import 'package:p7app/method_extension.dart';
 
 class Validator {
   String nullFieldValidate(String value) =>
-      value.isEmptyOrNull ? StringUtils.thisFieldIsRequired : null;
+      value.isEmptyOrNull ? StringResources.thisFieldIsRequired : null;
 
 
 
@@ -15,9 +15,9 @@ class Validator {
     RegExp regex = new RegExp(pattern);
 
     if (value.isEmpty) {
-      return StringUtils.pleaseEnterEmailText;
+      return StringResources.pleaseEnterEmailText;
     }else if (!regex.hasMatch(value))
-      return StringUtils.pleaseEnterAValidEmailText;
+      return StringResources.pleaseEnterAValidEmailText;
     else
       return null;
   }
@@ -27,9 +27,9 @@ class Validator {
       r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$',
     );
     if (value.isEmpty) {
-      return StringUtils.thisFieldIsRequired;
+      return StringResources.thisFieldIsRequired;
     } else if (!_passwordRegExp.hasMatch(value)) {
-      return StringUtils.passwordMustBeEight;
+      return StringResources.passwordMustBeEight;
     } else {
       return null;
     }
@@ -37,7 +37,7 @@ class Validator {
 
   String validateEmptyPassword(String value) {
     if (value.isEmpty) {
-      return StringUtils.pleaseEnterPasswordText;
+      return StringResources.pleaseEnterPasswordText;
     }  else {
       return null;
     }
@@ -45,7 +45,7 @@ class Validator {
 
   String validateConfirmPassword(String password, String confirmPassword) {
     if (password != confirmPassword) {
-      return StringUtils.passwordDoesNotMatch;
+      return StringResources.passwordDoesNotMatch;
     } else {
       return null;
     }
@@ -56,7 +56,7 @@ class Validator {
     Pattern pattern = r'\+?(88)?0?1[56789][0-9]{8}\b';
     RegExp regex = new RegExp(pattern);
     if (!regex.hasMatch(value))
-      return StringUtils.enterValidPhoneNumber;
+      return StringResources.enterValidPhoneNumber;
     else
       return null;
   }
@@ -65,7 +65,7 @@ class Validator {
     Pattern pattern = r'^(\d{6})?$';
     RegExp regex = new RegExp(pattern);
     if (!regex.hasMatch(value))
-      return StringUtils.invalidCode;
+      return StringResources.invalidCode;
     else
       return null;
   }
@@ -78,7 +78,7 @@ class Validator {
     }
 
     if (!regex.hasMatch(value))
-      return StringUtils.pleaseEnterDecimalValue;
+      return StringResources.pleaseEnterDecimalValue;
     else
       return null;
   }
@@ -89,12 +89,12 @@ class Validator {
     RegExp regExp = new RegExp(pattern);
     if(value.length > 0){
       if(!regExp.hasMatch(value)){
-        return StringUtils.invalidName;
+        return StringResources.invalidName;
       }else{
         return null;
       }
     }else{
-      return StringUtils.thisFieldIsRequired;
+      return StringResources.thisFieldIsRequired;
     }
   }
 
@@ -103,16 +103,16 @@ class Validator {
     Pattern pattern = r'^([0-9]{1,2})+(\.[0-9]{1,2})?$';
     RegExp regex = new RegExp(pattern);
     if(value.isEmpty){
-      return StringUtils.thisFieldIsRequired;
+      return StringResources.thisFieldIsRequired;
     }else {
       if(!regex.hasMatch(value)){
-        return StringUtils.twoDecimal;
+        return StringResources.twoDecimal;
       }else{
         x = double.parse(value);
         if(x >=0 && x <11){
           return null;
         }else{
-          return StringUtils.valueWithinRange;
+          return StringResources.valueWithinRange;
         }
       }
     }

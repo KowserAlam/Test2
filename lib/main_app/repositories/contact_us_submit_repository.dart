@@ -9,7 +9,7 @@ import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/models/contact_us_model.dart';
 import 'package:p7app/main_app/models/settings_model.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 
 class ContactUsSubmitRepository {
 //  Future<Either<AppError, ContactUsModel>> getSettingInfo(
@@ -51,17 +51,17 @@ class ContactUsSubmitRepository {
         return Right(true);
       } else {
         BotToast.closeAllLoading();
-        BotToast.showText(text: StringUtils.unableToSaveData);
+        BotToast.showText(text: StringResources.unableToSaveData);
         return Left(AppError.unknownError);
       }
     } on SocketException catch (e) {
       BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToSaveData);
+      BotToast.showText(text: StringResources.unableToSaveData);
       print(e);
       return left(AppError.networkError);
     } catch (e) {
       BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToSaveData);
+      BotToast.showText(text: StringResources.unableToSaveData);
       print(e);
       return left(AppError.serverError);
     }

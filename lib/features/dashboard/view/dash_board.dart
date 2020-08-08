@@ -1,19 +1,24 @@
 import 'package:after_layout/after_layout.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:p7app/features/auth/view/login_screen.dart';
+import 'package:p7app/features/career_advice/view/widget/career_advice_list_h_widget.dart';
+import 'package:p7app/features/career_advice/view_models/career_advice_view_model.dart';
 import 'package:p7app/features/dashboard/view/widgets/info_box_widget.dart';
 import 'package:p7app/features/dashboard/view/widgets/job_chart_widget.dart';
+import 'package:p7app/features/dashboard/view/widgets/other_screens_widget.dart';
 import 'package:p7app/features/dashboard/view/widgets/profile_complete_parcent_indicatior_widget.dart';
+import 'package:p7app/features/dashboard/view/widgets/top_categories_widget.dart';
+import 'package:p7app/features/dashboard/view/widgets/vital_state_widget.dart';
 import 'package:p7app/features/dashboard/view_model/dashboard_view_model.dart';
-import 'package:p7app/features/messaging/view/message_screen.dart';
+import 'package:p7app/features/settings/settings_view_model.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
-import 'package:p7app/main_app/widgets/app_drawer.dart';
-import 'package:p7app/main_app/widgets/failure_widget.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
+import 'package:p7app/main_app/util/locator.dart';
+import 'package:p7app/main_app/views/app_drawer.dart';
+import 'package:p7app/main_app/views/widgets/failure_widget.dart';
+import 'package:p7app/main_app/views/widgets/restart_widget.dart';
 import 'package:provider/provider.dart';
 
 class DashBoard extends StatefulWidget {
@@ -35,22 +40,21 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
         .then((value) {
       if (value == AppError.unauthorized) {
         _signOut(context);
+        return;
       }
+//      Provider.of<UserProfileViewModel>(context, listen: false).getUserData();
     });
-
-    Provider.of<UserProfileViewModel>(context, listen: false).getUserData();
   }
 
   Future<void> _refreshData() async {
     var dbVM = Provider.of<DashboardViewModel>(context, listen: false);
     var upVM = Provider.of<UserProfileViewModel>(context, listen: false);
-    return Future.wait([dbVM.getDashboardData(), upVM.getUserData()]);
+    var cvm = Provider.of<CareerAdviceViewModel>(context, listen: false);
+    return Future.wait([dbVM.getDashboardData(), upVM.getUserData(),cvm.refresh()]);
   }
 
   _signOut(context) {
-    Navigator.of(context).push(
-        MaterialPageRoute(builder: (BuildContext context) => LoginScreen()));
-    AuthService.getInstance().then((value) => value.removeUser());
+    locator<SettingsViewModel>().signOut();
   }
 
   @override
@@ -61,7 +65,7 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
       switch (dashboardViewModel.infoBoxError) {
         case AppError.serverError:
           return FailureFullScreenWidget(
-            errorMessage: StringUtils.unableToLoadData,
+            errorMessage: StringResources.unableToLoadData,
             onTap: () {
               return _refreshData();
             },
@@ -69,7 +73,7 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
 
         case AppError.networkError:
           return FailureFullScreenWidget(
-            errorMessage: StringUtils.unableToReachServerMessage,
+            errorMessage: StringResources.unableToReachServerMessage,
             onTap: () {
               return _refreshData();
             },
@@ -77,7 +81,7 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
 
         case AppError.unauthorized:
           return FailureFullScreenWidget(
-            errorMessage: StringUtils.unauthorizedText,
+            errorMessage: StringResources.unauthorizedText,
             onTap: () {
               return _signOut(context);
             },
@@ -85,7 +89,7 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
 
         default:
           return FailureFullScreenWidget(
-            errorMessage: StringUtils.somethingIsWrong,
+            errorMessage: StringResources.somethingIsWrong,
             onTap: () {
               return _refreshData();
             },
@@ -95,42 +99,49 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(StringUtils.dashBoardText),
+        title: Text(StringResources.dashBoardText),
         actions: [
-          IconButton(
-            icon: Icon(FontAwesomeIcons.solidComment),
-            onPressed: () {
-              Navigator.of(context).push(CupertinoPageRoute(
-                  builder: (BuildContext context) => MessageScreen()));
-            },
-          )
+//          IconButton(
+//            icon: Icon(FontAwesomeIcons.solidComment),
+//            onPressed: () {
+//              Navigator.of(context).push(CupertinoPageRoute(
+//                  builder: (BuildContext context) => MessageScreen()));
+//            },
+//          )
         ],
       ),
-      drawer: AppDrawer(
-        routeName: 'dashboard',
-      ),
+//      drawer: AppDrawer(
+//        routeName: 'dashboard',
+//      ),
       body: RefreshIndicator(
         onRefresh: _refreshData,
-        child: dashboardViewModel.shouldShowError
-            ? ListView(
-                children: [
-                  errorWidget(),
-                ],
-              )
-            : ListView(
-                children: [
-                  ProfileCompletePercentIndicatorWidget(
-                      dashboardViewModel.profileCompletePercent / 100),
-                  InfoBoxWidget(
-                    onTapApplied: widget.onTapApplied,
-                    onTapFavourite: widget.onTapFavourite,
-                  ),
-                  JobChartWidget(
-                    animate: true,
-                  ),
-                ],
-              ),
+        child:
+//        dashboardViewModel.shouldShowError ?ListView(children: [errorWidget()]) :
+            ListView(
+          children: [
+            if(dashboardViewModel.showProfileCompletePercentIndicatorWidget)
+            ProfileCompletePercentIndicatorWidget(
+                dashboardViewModel.profileCompletePercent / 100),
+            InfoBoxWidget(
+              onTapApplied: widget.onTapApplied,
+              onTapFavourite: widget.onTapFavourite,
+            ),
+            JobChartWidget(
+              animate: true,
+            ),
+//            TopCategoriesWidget(),
+//            VitalStateWidget(),
+            SizedBox(height: 10,),
+            CareerAdviceListHWidget(),
+            SizedBox(height: 10,),
+            OtherScreensWidget(),
+
+
+          ],
+        ),
       ),
     );
   }
 }
+
+

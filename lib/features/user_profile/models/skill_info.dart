@@ -1,6 +1,7 @@
+import 'package:equatable/equatable.dart';
 import 'package:p7app/features/user_profile/models/skill.dart';
 
-class SkillInfo {
+class SkillInfo extends Equatable{
   int profSkillId;
   Skill skill;
   double rating;
@@ -30,4 +31,8 @@ class SkillInfo {
     data['rating'] = this.rating;
     return data;
   }
+
+  @override
+  // TODO: implement props
+  List<Object> get props => [this.profSkillId,this.skill,this.rating,this.verifiedBySkillCheck];
 }

@@ -1,7 +1,7 @@
 
 
 
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/validator.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -11,7 +11,7 @@ main() {
 
     String actual = Validator().verificationCodeValidator(54654.toString());
 
-    expect(actual, StringUtils.invalidCode);
+    expect(actual, StringResources.invalidCode);
 
   });
 
@@ -19,7 +19,7 @@ main() {
 
     String actual = Validator().verificationCodeValidator(5465454454.toString());
 
-    expect(actual, StringUtils.invalidCode);
+    expect(actual, StringResources.invalidCode);
 
   });
 
@@ -28,7 +28,7 @@ main() {
 
     String actual = Validator().verificationCodeValidator("dsefca");
 
-    expect(actual, StringUtils.invalidCode);
+    expect(actual, StringResources.invalidCode);
 
   });
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 
 class UserInfoListItem extends StatefulWidget {
   final IconData icon;
@@ -36,12 +36,12 @@ class _UserInfoListItemState extends State<UserInfoListItem> {
             onTap: widget.onTapAddNewAction,
             child: Material(
                 borderRadius: BorderRadius.circular(50),
-                color: Theme.of(context).primaryColor.withOpacity(.1),
+                color: Theme.of(context).accentColor.withOpacity(.1),
                 child: Padding(
                   padding: const EdgeInsets.all(5.0),
                   child: Icon(FontAwesomeIcons.plus,
                       size: 20,
-                      color: Theme.of(context).primaryColor.withOpacity(.8)),
+                      color: Theme.of(context).accentColor),
                 )),
           )
         : SizedBox();
@@ -69,7 +69,7 @@ class _UserInfoListItemState extends State<UserInfoListItem> {
                 child: Icon(
                   widget.isInEditMode ? FontAwesomeIcons.check : Icons.edit,
                   size: 20,
-                  color: Theme.of(context).primaryColor,
+                  color: Theme.of(context).accentColor,
                 ),
               ),
               onTap: widget.onTapEditAction,

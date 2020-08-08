@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/validator.dart';
 
 main(){
@@ -16,7 +16,7 @@ main(){
     Validator validator = Validator();
 
     var actual = validator.expertiseFieldValidate("10.999");
-    expect(actual, StringUtils.twoDecimal);
+    expect(actual, StringResources.twoDecimal);
   });
 
 
@@ -25,7 +25,7 @@ main(){
     Validator validator = Validator();
 
     var actual = validator.expertiseFieldValidate("16.66");
-    expect(actual, StringUtils.valueWithinRange);
+    expect(actual, StringResources.valueWithinRange);
   });
 
   test("Value lesser than 0 input, Should return Please enter a value within 0-9 and with two decimal values max",(){
@@ -33,7 +33,7 @@ main(){
     Validator validator = Validator();
 
     var actual = validator.expertiseFieldValidate("-9");
-    expect(actual, StringUtils.twoDecimal);
+    expect(actual, StringResources.twoDecimal);
   });
 
 

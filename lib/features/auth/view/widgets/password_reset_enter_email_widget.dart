@@ -1,12 +1,12 @@
-import 'package:p7app/features/auth/provider/password_reset_provider.dart';
-import 'package:p7app/features/auth/view/login_screen.dart';
+import 'package:p7app/features/auth/view_models/password_reset_view_model.dart';
+import 'package:p7app/features/auth/view/sign_in_screen.dart';
 import 'package:p7app/features/auth/view/widgets/title_widget.dart';
 import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
 
 import 'package:p7app/main_app/resource/const.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
-import 'package:p7app/main_app/widgets/common_button.dart';
-import 'package:p7app/main_app/widgets/loader.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
+import 'package:p7app/main_app/views/widgets/common_button.dart';
+import 'package:p7app/main_app/views/widgets/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -29,9 +29,9 @@ class _PasswordResetEmailWidgetState extends State<PasswordResetEmailWidget> {
   Widget _logoSection() {
     return Center(
       child: Hero(
-        tag: kDefaultLogo,
+        tag: kDefaultLogoSq,
         child: Image.asset(
-          kDefaultLogo,
+          kDefaultLogoSq,
           width: 100,
           fit: BoxFit.contain,
         ),
@@ -41,7 +41,7 @@ class _PasswordResetEmailWidgetState extends State<PasswordResetEmailWidget> {
 
   Widget _titleText() {
     return TitleWidget(
-      labelText: StringUtils.passwordResetText,
+      labelText: StringResources.passwordResetText,
     );
   }
 
@@ -69,7 +69,7 @@ class _PasswordResetEmailWidgetState extends State<PasswordResetEmailWidget> {
         return Row(
           children: <Widget>[
             _inputTypeSelectionItemWidget(
-                label: StringUtils.emailText,
+                label: StringResources.emailText,
                 onChanged: (value) {
                   /// Email
                   passwordResetProvider.passwordResetMethodIsEmail = true;
@@ -82,7 +82,7 @@ class _PasswordResetEmailWidgetState extends State<PasswordResetEmailWidget> {
             ),
             _inputTypeSelectionItemWidget(
                 groupValue: false,
-                label: StringUtils.smsText,
+                label: StringResources.smsText,
                 onChanged: (value) {
                   /// Phone
                   passwordResetProvider.passwordResetMethodIsEmail = false;
@@ -94,18 +94,19 @@ class _PasswordResetEmailWidgetState extends State<PasswordResetEmailWidget> {
         );
       });
 
-  Widget _proceedButton({String errorText}) {
+  Widget _proceedButton({bool enabled}) {
     var passwordResetProvider = Provider.of<PasswordResetViewModel>(context);
     return Center(
       child: passwordResetProvider.isBusyEmail
           ? Loader()
           : CommonButton(
+        key: Key('passwordResetButton'),
               width: 230,
               height: 50,
-              onTap: errorText != null? null: () {
+              onTap: !enabled? null: () {
                 _handleEmailSubmit(_emailTextController.text, context);
               },
-              label: StringUtils.passwordResetText,
+              label: StringResources.passwordResetText,
             ),
     );
   }
@@ -124,8 +125,8 @@ class _PasswordResetEmailWidgetState extends State<PasswordResetEmailWidget> {
 
     var passwordResetProvider = Provider.of<PasswordResetViewModel>(context);
     var hintText = passwordResetProvider.passwordResetMethodIsEmail
-        ? StringUtils.emailText
-        : StringUtils.phoneText;
+        ? StringResources.emailText
+        : StringResources.phoneText;
     var iconPrefix = passwordResetProvider.passwordResetMethodIsEmail
         ? Icons.mail
         : Icons.phone_android;
@@ -157,6 +158,7 @@ class _PasswordResetEmailWidgetState extends State<PasswordResetEmailWidget> {
                                 CommonStyleTextField.borderRadiusRound,
                             color: Theme.of(context).backgroundColor),
                         child: TextField(
+                          key: Key("passwordResetTextField"),
                           keyboardType: keyboardType,
                           onChanged: passwordResetViewModel.validateEmailLocal,
                           focusNode: _emailFocus,
@@ -185,14 +187,14 @@ class _PasswordResetEmailWidgetState extends State<PasswordResetEmailWidget> {
                       ),
                       if (passwordResetViewModel.emailErrorText != null)
                         Padding(
-                          padding: const EdgeInsets.only(top: 8, left: 40),
+                          padding: const EdgeInsets.only(top: 8, left: 20,right: 20),
                           child: Text(
                             " ${passwordResetViewModel.emailErrorText}",
                             style: TextStyle(color: Colors.red),
                           ),
                         ),
                       SizedBox(height: 20),
-                      _proceedButton(errorText: passwordResetViewModel.emailErrorText),
+                      _proceedButton(enabled: passwordResetViewModel.shodAllowProceedButton),
                     ],
                   );
                 }),

@@ -1,6 +1,6 @@
 
 
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/validator.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -9,7 +9,7 @@ main() {
 
    String actual = Validator().nullFieldValidate("");
 
-   expect(actual, StringUtils.thisFieldIsRequired);
+   expect(actual, StringResources.thisFieldIsRequired);
 
   });
 
@@ -17,7 +17,7 @@ main() {
 
     String actual = Validator().nullFieldValidate(null);
 
-    expect(actual, StringUtils.thisFieldIsRequired);
+    expect(actual, StringResources.thisFieldIsRequired);
 
   });
 

@@ -8,7 +8,7 @@ import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/util/common_serviec_rule.dart';
 import 'package:p7app/main_app/util/debouncer.dart';
-import 'package:p7app/main_app/util/method_extension.dart';
+import 'package:p7app/method_extension.dart';
 
 class JobListViewModel with ChangeNotifier {
   List<JobListModel> _jobList = [];
@@ -119,13 +119,13 @@ class JobListViewModel with ChangeNotifier {
   Future<bool> getJobList({bool isFormOnPageLoad = false}) async {
     _totalJobCount = 0;
     _appError = null;
-    var time = CommonServiceRule.onLoadPageReloadTime;
-    if (isFormOnPageLoad) if (_lastFetchTime != null) {
-      bool shouldNotFetchData =
-          _lastFetchTime.difference(DateTime.now()) < time &&
-              _jobList.length != 0;
-      if (shouldNotFetchData) return false;
+
+    if (isFormOnPageLoad) {
+      bool shouldNotFetchData = CommonServiceRule.instance
+          .shouldNotFetchData(_lastFetchTime, _appError);
+      if (shouldNotFetchData) return null;
     }
+
     _isFetchingData = true;
     notifyListeners();
 
@@ -353,6 +353,8 @@ class JobListViewModel with ChangeNotifier {
   set jobListRepository(JobRepository value) {
     _jobListRepository = value;
   }
+
+  bool get shouldShowNoJobsFound => jobList.length == 0 && !isFetchingData;
 
   bool get shouldShowPageLoader =>
       _jobList.length == 0 &&

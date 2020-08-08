@@ -1,22 +1,18 @@
 import 'package:after_layout/after_layout.dart';
-import 'package:autocomplete_textfield/autocomplete_textfield.dart';
-import 'package:bot_toast/bot_toast.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:p7app/features/company/models/company.dart';
 import 'package:p7app/features/company/view/company_list_tile.dart';
 import 'package:p7app/features/company/view_model/company_list_view_model.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
-import 'package:p7app/main_app/util/date_format_uitl.dart';
-import 'package:p7app/main_app/widgets/loader.dart';
-import 'company_details.dart';
-import 'package:p7app/main_app/resource/const.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
-import 'package:p7app/main_app/util/debouncer.dart';
-import 'package:p7app/main_app/widgets/custom_text_field.dart';
+import 'package:p7app/main_app/failure/app_error.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
+import 'package:p7app/main_app/views/widgets/custom_text_field.dart';
+import 'package:p7app/main_app/views/widgets/failure_widget.dart';
+import 'package:p7app/main_app/views/widgets/loader.dart';
 import 'package:provider/provider.dart';
+
+import 'company_details.dart';
 
 class CompanyListScreen extends StatefulWidget {
   @override
@@ -43,6 +39,35 @@ class _CompanyListScreenState extends State<CompanyListScreen>
         companyViewModel.getMoreData();
       }
     });
+  }
+
+  errorWidget() {
+    var vm = Provider.of<CompanyListViewModel>(context, listen: false);
+    switch (vm.appError) {
+      case AppError.serverError:
+        return FailureFullScreenWidget(
+          errorMessage: StringResources.unableToLoadData,
+          onTap: () {
+            return vm.refresh();
+          },
+        );
+
+      case AppError.networkError:
+        return FailureFullScreenWidget(
+          errorMessage: StringResources.unableToReachServerMessage,
+          onTap: () {
+            return vm.refresh();
+          },
+        );
+
+      default:
+        return FailureFullScreenWidget(
+          errorMessage: StringResources.somethingIsWrong,
+          onTap: () {
+            return vm.refresh();
+          },
+        );
+    }
   }
 
   @override
@@ -76,7 +101,7 @@ class _CompanyListScreenState extends State<CompanyListScreen>
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text(StringUtils.companyListAppbarText),
+          title: Text(StringResources.companyListAppbarText),
           actions: [
             IconButton(
               icon: Icon(isInSearchMode ? Icons.close : Icons.search),
@@ -99,91 +124,107 @@ class _CompanyListScreenState extends State<CompanyListScreen>
 //          )
           ],
         ),
-        body: Column(
-          children: [
-            if (companyViewModel.isInSearchMode)
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: CustomTextField(
-                  focusNode: _searchFieldFocusNode,
-                  controller: _searchTextEditingController,
-                  hintText: StringUtils.companyListSearchText,
-                  autofocus: true,
-                  textInputAction: TextInputAction.search,
-                  onSubmitted: (v) {
-                    search();
+        body: RefreshIndicator(
+          onRefresh: companyViewModel.refresh,
+          child: Column(
+            children: [
+              if (companyViewModel.isInSearchMode)
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4),
+                  child: CustomTextField(
+                    focusNode: _searchFieldFocusNode,
+                    controller: _searchTextEditingController,
+                    hintText: StringResources.companyListSearchText,
+                    autofocus: true,
+                    textInputAction: TextInputAction.search,
+                    onSubmitted: (v) {
+                      search();
 //                    if (_companyNameController.text.length > 2) {
 //                      search();
 //                    } else {
 //                      BotToast.showText(text: StringUtils.searchLetterCapText);
 //                    }
-                  },
+                    },
 //                  onChanged: (v) {
 //                    if (_searchTextEditingController.text.isEmpty) {
 //                      companyViewModel.resetState();
 //                    }
 //                  },
-                  suffixIcon: IconButton(
-                    icon: Icon(Icons.search),
-                    onPressed: () {
-                      search();
+                    suffixIcon: IconButton(
+                      icon: Icon(Icons.search),
+                      onPressed: () {
+                        search();
 //                      if (_companyNameController.text.length > 2) {
 //                        search();
 //                      } else {
 //                        BotToast.showText(
 //                            text: StringUtils.searchLetterCapText);
 //                      }
-                    },
+                      },
+                    ),
                   ),
                 ),
-              ),
 //            SizedBox(height: 5,),
 
-            companyViewModel.shouldShowCompanyCount
-                ? Container(
-                    padding: EdgeInsets.symmetric(vertical: 5),
-                    margin: EdgeInsets.symmetric(vertical: 5),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(companyViewModel.noOfSearchResults.toString()),
+              companyViewModel.shouldShowCompanyCount
+                  ? Container(
+                      padding: EdgeInsets.symmetric(vertical: 5),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(companyViewModel.companiesCount.toString()),
 //                                  if(companyViewModel.shouldShowCompanyCount)
-                        companyViewModel.noOfSearchResults > 1
-                            ? Text(' ' +
-                                StringUtils
-                                    .companyListMultipleCompaniesFoundText)
-                            : Text(' ' +
-                                StringUtils.companyListSingleCompanyFoundText)
-                      ],
-                    ))
-                : SizedBox(),
+                          companyViewModel.companiesCount > 1
+                              ? Text(' ' +
+                                  StringResources
+                                      .companyListMultipleCompaniesFoundText)
+                              : Text(' ' +
+                                  StringResources.companyListSingleCompanyFoundText)
+                        ],
+                      ))
+                  : SizedBox(),
 
-            companyViewModel.shouldShowLoader
-                ? Padding(
-                    padding: const EdgeInsets.only(top: 15),
-                    child: Loader(),
-                  )
-                : Expanded(
-                    child: ListView.builder(
-                      controller: _scrollController,
-                        itemCount: companySuggestion.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    CupertinoPageRoute(
-                                        builder: (context) => CompanyDetails(
-                                              company: companySuggestion[index],
-                                            )));
-                              },
-                              child: CompanyListTile(
-                                company: companySuggestion[index],
-                              ));
-                        }),
-                  )
-          ],
+              companyViewModel.shouldShowLoader
+                  ? Padding(
+                      padding: const EdgeInsets.only(top: 15),
+                      child: Loader(),
+                    )
+                  : Container(
+                      child: companyViewModel.shouldShowAppError
+                          ? errorWidget()
+                          : Expanded(
+                              child: ListView.builder(
+                                  controller: _scrollController,
+                                  itemCount: companySuggestion.length + 1,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    if (index == companySuggestion.length) {
+                                      return companyViewModel.isFetchingMoreData
+                                          ? Loader()
+                                          : SizedBox();
+                                    }
+                                    return GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              CupertinoPageRoute(
+                                                  builder: (context) =>
+                                                      CompanyDetails(
+                                                        company:
+                                                            companySuggestion[
+                                                                index],
+                                                      )));
+                                        },
+                                        child: CompanyListTile(
+                                          company: companySuggestion[index],
+                                        ));
+                                  }),
+                            ),
+                    )
+            ],
+          ),
         ),
       ),
     );

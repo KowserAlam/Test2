@@ -11,7 +11,7 @@ class Company extends Equatable {
   String basisMemberShipNo;
   DateTime yearOfEstablishment;
   String address;
-  String postCode;
+  String country;
   String companyContactNoOne;
   String companyContactNoTwo;
   String companyContactNoThree;
@@ -32,7 +32,7 @@ class Company extends Equatable {
   double longitude;
   String createdDate;
   String division;
-  String district;
+  String city;
 
   Company(
       {this.name,
@@ -43,7 +43,7 @@ class Company extends Equatable {
       this.basisMemberShipNo,
       this.yearOfEstablishment,
       this.address,
-      this.postCode,
+      this.country,
       this.companyContactNoOne,
       this.companyContactNoTwo,
       this.companyContactNoThree,
@@ -64,7 +64,7 @@ class Company extends Equatable {
       this.longitude,
       this.createdDate,
       this.division,
-      this.district});
+      this.city});
 
   Company.fromJson(Map<String, dynamic> json) {
     String baseUrl = FlavorConfig?.instance?.values?.baseUrl;
@@ -79,7 +79,7 @@ class Company extends Equatable {
       yearOfEstablishment = DateTime.parse(json['year_of_eastablishment']);
     }
     address = json['address']?.toString();
-    postCode = json['post_code']?.toString();
+    country = json['country']?.toString();
     companyContactNoOne = json['company_contact_no_one']?.toString();
     companyContactNoTwo = json['company_contact_no_two']?.toString();
     companyContactNoThree = json['company_contact_no_three']?.toString();
@@ -111,7 +111,7 @@ class Company extends Equatable {
 
     createdDate = json['created_date']?.toString();
     division = json['division']?.toString();
-    district = json['district']?.toString();
+    city = json['city']?.toString();
   }
 
   Map<String, dynamic> toJson() {
@@ -124,7 +124,7 @@ class Company extends Equatable {
     data['basis_membership_no'] = this.basisMemberShipNo;
     data['year_of_eastablishment'] = this.yearOfEstablishment;
     data['address'] = this.address;
-    data['post_code'] = this.postCode;
+    data['country'] = this.country;
     data['company_contact_no_one'] = this.companyContactNoOne;
     data['company_contact_no_two'] = this.companyContactNoTwo;
     data['company_contact_no_three'] = this.companyContactNoThree;
@@ -145,7 +145,7 @@ class Company extends Equatable {
     data['longitude'] = this.longitude;
     data['created_date'] = this.createdDate;
     data['division'] = this.division;
-    data['district'] = this.district;
+    data['city'] = this.city;
     return data;
   }
 

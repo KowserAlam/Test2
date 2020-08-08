@@ -4,11 +4,12 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p7app/features/job/models/job_list_model.dart';
 import 'package:p7app/features/job/models/job_model.dart';
+import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
 import 'package:p7app/main_app/resource/const.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/date_format_uitl.dart';
-
+import 'package:p7app/main_app/views/widgets/loader.dart';
 
 import 'job_apply_button.dart';
 
@@ -30,11 +31,11 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
     bool isFavorite = widget.jobModel.isFavourite;
 
     String publishDateText = widget.jobModel.postDate == null
-        ? StringUtils.unspecifiedText
+        ? StringResources.noneText
         : DateFormatUtil().dateFormat1(widget.jobModel.postDate);
 
     String deadLineText = widget.jobModel.applicationDeadline == null
-        ? StringUtils.unspecifiedText
+        ? StringResources.noneText
         : DateFormatUtil().dateFormat1(widget.jobModel.applicationDeadline);
 //    bool isDateExpired = widget.jobModel.applicationDeadline != null
 //        ? DateTime.now().isAfter(widget.jobModel.applicationDeadline)
@@ -60,6 +61,7 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
       child: CachedNetworkImage(
         imageUrl: widget.jobModel.profilePicture ?? "",
         placeholder: (context, _) => Image.asset(kCompanyImagePlaceholder),
+        progressIndicatorBuilder: (c, _, p) => Loader(),
       ),
     ); //That pointless fruit logo
     var jobTitle = Text(
@@ -111,7 +113,6 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
       ),
     );
 
-
     var applyButton = JobApplyButton(
       applicationDeadline: widget.jobModel.applicationDeadline,
       onPressedApply: widget.onApply,
@@ -160,58 +161,62 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
       ],
     );
 
-    return GestureDetector(
-      onTap: widget.onTap,
-      child: Container(
-        decoration: BoxDecoration(color: scaffoldBackgroundColor,
+    return Container(
+      decoration: BoxDecoration(
+        color: scaffoldBackgroundColor,
+boxShadow: CommonStyleTextField.boxShadow
 //        borderRadius: BorderRadius.circular(5),
-            boxShadow: [
-              BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 10),
-              BoxShadow(color: Colors.black.withOpacity(0.2), blurRadius: 10),
-            ]),
-        margin: EdgeInsets.fromLTRB(0, 4, 0, 4),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Container(
-              color: backgroundColor,
-              padding: EdgeInsets.all(8),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  companyLogo,
-                  SizedBox(width: 8),
-                  Expanded(
-                      child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      jobTitle,
-                      SizedBox(height: 3),
-                      companyName,
-                      SizedBox(height: 3),
-                      if (widget.jobModel.jobCity != null) companyLocation,
-                    ],
-                  )),
-                  SizedBox(width: 8),
-                  heartButton,
-                ],
+//        boxShadow: [
+//          BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 10),
+//          BoxShadow(color: Colors.black.withOpacity(0.2), blurRadius: 10),
+//        ],
+      ),
+      margin: EdgeInsets.fromLTRB(0, 4, 0, 4),
+      child: Material(
+        color: backgroundColor,
+        child: InkWell(
+          onTap: widget.onTap,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.all(8),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    companyLogo,
+                    SizedBox(width: 8),
+                    Expanded(
+                        child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        jobTitle,
+                        SizedBox(height: 3),
+                        companyName,
+                        SizedBox(height: 3),
+                        if (widget.jobModel.jobCity != null) companyLocation,
+                      ],
+                    )),
+                    SizedBox(width: 8),
+                    heartButton,
+                  ],
+                ),
               ),
-            ),
-            //Job Title
-            SizedBox(height: 1),
-            Container(
-              padding: EdgeInsets.all(8),
-              color: backgroundColor,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  publishDate,
-                  applicationDeadlineWidget,
-                  applyButton,
-                ],
+              //Job Title
+              Divider(height: 1),
+              Padding(
+                padding: EdgeInsets.all(8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    publishDate,
+                    applicationDeadlineWidget,
+                    applyButton,
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

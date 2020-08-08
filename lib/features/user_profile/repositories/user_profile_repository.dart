@@ -20,7 +20,7 @@ import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 
 class UserProfileRepository {
   Future<Either<AppError, UserModel>> getUserData() async {
@@ -29,46 +29,42 @@ class UserProfileRepository {
       var professionalId = authUser.getUser().professionalId;
       debugPrint(professionalId);
 
-      var url = "${Urls.userProfileUrl}/$professionalId";
+      var url = "${Urls.userProfileUrl}/";
       var response = await ApiClient().getRequest(url);
       print(response.statusCode);
 //      print(response.body);
 
-      if(response.statusCode == 200){
+      if (response.statusCode == 200) {
         var mapJson = json.decode(response.body);
 //      var mapJson = json.decode(dummyData);
+//        Logger().i(mapJson);
         var userModel = UserModel.fromJson(mapJson);
         return Right(userModel);
-      }else{
+      } else {
         return left(AppError.httpError);
       }
-
-
     } on SocketException catch (e) {
       print(e);
-      BotToast.showText(text: StringUtils.unableToReachServerMessage);
+      BotToast.showText(text: StringResources.unableToReachServerMessage);
       return left(AppError.networkError);
     } catch (e) {
       print(e);
-      BotToast.showText(text: StringUtils.somethingIsWrong);
+      BotToast.showText(text: StringResources.somethingIsWrong);
       return left(AppError.serverError);
     }
   }
 
-  _updateLocalInfo(UserPersonalInfo user,String imageUrl)async{
-
-    AuthUserModel authUserModel = await AuthService.getInstance().then((value) => value.getUser());
+  _updateLocalInfo(UserPersonalInfo user, String imageUrl) async {
+    AuthUserModel authUserModel =
+        await AuthService.getInstance().then((value) => value.getUser());
     authUserModel.email = user.email;
     authUserModel.fullName = user.fullName;
-    authUserModel.professionalImage = imageUrl;
     print(authUserModel.professionalId);
 
     var authService = await AuthService.getInstance();
-var data = authUserModel.toJson();
-Logger().i(data);
+    var data = authUserModel.toJson();
+    Logger().i(data);
     authService.saveUser(data);
-
-
   }
 
   Future<Either<AppError, UserPersonalInfo>> updateUserBasicInfo(
@@ -76,7 +72,7 @@ Logger().i(data);
     BotToast.showLoading();
     var authUser = await AuthService.getInstance();
     var professionalId = authUser.getUser().professionalId;
-    var url = "${Urls.userProfileUpdateUrlPartial}/$professionalId/";
+    var url = "${Urls.userProfileUpdateUrlPartial}/";
 
     try {
       var response = await ApiClient().putRequest(url, body);
@@ -85,23 +81,22 @@ Logger().i(data);
       if (response.statusCode == 200) {
         BotToast.closeAllLoading();
         var decodedJson = json.decode(response.body);
-        UserPersonalInfo data =
-            UserPersonalInfo.fromJson(decodedJson);
-        _updateLocalInfo(data,decodedJson['image']);
+        UserPersonalInfo data = UserPersonalInfo.fromJson(decodedJson);
+        _updateLocalInfo(data, decodedJson['image']);
         return Right(data);
       } else {
         BotToast.closeAllLoading();
-        BotToast.showText(text: StringUtils.unableToSaveData);
+        BotToast.showText(text: StringResources.unableToSaveData);
         return Left(AppError.unknownError);
       }
     } on SocketException catch (e) {
       BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToReachServerMessage);
+      BotToast.showText(text: StringResources.unableToReachServerMessage);
       print(e);
       return left(AppError.networkError);
     } catch (e) {
       BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToSaveData);
+      BotToast.showText(text: StringResources.unableToSaveData);
       print(e);
       return left(AppError.serverError);
     }
@@ -128,17 +123,17 @@ Logger().i(data);
         return Right(data);
       } else {
         BotToast.closeAllLoading();
-        BotToast.showText(text: StringUtils.unableToSaveData);
+        BotToast.showText(text: StringResources.unableToSaveData);
         return Left(AppError.unknownError);
       }
     } on SocketException catch (e) {
       BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToSaveData);
+      BotToast.showText(text: StringResources.unableToSaveData);
       print(e);
       return left(AppError.networkError);
     } catch (e) {
       BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToSaveData);
+      BotToast.showText(text: StringResources.unableToSaveData);
       print(e);
       return left(AppError.serverError);
     }
@@ -164,17 +159,17 @@ Logger().i(data);
         return Right(data);
       } else {
         BotToast.closeAllLoading();
-        BotToast.showText(text: StringUtils.unableToSaveData);
+        BotToast.showText(text: StringResources.unableToSaveData);
         return Left(AppError.unknownError);
       }
     } on SocketException catch (e) {
       BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToSaveData);
+      BotToast.showText(text: StringResources.unableToSaveData);
       print(e);
       return left(AppError.networkError);
     } catch (e) {
       BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToSaveData);
+      BotToast.showText(text: StringResources.unableToSaveData);
       print(e);
       return left(AppError.serverError);
     }
@@ -195,17 +190,17 @@ Logger().i(data);
         return Right(true);
       } else {
         BotToast.closeAllLoading();
-        BotToast.showText(text: StringUtils.unableToSaveData);
+        BotToast.showText(text: StringResources.unableToSaveData);
         return Left(AppError.unknownError);
       }
     } on SocketException catch (e) {
       BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToSaveData);
+      BotToast.showText(text: StringResources.unableToSaveData);
       print(e);
       return left(AppError.networkError);
     } catch (e) {
       BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToSaveData);
+      BotToast.showText(text: StringResources.unableToSaveData);
       print(e);
       return left(AppError.serverError);
     }
@@ -231,17 +226,17 @@ Logger().i(data);
         return Right(data);
       } else {
         BotToast.closeAllLoading();
-        BotToast.showText(text: StringUtils.unableToSaveData);
+        BotToast.showText(text: StringResources.unableToSaveData);
         return Left(AppError.unknownError);
       }
     } on SocketException catch (e) {
       BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToSaveData);
+      BotToast.showText(text: StringResources.unableToSaveData);
       print(e);
       return left(AppError.networkError);
     } catch (e) {
       BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToSaveData);
+      BotToast.showText(text: StringResources.unableToSaveData);
       print(e);
       return left(AppError.serverError);
     }
@@ -269,17 +264,17 @@ Logger().i(data);
         return Right(data);
       } else {
         BotToast.closeAllLoading();
-        BotToast.showText(text: StringUtils.unableToSaveData);
+        BotToast.showText(text: StringResources.unableToSaveData);
         return Left(AppError.unknownError);
       }
     } on SocketException catch (e) {
       BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToSaveData);
+      BotToast.showText(text: StringResources.unableToSaveData);
       print(e);
       return left(AppError.networkError);
     } catch (e) {
       BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToSaveData);
+      BotToast.showText(text: StringResources.unableToSaveData);
       print(e);
       return left(AppError.serverError);
     }
@@ -299,17 +294,17 @@ Logger().i(data);
         return Right(true);
       } else {
         BotToast.closeAllLoading();
-        BotToast.showText(text: StringUtils.unableToSaveData);
+        BotToast.showText(text: StringResources.unableToSaveData);
         return Left(AppError.unknownError);
       }
     } on SocketException catch (e) {
       BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToSaveData);
+      BotToast.showText(text: StringResources.unableToSaveData);
       print(e);
       return left(AppError.networkError);
     } catch (e) {
       BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToSaveData);
+      BotToast.showText(text: StringResources.unableToSaveData);
       print(e);
       return left(AppError.serverError);
     }
@@ -337,17 +332,17 @@ Logger().i(data);
         return Right(data);
       } else {
         BotToast.closeAllLoading();
-        BotToast.showText(text: StringUtils.unableToSaveData);
+        BotToast.showText(text: StringResources.unableToSaveData);
         return Left(AppError.unknownError);
       }
     } on SocketException catch (e) {
       BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToSaveData);
+      BotToast.showText(text: StringResources.unableToSaveData);
       print(e);
       return left(AppError.networkError);
     } catch (e) {
       BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToSaveData);
+      BotToast.showText(text: StringResources.unableToSaveData);
       print(e);
       return left(AppError.serverError);
     }
@@ -375,17 +370,17 @@ Logger().i(data);
         return Right(data);
       } else {
         BotToast.closeAllLoading();
-        BotToast.showText(text: StringUtils.unableToSaveData);
+        BotToast.showText(text: StringResources.unableToSaveData);
         return Left(AppError.unknownError);
       }
     } on SocketException catch (e) {
       BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToSaveData);
+      BotToast.showText(text: StringResources.unableToSaveData);
       print(e);
       return left(AppError.networkError);
     } catch (e) {
       BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToSaveData);
+      BotToast.showText(text: StringResources.unableToSaveData);
       print(e);
       return left(AppError.serverError);
     }
@@ -407,17 +402,17 @@ Logger().i(data);
         return Right(true);
       } else {
         BotToast.closeAllLoading();
-        BotToast.showText(text: StringUtils.unableToSaveData);
+        BotToast.showText(text: StringResources.unableToSaveData);
         return Left(AppError.unknownError);
       }
     } on SocketException catch (e) {
       BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToSaveData);
+      BotToast.showText(text: StringResources.unableToSaveData);
       print(e);
       return left(AppError.networkError);
     } catch (e) {
       BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToSaveData);
+      BotToast.showText(text: StringResources.unableToSaveData);
       print(e);
       return left(AppError.serverError);
     }
@@ -445,17 +440,17 @@ Logger().i(data);
         return Right(data);
       } else {
         BotToast.closeAllLoading();
-        BotToast.showText(text: StringUtils.unableToSaveData);
+        BotToast.showText(text: StringResources.unableToSaveData);
         return Left(AppError.unknownError);
       }
     } on SocketException catch (e) {
       BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToSaveData);
+      BotToast.showText(text: StringResources.unableToSaveData);
       print(e);
       return left(AppError.networkError);
     } catch (e) {
       BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToSaveData);
+      BotToast.showText(text: StringResources.unableToSaveData);
       print(e);
       return left(AppError.serverError);
     }
@@ -480,27 +475,25 @@ Logger().i(data);
         return Right(data);
       } else {
         BotToast.closeAllLoading();
-        BotToast.showText(text: StringUtils.unableToSaveData);
+        BotToast.showText(text: StringResources.unableToSaveData);
         return Left(AppError.unknownError);
       }
     } on SocketException catch (e) {
       BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToSaveData);
+      BotToast.showText(text: StringResources.unableToSaveData);
       print(e);
       return left(AppError.networkError);
     } catch (e) {
       BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToSaveData);
+      BotToast.showText(text: StringResources.unableToSaveData);
       print(e);
       return left(AppError.serverError);
     }
   }
 
-  Future<Either<AppError, bool>> deleteUserEducation(
-      EduInfo edInfo) async {
+  Future<Either<AppError, bool>> deleteUserEducation(EduInfo edInfo) async {
     BotToast.showLoading();
-    var url =
-        "${Urls.professionalEducationUrl}/${edInfo.educationId}/";
+    var url = "${Urls.professionalEducationUrl}/${edInfo.educationId}/";
     var data = {"is_archived": true};
 
     try {
@@ -512,17 +505,40 @@ Logger().i(data);
         return Right(true);
       } else {
         BotToast.closeAllLoading();
-        BotToast.showText(text: StringUtils.unableToSaveData);
+        BotToast.showText(text: StringResources.unableToSaveData);
         return Left(AppError.unknownError);
       }
     } on SocketException catch (e) {
       BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToSaveData);
+      BotToast.showText(text: StringResources.unableToSaveData);
       print(e);
       return left(AppError.networkError);
     } catch (e) {
       BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToSaveData);
+      BotToast.showText(text: StringResources.unableToSaveData);
+      print(e);
+      return left(AppError.serverError);
+    }
+  }
+  Future<Either<AppError, EduInfo>> getUserEducation(int id) async {
+    var url = "${Urls.professionalEducationObjUrl}/${id}/";
+    debugPrint(url);
+
+    try {
+      var response = await ApiClient().getRequest(url);
+      print(response.statusCode);
+//      print(response.body);
+      if (response.statusCode == 200) {
+
+         var decodedJson = json.decode(response.body);
+        return Right(EduInfo.fromJson(decodedJson['edu_info']));
+      } else {
+        return Left(AppError.unknownError);
+      }
+    } on SocketException catch (e) {
+      print(e);
+      return left(AppError.networkError);
+    } catch (e) {
       print(e);
       return left(AppError.serverError);
     }
@@ -550,17 +566,17 @@ Logger().i(data);
         return Right(data);
       } else {
         BotToast.closeAllLoading();
-        BotToast.showText(text: StringUtils.unableToSaveData);
+        BotToast.showText(text: StringResources.unableToSaveData);
         return Left(AppError.unknownError);
       }
     } on SocketException catch (e) {
       BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToSaveData);
+      BotToast.showText(text: StringResources.unableToSaveData);
       print(e);
       return left(AppError.networkError);
     } catch (e) {
       BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToSaveData);
+      BotToast.showText(text: StringResources.unableToSaveData);
       print(e);
       return left(AppError.serverError);
     }
@@ -588,17 +604,17 @@ Logger().i(data);
         return Right(data);
       } else {
         BotToast.closeAllLoading();
-        BotToast.showText(text: StringUtils.unableToSaveData);
+        BotToast.showText(text: StringResources.unableToSaveData);
         return Left(AppError.unknownError);
       }
     } on SocketException catch (e) {
       BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToSaveData);
+      BotToast.showText(text: StringResources.unableToSaveData);
       print(e);
       return left(AppError.networkError);
     } catch (e) {
       BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToSaveData);
+      BotToast.showText(text: StringResources.unableToSaveData);
       print(e);
       return left(AppError.serverError);
     }
@@ -620,22 +636,21 @@ Logger().i(data);
         return Right(true);
       } else {
         BotToast.closeAllLoading();
-        BotToast.showText(text: StringUtils.unableToSaveData);
+        BotToast.showText(text: StringResources.unableToSaveData);
         return Left(AppError.unknownError);
       }
     } on SocketException catch (e) {
       BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToSaveData);
+      BotToast.showText(text: StringResources.unableToSaveData);
       print(e);
       return left(AppError.networkError);
     } catch (e) {
       BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToSaveData);
+      BotToast.showText(text: StringResources.unableToSaveData);
       print(e);
       return left(AppError.serverError);
     }
   }
-
 
   //Experience
   Future<Either<AppError, ExperienceInfo>> addUserExperience(
@@ -654,22 +669,21 @@ Logger().i(data);
       print(response.body);
       if (response.statusCode == 200) {
         BotToast.closeAllLoading();
-        ExperienceInfo data =
-        ExperienceInfo();
+        ExperienceInfo data = ExperienceInfo();
         return Right(data);
       } else {
         BotToast.closeAllLoading();
-        BotToast.showText(text: StringUtils.unableToSaveData);
+        BotToast.showText(text: StringResources.unableToSaveData);
         return Left(AppError.unknownError);
       }
     } on SocketException catch (e) {
       BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToSaveData);
+      BotToast.showText(text: StringResources.unableToSaveData);
       print(e);
       return left(AppError.networkError);
     } catch (e) {
       BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToSaveData);
+      BotToast.showText(text: StringResources.unableToSaveData);
       print(e);
       return left(AppError.serverError);
     }
@@ -695,22 +709,21 @@ Logger().i(data);
       if (response.statusCode == 200) {
         BotToast.closeAllLoading();
 
-        ExperienceInfo data =
-        ExperienceInfo();
+        ExperienceInfo data = ExperienceInfo();
         return Right(data);
       } else {
         BotToast.closeAllLoading();
-        BotToast.showText(text: StringUtils.unableToSaveData);
+        BotToast.showText(text: StringResources.unableToSaveData);
         return Left(AppError.unknownError);
       }
     } on SocketException catch (e) {
       BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToSaveData);
+      BotToast.showText(text: StringResources.unableToSaveData);
       print(e);
       return left(AppError.networkError);
     } catch (e) {
       BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToSaveData);
+      BotToast.showText(text: StringResources.unableToSaveData);
       print(e);
       return left(AppError.serverError);
     }
@@ -732,17 +745,17 @@ Logger().i(data);
         return Right(true);
       } else {
         BotToast.closeAllLoading();
-        BotToast.showText(text: StringUtils.unableToSaveData);
+        BotToast.showText(text: StringResources.unableToSaveData);
         return Left(AppError.unknownError);
       }
     } on SocketException catch (e) {
       BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToSaveData);
+      BotToast.showText(text: StringResources.unableToSaveData);
       print(e);
       return left(AppError.networkError);
     } catch (e) {
       BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToSaveData);
+      BotToast.showText(text: StringResources.unableToSaveData);
       print(e);
       return left(AppError.serverError);
     }
@@ -754,28 +767,28 @@ Logger().i(data);
     BotToast.showLoading();
 
     var url = "${Urls.professionalPortfolioUrl}/$portfolioId/";
+    debugPrint(url);
     try {
       var response = await ApiClient().putRequest(url, data);
       print(response.statusCode);
       print(response.body);
       if (response.statusCode == 200) {
         BotToast.closeAllLoading();
-        PortfolioInfo port =
-        PortfolioInfo.fromJson(json.decode(response.body));
+        PortfolioInfo port = PortfolioInfo.fromJson(json.decode(response.body));
         return Right(port);
       } else {
         BotToast.closeAllLoading();
-        BotToast.showText(text: StringUtils.unableToSaveData);
+        BotToast.showText(text: StringResources.unableToSaveData);
         return Left(AppError.unknownError);
       }
     } on SocketException catch (e) {
       BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToSaveData);
+      BotToast.showText(text: StringResources.unableToSaveData);
       print(e);
       return left(AppError.networkError);
     } catch (e) {
       BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToSaveData);
+      BotToast.showText(text: StringResources.unableToSaveData);
       print(e);
       return left(AppError.serverError);
     }
@@ -792,22 +805,21 @@ Logger().i(data);
       print(response.body);
       if (response.statusCode == 200) {
         BotToast.closeAllLoading();
-        PortfolioInfo port =
-        PortfolioInfo.fromJson(json.decode(response.body));
+        PortfolioInfo port = PortfolioInfo.fromJson(json.decode(response.body));
         return Right(port);
       } else {
         BotToast.closeAllLoading();
-        BotToast.showText(text: StringUtils.unableToSaveData);
+        BotToast.showText(text: StringResources.unableToSaveData);
         return Left(AppError.unknownError);
       }
     } on SocketException catch (e) {
       BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToSaveData);
+      BotToast.showText(text: StringResources.unableToSaveData);
       print(e);
       return left(AppError.networkError);
     } catch (e) {
       BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToSaveData);
+      BotToast.showText(text: StringResources.unableToSaveData);
       print(e);
       return left(AppError.serverError);
     }
@@ -816,8 +828,7 @@ Logger().i(data);
   Future<Either<AppError, bool>> deletePortfolio(
       PortfolioInfo portfolio) async {
     BotToast.showLoading();
-    var url =
-        "${Urls.professionalPortfolioUrl}/${portfolio.portfolioId}/";
+    var url = "${Urls.professionalPortfolioUrl}/${portfolio.portfolioId}/";
     var data = {"is_archived": true};
 
     try {
@@ -829,17 +840,17 @@ Logger().i(data);
         return Right(true);
       } else {
         BotToast.closeAllLoading();
-        BotToast.showText(text: StringUtils.unableToSaveData);
+        BotToast.showText(text: StringResources.unableToSaveData);
         return Left(AppError.unknownError);
       }
     } on SocketException catch (e) {
       BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToSaveData);
+      BotToast.showText(text: StringResources.unableToSaveData);
       print(e);
       return left(AppError.networkError);
     } catch (e) {
       BotToast.closeAllLoading();
-      BotToast.showText(text: StringUtils.unableToSaveData);
+      BotToast.showText(text: StringResources.unableToSaveData);
       print(e);
       return left(AppError.serverError);
     }

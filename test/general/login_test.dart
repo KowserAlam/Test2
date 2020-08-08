@@ -1,4 +1,4 @@
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:http/http.dart' as http;
@@ -11,20 +11,20 @@ class MockClient extends Mock implements http.Client {}
 
    test("Password is small",(){
      var actual = Validator().validatePassword("1@2");
-     var expected = StringUtils.passwordMustBeEight ;
+     var expected = StringResources.passwordMustBeEight ;
      expect(actual, expected);
    });
 
 
    test("password long enough but dosen't meet recurements",(){
      var actual = Validator().validatePassword("kfjeoifngjdroslsjrierkiren");
-     var expected = StringUtils.passwordMustBeEight ;
+     var expected = StringResources.passwordMustBeEight ;
      expect(actual, expected);
    });
 
    test("Password is empty",(){
      var actual = Validator().validatePassword("");
-     var expected = StringUtils.thisFieldIsRequired ;
+     var expected = StringResources.thisFieldIsRequired ;
      expect(actual, expected);
    });
 

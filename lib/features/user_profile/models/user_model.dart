@@ -46,7 +46,7 @@ class UserModel {
     }
     if (json['skill_info'] != null) {
       skillInfo = new List<SkillInfo>();
-      json['skill_info'][0].forEach((v) {
+      json['skill_info'].forEach((v) {
         skillInfo.add(new SkillInfo.fromJson(v));
       });
     }

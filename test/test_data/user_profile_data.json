@@ -1,13 +1,24 @@
 {
   "personal_info": {
     "id": "c8eb21a2-0bb6-46ec-add6-0de5336e1723",
+    "created_by": null,
+    "created_at": null,
+    "created_from": null,
+    "modified_by": null,
+    "modified_at": null,
+    "modified_from": null,
+    "is_archived": false,
+    "archived_by": null,
+    "archived_at": null,
+    "archived_from": null,
+    "slug": null,
     "professional_id": null,
-    "full_name": "shofi",
+    "full_name": "MD. Shofiullah",
     "email": "shofi@ishraak.com",
     "phone": "01940469959",
-    "address": "",
-    "about_me": "Nothing to say",
-    "image": "/media/b3435184-eb87-45db-a360-bdb3919b3c3b-professional.jpg",
+    "address": "Dhaka",
+    "about_me": "",
+    "image": "/media/28eac275-6a30-4ec0-a33a-97e90493c4f4-professional.png",
     "job_alert_status": false,
     "father_name": "",
     "mother_name": "",
@@ -15,164 +26,153 @@
     "twitter_id": "shofizone",
     "linkedin_id": "shofizone",
     "date_of_birth": "2020-04-22",
-    "blood_group": null,
+    "blood_group": "O+",
     "expected_salary_min": null,
     "expected_salary_max": null,
-    "permanent_address": "",
-    "current_location": null,
+    "permanent_address": "Haluaght, Mymensingh",
+    "current_location": "Dhaka, Bangladesh",
     "current_company": "Ishraak Solution",
-    "current_designation": "Software Engineer",
-    "created_date": "2020-05-04T15:36:36.954590+06:00",
-    "modified_date": "2020-05-22T11:29:15.671597+06:00",
-    "created_at": null,
-    "modified_at": "27.123.255.109",
-    "industry_expertise": null,
+    "current_designation": "Jr. Software Engineer",
+    "industry_expertise": "Software & ITES",
     "user": 39,
-    "gender": "Any",
-    "status": null,
-    "experience": null,
-    "qualification": null,
-    "nationality": null,
+    "gender": "Male",
+    "status": "Permanent (Full-time)",
+    "experience": "1",
+    "qualification": "BSc in CSE or Equivalent",
+    "nationality": 1,
     "religion": 1,
-    "created_by": null,
-    "modified_by": null,
     "religion_obj": {
       "id": 1,
-      "name": "Islam",
-      "created_date": "2020-05-16T16:04:45+06:00"
+      "created_by": null,
+      "created_at": null,
+      "created_from": null,
+      "modified_by": null,
+      "modified_at": null,
+      "modified_from": null,
+      "is_archived": false,
+      "archived_by": null,
+      "archived_at": null,
+      "archived_from": null,
+      "name": "Islam"
     },
     "nationality_obj": {
-      "name": "",
-      "created_date": null
+      "id": 1,
+      "created_by": null,
+      "created_at": null,
+      "created_from": null,
+      "modified_by": null,
+      "modified_at": null,
+      "modified_from": null,
+      "is_archived": false,
+      "archived_by": null,
+      "archived_at": null,
+      "archived_from": null,
+      "name": "Bangladeshi"
     }
   },
   "edu_info": [
     {
-      "id": 3,
-      "degree": "BSc in CSE",
+      "id": 2,
+      "degree": "BSc in CSE or Equivalent",
       "institution_obj": {
-        "name": "",
-        "created_date": null
+        "created_by": "",
+        "created_at": null,
+        "created_from": "",
+        "modified_by": "",
+        "modified_at": null,
+        "modified_from": "",
+        "is_archived": false,
+        "archived_by": "",
+        "archived_at": null,
+        "archived_from": "",
+        "name": ""
       },
       "institution_text": "UITS",
-      "cgpa": "4",
+      "cgpa": "3.8",
       "major_obj": {
-        "name": "",
-        "created_date": null
+        "created_by": "",
+        "created_at": null,
+        "created_from": "",
+        "modified_by": "",
+        "modified_at": null,
+        "modified_from": "",
+        "is_archived": false,
+        "archived_by": "",
+        "archived_at": null,
+        "archived_from": "",
+        "name": ""
       },
       "major_text": null,
-      "enrolled_date": "2015-05-22",
-      "graduation_date": null,
+      "enrolled_date": "2020-05-25",
+      "graduation_date": "2020-05-31",
       "description": null,
       "is_ongoing": false
     }
   ],
   "skill_info": [
-    [
-      {
-        "id": 5,
-        "skill_obj": {
-          "id": 2,
-          "name": "PHP",
-          "created_date": "2020-04-05T19:50:29+06:00"
-        },
-        "rating": 10.0,
-        "verified_by_skillcheck": false
-      }
-    ]
+    {
+      "id": 47,
+      "skill_obj": {
+        "id": 20,
+        "name": "HTML"
+      },
+      "rating": 3.0,
+      "verified_by_skillcheck": false
+    },
+    {
+      "id": 48,
+      "skill_obj": {
+        "id": 108,
+        "name": "C#"
+      },
+      "rating": 2.0,
+      "verified_by_skillcheck": false
+    },
+    {
+      "id": 71,
+      "skill_obj": {
+        "id": 3,
+        "name": "Java"
+      },
+      "rating": 3.0,
+      "verified_by_skillcheck": false
+    },
+    {
+      "id": 72,
+      "skill_obj": {
+        "id": 53,
+        "name": "Android Application Development"
+      },
+      "rating": 4.0,
+      "verified_by_skillcheck": false
+    },
+    {
+      "id": 73,
+      "skill_obj": {
+        "id": 52,
+        "name": "iOS Application Development"
+      },
+      "rating": 1.0,
+      "verified_by_skillcheck": false
+    }
   ],
   "experience_info": [
     {
+      "id": 5,
       "professional": "c8eb21a2-0bb6-46ec-add6-0de5336e1723",
-      "company_text": "ABCO Overseas Corporation Ltd",
+      "company_text": "Ishraak Solutions",
       "company": {
-        "profile_picture": "/media/images/rsz_screenshot_from_2020-04-12_10-57-26.jpg"
+        "profile_picture": "/media/images/Ishraak_high_resolution_3000x3324_logo_Icon_PNG.png"
       },
-      "designation": "Software Engineer",
-      "start_date": "2020-05-21",
+      "designation": "Jr. Software Engineer",
+      "start_date": "2019-06-16",
       "end_date": null,
-      "is_currently_working": true
-    },
-    {
-      "professional": "c8eb21a2-0bb6-46ec-add6-0de5336e1723",
-      "company_text": "Namespace IT",
-      "company": {
-        "profile_picture": "/media/images/Untitled_design_-_2020-05-03T104323.834.jpg"
-      },
-      "designation": "Software Engineer",
-      "start_date": "2020-05-13",
-      "end_date": null,
-      "is_currently_working": true
-    },
-    {
-      "professional": "c8eb21a2-0bb6-46ec-add6-0de5336e1723",
-      "company_text": "BJIT Limited",
-      "company": {
-        "profile_picture": "/media/images/Untitled_design_-_2020-04-13T162425.619.jpg"
-      },
-      "designation": "SE",
-      "start_date": "2018-05-22",
-      "end_date": "2020-05-22",
-      "is_currently_working": false
-    },
-    {
-      "professional": "c8eb21a2-0bb6-46ec-add6-0de5336e1723",
-      "company_text": "Craftsmen",
-      "company": {
-        "profile_picture": "/media/images/Untitled_design_-_2020-04-15T104537.785.jpg"
-      },
-      "designation": "SE",
-      "start_date": "2018-05-22",
-      "end_date": null,
-      "is_currently_working": false
-    },
-    {
-      "professional": "c8eb21a2-0bb6-46ec-add6-0de5336e1723",
-      "company_text": "Dhaka Boss",
-      "company": {
-        "profile_picture": "/media/images/Untitled_design_-_2020-05-19T124154.937.jpg"
-      },
-      "designation": "se",
-      "start_date": "2017-05-22",
-      "end_date": null,
-      "is_currently_working": false
+      "is_currently_working": true,
+      "description": null
     }
   ],
-  "portfolio_info": [
-    {
-      "id": 1,
-      "name": "Test",
-      "image": "/media/3ab775df-13f9-43bf-98de-c9ac48dba7a8-professional.jpg",
-      "description": ""
-    }
-  ],
-  "membership_info": [
-    {
-      "id": 2,
-      "organization": "BASIS",
-      "position_held": "",
-      "membership_ongoing": true,
-      "start_date": "2018-05-22",
-      "end_date": null,
-      "description": ""
-    }
-  ],
-  "certification_info": [
-    {
-      "id": 2,
-      "certificate_name": "UNKNOWN ",
-      "organization": "",
-      "has_expiry_period": false,
-      "issue_date": "2017-05-22",
-      "expiry_date": null,
-      "credential_id": "",
-      "credential_url": ""
-    }
-  ],
-  "reference_data": [
-    {
-      "id": 2,
-      "description": "NAME"
-    }
-  ]
+  "portfolio_info": [],
+  "membership_info": [],
+  "certification_info": [],
+  "reference_data": []
 }

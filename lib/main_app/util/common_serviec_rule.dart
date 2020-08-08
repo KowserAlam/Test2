@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/resource/const.dart';
 
 class CommonServiceRule {
@@ -21,5 +22,10 @@ class CommonServiceRule {
 
   static set onLoadPageReloadTime(Duration value) {
     _onLoadPageReloadTime = value;
+  }
+  shouldNotFetchData(DateTime lastFetchTime,AppError appError){
+    if(lastFetchTime == null)
+    return false;
+    return  DateTime.now().difference(lastFetchTime) < _onLoadPageReloadTime && appError == null;
   }
 }

@@ -1,9 +1,11 @@
 import 'package:after_layout/after_layout.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
+import 'package:p7app/features/settings/setings_screen.dart';
 import 'package:p7app/features/user_profile/views/screens/edit_portfolio_screen.dart';
 import 'package:p7app/features/user_profile/views/screens/edit_reference_screen.dart';
 import 'package:p7app/features/user_profile/views/widgets/portfolio_list_item_widget.dart';
-import 'package:p7app/features/user_profile/views/screens/certifications_list_item_widget.dart';
+import 'package:p7app/features/user_profile/views/widgets/certifications_list_item_widget.dart';
 import 'package:p7app/features/user_profile/views/widgets/contact_info_widget.dart';
 import 'package:p7app/features/user_profile/views/widgets/references_list_item_widget.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -24,15 +26,17 @@ import 'package:p7app/main_app/api_helpers/url_launcher_helper.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/resource/const.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
-import 'package:p7app/main_app/widgets/failure_widget.dart';
-import 'package:p7app/main_app/widgets/loader.dart';
-import 'package:p7app/main_app/widgets/rectangular_button.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
+import 'package:p7app/main_app/views/widgets/common_prompt_dialog.dart';
+import 'package:p7app/main_app/views/widgets/failure_widget.dart';
+import 'package:p7app/main_app/views/widgets/loader.dart';
+import 'package:p7app/main_app/views/widgets/rectangular_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:p7app/features/settings/widgets/subscribe_job_alert.dart';
 import 'package:provider/provider.dart';
-import 'package:p7app/main_app/util/method_extension.dart';
+import 'package:p7app/method_extension.dart';
 import 'edit_certifications_screen.dart';
 import 'edit_memberships_screen.dart';
 
@@ -81,7 +85,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                               Divider(),
                               Text(
                                 user.personalInfo.phone ?? "",
-                                style: Theme.of(context).textTheme.title,
+                                style: Theme.of(context).textTheme.subtitle1,
                               ),
                               Divider(),
                               Text(user.personalInfo.address ?? ""),
@@ -106,7 +110,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
               });
         },
         child: Text(
-          StringUtils.contactInfoText,
+          StringResources.contactInfoText,
           style: TextStyle(
               color: Theme.of(context).primaryColor,
               fontSize: 16,
@@ -126,7 +130,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
 //        ),
           RectangularButton(
             primaryFill: false,
-            text: StringUtils.editProfileText,
+            text: StringResources.editProfileText,
             onPressed: () {},
           )
         ],
@@ -188,12 +192,13 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                   borderRadius: BorderRadius.circular(20)),
               child: InkWell(
                 onTap: () {
-                  var link =
+                  var username =
                       userProfileViewModel.userData.personalInfo.facebookId;
-                  if (link != null) {
-                    if (link.isNotEmpty)
-                      UrlLauncherHelper.launchUrl(
-                          "https://" + StringUtils.facebookBaseUrl + link);
+                  if (username.isNotEmptyOrNotNull) {
+//                    UrlLauncherHelper.launchFacebookUrl(username);
+                    UrlLauncherHelper.launchUrl("https://" +
+                        StringResources.facebookBaseUrl +
+                        username);
                   }
                 },
                 child: Icon(
@@ -219,7 +224,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                   if (link != null) {
                     if (link.isNotEmpty)
                       UrlLauncherHelper.launchUrl(
-                          "https://" + StringUtils.linkedBaseUrl + link);
+                          "https://" + StringResources.linkedBaseUrl + link);
                   }
                 },
                 child: Icon(
@@ -243,7 +248,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                   if (link != null) {
                     if (link.isNotEmpty)
                       UrlLauncherHelper.launchUrl(
-                          "https://" + StringUtils.twitterBaeUrl + link);
+                          "https://" + StringResources.twitterBaeUrl + link);
                   }
                 },
                 child: Icon(
@@ -371,7 +376,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         Text(
-          StringUtils.aboutMeText,
+          StringResources.aboutMeText,
           style: titleTextStyle.apply(color: Colors.white),
         ),
         SizedBox(
@@ -390,10 +395,11 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                 selector: (_, userProfileViewModel) =>
                     userProfileViewModel.userData.personalInfo.aboutMe ?? "",
                 builder: (context, String data, _) {
-                  return Text(
-                    data,
-                    textAlign: TextAlign.left,
-                  );
+                  return HtmlWidget(data);
+//                  return Text(
+//                    data,
+//                    textAlign: TextAlign.left,
+//                  );
                 }),
           ),
         ),
@@ -410,7 +416,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
           setState(() {});
         },
         icon: FontAwesomeIcons.globeEurope,
-        label: StringUtils.professionalExperienceText,
+        label: StringResources.workExperienceText,
         onTapAddNewAction: () {
           Navigator.push(
               context,
@@ -433,8 +439,9 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                             previouslyAddedExp: expList,
                           )));
             },
-            onTapDelete: () {
-              userProfileViewModel.deleteExperienceData(exp, index);
+            onTapDelete: () async {
+              var val = await _deleteConfirmationDialog();
+              if (val) userProfileViewModel.deleteExperienceData(exp, index);
             },
           );
         }),
@@ -447,7 +454,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
       return UserInfoListItem(
         isInEditMode: isInEditModeEducation,
         icon: FontAwesomeIcons.university,
-        label: StringUtils.educationsText,
+        label: StringResources.educationsText,
         onTapEditAction: () {
           setState(() {
             isInEditModeEducation = !isInEditModeEducation;
@@ -464,9 +471,11 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
             eduInfoModel: eduList[i],
             index: i,
             isInEditMode: isInEditModeEducation,
-            onTapDelete: () {
-              Provider.of<UserProfileViewModel>(context, listen: false)
-                  .deleteEduInfo(eduList[i], i);
+            onTapDelete: () async {
+              var val = await _deleteConfirmationDialog();
+              if (val)
+                Provider.of<UserProfileViewModel>(context, listen: false)
+                    .deleteEduInfo(eduList[i], i);
             },
             onTapEdit: () {
               Navigator.push(
@@ -492,7 +501,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
           setState(() {});
         },
         icon: FontAwesomeIcons.tools,
-        label: StringUtils.professionalSkillText,
+        label: StringResources.professionalSkillText,
         onTapAddNewAction: () {
           Navigator.push(
               context,
@@ -506,8 +515,9 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
           return ProfessionalSkillListItem(
             isInEditMode: isInEditModeSkill,
             skillInfo: skill,
-            onTapDelete: () {
-              userProfileViewModel.deleteSkillData(skill, index);
+            onTapDelete: () async {
+              var val = await _deleteConfirmationDialog();
+              if (val) userProfileViewModel.deleteSkillData(skill, index);
             },
             onTapEdit: () {
               Navigator.push(
@@ -536,7 +546,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
           setState(() {});
         },
         icon: FontAwesomeIcons.wallet,
-        label: StringUtils.projectsText,
+        label: StringResources.projectsText,
         onTapAddNewAction: () {
           Navigator.push(context,
               CupertinoPageRoute(builder: (context) => EditPortfolio()));
@@ -545,8 +555,9 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
           var port = list[index];
           return PortfolioListItemWidget(
             isInEditMode: isInEditModePortfolio,
-            onTapDelete: () {
-              userProfileViewModel.deletePortfolio(port, index);
+            onTapDelete: () async {
+              var val = await _deleteConfirmationDialog();
+              if (val) userProfileViewModel.deletePortfolio(port, index);
             },
             portfolioInfo: port,
             onTapEdit: () {
@@ -573,7 +584,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
           setState(() {});
         },
         icon: FontAwesomeIcons.certificate,
-        label: StringUtils.certificationsText,
+        label: StringResources.certificationsText,
         onTapAddNewAction: () {
           Navigator.push(
               context,
@@ -587,8 +598,9 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
           return CertificationsListItemWidget(
             isInEditMode: isInEditModeCertifications,
             certificationInfo: cer,
-            onTapDelete: () {
-              userProfileViewModel.deleteCertificationData(cer, index);
+            onTapDelete: () async {
+              var val = await _deleteConfirmationDialog();
+              if (val) userProfileViewModel.deleteCertificationData(cer, index);
             },
             onTapEdit: () {
               Navigator.push(
@@ -615,7 +627,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
           setState(() {});
         },
         icon: FontAwesomeIcons.users,
-        label: StringUtils.membershipsText,
+        label: StringResources.membershipsText,
         onTapAddNewAction: () {
           Navigator.push(context,
               CupertinoPageRoute(builder: (context) => EditMemberShips()));
@@ -634,8 +646,10 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                             index: index,
                           )));
             },
-            onTapDelete: () {
-              userProfileViewModel.deleteMembershipData(memberShip, index);
+            onTapDelete: () async {
+              var val = await _deleteConfirmationDialog();
+              if (val)
+                userProfileViewModel.deleteMembershipData(memberShip, index);
             },
           );
         }),
@@ -652,7 +666,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
           setState(() {});
         },
         icon: FontAwesomeIcons.bookReader,
-        label: StringUtils.referencesText,
+        label: StringResources.referencesText,
         onTapAddNewAction: () {
           Navigator.push(context,
               CupertinoPageRoute(builder: (context) => EditReferenceScreen()));
@@ -662,8 +676,9 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
           return ReferencesListItemWidget(
             isInEditMode: isInEditModeReferences,
             referenceData: ref,
-            onTapDelete: () {
-              userProfileViewModel.deleteReferenceData(ref, index);
+            onTapDelete: () async {
+              var val = await _deleteConfirmationDialog();
+              if (val) userProfileViewModel.deleteReferenceData(ref, index);
             },
             onTapEdit: () {
               Navigator.push(
@@ -681,7 +696,20 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(StringUtils.myProfileText),
+        title: Text(StringResources.myProfileText),
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.settings,
+            ),
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  CupertinoPageRoute(
+                      builder: (context) => SettingsScreen()));
+            },
+          ),
+        ],
       ),
       body: RefreshIndicator(
         onRefresh: () async {
@@ -696,7 +724,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
               switch (userProfileViewModel.appError) {
                 case AppError.serverError:
                   return FailureFullScreenWidget(
-                    errorMessage: StringUtils.unableToLoadData,
+                    errorMessage: StringResources.unableToLoadData,
                     onTap: () {
                       return Provider.of<UserProfileViewModel>(context,
                               listen: false)
@@ -706,7 +734,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
 
                 case AppError.networkError:
                   return FailureFullScreenWidget(
-                    errorMessage: StringUtils.unableToReachServerMessage,
+                    errorMessage: StringResources.unableToReachServerMessage,
                     onTap: () {
                       return Provider.of<UserProfileViewModel>(context,
                               listen: false)
@@ -716,7 +744,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
 
                 default:
                   return FailureFullScreenWidget(
-                    errorMessage: StringUtils.somethingIsWrong,
+                    errorMessage: StringResources.somethingIsWrong,
                     onTap: () {
                       return Provider.of<UserProfileViewModel>(context,
                               listen: false)
@@ -823,6 +851,8 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                       /// Personal info
                       personalInfoWidget,
                       SizedBox(height: 15),
+//                      SubscribeJobAlert(),
+//                      SizedBox(height: 15),
                     ],
                   ),
                 ),
@@ -832,5 +862,25 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
         ),
       ),
     );
+  }
+
+  Future<bool> _deleteConfirmationDialog() async {
+    return showDialog(
+        context: context,
+        barrierDismissible: true,
+        builder: (context) {
+          return CommonPromptDialog(
+            titleText: StringResources.doYouWantToDeleteText,
+            onCancel: () {
+              Navigator.of(context).pop(false);
+            },
+            onAccept: () {
+              Navigator.of(context).pop(true);
+            },
+          );
+        }).then((value) {
+      if (value == null) return false;
+      return value;
+    });
   }
 }

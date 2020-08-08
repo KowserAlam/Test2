@@ -1,14 +1,13 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 
+class Skill extends Equatable {
+  String id;
+  String name;
 
-class Skill extends Equatable{
-   String id;
-   String name;
+  Skill({this.id, this.name});
 
-   Skill({this.id, this.name});
-
-   Skill.fromJson(Map<String, dynamic> json) {
+  Skill.fromJson(Map<String, dynamic> json) {
     id = json['id']?.toString();
     name = json['name'];
   }
@@ -22,8 +21,13 @@ class Skill extends Equatable{
 
   @override
   // TODO: implement props
-  List<Object> get props => [id,name];
+  List<Object> get props => [id, name];
 
-   @override
-   bool get stringify => true;
+  @override
+  bool get stringify => true;
+
+  @override
+  String toString() {
+    return name;
+  }
 }

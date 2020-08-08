@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p7app/features/dashboard/view_model/dashboard_view_model.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
-import 'package:p7app/main_app/widgets/loader.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
+import 'package:p7app/main_app/views/widgets/loader.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -62,7 +62,7 @@ class InfoBoxWidget extends StatelessWidget {
                             Color(0xff9eacfd),
                           ]),
                           iconData: FontAwesomeIcons.tools,
-                          label: StringUtils.skillsText,
+                          label: StringResources.skillsText,
                           count: infoBoxData?.skillsCount ?? 0),
                     ),
 
@@ -77,7 +77,7 @@ class InfoBoxWidget extends StatelessWidget {
                                 Color(0xffe1b8fe),
                               ]),
                               iconData: FontAwesomeIcons.solidCheckSquare,
-                              label: StringUtils.appliedText,
+                              label: StringResources.appliedText,
                               onTap: onTapApplied,
                               count: infoBoxData?.appliedJobCount),
                     ),
@@ -90,7 +90,7 @@ class InfoBoxWidget extends StatelessWidget {
                             Color(0xff99d7f2),
                           ]),
                           iconData: FontAwesomeIcons.solidHeart,
-                          label: StringUtils.favoriteText,
+                          label: StringResources.favoriteText,
                           count: infoBoxData?.favouriteJobCount,
                           onTap: onTapFavourite),
                     ),

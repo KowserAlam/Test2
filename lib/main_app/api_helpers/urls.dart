@@ -1,15 +1,8 @@
-
-
 //dev server
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 
 const String kBaseUrDev = "http://dev.ishraak.com";
-
-////rashed vai
-//const String kBaseUrDev = "http://192.168.1.51:8000";
-
-const String kBaseUrlQA = "http://dev.ishraak.com";
-const String kBaseUrlProd = "http://100.25.85.115";
+const String kBaseUrlProd = "https://jobxprss.com";
 
 class Urls {
   /// new
@@ -21,19 +14,30 @@ class Urls {
   static String passwordResetUrl = "/api/professional/password_reset/";
   static String dashboardUrl = "/api/app-dashboard";
   static String passwordChangeUrl = "/api/pro/change-password/";
-
+  static String openJobsCompany = "/api/job/search/?company="; //cname
+  static String jobAlertStatusUrl =
+      "/api/professional/job_alert_notification/"; //cname
+  static String jobAlertOnOffUrl =
+      "/api/professional/email-subscription-on-off/"; //c8eb21a2-0bb6-46ec-add6-0de5336e1723/
+  static String countryListUrl = "/api/country/list/";
   static String userProfileUrl = "/api/professional/profile";
-  static String userProfileUpdateUrlPartial = "/api/professional/profile_update_partial";
+  static String userProfileUpdateUrlPartial =
+      "/api/professional/profile_update_partial";
   static String userProfileUpdateUrl = "/api/professional/profile_update";
-  static String professionalReference = "/api/professional/professional_reference";
+  static String professionalReference =
+      "/api/professional/professional_reference";
   static String professionalSkillUrl = "/api/professional/professional_skill";
   static String professionalEducationUrl = "/api/professional/professional_education";
-  static String professionalMembershipUrl = "/api/professional/professional_membership";
-  static String professionalCertificationUrl = "/api/professional/professional_certification";
-  static String professionalPortfolioUrl = "/api/professional/professional_portfolio";
-  static String professionalExperienceUrl = "/api/professional/professional_work_experience";
-
-
+  static String professionalEducationObjUrl = "/api/professional/professional_education_object";
+  static String professionalMembershipUrl =
+      "/api/professional/professional_membership";
+  static String professionalCertificationUrl =
+      "/api/professional/professional_certification";
+  static String professionalPortfolioUrl =
+      "/api/professional/professional_portfolio";
+  static String professionalExperienceUrl =
+      "/api/professional/professional_work_experience";
+  static String jobExperienceList = "/api/experience/list";
   static String industryListUrl = "/api/industry/";
   static String companyListUrl = "/api/company/";
   static String genderListUrl = "/api/gender/list";
@@ -41,19 +45,21 @@ class Urls {
   static String nationalityListUrl = "/api/professional/nationality/";
   static String religionListUrl = "/api/professional/religion/";
   static String skillListUrl = "/api/skill/list/";
-  static String instituteListUrl = "/api/professional/institute/";
+  static String instituteListUrl = "/api/professional/institute/list/";
   static String organizationListUrl = "/api/professional/organization/";
   static String majorListUrl = "/api/professional/major/";
   static String certificateNameListUrl = "/api/professional/certificate_name/";
   static String qualificationListUrl = "/api/qualification/list";
   static String experienceListUrl = "/api/experience/";
   static String jobCategoriesListUrl = "/api/job-category/list/";
+  static String topCategoriesListUrl = "/api/job/top-categories/";
   static String jobTypeListUrl = "/api/job-type/list";
   static String jobLocationListUrl = "/api/location/";
   static String jobSourceList = "/api/job-source/list/";
   static String jobGenderList = "/api/job-gender/list/";
   static String jobSiteList = "/api/job-site/list";
   static String jobNatureList = "/api/job-nature/list";
+  static String educationLevelListURl = "/api/professional/education_level/";
 
   static String jobDetailsUrl = "/api/job/get/";
   static String favouriteJobAddUrl = "/api/job/favourite/toggle";
@@ -69,34 +75,32 @@ class Urls {
   static String appliedJobListUrl = "/api/job/applied/";
   static String favouriteJobListUrl = "/api/job/favourite/";
   static String companySearchUrl = "/api/company/search";
+  static String similarJobs = "/api/job/similar"; // /job id/
 
   /// dashboardUrl
+  static String dashboardInfoBoxUrl = "/api/pro/dashboard/infobox/";
+  static String dashboardSkillJobChartUrl = "/api/pro/dashboard/skill/";
+  static String profileCompleteness = "/api/pro/profile-completeness/";
+  static String vitalStatsUrl = "/api/vital_stats/get/";
 
-static String dashboardInfoBoxUrl = "/api/professional/info_box/";
-static String dashboardSkillJobChartUrl = "/api/pro/dashboard/skill/";
-static String profileCompleteness = "/api/pro/profile-completeness/";
+  static String jwtRefreshUrl = "/api/token/refresh/";
+  static String careerAdviceUrl = "/api/career_advise";
 
-
-static String careerAdviceUrl = "/api/career_advise";
 //contact us
-static String settingsUrl = "/api/settings/";
-static String contactUsSubmitUrl = "/api/send_email_to_admin_contact_us/";
+  static String settingsUrl = "/api/settings/";
+  static String contactUsSubmitUrl = "/api/send_email_to_admin_contact_us/";
 
-
-static String notificationMarkReadUrl = "/api/notification/mark-read";//  id
-static String notificationListUrl = "/api/notification";
-static String notificationGetUrl = "/api/notification/get/"; //  id
-static String messageListUrl = "/api/employer-message/";
-static String messageGetUrl = "/api/employer-message/get/"; //  id
-static String messageMarkedReadUrl = "/api/employer-message/mark-read/"; //  id
-
+  static String notificationMarkReadUrl = "/api/notification/mark-read"; //  id
+  static String notificationListUrl = "/api/notification";
+  static String notificationGetUrl = "/api/notification/get/"; //  id
+  static String messageListUrl = "/api/employer-message/";
+  static String messageGetUrl = "/api/employer-message/get/"; //  id
+  static String messageMarkedReadUrl =
+      "/api/employer-message/mark-read/"; //  id
 
 // webUrl
   static String aboutUsWeb = "/about-us-app/";
   static String contactUsWeb = "/contact-us-app/";
   static String careerAdviceWeb = "/career-advice-app/";
   static String faqWeb = "/FAQ-app/";
-
-
-
 }

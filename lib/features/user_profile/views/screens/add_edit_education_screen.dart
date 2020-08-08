@@ -1,26 +1,27 @@
-import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:bot_toast/bot_toast.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:notustohtml/notustohtml.dart';
 import 'package:p7app/features/user_profile/models/edu_info.dart';
 import 'package:p7app/features/user_profile/models/institution.dart';
 import 'package:p7app/features/user_profile/models/major.dart';
 import 'package:p7app/features/user_profile/repositories/degree_list_repository.dart';
+import 'package:p7app/features/user_profile/repositories/education_level_list_repository.dart';
 import 'package:p7app/features/user_profile/repositories/institution_list_repository.dart';
 import 'package:p7app/features/user_profile/repositories/major_subject_list_repository.dart';
-import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
+import 'package:p7app/features/user_profile/repositories/user_profile_repository.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
-import 'package:p7app/main_app/widgets/common_date_picker_widget.dart';
-import 'package:p7app/features/user_profile/views/widgets/custom_dropdown_button_form_field.dart';
-import 'package:p7app/main_app/widgets/custom_text_from_field.dart';
-import 'package:p7app/main_app/failure/app_error.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/validator.dart';
-import 'package:p7app/main_app/widgets/edit_screen_save_button.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:p7app/main_app/widgets/loader.dart';
+import 'package:p7app/main_app/util/zefyr_helper.dart';
+import 'package:p7app/main_app/views/widgets/common_date_picker_form_field.dart';
+import 'package:p7app/main_app/views/widgets/custom_auto_complete_text_field.dart';
+import 'package:p7app/main_app/views/widgets/custom_zefyr_rich_text_from_field.dart';
+import 'package:p7app/main_app/views/widgets/custom_searchable_dropdown_from_field.dart';
+import 'package:p7app/main_app/views/widgets/custom_text_from_field.dart';
+import 'package:p7app/main_app/views/widgets/edit_screen_save_button.dart';
 import 'package:provider/provider.dart';
-import 'package:dartz/dartz.dart' as dartZ;
-import 'package:rxdart/rxdart.dart';
+import 'package:quill_delta/quill_delta.dart';
 
 class AddEditEducationScreen extends StatefulWidget {
   final EduInfo educationModel;
@@ -47,23 +48,30 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
 
   TextEditingController institutionNameController = TextEditingController();
   TextEditingController gpaTextController = TextEditingController();
+  TextEditingController levelOfEducationTextController =
+      TextEditingController();
   TextEditingController degreeTextController = TextEditingController();
+  TextEditingController majorTextController = TextEditingController();
+
+  ZefyrController _descriptionZefyrController =
+      ZefyrController(NotusDocument());
+  final FocusNode _descriptionFocusNode = FocusNode();
+
   var _formKey = GlobalKey<FormState>();
   var _scaffoldKey = GlobalKey<ScaffoldState>();
   DateTime _enrollDate;
   DateTime _graduationDate;
-  Institution selectedInstitute;
   String institutionNameErrorText;
   String enrollDateErrorText;
   String graduationDateErrorText;
-  bool currentLyStudyingHere = false;
-
-  String selectedDegree;
+  bool isOnGoing = false;
+  Future<List<MajorSubject>> majorList;
+  Future<List<String>> degreeList;
+  Future<List<Institution>> institutionList;
+  EducationLevel selectedLevelOfEducation;
   MajorSubject selectedMajorSubject;
-
-  var autoCompleteTextKey =
-      GlobalKey<AutoCompleteTextFieldState<Institution>>();
-  final _institutionListStreamController = BehaviorSubject<List<Institution>>();
+  String selectedDegree;
+  Institution selectedInstitute;
 
   initState() {
     if (widget.educationModel != null) {
@@ -74,11 +82,23 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
           widget.educationModel.institutionText ??
           "";
       gpaTextController.text = widget.educationModel.cgpa ?? "";
-      selectedDegree = widget.educationModel.degree;
+      degreeTextController.text = widget.educationModel.degreeText;
       selectedMajorSubject = widget.educationModel.major ?? null;
+      majorTextController.text = widget.educationModel?.major?.name ??
+          widget.educationModel?.majorText;
       _enrollDate = widget.educationModel.enrolledDate;
       _graduationDate = widget.educationModel.graduationDate;
-      currentLyStudyingHere = widget.educationModel.graduationDate == null;
+      isOnGoing = widget.educationModel.isOnGoing;
+      _descriptionZefyrController = ZefyrController(
+          ZeyfrHelper.htmlToNotusDocument(widget.educationModel?.description));
+
+      _setLevelOfEducation(widget.educationModel.educationLevel);
+      UserProfileRepository()
+          .getUserEducation(widget.educationModel.educationId)
+          .then((value) {
+        var eduInfo = value.fold((l) => null, (r) => r);
+        _setLevelOfEducation(eduInfo?.educationLevel);
+      });
     }
 
     _initRepos();
@@ -86,37 +106,38 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
   }
 
   dispose() {
-    _institutionListStreamController.close();
     super.dispose();
   }
 
   _initRepos() async {
-    dartZ.Either<AppError, List<Institution>> res =
-        await InstitutionListRepository().getList();
-    res.fold((l) {
-      // error
-      print(l);
-    }, (List<Institution> r) {
-      print(r);
-      _institutionListStreamController.sink.add(r);
-//      setState(() {
-//        _institutionList = r;
-//      });
+    majorList = MajorSubListListRepository().getList();
+    institutionList = InstitutionListRepository().getList();
+  }
+
+  _setLevelOfEducation(String levelOfEduId) {
+    EducationLevelListRepository()
+        .getEducationLevelFromId(levelOfEduId)
+        .then((value) {
+//      print(value);
+      setState(() {
+        selectedLevelOfEducation = value;
+      });
     });
   }
 
   bool validate() {
     bool isFormValid = _formKey.currentState.validate();
     bool isEnrollDateCorrect = _enrollDate != null;
-    bool isGraduationDateCorrect(){
-      if(currentLyStudyingHere){
+    bool isGraduationDateCorrect() {
+      if (isOnGoing) {
         _graduationDate = null;
         return true;
-      }else{
-        if(_graduationDate == null){
-          graduationDateErrorText = StringUtils.blankGraduationDateWarningText;
+      } else {
+        if (_graduationDate == null) {
+          graduationDateErrorText =
+              StringResources.blankGraduationDateWarningText;
           return false;
-        }else{
+        } else {
           graduationDateErrorText = null;
           return true;
         }
@@ -124,10 +145,10 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
     }
 
     institutionNameErrorText = institutionNameController.text.isEmpty
-        ? StringUtils.thisFieldIsRequired
+        ? StringResources.thisFieldIsRequired
         : null;
     enrollDateErrorText =
-        isEnrollDateCorrect ? null : StringUtils.thisFieldIsRequired;
+        isEnrollDateCorrect ? null : StringResources.thisFieldIsRequired;
     setState(() {});
 
     return isFormValid &&
@@ -136,27 +157,43 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
         institutionNameErrorText == null;
   }
 
-  void submitData(EduInfo education){
-    if(widget.educationModel != null){
-      Provider.of<UserProfileViewModel>(context, listen: false).updateEduInfo(education, index).then((value) {
+  void submitData(EduInfo education) {
+    if (widget.educationModel != null) {
+      Provider.of<UserProfileViewModel>(context, listen: false)
+          .updateEduInfo(education, index)
+          .then((value) {
         if (value) {
           Navigator.pop(context);
         }
       });
-    }else{
-      Provider.of<UserProfileViewModel>(context, listen: false).addEduInfo(education).then((value) {
+    } else {
+      Provider.of<UserProfileViewModel>(context, listen: false)
+          .addEduInfo(education)
+          .then((value) {
         if (value) {
           Navigator.pop(context);
         }
       });
     }
   }
+
+  MajorSubject getSelectedMajor() {
+    if (selectedMajorSubject != null) {
+      if (selectedMajorSubject.name == majorTextController.text) {
+        return selectedMajorSubject;
+      } else {
+        return null;
+      }
+    }
+    return null;
+  }
+
   _handleSave() {
     var isSuccess = validate();
 
     if (isSuccess) {
-      if (selectedDegree == null) {
-        BotToast.showText(text: StringUtils.noDegreeChosen);
+      if (selectedLevelOfEducation == null) {
+        BotToast.showText(text: StringResources.noDegreeChosen);
       } else {
         var insId = selectedInstitute?.id;
 
@@ -170,24 +207,31 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
           educationId: widget.educationModel?.educationId,
           institutionId: insId,
           cgpa: gpaTextController.text,
-          degree: selectedDegree,
-          major: selectedMajorSubject,
+          educationLevel: selectedLevelOfEducation.id,
+          major: getSelectedMajor(),
+          majorText: majorTextController.text,
           enrolledDate: _enrollDate,
+          degree: degreeTextController.text,
           graduationDate: _graduationDate,
+          isOnGoing: isOnGoing,
+          description: ZeyfrHelper.notusDocumentToHTML(
+              _descriptionZefyrController.document),
           institutionText: institutionNameController.text,
         );
-        print("Degree: " + education.degree);
+        print("Degree: ${education?.educationLevel}");
 
-        if(currentLyStudyingHere){
+        if (isOnGoing) {
           submitData(education);
-        }else{
-          if(_enrollDate.isBefore(_graduationDate)){
+        } else {
+          if (_enrollDate.isBefore(_graduationDate)) {
             submitData(education);
-          }else{
-            BotToast.showText(text: StringUtils.graduationDateLogicText);
+          } else {
+            BotToast.showText(text: StringResources.graduationDateLogicText);
           }
         }
       }
+    }else{
+      BotToast.showText(text: StringResources.checkRequiredField);
     }
   }
 
@@ -197,146 +241,104 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
       height: 15,
     );
 
-    var nameOfInstitution = StreamBuilder<List<Institution>>(
-        stream: _institutionListStreamController.stream,
-        builder: (context, AsyncSnapshot<List<Institution>> snapshot) {
-          if (snapshot.hasData)
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text("  " + StringUtils.nameOfOInstitutionText ?? "",
-                    style: TextStyle(fontWeight: FontWeight.bold)),
-                SizedBox(
-                  height: 5,
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).backgroundColor,
-                    borderRadius: BorderRadius.circular(7),
-                    boxShadow: CommonStyleTextField.boxShadow,
-                  ),
-                  child: AutoCompleteTextField<Institution>(
-                    decoration: InputDecoration(
-                      hintText: StringUtils.nameOfOInstitutionHintText,
-                      border: InputBorder.none,
-                      contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 5),
-                      focusedBorder:
-                          CommonStyleTextField.focusedBorder(context),
-                    ),
-                    controller: institutionNameController,
-                    itemFilter: (Institution suggestion, String query) =>
-                        suggestion.name
-                            .toLowerCase()
-                            .startsWith(query.toLowerCase()),
-                    suggestions: snapshot.data,
-                    itemSorter: (Institution a, Institution b) =>
-                        a.name.compareTo(b.name),
-                    key: autoCompleteTextKey,
-                    itemBuilder:
-                        (BuildContext context, Institution suggestion) {
-                      return ListTile(
-                        title: Text(suggestion.name ?? ""),
-                      );
-                    },
-                    clearOnSubmit: false,
-                    itemSubmitted: (Institution data) {
-                      selectedInstitute = data;
-                      institutionNameController.text = data.name;
-                      setState(() {});
-                    },
-                  ),
-                ),
-                if (institutionNameErrorText != null)
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      institutionNameErrorText,
-                      style: TextStyle(color: Colors.red),
-                    ),
-                  ),
-              ],
-            );
-
-          return CustomTextFormField(
-            validator: Validator().nullFieldValidate,
-            controller: institutionNameController,
-            labelText: StringUtils.nameOfOInstitutionText,
-            hintText: StringUtils.nameOfOInstitutionHintText,
-          );
+    var nameOfInstitution = CustomAutoCompleteTextField<Institution>(
+      isRequired: true,
+      labelText: StringResources.InstitutionText,
+      hintText: StringResources.InstitutionHintText,
+      validator: Validator().nullFieldValidate,
+      onSuggestionSelected: (v) {
+        institutionNameController.text = v.name;
+        selectedInstitute = v;
+      },
+      controller: institutionNameController,
+      itemBuilder: (context, m) {
+        return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(m.name),
+        );
+      },
+      suggestionsCallback: (q) async {
+        return institutionList.then((value) {
+          if (q.length <= 1) {
+            return [];
+          }
+          return value.where((element) =>
+              element.name.toLowerCase().contains(q.toLowerCase()));
         });
-
-    var degree = FutureBuilder<dartZ.Either<AppError, List<String>>>(
-      future: DegreeListRepository().getList(),
-      builder:
-          (context, AsyncSnapshot<dartZ.Either<AppError, List<String>>> snap) {
-
-        if (snap.hasData) {
-          var items =  snap.data.fold((l) {
-            return null;
-          }, (r) {
-            return r
-                .map((e) => DropdownMenuItem<String>(
-                      key: Key(e),
-                      value: e,
-                      child: Text(e ?? ""),
-                    ))
-                .toList();
-          });
-          return CustomDropdownButtonFormField<String>(
-            validator: Validator().nullFieldValidate,
-            labelText: StringUtils.nameOfODegreeText,
-            hint: Text(StringUtils.tapToSelectText),
-            value: selectedDegree,
-            items: items,
-            onChanged: (v) {
-              selectedDegree = v;
-              print(selectedDegree);
-              setState(() {});
-            },
-          );
-        } else {
-          return Loader();
-        }
       },
     );
-    var major = FutureBuilder<dartZ.Either<AppError, List<MajorSubject>>>(
-      future: MajorSubListListRepository().getList(),
-      builder: (context,
-          AsyncSnapshot<dartZ.Either<AppError, List<MajorSubject>>> snap) {
-        if (snap.hasData) {
-          return snap.data.fold((l) {
-            return SizedBox();
-          }, (r) {
-            var items = r
-                .map((e) => DropdownMenuItem<MajorSubject>(
-                      key: Key(e.name),
-                      value: e,
-                      child: Text(e.name ?? ""),
-                    ))
-                .toList();
 
-            return CustomDropdownButtonFormField<MajorSubject>(
-              labelText: StringUtils.majorDateText,
-              hint: Text(StringUtils.tapToSelectText),
-              value: selectedMajorSubject,
-              items: items,
-              onChanged: (v) {
-                selectedMajorSubject = v;
-                print(v);
-                setState(() {});
-              },
-            );
-          });
-        } else {
-          return Loader();
-        }
+    var levelOfEducation = FutureBuilder<List<EducationLevel>>(
+      future: EducationLevelListRepository().getList(),
+      builder: (context, AsyncSnapshot<List<EducationLevel>> snap) {
+        return CustomDropdownSearchFormField<EducationLevel>(
+          isRequired: true,
+          showSearchBox: true,
+          itemAsString: (v) => v?.name,
+          compareFn: (s1, s2) =>
+              s1.name.toLowerCase().contains(s2?.name?.toLowerCase()),
+          validator: (v) => Validator().nullFieldValidate(v?.name),
+          labelText: StringResources.levelOfEducation,
+          hintText: StringResources.tapToSelectText,
+          selectedItem: selectedLevelOfEducation,
+          items: snap.data,
+          onChanged: (v) {
+            selectedLevelOfEducation = v;
+            print(selectedLevelOfEducation);
+            setState(() {});
+          },
+        );
       },
     );
-    var enrolledDate = CommonDatePickerWidget(
+
+    var major = CustomAutoCompleteTextField<MajorSubject>(
+      labelText: StringResources.majorText,
+      hintText: StringResources.majorHint,
+      onSuggestionSelected: (v) {
+        majorTextController.text = v.name;
+        selectedMajorSubject = v;
+      },
+      controller: majorTextController,
+      itemBuilder: (context, m) {
+        return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(m.name),
+        );
+      },
+      suggestionsCallback: (q) async {
+        return majorList.then((value) {
+          if (q.length <= 1) {
+            return [];
+          }
+          return value.where((element) =>
+              element.name.toLowerCase().contains(q.toLowerCase()));
+        });
+      },
+    );
+    var degree = CustomAutoCompleteTextField<String>(
+      labelText: StringResources.degreeHText,
+      hintText: StringResources.nameOfODegreeHintText,
+      isRequired: true,
+      validator: Validator().nullFieldValidate,
+      onSuggestionSelected: (v) {
+        degreeTextController.text = v;
+        selectedDegree = v;
+      },
+      controller: degreeTextController,
+      itemBuilder: (context, m) {
+        return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(m),
+        );
+      },
+      suggestionsCallback: DegreeListRepository().searchList,
+    );
+
+    var enrolledDate = CommonDatePickerFormField(
+      isRequired: true,
       errorText: enrollDateErrorText,
       date: _enrollDate,
-      label: StringUtils.enrollDate,
+      label: StringResources.Enrolled,
       onTapDateClear: () {
         setState(() {
           _enrollDate = null;
@@ -348,10 +350,10 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
         });
       },
     );
-    var graduationDate = CommonDatePickerWidget(
+    var graduationDate = CommonDatePickerFormField(
       errorText: graduationDateErrorText,
       date: _graduationDate,
-      label: StringUtils.graduationDate,
+      label: StringResources.graduationText,
       onTapDateClear: () {
         setState(() {
           _graduationDate = null;
@@ -365,24 +367,29 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
     );
     var cgpa = CustomTextFormField(
       controller: gpaTextController,
-      labelText: StringUtils.gpaText,
-      hintText: StringUtils.gpaHintText,
+      labelText: StringResources.gpaText,
+      hintText: StringResources.gpaHintText,
       validator: Validator().numberFieldValidateOptional,
       keyboardType: TextInputType.number,
+    );
+    var description = CustomZefyrRichTextFormField(
+      labelText: StringResources.descriptionText,
+      focusNode: _descriptionFocusNode,
+      controller: _descriptionZefyrController,
     );
     var ongoing = Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        Text(StringUtils.currentlyStudyingHereText),
+        Text(StringResources.currentlyStudyingHereText),
         Checkbox(
           onChanged: (bool value) {
-            currentLyStudyingHere = value;
-            if (!currentLyStudyingHere) {
+            isOnGoing = value;
+            if (!isOnGoing) {
               _graduationDate = null;
             }
             setState(() {});
           },
-          value: currentLyStudyingHere,
+          value: isOnGoing,
         ),
       ],
     );
@@ -391,49 +398,61 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
       key: _scaffoldKey,
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
-        title: Text(StringUtils.educationsText),
+        title: Text(StringResources.educationsText),
         actions: <Widget>[
           EditScreenSaveButton(
-            text: StringUtils.saveText,
+            text: StringResources.saveText,
             onPressed: _handleSave,
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
-        child: Consumer<UserProfileViewModel>(
-          builder: (context, addEditEducationProvider, ch) {
-            return Form(
-              key: _formKey,
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    SizedBox(
-                      height: 10,
-                    ),
-                    nameOfInstitution,
-                    spaceBetween,
+      body: ZefyrScaffold(
+        child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
+          child: Consumer<UserProfileViewModel>(
+            builder: (context, addEditEducationProvider, ch) {
+              return Form(
+                key: _formKey,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      SizedBox(height: 10),
+                      nameOfInstitution,
+                      spaceBetween,
 
-                    ///Degree
-                    degree,
-                    SizedBox(height: 15),
-                    major,
-                    SizedBox(height: 15),
+                      ///level of edu
+                      levelOfEducation,
 
-                    /// gpaText
-                    cgpa,
-                    enrolledDate,
-                    spaceBetween,
-                    ongoing,
+                      spaceBetween,
+                      degree,
+                      spaceBetween,
+
+                      major,
+                      spaceBetween,
+
+                      /// gpaText
+                      cgpa,
+                      spaceBetween,
+                      description,
+                      spaceBetween,
+                      enrolledDate,
+                      spaceBetween,
+                      ongoing,
 //                    spaceBetween,
-                    if (!currentLyStudyingHere) graduationDate,
-                  ],
+                      if (!isOnGoing) graduationDate,
+                      spaceBetween,
+                      spaceBetween,
+                      spaceBetween,
+                      spaceBetween,
+                      spaceBetween,
+                    ],
+                  ),
                 ),
-              ),
-            );
-          },
+              );
+            },
+          ),
         ),
       ),
     );

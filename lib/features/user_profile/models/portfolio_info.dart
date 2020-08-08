@@ -13,7 +13,7 @@ class PortfolioInfo {
     portfolioId = json['id'];
     name = json['name']?.toString();
 
-    if(json['image'] != null){
+    if (json['image'] != null) {
       image = "$baseUrl${json['image']}";
     }
 
@@ -27,5 +27,10 @@ class PortfolioInfo {
     data['image'] = this.image;
     data['description'] = this.description;
     return data;
+  }
+
+  @override
+  String toString() {
+    return 'PortfolioInfo{portfolioId: $portfolioId, name: $name, image: $image, description: $description}';
   }
 }

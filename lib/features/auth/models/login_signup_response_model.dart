@@ -1,7 +1,7 @@
 
 
 import 'package:p7app/main_app/resource/json_keys.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 
 class LoginSignUpResponseModel {
   String status;
@@ -34,7 +34,7 @@ class LoginSignUpResponseModel {
     return LoginSignUpResponseModel(
       status: JsonKeys.failed,
       code: 401,
-      message: StringUtils.somethingIsWrong,
+      message: StringResources.somethingIsWrong,
       result: Result(
         user: ResponseUser(email: "none")
       )
@@ -45,7 +45,7 @@ class LoginSignUpResponseModel {
     return LoginSignUpResponseModel(
         status: JsonKeys.failed,
         code: 402,
-        message: StringUtils.unableToReachServerMessage,
+        message: StringResources.unableToReachServerMessage,
         result: Result(
             user: ResponseUser(email: "none")
         )

@@ -8,7 +8,7 @@ import 'package:p7app/features/user_profile/models/skill_info.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/features/user_profile/views/screens/add_edit_professional_skill_screen.dart';
 import 'package:p7app/features/user_profile/views/widgets/professional_skill_list_item.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -21,7 +21,7 @@ class JobChartWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var screenHeight = MediaQuery.of(context).size.height;
-    var chartHeight = screenHeight / 2.2;
+    var chartHeight = 230.0; //screenHeight / 2.2;
     var primaryColor = Theme.of(context).primaryColor;
 
 //    var dummyDataList = [
@@ -36,7 +36,7 @@ class JobChartWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+//        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 5.0),
@@ -80,7 +80,11 @@ class JobChartWidget extends StatelessWidget {
                 bool hasMoreText = skillText.length > chLength;
                 String skillsString = (isExpanded || !hasMoreText)
                     ? skillText ?? ""
-                    : skillText?.substring(0, chLength) ?? "";
+                    : "${skillText?.substring(0, chLength)} ...." ?? "";
+
+                if(userProfileViewModel.appError !=  null){
+                  return SizedBox();
+                }
 
                 if (skillList.length == 0) {
                   return Padding(
@@ -94,7 +98,7 @@ class JobChartWidget extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            StringUtils.addSkillText,
+                            StringResources.addSkillText,
                             style: TextStyle(color: primaryColor),
                           ),
                           Icon(
@@ -115,8 +119,11 @@ class JobChartWidget extends StatelessWidget {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text(skillsString),
+                      Text(StringResources.monthlyJobsText,style:TextStyle(fontSize: 18,fontWeight: FontWeight.bold)),
+                     SizedBox(height: 2,),
+                      Text("for Skills ($skillsString)",textAlign: TextAlign.center,),
                       if (hasMoreText)
                         Padding(
                           padding: const EdgeInsets.only(top: 5),
@@ -132,10 +139,10 @@ class JobChartWidget extends StatelessWidget {
                                 children: [
                                   Text(
                                     isExpanded
-                                        ? StringUtils.seeLessText
-                                        : StringUtils.seeMoreText,
+                                        ? StringResources.seeLessText
+                                        : StringResources.seeMoreText,
                                     style: TextStyle(
-                                        color: Theme.of(context).primaryColor),
+                                        color: Colors.blue),
                                   ),
                                 ],
                               ),
@@ -177,7 +184,7 @@ class JobChartWidget extends StatelessWidget {
                 id: "Job Chart",
                 domainFn: (v, _) => v.month ?? "Month",
                 measureFn: (v, _) => v.total ?? 0,
-                data: list,
+                data: list.reversed.toList(),
                 labelAccessorFn: (v, _) => '${v.total ?? ""}',
               )
             ];

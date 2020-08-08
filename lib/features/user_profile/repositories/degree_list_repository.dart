@@ -1,29 +1,65 @@
 import 'dart:convert';
-import 'package:dartz/dartz.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_cache/flutter_cache.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
-import 'package:p7app/main_app/failure/app_error.dart';
 
 class DegreeListRepository{
+  var _cacheKey = "qualificationListUrl";
 
-  Future<Either<AppError,List<String>>> getList() async{
-    try{
+  Future<String> _getData() async {
+    var cache = await Cache.load(_cacheKey);
+    if (cache != null) {
+      return cache;
+    } else {
       var res = await ApiClient().getRequest(Urls.qualificationListUrl);
-
-      if(res.statusCode == 200){
-        var decodedJson = json.decode(res.body);
-        print(decodedJson);
-
-        List<String> list = fromJson(decodedJson);
-        return Right(list);
-      }else{
-        return Left(AppError.unknownError);
+      print(res.statusCode);
+//      print(res.body);
+      if (res.statusCode == 200) {
+        Cache.remember(_cacheKey, res.body, 60 * 60);
+        return res.body;
       }
-    }catch (e){
-      print(e);
-      return Left(AppError.serverError);
+      return res.body;
     }
   }
+
+  Future<List<String>>getList() async{
+    try{
+//      var res = await ApiClient().getRequest(Urls.qualificationListUrl);
+
+
+        var decodedJson = json.decode(await _getData());
+//        print(decodedJson);
+
+        List<String> list = fromJson(decodedJson);
+        return list;
+
+    }catch (e){
+      print(e);
+      return [];
+    }
+  }
+  Future<List<String>>searchList(String query) async{
+    try{
+      var url = "${Urls.qualificationListUrl}?name=${query??""}";
+      debugPrint(url);
+      var res = await ApiClient().getRequest(url);
+      print(res.statusCode);
+//      print(res.body);
+      if (res.statusCode == 200) {
+        var decodedJson = json.decode(res.body);
+        List<String> list = fromJson(decodedJson);
+        return list;
+      }
+      return [];
+
+
+    }catch (e){
+      print(e);
+      return [];
+    }
+  }
+
 
   List<String> fromJson(json){
    List<String> list = [];

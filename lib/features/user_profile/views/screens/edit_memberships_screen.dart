@@ -3,11 +3,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:p7app/features/user_profile/models/member_ship_info.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
-import 'package:p7app/main_app/widgets/common_date_picker_widget.dart';
-import 'package:p7app/main_app/widgets/custom_text_from_field.dart';
-import 'package:p7app/main_app/resource/strings_utils.dart';
+import 'package:p7app/main_app/views/widgets/common_date_picker_form_field.dart';
+import 'package:p7app/main_app/views/widgets/custom_text_from_field.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/validator.dart';
-import 'package:p7app/main_app/widgets/edit_screen_save_button.dart';
+import 'package:p7app/main_app/views/widgets/custom_zefyr_rich_text_from_field.dart';
+import 'package:p7app/main_app/views/widgets/edit_screen_save_button.dart';
 import 'package:provider/provider.dart';
 
 class EditMemberShips extends StatefulWidget {
@@ -15,21 +16,21 @@ class EditMemberShips extends StatefulWidget {
   final int index;
 
   const EditMemberShips({this.membershipInfo, this.index});
+
   @override
   _EditMemberShipsState createState() => _EditMemberShipsState();
 }
 
 class _EditMemberShipsState extends State<EditMemberShips> {
   final _formKey = GlobalKey<FormState>();
-  bool _membershipOngoing = false;
-  String blankStartingDateWarningText, blankEndingDateWarningText;
-
+  bool _membershipOngoing = true;
+  String startDateErrorText, endDateErrorText;
 
   //TextEditingController
   final _orgNameController = TextEditingController();
   final _positionHeldController = TextEditingController();
-  final _descriptionController = TextEditingController();
-
+  ZefyrController _descriptionZefyrController =
+      ZefyrController(NotusDocument());
 
   //FocusNodes
   final _orgNameFocusNode = FocusNode();
@@ -41,25 +42,27 @@ class _EditMemberShipsState extends State<EditMemberShips> {
   DateTime _endDate;
 
   //widgets
-  var spaceBetweenFields = SizedBox(height: 15,);
+  var spaceBetweenFields = SizedBox(
+    height: 15,
+  );
 
   @override
   void initState() {
     // TODO: implement initState
-    if(widget.membershipInfo != null){
+    if (widget.membershipInfo != null) {
       _orgNameController.text = widget.membershipInfo.orgName;
       _positionHeldController.text = widget.membershipInfo.positionHeld;
-      _descriptionController.text = widget.membershipInfo.description;
-      _startDate =  widget.membershipInfo.startDate;
-      _endDate =  widget.membershipInfo.endDate;
-      _membershipOngoing = widget.membershipInfo.membershipOngoing??false;
+      _descriptionZefyrController = ZefyrController(
+          ZeyfrHelper.htmlToNotusDocument(widget.membershipInfo?.description));
+      _startDate = widget.membershipInfo.startDate;
+      _endDate = widget.membershipInfo.endDate;
+      _membershipOngoing = widget.membershipInfo.membershipOngoing ?? false;
     }
     super.initState();
   }
 
-
-  void submitData(MembershipInfo membershipInfo){
-    if(widget.membershipInfo == null){
+  void submitData(MembershipInfo membershipInfo) {
+    if (widget.membershipInfo == null) {
       Provider.of<UserProfileViewModel>(context, listen: false)
           .addMembershipData(membershipInfo)
           .then((value) {
@@ -67,7 +70,7 @@ class _EditMemberShipsState extends State<EditMemberShips> {
           Navigator.pop(context);
         }
       });
-    }else{
+    } else {
       Provider.of<UserProfileViewModel>(context, listen: false)
           .updateMembershipData(membershipInfo, widget.index)
           .then((value) {
@@ -77,34 +80,31 @@ class _EditMemberShipsState extends State<EditMemberShips> {
       });
     }
   }
-
-  bool validate(){
-    bool isValid = _formKey.currentState.validate();
-    bool checkDate(){
-      if(_startDate != null){
-        blankStartingDateWarningText = null;
-        if(_membershipOngoing){
-          _endDate = null;
-          blankEndingDateWarningText = null;
-          return true;
-        }else{
-          if(_endDate != null){
-            blankEndingDateWarningText = null;
-            return true;
-          }else{
-            blankEndingDateWarningText = StringUtils.membershipBlankEndDateWarningText;
-            return false;
-          }
+  bool _validateDate() {
+    if (!_membershipOngoing) {
+      if (_startDate != null && _endDate != null) {
+        bool isIssueDateBeforeExpireDate = _startDate.isBefore(_endDate);
+        if (!isIssueDateBeforeExpireDate) {
+          endDateErrorText =
+              StringResources.endDateCanNotBeBeforeIssueDateText;
+          setState(() {});
         }
-      }else{
-        blankStartingDateWarningText = StringUtils.membershipBlankStartDateWarningText;
-        return false;
+        debugPrint("isBefore:$isIssueDateBeforeExpireDate");
+        return isIssueDateBeforeExpireDate;
       }
+      debugPrint("Null Date");
+      return false;
     }
-    setState(() {
 
-    });
-    return isValid && checkDate();
+    return _startDate != null;
+  }
+
+  bool validate() {
+    bool isValid = _formKey.currentState.validate();
+    
+
+    setState(() {});
+    return isValid && _validateDate();
   }
 
   _handleSave() {
@@ -112,54 +112,53 @@ class _EditMemberShipsState extends State<EditMemberShips> {
       membershipId: widget.membershipInfo?.membershipId,
       orgName: _orgNameController.text,
       positionHeld: _positionHeldController.text,
-      description: _descriptionController.text,
+      description:
+          ZeyfrHelper.notusDocumentToHTML(_descriptionZefyrController.document),
       membershipOngoing: _membershipOngoing,
       startDate: _startDate,
-      endDate: !_membershipOngoing?_endDate:null,
+      endDate: !_membershipOngoing ? _endDate : null,
     );
 
-    if(validate()){
-      if(_membershipOngoing){
+    if (validate()) {
+      if (_membershipOngoing) {
         submitData(membershipInfo);
-      }else{
-        if(_startDate.isBefore(_endDate)){
+      } else {
+        if (_startDate.isBefore(_endDate)) {
           submitData(membershipInfo);
-        }else{
-          BotToast.showText(text: StringUtils.membershipDateLogicWarningText);
+        } else {
+          BotToast.showText(
+              text: StringResources.membershipDateLogicWarningText);
         }
       }
-    }else{
+    } else {
       print('not validated');
     }
   }
 
-
-
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
-        title: Text(StringUtils.membershipAppbarText),
+        title: Text(StringResources.membershipAppbarText),
         actions: <Widget>[
           EditScreenSaveButton(
-            text: StringUtils.saveText,
+            text: StringResources.saveText,
             onPressed: _handleSave,
           ),
         ],
       ),
-      body: Container(
-        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+      body: ZefyrScaffold(
         child: SingleChildScrollView(
           child: Form(
             key: _formKey,
             child: Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: const EdgeInsets.all(8.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   //Organization Name
                   CustomTextFormField(
+                    isRequired: true,
                     validator: Validator().nullFieldValidate,
                     keyboardType: TextInputType.text,
                     focusNode: _orgNameFocusNode,
@@ -170,8 +169,8 @@ class _EditMemberShipsState extends State<EditMemberShips> {
 //                          .requestFocus(_positionHeldFocusNode);
                     },
                     controller: _orgNameController,
-                    labelText: StringUtils.membershipOrgNameText,
-                    hintText: StringUtils.membershipOrgNameText,
+                    labelText: StringResources.membershipOrgNameText,
+                    hintText: StringResources.membershipOrgNameText,
                   ),
                   spaceBetweenFields,
                   //Position Held
@@ -185,56 +184,36 @@ class _EditMemberShipsState extends State<EditMemberShips> {
 //                          .requestFocus(_descriptionFocusNode);
                     },
                     controller: _positionHeldController,
-                    labelText: StringUtils.membershipPositionHeldText,
-                    hintText: StringUtils.membershipPositionHeldText,
+                    labelText: StringResources.membershipPositionHeldText,
+                    hintText: StringResources.membershipPositionHeldText,
                   ),
                   spaceBetweenFields,
 
                   //Description
-                  CustomTextFormField(
-                    //validator: Validator().nullFieldValidate,
-                    maxLines: 8,
-                    minLines: 4,
+                  CustomZefyrRichTextFormField(
+                    labelText: StringResources.descriptionText,
                     focusNode: _descriptionFocusNode,
-                    keyboardType: TextInputType.multiline,
-                    onFieldSubmitted: (a) {
-//                      FocusScope.of(context)
-//                          .requestFocus(_descriptionFocusNode);
-                    },
-                    controller: _descriptionController,
-                    labelText: StringUtils.membershipDescriptionText,
-                    hintText: StringUtils.membershipDescriptionText,
+                    controller: _descriptionZefyrController,
                   ),
                   spaceBetweenFields,
                   //Start Date
-                  CommonDatePickerWidget(
-                    errorText: blankStartingDateWarningText,
-                    label: StringUtils.startingDateText,
+                  CommonDatePickerFormField(
+                    isRequired: true,
+                    errorText: startDateErrorText,
+                    label: StringResources.startingDateText,
                     date: _startDate,
-                    onDateTimeChanged: (v){setState(() {
-                      _startDate = v;
-                    });},
-                    onTapDateClear: (){
+                    onDateTimeChanged: (v) {
+                      setState(() {
+                        _startDate = v;
+                      });
+                    },
+                    onTapDateClear: () {
                       setState(() {
                         _startDate = null;
                       });
                     },
                   ),
-                  //End Date
-                  !_membershipOngoing?CommonDatePickerWidget(
-                    errorText: blankEndingDateWarningText,
-                    label: StringUtils.membershipEndDateText,
-                    date: _endDate,
-                    onDateTimeChanged: (v){setState(() {
-                      _endDate = v;
-                    });},
-                    onTapDateClear: (){
-                      setState(() {
-                        _endDate = null;
-                      });
-                    },
-                  ):SizedBox(),
-                  //Membership Ongoing
+                  spaceBetweenFields,
                   Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -243,21 +222,43 @@ class _EditMemberShipsState extends State<EditMemberShips> {
                         children: <Widget>[
                           Checkbox(
                             value: _membershipOngoing,
-                            onChanged: (bool newValue){
-                              if(newValue){
+                            onChanged: (bool newValue) {
+                              if (newValue) {
                                 _membershipOngoing = newValue;
                                 setState(() {});
-                              }else{
+                              } else {
                                 _membershipOngoing = newValue;
                                 setState(() {});
                               }
                             },
                           ),
-                          Text('Membership ongoing'),
+                          Text(StringResources.membershipOngoingText),
                         ],
                       )
                     ],
                   ),
+                  spaceBetweenFields,
+                  //End Date
+                  !_membershipOngoing
+                      ? CommonDatePickerFormField(
+                          isRequired: !_membershipOngoing,
+                          errorText: endDateErrorText,
+                          label: StringResources.membershipEndDateText,
+                          date: _endDate,
+                          onDateTimeChanged: (v) {
+                            setState(() {
+                              _endDate = v;
+                            });
+                          },
+                          onTapDateClear: () {
+                            setState(() {
+                              _endDate = null;
+                            });
+                          },
+                        )
+                      : SizedBox(),
+                  //Membership Ongoing
+
                   spaceBetweenFields,
                 ],
               ),
