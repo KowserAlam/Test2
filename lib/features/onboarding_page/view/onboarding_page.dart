@@ -82,7 +82,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                         curve: Curves.easeIn,
                       );
                     },
-                    child: Icon(Icons.keyboard_arrow_left, color: Colors.blue,size: 30,)),
+                    child: Icon(Icons.keyboard_arrow_left, color: Colors.blue,size: 30,key: Key('onboardingPageBackArrow'))),
               ),
               _currentPage == 2?SizedBox():Positioned(
                 bottom: 5,
@@ -95,7 +95,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                         curve: Curves.easeIn,
                       );
                     },
-                    child: Icon(Icons.keyboard_arrow_right, color: Colors.blue,size: 30,)),
+                    child: Icon(Icons.keyboard_arrow_right, color: Colors.blue,size: 30,key: Key('onboardingPageFrontArrow'))),
               ),
               _currentPage == 2?
               Align(
@@ -115,7 +115,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                       borderRadius: BorderRadius.circular(10)
                     ),
                     child: Center(
-                      child: Text('Continue', style: TextStyle(color: Colors.blueAccent),),
+                      child: Text('Continue', style: TextStyle(color: Colors.blueAccent),key: Key('onboardingPageContinueButton')),
                     ),
                   ),
                 ),
@@ -130,7 +130,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                         Navigator.of(context).pushAndRemoveUntil(CupertinoPageRoute(
                             builder: (context) => Home()),(_)=>false);
                       },
-                      child: Text('Skip', style: TextStyle(color: Colors.blue,fontSize: 16),)),
+                      child: Text('Skip', style: TextStyle(color: Colors.blue,fontSize: 16),key: Key('onboardingPageSkipButton'))),
                 ),
               )
             ],
