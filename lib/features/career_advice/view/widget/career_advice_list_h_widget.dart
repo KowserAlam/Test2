@@ -1,12 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:p7app/features/career_advice/models/career_advice_model.dart';
-import 'package:p7app/features/career_advice/view/career_advice_details_screen.dart';
 import 'package:p7app/features/career_advice/view/career_advice_list_screen.dart';
 import 'package:p7app/features/career_advice/view/widget/career_advice_list_tile_h.dart';
 import 'package:p7app/features/career_advice/view_models/career_advice_view_model.dart';
-import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
@@ -43,10 +39,11 @@ class _CareerAdviceListHWidgetState extends State<CareerAdviceListHWidget> {
               padding: const EdgeInsets.only(left: 15),
               child: Text(
                 StringResources.careerAdviceText,
-                style: Theme.of(context).textTheme.subtitle1,
+                style: Theme.of(context).textTheme.headline6,
               ),
             ),
             RawMaterialButton(
+              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
               onPressed: () {
                 Navigator.of(context).push(CupertinoPageRoute(
                     builder: (BuildContext context) =>
@@ -56,7 +53,7 @@ class _CareerAdviceListHWidgetState extends State<CareerAdviceListHWidget> {
                 StringResources.viewAllText,
                 style: Theme.of(context)
                     .textTheme
-                    .subtitle1
+                    .headline6
                     .apply(color: Colors.blue),
               ),
             ),

@@ -11,6 +11,7 @@ class CustomDropdownSearchFormField<T> extends StatelessWidget {
   final EdgeInsetsGeometry contentPadding;
   final Widget prefix;
   final ValueChanged<T> onChanged;
+  final Key key;
 
   ///customize the fields the be shown
   final DropdownSearchItemAsString<T> itemAsString;
@@ -72,6 +73,7 @@ class CustomDropdownSearchFormField<T> extends StatelessWidget {
     this.contentPadding = const EdgeInsets.symmetric(
       horizontal: 10,
     ),
+    this.key
   });
 
   @override
@@ -106,6 +108,7 @@ class CustomDropdownSearchFormField<T> extends StatelessWidget {
             ],
           ),
           child: DropdownSearch<T>(
+            key: key,
             searchBoxDecoration: InputDecoration(
               hintText: StringResources.searchHere
             ),

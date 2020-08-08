@@ -15,7 +15,7 @@ class CareerAdviceListTileH extends StatelessWidget {
   Widget build(BuildContext context) {
 //    print(adviceModel.featuredImage);
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
+      padding: const EdgeInsets.only(bottom: 4),
       child: Card(
         elevation: 2,
         child: ClipRRect(

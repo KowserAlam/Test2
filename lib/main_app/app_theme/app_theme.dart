@@ -72,7 +72,15 @@ class AppTheme {
     accentColor: colorAccent,
     scaffoldBackgroundColor: lightBG,
     buttonColor: colorAccent,
-    appBarTheme: AppBarTheme(textTheme: GoogleFonts.robotoTextTheme().apply()),
+    appBarTheme: AppBarTheme(
+      brightness: Brightness.light,
+      textTheme: GoogleFonts.robotoTextTheme().copyWith(
+          headline6: TextStyle(
+        fontSize: 16.0,
+        color: Colors.black,
+        fontWeight: FontWeight.w800,
+      )),
+    ),
   );
 
   static ThemeData darkTheme = ThemeData(
@@ -86,7 +94,6 @@ class AppTheme {
     cursorColor: colorAccent,
     appBarTheme: AppBarTheme(
       color: darkBG,
-      elevation: 0,
       iconTheme: IconThemeData(color: lightBG),
       actionsIconTheme: IconThemeData(color: lightBG),
       textTheme: GoogleFonts.robotoTextTheme().copyWith(

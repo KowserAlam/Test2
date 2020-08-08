@@ -1,28 +1,19 @@
 import 'package:after_layout/after_layout.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:p7app/features/auth/view/sign_in_screen.dart';
-import 'package:p7app/features/job/models/job_list_model.dart';
-import 'package:p7app/features/job/view/job_details_screen.dart';
+import 'package:flutter/material.dart';
 import 'package:p7app/features/job/view/widgets/all_job_list_widget.dart';
 import 'package:p7app/features/job/view/widgets/filter_preview_widget.dart';
 import 'package:p7app/features/job/view/widgets/job_list_filters_widget.dart';
 import 'package:p7app/features/job/view/widgets/jobs_screen_segment_control_bar.dart';
 import 'package:p7app/features/job/view_model/job_list_filter_widget_view_model.dart';
 import 'package:p7app/features/job/view_model/job_list_view_model.dart';
-import 'package:p7app/features/job/view/widgets/job_list_tile_widget.dart';
 import 'package:p7app/features/settings/settings_view_model.dart';
-import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
-import 'package:p7app/main_app/root.dart';
 import 'package:p7app/main_app/util/locator.dart';
-import 'package:p7app/main_app/views/app_drawer.dart';
-import 'package:flutter/material.dart';
-import 'package:p7app/main_app/views/widgets/common_prompt_dialog.dart';
 import 'package:p7app/main_app/views/widgets/custom_text_field.dart';
 import 'package:p7app/main_app/views/widgets/failure_widget.dart';
 import 'package:p7app/main_app/views/widgets/loader.dart';
-import 'package:p7app/main_app/views/widgets/restart_widget.dart';
 import 'package:provider/provider.dart';
 
 class AllJobListScreen extends StatefulWidget {
@@ -146,7 +137,7 @@ class _AllJobListScreenState extends State<AllJobListScreen>
       var searchInputWidget = Column(
         children: [
           Padding(
-            padding: const EdgeInsets.fromLTRB(8,0, 8, 8),
+            padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
             child: CustomTextField(
               textInputAction: TextInputAction.search,
               focusNode: _searchFieldFocusNode,
@@ -234,39 +225,44 @@ class _AllJobListScreenState extends State<AllJobListScreen>
                       ? ListView(
                           children: [errorWidget()],
                         )
-                      : Column(
+                      : Stack(
                           children: [
-                            JobsScreenSegmentControlBar(),
-                            if (jobListViewModel.isInSearchMode)
-                              searchInputWidget,
-                            if (jobListViewModel.isFilterApplied)
-                              FilterPreviewWidget(),
+                            Column(
+                              children: [
+                                SizedBox(height: 35),
+                                if (jobListViewModel.isInSearchMode)
+                                  searchInputWidget,
+                                if (jobListViewModel.isFilterApplied)
+                                  FilterPreviewWidget(),
+                                Expanded(
+                                  child: ListView(
+                                    physics: AlwaysScrollableScrollPhysics(),
+                                    controller: _scrollController,
+                                    children: [
+                                      // loader for search and filter
+                                      if (jobListViewModel
+                                          .shouldSearchNFilterLoader)
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Loader(),
+                                        ),
 
-                            Expanded(
-                              child: ListView(
-                                physics: AlwaysScrollableScrollPhysics(),
-                                controller: _scrollController,
-                                children: [
-                                  // loader for search and filter
-                                  if (jobListViewModel
-                                      .shouldSearchNFilterLoader)
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Loader(),
-                                    ),
-
-                                  jobListViewModel.shouldShowNoJobsFound
-                                      ? Center(
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Text(
-                                                StringResources.noJobsFound),
-                                          ),
-                                        )
-                                      : AllJobListWidget(),
-                                ],
-                              ),
+                                      jobListViewModel.shouldShowNoJobsFound
+                                          ? Center(
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Text(StringResources
+                                                    .noJobsFound),
+                                              ),
+                                            )
+                                          : AllJobListWidget(),
+                                    ],
+                                  ),
+                                ),
+                              ],
                             ),
+                            JobsScreenSegmentControlBar(),
                           ],
                         ),
                 ),

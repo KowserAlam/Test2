@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 class EditScreenSaveButton extends StatelessWidget {
   final Function onPressed;
   final String text;
+  final Key key;
 
   EditScreenSaveButton({
     @required this.onPressed,
     @required this.text,
+    this.key
   });
 
   @override
@@ -21,6 +23,7 @@ class EditScreenSaveButton extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Text(
               text??"",
+              key: key,
 //              style: TextStyle(color: Colors.white),
             ),
           ),
