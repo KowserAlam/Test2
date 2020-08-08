@@ -42,7 +42,7 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
         _signOut(context);
         return;
       }
-      Provider.of<UserProfileViewModel>(context, listen: false).getUserData();
+//      Provider.of<UserProfileViewModel>(context, listen: false).getUserData();
     });
   }
 
@@ -129,9 +129,11 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
             JobChartWidget(
               animate: true,
             ),
-            TopCategoriesWidget(),
-            VitalStateWidget(),
+//            TopCategoriesWidget(),
+//            VitalStateWidget(),
+            SizedBox(height: 10,),
             CareerAdviceListHWidget(),
+            SizedBox(height: 10,),
             OtherScreensWidget(),
 
 

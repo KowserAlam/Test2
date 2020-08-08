@@ -72,53 +72,59 @@ class _AppliedJobListScreenState extends State<AppliedJobListScreen>
 //          drawer: AppDrawer(
 //            routeName: 'applied_job_list',
 //          ),
-          body:  Column(
+          body:  Stack(
             children: [
-              JobsScreenSegmentControlBar(),
-              appliedJobListViewModel.shouldShowLoader
-                  ? Center(
-                child: Loader(),
-              ):Expanded(
-                child: ListView(
-                  physics: AlwaysScrollableScrollPhysics(),
-                  controller: _scrollController,
-                  children: [
 
-                    appliedJobListViewModel.shouldShowNoJobs
-                        ? NoAppliedJobsWidget()
-                        : ListView.builder(
-                            padding: EdgeInsets.symmetric(vertical: 4),
-                            physics: NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemCount: jobList.length,
+              Column(
+                children: [
+                  SizedBox(height: 35,),
+                  appliedJobListViewModel.shouldShowLoader
+                      ? Center(
+                    child: Loader(),
+                  ):Expanded(
+                    child: ListView(
+                      physics: AlwaysScrollableScrollPhysics(),
+                      controller: _scrollController,
+                      children: [
+
+                        appliedJobListViewModel.shouldShowNoJobs
+                            ? NoAppliedJobsWidget()
+                            : ListView.builder(
+                                padding: EdgeInsets.symmetric(vertical: 4),
+                                physics: NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                itemCount: jobList.length,
 //              separatorBuilder: (context,index)=>Divider(),
-                            itemBuilder: (context, index) {
-                              JobListModel job = jobList[index];
+                                itemBuilder: (context, index) {
+                                  JobListModel job = jobList[index];
 
-                              return JobListTileWidget(
-                                job,
-                                onFavorite: () {
-                                  appliedJobListViewModel
-                                      .addToFavorite(job.jobId, index)
-                                      .then((value) {
-                                    return Provider.of<JobListViewModel>(context, listen: false)
-                                        .refresh();
-                                  });
-                                },
-                                onTap: () {
-                                  Navigator.of(context)
-                                      .push(MaterialPageRoute(
-                                          builder: (context) => JobDetailsScreen(
-                                                slug: job.slug,
-                                                fromJobListScreenType:
-                                                    JobListScreenType.applied,
-                                              )));
-                                },
-                              );
-                            }),
-                  ],
-                ),
+                                  return JobListTileWidget(
+                                    job,
+                                    onFavorite: () {
+                                      appliedJobListViewModel
+                                          .addToFavorite(job.jobId, index)
+                                          .then((value) {
+                                        return Provider.of<JobListViewModel>(context, listen: false)
+                                            .refresh();
+                                      });
+                                    },
+                                    onTap: () {
+                                      Navigator.of(context)
+                                          .push(MaterialPageRoute(
+                                              builder: (context) => JobDetailsScreen(
+                                                    slug: job.slug,
+                                                    fromJobListScreenType:
+                                                        JobListScreenType.applied,
+                                                  )));
+                                    },
+                                  );
+                                }),
+                      ],
+                    ),
+                  ),
+                ],
               ),
+              JobsScreenSegmentControlBar(),
             ],
           ),
         );
