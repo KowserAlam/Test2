@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p7app/features/company/view/company_list_screen.dart';
+import 'package:p7app/features/dashboard/view/dash_board.dart';
 import 'package:p7app/features/job/view/jobs_screen.dart';
 import 'package:p7app/features/job/view_model/job_screen_view_model.dart';
-import 'package:p7app/features/notification/views/notification_screen.dart';
-import 'package:p7app/features/dashboard/view/dash_board.dart';
-import 'package:p7app/features/job/view/applied_job_list_screen.dart';
-import 'package:p7app/features/job/view/favourite_job_list_screen.dart';
+import 'package:p7app/features/messaging/view/sender_list_screen.dart';
 import 'package:p7app/features/user_profile/views/screens/profile_screen.dart';
 import 'package:p7app/main_app/flavour/flavor_banner.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/token_refresh_scheduler.dart';
 import 'package:provider/provider.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -95,9 +92,9 @@ class _HomeState extends State<Home> {
           BottomNavigationBarItem(
               icon: Padding(
                 padding: const EdgeInsets.only(bottom: 5),
-                child: Icon(FontAwesomeIcons.solidBell),
+                child: Icon(FontAwesomeIcons.solidEnvelope),
               ),
-              title: Text(StringResources.notificationsText)),
+              title: Text(StringResources.messagesText)),
           // profile
           BottomNavigationBarItem(
               icon: Padding(
@@ -148,7 +145,7 @@ class _HomeState extends State<Home> {
 //              AppliedJobListScreen(),
 //              FavouriteJobListScreen(),
               CompanyListScreen(),
-              NotificationScreen(),
+              SenderListScreen(),
               ProfileScreen()
             ],
           ),

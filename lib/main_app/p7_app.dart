@@ -12,7 +12,7 @@ import 'package:p7app/features/job/view_model/favourite_job_list_view_model.dart
 import 'package:p7app/features/job/view_model/job_list_filter_widget_view_model.dart';
 import 'package:p7app/features/job/view_model/job_list_view_model.dart';
 import 'package:p7app/features/job/view_model/job_screen_view_model.dart';
-import 'package:p7app/features/messaging/view_mpdel/message_screen_view_model.dart';
+import 'package:p7app/features/messaging/view_mpdel/sender_list_view_model.dart';
 import 'package:p7app/features/notification/view_models/notificaion_view_model.dart';
 import 'package:p7app/features/settings/settings_view_model.dart';
 import 'package:p7app/main_app/flavour/flavour_config.dart';

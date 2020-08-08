@@ -11,7 +11,8 @@ import 'package:p7app/features/dashboard/view/widgets/profile_complete_parcent_i
 import 'package:p7app/features/dashboard/view/widgets/top_categories_widget.dart';
 import 'package:p7app/features/dashboard/view/widgets/vital_state_widget.dart';
 import 'package:p7app/features/dashboard/view_model/dashboard_view_model.dart';
-import 'package:p7app/features/messaging/view/message_screen.dart';
+import 'package:p7app/features/messaging/view/conversation_screen.dart';
+import 'package:p7app/features/notification/views/notification_screen.dart';
 import 'package:p7app/features/settings/settings_view_model.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/main_app/auth_service/auth_service.dart';
@@ -104,10 +105,10 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
         title: Text(StringResources.dashBoardText),
         actions: [
           IconButton(
-            icon: Icon(FontAwesomeIcons.solidComment),
+            icon: Icon(FontAwesomeIcons.solidBell),
             onPressed: () {
               Navigator.of(context).push(CupertinoPageRoute(
-                  builder: (BuildContext context) => MessageScreen()));
+                  builder: (BuildContext context) => NotificationScreen()));
             },
           )
         ],

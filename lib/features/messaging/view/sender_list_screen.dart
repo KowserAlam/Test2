@@ -1,23 +1,24 @@
 import 'package:after_layout/after_layout.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:p7app/features/messaging/view/conversation_screen.dart';
 import 'package:p7app/features/messaging/view/widgets/no_message_widget.dart';
-import 'package:p7app/features/messaging/view_mpdel/message_screen_view_model.dart';
+import 'package:p7app/features/messaging/view_mpdel/sender_list_view_model.dart';
 import 'package:p7app/features/notification/view_models/notificaion_view_model.dart';
 import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
-import 'package:p7app/main_app/views/app_drawer.dart';
 import 'package:p7app/main_app/views/widgets/failure_widget.dart';
 import 'package:p7app/main_app/views/widgets/loader.dart';
 import 'package:provider/provider.dart';
 
-class MessageListScreen extends StatefulWidget {
+class SenderListScreen extends StatefulWidget {
   @override
-  _MessageListScreenState createState() => _MessageListScreenState();
+  _SenderListScreenState createState() => _SenderListScreenState();
 }
 
-class _MessageListScreenState extends State<MessageListScreen>
+class _SenderListScreenState extends State<SenderListScreen>
     with AfterLayoutMixin {
   ScrollController _scrollController = ScrollController();
   var _messageInoutTextEditingController = TextEditingController();
@@ -25,7 +26,7 @@ class _MessageListScreenState extends State<MessageListScreen>
   @override
   void afterFirstLayout(BuildContext context) {
     var notiVM = Provider.of<MessageScreenViewModel>(context, listen: false);
-    notiVM.getNotifications();
+    notiVM.getSenderList();
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
@@ -91,7 +92,7 @@ class _MessageListScreenState extends State<MessageListScreen>
         }
 
         return RefreshIndicator(
-          onRefresh: () async => messagesViewModel.getNotifications(),
+          onRefresh: () async => messagesViewModel.getSenderList(),
           child: SafeArea(
             child: ListView.builder(
                 physics: AlwaysScrollableScrollPhysics(),
@@ -106,8 +107,18 @@ class _MessageListScreenState extends State<MessageListScreen>
                         color: Theme.of(context).backgroundColor,
                         boxShadow: CommonStyleTextField.boxShadow),
                     child: ListTile(
-                      title: Text(message.createdBy ?? ""),
-                      subtitle: Text(message.message ?? ""),
+                      onTap: () {
+                        Navigator.of(context).push(CupertinoPageRoute(
+                            builder: (context) =>
+                                ConversationScreen(message.otherPartyUserId)));
+                      },
+                      leading: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: CachedNetworkImage(
+                          imageUrl: message.otherPartyImage,
+                        ),
+                      ),
+                      title: Text(message.otherPartyName ?? ""),
                     ),
                   );
                 }),

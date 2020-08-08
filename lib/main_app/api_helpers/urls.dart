@@ -94,7 +94,8 @@ class Urls {
   static String notificationListUrl = "/api/notification";
   static String notificationGetUrl = "/api/notification/get/"; //  id
   static String messageListUrl = "/api/employer-message/";
-  static String messageGetUrl = "/api/employer-message/get/"; //  id
+  static String messageSenderListUrl = "/api/sender-list/";
+  static String senderMessageListUrl = "/api/sender-message-list/?sender="; //  id 75
   static String messageMarkedReadUrl =
       "/api/employer-message/mark-read/"; //  id
 
