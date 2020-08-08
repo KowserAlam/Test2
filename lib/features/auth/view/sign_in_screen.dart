@@ -169,6 +169,7 @@ class _SignInScreenState extends State<SignInScreen> {
             },
             child: Text(
               '  ${StringResources.signupText}',
+              key: Key('signUpText'),
               style: TextStyle(
                   color: Theme.of(context).primaryColor,
                   fontWeight: FontWeight.bold,
@@ -181,7 +182,7 @@ class _SignInScreenState extends State<SignInScreen> {
     var email = Consumer<SignInViewModel>(
       builder: (context, signViewModel, _) {
         return CustomTextFieldRounded(
-          textFieldKey: Key("signInEmail"),
+          textFieldKey: Key('signInEmail'),
           errorText: signViewModel.errorTextEmail,
           keyboardType: TextInputType.emailAddress,
           focusNode: _emailFocus,
