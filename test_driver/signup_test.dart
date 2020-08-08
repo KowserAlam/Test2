@@ -2,7 +2,7 @@ import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('Login Test', () {
+  group('Signup Test', () {
     final signUpNameField = find.byValueKey('signUpName');
     final signUpEmailField = find.byValueKey('signUpEmail');
     final signUpMobileField = find.byValueKey('signUpMobile');
