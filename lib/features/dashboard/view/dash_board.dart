@@ -1,24 +1,21 @@
 import 'package:after_layout/after_layout.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:p7app/features/career_advice/view/widget/career_advice_list_h_widget.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p7app/features/career_advice/view_models/career_advice_view_model.dart';
+import 'package:p7app/features/dashboard/view/widgets/career_advice_list_h_widget.dart';
 import 'package:p7app/features/dashboard/view/widgets/info_box_widget.dart';
 import 'package:p7app/features/dashboard/view/widgets/job_chart_widget.dart';
 import 'package:p7app/features/dashboard/view/widgets/other_screens_widget.dart';
 import 'package:p7app/features/dashboard/view/widgets/profile_complete_parcent_indicatior_widget.dart';
-import 'package:p7app/features/dashboard/view/widgets/top_categories_widget.dart';
-import 'package:p7app/features/dashboard/view/widgets/vital_state_widget.dart';
 import 'package:p7app/features/dashboard/view_model/dashboard_view_model.dart';
+import 'package:p7app/features/notification/views/notification_screen.dart';
 import 'package:p7app/features/settings/settings_view_model.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
-import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/locator.dart';
-import 'package:p7app/main_app/views/app_drawer.dart';
 import 'package:p7app/main_app/views/widgets/failure_widget.dart';
-import 'package:p7app/main_app/views/widgets/restart_widget.dart';
 import 'package:provider/provider.dart';
 
 class DashBoard extends StatefulWidget {
@@ -101,13 +98,13 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
       appBar: AppBar(
         title: Text(StringResources.dashBoardText),
         actions: [
-//          IconButton(
-//            icon: Icon(FontAwesomeIcons.solidComment),
-//            onPressed: () {
-//              Navigator.of(context).push(CupertinoPageRoute(
-//                  builder: (BuildContext context) => MessageScreen()));
-//            },
-//          )
+          IconButton(
+            icon: Icon(FontAwesomeIcons.solidBell),
+            onPressed: () {
+              Navigator.of(context).push(CupertinoPageRoute(
+                  builder: (BuildContext context) => NotificationScreen()));
+            },
+          )
         ],
       ),
 //      drawer: AppDrawer(

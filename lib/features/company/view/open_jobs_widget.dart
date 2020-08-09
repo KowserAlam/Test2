@@ -45,6 +45,7 @@ class _OpenJobsWidgetState extends State<OpenJobsWidget> {
                 if(this.mounted)
                   setState(() {});
               }
+              Navigator.pop(context);
             },
           );
         });

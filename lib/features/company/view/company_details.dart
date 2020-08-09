@@ -78,7 +78,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
               margin: EdgeInsets.only(right: 10),
               child: CachedNetworkImage(
                 placeholder: (context, _) => Image.asset(
-                  kImagePlaceHolderAsset,
+                  kCompanyImagePlaceholder,
                   fit: BoxFit.cover,
                 ),
                 imageUrl: companyDetails.profilePicture ?? "",
