@@ -40,6 +40,7 @@ class OtherScreensWidget extends StatelessWidget {
               ),
               Expanded(
                   child: Items(
+                    key: Key('dashBoardContactUsTile'),
                 icon: FontAwesomeIcons.at,
                 label: StringResources.contactUsText,
                 onPressed: () {
@@ -65,6 +66,7 @@ class OtherScreensWidget extends StatelessWidget {
     @required IconData icon,
     @required String label,
     @required VoidCallback onPressed,
+    Key key
   }) {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
@@ -76,6 +78,7 @@ class OtherScreensWidget extends StatelessWidget {
         return Padding(
           padding: const EdgeInsets.all(4.0),
           child: RawMaterialButton(
+            key: key,
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
             fillColor: Theme.of(context).primaryColor,
