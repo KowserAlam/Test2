@@ -7,6 +7,7 @@ main(){
   loginTest();
 }
  loginTest()async{
+
   group('Login Test', () {
     final signinEmailField = find.byValueKey('signInEmail');
     final signinPasswordField = find.byValueKey('signInPassword');
@@ -116,5 +117,6 @@ main(){
 
 
   });
+
   dashboardTest();
 }
