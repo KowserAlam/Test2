@@ -4,8 +4,5 @@ void main() {
 }
 
  dashboardTest() async {
-  return Future.wait([
-    dashboardInfoBoxTest(),
-
-  ]);
+   dashboardInfoBoxTest();
 }

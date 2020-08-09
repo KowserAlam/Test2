@@ -114,6 +114,7 @@ main(){
 
     });
 
-    dashboardTest();
+
   });
+  dashboardTest();
 }
