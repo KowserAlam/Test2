@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:p7app/features/career_advice/view/career_advice_list_screen.dart';
-import 'package:p7app/features/career_advice/view/widget/career_advice_list_tile_h.dart';
+import 'package:p7app/features/dashboard/view/widgets/career_advice_list_tile_h.dart';
 import 'package:p7app/features/career_advice/view_models/career_advice_view_model.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:provider/provider.dart';
