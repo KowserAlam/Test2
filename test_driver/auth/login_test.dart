@@ -1,7 +1,12 @@
 import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
 
-void main() {
+import '../dashboard/dashboard_test.dart';
+
+main(){
+  loginTest();
+}
+ loginTest()async{
   group('Login Test', () {
     final signinEmailField = find.byValueKey('signInEmail');
     final signinPasswordField = find.byValueKey('signInPassword');
@@ -15,6 +20,7 @@ void main() {
     setUpAll(() async {
       driver = await FlutterDriver.connect();
     });
+
     // Close the connection to the driver after the tests have completed.
     tearDownAll(() async {
       if (driver != null) {
@@ -105,6 +111,9 @@ void main() {
     test('Skipping the Onboarding screan and wait for dashboard', () async {
       await driver.tap(skipOnboardingScreen);
       await Future.delayed(const Duration(seconds: 6), () {});
+
     });
+
+    dashboardTest();
   });
 }

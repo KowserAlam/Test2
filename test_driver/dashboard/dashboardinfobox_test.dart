@@ -1,8 +1,10 @@
 import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
 
-void main() {
-  group('Dashboard Infobox', () {
+
+
+Future dashboardInfoBoxTest() async{
+  return group('Dashboard Infobox', () {
     final signinEmailField = find.byValueKey('signInEmail');
     final signinPasswordField = find.byValueKey('signInPassword');
     final signinButtonClick = find.byValueKey('signInButton');
@@ -11,6 +13,8 @@ void main() {
     final infoboxFavoriteButton = find.byValueKey('dashboardFavoriteInfoBox');
     final infoboxAppliedButton = find.byValueKey('dashboardFavoriteInfoBox');
     final clickOnDashboard = find.text('Dashboard');
+    final dashBoardContactUsTile = find.byValueKey('dashBoardContactUsTile');
+    final dashBoardListview = find.byValueKey('dashBoardListview');
 
     FlutterDriver driver;
     // Connect to the Flutter driver before running any tests.
@@ -52,5 +56,12 @@ void main() {
       await Future.delayed(const Duration(seconds: 4), () {});
     });
 
+    test('Click on contact us tile', () async {
+      await driver.scrollUntilVisible(dashBoardListview, dashBoardContactUsTile,
+          dyScroll: -600);
+      await driver.tap(dashBoardContactUsTile);
+      await Future.delayed(const Duration(seconds: 10), () {});
+    });
+    return;
   });
 }
