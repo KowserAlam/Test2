@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:p7app/features/career_advice/models/career_advice_model.dart';
 import 'package:p7app/main_app/resource/const.dart';
 
-import '../career_advice_details_screen.dart';
+import '../../../career_advice/view/career_advice_details_screen.dart';
 
 class CareerAdviceListTileH extends StatelessWidget {
   final CareerAdviceModel adviceModel;
@@ -15,7 +15,7 @@ class CareerAdviceListTileH extends StatelessWidget {
   Widget build(BuildContext context) {
 //    print(adviceModel.featuredImage);
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
+      padding: const EdgeInsets.only(bottom: 4),
       child: Card(
         elevation: 2,
         child: ClipRRect(

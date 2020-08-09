@@ -18,7 +18,7 @@ class NoMessagesWidget extends StatelessWidget {
         onTap: onTap,
         child: Center(child: Column(
           mainAxisSize:MainAxisSize.min ,children: [
-          Icon(FontAwesomeIcons.solidComment,color: color,size: 40,),
+          Icon(FontAwesomeIcons.solidEnvelope,color: color,size: 40,),
           SizedBox(height: 15,),
           Text(StringResources.youDoNotHaveAnyMessage,style: TextStyle(color: color),)
         ],),),

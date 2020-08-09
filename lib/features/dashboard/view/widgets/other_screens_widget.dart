@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/views/about_us_screen.dart';
 import 'package:p7app/main_app/views/contact_us_screen.dart';
@@ -16,37 +17,47 @@ class OtherScreensWidget extends StatelessWidget {
       }));
     }
 
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-      child: Row(
-        children: [
-          Expanded(
-            child: Items(
-              icon: FontAwesomeIcons.questionCircle,
-              label: StringResources.faqText,
-              onPressed: () {
-                _navigateTo(FAQScreen());
-              },
-            ),
+    return Column(
+      children: [
+        Row(children: [
+          SizedBox(width: 15,),
+          Text(StringResources.moreInfoTitleText,
+            style: Theme.of(context).textTheme.headline6,
           ),
-          Expanded(
-              child: Items(
-            icon: FontAwesomeIcons.at,
-            label: StringResources.contactUsText,
-            onPressed: () {
-              _navigateTo(ContactUsScreen());
-            },
-          )),
-          Expanded(
-              child: Items(
-            icon: FontAwesomeIcons.infoCircle,
-            label: StringResources.aboutUsText,
-            onPressed: () {
-              _navigateTo(AboutUsScreen());
-            },
-          )),
-        ],
-      ),
+        ],),
+        Container(
+          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+          child: Row(
+            children: [
+              Expanded(
+                child: Items(
+                  icon: FontAwesomeIcons.questionCircle,
+                  label: StringResources.faqText,
+                  onPressed: () {
+                    _navigateTo(FAQScreen());
+                  },
+                ),
+              ),
+              Expanded(
+                  child: Items(
+                icon: FontAwesomeIcons.at,
+                label: StringResources.contactUsText,
+                onPressed: () {
+                  _navigateTo(ContactUsScreen());
+                },
+              )),
+              Expanded(
+                  child: Items(
+                icon: FontAwesomeIcons.infoCircle,
+                label: StringResources.aboutUsText,
+                onPressed: () {
+                  _navigateTo(AboutUsScreen());
+                },
+              )),
+            ],
+          ),
+        ),
+      ],
     );
   }
 
@@ -67,7 +78,7 @@ class OtherScreensWidget extends StatelessWidget {
           child: RawMaterialButton(
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-            fillColor: Theme.of(context).backgroundColor,
+            fillColor: Theme.of(context).primaryColor,
             elevation: 2,
             onPressed: onPressed,
             child: Container(
@@ -77,13 +88,13 @@ class OtherScreensWidget extends StatelessWidget {
                   Center(
                       child: Icon(
                     icon,
-                    color: Colors.grey.withOpacity(0.1),
+                    color: Colors.grey.withOpacity(0.15),
                     size: iconSize,
                   )),
                   Center(
                     child: Text(
                       label ?? "",
-                      style: Theme.of(context).textTheme.subtitle1,
+                      style: GoogleFonts.poppins(fontSize: 17,fontWeight: FontWeight.bold),
                     ),
                   ),
                 ],

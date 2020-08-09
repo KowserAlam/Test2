@@ -52,7 +52,7 @@ class EducationsListItem extends StatelessWidget {
               child: Icon(
                 FontAwesomeIcons.university,
                 size: 45,
-                color: Theme.of(context).primaryColor,
+                color: Colors.grey[400],
               ),
             ),
           ),

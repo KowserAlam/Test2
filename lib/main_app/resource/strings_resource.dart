@@ -204,6 +204,7 @@ class StringResources {
   static String ongoingText = "Ongoing";
   static String readMoreText = 'Read More';
   static String moreTextSl = 'more';
+  static String moreInfoTitleText = 'More Info';
 
   //Company List Screen
   static var companyListAppbarText = "Companies";
