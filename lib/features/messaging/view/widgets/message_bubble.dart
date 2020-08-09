@@ -1,22 +1,27 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:p7app/features/messaging/model/conversation_screen_data_model.dart';
+import 'package:p7app/features/messaging/model/message_sender_data_model.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:provider/provider.dart';
 
 class MessageBubble extends StatelessWidget {
   final Message message;
+  final MessageSenderModel senderModel;
 
-  MessageBubble(this.message);
+  MessageBubble(
+    this.message,
+    this.senderModel,
+  );
 
   @override
   Widget build(BuildContext context) {
     var primaryColor = Theme.of(context).primaryColor;
     var userProfileVm = Provider.of<UserProfileViewModel>(context);
-    var userId = userProfileVm.userData.personalInfo.user;
+    var userId = userProfileVm?.userData?.personalInfo?.user;
     bool isMe = userId == message.sender;
-    var appUser = userProfileVm.userData.personalInfo;
-    print("userID: $userId senderID: ${message.sender}");
+    var appUser = userProfileVm?.userData?.personalInfo;
+//    print("userID: $userId senderID: ${message.sender}");
 
     Color bubbleColor = isMe ? Colors.white : primaryColor;
     return Padding(
@@ -32,7 +37,7 @@ class MessageBubble extends StatelessWidget {
                 child: CircleAvatar(
                   radius: 12,
                   backgroundImage: CachedNetworkImageProvider(
-                      message?.senderCompany?.profilePicture ?? ""),
+                      senderModel?.otherPartyImage ?? ""),
                 ),
               ),
             Container(

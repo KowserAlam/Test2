@@ -1,19 +1,19 @@
 import 'package:after_layout/after_layout.dart';
 import 'package:flutter/material.dart';
+import 'package:p7app/features/messaging/model/message_sender_data_model.dart';
 import 'package:p7app/features/messaging/view/widgets/message_bubble.dart';
 import 'package:p7app/features/messaging/view_mpdel/conversation_view_model.dart';
-import 'package:p7app/features/notification/view_models/notificaion_view_model.dart';
 import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
-import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
-import 'package:p7app/main_app/views/widgets/failure_widget.dart';
+import 'package:p7app/main_app/views/widgets/loader.dart';
+import 'package:p7app/main_app/views/widgets/page_state_builder.dart';
 import 'package:provider/provider.dart';
 
 class ConversationScreen extends StatefulWidget {
   final vm = ConversationViewModel();
-  final String id;
+  final MessageSenderModel senderModel;
 
-  ConversationScreen(this.id);
+  ConversationScreen(this.senderModel);
 
   @override
   _ConversationScreenState createState() => _ConversationScreenState();
@@ -26,50 +26,15 @@ class _ConversationScreenState extends State<ConversationScreen>
 
   @override
   void afterFirstLayout(BuildContext context) {
-    widget.vm.getConversation(widget.id);
-
+    widget.vm.getConversation(widget.senderModel.otherPartyUserId);
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
-        widget.vm.getMoreData(widget.id);
+        widget.vm.getMoreData(widget.senderModel.otherPartyUserId);
       }
     });
   }
 
-  _handleMessageSend() {}
-
-  errorWidget() {
-    var jobListViewModel =
-        Provider.of<NotificationViewModel>(context, listen: false);
-    switch (jobListViewModel.appError) {
-      case AppError.serverError:
-        return FailureFullScreenWidget(
-          errorMessage: StringResources.unableToLoadData,
-          onTap: () {
-            return Provider.of<NotificationViewModel>(context, listen: false)
-                .refresh();
-          },
-        );
-
-      case AppError.networkError:
-        return FailureFullScreenWidget(
-          errorMessage: StringResources.unableToReachServerMessage,
-          onTap: () {
-            return Provider.of<NotificationViewModel>(context, listen: false)
-                .refresh();
-          },
-        );
-
-      default:
-        return FailureFullScreenWidget(
-          errorMessage: StringResources.somethingIsWrong,
-          onTap: () {
-            return Provider.of<NotificationViewModel>(context, listen: false)
-                .refresh();
-          },
-        );
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -79,14 +44,15 @@ class _ConversationScreenState extends State<ConversationScreen>
         var messages = vm.messages.reversed.toList();
         return Scaffold(
           appBar: AppBar(
-            title: Text(StringResources.messagesText),
+            title: Text(widget?.senderModel?.otherPartyName ?? ""),
           ),
 //      drawer: AppDrawer(),
           body: SafeArea(
             child: Column(
               children: [
+
                 Expanded(
-                  child: ListView.builder(
+                  child:     vm.shouldShowPageLoader?Loader():ListView.builder(
                       physics: AlwaysScrollableScrollPhysics(),
                       controller: _scrollController,
                       padding: EdgeInsets.symmetric(vertical: 4),
@@ -94,7 +60,7 @@ class _ConversationScreenState extends State<ConversationScreen>
                       reverse: true,
                       itemBuilder: (BuildContext context, int index) {
                         var message = messages[index];
-                        return MessageBubble(message);
+                        return MessageBubble(message,widget.senderModel);
                       }),
                 ),
                 Row(
@@ -122,12 +88,23 @@ class _ConversationScreenState extends State<ConversationScreen>
                         ),
                       ),
                     ),
+                    vm.sendingMessage?
+                    IconButton(icon: Loader(),onPressed: null,):
                     IconButton(
                       icon: Icon(Icons.send),
                       iconSize: 20,
                       color: Theme.of(context).accentColor,
-                      onPressed: _handleMessageSend,
-                    )
+                      onPressed: () {
+                        if(_messageInoutTextEditingController.text.isNotEmpty){
+                          vm.createMessage(
+                              _messageInoutTextEditingController.text,
+                              widget.senderModel.otherPartyUserId);
+                          _messageInoutTextEditingController.clear();
+                        }
+
+                      },
+                    ),
+
                   ],
                 ),
               ],

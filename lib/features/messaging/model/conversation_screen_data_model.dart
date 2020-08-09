@@ -54,44 +54,44 @@ class Message {
   String message;
   int receiver;
   String receiverType;
-  ReceiverCompany receiverCompany;
-  ReceiverPro receiverPro;
+//  ReceiverCompany receiverCompany;
+//  ReceiverPro receiverPro;
   int sender;
   String senderType;
-  ReceiverCompany senderCompany;
-  ReceiverPro senderPro;
+//  ReceiverCompany senderCompany;
+//  ReceiverPro senderPro;
   String createdAt;
 
   Message(
       {this.message,
         this.receiver,
         this.receiverType,
-        this.receiverCompany,
-        this.receiverPro,
+//        this.receiverCompany,
+//        this.receiverPro,
         this.sender,
         this.senderType,
-        this.senderCompany,
-        this.senderPro,
+//        this.senderCompany,
+//        this.senderPro,
         this.createdAt});
 
   Message.fromJson(Map<String, dynamic> json) {
     message = json['message'];
     receiver = json['receiver'];
     receiverType = json['receiver_type'];
-    receiverCompany = json['receiver_company'] != null
-        ? new ReceiverCompany.fromJson(json['receiver_company'])
-        : null;
-    receiverPro = json['receiver_pro'] != null
-        ? new ReceiverPro.fromJson(json['receiver_pro'])
-        : null;
+//    receiverCompany = json['receiver_company'] != null
+//        ? new ReceiverCompany.fromJson(json['receiver_company'])
+//        : null;
+//    receiverPro = json['receiver_pro'] != null
+//        ? new ReceiverPro.fromJson(json['receiver_pro'])
+//        : null;
     sender = json['sender'];
     senderType = json['sender_type'];
-    senderCompany = json['sender_company'] != null
-        ? new ReceiverCompany.fromJson(json['sender_company'])
-        : null;
-    senderPro = json['sender_pro'] != null
-        ? new ReceiverPro.fromJson(json['sender_pro'])
-        : null;
+//    senderCompany = json['sender_company'] != null
+//        ? new ReceiverCompany.fromJson(json['sender_company'])
+//        : null;
+//    senderPro = json['sender_pro'] != null
+//        ? new ReceiverPro.fromJson(json['sender_pro'])
+//        : null;
     createdAt = json['created_at'];
   }
 
@@ -100,22 +100,27 @@ class Message {
     data['message'] = this.message;
     data['receiver'] = this.receiver;
     data['receiver_type'] = this.receiverType;
-    if (this.receiverCompany != null) {
-      data['receiver_company'] = this.receiverCompany.toJson();
-    }
-    if (this.receiverPro != null) {
-      data['receiver_pro'] = this.receiverPro.toJson();
-    }
+//    if (this.receiverCompany != null) {
+//      data['receiver_company'] = this.receiverCompany.toJson();
+//    }
+//    if (this.receiverPro != null) {
+//      data['receiver_pro'] = this.receiverPro.toJson();
+//    }
     data['sender'] = this.sender;
     data['sender_type'] = this.senderType;
-    if (this.senderCompany != null) {
-      data['sender_company'] = this.senderCompany.toJson();
-    }
-    if (this.senderPro != null) {
-      data['sender_pro'] = this.senderPro.toJson();
-    }
+//    if (this.senderCompany != null) {
+//      data['sender_company'] = this.senderCompany.toJson();
+//    }
+//    if (this.senderPro != null) {
+//      data['sender_pro'] = this.senderPro.toJson();
+//    }
     data['created_at'] = this.createdAt;
     return data;
+  }
+
+  @override
+  String toString() {
+    return 'Message{message: $message, receiver: $receiver, receiverType: $receiverType, sender: $sender, senderType: $senderType, createdAt: $createdAt}';
   }
 }
 

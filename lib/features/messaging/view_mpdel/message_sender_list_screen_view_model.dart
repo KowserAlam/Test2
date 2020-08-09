@@ -4,7 +4,7 @@ import 'package:p7app/features/messaging/model/message_sender_data_model.dart';
 import 'package:p7app/features/messaging/repositories/message_repository.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
 
-class MessageScreenViewModel with ChangeNotifier {
+class MessageSenderListScreenViewModel with ChangeNotifier {
   AppError _appError;
   List<MessageSenderModel> _messages = [];
   bool _isFetchingData = false;
@@ -67,9 +67,9 @@ class MessageScreenViewModel with ChangeNotifier {
 //    }
 //  }
 
-  List<MessageSenderModel> get messages => _messages;
+  List<MessageSenderModel> get senderList => _messages;
 
-  set messages(List<MessageSenderModel> value) {
+  set senderList(List<MessageSenderModel> value) {
     _messages = value;
   }
 
@@ -85,10 +85,10 @@ class MessageScreenViewModel with ChangeNotifier {
 
   bool get hasMoreData => _hasMoreData;
 
-  bool get shouldShowPageLoader => _isFetchingData && messages.length == 0;
+  bool get shouldShowPageLoader => _isFetchingData && senderList.length == 0;
 
-  bool get shouldShowAppError => _appError != null && messages.length == 0;
+  bool get shouldShowAppError => _appError != null && senderList.length == 0;
 
   bool get shouldShowNoMessage =>
-      !_isFetchingData && _appError == null && messages.length == 0;
+      !_isFetchingData && _appError == null && senderList.length == 0;
 }

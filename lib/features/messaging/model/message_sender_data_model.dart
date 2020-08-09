@@ -15,7 +15,7 @@ class MessageSenderModel {
   MessageSenderModel.fromJson(Map<String, dynamic> json) {
     var baseUrl = FlavorConfig?.instance?.values?.baseUrl;
 
-    otherPartyUserId = json['other_party_user_id'];
+    otherPartyUserId = json['other_party_user_id']?.toString();
     otherPartyType = json['other_party_type'];
     otherPartyName = json['other_party_name'];
 

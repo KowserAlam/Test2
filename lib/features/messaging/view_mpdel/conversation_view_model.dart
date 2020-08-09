@@ -1,15 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:p7app/features/messaging/model/conversation_screen_data_model.dart';
-import 'package:p7app/features/messaging/model/message_sender_data_model.dart';
 import 'package:p7app/features/messaging/repositories/message_repository.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
 
 class ConversationViewModel with ChangeNotifier {
+  String senderId;
   List<Message> _messages = [];
   AppError _appError;
   bool _isFetchingData = false;
   bool _isGettingMoreData = false;
   bool _hasMoreData = false;
+  bool _sendingMessage = false;
+  int pageCount=1;
+
+
 
   Future<void> getConversation(String senderId) async {
     _isFetchingData = true;
@@ -30,9 +34,10 @@ class ConversationViewModel with ChangeNotifier {
 
   getMoreData(String senderId) async {
     if (_hasMoreData && !isGettingMoreData) {
+      pageCount++;
       _isGettingMoreData = true;
       notifyListeners();
-      var res = await MessageRepository().getConversation(senderId);
+      var res = await MessageRepository().getConversation(senderId,page: pageCount);
       res.fold((l) {
         _isGettingMoreData = false;
         _appError = l;
@@ -41,10 +46,27 @@ class ConversationViewModel with ChangeNotifier {
       }, (r) {
         _isGettingMoreData = false;
         _hasMoreData = r.pages.nextUrl ?? false;
+
         _messages.addAll(r.messages);
         notifyListeners();
       });
     }
+  }
+
+  createMessage(String message, String receiverId) async {
+    _sendingMessage = true;
+    notifyListeners();
+    await MessageRepository().createMessage(message, receiverId).then((messageModel) {
+      _sendingMessage = false;
+//      Logger().i(messageModel);
+      if (messageModel != null) {
+        _messages.add(messageModel);
+      }
+      notifyListeners();
+    });
+
+
+
   }
 
   List<Message> get messages => _messages;
@@ -56,4 +78,10 @@ class ConversationViewModel with ChangeNotifier {
   bool get isFetchingData => _isFetchingData;
 
   AppError get appError => _appError;
+
+  bool get sendingMessage => _sendingMessage;
+
+  bool get shouldShowPageLoader => _isFetchingData && _messages.length == 0;
+
+  bool get shouldShowAppError => _appError != null && _messages.length == 0;
 }
