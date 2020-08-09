@@ -1,9 +1,7 @@
-import 'dart:async';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -13,7 +11,6 @@ import 'package:p7app/features/company/view/widgets/company_details_formatted_te
 import 'package:p7app/features/company/view/widgets/company_section_base.dart';
 import 'package:p7app/features/company/view/open_jobs_widget.dart';
 import 'package:p7app/main_app/api_helpers/url_launcher_helper.dart';
-import 'package:p7app/main_app/repositories/country_repository.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/date_format_uitl.dart';
