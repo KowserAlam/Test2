@@ -67,7 +67,7 @@ class _HomeState extends State<Home> {
                   bottom: 3,
                 ),
                 child: Icon(
-                  FontAwesomeIcons.home,
+                  FontAwesomeIcons.home, key: Key('bottomNavigationBarDashboard')
                 ),
               ),
               title: Text(StringResources.dashBoardText)),
@@ -78,21 +78,21 @@ class _HomeState extends State<Home> {
                   bottom: 3,
                 ),
                 child: Icon(
-                  FontAwesomeIcons.briefcase,
+                  FontAwesomeIcons.briefcase, key: Key('bottomNavigationBarJobs')
                 ),
               ),
               title: Text(StringResources.jobsText)),
           BottomNavigationBarItem(
               icon: Padding(
                 padding: const EdgeInsets.only(bottom: 5),
-                child: Icon(FontAwesomeIcons.solidBuilding),
+                child: Icon(FontAwesomeIcons.solidBuilding, key: Key('bottomNavigationBarCompany')),
               ),
               title: Text(StringResources.companyListAppbarText)),
           //notifications
           BottomNavigationBarItem(
               icon: Padding(
                 padding: const EdgeInsets.only(bottom: 5),
-                child: Icon(FontAwesomeIcons.solidEnvelope),
+                child: Icon(FontAwesomeIcons.solidEnvelope, key: Key('bottomNavigationBarMessages')),
               ),
               title: Text(StringResources.messagesText)),
           // profile
