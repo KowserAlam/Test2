@@ -10,6 +10,7 @@ void main() {
     final skipOnboardingScreen = find.text('Skip');
     final infoboxFavoriteButton = find.byValueKey('dashboardFavoriteInfoBox');
     final infoboxAppliedButton = find.byValueKey('dashboardFavoriteInfoBox');
+    final clickOnDashboard = find.text('Dashboard');
 
     FlutterDriver driver;
     // Connect to the Flutter driver before running any tests.
@@ -46,14 +47,10 @@ void main() {
 
     test('Click on favorite button on infobox', () async {
       await driver.tap(infoboxFavoriteButton);
-      await Future.delayed(const Duration(seconds: 6), () {});
-      await driver.tap(backButton);
+      await Future.delayed(const Duration(seconds: 4), () {});
+      await driver.tap(clickOnDashboard);
+      await Future.delayed(const Duration(seconds: 4), () {});
     });
 
-    test('Click on applied button on infobox', () async {
-      await driver.tap(infoboxAppliedButton);
-      await Future.delayed(const Duration(seconds: 6), () {});
-      await driver.tap(backButton);
-    });
   });
 }
