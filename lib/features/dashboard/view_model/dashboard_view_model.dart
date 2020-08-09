@@ -42,8 +42,6 @@ class DashboardViewModel with ChangeNotifier {
       _getInfoBoxData(),
       _getISkillJobChartData(),
       _getProfileCompleteness(),
-      _getVitalStats(),
-      _getTopCategories(),
     ]).then((value) {
 
       _lastFetchTime = DateTime.now();

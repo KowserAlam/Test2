@@ -87,6 +87,7 @@ class CustomTextFormField extends StatelessWidget {
             ],
           ),
           child: TextFormField(
+            key: key,
             onTap: onTap,
             readOnly: readOnly,
             enabled: enabled,

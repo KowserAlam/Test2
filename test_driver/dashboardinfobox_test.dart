@@ -6,9 +6,11 @@ void main() {
     final signinEmailField = find.byValueKey('signInEmail');
     final signinPasswordField = find.byValueKey('signInPassword');
     final signinButtonClick = find.byValueKey('signInButton');
-    final forgotPasswordLink = find.text('Forgot Password ?');
     final backButton = find.byTooltip('Back');
     final skipOnboardingScreen = find.text('Skip');
+    final infoboxFavoriteButton = find.byValueKey('dashboardFavoriteInfoBox');
+    final infoboxAppliedButton = find.byValueKey('dashboardFavoriteInfoBox');
+    final clickOnDashboard = find.text('Dashboard');
 
     FlutterDriver driver;
     // Connect to the Flutter driver before running any tests.
@@ -21,7 +23,12 @@ void main() {
         driver.close();
       }
     });
-
+    //skillAddField
+    //dashboardSkillInfoBox
+    //dashboardFavoriteInfoBox
+    //dashboardAppliedInfoBox
+    //addKey: Key('myProfileAddSkillAdd'),
+    //penKey: Key('myProfileAddSkillPen'),
     //test cases are started from here
 
     test('Try to login with registered email and password', () async {
@@ -32,5 +39,18 @@ void main() {
       await driver.tap(signinButtonClick);
       await Future.delayed(const Duration(seconds: 3), () {});
     });
+
+    test('Skip the onboarding screen after login', () async {
+      await driver.tap(skipOnboardingScreen);
+      await Future.delayed(const Duration(seconds: 6), () {});
+    });
+
+    test('Click on favorite button on infobox', () async {
+      await driver.tap(infoboxFavoriteButton);
+      await Future.delayed(const Duration(seconds: 4), () {});
+      await driver.tap(clickOnDashboard);
+      await Future.delayed(const Duration(seconds: 4), () {});
+    });
+
   });
 }
