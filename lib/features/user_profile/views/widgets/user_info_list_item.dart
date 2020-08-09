@@ -10,6 +10,7 @@ class UserInfoListItem extends StatefulWidget {
   final List<Widget> children;
   final bool useSeparator;
   final bool isInEditMode;
+  final Key penKey, addKey;
 
   UserInfoListItem({
     @required this.icon,
@@ -19,6 +20,8 @@ class UserInfoListItem extends StatefulWidget {
     this.isInEditMode = false,
     this.useSeparator = true,
     @required this.children,
+    this.penKey,
+    this.addKey
   });
 
   @override
@@ -40,6 +43,7 @@ class _UserInfoListItemState extends State<UserInfoListItem> {
                 child: Padding(
                   padding: const EdgeInsets.all(5.0),
                   child: Icon(FontAwesomeIcons.plus,
+                      key: widget.addKey,
                       size: 20,
                       color: Theme.of(context).accentColor),
                 )),
@@ -69,6 +73,7 @@ class _UserInfoListItemState extends State<UserInfoListItem> {
                 child: Icon(
                   widget.isInEditMode ? FontAwesomeIcons.check : Icons.edit,
                   size: 20,
+                  key: widget.penKey,
                   color: Theme.of(context).accentColor,
                 ),
               ),

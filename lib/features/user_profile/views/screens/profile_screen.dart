@@ -496,6 +496,8 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
 
       return UserInfoListItem(
         isInEditMode: isInEditModeSkill,
+        addKey: Key('myProfileAddSkillAdd'),
+        penKey: Key('myProfileAddSkillPen'),
         onTapEditAction: () {
           isInEditModeSkill = !isInEditModeSkill;
           setState(() {});

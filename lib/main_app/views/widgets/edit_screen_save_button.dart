@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 class EditScreenSaveButton extends StatelessWidget {
   final Function onPressed;
   final String text;
+  final Key key;
 
   EditScreenSaveButton({
     @required this.onPressed,
     @required this.text,
+    this.key
   });
 
   @override

@@ -186,6 +186,7 @@ class _AddEditProfessionalSkillState extends State<AddEditProfessionalSkill> {
             boxShadow: CommonStyleTextField.boxShadow,
           ),
           child: TypeAheadFormField<Skill>(
+            key: Key('skillAddField'),
             textFieldConfiguration: TextFieldConfiguration(
                 controller: searchController,
                 decoration: InputDecoration(
@@ -238,6 +239,7 @@ class _AddEditProfessionalSkillState extends State<AddEditProfessionalSkill> {
         title: Text(StringResources.professionalSkillText),
         actions: <Widget>[
           EditScreenSaveButton(
+            key: Key('skillSaveButton'),
             text: "Save",
             onPressed: _handleSave,
           )
@@ -340,6 +342,7 @@ class _AddEditProfessionalSkillState extends State<AddEditProfessionalSkill> {
                       height: 30,
                     ),
                     CustomTextFormField(
+                      key: Key('skillExpertise'),
                       keyboardType: TextInputType.number,
                       controller: ratingController,
                       validator: Validator().expertiseFieldValidate,
