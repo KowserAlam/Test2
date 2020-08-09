@@ -48,6 +48,7 @@ void main() {
 
     test('Click on contact us tile', () async {
       await driver.scrollUntilVisible(dashBoardListview, dashBoardContactUsTile, dyScroll: -600);
+      await driver.tap(dashBoardContactUsTile);
       await Future.delayed(const Duration(seconds: 10), (){});
     });
 
