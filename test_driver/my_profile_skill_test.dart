@@ -46,48 +46,48 @@ void main() {
       await Future.delayed(const Duration(seconds: 30), (){});
     });
 
-    test('Click on contact us tile', () async {
-      await driver.scrollUntilVisible(dashBoardListview, dashBoardContactUsTile, dyScroll: -600);
-      await driver.tap(dashBoardContactUsTile);
+    test('Getting to Skill Add screen', () async {
+      await driver.tap(bottomNavigationBarMyProfile);
+      await driver.tap(myProfileAddSkillPen);
+      await driver.tap(myProfileAddSkillAdd);
+    });
+
+//    test('Click on contact us tile', () async {
+//      await driver.scrollUntilVisible(dashBoardListview, dashBoardContactUsTile, dyScroll: -600);
+//      await driver.tap(dashBoardContactUsTile);
+//      await Future.delayed(const Duration(seconds: 10), (){});
+//    });
+
+    test('Try to save while all fields are empty', () async {
+      await driver.tap(skillSaveButton);
       await Future.delayed(const Duration(seconds: 10), (){});
     });
 
-//    test('Try to save while all fields are empty', () async {
-//      await driver.tap(skillSaveButton);
-//      await Future.delayed(const Duration(seconds: 10), (){});
-//    });
-//
-//    test('Try to save with only skill name written', () async {
-//      await driver.tap(skillAddField);
-//      await driver.enterText('python');
-//      await driver.tap(skillSaveButton);
-//      await Future.delayed(const Duration(seconds: 5), (){});
-//    });
-//
-//    test('Try to save with only skill expertise gievn more than 10', () async {
-//      await driver.tap(skillAddField);
-//      await driver.enterText('');
-//      await driver.tap(skillExpertise);
-//      await driver.enterText('15');
-//      await driver.tap(skillSaveButton);
-//      await Future.delayed(const Duration(seconds: 5), (){});
-//    });
-//
-//    test('Try to save with only skill expertise gievn 5', () async {
-//      await driver.tap(skillExpertise);
-//      await driver.enterText('5');
-//      await driver.tap(skillSaveButton);
-//      await Future.delayed(const Duration(seconds: 5), (){});
-//    });
-//
-//    test('Try to save skill Python with expertise level 10.', () async {
-//      await driver.tap(skillAddField);
-//      await driver.enterText('Python');
-//      await driver.tap(skillExpertise);
-//      await driver.enterText('10');
-//      await driver.tap(skillSaveButton);
-//      await Future.delayed(const Duration(seconds: 5), (){});
-//    });
+    test('Try to save with only skill name written', () async {
+      await driver.tap(skillAddField);
+      await driver.enterText('python');
+      await driver.tap(skillSaveButton);
+      await Future.delayed(const Duration(seconds: 5), (){});
+    });
+
+    test('Try to save with only skill expertise gievn more than 10', () async {
+      await driver.tap(skillAddField);
+      await driver.enterText('');
+      await driver.tap(skillExpertise);
+      await driver.enterText('15');
+      await driver.tap(skillSaveButton);
+      await Future.delayed(const Duration(seconds: 5), (){});
+    });
+
+
+    test('Try to save skill Python with expertise level 10.', () async {
+      await driver.tap(skillAddField);
+      await driver.enterText('Python');
+      await driver.tap(skillExpertise);
+      await driver.enterText('10');
+      await driver.tap(skillSaveButton);
+      await Future.delayed(const Duration(seconds: 5), (){});
+    });
   });
 
 }

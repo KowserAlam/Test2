@@ -152,6 +152,7 @@ class _EditCertificationState extends State<EditCertification> {
               children: <Widget>[
                 //Certification Name
                 CustomTextFormField(
+                  key: Key('certificationName'),
                   isRequired: true,
                   validator: Validator().nullFieldValidate,
                   keyboardType: TextInputType.text,
@@ -169,6 +170,7 @@ class _EditCertificationState extends State<EditCertification> {
                 //Organization Name
                 CustomTextFormField(
                   //validator: Validator().nullFieldValidate,
+                  key: Key('certificationOrganizationName'),
                   keyboardType: TextInputType.text,
                   focusNode: _organizationNameFocusNode,
                   textInputAction: TextInputAction.next,
@@ -183,6 +185,7 @@ class _EditCertificationState extends State<EditCertification> {
                 spaceBetweenFields,
                 CustomTextFormField(
                   //validator: Validator().nullFieldValidate,
+                  key: Key('certificationCredentialIdName'),
                   keyboardType: TextInputType.text,
                   focusNode: _credentialIdFocusNode,
                   textInputAction: TextInputAction.next,
@@ -198,6 +201,7 @@ class _EditCertificationState extends State<EditCertification> {
                 //Credential URL
                 CustomTextFormField(
                   //validator: Validator().nullFieldValidate,
+                  key: Key('certificationCredentialUrl'),
                   keyboardType: TextInputType.text,
                   focusNode: _credentialUrlFocusNode,
                   textInputAction: TextInputAction.next,
