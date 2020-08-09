@@ -13,7 +13,9 @@ void main() {
     final skillAddField = find.byValueKey('skillAddField');
     final skillExpertise = find.byValueKey('skillExpertise');
     final skillSaveButton = find.byValueKey('skillSaveButton');
-    final dashboardAppliedInfoBox = find.byValueKey('dashboardAppliedInfoBox');
+    final dashBoardContactUsTile = find.byValueKey('dashBoardContactUsTile');
+    final dashBoardListview = find.byValueKey('dashBoardListview');
+
 
 
 
@@ -33,7 +35,7 @@ void main() {
 
 
     //test cases are started from here
-    test('Getting to Skill Add Screen', () async {
+    test('Getting to Dashboard', () async {
       await driver.tap(signInEmail);
       await driver.enterText('kowser@ishraak.com');
       await driver.tap(signInPassword);
@@ -41,11 +43,11 @@ void main() {
       await driver.tap(signInButton);
       await Future.delayed(const Duration(seconds: 3), (){});
       await driver.tap(onboardingPageSkipButton);
-      await Future.delayed(const Duration(seconds: 2), (){});
-      await driver.tap(dashboardAppliedInfoBox);
-//      await driver.tap(bottomNavigationBarMyProfile);
-//      await driver.tap(myProfileAddSkillPen);
-//      await driver.tap(myProfileAddSkillAdd);
+      await Future.delayed(const Duration(seconds: 30), (){});
+    });
+
+    test('Click on contact us tile', () async {
+      await driver.scrollUntilVisible(dashBoardListview, dashBoardContactUsTile, dyScroll: 600);
       await Future.delayed(const Duration(seconds: 10), (){});
     });
 
