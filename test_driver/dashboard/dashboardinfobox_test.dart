@@ -5,14 +5,16 @@ import 'package:test/test.dart';
 
 Future dashboardInfoBoxTest() async{
   return group('Dashboard Infobox', () {
+    final backButton = find.byTooltip('Back');
     final infoboxFavoriteButton = find.byValueKey('dashboardFavoriteInfoBox');
     final infoboxAppliedButton = find.byValueKey('dashboardFavoriteInfoBox');
     final clickOnDashboard = find.text('Dashboard');
     final dashBoardContactUsTile = find.byValueKey('dashBoardContactUsTile');
     final dashBoardFAQTile = find.byValueKey('dashBoardFAQTile');
     final dashBoardAboutUsTile = find.byValueKey('dashBoardAboutUsTile');
-
     final dashBoardListview = find.byValueKey('dashBoardListview');
+    final dashboardNotificationIcon = find.byValueKey('dashboardNotificationIcon');
+
 
     FlutterDriver driver;
     // Connect to the Flutter driver before running any tests.
@@ -69,6 +71,13 @@ Future dashboardInfoBoxTest() async{
       await driver.tap(dashBoardAboutUsTile);
       await Future.delayed(const Duration(seconds: 10), () {});
       await driver.tap(clickOnDashboard);
+      await Future.delayed(const Duration(seconds: 4), () {});
+    });
+
+    test('Click on Notification icon to check notifications', () async {
+      await driver.tap(dashboardNotificationIcon);
+      await Future.delayed(const Duration(seconds: 6), () {});
+      await driver.tap(backButton);
       await Future.delayed(const Duration(seconds: 4), () {});
     });
     return;
