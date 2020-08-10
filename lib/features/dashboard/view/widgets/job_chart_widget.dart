@@ -8,6 +8,7 @@ import 'package:p7app/features/user_profile/models/skill_info.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/features/user_profile/views/screens/add_edit_professional_skill_screen.dart';
 import 'package:p7app/features/user_profile/views/widgets/professional_skill_list_item.dart';
+import 'package:p7app/main_app/app_theme/app_theme.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
@@ -82,7 +83,7 @@ class JobChartWidget extends StatelessWidget {
                     ? skillText ?? ""
                     : "${skillText?.substring(0, chLength)} ...." ?? "";
 
-                if(userProfileViewModel.appError !=  null){
+                if (userProfileViewModel.appError != null) {
                   return SizedBox();
                 }
 
@@ -121,9 +122,25 @@ class JobChartWidget extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text(StringResources.monthlyJobsText,style:TextStyle(fontSize: 18,fontWeight: FontWeight.bold)),
-                     SizedBox(height: 2,),
-                      Text("for Skills ($skillsString)",textAlign: TextAlign.center,),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 2,bottom: 8),
+                        child: Row(
+                          children: [
+                            Text(
+                              StringResources.monthlyJobsText,
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 2,
+                      ),
+                      Text(
+                        "for Skills ($skillsString)",
+                        textAlign: TextAlign.center,
+                      ),
                       if (hasMoreText)
                         Padding(
                           padding: const EdgeInsets.only(top: 5),
@@ -141,8 +158,7 @@ class JobChartWidget extends StatelessWidget {
                                     isExpanded
                                         ? StringResources.seeLessText
                                         : StringResources.seeMoreText,
-                                    style: TextStyle(
-                                        color: Colors.blue),
+                                    style: TextStyle(color: Colors.blue),
                                   ),
                                 ],
                               ),
@@ -184,7 +200,15 @@ class JobChartWidget extends StatelessWidget {
                 id: "Job Chart",
                 domainFn: (v, _) => v.month ?? "Month",
                 measureFn: (v, _) => v.total ?? 0,
+                fillColorFn: (_, __) =>
+                    charts.ColorUtil.fromDartColor(AppTheme.colorPrimary),
+                colorFn: (_, __) =>
+                    charts.ColorUtil.fromDartColor(AppTheme.colorPrimary)
+                        .darker,
                 data: list.reversed.toList(),
+                insideLabelStyleAccessorFn: (_, __) => charts.TextStyleSpec(
+                  color: charts.MaterialPalette.black,
+                ),
                 labelAccessorFn: (v, _) => '${v.total ?? ""}',
               )
             ];
@@ -198,8 +222,14 @@ class JobChartWidget extends StatelessWidget {
 //                vertical: false,
                 animate: animate,
 //        flipVerticalAxis: true,
-                barRendererDecorator: new charts.BarLabelDecorator<String>(),
-
+//                defaultRenderer: new charts.BarRendererConfig(
+//                    groupingType: charts.BarGroupingType.grouped,
+//
+//                    strokeWidthPx: 2.0),
+                barRendererDecorator: new charts.BarLabelDecorator<String>(
+                    labelPosition: charts.BarLabelPosition.inside,
+                    labelAnchor: charts.BarLabelAnchor.end,
+                    insideLabelStyleSpec: charts.TextStyleSpec()),
                 behaviors: [
 //              new charts.ChartTitle('Jobs Per Month',
 //                  behaviorPosition: charts.BehaviorPosition.bottom,

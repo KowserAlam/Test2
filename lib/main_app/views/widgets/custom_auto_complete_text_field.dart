@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 export 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
+import 'package:p7app/main_app/app_theme/common_style.dart';
 
 class CustomAutoCompleteTextField<T> extends StatelessWidget {
   final String labelText;
@@ -63,7 +63,7 @@ class CustomAutoCompleteTextField<T> extends StatelessWidget {
           decoration: BoxDecoration(
             color: Theme.of(context).backgroundColor,
             borderRadius: BorderRadius.circular(7),
-            boxShadow: CommonStyleTextField.boxShadow,
+            boxShadow: CommonStyle.boxShadow,
           ),
           child: TypeAheadFormField<T>(
             initialValue: initialValue,

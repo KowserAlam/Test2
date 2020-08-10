@@ -100,6 +100,7 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
         actions: [
           IconButton(
             key: Key("dashboardNotificationIcon"),
+            iconSize: 15,
             tooltip: StringResources.notificationsText,
             icon: Icon(FontAwesomeIcons.solidBell),
             onPressed: () {

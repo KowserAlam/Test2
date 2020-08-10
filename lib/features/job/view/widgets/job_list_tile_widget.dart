@@ -4,7 +4,7 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p7app/features/job/models/job_list_model.dart';
 import 'package:p7app/features/job/models/job_model.dart';
-import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
+import 'package:p7app/main_app/app_theme/common_style.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
@@ -164,7 +164,7 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
     return Container(
       decoration: BoxDecoration(
         color: scaffoldBackgroundColor,
-boxShadow: CommonStyleTextField.boxShadow
+boxShadow: CommonStyle.boxShadow
 //        borderRadius: BorderRadius.circular(5),
 //        boxShadow: [
 //          BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 10),
