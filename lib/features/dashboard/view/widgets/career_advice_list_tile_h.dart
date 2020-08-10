@@ -8,8 +8,9 @@ import '../../../career_advice/view/career_advice_details_screen.dart';
 
 class CareerAdviceListTileH extends StatelessWidget {
   final CareerAdviceModel adviceModel;
+  final int index;
 
-  CareerAdviceListTileH(this.adviceModel);
+  CareerAdviceListTileH(this.adviceModel, this.index);
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +18,7 @@ class CareerAdviceListTileH extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 4),
       child: Card(
+        key: Key(adviceModel.id.toString()),
         elevation: 2,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(4),
@@ -69,6 +71,7 @@ class CareerAdviceListTileH extends StatelessWidget {
                 Material(
                     type: MaterialType.transparency,
                     child: InkWell(
+                      key: Key('careerAdviceTile'+index.toString()),
                       onTap: () {
                         Navigator.of(context).push(CupertinoPageRoute(
                             builder: (BuildContext context) =>
