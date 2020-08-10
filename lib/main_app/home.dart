@@ -55,10 +55,16 @@ class _HomeState extends State<Home> {
         iconSize: 17,
         selectedItemColor: Theme.of(context).accentColor,
         unselectedItemColor: Colors.grey[800],
-        selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
-        unselectedLabelStyle: TextStyle(fontWeight: FontWeight.w600),
+        selectedLabelStyle: TextStyle(
+          fontWeight: FontWeight.bold,
+          color: Colors.blue
+        ),
+        unselectedLabelStyle: TextStyle(
+          fontWeight: FontWeight.w600,
+        ),
         selectedFontSize: 10,
         unselectedFontSize: 10,
+        elevation: 4,
         type: BottomNavigationBarType.fixed,
         items: [
           // dashboard
