@@ -7,13 +7,15 @@ Future dashboardInfoBoxTest() async{
   return group('Dashboard Infobox', () {
     final backButton = find.byTooltip('Back');
     final infoboxFavoriteButton = find.byValueKey('dashboardFavoriteInfoBox');
-    final infoboxAppliedButton = find.byValueKey('dashboardFavoriteInfoBox');
+    final infoboxAppliedButton = find.byValueKey('dashboardAppliedInfoBox');
     final clickOnDashboard = find.text('Dashboard');
     final dashBoardContactUsTile = find.byValueKey('dashBoardContactUsTile');
     final dashBoardFAQTile = find.byValueKey('dashBoardFAQTile');
     final dashBoardAboutUsTile = find.byValueKey('dashBoardAboutUsTile');
     final dashBoardListview = find.byValueKey('dashBoardListview');
     final dashboardNotificationIcon = find.byValueKey('dashboardNotificationIcon');
+    //wait for text
+    final waitForNotification = find.text('Notification');
 
 
     FlutterDriver driver;
@@ -27,12 +29,6 @@ Future dashboardInfoBoxTest() async{
         driver.close();
       }
     });
-    //skillAddField
-    //dashboardSkillInfoBox
-    //dashboardFavoriteInfoBox
-    //dashboardAppliedInfoBox
-    //addKey: Key('myProfileAddSkillAdd'),
-    //penKey: Key('myProfileAddSkillPen'),
     //test cases are started from here
 
     test('Click on Applied button on infobox', () async {
@@ -55,7 +51,6 @@ Future dashboardInfoBoxTest() async{
       await driver.tap(dashBoardContactUsTile);
       await Future.delayed(const Duration(seconds: 10), () {});
       await driver.tap(backButton);
-      await Future.delayed(const Duration(seconds: 4), () {});
     });
     test('Click on FAQ tile', () async {
       await driver.scrollUntilVisible(dashBoardListview, dashBoardFAQTile,
@@ -63,7 +58,6 @@ Future dashboardInfoBoxTest() async{
       await driver.tap(dashBoardFAQTile);
       await Future.delayed(const Duration(seconds: 10), () {});
       await driver.tap(backButton);
-      await Future.delayed(const Duration(seconds: 4), () {});
     });
     test('Click on About Us tile', () async {
       await driver.scrollUntilVisible(dashBoardListview, dashBoardAboutUsTile,
@@ -71,14 +65,12 @@ Future dashboardInfoBoxTest() async{
       await driver.tap(dashBoardAboutUsTile);
       await Future.delayed(const Duration(seconds: 10), () {});
       await driver.tap(backButton);
-      await Future.delayed(const Duration(seconds: 4), () {});
     });
 
     test('Click on Notification icon to check notifications', () async {
       await driver.tap(dashboardNotificationIcon);
       await Future.delayed(const Duration(seconds: 6), () {});
       await driver.tap(backButton);
-      await Future.delayed(const Duration(seconds: 4), () {});
     });
     return;
   });
