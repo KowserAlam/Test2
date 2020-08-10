@@ -90,7 +90,7 @@ class _CareerAdviceListHWidgetState extends State<CareerAdviceListHWidget> {
                     itemCount: length,
                     itemBuilder: (context, index) {
                       var advice = list[index];
-                      return CareerAdviceListTileH(advice);
+                      return CareerAdviceListTileH(advice, index);
                     }),
               ),
       ],

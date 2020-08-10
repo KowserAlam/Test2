@@ -113,6 +113,21 @@ void main() {
       await Future.delayed(const Duration(seconds: 2), (){});
     });
 
+    test('Try to signup when password not matching', () async {
+      await driver.tap(signUpNameField);
+      await driver.enterText('Name');
+      await driver.tap(signUpEmailField);
+      await driver.enterText('email@email.com');
+      await driver.tap(signUpMobileField);
+      await driver.enterText('01724232886');
+      await driver.tap(signUpPasswordField);
+      await driver.enterText('1234567s');
+      await driver.tap(signUpConfirmPasswordField);
+      await driver.enterText('s7654321');
+      await driver.tap(signUpRegisterButton);
+      await Future.delayed(const Duration(seconds: 2), (){});
+    });
+
     test('Sign up using existing email and check replay', () async {
       await driver.tap(signUpNameField);
       await driver.enterText('Name');
@@ -128,7 +143,7 @@ void main() {
       await Future.delayed(const Duration(seconds: 2), (){});
     });
 
-    test('Sign up using existing email and check replay', () async {
+    test('Sign up using new email and check replay', () async {
       await driver.tap(signUpNameField);
       await driver.enterText('Name');
       await driver.tap(signUpEmailField);
@@ -142,10 +157,6 @@ void main() {
       await driver.tap(signUpRegisterButton);
       await Future.delayed(const Duration(seconds: 2), (){});
     });
-
-
-
-
 
 
 
