@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:p7app/main_app/app_theme/common_style.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/views/about_us_screen.dart';
 import 'package:p7app/main_app/views/contact_us_screen.dart';
@@ -22,7 +23,7 @@ class OtherScreensWidget extends StatelessWidget {
         Row(children: [
           SizedBox(width: 15,),
           Text(StringResources.moreInfoTitleText,
-            style: Theme.of(context).textTheme.headline6,
+            style: CommonStyle.dashboardSectionTitleTexStyle,
           ),
         ],),
         Container(

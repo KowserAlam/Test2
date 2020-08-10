@@ -6,7 +6,7 @@ import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:p7app/features/company/models/company.dart';
 import 'package:p7app/features/company/repositories/company_list_repository.dart';
 import 'package:p7app/features/user_profile/models/experience_info.dart';
-import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
+import 'package:p7app/main_app/app_theme/common_style.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
@@ -200,7 +200,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
           decoration: BoxDecoration(
             color: Theme.of(context).backgroundColor,
             borderRadius: BorderRadius.circular(7),
-            boxShadow: CommonStyleTextField.boxShadow,
+            boxShadow: CommonStyle.boxShadow,
           ),
           child: TypeAheadFormField<Company>(
             textFieldConfiguration: TextFieldConfiguration(

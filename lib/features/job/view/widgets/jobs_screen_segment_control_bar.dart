@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:p7app/features/job/view_model/job_screen_view_model.dart';
-import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
+import 'package:p7app/main_app/app_theme/common_style.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:provider/provider.dart';
 

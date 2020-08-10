@@ -99,6 +99,9 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
         title: Text(StringResources.dashBoardText),
         actions: [
           IconButton(
+            key: Key("dashboardNotificationIcon"),
+            iconSize: 15,
+            tooltip: StringResources.notificationsText,
             icon: Icon(FontAwesomeIcons.solidBell),
             onPressed: () {
               Navigator.of(context).push(CupertinoPageRoute(

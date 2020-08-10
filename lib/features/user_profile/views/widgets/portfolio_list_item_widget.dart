@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p7app/features/user_profile/models/portfolio_info.dart';
-import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
+import 'package:p7app/main_app/app_theme/common_style.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/views/widgets/custom_zefyr_rich_text_from_field.dart';
@@ -45,7 +45,7 @@ class _PortfolioListItemWidgetState extends State<PortfolioListItemWidget> {
       decoration: BoxDecoration(
         color: Theme.of(context).backgroundColor,
         borderRadius: BorderRadius.circular(5),
-        boxShadow: CommonStyleTextField.boxShadow,
+        boxShadow: CommonStyle.boxShadow,
       ),
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       child: Column(

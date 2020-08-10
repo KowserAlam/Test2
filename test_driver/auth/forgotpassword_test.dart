@@ -1,11 +1,18 @@
 import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
+import 'login_test.dart';
+import 'signup_test.dart';
 
 void main() {
+  forgotPasswordTest();
+}
+
+forgotPasswordTest() {
   group('Forgot Password test', () {
     final passwordResetTextField = find.byValueKey('passwordResetTextField');
     final passwordResetButton = find.byValueKey('passwordResetButton');
     final forgotPasswordLink = find.text('Forgot Password ?');
+    final backButton = find.byTooltip('Back');
     //final forgotResetErrorText = find.text('There is no active user associated with this e-mail address or the password can not be changed');
 
     FlutterDriver driver;
@@ -13,10 +20,12 @@ void main() {
     setUpAll(() async {
       driver = await FlutterDriver.connect();
     });
+
     // Close the connection to the driver after the tests have completed.
     tearDownAll(() async {
       if (driver != null) {
         driver.close();
+
       }
     });
 
@@ -30,7 +39,6 @@ void main() {
       await driver.enterText('wrongEmailFormat');
       await Future.delayed(const Duration(seconds: 3), () {});
       await driver.tap(passwordResetButton);
-
     });
     test('Try to change password with Unregistered email', () async {
       await driver.tap(passwordResetTextField);
@@ -43,7 +51,8 @@ void main() {
       await driver.enterText('mahmudoni01@gmail.com');
       await driver.tap(passwordResetButton);
       await Future.delayed(const Duration(seconds: 3), () {});
+      await driver.tap(backButton);
     });
-
   });
+  loginTest();
 }
