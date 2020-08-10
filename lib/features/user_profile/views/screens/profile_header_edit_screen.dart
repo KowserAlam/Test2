@@ -269,7 +269,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
           children: <Widget>[
             ///name
             CustomTextFormField(
-              key: Key('myProfileHeaderFullName'),
+              textFieldKey: Key('myProfileHeaderFullName'),
               controller: _fullNameTextEditingController,
               validator: Validator().nullFieldValidate,
               labelText: StringResources.nameText,
@@ -308,7 +308,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
             /// phone
 
             CustomTextFormField(
-              key: Key('myProfileHeaderMobile'),
+              textFieldKey: Key('myProfileHeaderMobile'),
               controller: _phoneEditingController,
               validator: Validator().validatePhoneNumber,
               keyboardType: TextInputType.phone,
@@ -320,7 +320,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
 
             /// company
             CustomTextFormField(
-              key: Key('myProfileHeaderCurrentCompany'),
+              textFieldKey: Key('myProfileHeaderCurrentCompany'),
               controller: _currentCompanyEditingController,
               keyboardType: TextInputType.multiline,
               labelText: StringResources.currentCompany,
@@ -330,7 +330,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
 
             /// designation
             CustomTextFormField(
-              key: Key('myProfileHeaderCurrentDesignation'),
+              textFieldKey: Key('myProfileHeaderCurrentDesignation'),
               controller: _currentDesignationEditingController,
               keyboardType: TextInputType.multiline,
               labelText: StringResources.currentDesignation,
@@ -340,7 +340,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
 
             ///current location
             CustomTextFormField(
-              key: Key('myProfileHeaderLocation'),
+              textFieldKey: Key('myProfileHeaderLocation'),
               controller: _locationEditingController,
               keyboardType: TextInputType.multiline,
               labelText: StringResources.locationText,
@@ -350,7 +350,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
 
             ///facebook
             CustomTextFormField(
-              key: Key('myProfileHeaderFacebook'),
+              textFieldKey: Key('myProfileHeaderFacebook'),
               controller: _facebookEditingController,
               keyboardType: TextInputType.multiline,
               labelText: StringResources.facebookTrlText,
@@ -360,7 +360,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
 
             ///twitter
             CustomTextFormField(
-              key: Key('myProfileHeaderTwitter'),
+              textFieldKey: Key('myProfileHeaderTwitter'),
               controller: _twitterEditingController,
               keyboardType: TextInputType.multiline,
               labelText: StringResources.twitterUrlText,
@@ -370,7 +370,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
 
             ///linkedIn
             CustomTextFormField(
-              key: Key('myProfileHeaderLinkedIn'),
+              textFieldKey: Key('myProfileHeaderLinkedIn'),
               controller: _linkedInEditingController,
               keyboardType: TextInputType.multiline,
               labelText: StringResources.linkedUrlText,

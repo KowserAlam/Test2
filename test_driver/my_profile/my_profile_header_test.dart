@@ -33,13 +33,13 @@ void main() {
       await driver.tap(keys.signInButton);
       await Future.delayed(const Duration(seconds: 3), (){});
       await driver.tap(keys.onboardingPageSkipButton);
-      await Future.delayed(const Duration(seconds: 20), (){});
+      await Future.delayed(const Duration(seconds: 5), (){});
       await driver.tap(keys.bottomNavigationBarMyProfile);
     });
 
     test('Getting to Skill Add screen', () async {
       await driver.tap(keys.myProfileHeaderEditButton);
-      await Future.delayed(const Duration(seconds: 20), (){});
+      await Future.delayed(const Duration(seconds: 10), (){});
       await driver.tap(keys.myProfileHeaderFullName);
       await driver.enterText('Test Full Name');
       await driver.tap(keys.myProfileHeaderDescription);
@@ -53,6 +53,7 @@ void main() {
       await driver.enterText('Test Designation');
       await driver.tap(keys.myProfileHeaderLocation);
       await driver.enterText('Test Location');
+      await Future.delayed(const Duration(seconds: 30), (){});
 //      await driver.tap(keys.myProfileHeaderFacebook);
 //      await driver.enterText('');
 //      await driver.tap(keys.myProfileHeaderTwitter);
