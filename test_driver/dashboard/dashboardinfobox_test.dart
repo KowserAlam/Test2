@@ -5,15 +5,13 @@ import 'package:test/test.dart';
 
 Future dashboardInfoBoxTest() async{
   return group('Dashboard Infobox', () {
-    final signinEmailField = find.byValueKey('signInEmail');
-    final signinPasswordField = find.byValueKey('signInPassword');
-    final signinButtonClick = find.byValueKey('signInButton');
-    final backButton = find.byTooltip('Back');
-    final skipOnboardingScreen = find.text('Skip');
     final infoboxFavoriteButton = find.byValueKey('dashboardFavoriteInfoBox');
     final infoboxAppliedButton = find.byValueKey('dashboardFavoriteInfoBox');
     final clickOnDashboard = find.text('Dashboard');
     final dashBoardContactUsTile = find.byValueKey('dashBoardContactUsTile');
+    final dashBoardFAQTile = find.byValueKey('dashBoardFAQTile');
+    final dashBoardAboutUsTile = find.byValueKey('dashBoardAboutUsTile');
+
     final dashBoardListview = find.byValueKey('dashBoardListview');
 
     FlutterDriver driver;
@@ -35,19 +33,12 @@ Future dashboardInfoBoxTest() async{
     //penKey: Key('myProfileAddSkillPen'),
     //test cases are started from here
 
-//    test('Try to login with registered email and password', () async {
-//      await driver.tap(signinEmailField);
-//      await driver.enterText('mahmudoni01@gmail.com');
-//      await driver.tap(signinPasswordField);
-//      await driver.enterText('1234567r');
-//      await driver.tap(signinButtonClick);
-//      await Future.delayed(const Duration(seconds: 3), () {});
-//    });
-
-//    test('Skip the onboarding screen after login', () async {
-//      await driver.tap(skipOnboardingScreen);
-//      await Future.delayed(const Duration(seconds: 6), () {});
-//    });
+    test('Click on Applied button on infobox', () async {
+      await driver.tap(infoboxFavoriteButton);
+      await Future.delayed(const Duration(seconds: 4), () {});
+      await driver.tap(clickOnDashboard);
+      await Future.delayed(const Duration(seconds: 4), () {});
+    });
 
     test('Click on favorite button on infobox', () async {
       await driver.tap(infoboxFavoriteButton);
@@ -61,6 +52,24 @@ Future dashboardInfoBoxTest() async{
           dyScroll: -600);
       await driver.tap(dashBoardContactUsTile);
       await Future.delayed(const Duration(seconds: 10), () {});
+      await driver.tap(clickOnDashboard);
+      await Future.delayed(const Duration(seconds: 4), () {});
+    });
+    test('Click on FAQ tile', () async {
+      await driver.scrollUntilVisible(dashBoardListview, dashBoardFAQTile,
+          dyScroll: -600);
+      await driver.tap(dashBoardFAQTile);
+      await Future.delayed(const Duration(seconds: 10), () {});
+      await driver.tap(clickOnDashboard);
+      await Future.delayed(const Duration(seconds: 4), () {});
+    });
+    test('Click on About Us tile', () async {
+      await driver.scrollUntilVisible(dashBoardListview, dashBoardAboutUsTile,
+          dyScroll: -600);
+      await driver.tap(dashBoardAboutUsTile);
+      await Future.delayed(const Duration(seconds: 10), () {});
+      await driver.tap(clickOnDashboard);
+      await Future.delayed(const Duration(seconds: 4), () {});
     });
     return;
   });
