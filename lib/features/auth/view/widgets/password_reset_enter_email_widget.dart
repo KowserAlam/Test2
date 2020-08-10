@@ -1,7 +1,7 @@
 import 'package:p7app/features/auth/view_models/password_reset_view_model.dart';
 import 'package:p7app/features/auth/view/sign_in_screen.dart';
 import 'package:p7app/features/auth/view/widgets/title_widget.dart';
-import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
+import 'package:p7app/main_app/app_theme/common_style.dart';
 
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
@@ -153,9 +153,9 @@ class _PasswordResetEmailWidgetState extends State<PasswordResetEmailWidget> {
                     children: <Widget>[
                       Container(
                         decoration: BoxDecoration(
-                            boxShadow: CommonStyleTextField.boxShadow,
+                            boxShadow: CommonStyle.boxShadow,
                             borderRadius:
-                                CommonStyleTextField.borderRadiusRound,
+                                CommonStyle.borderRadiusRound,
                             color: Theme.of(context).backgroundColor),
                         child: TextField(
                           key: Key("passwordResetTextField"),
@@ -172,7 +172,7 @@ class _PasswordResetEmailWidgetState extends State<PasswordResetEmailWidget> {
                                   horizontal: 16, vertical: 16),
                               hintText: hintText,
                               focusedBorder:
-                                  CommonStyleTextField.focusedBorderRound(
+                                  CommonStyle.focusedBorderRound(
                                       context),
                               enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(25),

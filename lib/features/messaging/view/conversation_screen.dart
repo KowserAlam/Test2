@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:p7app/features/messaging/model/message_sender_data_model.dart';
 import 'package:p7app/features/messaging/view/widgets/message_bubble.dart';
 import 'package:p7app/features/messaging/view_mpdel/conversation_view_model.dart';
-import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
+import 'package:p7app/main_app/app_theme/common_style.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/views/widgets/loader.dart';
 import 'package:p7app/main_app/views/widgets/page_state_builder.dart';
@@ -70,7 +70,7 @@ class _ConversationScreenState extends State<ConversationScreen>
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
                           decoration: BoxDecoration(
-                              boxShadow: CommonStyleTextField.boxShadow,
+                              boxShadow: CommonStyle.boxShadow,
                               color: Theme.of(context)
                                   .backgroundColor
                                   .withBlue(255),

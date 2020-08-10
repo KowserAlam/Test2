@@ -54,10 +54,17 @@ class _HomeState extends State<Home> {
         currentIndex: currentIndex,
         iconSize: 17,
         selectedItemColor: Theme.of(context).accentColor,
-        selectedLabelStyle: TextStyle(fontWeight: FontWeight.w600),
-        unselectedLabelStyle: TextStyle(fontWeight: FontWeight.w600),
+        unselectedItemColor: Colors.grey[800],
+        selectedLabelStyle: TextStyle(
+          fontWeight: FontWeight.bold,
+          color: Colors.blue
+        ),
+        unselectedLabelStyle: TextStyle(
+          fontWeight: FontWeight.w600,
+        ),
         selectedFontSize: 10,
         unselectedFontSize: 10,
+        elevation: 4,
         type: BottomNavigationBarType.fixed,
         items: [
           // dashboard
@@ -66,9 +73,8 @@ class _HomeState extends State<Home> {
                 padding: const EdgeInsets.only(
                   bottom: 3,
                 ),
-                child: Icon(
-                  FontAwesomeIcons.home, key: Key('bottomNavigationBarDashboard')
-                ),
+                child: Icon(FontAwesomeIcons.home,
+                    key: Key('bottomNavigationBarDashboard')),
               ),
               title: Text(StringResources.dashBoardText)),
           //jobs
@@ -77,29 +83,33 @@ class _HomeState extends State<Home> {
                 padding: const EdgeInsets.only(
                   bottom: 3,
                 ),
-                child: Icon(
-                  FontAwesomeIcons.briefcase, key: Key('bottomNavigationBarJobs')
-                ),
+                child: Icon(FontAwesomeIcons.briefcase,
+                    key: Key('bottomNavigationBarJobs')),
               ),
               title: Text(StringResources.jobsText)),
           BottomNavigationBarItem(
               icon: Padding(
                 padding: const EdgeInsets.only(bottom: 5),
-                child: Icon(FontAwesomeIcons.solidBuilding, key: Key('bottomNavigationBarCompany')),
+                child: Icon(FontAwesomeIcons.solidBuilding,
+                    key: Key('bottomNavigationBarCompany')),
               ),
               title: Text(StringResources.companyListAppbarText)),
           //notifications
           BottomNavigationBarItem(
               icon: Padding(
                 padding: const EdgeInsets.only(bottom: 5),
-                child: Icon(FontAwesomeIcons.solidEnvelope, key: Key('bottomNavigationBarMessages')),
+                child: Icon(FontAwesomeIcons.solidComments,
+                    key: Key('bottomNavigationBarMessages')),
               ),
               title: Text(StringResources.messagesText)),
           // profile
           BottomNavigationBarItem(
               icon: Padding(
                 padding: const EdgeInsets.only(bottom: 5),
-                child: Icon(FontAwesomeIcons.solidUserCircle, key: Key('bottomNavigationBarMyProfile'),),
+                child: Icon(
+                  FontAwesomeIcons.solidUserCircle,
+                  key: Key('bottomNavigationBarMyProfile'),
+                ),
               ),
               title: Text(StringResources.myProfileText)),
         ]);
@@ -131,14 +141,15 @@ class _HomeState extends State<Home> {
                   _paeViewController.animateToPage(1,
                       duration: const Duration(milliseconds: 400),
                       curve: Curves.easeInOut);
-                  Provider.of<JobScreenViewModel>(context,listen: false).onChange(1);
+                  Provider.of<JobScreenViewModel>(context, listen: false)
+                      .onChange(1);
                 },
                 onTapFavourite: () {
                   _paeViewController.animateToPage(1,
                       duration: const Duration(milliseconds: 400),
                       curve: Curves.easeInOut);
-                  Provider.of<JobScreenViewModel>(context,listen: false).onChange(2);
-
+                  Provider.of<JobScreenViewModel>(context, listen: false)
+                      .onChange(2);
                 },
               ),
               JobsScreen(),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:p7app/features/job/view_model/job_list_filter_widget_view_model.dart';
 import 'package:p7app/features/job/view_model/job_list_view_model.dart';
-import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
+import 'package:p7app/main_app/app_theme/common_style.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:provider/provider.dart';
 import 'package:p7app/method_extension.dart';
@@ -18,7 +18,7 @@ class FilterPreviewWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(5),
             border: Border.all(
                 color: Theme.of(context).primaryColor.withOpacity(0.2)),
-            boxShadow: CommonStyleTextField.boxShadow,
+            boxShadow: CommonStyle.boxShadow,
             color: Theme.of(context).backgroundColor),
         child: Row(
           children: [
@@ -73,7 +73,7 @@ class FilterPreviewWidget extends StatelessWidget {
         decoration: BoxDecoration(
           border: Border(bottom: BorderSide(color: Colors.grey[200])),
           color: backgroundColor,
-boxShadow: CommonStyleTextField.boxShadow
+boxShadow: CommonStyle.boxShadow
 //          boxShadow: [
 //            BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 10),
 //            BoxShadow(color: Colors.black.withOpacity(0.2), blurRadius: 10),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:p7app/features/career_advice/view/career_advice_list_screen.dart';
 import 'package:p7app/features/dashboard/view/widgets/career_advice_list_tile_h.dart';
 import 'package:p7app/features/career_advice/view_models/career_advice_view_model.dart';
+import 'package:p7app/main_app/app_theme/common_style.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
@@ -39,7 +40,7 @@ class _CareerAdviceListHWidgetState extends State<CareerAdviceListHWidget> {
               padding: const EdgeInsets.only(left: 15),
               child: Text(
                 StringResources.careerAdviceText,
-                style: Theme.of(context).textTheme.headline6,
+                style: CommonStyle.dashboardSectionTitleTexStyle,
               ),
             ),
             RawMaterialButton(
@@ -53,7 +54,7 @@ class _CareerAdviceListHWidgetState extends State<CareerAdviceListHWidget> {
                 StringResources.viewAllText,
                 style: Theme.of(context)
                     .textTheme
-                    .headline6
+                    .subtitle1
                     .apply(color: Colors.blue),
               ),
             ),
@@ -61,31 +62,32 @@ class _CareerAdviceListHWidgetState extends State<CareerAdviceListHWidget> {
         ),
         vm.isFetchingData
             ? Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10),
-              child: SizedBox(
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                child: SizedBox(
                   height: 130.0,
                   child: Shimmer.fromColors(
                     baseColor: Colors.grey[300],
                     highlightColor: Colors.white,
                     child: Row(
-                      children: List.generate(2, (index) =>  Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Material(
-                            color: Colors.grey,
-                            borderRadius: BorderRadius.circular(5),
-                            child: Center(),
-                          ),
-                        ),
-                      ))
-                    ),
+                        children: List.generate(
+                            2,
+                            (index) => Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Material(
+                                      color: Colors.grey,
+                                      borderRadius: BorderRadius.circular(5),
+                                      child: Center(),
+                                    ),
+                                  ),
+                                ))),
                   ),
                 ),
-            )
+              )
             : Container(
                 height: 130,
                 child: ListView.builder(
-                    padding: EdgeInsets.only(left: 10,right: 10,bottom: 10),
+                    padding: EdgeInsets.only(left: 10, right: 10, bottom: 10),
                     scrollDirection: Axis.horizontal,
                     itemCount: length,
                     itemBuilder: (context, index) {

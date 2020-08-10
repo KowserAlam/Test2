@@ -18,7 +18,7 @@ class AppTheme {
   static Color warning = Color(0xffffc107);
   static Color dark = Color(0xff343a40);
   static Color lightGrey = Color(0xfff8f9fa);
-  static Color primary = Color(0xff007bff);
+//  static Color primary = Color(0xff007bff);
   static Color grey = Color(0xff6c757d);
   static Color selectedBackgroundColor = Color(0xffe3effa);
 

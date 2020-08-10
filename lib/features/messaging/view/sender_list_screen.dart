@@ -6,7 +6,7 @@ import 'package:p7app/features/messaging/view/conversation_screen.dart';
 import 'package:p7app/features/messaging/view/widgets/no_message_widget.dart';
 import 'package:p7app/features/messaging/view_mpdel/message_sender_list_screen_view_model.dart';
 import 'package:p7app/features/notification/view_models/notificaion_view_model.dart';
-import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
+import 'package:p7app/main_app/app_theme/common_style.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
@@ -71,7 +71,7 @@ class _SenderListScreenState extends State<SenderListScreen>
                       margin: EdgeInsets.symmetric(vertical: 4),
                       decoration: BoxDecoration(
                           color: Theme.of(context).backgroundColor,
-                          boxShadow: CommonStyleTextField.boxShadow),
+                          boxShadow: CommonStyle.boxShadow),
                       child: ListTile(
                         onTap: () {
                           Navigator.of(context).push(CupertinoPageRoute(
