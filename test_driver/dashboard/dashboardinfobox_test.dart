@@ -36,7 +36,7 @@ Future dashboardInfoBoxTest() async{
     //test cases are started from here
 
     test('Click on Applied button on infobox', () async {
-      await driver.tap(infoboxFavoriteButton);
+      await driver.tap(infoboxAppliedButton);
       await Future.delayed(const Duration(seconds: 4), () {});
       await driver.tap(clickOnDashboard);
       await Future.delayed(const Duration(seconds: 4), () {});
@@ -54,7 +54,7 @@ Future dashboardInfoBoxTest() async{
           dyScroll: -600);
       await driver.tap(dashBoardContactUsTile);
       await Future.delayed(const Duration(seconds: 10), () {});
-      await driver.tap(clickOnDashboard);
+      await driver.tap(backButton);
       await Future.delayed(const Duration(seconds: 4), () {});
     });
     test('Click on FAQ tile', () async {
@@ -62,7 +62,7 @@ Future dashboardInfoBoxTest() async{
           dyScroll: -600);
       await driver.tap(dashBoardFAQTile);
       await Future.delayed(const Duration(seconds: 10), () {});
-      await driver.tap(clickOnDashboard);
+      await driver.tap(backButton);
       await Future.delayed(const Duration(seconds: 4), () {});
     });
     test('Click on About Us tile', () async {
@@ -70,7 +70,7 @@ Future dashboardInfoBoxTest() async{
           dyScroll: -600);
       await driver.tap(dashBoardAboutUsTile);
       await Future.delayed(const Duration(seconds: 10), () {});
-      await driver.tap(clickOnDashboard);
+      await driver.tap(backButton);
       await Future.delayed(const Duration(seconds: 4), () {});
     });
 
