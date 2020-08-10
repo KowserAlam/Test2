@@ -36,8 +36,9 @@ class MessageBubble extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: CircleAvatar(
                   radius: 12,
+                  backgroundColor: Colors.grey[300],
                   backgroundImage: CachedNetworkImageProvider(
-                      senderModel?.otherPartyImage ?? ""),
+                      senderModel?.otherPartyImage ?? "",),
                 ),
               ),
             Container(
@@ -57,6 +58,7 @@ class MessageBubble extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: CircleAvatar(
+                  backgroundColor: Colors.grey[300],
                   radius: 12,
                   backgroundImage:
                       CachedNetworkImageProvider(appUser?.profileImage ?? ""),

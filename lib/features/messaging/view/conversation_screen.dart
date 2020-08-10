@@ -41,7 +41,7 @@ class _ConversationScreenState extends State<ConversationScreen>
     return ChangeNotifierProvider(
       create: (context) => widget.vm,
       child: Consumer<ConversationViewModel>(builder: (context, vm, c) {
-        var messages = vm.messages.reversed.toList();
+        var messages = vm.messages;
         return Scaffold(
           appBar: AppBar(
             title: Text(widget?.senderModel?.otherPartyName ?? ""),
