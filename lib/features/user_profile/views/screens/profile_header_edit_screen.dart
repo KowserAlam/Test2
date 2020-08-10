@@ -279,7 +279,6 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
 
             ///about
             CustomZefyrRichTextFormField(
-              key: Key('myProfileHeaderDescription'),
               labelText: StringResources.descriptionText,
               focusNode: FocusNode(),
               controller: _aboutMeZefyrController,

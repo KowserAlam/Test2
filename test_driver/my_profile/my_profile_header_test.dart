@@ -42,8 +42,8 @@ void main() {
       await Future.delayed(const Duration(seconds: 10), (){});
       await driver.tap(keys.myProfileHeaderFullName);
       await driver.enterText('Test Full Name');
-      await driver.tap(keys.myProfileHeaderDescription);
-      await driver.enterText('Test Description');
+//      await driver.tap(keys.myProfileHeaderDescription);
+//      await driver.enterText('Test Description');
       //await driver.tap(keys.myProfileHeaderExperiencePerYear);
       await driver.tap(keys.myProfileHeaderMobile);
       await driver.enterText('01724232884');
@@ -60,7 +60,8 @@ void main() {
 //      await driver.enterText('');
 //      await driver.tap(keys.myProfileHeaderLinkedIn);
 //      await driver.enterText('');
-      //await driver.tap(keys.myProfileHeaderSaveButton);
+      await driver.tap(keys.myProfileHeaderSaveButton);
+      await Future.delayed(const Duration(seconds: 10), (){});
     });
 
   });
