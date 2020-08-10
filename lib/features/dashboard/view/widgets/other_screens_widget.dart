@@ -31,6 +31,7 @@ class OtherScreensWidget extends StatelessWidget {
             children: [
               Expanded(
                 child: Items(
+                  key: Key('dashBoardFAQTile'),
                   icon: FontAwesomeIcons.questionCircle,
                   label: StringResources.faqText,
                   onPressed: () {
@@ -49,6 +50,7 @@ class OtherScreensWidget extends StatelessWidget {
               )),
               Expanded(
                   child: Items(
+                    key: Key('dashBoardAboutUsTile'),
                 icon: FontAwesomeIcons.infoCircle,
                 label: StringResources.aboutUsText,
                 onPressed: () {
