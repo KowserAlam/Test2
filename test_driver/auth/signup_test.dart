@@ -1,7 +1,13 @@
 import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
+import 'login_test.dart';
 
 void main() {
+
+  signUpTest();
+}
+
+signUpTest(){
   group('Signup Test', () {
     final signUpNameField = find.byValueKey('signUpName');
     final signUpEmailField = find.byValueKey('signUpEmail');
@@ -143,12 +149,7 @@ void main() {
       await Future.delayed(const Duration(seconds: 2), (){});
     });
 
-
-
-
-
-
-
   });
+  loginTest();
 
 }

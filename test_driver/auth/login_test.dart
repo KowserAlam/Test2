@@ -6,7 +6,7 @@ import '../dashboard/dashboard_test.dart';
 main(){
   loginTest();
 }
- loginTest()async{
+ Future<void> loginTest()async{
 
   group('Login Test', () {
     final signinEmailField = find.byValueKey('signInEmail');

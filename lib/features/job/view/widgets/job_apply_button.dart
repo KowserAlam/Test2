@@ -28,7 +28,7 @@ class JobApplyButton extends StatelessWidget {
       borderRadius: BorderRadius.circular(5),
       child: InkWell(
         onTap: isAppliedDisabled
-            ? null
+            ? (){}
             : onPressedApply,
         borderRadius: BorderRadius.circular(5),
         child: Container(
