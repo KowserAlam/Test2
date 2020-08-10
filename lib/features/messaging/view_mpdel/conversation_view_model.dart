@@ -46,7 +46,6 @@ class ConversationViewModel with ChangeNotifier {
       }, (r) {
         _isGettingMoreData = false;
         _hasMoreData = r.pages.nextUrl ?? false;
-
         _messages.addAll(r.messages);
         notifyListeners();
       });
@@ -60,7 +59,7 @@ class ConversationViewModel with ChangeNotifier {
       _sendingMessage = false;
 //      Logger().i(messageModel);
       if (messageModel != null) {
-        _messages.add(messageModel);
+        _messages.insert(0,messageModel);
       }
       notifyListeners();
     });

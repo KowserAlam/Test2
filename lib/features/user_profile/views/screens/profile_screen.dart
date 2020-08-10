@@ -266,6 +266,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
       icon: Icon(
         FontAwesomeIcons.edit,
       ),
+      key: Key('myProfileHeaderEditButton'),
       color: profileHeaderFontColor,
       iconSize: 22,
       onPressed: () {

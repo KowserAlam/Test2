@@ -342,7 +342,7 @@ class _AddEditProfessionalSkillState extends State<AddEditProfessionalSkill> {
                       height: 30,
                     ),
                     CustomTextFormField(
-                      key: Key('skillExpertise'),
+                      textFieldKey: Key('skillExpertise'),
                       keyboardType: TextInputType.number,
                       controller: ratingController,
                       validator: Validator().expertiseFieldValidate,
