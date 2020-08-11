@@ -55,8 +55,8 @@ class JobRepository {
 
     try {
       var response = await ApiClient().getRequest(url);
-      debugPrint(url);
-      print(response.statusCode);
+//      debugPrint(url);
+      Logger().i(response.statusCode);
 //      print(response.body);
       if (response.statusCode == 200) {
         var decodedJson = json.decode(utf8.decode(response.bodyBytes));

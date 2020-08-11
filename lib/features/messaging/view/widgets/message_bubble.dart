@@ -1,9 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:p7app/features/messaging/model/conversation_screen_data_model.dart';
 import 'package:p7app/features/messaging/model/message_sender_data_model.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
+import 'package:p7app/main_app/api_helpers/url_launcher_helper.dart';
+import 'package:p7app/main_app/resource/const.dart';
+import 'package:p7app/main_app/util/logger_helper.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MessageBubble extends StatelessWidget {
   final Message message;
@@ -32,36 +37,66 @@ class MessageBubble extends StatelessWidget {
               isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
           children: [
             if (!isMe)
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: CircleAvatar(
-                  radius: 12,
-                  backgroundColor: Colors.grey[300],
-                  backgroundImage: CachedNetworkImageProvider(
-                      senderModel?.otherPartyImage ?? "",),
+              Container(
+                margin: const EdgeInsets.all(8.0),
+                height: 25,
+                width: 25,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(15),
+                  child: Container(
+                    color: Colors.grey[300],
+//                    padding: EdgeInsets.all(2),
+                    child: CachedNetworkImage(
+                      imageUrl: senderModel?.otherPartyImage ?? "",
+                      fit: BoxFit.cover,
+                      placeholder: (__, _) => Image.asset(
+                        kCompanyImagePlaceholder,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
                 ),
               ),
             Container(
                 constraints: BoxConstraints(minWidth: 50, maxWidth: 280),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(20),
+                    bottomRight: Radius.circular(isMe ? 0 : 20),
+                    topRight: Radius.circular(20),
+                    topLeft: Radius.circular(!isMe ? 0 : 20),
+                  ),
                   color: bubbleColor,
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    message?.message ?? "",
-                    softWrap: true,
+                  child: SelectableLinkify(
+                    text: message?.message ?? "",
+                    onOpen: (v) {
+                      logger.i(v.url);
+                      launch(v.url);
+                    },
+//                    softWrap: true,
                   ),
                 )),
             if (isMe)
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: CircleAvatar(
-                  backgroundColor: Colors.grey[300],
-                  radius: 12,
-                  backgroundImage:
-                      CachedNetworkImageProvider(appUser?.profileImage ?? ""),
+              Container(
+                margin: const EdgeInsets.all(8.0),
+                height: 25,
+                width: 25,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(15),
+                  child: Container(
+                    color: Colors.grey[300],
+                    child: CachedNetworkImage(
+                      imageUrl: appUser?.profileImage ?? "",
+                      fit: BoxFit.cover,
+                      placeholder: (__, _) => Image.asset(
+                        kDefaultUserImageAsset,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
                 ),
               ),
           ],

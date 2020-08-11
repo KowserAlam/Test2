@@ -56,9 +56,16 @@ class _ConversationScreenState extends State<ConversationScreen>
                       physics: AlwaysScrollableScrollPhysics(),
                       controller: _scrollController,
                       padding: EdgeInsets.symmetric(vertical: 4),
-                      itemCount: messages.length,
+                      itemCount: messages.length+1,
                       reverse: true,
                       itemBuilder: (BuildContext context, int index) {
+                        if(index == messages.length){
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: vm.isGettingMoreData?Loader(): SizedBox(),
+                          );
+                        }
+
                         var message = messages[index];
                         return MessageBubble(message,widget.senderModel);
                       }),
