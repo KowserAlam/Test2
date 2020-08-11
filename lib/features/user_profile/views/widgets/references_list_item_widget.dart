@@ -9,6 +9,7 @@ class ReferencesListItemWidget extends StatefulWidget {
   final Function onTapEdit;
   final Function onTapDelete;
   final bool isInEditMode;
+  final int index;
 
   const ReferencesListItemWidget({
     Key key,
@@ -16,6 +17,7 @@ class ReferencesListItemWidget extends StatefulWidget {
     this.isInEditMode,
     this.onTapEdit,
     this.onTapDelete,
+    this.index
   }) : super(key: key);
 
   @override
@@ -61,7 +63,7 @@ class _ReferencesListItemWidgetState extends State<ReferencesListItemWidget> {
                 ),
                 Expanded(
                   child: Text(
-                    text ?? "",
+                    text ?? "", key: Key('referenceTileDescription'+(widget.index+1).toString()),
                   ),
                 ),
                 if (widget.isInEditMode)
@@ -70,12 +72,14 @@ class _ReferencesListItemWidgetState extends State<ReferencesListItemWidget> {
                     children: [
                       IconButton(
                         icon: Icon(FontAwesomeIcons.edit),
+                        key: Key('myProfileReferencesTileEditButton'+(widget.index+1).toString()),
                         onPressed: widget.onTapEdit,
                         iconSize: 18,
                         color: Colors.black,
                       ),
                       IconButton(
                         icon: Icon(FontAwesomeIcons.trash),
+                        key: Key('myProfileReferencesTileDeleteButton'+(widget.index+1).toString()),
                         onPressed: widget.onTapDelete,
                         iconSize: 18,
                         color: Colors.black,
