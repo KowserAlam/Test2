@@ -32,7 +32,7 @@ class UserProfileHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var primaryColor = Theme.of(context).primaryColor;
-    var profileHeaderBackgroundColor = Color(0xff08233A);
+    var profileHeaderBackgroundColor = Color(0xff273F55);
     var profileHeaderFontColor = Colors.white;
     var titleTextStyle = TextStyle(fontSize: 17, fontWeight: FontWeight.bold);
 
@@ -174,7 +174,7 @@ class UserProfileHeader extends StatelessWidget {
           FontAwesomeIcons.edit,
         ),
 
-        color: primaryColor,
+        color: profileHeaderFontColor,
         iconSize: 20,
         onPressed: () {
           var userModel =
