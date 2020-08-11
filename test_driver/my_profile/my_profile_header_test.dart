@@ -3,12 +3,11 @@ import 'package:test/test.dart';
 
 import '../keys.dart';
 
+
+//flutter drive --flavor dev --target=test_driver/my_profile/my_profile_header.dart
+
 void main() {
-  group('My Profile - Professional Skill Test', () {
-    final myProfileHeaderEditButton = find.byValueKey('dashBoardListview');
-
-
-
+  group('My Profile - Header Test', () {
 
 
     FlutterDriver driver;
@@ -71,7 +70,7 @@ void main() {
     test('Save button clicked', () async {
       await driver.tap(keys.myProfileHeaderSaveButton);
       await Future.delayed(const Duration(seconds: 10), (){});
-
+      await expect(await driver.getText(keys.myProfileAppbarTitle), 'My Profile');
     });
 
   });

@@ -664,6 +664,8 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
 
       return UserInfoListItem(
         isInEditMode: isInEditModeReferences,
+        penKey: Key('myProfileAddReferencesPen'),
+        addKey: Key('myProfileAddReferencesAdd'),
         onTapEditAction: () {
           isInEditModeReferences = !isInEditModeReferences;
           setState(() {});
@@ -699,7 +701,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(StringResources.myProfileText),
+        title: Text(StringResources.myProfileText, key: Key('myProfileAppbarTitle'),),
         actions: [
           IconButton(
             icon: Icon(
@@ -720,6 +722,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
               .getUserData();
         },
         child: SingleChildScrollView(
+          key: Key('myProfileScrollView'),
           physics: AlwaysScrollableScrollPhysics(),
           child: Consumer<UserProfileViewModel>(
               builder: (context, userProfileViewModel, child) {
