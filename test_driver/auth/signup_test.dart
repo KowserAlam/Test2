@@ -15,7 +15,6 @@ signUpTest(){
     final signUpPasswordField = find.byValueKey('signUpPassword');
     final signUpConfirmPasswordField = find.byValueKey('signUpConfirmPassword');
     final signUpRegisterButton = find.byValueKey('signUpRegisterButton');
-
     final signUpText = find.byValueKey('signUpText');
 
 

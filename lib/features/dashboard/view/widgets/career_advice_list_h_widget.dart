@@ -52,6 +52,7 @@ class _CareerAdviceListHWidgetState extends State<CareerAdviceListHWidget> {
               },
               child: Text(
                 StringResources.viewAllText,
+                key: Key('careerAdviceViewAll'),
                 style: Theme.of(context)
                     .textTheme
                     .subtitle1
