@@ -411,6 +411,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
           var ref = referenceList[index];
           return ReferencesListItemWidget(
             isInEditMode: isInEditModeReferences,
+            index: index,
             referenceData: ref,
             onTapDelete: () async {
               var val = await _deleteConfirmationDialog();

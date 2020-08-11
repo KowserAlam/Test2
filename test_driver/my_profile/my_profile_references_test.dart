@@ -54,6 +54,8 @@ void main() {
       await driver.enterText('Test Description');
       await driver.tap(keys.myProfileReferencesSaveButton);
       await Future.delayed(const Duration(seconds: 10), (){});
+      await expect(await driver.getText(keys.referenceTileDescription1), 'Test Description');
+      await Future.delayed(const Duration(seconds: 10), (){});
     });
 
 //    test('Check if description can be saved', () async {

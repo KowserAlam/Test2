@@ -40,8 +40,9 @@ class keys{
 
   static final myProfileAddReferencesPen = find.byValueKey('myProfileAddReferencesPen');
   static final myProfileAddReferencesAdd = find.byValueKey('myProfileAddReferencesAdd');
-  static final myProfileReferencesTileEditButton = find.byValueKey('myProfileReferencesTileEditButton1');
-  static final myProfileReferencesTileDeleteButton = find.byValueKey('myProfileReferencesTileDeleteButton1');
+  static final myProfileReferencesTileEditButton1 = find.byValueKey('myProfileReferencesTileEditButton1');
+  static final myProfileReferencesTileDeleteButton1 = find.byValueKey('myProfileReferencesTileDeleteButton1');
+  static final referenceTileDescription1 = find.byValueKey('referenceTileDescription1');
 
 
   //Header Section

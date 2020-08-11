@@ -63,7 +63,7 @@ class _ReferencesListItemWidgetState extends State<ReferencesListItemWidget> {
                 ),
                 Expanded(
                   child: Text(
-                    text ?? "", key: Key('referenceDescription'+(widget.index+1).toString()),
+                    text ?? "", key: Key('referenceTileDescription'+(widget.index+1).toString()),
                   ),
                 ),
                 if (widget.isInEditMode)
