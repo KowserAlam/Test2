@@ -12,6 +12,7 @@ import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
+import 'package:p7app/main_app/util/logger_helper.dart';
 
 class DashBoardRepository {
   Future<Either<AppError, InfoBoxDataModel>> getInfoBoxData() async {
@@ -41,7 +42,8 @@ class DashBoardRepository {
       getSkillJobChart() async {
     try {
       var res = await ApiClient().getRequest(Urls.dashboardSkillJobChartUrl);
-      print(res.statusCode);
+//      logger.i(res.statusCode);
+//      logger.i(res.body);
       if (res.statusCode == 200) {
         var decodedJson = json.decode(res.body);
         List<SkillJobChartDataModel> data = [];

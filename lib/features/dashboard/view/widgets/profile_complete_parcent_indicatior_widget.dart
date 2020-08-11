@@ -31,7 +31,7 @@ class ProfileCompletePercentIndicatorWidget extends StatelessWidget {
             animation: true,
             lineHeight: 8.0,
             percent: percent,
-            progressColor: Colors.blue,
+            progressColor: Theme.of(context).primaryColor,
             linearStrokeCap: LinearStrokeCap.butt,
           ),
         ],

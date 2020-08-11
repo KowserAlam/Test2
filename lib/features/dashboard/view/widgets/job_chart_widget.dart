@@ -123,7 +123,7 @@ class JobChartWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(left: 2,bottom: 8),
+                        padding: const EdgeInsets.only(left: 2, bottom: 8),
                         child: Row(
                           children: [
                             Text(
@@ -195,54 +195,84 @@ class JobChartWidget extends StatelessWidget {
             else
               list = dashboardViewModel.skillJobChartData;
 
-            var seriesList = [
-              charts.Series<SkillJobChartDataModel, String>(
-                id: "Job Chart",
-                domainFn: (v, _) => v.month ?? "Month",
+            var seriesList2 = [
+              charts.Series<SkillJobChartDataModel, DateTime>(
+                id: "Job Chart2",
+                domainFn: (v, _) => v.dateTimeValue,
                 measureFn: (v, _) => v.total ?? 0,
                 fillColorFn: (_, __) =>
-                    charts.ColorUtil.fromDartColor(AppTheme.colorPrimary),
-                colorFn: (_, __) =>
                     charts.ColorUtil.fromDartColor(AppTheme.colorPrimary)
                         .darker,
+                colorFn: (_, __) =>
+                    charts.ColorUtil.fromDartColor(AppTheme.colorPrimary),
                 data: list.reversed.toList(),
-                insideLabelStyleAccessorFn: (_, __) => charts.TextStyleSpec(
-                  color: charts.MaterialPalette.black,
-                ),
-                labelAccessorFn: (v, _) => '${v.total ?? ""}',
               )
             ];
+//            var seriesList = [
+//              charts.Series<SkillJobChartDataModel, String>(
+//                id: "Job Chart",
+//                domainFn: (v, _) => v.monthName ?? "Month",
+//                measureFn: (v, _) => v.total ?? 0,
+//                fillColorFn: (_, __) =>
+//                    charts.ColorUtil.fromDartColor(AppTheme.colorPrimary),
+//                colorFn: (_, __) =>
+//                    charts.ColorUtil.fromDartColor(AppTheme.colorPrimary)
+//                        .darker,
+//                data: list.reversed.toList(),
+//                insideLabelStyleAccessorFn: (_, __) => charts.TextStyleSpec(
+//                  color: charts.MaterialPalette.black,
+//                ),
+//                labelAccessorFn: (v, _) => '${v.total ?? ""}',
+//              )
+//            ];
 
-            return Container(
-              padding: EdgeInsets.all(8),
-              height: chartHeight,
-              child: charts.BarChart(
-                seriesList,
-                barGroupingType: charts.BarGroupingType.grouped,
-//                vertical: false,
-                animate: animate,
-//        flipVerticalAxis: true,
-//                defaultRenderer: new charts.BarRendererConfig(
-//                    groupingType: charts.BarGroupingType.grouped,
-//
-//                    strokeWidthPx: 2.0),
-                barRendererDecorator: new charts.BarLabelDecorator<String>(
-                    labelPosition: charts.BarLabelPosition.inside,
-                    labelAnchor: charts.BarLabelAnchor.end,
-                    insideLabelStyleSpec: charts.TextStyleSpec()),
-                behaviors: [
-//              new charts.ChartTitle('Jobs Per Month',
-//                  behaviorPosition: charts.BehaviorPosition.bottom,
-//                  titleOutsideJustification:
-//                      charts.OutsideJustification.middleDrawArea),
-                ],
-                primaryMeasureAxis: new charts.NumericAxisSpec(
-                    tickProviderSpec: new charts.BasicNumericTickProviderSpec(
-                        desiredTickCount: 10)),
-                secondaryMeasureAxis: new charts.NumericAxisSpec(
-                    tickProviderSpec: new charts.BasicNumericTickProviderSpec(
-                        desiredTickCount: 3)),
-              ),
+            return Column(
+              children: [
+                Container(
+                  padding: EdgeInsets.all(8),
+                  height: chartHeight,
+                  child: charts.TimeSeriesChart(
+                    seriesList2,
+                    animate: animate,
+                    defaultRenderer: new charts.LineRendererConfig(
+                        includePoints: true,
+                       ),
+                    domainAxis: new charts.DateTimeAxisSpec(),
+                  ),
+                ),
+
+//                Container(
+//                  padding: EdgeInsets.all(8),
+//                  height: chartHeight,
+//                  child: charts.BarChart(
+//                    seriesList,
+//                    barGroupingType: charts.BarGroupingType.grouped,
+////                vertical: false,
+//                    animate: animate,
+////        flipVerticalAxis: true,
+////                defaultRenderer: new charts.BarRendererConfig(
+////                    groupingType: charts.BarGroupingType.grouped,
+////
+////                    strokeWidthPx: 2.0),
+//                    barRendererDecorator: new charts.BarLabelDecorator<String>(
+//                        labelPosition: charts.BarLabelPosition.inside,
+//                        labelAnchor: charts.BarLabelAnchor.end,
+//                        insideLabelStyleSpec: charts.TextStyleSpec()),
+//                    behaviors: [
+////              new charts.ChartTitle('Jobs Per Month',
+////                  behaviorPosition: charts.BehaviorPosition.bottom,
+////                  titleOutsideJustification:
+////                      charts.OutsideJustification.middleDrawArea),
+//                    ],
+//                    primaryMeasureAxis: new charts.NumericAxisSpec(
+//                        tickProviderSpec: new charts.BasicNumericTickProviderSpec(
+//                            desiredTickCount: 10)),
+//                    secondaryMeasureAxis: new charts.NumericAxisSpec(
+//                        tickProviderSpec: new charts.BasicNumericTickProviderSpec(
+//                            desiredTickCount: 3)),
+//                  ),
+//                ),
+              ],
             );
           }),
         ],

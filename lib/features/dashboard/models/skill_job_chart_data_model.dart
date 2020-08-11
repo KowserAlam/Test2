@@ -1,7 +1,8 @@
 import 'package:intl/intl.dart';
 
 class SkillJobChartDataModel {
-  String month;
+  String monthName;
+  int month;
   int total;
   int year;
   DateTime dateTimeValue;
@@ -37,6 +38,7 @@ class SkillJobChartDataModel {
   };
 
   SkillJobChartDataModel({
+    this.monthName,
     this.month,
     this.total,
     this.year,
@@ -45,7 +47,8 @@ class SkillJobChartDataModel {
 
   SkillJobChartDataModel.fromJson(json) {
     try {
-      month = "${_monthsInYear[json[1]??""]}, ${json[0].toString().substring(2)}";
+      monthName = "${_monthsInYear[json[1]??""]}, ${json[0].toString().substring(2)}";
+      month = json[1];
       total = json[2];
       year = json[0];
       dateTimeValue = DateTime.parse(
