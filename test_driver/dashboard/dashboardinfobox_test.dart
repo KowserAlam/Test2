@@ -1,6 +1,10 @@
 import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
 
+import '../bottom_nav_bar/appliedjobs_test.dart';
+
+
+
 
 
 Future dashboardInfoBoxTest() async{
@@ -8,7 +12,8 @@ Future dashboardInfoBoxTest() async{
     final backButton = find.byTooltip('Back');
     final infoboxFavoriteButton = find.byValueKey('dashboardFavoriteInfoBox');
     final infoboxAppliedButton = find.byValueKey('dashboardAppliedInfoBox');
-    final clickOnDashboard = find.text('Dashboard');
+    final clickOnDashboard = find.text('Dashboard'); //bottom navigation bar
+    final clickOnJobs = find.byValueKey('bottomNavigationBarJobs'); //bottom navigation bar
     final dashBoardContactUsTile = find.byValueKey('dashBoardContactUsTile');
     final dashBoardFAQTile = find.byValueKey('dashBoardFAQTile');
     final dashBoardAboutUsTile = find.byValueKey('dashBoardAboutUsTile');
@@ -20,6 +25,7 @@ Future dashboardInfoBoxTest() async{
     final careerAdviceTile3 = find.byValueKey('careerAdviceTile3');
     final careerAdviceTile4 = find.byValueKey('careerAdviceTile4');
     final careerAdviceTile5 = find.byValueKey('careerAdviceTile5');
+
 
     //wait for text
     //final waitForNotification = find.text('Notification');
@@ -114,6 +120,13 @@ Future dashboardInfoBoxTest() async{
       //await Future.delayed(const Duration(seconds: 6), () {});
       await driver.tap(backButton);
     });
-    return;
+
+    test('Click on Jobs from bottom navigation bar', () async {
+      await driver.tap(clickOnJobs);
+      //await Future.delayed(const Duration(seconds: 6), () {});
+    });
+
   });
+
+  appliedJobsTest();
 }
