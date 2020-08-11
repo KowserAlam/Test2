@@ -54,5 +54,5 @@ forgotPasswordTest() {
       await driver.tap(backButton);
     });
   });
-  loginTest();
+  signUpTest();
 }
