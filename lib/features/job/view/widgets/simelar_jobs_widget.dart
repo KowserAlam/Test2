@@ -53,6 +53,7 @@ class _SimilarJobsWidgetState extends State<SimilarJobsWidget> {
               bool isSuccessful = await JobRepository().applyForJob(job.jobId);
               if (isSuccessful) {
                 _jobs[index].isApplied = true;
+                Navigator.pop(context);
                 if (this.mounted) setState(() {});
               }
             },
