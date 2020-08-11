@@ -1,5 +1,4 @@
 import 'package:flutter_driver/flutter_driver.dart';
-import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:test/test.dart';
 
 
@@ -9,7 +8,7 @@ main(){
 Future<void> appliedJobsTest()async{
 
   group('Applied Jobs Test', () {
-    final clickOnAppliedJobsFromSegmentScreen = find.bySemanticsLabel(StringResources.appliedText);
+    final clickOnAppliedJobsFromSegmentScreen = find.text('Applied');
     //final clickOnAppliedJobsFromSegmentScreen = find.bySemanticsLabel(StringResources.favoriteText);
     //final clickOnAppliedJobsFromSegmentScreen = find.bySemanticsLabel(StringResources.allText);
 
