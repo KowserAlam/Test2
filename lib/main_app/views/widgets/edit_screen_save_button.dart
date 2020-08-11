@@ -18,12 +18,12 @@ class EditScreenSaveButton extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: InkWell(
+          key: key,
           onTap: onPressed,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
               text??"",
-              key: key,
 //              style: TextStyle(color: Colors.white),
             ),
           ),

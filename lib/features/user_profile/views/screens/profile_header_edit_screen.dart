@@ -170,6 +170,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
             key: Key("myProfileHeaderSaveButton"),
             text: StringResources.saveText,
             onPressed: () {
+              print('save clicked');
               _handleSave();
             },
           ),
@@ -177,6 +178,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
       ),
       body: ZefyrScaffold(
         child: SingleChildScrollView(
+          key: Key('myProfileHeaderScrollView'),
           physics: BouncingScrollPhysics(),
           child: Column(
             children: <Widget>[

@@ -25,7 +25,7 @@ void main() {
 
 
     //test cases are started from here
-    test('Getting to My Profile', () async {
+    test('Getting to Skill Add screen', () async {
       await driver.tap(keys.signInEmail);
       await driver.enterText('kowser@ishraak.com');
       await driver.tap(keys.signInPassword);
@@ -35,25 +35,29 @@ void main() {
       await driver.tap(keys.onboardingPageSkipButton);
       await Future.delayed(const Duration(seconds: 5), (){});
       await driver.tap(keys.bottomNavigationBarMyProfile);
-    });
-
-    test('Getting to Skill Add screen', () async {
       await driver.tap(keys.myProfileHeaderEditButton);
       await Future.delayed(const Duration(seconds: 10), (){});
+    });
+
+    test('Editing textfields', () async {
       await driver.tap(keys.myProfileHeaderFullName);
       await driver.enterText('Test Full Name');
+      await driver.scrollUntilVisible(keys.myProfileHeaderScrollView, keys.myProfileHeaderMobile, dyScroll: -40);
 //      await driver.tap(keys.myProfileHeaderDescription);
 //      await driver.enterText('Test Description');
       //await driver.tap(keys.myProfileHeaderExperiencePerYear);
       await driver.tap(keys.myProfileHeaderMobile);
       await driver.enterText('01724232884');
+      await driver.scrollUntilVisible(keys.myProfileHeaderScrollView, keys.myProfileHeaderCurrentCompany, dyScroll: -20);
       await driver.tap(keys.myProfileHeaderCurrentCompany);
       await driver.enterText('Test Company');
+      await driver.scrollUntilVisible(keys.myProfileHeaderScrollView, keys.myProfileHeaderCurrentDesignation, dyScroll: -20);
       await driver.tap(keys.myProfileHeaderCurrentDesignation);
       await driver.enterText('Test Designation');
+      await driver.scrollUntilVisible(keys.myProfileHeaderScrollView, keys.myProfileHeaderLocation, dyScroll: -20);
       await driver.tap(keys.myProfileHeaderLocation);
       await driver.enterText('Test Location');
-      await Future.delayed(const Duration(seconds: 30), (){});
+      await Future.delayed(const Duration(seconds: 5), (){});
 //      await driver.tap(keys.myProfileHeaderFacebook);
 //      await driver.enterText('');
 //      await driver.tap(keys.myProfileHeaderTwitter);
@@ -62,6 +66,12 @@ void main() {
 //      await driver.enterText('');
       await driver.tap(keys.myProfileHeaderSaveButton);
       await Future.delayed(const Duration(seconds: 10), (){});
+    });
+
+    test('Save button clicked', () async {
+      await driver.tap(keys.myProfileHeaderSaveButton);
+      await Future.delayed(const Duration(seconds: 10), (){});
+
     });
 
   });
