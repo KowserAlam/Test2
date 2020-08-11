@@ -1,5 +1,6 @@
 import 'package:after_layout/after_layout.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:p7app/features/messaging/model/message_sender_data_model.dart';
 import 'package:p7app/features/messaging/view/widgets/message_bubble.dart';
 import 'package:p7app/features/messaging/view_mpdel/conversation_view_model.dart';
@@ -35,7 +36,6 @@ class _ConversationScreenState extends State<ConversationScreen>
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -50,25 +50,28 @@ class _ConversationScreenState extends State<ConversationScreen>
           body: SafeArea(
             child: Column(
               children: [
-
                 Expanded(
-                  child:     vm.shouldShowPageLoader?Loader():ListView.builder(
-                      physics: AlwaysScrollableScrollPhysics(),
-                      controller: _scrollController,
-                      padding: EdgeInsets.symmetric(vertical: 4),
-                      itemCount: messages.length+1,
-                      reverse: true,
-                      itemBuilder: (BuildContext context, int index) {
-                        if(index == messages.length){
-                          return Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: vm.isGettingMoreData?Loader(): SizedBox(),
-                          );
-                        }
+                  child: vm.shouldShowPageLoader
+                      ? Loader()
+                      : ListView.builder(
+                          physics: AlwaysScrollableScrollPhysics(),
+                          controller: _scrollController,
+                          padding: EdgeInsets.symmetric(vertical: 4),
+                          itemCount: messages.length + 1,
+                          reverse: true,
+                          itemBuilder: (BuildContext context, int index) {
+                            if (index == messages.length) {
+                              return Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: vm.isGettingMoreData
+                                    ? Loader()
+                                    : SizedBox(),
+                              );
+                            }
 
-                        var message = messages[index];
-                        return MessageBubble(message,widget.senderModel);
-                      }),
+                            var message = messages[index];
+                            return MessageBubble(message, widget.senderModel);
+                          }),
                 ),
                 Row(
                   children: [
@@ -95,23 +98,39 @@ class _ConversationScreenState extends State<ConversationScreen>
                         ),
                       ),
                     ),
-                    vm.sendingMessage?
-                    IconButton(icon: Loader(),onPressed: null,):
-                    IconButton(
-                      icon: Icon(Icons.send),
-                      iconSize: 20,
-                      color: Theme.of(context).accentColor,
-                      onPressed: () {
-                        if(_messageInoutTextEditingController.text.isNotEmpty){
-                          vm.createMessage(
-                              _messageInoutTextEditingController.text,
-                              widget.senderModel.otherPartyUserId);
-                          _messageInoutTextEditingController.clear();
-                        }
+                    vm.sendingMessage
+                        ? IconButton(
+                            icon: Loader(),
+                            onPressed: null,
+                          )
+                        : Padding(
+                          padding: const EdgeInsets.fromLTRB(0,5,8,5),
+                          child: Material(
+                            elevation: 3,
+                              shape: CircleBorder(),
+                              child: InkWell(
+                                customBorder: CircleBorder(),
+                                onTap: () {
+                                  if (_messageInoutTextEditingController
+                                      .text.isNotEmpty) {
+                                    vm.createMessage(
+                                        _messageInoutTextEditingController.text,
+                                        widget.senderModel.otherPartyUserId);
+                                    _messageInoutTextEditingController.clear();
+                                  }
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Transform.rotate(
+                                    angle: 0.8,
+                                    child: Icon(FeatherIcons.send),
+                                  ),
+                                ),
+                              ),
+                              color: Theme.of(context).accentColor,
 
-                      },
-                    ),
-
+                            ),
+                        ),
                   ],
                 ),
               ],

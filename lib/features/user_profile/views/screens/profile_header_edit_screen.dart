@@ -25,6 +25,7 @@ import 'package:provider/provider.dart';
 
 class ProfileHeaderEditScreen extends StatefulWidget {
   final UserModel userModel;
+  final bool focusAboutMe;
 
   @override
   _ProfileHeaderEditScreenState createState() =>
@@ -32,6 +33,7 @@ class ProfileHeaderEditScreen extends StatefulWidget {
 
   const ProfileHeaderEditScreen({
     @required this.userModel,
+     this.focusAboutMe=false,
   });
 }
 
@@ -51,6 +53,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
   List<String> _experienceList = [];
   String _selectedExperience;
   ZefyrController _aboutMeZefyrController = ZefyrController(NotusDocument());
+  FocusNode _aboutMeFocusNode = FocusNode();
 
   @override
   void initState() {
@@ -72,6 +75,9 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
       _experienceList = value.fold((l) => [], (r) => r);
       setState(() {});
     });
+    if(widget.focusAboutMe){
+      _aboutMeFocusNode.requestFocus();
+    }
     super.initState();
   }
 
@@ -281,7 +287,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
             CustomZefyrRichTextFormField(
               key: Key('myProfileHeaderDescription'),
               labelText: StringResources.descriptionText,
-              focusNode: FocusNode(),
+              focusNode: _aboutMeFocusNode,
               controller: _aboutMeZefyrController,
             ),
 //            CustomTextFormField(

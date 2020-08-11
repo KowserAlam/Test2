@@ -66,6 +66,7 @@ class _UserInfoListItemState extends State<UserInfoListItem> {
             SizedBox(
               width:15,
             ),
+            if(widget.onTapEditAction != null)
             InkWell(
               borderRadius: BorderRadius.circular(50),
               child: Padding(

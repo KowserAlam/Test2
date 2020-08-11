@@ -171,6 +171,7 @@ class StringResources {
 
   static String editProfileText = "EDIT PROFILE";
   static String aboutText = "About";
+  static String writeAboutYourself = "Write about yourself";
   static String aboutMeText = "About Me";
   static String industryExpertiseText = "Industry Expertise";
 

@@ -2,6 +2,7 @@ import 'package:after_layout/after_layout.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:p7app/features/settings/setings_screen.dart';
+import 'package:p7app/features/user_profile/models/user_model.dart';
 import 'package:p7app/features/user_profile/views/screens/edit_portfolio_screen.dart';
 import 'package:p7app/features/user_profile/views/screens/edit_reference_screen.dart';
 import 'package:p7app/features/user_profile/views/widgets/portfolio_list_item_widget.dart';
@@ -135,6 +136,18 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
           )
         ],
       );
+
+  navigateToAboutMeEdit(
+    UserModel userModel,
+  ) {
+    Navigator.push(
+        context,
+        CupertinoPageRoute(
+            builder: (context) => ProfileHeaderEditScreen(
+                  userModel: userModel,
+                  focusAboutMe: true,
+                )));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -373,35 +386,48 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
         ],
       );
     });
-    var aboutMeWidget = Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        Text(
-          StringResources.aboutMeText,
-          style: titleTextStyle.apply(color: Colors.white),
-        ),
-        SizedBox(
-          height: 5,
-        ),
+    var aboutMeWidget = UserInfoListItem(
+      icon: FontAwesomeIcons.infoCircle,
+      label: StringResources.aboutMeText,
+      children: [
         Container(
           width: double.infinity,
           decoration: BoxDecoration(
             color: Theme.of(context).backgroundColor,
-//            borderRadius: BorderRadius.circular(5),
+            borderRadius: BorderRadius.circular(5),
             boxShadow: CommonStyle.boxShadow,
           ),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Selector<UserProfileViewModel, String>(
-                selector: (_, userProfileViewModel) =>
-                    userProfileViewModel.userData.personalInfo.aboutMe ?? "",
-                builder: (context, String data, _) {
-                  return HtmlWidget(data);
+            child: Consumer<UserProfileViewModel>(
+                builder: (context, userProfileViewModel, _) {
+              var aboutMeText =
+                  userProfileViewModel.userData.personalInfo.aboutMe ?? "";
+              if (aboutMeText.isEmptyOrNull ?? false)
+                return FlatButton(
+                  onPressed: () {
+                    navigateToAboutMeEdit(userProfileViewModel.userData);
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.mode_edit, size: 17, color: Colors.grey),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Text(
+                        StringResources.writeAboutYourself,
+                        style: titleTextStyle.apply(color: Colors.grey),
+                      ),
+                    ],
+                  ),
+                );
+              return HtmlWidget(aboutMeText);
 //                  return Text(
 //                    data,
 //                    textAlign: TextAlign.left,
 //                  );
-                }),
+            }),
           ),
         ),
       ],
@@ -706,10 +732,8 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
               Icons.settings,
             ),
             onPressed: () {
-              Navigator.push(
-                  context,
-                  CupertinoPageRoute(
-                      builder: (context) => SettingsScreen()));
+              Navigator.push(context,
+                  CupertinoPageRoute(builder: (context) => SettingsScreen()));
             },
           ),
         ],
@@ -770,7 +794,9 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                     color: profileHeaderBackgroundColor,
                     image: DecorationImage(
                         image: AssetImage(kUserProfileCoverImageAsset),
-                        fit: BoxFit.cover),
+                        fit: BoxFit.cover,colorFilter: ColorFilter.mode(
+                      Colors.black.withOpacity(0.4),BlendMode.dstATop
+                    )),
                   ),
                   padding: EdgeInsets.all(8),
                   child: Column(
@@ -805,10 +831,6 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                       SizedBox(height: 5),
                       designationWidget,
                       SizedBox(height: 8),
-                      if (userProfileViewModel?.userData?.personalInfo?.aboutMe
-                              ?.isNotEmptyOrNotNull ??
-                          false)
-                        aboutMeWidget,
                     ],
                   ),
                 ),
@@ -817,11 +839,14 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
                   padding: EdgeInsets.all(8),
                   child: Column(
                     children: [
-                      SizedBox(height: 15),
+//                      SizedBox(height: 15),
 
 //                      ///Contact Info
 //                      contactInfoWidget,
 //                      SizedBox(height: 15,),
+
+                      aboutMeWidget,
+                      SizedBox(height: 15),
 
                       /// Experience
                       experienceWidget,
