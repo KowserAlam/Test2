@@ -99,15 +99,18 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
     var heartButton = Material(
       color: Colors.transparent,
       borderRadius: BorderRadius.circular(20),
-      child: InkWell(
-        borderRadius: BorderRadius.circular(20),
-        onTap: widget.onFavorite,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Icon(
-            isFavorite ? FontAwesomeIcons.solidHeart : FontAwesomeIcons.heart,
-            color: isFavorite ? AppTheme.orange : AppTheme.grey,
-            size: 22,
+      child: Tooltip(
+        message:isFavorite ?StringResources.removeFromFavoriteText : StringResources.addToFavoriteText,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(20),
+          onTap: widget.onFavorite,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Icon(
+              isFavorite ? FontAwesomeIcons.solidHeart : FontAwesomeIcons.heart,
+              color: isFavorite ? AppTheme.orange : AppTheme.grey,
+              size: 22,
+            ),
           ),
         ),
       ),

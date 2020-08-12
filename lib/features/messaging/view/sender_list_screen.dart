@@ -70,20 +70,23 @@ class _SenderListScreenState extends State<SenderListScreen>
                       decoration: BoxDecoration(
                           color: Theme.of(context).backgroundColor,
                           boxShadow: CommonStyle.boxShadow),
-                      child: ListTile(
-                        onTap: () {
-                          Navigator.of(context).push(CupertinoPageRoute(
-                              builder: (context) =>
-                                  ConversationScreen(senderModel)));
-                        },
-                        leading: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: CachedNetworkImage(
-                            imageUrl: senderModel.otherPartyImage,
-                            placeholder: (__,_)=>Image.asset(kCompanyImagePlaceholder),
+                      child: Material(
+                        type: MaterialType.transparency,
+                        child: ListTile(
+                          onTap: () {
+                            Navigator.of(context).push(CupertinoPageRoute(
+                                builder: (context) =>
+                                    ConversationScreen(senderModel)));
+                          },
+                          leading: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: CachedNetworkImage(
+                              imageUrl: senderModel.otherPartyImage,
+                              placeholder: (__,_)=>Image.asset(kCompanyImagePlaceholder),
+                            ),
                           ),
+                          title: Text(senderModel.otherPartyName ?? ""),
                         ),
-                        title: Text(senderModel.otherPartyName ?? ""),
                       ),
                     );
                   }),

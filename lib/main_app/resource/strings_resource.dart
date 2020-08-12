@@ -480,6 +480,8 @@ class StringResources {
   static const String appliedText = "Applied";
 
   static const String favoriteText = "Favorite";
+  static const String addToFavoriteText = "Add to favorite";
+  static const String removeFromFavoriteText = "Remove from favorite";
   static const String jobsText = "Jobs";
   static const String careerAdviceText = "Career Advice";
   static const String aboutUsText = "About Us";
