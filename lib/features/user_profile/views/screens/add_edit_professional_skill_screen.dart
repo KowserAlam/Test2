@@ -236,7 +236,7 @@ class _AddEditProfessionalSkillState extends State<AddEditProfessionalSkill> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        title: Text(StringResources.professionalSkillText),
+        title: Text(StringResources.professionalSkillText, key: Key('professionalSkillAppbarTitle'),),
         actions: <Widget>[
           EditScreenSaveButton(
             key: Key('skillSaveButton'),
