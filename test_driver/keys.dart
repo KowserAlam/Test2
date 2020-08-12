@@ -28,10 +28,13 @@ class keys{
   static final bottomNavigationBarCompany = find.byValueKey('bottomNavigationBarCompany');
   static final bottomNavigationBarMessages = find.byValueKey('bottomNavigationBarMessages');
   static final bottomNavigationBarJobs = find.byValueKey('bottomNavigationBarJobs');
+  static final notificationsTextonAppBar = find.byValueKey('notificationsText');
 
   ///////////         My Profile          /////////////
   static final myProfileAppbarTitle = find.byValueKey('myProfileAppbarTitle');
   static final myProfileScrollView = find.byValueKey('myProfileScrollView');
+  static final myProfileDialogBoxDeleteTile = find.byValueKey('myProfileDialogBoxDeleteTile');
+  static final myProfileDialogBoxCancelDeleteTile = find.byValueKey('myProfileDialogBoxCancelDeleteTile');
 
   static final myProfileHeaderEditButton = find.byValueKey('myProfileHeaderEditButton');
 
@@ -67,7 +70,13 @@ class keys{
 
 
   //References
+  static final referencesAppbarTitle = find.byValueKey('referencesAppbarTitle');
   static final myProfileReferencesSaveButton = find.byValueKey('myProfileReferencesSaveButton');
   static final referencesDescription = find.byValueKey('referencesDescription');
+
+  //Jobs Segment
+  static final clickOnAppliedJobsFromSegmentScreen = find.byValueKey('jobsSegmentAppliedText');
+  static final clickOnFavoriteJobsFromSegmentScreen = find.byValueKey('jobsSegmentFavoriteText');
+  static final clickOnAllFromSegmentScreen = find.byValueKey('jobsSegmentAllText');
 
 }

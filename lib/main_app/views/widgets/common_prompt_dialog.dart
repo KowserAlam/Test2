@@ -15,6 +15,7 @@ class CommonPromptDialog extends StatelessWidget {
       title: Text(titleText),
       actions: [
         FlatButton(
+          key: Key('myProfileDialogBoxCancelDeleteTile'),
           color: Theme.of(context).accentColor,
           onPressed: onCancel,
           child: Text(StringResources.noText, style: buttonTextStyles),
@@ -23,6 +24,7 @@ class CommonPromptDialog extends StatelessWidget {
           width: 8,
         ),
         FlatButton(
+          key: Key('myProfileDialogBoxDeleteTile'),
           color: Theme.of(context).accentColor,
           onPressed: onAccept,
           child: Text(

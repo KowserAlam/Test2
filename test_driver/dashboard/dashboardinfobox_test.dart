@@ -1,11 +1,13 @@
 import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
-
+import '../keys.dart';
 import '../bottom_nav_bar/appliedjobs_test.dart';
 
 
 
-
+main(){
+  dashboardInfoBoxTest();
+}
 
 Future dashboardInfoBoxTest() async{
   return group('Dashboard Infobox', () {
@@ -13,7 +15,6 @@ Future dashboardInfoBoxTest() async{
     final infoboxFavoriteButton = find.byValueKey('dashboardFavoriteInfoBox');
     final infoboxAppliedButton = find.byValueKey('dashboardAppliedInfoBox');
     final clickOnDashboard = find.text('Dashboard'); //bottom navigation bar
-    final clickOnJobs = find.byValueKey('bottomNavigationBarJobs'); //bottom navigation bar
     final dashBoardContactUsTile = find.byValueKey('dashBoardContactUsTile');
     final dashBoardFAQTile = find.byValueKey('dashBoardFAQTile');
     final dashBoardAboutUsTile = find.byValueKey('dashBoardAboutUsTile');
@@ -65,15 +66,11 @@ Future dashboardInfoBoxTest() async{
       await driver.tap(backButton);
     });
     test('Click on FAQ tile', () async {
-      await driver.scrollUntilVisible(dashBoardListview, dashBoardFAQTile,
-          dyScroll: -600);
       await driver.tap(dashBoardFAQTile);
       //await Future.delayed(const Duration(seconds: 9), () {});
       await driver.tap(backButton);
     });
     test('Click on About Us tile', () async {
-      await driver.scrollUntilVisible(dashBoardListview, dashBoardAboutUsTile,
-          dyScroll: -600);
       await driver.tap(dashBoardAboutUsTile);
       //await Future.delayed(const Duration(seconds: 9), () {});
       await driver.tap(backButton);
@@ -81,6 +78,7 @@ Future dashboardInfoBoxTest() async{
 
     test('Click on Notification icon to check notifications', () async {
       await driver.tap(dashboardNotificationIcon);
+      await expect(await driver.getText(keys.notificationsTextonAppBar), 'Notifications');
       await Future.delayed(const Duration(seconds: 2), () {});
       await driver.tap(backButton);
     });
@@ -120,13 +118,7 @@ Future dashboardInfoBoxTest() async{
       //await Future.delayed(const Duration(seconds: 6), () {});
       await driver.tap(backButton);
     });
-
-    test('Click on Jobs from bottom navigation bar', () async {
-      await driver.tap(clickOnJobs);
-      //await Future.delayed(const Duration(seconds: 6), () {});
-    });
-
+    appliedJobsTest();
   });
 
-  appliedJobsTest();
 }
