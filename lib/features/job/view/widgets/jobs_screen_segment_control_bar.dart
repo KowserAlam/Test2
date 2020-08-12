@@ -33,17 +33,20 @@ class JobsScreenSegmentControlBar extends StatelessWidget {
               barItem(
                 context: context,
                 label: StringResources.allText,
+                key: Key('jobsSegmentAllText'),
                 index: 0,
               ),
               divider,
               barItem(
                   context: context,
                   label: StringResources.appliedText,
+                  key: Key('jobsSegmentAppliedText'),
                   index: 1),
               divider,
               barItem(
                 context: context,
                 label: StringResources.favoriteText,
+                key: Key('jobsSegmentFavoriteText'),
                 index: 2,
               )
             ]),
@@ -54,7 +57,7 @@ class JobsScreenSegmentControlBar extends StatelessWidget {
   Widget barItem({
     @required context,
     @required String label,
-    @required int index,
+    @required int index, Key key,
   }) {
     var vm = Provider.of<JobScreenViewModel>(context);
     bool isSelected = vm.currentIndex == index;
