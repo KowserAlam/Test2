@@ -32,6 +32,8 @@ class keys{
   ///////////         My Profile          /////////////
   static final myProfileAppbarTitle = find.byValueKey('myProfileAppbarTitle');
   static final myProfileScrollView = find.byValueKey('myProfileScrollView');
+  static final myProfileDialogBoxDeleteTile = find.byValueKey('myProfileDialogBoxDeleteTile');
+  static final myProfileDialogBoxCancelDeleteTile = find.byValueKey('myProfileDialogBoxCancelDeleteTile');
 
   static final myProfileHeaderEditButton = find.byValueKey('myProfileHeaderEditButton');
 
@@ -67,6 +69,7 @@ class keys{
 
 
   //References
+  static final referencesAppbarTitle = find.byValueKey('referencesAppbarTitle');
   static final myProfileReferencesSaveButton = find.byValueKey('myProfileReferencesSaveButton');
   static final referencesDescription = find.byValueKey('referencesDescription');
 

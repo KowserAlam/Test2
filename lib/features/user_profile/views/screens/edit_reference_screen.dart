@@ -95,7 +95,7 @@ class _EditReferenceScreenState extends State<EditReferenceScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(StringResources.referenceAppbarText),
+        title: Text(StringResources.referenceAppbarText, key: Key('referencesAppbarTitle'),),
         actions: <Widget>[
           EditScreenSaveButton(
             key: Key('myProfileReferencesSaveButton'),
