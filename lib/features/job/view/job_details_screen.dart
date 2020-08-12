@@ -383,11 +383,11 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                 SizedBox(
                   height: 5,
                 ),
-                Text(
+                HtmlWidget(
                   jobDetails.descriptions != null
                       ? jobDetails.descriptions
                       : StringResources.noneText,
-                  style: descriptionFontStyle,
+                  textStyle: descriptionFontStyle,
                 )
               ],
             ),
@@ -453,11 +453,11 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                 SizedBox(
                   height: 5,
                 ),
-                Text(
+                HtmlWidget(
                   jobDetails.education != null
                       ? jobDetails.education
                       : StringResources.noneText,
-                  style: descriptionFontStyle,
+                  textStyle: descriptionFontStyle,
                 )
               ],
             ),
@@ -883,11 +883,11 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                 SizedBox(
                   height: 5,
                 ),
-                Text(
+                HtmlWidget(
                   jobDetails.otherBenefits != null
                       ? jobDetails.otherBenefits
                       : StringResources.noneText,
-                  style: descriptionFontStyle,
+                  textStyle: descriptionFontStyle,
                 )
               ],
             ),

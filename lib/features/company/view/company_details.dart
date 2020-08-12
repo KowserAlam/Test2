@@ -1,9 +1,9 @@
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:p7app/features/company/models/company.dart';
@@ -117,27 +117,38 @@ class _CompanyDetailsState extends State<CompanyDetails> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 if (companyDetails?.companyProfile != null)
-                  Text.rich(
-                    TextSpan(children: [
-                      TextSpan(
-                          text: StringResources.companyProfileText + ': ',
-                          style: descriptionFontStyleBold),
-                      TextSpan(
-                          text: companyDetails.companyProfile,
-                          style: descriptionFontStyle),
-//              WidgetSpan(
-//                  child: GestureDetector(
-//                      onTap: () {
-//                        UrlLauncherHelper.launchUrl(
-//                            companyDetails.companyProfile.trim());
-//                      },
-//                      child: Text(
-//                        companyDetails.companyProfile,
-//                        style: TextStyle(color: Colors.lightBlue),
-//                      )))
-                    ]),
-                    textAlign: TextAlign.justify,
+                  HtmlWidget(
+                    "<b>${StringResources.companyProfileText}: </b> ${companyDetails.companyProfile ?? ""}",
+                    textStyle: descriptionFontStyle,
                   ),
+//                  Text.rich(
+//                    TextSpan(children: [
+//                      TextSpan(
+//                          text: StringResources.companyProfileText + ': ',
+//                          style: descriptionFontStyleBold),
+//                      WidgetSpan(
+//                        child: HtmlWidget(
+//                          companyDetails.companyProfile ?? "",
+//                          textStyle: descriptionFontStyle,
+//                        ),
+//                      ),
+////                      TextSpan(
+////                          text: companyDetails.companyProfile,
+////                          style: descriptionFontStyle),
+//
+////              WidgetSpan(
+////                  child: GestureDetector(
+////                      onTap: () {
+////                        UrlLauncherHelper.launchUrl(
+////                            companyDetails.companyProfile.trim());
+////                      },
+////                      child: Text(
+////                        companyDetails.companyProfile,
+////                        style: TextStyle(color: Colors.lightBlue),
+////                      )))
+//                    ]),
+//                    textAlign: TextAlign.justify,
+//                  ),
                 SizedBox(height: 5),
                 CompanyDetailsFormattedText(
                     StringResources.companyYearsOfEstablishmentText,
