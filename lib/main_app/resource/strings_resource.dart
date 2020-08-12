@@ -549,6 +549,7 @@ class StringResources {
   static const String salaryRangeText = 'Salary Range';
   static const String gender = 'Gender';
   static const String addSkillText = 'Add Skill';
+  static const String addNewText = 'Add New';
   static const String tapToSelectText = 'Tap to select';
   static const String typeHereText = 'Type Here';
   static const String searchHere = 'Search here';

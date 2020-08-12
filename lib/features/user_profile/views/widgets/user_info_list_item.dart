@@ -34,19 +34,13 @@ class _UserInfoListItemState extends State<UserInfoListItem> {
     var titleTextStyle = TextStyle(fontSize: 17, fontWeight: FontWeight.bold);
 
     var addNewButton = widget.isInEditMode
-        ? InkWell(
-            borderRadius: BorderRadius.circular(50),
-            onTap: widget.onTapAddNewAction,
-            child: Material(
-                borderRadius: BorderRadius.circular(50),
-                color: Theme.of(context).accentColor.withOpacity(.1),
-                child: Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: Icon(FontAwesomeIcons.plus,
-                      key: widget.addKey,
-                      size: 20,
-                      color: Theme.of(context).accentColor),
-                )),
+        ? IconButton(
+      tooltip: StringResources.addNewText,
+            onPressed: widget.onTapAddNewAction,
+            icon: Icon(FontAwesomeIcons.plus,
+                key: widget.addKey,
+                size: 20,
+                color: Theme.of(context).accentColor),
           )
         : SizedBox();
     return Column(
@@ -63,22 +57,17 @@ class _UserInfoListItemState extends State<UserInfoListItem> {
             Expanded(child: Text(widget.label, style: titleTextStyle)),
             
             addNewButton,
-            SizedBox(
-              width:15,
-            ),
+
             if(widget.onTapEditAction != null)
-            InkWell(
-              borderRadius: BorderRadius.circular(50),
-              child: Padding(
-                padding: const EdgeInsets.all(6.0),
-                child: Icon(
-                  widget.isInEditMode ? FontAwesomeIcons.check : Icons.edit,
-                  size: 20,
+            IconButton(
+              tooltip: !widget.isInEditMode ? "${StringResources.editText} ${widget.label} " :"${StringResources.doneText} ${widget.label}",
+              icon: Icon(
+                widget.isInEditMode ? FontAwesomeIcons.check : Icons.edit,
+                size: 20,
                   key: widget.penKey,
-                  color: Theme.of(context).accentColor,
-                ),
+                color: Theme.of(context).accentColor,
               ),
-              onTap: widget.onTapEditAction,
+              onPressed: widget.onTapEditAction,
             ),
           ],
         ),
