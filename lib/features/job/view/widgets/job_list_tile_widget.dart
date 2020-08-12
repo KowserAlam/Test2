@@ -102,6 +102,7 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
       child: Tooltip(
         message:isFavorite ?StringResources.removeFromFavoriteText : StringResources.addToFavoriteText,
         child: InkWell(
+          key: Key("favouriteButtonKey"),
           borderRadius: BorderRadius.circular(20),
           onTap: widget.onFavorite,
           child: Padding(
