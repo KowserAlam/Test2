@@ -39,7 +39,7 @@ void main() {
 
     test('Check if edit profile header button is working', () async {
       await driver.tap(keys.myProfileHeaderEditButton);
-      await expect(await driver.getText(keys.myProfileHeaderAppbarTitle), 'EDIT PROFILE');
+      await expect(await driver.getText(keys.myProfileHeaderAppbarTitle), 'Edit Profile');
       await Future.delayed(const Duration(seconds: 5), (){});
     });
 
