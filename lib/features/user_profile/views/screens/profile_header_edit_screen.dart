@@ -170,7 +170,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        title: Text(StringResources.editProfileText),
+        title: Text(StringResources.editProfileText, key: Key('myProfileHeaderAppbarTitle'),),
         actions: <Widget>[
           EditScreenSaveButton(
             key: Key("myProfileHeaderSaveButton"),

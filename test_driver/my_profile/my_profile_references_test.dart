@@ -73,8 +73,8 @@ void main() {
       await driver.enterText('Edited Test Description');
       await driver.tap(keys.myProfileReferencesSaveButton);
       await Future.delayed(const Duration(seconds: 5), (){});
-      //await expect(await driver.getText(keys.referenceTileDescription1), 'Edited Test Description');
-      await expect(await driver.getText(keys.myProfileAppbarTitle), 'My Profile');
+      await expect(await driver.getText(keys.referenceTileDescription1), 'Edited Test Description');
+      //await expect(await driver.getText(keys.myProfileAppbarTitle), 'My Profile');
     });
 
     test('Check delete button is working with confirmation popup', () async {

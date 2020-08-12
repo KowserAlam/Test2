@@ -28,7 +28,7 @@ class keys{
   static final bottomNavigationBarCompany = find.byValueKey('bottomNavigationBarCompany');
   static final bottomNavigationBarMessages = find.byValueKey('bottomNavigationBarMessages');
   static final bottomNavigationBarJobs = find.byValueKey('bottomNavigationBarJobs');
-  static final notificationsTextonAppBar = find.byValueKey('notificationsText');
+  static final notificationsTextOnAppBar = find.byValueKey('notificationsText');
 
   ///////////         My Profile          /////////////
   static final myProfileAppbarTitle = find.byValueKey('myProfileAppbarTitle');
@@ -49,6 +49,7 @@ class keys{
 
 
   //Header Section
+  static final myProfileHeaderAppbarTitle = find.byValueKey('myProfileHeaderAppbarTitle');
   static final myProfileHeaderSaveButton = find.byValueKey('myProfileHeaderSaveButton');
   static final myProfileHeaderFullName = find.byValueKey('myProfileHeaderFullName');
   static final myProfileHeaderDescription = find.byValueKey('myProfileHeaderDescription');

@@ -24,7 +24,7 @@ void main() {
 
 
     //test cases are started from here
-    test('Getting to Skill Add screen', () async {
+    test('Getting to My Profile screen', () async {
       await driver.tap(keys.signInEmail);
       await driver.enterText('kowser@ishraak.com');
       await driver.tap(keys.signInPassword);
@@ -34,8 +34,13 @@ void main() {
       await driver.tap(keys.onboardingPageSkipButton);
       await Future.delayed(const Duration(seconds: 5), (){});
       await driver.tap(keys.bottomNavigationBarMyProfile);
+      await Future.delayed(const Duration(seconds: 5), (){});
+    });
+
+    test('Check if edit profile header button is working', () async {
       await driver.tap(keys.myProfileHeaderEditButton);
-      await Future.delayed(const Duration(seconds: 10), (){});
+      await expect(await driver.getText(keys.myProfileHeaderAppbarTitle), 'EDIT PROFILE');
+      await Future.delayed(const Duration(seconds: 5), (){});
     });
 
     test('Editing textfields', () async {
