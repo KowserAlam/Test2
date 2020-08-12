@@ -77,7 +77,7 @@ void main() {
       await driver.tap(keys.myProfileHeaderSaveButton);
       await Future.delayed(const Duration(seconds: 5), (){});
       await expect(await driver.getText(keys.myProfileAppbarTitle), 'My Profile');
-      await expect(keys.myProfileHeaderDescription, 'Test Description');
+      //await expect(keys.myProfileHeaderDescription, 'Test Description');
       await Future.delayed(const Duration(seconds: 5), (){});
     });
 //
