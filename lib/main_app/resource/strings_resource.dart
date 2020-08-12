@@ -169,7 +169,8 @@ class StringResources {
 
   static String publicView = "PUBLIC VIEW";
 
-  static String editProfileText = "EDIT PROFILE";
+  static String editProfileText = "Edit Profile";
+  static String editBasicInfoText = "Edit Basic Info";
   static String aboutText = "About";
   static String writeAboutYourself = "Write about yourself";
   static String aboutMeText = "About Me";
