@@ -37,6 +37,13 @@ class keys{
   static final myProfileDialogBoxCancelDeleteTile = find.byValueKey('myProfileDialogBoxCancelDeleteTile');
 
   static final myProfileHeaderEditButton = find.byValueKey('myProfileHeaderEditButton');
+  static final myProfileHeaderName = find.byValueKey('myProfileHeaderName');
+  static final myProfileHeaderDescription = find.byValueKey('myProfileHeaderDescription');
+  static final myProfileHeaderLocation = find.byValueKey('myProfileHeaderLocation');
+  static final myProfileHeaderPhone = find.byValueKey('myProfileHeaderPhone');
+  static final myProfileHeaderEmail = find.byValueKey('myProfileHeaderEmail');
+  static final myProfileHeaderDesignation = find.byValueKey('myProfileHeaderDesignation');
+  static final myProfileHeaderCompany = find.byValueKey('myProfileHeaderCompany');
 
   static final myProfileAddSkillPen = find.byValueKey('myProfileAddSkillPen');
   static final myProfileAddSkillAdd = find.byValueKey('myProfileAddSkillAdd');
@@ -48,19 +55,19 @@ class keys{
   static final referenceTileDescription1 = find.byValueKey('referenceTileDescription1');
 
 
-  //Header Section
+  //Header Edit Screen
   static final myProfileHeaderAppbarTitle = find.byValueKey('myProfileHeaderAppbarTitle');
   static final myProfileHeaderSaveButton = find.byValueKey('myProfileHeaderSaveButton');
-  static final myProfileHeaderFullName = find.byValueKey('myProfileHeaderFullName');
-  static final myProfileHeaderDescription = find.byValueKey('myProfileHeaderDescription');
-  static final myProfileHeaderExperiencePerYear = find.byValueKey('myProfileHeaderExperiencePerYear');
-  static final myProfileHeaderMobile = find.byValueKey('myProfileHeaderMobile');
-  static final myProfileHeaderCurrentCompany = find.byValueKey('myProfileHeaderCurrentCompany');
-  static final myProfileHeaderCurrentDesignation = find.byValueKey('myProfileHeaderCurrentDesignation');
-  static final myProfileHeaderLocation = find.byValueKey('myProfileHeaderLocation');
-  static final myProfileHeaderFacebook = find.byValueKey('myProfileHeaderFacebook');
-  static final myProfileHeaderTwitter = find.byValueKey('myProfileHeaderTwitter');
-  static final myProfileHeaderLinkedIn = find.byValueKey('myProfileHeaderLinkedIn');
+  static final myProfileHeaderFullNameField = find.byValueKey('myProfileHeaderFullNameField');
+  static final myProfileHeaderDescriptionField = find.byValueKey('myProfileHeaderDescriptionField');
+  static final myProfileHeaderExperiencePerYearField = find.byValueKey('myProfileHeaderExperiencePerYearField');
+  static final myProfileHeaderMobileField = find.byValueKey('myProfileHeaderMobileField');
+  static final myProfileHeaderCurrentCompanyField = find.byValueKey('myProfileHeaderCurrentCompanyField');
+  static final myProfileHeaderCurrentDesignationField = find.byValueKey('myProfileHeaderCurrentDesignationField');
+  static final myProfileHeaderLocationField = find.byValueKey('myProfileHeaderLocationField');
+  static final myProfileHeaderFacebookField = find.byValueKey('myProfileHeaderFacebookField');
+  static final myProfileHeaderTwitterField = find.byValueKey('myProfileHeaderTwitterField');
+  static final myProfileHeaderLinkedInField = find.byValueKey('myProfileHeaderLinkedInField');
   static final myProfileHeaderScrollView = find.byValueKey('myProfileHeaderScrollView');
 
 

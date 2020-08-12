@@ -277,7 +277,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
           children: <Widget>[
             ///name
             CustomTextFormField(
-              textFieldKey: Key('myProfileHeaderFullName'),
+              textFieldKey: Key('myProfileHeaderFullNameField'),
               controller: _fullNameTextEditingController,
               validator: Validator().nullFieldValidate,
               labelText: StringResources.nameText,
@@ -287,6 +287,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
 
             ///about
             CustomZefyrRichTextFormField(
+              zefyrKey: Key('myProfileHeaderDescriptionField'),
               labelText: StringResources.descriptionText,
               focusNode: _aboutMeFocusNode,
               controller: _aboutMeZefyrController,
@@ -302,7 +303,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
 
             SizedBox(height: 10),
             CustomDropdownSearchFormField<String>(
-              key: Key('myProfileHeaderExperiencePerYear'),
+              dropdownKey: Key('myProfileHeaderExperiencePerYearField'),
               labelText: StringResources.experienceInYear,
               items: _experienceList,
               selectedItem: _selectedExperience,
@@ -315,7 +316,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
             /// phone
 
             CustomTextFormField(
-              textFieldKey: Key('myProfileHeaderMobile'),
+              textFieldKey: Key('myProfileHeaderMobileField'),
               controller: _phoneEditingController,
               validator: Validator().validatePhoneNumber,
               keyboardType: TextInputType.phone,
@@ -327,7 +328,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
 
             /// company
             CustomTextFormField(
-              textFieldKey: Key('myProfileHeaderCurrentCompany'),
+              textFieldKey: Key('myProfileHeaderCurrentCompanyField'),
               controller: _currentCompanyEditingController,
               keyboardType: TextInputType.multiline,
               labelText: StringResources.currentCompany,
@@ -337,7 +338,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
 
             /// designation
             CustomTextFormField(
-              textFieldKey: Key('myProfileHeaderCurrentDesignation'),
+              textFieldKey: Key('myProfileHeaderCurrentDesignationField'),
               controller: _currentDesignationEditingController,
               keyboardType: TextInputType.multiline,
               labelText: StringResources.currentDesignation,
@@ -347,7 +348,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
 
             ///current location
             CustomTextFormField(
-              textFieldKey: Key('myProfileHeaderLocation'),
+              textFieldKey: Key('myProfileHeaderLocationField'),
               controller: _locationEditingController,
               keyboardType: TextInputType.multiline,
               labelText: StringResources.locationText,
@@ -357,7 +358,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
 
             ///facebook
             CustomTextFormField(
-              textFieldKey: Key('myProfileHeaderFacebook'),
+              textFieldKey: Key('myProfileHeaderFacebookField'),
               controller: _facebookEditingController,
               keyboardType: TextInputType.multiline,
               labelText: StringResources.facebookTrlText,
@@ -367,7 +368,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
 
             ///twitter
             CustomTextFormField(
-              textFieldKey: Key('myProfileHeaderTwitter'),
+              textFieldKey: Key('myProfileHeaderTwitterField'),
               controller: _twitterEditingController,
               keyboardType: TextInputType.multiline,
               labelText: StringResources.twitterUrlText,
@@ -377,7 +378,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
 
             ///linkedIn
             CustomTextFormField(
-              textFieldKey: Key('myProfileHeaderLinkedIn'),
+              textFieldKey: Key('myProfileHeaderLinkedInField'),
               controller: _linkedInEditingController,
               keyboardType: TextInputType.multiline,
               labelText: StringResources.linkedUrlText,

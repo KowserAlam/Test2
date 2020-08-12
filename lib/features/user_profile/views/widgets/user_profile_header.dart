@@ -65,6 +65,7 @@ class UserProfileHeader extends StatelessWidget {
         builder: (context, String data, _) {
           return Text(
             data ?? "",
+            key: Key('myProfileHeaderName'),
             style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -209,6 +210,7 @@ class UserProfileHeader extends StatelessWidget {
               ),
               Text(
                 data ?? "",
+                key: Key('myProfileHeaderLocation'),
                 style: TextStyle(
                     color: profileHeaderFontColor, fontWeight: FontWeight.w100),
               ),
@@ -235,6 +237,7 @@ class UserProfileHeader extends StatelessWidget {
               ),
               Text(
                 data ?? "",
+                key: Key('myProfileHeaderPhone'),
                 style: TextStyle(
                     color: profileHeaderFontColor, fontWeight: FontWeight.w100),
               ),
@@ -258,6 +261,7 @@ class UserProfileHeader extends StatelessWidget {
               ),
               Text(
                 data ?? "",
+                key: Key('myProfileHeaderEmail'),
                 style: TextStyle(
                   color: profileHeaderFontColor,
                 ),
@@ -278,6 +282,7 @@ class UserProfileHeader extends StatelessWidget {
               ? SizedBox()
               : Text(
                   position,
+                  key: Key('myProfileHeaderDesignation'),
                   style: TextStyle(
                       color: profileHeaderFontColor,
                       fontWeight: FontWeight.w100),
@@ -289,6 +294,7 @@ class UserProfileHeader extends StatelessWidget {
               ? SizedBox()
               : Text(
                   company,
+                  key: Key('myProfileHeaderCompany'),
                   style: TextStyle(
                       color: profileHeaderFontColor,
                       fontWeight: FontWeight.w100),
@@ -333,7 +339,7 @@ class UserProfileHeader extends StatelessWidget {
                     ],
                   ),
                 );
-              return HtmlWidget(aboutMeText);
+              return HtmlWidget(aboutMeText, key: Key('myProfileHeaderDescription'),);
 //                  return Text(
 //                    data,
 //                    textAlign: TextAlign.left,

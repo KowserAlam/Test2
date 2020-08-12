@@ -43,40 +43,78 @@ void main() {
       await Future.delayed(const Duration(seconds: 5), (){});
     });
 
-    test('Editing textfields', () async {
-      await driver.tap(keys.myProfileHeaderFullName);
+//    test('Try to save while all fields are empty', () async {
+//      await driver.tap(keys.myProfileHeaderSaveButton);
+//      await Future.delayed(const Duration(seconds: 5), (){});
+//      await expect(await driver.getText(keys.myProfileHeaderAppbarTitle), 'EDIT PROFILE');
+//    });
+//
+//    test('Try to save with only name field is filled', () async {
+//      await driver.tap(keys.myProfileHeaderFullNameField);
+//      await driver.enterText('Test Full Name');
+//      await driver.tap(keys.myProfileHeaderSaveButton);
+//      await Future.delayed(const Duration(seconds: 5), (){});
+//      await expect(await driver.getText(keys.myProfileHeaderAppbarTitle), 'EDIT PROFILE');
+//    });
+
+    test('Try to save with Name & Mobile.', () async {
+      await driver.tap(keys.myProfileHeaderFullNameField);
       await driver.enterText('Test Full Name');
-      await driver.scrollUntilVisible(keys.myProfileHeaderScrollView, keys.myProfileHeaderMobile, dyScroll: -40);
-//      await driver.tap(keys.myProfileHeaderDescription);
-//      await driver.enterText('Test Description');
-      //await driver.tap(keys.myProfileHeaderExperiencePerYear);
-      await driver.tap(keys.myProfileHeaderMobile);
-      await driver.enterText('01724232884');
-      await driver.scrollUntilVisible(keys.myProfileHeaderScrollView, keys.myProfileHeaderCurrentCompany, dyScroll: -20);
-      await driver.tap(keys.myProfileHeaderCurrentCompany);
-      await driver.enterText('Test Company');
-      await driver.scrollUntilVisible(keys.myProfileHeaderScrollView, keys.myProfileHeaderCurrentDesignation, dyScroll: -20);
-      await driver.tap(keys.myProfileHeaderCurrentDesignation);
-      await driver.enterText('Test Designation');
-      await driver.scrollUntilVisible(keys.myProfileHeaderScrollView, keys.myProfileHeaderLocation, dyScroll: -20);
-      await driver.tap(keys.myProfileHeaderLocation);
-      await driver.enterText('Test Location');
-      await Future.delayed(const Duration(seconds: 5), (){});
-//      await driver.tap(keys.myProfileHeaderFacebook);
-//      await driver.enterText('');
-//      await driver.tap(keys.myProfileHeaderTwitter);
-//      await driver.enterText('');
-//      await driver.tap(keys.myProfileHeaderLinkedIn);
-//      await driver.enterText('');
+      await driver.tap(keys.myProfileHeaderMobileField);
+      await driver.enterText('01711111111');
       await driver.tap(keys.myProfileHeaderSaveButton);
-      await Future.delayed(const Duration(seconds: 10), (){});
+      await Future.delayed(const Duration(seconds: 5), (){});
+      await expect(await driver.getText(keys.myProfileAppbarTitle), 'My Profile');
+      await expect(await driver.getText(keys.myProfileHeaderName), 'Test Full Name');
+      await expect(await driver.getText(keys.myProfileHeaderPhone), '01711111111');
+      await Future.delayed(const Duration(seconds: 5), (){});
     });
 
-    test('Save button clicked', () async {
+    test('Check Description can be saved and showing', () async {
+      await driver.tap(keys.myProfileHeaderEditButton);
+      await driver.tap(keys.myProfileHeaderDescriptionField);
+      await driver.enterText('Test Description');
       await driver.tap(keys.myProfileHeaderSaveButton);
-      await Future.delayed(const Duration(seconds: 10), (){});
+      await Future.delayed(const Duration(seconds: 5), (){});
       await expect(await driver.getText(keys.myProfileAppbarTitle), 'My Profile');
+      await expect(keys.myProfileHeaderDescription, 'Test Description');
+      await Future.delayed(const Duration(seconds: 5), (){});
     });
+//
+//    test('Check Current Company can be saved and showing', () async {
+//      await driver.tap(keys.myProfileHeaderEditButton);
+//      await driver.tap(keys.myProfileHeaderCurrentCompanyField);
+//      await driver.enterText('Test Company');
+//      await driver.tap(keys.myProfileHeaderSaveButton);
+//      await Future.delayed(const Duration(seconds: 5), (){});
+//      await expect(await driver.getText(keys.myProfileAppbarTitle), 'My Profile');
+//      await expect(await driver.getText(keys.myProfileHeaderCompany), 'Test Company');
+//      await Future.delayed(const Duration(seconds: 5), (){});
+//    });
+//
+//    test('Check Current Designation can be saved and showing', () async {
+//      await driver.tap(keys.myProfileHeaderEditButton);
+//      await driver.scrollUntilVisible(keys.myProfileHeaderScrollView, keys.myProfileHeaderCurrentDesignationField, dyScroll: -40);
+//      await driver.tap(keys.myProfileHeaderCurrentDesignationField);
+//      await driver.enterText('Test Designation');
+//      await driver.tap(keys.myProfileHeaderSaveButton);
+//      await Future.delayed(const Duration(seconds: 5), (){});
+//      await expect(await driver.getText(keys.myProfileAppbarTitle), 'My Profile');
+//      await expect(await driver.getText(keys.myProfileHeaderDesignation), 'Test Designation');
+//      await Future.delayed(const Duration(seconds: 5), (){});
+//    });
+//
+//    test('Check Current Location can be saved and showing', () async {
+//      await driver.tap(keys.myProfileHeaderEditButton);
+//      await driver.scrollUntilVisible(keys.myProfileHeaderScrollView, keys.myProfileHeaderLocationField, dyScroll: -50);
+//      await driver.tap(keys.myProfileHeaderLocationField);
+//      await driver.enterText('Test Location');
+//      await driver.tap(keys.myProfileHeaderSaveButton);
+//      await Future.delayed(const Duration(seconds: 5), (){});
+//      await expect(await driver.getText(keys.myProfileAppbarTitle), 'My Profile');
+//      await expect(await driver.getText(keys.myProfileHeaderLocation), 'Test Location');
+//      await Future.delayed(const Duration(seconds: 5), (){});
+//    });
 
   });
 
