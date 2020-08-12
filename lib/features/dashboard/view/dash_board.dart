@@ -128,7 +128,6 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
               onTapFavourite: widget.onTapFavourite,
             ),
             JobChartWidget(
-              animate: true,
             ),
 //            TopCategoriesWidget(),
 //            VitalStateWidget(),

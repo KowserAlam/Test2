@@ -205,21 +205,20 @@ class _CompanyListScreenState extends State<CompanyListScreen>
                                           ? Loader()
                                           : SizedBox();
                                     }
-                                    return GestureDetector(
-                                        onTap: () {
-                                          Navigator.push(
-                                              context,
-                                              CupertinoPageRoute(
-                                                  builder: (context) =>
-                                                      CompanyDetails(
-                                                        company:
-                                                            companySuggestion[
-                                                                index],
-                                                      )));
-                                        },
-                                        child: CompanyListTile(
-                                          company: companySuggestion[index],
-                                        ));
+                                    return CompanyListTile(
+                                      onTap: (){
+                                        Navigator.push(
+                                            context,
+                                            CupertinoPageRoute(
+                                                builder: (context) =>
+                                                    CompanyDetails(
+                                                      company:
+                                                      companySuggestion[
+                                                      index],
+                                                    )));
+                                      },
+                                      company: companySuggestion[index],
+                                    );
                                   }),
                             ),
                     )

@@ -170,11 +170,11 @@ class UserProfileHeader extends StatelessWidget {
     var editButtonHeader = Material(
       type: MaterialType.transparency,
       child: IconButton(
+        tooltip: StringResources.editProfileText,
         key: Key('myProfileHeaderEditButton'),
         icon: Icon(
           FontAwesomeIcons.edit,
         ),
-
         color: profileHeaderFontColor,
         iconSize: 20,
         onPressed: () {
@@ -356,10 +356,11 @@ class UserProfileHeader extends StatelessWidget {
           decoration: BoxDecoration(
             color: profileHeaderBackgroundColor,
             image: DecorationImage(
-                image: AssetImage(kUserProfileCoverImageAsset),
-                fit: BoxFit.cover,
-                colorFilter: ColorFilter.mode(
-                    Colors.black.withOpacity(0.4), BlendMode.dstATop)),
+              image: AssetImage(kUserProfileCoverImageAsset),
+              fit: BoxFit.cover,
+              colorFilter: ColorFilter.mode(
+                  Colors.black.withOpacity(0.4), BlendMode.darken),
+            ),
           ),
           padding: EdgeInsets.all(8),
           child: Column(
