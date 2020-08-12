@@ -81,6 +81,7 @@ class _EditReferenceScreenState extends State<EditReferenceScreen> {
 
 
     var description = CustomTextFormField(
+      textFieldKey: Key('referencesDescription'),
       validator: Validator().nullFieldValidate,
       keyboardType: TextInputType.multiline,
       controller: _descriptionController,
@@ -97,6 +98,7 @@ class _EditReferenceScreenState extends State<EditReferenceScreen> {
         title: Text(StringResources.referenceAppbarText),
         actions: <Widget>[
           EditScreenSaveButton(
+            key: Key('myProfileReferencesSaveButton'),
             text: StringResources.saveText,
             onPressed: _handleSave,
           ),

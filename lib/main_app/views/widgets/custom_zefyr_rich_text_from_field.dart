@@ -15,7 +15,6 @@ class CustomZefyrRichTextFormField extends StatelessWidget {
   final bool isRequired;
   final Widget prefix;
   final double height;
-  final Key key;
 
   const CustomZefyrRichTextFormField({
     this.prefix,
@@ -28,7 +27,6 @@ class CustomZefyrRichTextFormField extends StatelessWidget {
     this.height = 120.0,
     this.contentPadding =
         const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-    this.key
   });
 
   @override

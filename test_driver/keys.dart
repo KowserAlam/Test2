@@ -30,9 +30,20 @@ class keys{
   static final bottomNavigationBarJobs = find.byValueKey('bottomNavigationBarJobs');
 
   ///////////         My Profile          /////////////
+  static final myProfileAppbarTitle = find.byValueKey('myProfileAppbarTitle');
+  static final myProfileScrollView = find.byValueKey('myProfileScrollView');
+
   static final myProfileHeaderEditButton = find.byValueKey('myProfileHeaderEditButton');
+
   static final myProfileAddSkillPen = find.byValueKey('myProfileAddSkillPen');
   static final myProfileAddSkillAdd = find.byValueKey('myProfileAddSkillAdd');
+
+  static final myProfileAddReferencesPen = find.byValueKey('myProfileAddReferencesPen');
+  static final myProfileAddReferencesAdd = find.byValueKey('myProfileAddReferencesAdd');
+  static final myProfileReferencesTileEditButton1 = find.byValueKey('myProfileReferencesTileEditButton1');
+  static final myProfileReferencesTileDeleteButton1 = find.byValueKey('myProfileReferencesTileDeleteButton1');
+  static final referenceTileDescription1 = find.byValueKey('referenceTileDescription1');
+
 
   //Header Section
   static final myProfileHeaderSaveButton = find.byValueKey('myProfileHeaderSaveButton');
@@ -46,11 +57,17 @@ class keys{
   static final myProfileHeaderFacebook = find.byValueKey('myProfileHeaderFacebook');
   static final myProfileHeaderTwitter = find.byValueKey('myProfileHeaderTwitter');
   static final myProfileHeaderLinkedIn = find.byValueKey('myProfileHeaderLinkedIn');
-
+  static final myProfileHeaderScrollView = find.byValueKey('myProfileHeaderScrollView');
 
 
   //Professional Skill
   static final skillAddField = find.byValueKey('skillAddField');
   static final skillExpertise = find.byValueKey('skillExpertise');
   static final skillSaveButton = find.byValueKey('skillSaveButton');
+
+
+  //References
+  static final myProfileReferencesSaveButton = find.byValueKey('myProfileReferencesSaveButton');
+  static final referencesDescription = find.byValueKey('referencesDescription');
+
 }
