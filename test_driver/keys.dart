@@ -72,6 +72,7 @@ class keys{
 
 
   //Professional Skill
+  static final professionalSkillAppbarTitle = find.byValueKey('professionalSkillAppbarTitle');
   static final skillAddField = find.byValueKey('skillAddField');
   static final skillExpertise = find.byValueKey('skillExpertise');
   static final skillSaveButton = find.byValueKey('skillSaveButton');
