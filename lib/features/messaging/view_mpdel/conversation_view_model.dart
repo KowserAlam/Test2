@@ -58,6 +58,7 @@ class ConversationViewModel with ChangeNotifier {
     await MessageRepository().createMessage(message, receiverId).then((messageModel) {
       _sendingMessage = false;
 //      Logger().i(messageModel);
+      messageModel.createdAt = DateTime.now();
       if (messageModel != null) {
         _messages.insert(0,messageModel);
       }

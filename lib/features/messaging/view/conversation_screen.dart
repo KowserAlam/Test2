@@ -84,9 +84,9 @@ class _ConversationScreenState extends State<ConversationScreen>
                               color: Theme.of(context)
                                   .backgroundColor
                                   .withBlue(255),
-                              borderRadius: BorderRadius.circular(7)),
+                              borderRadius: BorderRadius.circular(20)),
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                            padding: const EdgeInsets.symmetric(horizontal: 12),
                             child: TextField(
                               controller: _messageInoutTextEditingController,
                               decoration: InputDecoration(
@@ -109,6 +109,7 @@ class _ConversationScreenState extends State<ConversationScreen>
                             elevation: 3,
                               shape: CircleBorder(),
                               child: InkWell(
+                                key: Key('sendMessageButton'),
                                 customBorder: CircleBorder(),
                                 onTap: () {
                                   if (_messageInoutTextEditingController

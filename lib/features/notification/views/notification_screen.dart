@@ -73,6 +73,7 @@ class _NotificationScreenState extends State<NotificationScreen>
     return Scaffold(
       appBar: AppBar(
         title: Text(StringResources.notificationsText),
+        key: Key ('notificationsText'),
       ),
       body: Consumer<NotificationViewModel>(
           builder: (context, notificationViewModel, _) {

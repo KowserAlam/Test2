@@ -6,6 +6,7 @@ import 'package:p7app/features/messaging/model/message_sender_data_model.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/main_app/api_helpers/url_launcher_helper.dart';
 import 'package:p7app/main_app/resource/const.dart';
+import 'package:p7app/main_app/util/date_format_uitl.dart';
 import 'package:p7app/main_app/util/logger_helper.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -30,12 +31,13 @@ class MessageBubble extends StatelessWidget {
 
     Color bubbleColor = isMe ? Colors.white : primaryColor;
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
+      padding: const EdgeInsets.symmetric(vertical: 16),
       child: Container(
         child: Row(
           mainAxisAlignment:
               isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
           children: [
+
             if (!isMe)
               Container(
                 margin: const EdgeInsets.all(8.0),
@@ -57,28 +59,47 @@ class MessageBubble extends StatelessWidget {
                   ),
                 ),
               ),
-            Container(
-                constraints: BoxConstraints(minWidth: 50, maxWidth: 280),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(20),
-                    bottomRight: Radius.circular(isMe ? 0 : 20),
-                    topRight: Radius.circular(20),
-                    topLeft: Radius.circular(!isMe ? 0 : 20),
-                  ),
-                  color: bubbleColor,
+            Column(
+              crossAxisAlignment: isMe? CrossAxisAlignment.end: CrossAxisAlignment.start,
+              children: [
+//                if (!isMe)
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 4),
+                      child: Text(
+                        DateFormatUtil.formatDateTime(message?.createdAt)??"",
+                        style: TextStyle(fontSize: 12,color: Colors.grey),
+                      ),
+                    ),
+                  ],
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SelectableLinkify(
-                    text: message?.message ?? "",
-                    onOpen: (v) {
-                      logger.i(v.url);
-                      launch(v.url);
-                    },
+                Container(
+                    constraints: BoxConstraints(minWidth: 35, maxWidth: 280),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(20),
+                        bottomRight: Radius.circular(isMe ? 0 : 20),
+                        topRight: Radius.circular(20),
+                        topLeft: Radius.circular(!isMe ? 0 : 20),
+                      ),
+                      color: bubbleColor,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SelectableLinkify(
+                        text: message?.message ?? "",
+                        onOpen: (v) {
+                          logger.i(v.url);
+                          launch(v.url);
+                        },
 //                    softWrap: true,
-                  ),
-                )),
+                      ),
+                    )),
+              ],
+            ),
             if (isMe)
               Container(
                 margin: const EdgeInsets.all(8.0),

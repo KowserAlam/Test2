@@ -51,7 +51,7 @@ class MessageRepository {
 //      Logger().i(response.body);
       if (response.statusCode == 200) {
         var decodesJson = json.decode(utf8.decode(response.bodyBytes));
-
+        Logger().i(decodesJson);
         return Right(ConversationScreenDataModel.fromJson(decodesJson));
       } else if (response.statusCode == 401) {
         return Left(AppError.unauthorized);
@@ -85,7 +85,7 @@ class MessageRepository {
 //      print(res.body);
       if (res.statusCode == 201) {
         var decodedJson = json.decode(utf8.decode(res.bodyBytes));
-        Logger().i(decodedJson);
+//        Logger().i(decodedJson);
         return Message.fromJson(decodedJson);
       }
       return null;
