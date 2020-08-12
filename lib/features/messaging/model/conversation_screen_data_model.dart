@@ -60,7 +60,7 @@ class Message {
   String senderType;
 //  ReceiverCompany senderCompany;
 //  ReceiverPro senderPro;
-  String createdAt;
+  DateTime createdAt;
 
   Message(
       {this.message,
@@ -92,7 +92,10 @@ class Message {
 //    senderPro = json['sender_pro'] != null
 //        ? new ReceiverPro.fromJson(json['sender_pro'])
 //        : null;
-    createdAt = json['created_at'];
+    if(json['created_at'] != null){
+      createdAt = DateTime.parse(json['created_at']);
+    }
+
   }
 
   Map<String, dynamic> toJson() {
