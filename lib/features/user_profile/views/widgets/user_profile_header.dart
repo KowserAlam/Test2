@@ -169,6 +169,7 @@ class UserProfileHeader extends StatelessWidget {
     var editButtonHeader = Material(
       type: MaterialType.transparency,
       child: IconButton(
+        tooltip: StringResources.editProfileText,
         key: Key('myProfileHeaderEditButton'),
         icon: Icon(
           FontAwesomeIcons.edit,
