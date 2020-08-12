@@ -1,13 +1,11 @@
+import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:p7app/features/dashboard/models/skill_job_chart_data_model.dart';
 import 'package:p7app/features/dashboard/view_model/dashboard_view_model.dart';
-import 'package:p7app/features/user_profile/models/skill.dart';
 import 'package:p7app/features/user_profile/models/skill_info.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/features/user_profile/views/screens/add_edit_professional_skill_screen.dart';
-import 'package:p7app/features/user_profile/views/widgets/professional_skill_list_item.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:provider/provider.dart';
@@ -235,11 +233,16 @@ class JobChartWidget extends StatelessWidget {
                     seriesList2,
                     animate: animate,
                     defaultRenderer: new charts.LineRendererConfig(
-                        includePoints: true,
-                       ),
+                        includePoints: true, includeArea: true),
                     domainAxis: new charts.DateTimeAxisSpec(),
+                    primaryMeasureAxis: new charts.NumericAxisSpec(
+                      showAxisLine: true,
+                        tickProviderSpec:
+                            new charts.BasicNumericTickProviderSpec(
+                                desiredTickCount: 4)),
                   ),
                 ),
+
 
 //                Container(
 //                  padding: EdgeInsets.all(8),
