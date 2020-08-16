@@ -87,6 +87,23 @@ class keys{
   static final clickOnAppliedJobsFromSegmentScreen = find.byValueKey('jobsSegmentAppliedText');
   static final clickOnFavoriteJobsFromSegmentScreen = find.byValueKey('jobsSegmentFavoriteText');
   static final clickOnAllFromSegmentScreen = find.byValueKey('jobsSegmentAllText');
+  static final clickOnFirstApplyKeyOnAllJobs = find.byValueKey('allJobsApplyKey0');
+  static final clickOnFirstTileOnAllJobs = find.byValueKey('allJobsTileKey0');
+  static final clickOnFirstApplyKeyOnAppliedJobs = find.byValueKey('appliedApplyKey0');
+  static final clickOnFirstTileOnAppliedJobs = find.byValueKey('appliedTileKey0');
+  static final clickOnFirstApplyKeyOnFavoriteJobs = find.byValueKey('favoriteApplyKey0');
+  static final clickOnFirstTileOnFavoriteJobs = find.byValueKey('favoriteTileKey0');
+
+
+
+
+
+
+
+
+
+
+
 
 
 
