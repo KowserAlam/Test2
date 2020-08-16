@@ -12,7 +12,7 @@ class keys{
   static final onboardingPageBackArrow = find.byValueKey('onboardingPageBackArrow');
   static final onboardingPageFrontArrow = find.byValueKey('onboardingPageFrontArrow');
   static final onboardingPageContinueButton = find.byValueKey('onboardingPageContinueButton');
-  static final onboardingPageSkipButton = find.byValueKey('onboardingPageSkipButton');
+  static final onboardingPageSkipButton = find.text('Skip');
 
   //Signup screen
   static final signUpNameField = find.byValueKey('signUpName');
@@ -87,5 +87,9 @@ class keys{
   static final clickOnAppliedJobsFromSegmentScreen = find.byValueKey('jobsSegmentAppliedText');
   static final clickOnFavoriteJobsFromSegmentScreen = find.byValueKey('jobsSegmentFavoriteText');
   static final clickOnAllFromSegmentScreen = find.byValueKey('jobsSegmentAllText');
+
+
+
+
 
 }
