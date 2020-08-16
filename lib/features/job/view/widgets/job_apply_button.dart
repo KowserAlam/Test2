@@ -20,15 +20,25 @@ class JobApplyButton extends StatelessWidget {
         ? (applicationDeadline.isBefore(DateTime.now()) &&
             !applicationDeadline.isToday())
         : false;
+
     bool isAppliedDisabled = isApplied || isDateExpired;
-    return Material(
-      color: isApplied
-          ? Colors.blue[200]
-          : (isDateExpired ? Colors.grey : Theme.of(context).primaryColor),
-      borderRadius: BorderRadius.circular(5),
-      child: Tooltip(
-        message:
-            isApplied ? StringResources.appliedText : StringResources.applyText,
+    var buttonColor = Theme.of(context).primaryColor;
+    var textColor = Colors.black;
+
+    if (isApplied) {
+      buttonColor = Colors.blue[200];
+      textColor = Colors.white;
+    } else {
+      if (isDateExpired) {
+        buttonColor = Colors.grey;
+        textColor = Colors.white;
+      }
+    }
+    return Tooltip(
+      message: "Apply Button",
+      child: Material(
+        color: buttonColor,
+        borderRadius: BorderRadius.circular(5),
         child: InkWell(
           onTap: isAppliedDisabled ? () {} : onPressedApply,
           borderRadius: BorderRadius.circular(5),
@@ -43,9 +53,7 @@ class JobApplyButton extends StatelessWidget {
                   ? StringResources.appliedText
                   : StringResources.applyText,
               style: TextStyle(
-                  fontSize: 15,
-                  color: isDateExpired ? Colors.white : Colors.black,
-                  fontWeight: FontWeight.w600),
+                  fontSize: 15, color: textColor, fontWeight: FontWeight.w600),
             ),
           ),
         ),

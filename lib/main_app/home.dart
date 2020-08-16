@@ -43,6 +43,9 @@ class _HomeState extends State<Home> {
             await _paeViewController.animateToPage(quickJumpTarget,
                 duration: const Duration(milliseconds: 400),
                 curve: Curves.easeInOut);
+//            await _paeViewController.animateTo(_paeViewController.offset+50,
+//            duration: const Duration(milliseconds: 100),
+//               curve: Curves.easeInOut);
             _paeViewController.jumpToPage(index);
           }
 
@@ -55,10 +58,8 @@ class _HomeState extends State<Home> {
         iconSize: 17,
         selectedItemColor: Theme.of(context).accentColor,
         unselectedItemColor: Colors.grey[800],
-        selectedLabelStyle: TextStyle(
-          fontWeight: FontWeight.bold,
-          color: Colors.blue
-        ),
+        selectedLabelStyle:
+            TextStyle(fontWeight: FontWeight.bold, color: Colors.blue),
         unselectedLabelStyle: TextStyle(
           fontWeight: FontWeight.w600,
         ),

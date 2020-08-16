@@ -473,7 +473,8 @@ class StringResources {
 
   ///
   /// Jobs
-  static const String noneText = "None";
+  static const String noneText = "none";
+  static const String negotiableText = "Negotiable";
   static const String deadlineText = "Deadline";
   static const String applyText = "Apply";
   static const String applyFilterText = "Apply Filter";

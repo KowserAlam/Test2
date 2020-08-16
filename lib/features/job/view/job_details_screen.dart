@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:p7app/features/company/view/company_details.dart';
 import 'package:p7app/features/job/models/job_model.dart';
 import 'package:p7app/features/job/repositories/job_repository.dart';
@@ -41,7 +42,7 @@ class JobDetailsScreen extends StatefulWidget {
 
 class _JobDetailsScreenState extends State<JobDetailsScreen> {
   JobModel jobDetails;
-
+  var salaryFormat = NumberFormat.simpleCurrency(decimalDigits: 0,name: "");
 //  Company jobCompany;
   bool _isBusy = false;
   AppError _appError;
@@ -631,7 +632,10 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                   ],
                 ),
                 SizedBox(height: 5),
-                jobSummeryRichText(StringResources.jobCompanyProfileText,     jobDetails.companyProfile,),
+                jobSummeryRichText(
+                  StringResources.jobCompanyProfileText,
+                  jobDetails.companyProfile,
+                ),
 //                Row(
 //                  mainAxisSize: MainAxisSize.max,
 //                  mainAxisAlignment: MainAxisAlignment.start,
@@ -804,8 +808,8 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
           );
 
     bool hideSalary = (jobDetails.salary == null &&
-        jobDetails.salaryMin.isEmptyOrNull &&
-        jobDetails.salaryMax.isEmptyOrNull);
+        jobDetails.salaryMin== null &&
+        jobDetails.salaryMax == null);
     var salary = hideSalary
         ? SizedBox()
         : Container(
@@ -830,30 +834,43 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                 SizedBox(
                   height: 5,
                 ),
+
+                (jobDetails.salaryMin == null ||
+                    jobDetails.salaryMax == null)?
                 jobSummeryRichText(
                   StringResources.currentOffer,
-                  jobDetails.salary != null
-                      ? jobDetails.salary.toString() +
-                          ' ' +
-                          (jobDetails.currency != null
-                              ? jobDetails.currency
-                              : '')
-                      : StringResources.noneText,
-                ),
-                jobSummeryRichText(
-                  StringResources.salaryRangeText,
-                  (jobDetails.salaryMin != null
-                          ? jobDetails.salaryMin.toString()
-                          : StringResources.noneText) +
-                      "-" +
-                      (jobDetails.salaryMax != null
-                          ? jobDetails.salaryMax.toString() +
-                              ' ' +
-                              (jobDetails.currency != null
-                                  ? jobDetails.currency
-                                  : '')
-                          : StringResources.noneText),
-                )
+                  StringResources.negotiableText,
+                ):jobSummeryRichText(StringResources.salaryRangeText, "${salaryFormat.format(jobDetails.salaryMin)} - ${salaryFormat.format(jobDetails.salaryMax)} "),
+
+
+//                if (jobDetails.salaryMin.isEmptyOrNull &&
+//                    jobDetails.salaryMax.isEmptyOrNull)
+//                  jobSummeryRichText(
+//                    StringResources.currentOffer,
+//                    jobDetails.salary != null
+//                        ? jobDetails.salary.toString() +
+//                            ' ' +
+//                            (jobDetails.currency != null
+//                                ? jobDetails.currency
+//                                : '')
+//                        : StringResources.noneText,
+//                  ),
+//                if (jobDetails.salaryMin != null &&
+//                    jobDetails.salaryMax != null)
+//                  jobSummeryRichText(
+//                    StringResources.salaryRangeText,
+//                    (jobDetails.salaryMin != null
+//                            ? jobDetails.salaryMin.toString()
+//                            : StringResources.noneText) +
+//                        "-" +
+//                        (jobDetails.salaryMax != null
+//                            ? jobDetails.salaryMax.toString() +
+//                                ' ' +
+//                                (jobDetails.currency != null
+//                                    ? jobDetails.currency
+//                                    : '')
+//                            : StringResources.noneText),
+//                  )
               ],
             ),
           );

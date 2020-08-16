@@ -19,7 +19,9 @@ class JobListTileWidget extends StatefulWidget {
   final Function onApply;
   final Function onFavorite;
 
-  JobListTileWidget(this.jobModel, {this.onTap, this.onFavorite, this.onApply});
+  JobListTileWidget(this.jobModel,
+      {this.onTap, this.onFavorite, this.onApply, Key key})
+      : super(key: key);
 
   @override
   _JobListTileWidgetState createState() => _JobListTileWidgetState();
@@ -100,7 +102,9 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
       color: Colors.transparent,
       borderRadius: BorderRadius.circular(20),
       child: Tooltip(
-        message:isFavorite ?StringResources.removeFromFavoriteText : StringResources.addToFavoriteText,
+        message: isFavorite
+            ? StringResources.removeFromFavoriteText
+            : StringResources.addToFavoriteText,
         child: InkWell(
           key: Key("favouriteButtonKey"),
           borderRadius: BorderRadius.circular(20),
@@ -167,14 +171,13 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
 
     return Container(
       decoration: BoxDecoration(
-        color: scaffoldBackgroundColor,
-boxShadow: CommonStyle.boxShadow
+          color: scaffoldBackgroundColor, boxShadow: CommonStyle.boxShadow
 //        borderRadius: BorderRadius.circular(5),
 //        boxShadow: [
 //          BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 10),
 //          BoxShadow(color: Colors.black.withOpacity(0.2), blurRadius: 10),
 //        ],
-      ),
+          ),
       margin: EdgeInsets.fromLTRB(0, 4, 0, 4),
       child: Material(
         color: backgroundColor,
