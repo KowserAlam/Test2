@@ -30,6 +30,8 @@ class AllJobListWidget extends StatelessWidget {
 
           return JobListTileWidget(
             job,
+            applyButtonKey: Key('allJobsApplyKey'+index.toString()),
+            listTileKey: Key('allJobsTileKey'+index.toString()),
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => JobDetailsScreen(

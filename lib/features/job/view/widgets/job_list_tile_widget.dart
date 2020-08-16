@@ -10,7 +10,6 @@ import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/date_format_uitl.dart';
 import 'package:p7app/main_app/views/widgets/loader.dart';
-import 'package:p7app/method_extension.dart';
 
 import 'job_apply_button.dart';
 
@@ -19,18 +18,15 @@ class JobListTileWidget extends StatefulWidget {
   final Function onTap;
   final Function onApply;
   final Function onFavorite;
+  final Key listTileKey, applyButtonKey;
 
-  JobListTileWidget(this.jobModel,
-      {this.onTap, this.onFavorite, this.onApply, Key key})
-      : super(key: key);
+  JobListTileWidget(this.jobModel, {this.onTap, this.onFavorite, this.onApply, this.listTileKey, this.applyButtonKey});
 
   @override
   _JobListTileWidgetState createState() => _JobListTileWidgetState();
 }
 
 class _JobListTileWidgetState extends State<JobListTileWidget> {
-
-
   @override
   Widget build(BuildContext context) {
     bool isFavorite = widget.jobModel.isFavourite;
@@ -42,10 +38,10 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
     String deadLineText = widget.jobModel.applicationDeadline == null
         ? StringResources.noneText
         : DateFormatUtil().dateFormat1(widget.jobModel.applicationDeadline);
-
 //    bool isDateExpired = widget.jobModel.applicationDeadline != null
 //        ? DateTime.now().isAfter(widget.jobModel.applicationDeadline)
 //        : true;
+
 //    debugPrint("Deadline: ${widget.jobModel.applicationDeadline}\n Today: ${DateTime.now()} \n $isDateExpired");
     bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     var subtitleColor = isDarkMode ? Colors.white : AppTheme.grey;
@@ -92,7 +88,7 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
           ),
           Expanded(
             child: Text(
-              widget.jobModel.jobCity.swapValueByComa ?? "",
+              widget.jobModel.jobCity ?? "",
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: subTitleStyle,
@@ -105,9 +101,7 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
       color: Colors.transparent,
       borderRadius: BorderRadius.circular(20),
       child: Tooltip(
-        message: isFavorite
-            ? StringResources.removeFromFavoriteText
-            : StringResources.addToFavoriteText,
+        message:isFavorite ?StringResources.removeFromFavoriteText : StringResources.addToFavoriteText,
         child: InkWell(
           key: Key("favouriteButtonKey"),
           borderRadius: BorderRadius.circular(20),
@@ -128,6 +122,7 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
       applicationDeadline: widget.jobModel.applicationDeadline,
       onPressedApply: widget.onApply,
       isApplied: widget.jobModel.isApplied,
+      key: widget.applyButtonKey,
     );
 //    var jobType = Row(
 //      children: <Widget>[
@@ -173,14 +168,16 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
     );
 
     return Container(
+      key: widget.listTileKey,
       decoration: BoxDecoration(
-          color: scaffoldBackgroundColor, boxShadow: CommonStyle.boxShadow
+        color: scaffoldBackgroundColor,
+boxShadow: CommonStyle.boxShadow
 //        borderRadius: BorderRadius.circular(5),
 //        boxShadow: [
 //          BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 10),
 //          BoxShadow(color: Colors.black.withOpacity(0.2), blurRadius: 10),
 //        ],
-          ),
+      ),
       margin: EdgeInsets.fromLTRB(0, 4, 0, 4),
       child: Material(
         color: backgroundColor,
