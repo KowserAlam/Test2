@@ -1,6 +1,10 @@
 import 'package:flutter_driver/flutter_driver.dart';
 
 class keys{
+
+  //app bar back button
+  static final backButton = find.byTooltip('Back');
+
   //Sign in screen
   static final signInEmail = find.byValueKey('signInEmail');
   static final signInPassword = find.byValueKey('signInPassword');
@@ -87,10 +91,15 @@ class keys{
   static final clickOnAppliedJobsFromSegmentScreen = find.byValueKey('jobsSegmentAppliedText');
   static final clickOnFavoriteJobsFromSegmentScreen = find.byValueKey('jobsSegmentFavoriteText');
   static final clickOnAllFromSegmentScreen = find.byValueKey('jobsSegmentAllText');
+
   static final clickOnFirstApplyKeyOnAllJobs = find.byValueKey('allJobsApplyKey0');
   static final clickOnFirstTileOnAllJobs = find.byValueKey('allJobsTileKey0');
+
+  //Job Segment - Applied Jobs
   static final clickOnFirstApplyKeyOnAppliedJobs = find.byValueKey('appliedApplyKey0');
   static final clickOnFirstTileOnAppliedJobs = find.byValueKey('appliedTileKey0');
+  static final searchForJobDetails = find.text('Job Details');
+
   static final clickOnFirstApplyKeyOnFavoriteJobs = find.byValueKey('favoriteApplyKey0');
   static final clickOnFirstTileOnFavoriteJobs = find.byValueKey('favoriteTileKey0');
 
