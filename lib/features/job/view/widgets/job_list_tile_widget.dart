@@ -18,8 +18,9 @@ class JobListTileWidget extends StatefulWidget {
   final Function onTap;
   final Function onApply;
   final Function onFavorite;
+  final Key listTileKey, applyButtonKey;
 
-  JobListTileWidget(this.jobModel, {this.onTap, this.onFavorite, this.onApply});
+  JobListTileWidget(this.jobModel, {this.onTap, this.onFavorite, this.onApply, this.listTileKey, this.applyButtonKey});
 
   @override
   _JobListTileWidgetState createState() => _JobListTileWidgetState();
@@ -121,6 +122,7 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
       applicationDeadline: widget.jobModel.applicationDeadline,
       onPressedApply: widget.onApply,
       isApplied: widget.jobModel.isApplied,
+      key: widget.applyButtonKey,
     );
 //    var jobType = Row(
 //      children: <Widget>[
@@ -166,6 +168,7 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
     );
 
     return Container(
+      key: widget.listTileKey,
       decoration: BoxDecoration(
         color: scaffoldBackgroundColor,
 boxShadow: CommonStyle.boxShadow
