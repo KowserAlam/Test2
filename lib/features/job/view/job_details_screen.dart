@@ -731,7 +731,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                         jobSummeryRichText(
                             StringResources.vacancy,
                             jobDetails.vacancy != null
-                                ? jobDetails.vacancy.toString()
+                                ? "${jobDetails.vacancy == 0 ?StringResources.notSpecifiedText:jobDetails.vacancy}"
                                 : StringResources.noneText)
                       ],
                     ),
