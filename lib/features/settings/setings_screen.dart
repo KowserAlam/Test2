@@ -124,7 +124,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
         _showSignOutDialog();
       },
     );
-
     return Scaffold(
       appBar: AppBar(
         title: Text(StringResources.settingsText),
@@ -133,8 +132,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
         children: <Widget>[
           changePassword,
           divider,
-          pushNotification,
-          divider,
+//          pushNotification,
+//          divider,
           emailSubscriptions,
           divider,
           clearCache,
