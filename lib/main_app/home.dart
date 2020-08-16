@@ -31,21 +31,26 @@ class _HomeState extends State<Home> {
     var bottomNavBar = BottomNavigationBar(
 //        selectedItemColor: Theme.of(context).primaryColor,
 //        unselectedItemColor: Colors.grey,
+
         onTap: (int index) async {
+
           if (currentIndex != index) {
-            int quickJumpTarget;
+            var offset = 0;
+//            int quickJumpTarget;
             if (index > currentIndex) {
-              quickJumpTarget = currentIndex + 1;
+              offset = 100;
+//              quickJumpTarget = currentIndex + 1;
             } else if (index < currentIndex) {
-              quickJumpTarget = currentIndex - 1;
+//              quickJumpTarget = currentIndex - 1;
+              offset = -100;
             }
 
-            await _paeViewController.animateToPage(quickJumpTarget,
-                duration: const Duration(milliseconds: 400),
-                curve: Curves.easeInOut);
-//            await _paeViewController.animateTo(_paeViewController.offset+50,
-//            duration: const Duration(milliseconds: 100),
-//               curve: Curves.easeInOut);
+//            await _paeViewController.animateToPage(quickJumpTarget,
+//                duration: const Duration(milliseconds: 400),
+//                curve: Curves.easeInOut);
+            await _paeViewController.animateTo(_paeViewController.offset+offset,
+            duration: const Duration(milliseconds: 50),
+               curve: Curves.easeInOut);
             _paeViewController.jumpToPage(index);
           }
 
