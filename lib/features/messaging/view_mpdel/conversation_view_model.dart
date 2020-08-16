@@ -4,16 +4,19 @@ import 'package:p7app/features/messaging/repositories/message_repository.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
 
 class ConversationViewModel with ChangeNotifier {
-  String senderId;
+//  String senderId;
   List<Message> _messages = [];
   AppError _appError;
   bool _isFetchingData = false;
   bool _isGettingMoreData = false;
   bool _hasMoreData = false;
   bool _sendingMessage = false;
-  int pageCount=1;
+  int pageCount = 1;
 
-
+  refresh(String senderId) {
+    pageCount = 1;
+    return getConversation(senderId);
+  }
 
   Future<void> getConversation(String senderId) async {
     _isFetchingData = true;
@@ -37,7 +40,8 @@ class ConversationViewModel with ChangeNotifier {
       pageCount++;
       _isGettingMoreData = true;
       notifyListeners();
-      var res = await MessageRepository().getConversation(senderId,page: pageCount);
+      var res =
+          await MessageRepository().getConversation(senderId, page: pageCount);
       res.fold((l) {
         _isGettingMoreData = false;
         _appError = l;
@@ -55,18 +59,17 @@ class ConversationViewModel with ChangeNotifier {
   createMessage(String message, String receiverId) async {
     _sendingMessage = true;
     notifyListeners();
-    await MessageRepository().createMessage(message, receiverId).then((messageModel) {
+    await MessageRepository()
+        .createMessage(message, receiverId)
+        .then((messageModel) {
       _sendingMessage = false;
 //      Logger().i(messageModel);
       messageModel.createdAt = DateTime.now();
       if (messageModel != null) {
-        _messages.insert(0,messageModel);
+        _messages.insert(0, messageModel);
       }
       notifyListeners();
     });
-
-
-
   }
 
   List<Message> get messages => _messages;

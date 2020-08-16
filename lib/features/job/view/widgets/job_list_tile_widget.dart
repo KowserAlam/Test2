@@ -10,6 +10,7 @@ import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/date_format_uitl.dart';
 import 'package:p7app/main_app/views/widgets/loader.dart';
+import 'package:p7app/method_extension.dart';
 
 import 'job_apply_button.dart';
 
@@ -88,7 +89,7 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
           ),
           Expanded(
             child: Text(
-              widget.jobModel.jobCity ?? "",
+              widget.jobModel.jobCity.swapValueByComa ?? "",
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: subTitleStyle,

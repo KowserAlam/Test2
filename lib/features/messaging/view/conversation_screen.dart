@@ -45,6 +45,9 @@ class _ConversationScreenState extends State<ConversationScreen>
         return Scaffold(
           appBar: AppBar(
             title: Text(widget?.senderModel?.otherPartyName ?? ""),
+            actions: [
+//              IconButton(onPressed: () {  }, icon: Icon(Icons.refresh),),
+            ],
           ),
 //      drawer: AppDrawer(),
           body: SafeArea(
