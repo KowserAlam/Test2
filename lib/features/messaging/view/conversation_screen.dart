@@ -46,7 +46,12 @@ class _ConversationScreenState extends State<ConversationScreen>
           appBar: AppBar(
             title: Text(widget?.senderModel?.otherPartyName ?? ""),
             actions: [
-//              IconButton(onPressed: () {  }, icon: Icon(Icons.refresh),),
+              IconButton(
+                onPressed: vm.isFetchingData? null:() {
+                  vm.refresh(widget.senderModel.otherPartyUserId);
+                },
+                icon: vm.isFetchingData?Loader():Icon(Icons.refresh),
+              ),
             ],
           ),
 //      drawer: AppDrawer(),
@@ -107,9 +112,9 @@ class _ConversationScreenState extends State<ConversationScreen>
                             onPressed: null,
                           )
                         : Padding(
-                          padding: const EdgeInsets.fromLTRB(0,5,8,5),
-                          child: Material(
-                            elevation: 3,
+                            padding: const EdgeInsets.fromLTRB(0, 5, 8, 5),
+                            child: Material(
+                              elevation: 3,
                               shape: CircleBorder(),
                               child: InkWell(
                                 key: Key('sendMessageButton'),
@@ -132,9 +137,8 @@ class _ConversationScreenState extends State<ConversationScreen>
                                 ),
                               ),
                               color: Theme.of(context).accentColor,
-
                             ),
-                        ),
+                          ),
                   ],
                 ),
               ],
