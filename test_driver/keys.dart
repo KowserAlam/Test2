@@ -45,6 +45,9 @@ class keys{
   static final myProfileHeaderDesignation = find.byValueKey('myProfileHeaderDesignation');
   static final myProfileHeaderCompany = find.byValueKey('myProfileHeaderCompany');
 
+  static final myProfileExperiencePenKey = find.byValueKey('myProfileExperiencePenKey');
+  static final myProfileExperienceAddKey = find.byValueKey('myProfileExperienceAddKey');
+
   static final myProfileAddSkillPen = find.byValueKey('myProfileAddSkillPen');
   static final myProfileAddSkillAdd = find.byValueKey('myProfileAddSkillAdd');
 
@@ -69,6 +72,16 @@ class keys{
   static final myProfileHeaderTwitterField = find.byValueKey('myProfileHeaderTwitterField');
   static final myProfileHeaderLinkedInField = find.byValueKey('myProfileHeaderLinkedInField');
   static final myProfileHeaderScrollView = find.byValueKey('myProfileHeaderScrollView');
+
+  //Work Experience
+  static final workExperienceAppbarTitleKey = find.byValueKey('workExperienceAppbarTitleKey');
+//  static final workExperienceAppbarTitleKey = find.byValueKey('workExperienceAppbarTitleKey');
+//  static final workExperienceAppbarTitleKey = find.byValueKey('workExperienceAppbarTitleKey');
+//  static final workExperienceAppbarTitleKey = find.byValueKey('workExperienceAppbarTitleKey');
+//  static final workExperienceAppbarTitleKey = find.byValueKey('workExperienceAppbarTitleKey');
+//  static final workExperienceAppbarTitleKey = find.byValueKey('workExperienceAppbarTitleKey');
+//  static final workExperienceAppbarTitleKey = find.byValueKey('workExperienceAppbarTitleKey');
+
 
 
   //Professional Skill

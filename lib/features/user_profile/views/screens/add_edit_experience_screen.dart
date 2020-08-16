@@ -282,7 +282,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
         key: _scaffoldKey,
         backgroundColor: Theme.of(context).backgroundColor,
         appBar: AppBar(
-          title: Text(StringResources.workExperienceText),
+          title: Text(StringResources.workExperienceText, key: Key('workExperienceAppbarTitleKey'),),
           actions: <Widget>[
             EditScreenSaveButton(
               text: StringResources.saveText,

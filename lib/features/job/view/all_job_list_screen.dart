@@ -26,27 +26,9 @@ class AllJobListScreen extends StatefulWidget {
 class _AllJobListScreenState extends State<AllJobListScreen>
     with AfterLayoutMixin, TickerProviderStateMixin {
   ScrollController _scrollController = ScrollController();
-  AnimationController controller;
   TextEditingController _searchTextEditingController = TextEditingController();
   var _searchFieldFocusNode = FocusNode();
   var _scaffoldKey = GlobalKey<ScaffoldState>();
-
-  TabController _tabViewController;
-
-  @override
-  void initState() {
-    controller = AnimationController(
-      vsync: this,
-      duration: Duration(milliseconds: 400),
-      reverseDuration: Duration(milliseconds: 400),
-    );
-    _tabViewController = TabController(
-      vsync: this,
-      length: 3,
-    );
-
-    super.initState();
-  }
 
   @override
   void afterFirstLayout(BuildContext context) {
@@ -71,17 +53,11 @@ class _AllJobListScreenState extends State<AllJobListScreen>
         jobListViewModel.getMoreData();
       }
     });
-
-    _tabViewController.addListener(() {
-//  print("changing ${_tabViewController.index} ");
-      setState(() {});
-    });
   }
 
   @override
   void dispose() {
     _scrollController.dispose();
-    _tabViewController.dispose();
     super.dispose();
   }
 
@@ -132,7 +108,6 @@ class _AllJobListScreenState extends State<AllJobListScreen>
     var scaffoldBackgroundColor = Theme.of(context).backgroundColor;
 
     return Consumer<JobListViewModel>(builder: (context, jobListViewModel, _) {
-      bool isMainList = _tabViewController.index == 0;
       var isInSearchMode = jobListViewModel.isInSearchMode;
       var searchInputWidget = Column(
         children: [
@@ -178,38 +153,33 @@ class _AllJobListScreenState extends State<AllJobListScreen>
         key: _scaffoldKey,
         appBar: AppBar(
           title: Text(StringResources.jobsText),
-          actions: isMainList
-              ? [
-                  IconButton(
-                    icon: Icon(isInSearchMode ? Icons.close : Icons.search),
-                    onPressed: () {
-                      _searchTextEditingController?.clear();
-                      jobListViewModel.toggleIsInSearchMode();
+          actions: [
+            IconButton(
+              icon: Icon(isInSearchMode ? Icons.close : Icons.search),
+              onPressed: () {
+                _searchTextEditingController?.clear();
+                jobListViewModel.toggleIsInSearchMode();
 
-                      if (jobListViewModel.isInSearchMode) {
-                        _searchFieldFocusNode.requestFocus();
-                      } else {
-                        _searchFieldFocusNode.unfocus();
-                      }
-                    },
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.filter_list),
-                    onPressed: () {
-                      _scaffoldKey.currentState.openEndDrawer();
-                    },
-                  )
-                ]
-              : null,
+                if (jobListViewModel.isInSearchMode) {
+                  _searchFieldFocusNode.requestFocus();
+                } else {
+                  _searchFieldFocusNode.unfocus();
+                }
+              },
+            ),
+            IconButton(
+              icon: Icon(Icons.filter_list),
+              onPressed: () {
+                _scaffoldKey.currentState.openEndDrawer();
+              },
+            )
+          ],
         ),
-//        drawer: AppDrawer(
-//          routeName: 'job_list',
-//        ),
-        endDrawer: isMainList
-            ? Drawer(
-                child: JobListFilterWidget(),
-              )
-            : null,
+
+        endDrawer: Drawer(
+          child: JobListFilterWidget(),
+        ),
+
         body: RefreshIndicator(
           onRefresh: () async {
             _searchTextEditingController?.clear();

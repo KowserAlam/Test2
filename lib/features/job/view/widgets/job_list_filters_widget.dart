@@ -24,7 +24,7 @@ class JobListFilterWidget extends StatefulWidget {
 
 class _JobListFilterWidgetState extends State<JobListFilterWidget>
     with AfterLayoutMixin {
-  double maxSalary = 60000;
+  double maxSalary = 100000;
   double minSalary = 0;
   double experienceMin = 0;
   double experienceMax = 10;
@@ -401,6 +401,8 @@ class CustomRangeSlider extends StatelessWidget {
             boxShadow: CommonStyle.boxShadow,
           ),
           child: RangeSlider(
+            activeColor: Theme.of(context).primaryColor,
+            inactiveColor: Colors.grey,
             max: max,
             min: min,
             values: values,
