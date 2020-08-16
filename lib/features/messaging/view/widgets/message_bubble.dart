@@ -4,8 +4,6 @@ import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:p7app/features/messaging/model/conversation_screen_data_model.dart';
 import 'package:p7app/features/messaging/model/message_sender_data_model.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
-import 'package:p7app/main_app/api_helpers/url_launcher_helper.dart';
-import 'package:p7app/main_app/app_theme/common_style.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/util/date_format_uitl.dart';
 import 'package:p7app/main_app/util/logger_helper.dart';
