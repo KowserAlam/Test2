@@ -10,6 +10,7 @@ import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/date_format_uitl.dart';
 import 'package:p7app/main_app/views/widgets/loader.dart';
+import 'package:p7app/method_extension.dart';
 
 import 'job_apply_button.dart';
 
@@ -28,6 +29,8 @@ class JobListTileWidget extends StatefulWidget {
 }
 
 class _JobListTileWidgetState extends State<JobListTileWidget> {
+
+
   @override
   Widget build(BuildContext context) {
     bool isFavorite = widget.jobModel.isFavourite;
@@ -39,10 +42,10 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
     String deadLineText = widget.jobModel.applicationDeadline == null
         ? StringResources.noneText
         : DateFormatUtil().dateFormat1(widget.jobModel.applicationDeadline);
+
 //    bool isDateExpired = widget.jobModel.applicationDeadline != null
 //        ? DateTime.now().isAfter(widget.jobModel.applicationDeadline)
 //        : true;
-
 //    debugPrint("Deadline: ${widget.jobModel.applicationDeadline}\n Today: ${DateTime.now()} \n $isDateExpired");
     bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     var subtitleColor = isDarkMode ? Colors.white : AppTheme.grey;
@@ -89,7 +92,7 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
           ),
           Expanded(
             child: Text(
-              widget.jobModel.jobCity ?? "",
+              widget.jobModel.jobCity.swapValueByComa ?? "",
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: subTitleStyle,

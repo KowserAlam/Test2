@@ -543,7 +543,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                 jobSummeryRichText(
                     StringResources.jobCityText,
                     jobDetails.jobCity != null
-                        ? jobDetails.jobCity
+                        ? jobDetails.jobCity.swapValueByComa
                         : StringResources.noneText),
                 SizedBox(
                   height: 5,
