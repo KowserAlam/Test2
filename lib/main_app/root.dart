@@ -95,6 +95,7 @@ class _RootState extends State<Root> {
   }
 
   Future<bool> shouldShowOnBoardingScreens() async {
+    return false;
     var _storage = await LocalStorageService.getInstance();
     var val = _storage.getBool("showIntro");
     if (val == null) return true;
