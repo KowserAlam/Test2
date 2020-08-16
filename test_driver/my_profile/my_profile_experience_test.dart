@@ -38,13 +38,13 @@ void main() {
       await expect(await driver.getText(keys.myProfileAppbarTitle), 'My Profile');
     });
 
-    test('Check if edit profile header button is working', () async {
-      await driver.scrollUntilVisible(keys.myProfileScrollView, keys.myProfileExperiencePenKey, dyScroll: -20);
-      await driver.tap(keys.myProfileExperiencePenKey);
-      await driver.tap(keys.myProfileExperienceAddKey);
-      await expect(await driver.getText(keys.workExperienceAppbarTitleKey), 'Work Experience');
-      await Future.delayed(const Duration(seconds: 5), (){});
-    });
+//    test('Get to edit experience screen', () async {
+//      await driver.scrollUntilVisible(keys.myProfileScrollView, keys.myProfileExperiencePenKey, dyScroll: -20);
+//      await driver.tap(keys.myProfileExperiencePenKey);
+//      await driver.tap(keys.myProfileExperienceAddKey);
+//      await expect(await driver.getText(keys.workExperienceAppbarTitleKey), 'Work Experience');
+//      await Future.delayed(const Duration(seconds: 5), (){});
+//    });
 
   });
 

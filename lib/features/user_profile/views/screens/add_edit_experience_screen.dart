@@ -313,6 +313,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
                           controller: positionNameController,
                           labelText: StringResources.designationText,
                           hintText: StringResources.designationHintText,
+                          textFieldKey: Key('experienceDesignationKey'),
                           autofocus: false,
                         ),
                         spaceBetweenSections,
@@ -320,6 +321,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
                           labelText: StringResources.descriptionText,
                           focusNode: _descriptionFocusNode,
                           controller: _descriptionZefyrController,
+                          zefyrKey: Key('experienceDescriptionKey'),
                         ),
                         spaceBetweenSections,
 
@@ -354,6 +356,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
                                 setState(() {});
                               },
                               value: currentLyWorkingHere,
+                              key: Key('experienceCurrentlyWorkingKey'),
                             ),
                           ],
                         ),

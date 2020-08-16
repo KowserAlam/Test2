@@ -75,10 +75,10 @@ class keys{
 
   //Work Experience
   static final workExperienceAppbarTitleKey = find.byValueKey('workExperienceAppbarTitleKey');
-//  static final workExperienceAppbarTitleKey = find.byValueKey('workExperienceAppbarTitleKey');
-//  static final workExperienceAppbarTitleKey = find.byValueKey('workExperienceAppbarTitleKey');
-//  static final workExperienceAppbarTitleKey = find.byValueKey('workExperienceAppbarTitleKey');
-//  static final workExperienceAppbarTitleKey = find.byValueKey('workExperienceAppbarTitleKey');
+  //static final workExperienceAppbarTitleKey = find.byValueKey('workExperienceAppbarTitleKey');
+  static final experienceDesignationKey = find.byValueKey('experienceDesignationKey');
+  static final experienceDescriptionKey = find.byValueKey('experienceDescriptionKey');
+  static final experienceCurrentlyWorkingKey = find.byValueKey('experienceCurrentlyWorkingKey');
 //  static final workExperienceAppbarTitleKey = find.byValueKey('workExperienceAppbarTitleKey');
 //  static final workExperienceAppbarTitleKey = find.byValueKey('workExperienceAppbarTitleKey');
 
