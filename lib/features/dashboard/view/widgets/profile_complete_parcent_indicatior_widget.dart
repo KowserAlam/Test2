@@ -21,6 +21,7 @@ class ProfileCompletePercentIndicatorWidget extends StatelessWidget {
                 Text(
                   "${StringResources.profileText.toUpperCase()}",
                   style: TextStyle(fontWeight: FontWeight.w500),
+                  key: Key('profileProfileCompletePercentIndicatorWidget'),
                 ),
                 Text("${(percent * 100).toInt()}%"),
               ],

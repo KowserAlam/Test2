@@ -39,7 +39,7 @@ Future<void> appliedJobsTest()async{
 
     test('Click on Jobs from bottom navigation bar', () async {
       await driver.tap(keys.bottomNavigationBarJobs);
-      //await Future.delayed(const Duration(seconds: 6), () {});
+      await Future.delayed(const Duration(seconds: 6), () {});
     });
 
     test('Skipping the Onboarding screan and wait for dashboard', () async {
@@ -49,8 +49,14 @@ Future<void> appliedJobsTest()async{
 
     test('Click on Applied Jobs on jobs Screen segment control bar', () async {
       await driver.tap(keys.clickOnAppliedJobsFromSegmentScreen);
-      await Future.delayed(const Duration(seconds: 2), () {});
+      await Future.delayed(const Duration(seconds: 5), () {});
     });
-  });
 
+    test('Check if job details are showing from applied job list', () async {
+      await driver.tap(keys.clickOnFirstTileOnAppliedJobs); //to see job details is working from applied job list
+      await Future.delayed(const Duration(seconds: 5), () {});
+    });
+
+  });
+//flutter drive --flavor dev --target=test_driver/bottom_nav_bar/appliedjobs.dart
 }
