@@ -27,16 +27,30 @@ Future<void> appliedJobsTest()async{
 
     //test cases are started from here
 
+    //auth
+    test('Try to login with registered email and password', () async {
+      await driver.tap(keys.signInEmail);
+      await driver.enterText('mahmudoni01@gmail.com');
+      await driver.tap(keys.signInPassword);
+      await driver.enterText('1234567r');
+      await driver.tap(keys.signInButton);
+      await Future.delayed(const Duration(seconds: 3), () {});
+    });
+
     test('Click on Jobs from bottom navigation bar', () async {
       await driver.tap(keys.bottomNavigationBarJobs);
       //await Future.delayed(const Duration(seconds: 6), () {});
+    });
+
+    test('Skipping the Onboarding screan and wait for dashboard', () async {
+      await driver.tap(keys.onboardingPageSkipButton);
+      await Future.delayed(const Duration(seconds: 6), () {});
     });
 
     test('Click on Applied Jobs on jobs Screen segment control bar', () async {
       await driver.tap(keys.clickOnAppliedJobsFromSegmentScreen);
       await Future.delayed(const Duration(seconds: 2), () {});
     });
-
   });
 
 }
