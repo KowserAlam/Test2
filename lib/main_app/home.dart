@@ -33,7 +33,6 @@ class _HomeState extends State<Home> {
 //        unselectedItemColor: Colors.grey,
 
         onTap: (int index) async {
-
           if (currentIndex != index) {
             var offset = 0;
 //            int quickJumpTarget;
@@ -48,9 +47,10 @@ class _HomeState extends State<Home> {
 //            await _paeViewController.animateToPage(quickJumpTarget,
 //                duration: const Duration(milliseconds: 400),
 //                curve: Curves.easeInOut);
-            await _paeViewController.animateTo(_paeViewController.offset+offset,
-            duration: const Duration(milliseconds: 50),
-               curve: Curves.easeInOut);
+            await _paeViewController.animateTo(
+                _paeViewController.offset + offset,
+                duration: const Duration(milliseconds: 50),
+                curve: Curves.easeInOut);
             _paeViewController.jumpToPage(index);
           }
 
@@ -86,35 +86,43 @@ class _HomeState extends State<Home> {
           //jobs
           BottomNavigationBarItem(
               icon: Padding(
+                key: Key('bottomNavigationBarJobs'),
                 padding: const EdgeInsets.only(
                   bottom: 3,
                 ),
-                child: Icon(FontAwesomeIcons.briefcase,
-                    key: Key('bottomNavigationBarJobs')),
+                child: Icon(
+                  FontAwesomeIcons.briefcase,
+
+                ),
               ),
               title: Text(StringResources.jobsText)),
           BottomNavigationBarItem(
               icon: Padding(
+                key: Key('bottomNavigationBarCompany'),
                 padding: const EdgeInsets.only(bottom: 5),
-                child: Icon(FontAwesomeIcons.solidBuilding,
-                    key: Key('bottomNavigationBarCompany')),
+                child: Icon(
+                  FontAwesomeIcons.solidBuilding,
+                  key: Key('bottomNavigationBarCompany'),
+                ),
               ),
               title: Text(StringResources.companyListAppbarText)),
           //notifications
           BottomNavigationBarItem(
               icon: Padding(
+                key: Key('bottomNavigationBarMessages'),
                 padding: const EdgeInsets.only(bottom: 5),
-                child: Icon(FontAwesomeIcons.solidComments,
-                    key: Key('bottomNavigationBarMessages')),
+                child: Icon(
+                  FontAwesomeIcons.solidComments,
+                ),
               ),
               title: Text(StringResources.messagesText)),
           // profile
           BottomNavigationBarItem(
               icon: Padding(
+                key: Key('bottomNavigationBarMyProfile'),
                 padding: const EdgeInsets.only(bottom: 5),
                 child: Icon(
                   FontAwesomeIcons.solidUserCircle,
-                  key: Key('bottomNavigationBarMyProfile'),
                 ),
               ),
               title: Text(StringResources.myProfileText)),

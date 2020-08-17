@@ -25,13 +25,13 @@ void main() {
 
     //test cases are started from here
     test('Getting to My Profile screen', () async {
-      await driver.tap(keys.signInEmail);
-      await driver.enterText('kowser@ishraak.com');
-      await driver.tap(keys.signInPassword);
-      await driver.enterText('1234567s');
-      await driver.tap(keys.signInButton);
-      await Future.delayed(const Duration(seconds: 3), (){});
-      await driver.tap(keys.onboardingPageSkipButton);
+//      await driver.tap(keys.signInEmail);
+//      await driver.enterText('kowser@ishraak.com');
+//      await driver.tap(keys.signInPassword);
+//      await driver.enterText('1234567s');
+//      await driver.tap(keys.signInButton);
+//      await Future.delayed(const Duration(seconds: 3), (){});
+//      await driver.tap(keys.onboardingPageSkipButton);
       await Future.delayed(const Duration(seconds: 5), (){});
       await driver.tap(keys.bottomNavigationBarMyProfile);
       await Future.delayed(const Duration(seconds: 5), (){});
