@@ -163,6 +163,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
           var exp = expList[index];
           return ExperienceListItem(
             isInEditMode: isInEditModeExperience,
+            index: index,
             experienceInfoModel: exp,
             onTapEdit: () {
               Navigator.push(
@@ -250,6 +251,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
           var skill = list[index];
           return ProfessionalSkillListItem(
             isInEditMode: isInEditModeSkill,
+            index: index,
             skillInfo: skill,
             onTapDelete: () async {
               var val = await _deleteConfirmationDialog();
