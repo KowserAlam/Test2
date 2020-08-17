@@ -42,6 +42,8 @@ class CustomDropdownSearchFormField<T> extends StatelessWidget {
 
   ///function that compares two object with the same type to detected if it's the selected item or not
   final DropdownSearchCompareFn<T> compareFn;
+  ///to customize selected item
+  final DropdownSearchPopupItemBuilder<T> popupItemBuilder;
 
   ///function that returns item from API
   final DropdownSearchOnFind<T> onFind;
@@ -67,6 +69,7 @@ class CustomDropdownSearchFormField<T> extends StatelessWidget {
     this.dialogMaxWidth,
     this.maxHeight,
     this.emptyBuilder,
+    this.popupItemBuilder,
     this.popupItemDisabled,
     this.mode = Mode.MENU,
     this.loadingBuilder,
@@ -124,6 +127,7 @@ class CustomDropdownSearchFormField<T> extends StatelessWidget {
             compareFn: compareFn,
             items: items,
             onFind: onFind,
+            popupItemBuilder: popupItemBuilder,
             popupShape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
             dropdownBuilderSupportsNullItem: true,
