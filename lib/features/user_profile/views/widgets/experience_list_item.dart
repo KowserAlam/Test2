@@ -13,12 +13,14 @@ class ExperienceListItem extends StatelessWidget {
   final Function onTapEdit;
   final Function onTapDelete;
   final bool isInEditMode;
+  final int index;
 
   ExperienceListItem(
       {this.experienceInfoModel,
       this.onTapEdit,
       this.isInEditMode,
-      this.onTapDelete});
+      this.onTapDelete,
+      this.index});
 
   @override
   Widget build(BuildContext context) {
@@ -82,12 +84,14 @@ class ExperienceListItem extends StatelessWidget {
               children: [
                 IconButton(
                   icon: Icon(FontAwesomeIcons.edit),
+                  key: Key('experienceEditButton'+index.toString()),
                   onPressed: onTapEdit,
                   iconSize: 18,
                   color: Colors.black,
                 ),
                 IconButton(
                   icon: Icon(FontAwesomeIcons.trash),
+                  key: Key('experienceDeleteButton'+index.toString()),
                   onPressed: onTapDelete,
                   iconSize: 18,
                   color: Colors.black,
