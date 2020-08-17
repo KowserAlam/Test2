@@ -143,7 +143,7 @@ class _ConversationScreenState extends State<ConversationScreen>
                         ),
                         color: Theme
                             .of(context)
-                            .accentColor,
+                            .primaryColor,
                       ),
                     ),
                   ],
