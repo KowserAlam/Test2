@@ -27,14 +27,14 @@ Future<void> appliedJobsTest()async{
     //test cases are started from here
 
     //remove comment when it needs to be run individually
-    /*test('login with registered email and password', () async {
-      await driver.tap(keys.signInEmail);
+    test('login with registered email and password', () async {
+      await driver.tap(Keys.signInEmail);
       await driver.enterText('mahmudoni01@gmail.com');
-      await driver.tap(keys.signInPassword);
+      await driver.tap(Keys.signInPassword);
       await driver.enterText('1234567r');
-      await driver.tap(keys.signInButton);
+      await driver.tap(Keys.signInButton);
       await Future.delayed(const Duration(seconds: 3), () {});
-    });*/
+    });
 
     test('Click on Jobs from bottom navigation bar', () async {
       await driver.tap(Keys.bottomNavigationBarJobs);
@@ -65,8 +65,8 @@ Future<void> appliedJobsTest()async{
       await Future.delayed(const Duration(seconds: 4), () {});
 
     });
-
+    favoriteJobsTest();
   });
-  favoriteJobsTest();
+
 }
 //flutter drive --flavor dev --target=test_driver/jobs_segment/appliedjobs.dart
