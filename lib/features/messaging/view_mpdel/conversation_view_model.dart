@@ -15,6 +15,7 @@ class ConversationViewModel with ChangeNotifier {
 
   refresh(String senderId) {
     pageCount = 1;
+    _hasMoreData = false;
     return getConversation(senderId);
   }
 

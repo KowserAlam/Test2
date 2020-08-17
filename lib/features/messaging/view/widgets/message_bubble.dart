@@ -38,7 +38,7 @@ class MessageBubble extends StatelessWidget {
           children: [
             if (!isMe)
               Container(
-                margin: const EdgeInsets.all(8.0),
+                margin: const EdgeInsets.fromLTRB(8, 25, 8, 8),
                 height: 25,
                 width: 25,
                 child: Material(
@@ -46,16 +46,12 @@ class MessageBubble extends StatelessWidget {
                   elevation: 2,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(15),
-                    child: Container(
-                      color: Colors.grey[300],
-//                    padding: EdgeInsets.all(2),
-                      child: CachedNetworkImage(
-                        imageUrl: senderModel?.otherPartyImage ?? "",
+                    child: CachedNetworkImage(
+                      imageUrl: senderModel?.otherPartyImage ?? "",
+                      fit: BoxFit.cover,
+                      placeholder: (__, _) => Image.asset(
+                        kCompanyImagePlaceholder,
                         fit: BoxFit.cover,
-                        placeholder: (__, _) => Image.asset(
-                          kCompanyImagePlaceholder,
-                          fit: BoxFit.cover,
-                        ),
                       ),
                     ),
                   ),
@@ -96,8 +92,8 @@ class MessageBubble extends StatelessWidget {
                       elevation: 2,
                       borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(20),
-                        bottomRight: Radius.circular(isMe ? 0 : 20),
-                        topRight: Radius.circular(20),
+                        topRight: Radius.circular(isMe ? 0 : 20),
+                        bottomRight: Radius.circular(20),
                         topLeft: Radius.circular(!isMe ? 0 : 20),
                       ),
                       child: Padding(
@@ -116,7 +112,7 @@ class MessageBubble extends StatelessWidget {
             ),
             if (isMe)
               Container(
-                margin: const EdgeInsets.all(8.0),
+                margin: const EdgeInsets.fromLTRB(8, 25, 8, 8),
                 height: 25,
                 width: 25,
                 child: Material(
@@ -124,15 +120,12 @@ class MessageBubble extends StatelessWidget {
                   elevation: 2,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(15),
-                    child: Container(
-                      color: Colors.grey[300],
-                      child: CachedNetworkImage(
-                        imageUrl: appUser?.profileImage ?? "",
+                    child: CachedNetworkImage(
+                      imageUrl: appUser?.profileImage ?? "",
+                      fit: BoxFit.cover,
+                      placeholder: (__, _) => Image.asset(
+                        kDefaultUserImageAsset,
                         fit: BoxFit.cover,
-                        placeholder: (__, _) => Image.asset(
-                          kDefaultUserImageAsset,
-                          fit: BoxFit.cover,
-                        ),
                       ),
                     ),
                   ),
