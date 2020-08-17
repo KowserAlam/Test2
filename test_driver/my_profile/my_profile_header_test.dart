@@ -25,21 +25,21 @@ void main() {
 
     //test cases are started from here
     test('Getting to My Profile screen', () async {
-      await driver.tap(keys.signInEmail);
+      await driver.tap(Keys.signInEmail);
       await driver.enterText('kowser@ishraak.com');
-      await driver.tap(keys.signInPassword);
+      await driver.tap(Keys.signInPassword);
       await driver.enterText('1234567s');
-      await driver.tap(keys.signInButton);
+      await driver.tap(Keys.signInButton);
       await Future.delayed(const Duration(seconds: 3), (){});
-      await driver.tap(keys.onboardingPageSkipButton);
+      await driver.tap(Keys.onboardingPageSkipButton);
       await Future.delayed(const Duration(seconds: 5), (){});
-      await driver.tap(keys.bottomNavigationBarMyProfile);
+      await driver.tap(Keys.bottomNavigationBarMyProfile);
       await Future.delayed(const Duration(seconds: 5), (){});
     });
 
     test('Check if edit profile header button is working', () async {
-      await driver.tap(keys.myProfileHeaderEditButton);
-      await expect(await driver.getText(keys.myProfileHeaderAppbarTitle), 'Edit Profile');
+      await driver.tap(Keys.myProfileHeaderEditButton);
+      await expect(await driver.getText(Keys.myProfileHeaderAppbarTitle), 'Edit Profile');
       await Future.delayed(const Duration(seconds: 5), (){});
     });
 
@@ -58,25 +58,25 @@ void main() {
 //    });
 
     test('Try to save with Name & Mobile.', () async {
-      await driver.tap(keys.myProfileHeaderFullNameField);
+      await driver.tap(Keys.myProfileHeaderFullNameField);
       await driver.enterText('Test Full Name');
-      await driver.tap(keys.myProfileHeaderMobileField);
+      await driver.tap(Keys.myProfileHeaderMobileField);
       await driver.enterText('01711111111');
-      await driver.tap(keys.myProfileHeaderSaveButton);
+      await driver.tap(Keys.myProfileHeaderSaveButton);
       await Future.delayed(const Duration(seconds: 5), (){});
-      await expect(await driver.getText(keys.myProfileAppbarTitle), 'My Profile');
-      await expect(await driver.getText(keys.myProfileHeaderName), 'Test Full Name');
-      await expect(await driver.getText(keys.myProfileHeaderPhone), '01711111111');
+      await expect(await driver.getText(Keys.myProfileAppbarTitle), 'My Profile');
+      await expect(await driver.getText(Keys.myProfileHeaderName), 'Test Full Name');
+      await expect(await driver.getText(Keys.myProfileHeaderPhone), '01711111111');
       await Future.delayed(const Duration(seconds: 5), (){});
     });
 
     test('Check Description can be saved and showing', () async {
-      await driver.tap(keys.myProfileHeaderEditButton);
-      await driver.tap(keys.myProfileHeaderDescriptionField);
+      await driver.tap(Keys.myProfileHeaderEditButton);
+      await driver.tap(Keys.myProfileHeaderDescriptionField);
       await driver.enterText('Test Description');
-      await driver.tap(keys.myProfileHeaderSaveButton);
+      await driver.tap(Keys.myProfileHeaderSaveButton);
       await Future.delayed(const Duration(seconds: 5), (){});
-      await expect(await driver.getText(keys.myProfileAppbarTitle), 'My Profile');
+      await expect(await driver.getText(Keys.myProfileAppbarTitle), 'My Profile');
       //await expect(keys.myProfileHeaderDescription, 'Test Description');
       await Future.delayed(const Duration(seconds: 5), (){});
     });
