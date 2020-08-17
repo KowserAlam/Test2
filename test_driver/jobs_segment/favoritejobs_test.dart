@@ -1,6 +1,8 @@
 import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
+
 import '../keys.dart';
+
 
 main(){
   favoriteJobsTest();
@@ -39,24 +41,24 @@ Future<void> favoriteJobsTest()async{
     });*/
 
     test('Go to Favorited Jobs list on jobs Screen segment control bar', () async {
-      await driver.tap(keys.clickOnFavoriteJobsFromSegmentScreen);
+      await driver.tap(Keys.clickOnFavoriteJobsFromSegmentScreen);
       await Future.delayed(const Duration(seconds: 5), () {});
     });
 
     //showing job details
     test('Check if job details are showing from favorite job list', () async {
-      await driver.tap(keys.clickOnFirstTileOnFavoriteJobs); //to see job details is working from applied job list
+      await driver.tap(Keys.clickOnFirstTileOnFavoriteJobs); //to see job details is working from applied job list
       await Future.delayed(const Duration(seconds: 3), () {});
-      await driver.tap(keys.backButton);
+      await driver.tap(Keys.backButton);
     });
 
     test('Check Unuavorite is working', () async {
-      await driver.tap(keys.checkFavoriteUnfavoriteFromFavoriteList);
+      await driver.tap(Keys.checkFavoriteUnfavoriteFromFavoriteList);
       await Future.delayed(const Duration(seconds: 4), () {});
     });
 
     test('Check Favorite is working', () async {
-      await driver.tap(keys.checkFavoriteUnfavoriteFromFavoriteList);
+      await driver.tap(Keys.checkFavoriteUnfavoriteFromFavoriteList);
       await Future.delayed(const Duration(seconds: 4), () {});
 
     });

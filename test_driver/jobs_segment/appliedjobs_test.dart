@@ -1,5 +1,6 @@
 import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
+
 import '../keys.dart';
 import 'favoritejobs_test.dart';
 
@@ -36,12 +37,12 @@ Future<void> appliedJobsTest()async{
     });*/
 
     test('Click on Jobs from bottom navigation bar', () async {
-      await driver.tap(keys.bottomNavigationBarJobs);
+      await driver.tap(Keys.bottomNavigationBarJobs);
       await Future.delayed(const Duration(seconds: 10), () {});
     });
 
     test('Click on Applied Jobs on jobs Screen segment control bar', () async {
-      await driver.tap(keys.clickOnAppliedJobsFromSegmentScreen);
+      await driver.tap(Keys.clickOnAppliedJobsFromSegmentScreen);
       await Future.delayed(const Duration(seconds: 5), () {});
 
      // expect((tester.firstWidget(find.byType(MaterialApp)) as Material).color, Colors.blue[200]);
@@ -49,18 +50,18 @@ Future<void> appliedJobsTest()async{
 
     //showing job details
     test('Check if job details are showing from applied job list', () async {
-      await driver.tap(keys.clickOnFirstTileOnAppliedJobs); //to see job details is working from applied job list
+      await driver.tap(Keys.clickOnFirstTileOnAppliedJobs); //to see job details is working from applied job list
       await Future.delayed(const Duration(seconds: 3), () {});
-      await driver.tap(keys.backButton);
+      await driver.tap(Keys.backButton);
     });
 
     test('Check Favorite button is working', () async {
-      await driver.tap(keys.checkFavoriteUnfavoriteFromAppliedList);
+      await driver.tap(Keys.checkFavoriteUnfavoriteFromAppliedList);
       await Future.delayed(const Duration(seconds: 4), () {});
     });
 
     test('Check Unfavorite button is working', () async {
-      await driver.tap(keys.checkFavoriteUnfavoriteFromAppliedList);
+      await driver.tap(Keys.checkFavoriteUnfavoriteFromAppliedList);
       await Future.delayed(const Duration(seconds: 4), () {});
 
     });
