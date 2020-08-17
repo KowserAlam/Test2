@@ -48,31 +48,65 @@ void main() {
       await driver.tap(keys.skillSaveButton);
       await Future.delayed(const Duration(seconds: 2), (){});
       await expect(await driver.getText(keys.professionalSkillAppbarTitle), 'Professional Skills');
+      await Future.delayed(const Duration(seconds: 5), (){});
     });
 
-//    test('Try to save with only skill name written', () async {
-//      await driver.tap(keys.skillAddField);
-//      await driver.enterText('python');
+    test('Try to save with only skill name written', () async {
+      await driver.tap(keys.skillAddField);
+      await driver.enterText('python');
+      await driver.tap(keys.skillSaveButton);
+      await expect(await driver.getText(keys.professionalSkillAppbarTitle), 'Professional Skills');
+      await Future.delayed(const Duration(seconds: 5), (){});
+    });
+//
+    test('Try to save with only skill expertise gievn more than 10', () async {
+      await driver.tap(keys.skillExpertise);
+      await driver.enterText('15');
+      await driver.tap(keys.skillSaveButton);
+      await expect(await driver.getText(keys.professionalSkillAppbarTitle), 'Professional Skills');
+      await Future.delayed(const Duration(seconds: 5), (){});
+    });
+
+    test('Try to save with only skill expertise gievn 0', () async {
+      await driver.tap(keys.skillExpertise);
+      await driver.enterText('0');
+      await driver.tap(keys.skillSaveButton);
+      await expect(await driver.getText(keys.professionalSkillAppbarTitle), 'Professional Skills');
+      await Future.delayed(const Duration(seconds: 5), (){});
+    });
+
+
+//    test('Check if edit is working', () async {
+//      await driver.tap(keys.skillEditButton);
+//      await driver.tap(keys.skillExpertise);
+//      await driver.enterText('10');
 //      await driver.tap(keys.skillSaveButton);
 //      await Future.delayed(const Duration(seconds: 5), (){});
-//    });
-//
-//    test('Try to save with only skill expertise gievn more than 10', () async {
-//      await driver.tap(skillAddField);
-//      await driver.enterText('python');
-//      await driver.tap(skillExpertise);
-//      await driver.enterText('15');
-//      await driver.tap(skillSaveButton);
-//      await Future.delayed(const Duration(seconds: 5), (){});
+//      await expect(await driver.getText(keys.myProfileAppbarTitle), 'My Profile');
 //    });
 
-
-//    test('Try to save skill Python with expertise level 10.', () async {
-//      await driver.tap(skillExpertise);
+//    test('Adding a second skill to check delete', () async {
+//      //await driver.tap(keys.myProfileAddSkillPen);
+//      await driver.tap(keys.myProfileAddSkillAdd);
+//      await expect(await driver.getText(keys.professionalSkillAppbarTitle), 'Professional Skills');
+//      await driver.tap(keys.skillAddField);
+//      await driver.enterText('dart');
+//      await driver.tap(keys.skillExpertise);
 //      await driver.enterText('10');
-//      await driver.tap(skillAddField);
-//      await driver.enterText('Python');
-//      await driver.tap(skillSaveButton);
+//      await driver.tap(keys.skillSaveButton);
+//      await Future.delayed(const Duration(seconds: 5), (){});
+//      await expect(await driver.getText(keys.myProfileAppbarTitle), 'My Profile');
+//      await expect(await driver.getText(keys.addedTileSkillName), 'Dart');
+//      await Future.delayed(const Duration(seconds: 10), (){});
+//    });
+
+//    test('Check if delete is working', () async {
+//      await driver.tap(keys.skillDeleteButton);
+//      await Future.delayed(const Duration(seconds: 5), (){});
+//      await driver.tap(keys.myProfileDialogBoxDeleteTile);
+//      await Future.delayed(const Duration(seconds: 5), (){});
+//      await expect(await driver.getText(keys.myProfileAppbarTitle), 'My Profile');
+//      await expect(await driver.getText(keys.tileSkillName), 'Dart');
 //      await Future.delayed(const Duration(seconds: 5), (){});
 //    });
   });

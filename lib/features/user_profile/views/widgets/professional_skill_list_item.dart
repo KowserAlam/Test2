@@ -8,13 +8,15 @@ class ProfessionalSkillListItem extends StatelessWidget {
   final Function onTapEdit;
   final Function onTapDelete;
   final bool isInEditMode;
+  final int index;
 
   ProfessionalSkillListItem(
       {Key key,
       @required this.skillInfo,
       this.onTapDelete,
       this.onTapEdit,
-      this.isInEditMode = false})
+      this.isInEditMode = false,
+      this.index})
       : super(key: key);
 
   @override
@@ -57,6 +59,7 @@ class ProfessionalSkillListItem extends StatelessWidget {
               child: Text(
                 skillInfo?.skill?.name ?? "",
                 style: titleStyle,
+                key: Key('tileSkillName'+index.toString()),
               ),
             ),
             Row(
@@ -81,6 +84,7 @@ class ProfessionalSkillListItem extends StatelessWidget {
                               FontAwesomeIcons.edit,
                               size: 17,
                               color: Colors.black,
+                              key: Key('skillEditButton'+index.toString()),
                             ),
                           ),
                           onTap: onTapEdit,
@@ -93,6 +97,7 @@ class ProfessionalSkillListItem extends StatelessWidget {
                             child: Icon(
                               FontAwesomeIcons.trash,
                               color: Colors.black,
+                              key: Key('skillDeleteButton'+index.toString()),
                               size: 17,
                             ),
                           ),

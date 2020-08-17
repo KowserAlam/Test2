@@ -54,6 +54,10 @@ class keys{
 
   static final myProfileAddSkillPen = find.byValueKey('myProfileAddSkillPen');
   static final myProfileAddSkillAdd = find.byValueKey('myProfileAddSkillAdd');
+  static final skillEditButton = find.byValueKey('skillEditButtonPython');
+  static final skillDeleteButton = find.byValueKey('skillDeleteButton0');
+  static final tileSkillName = find.byValueKey('tileSkillName0');
+  static final addedTileSkillName = find.byValueKey('tileSkillName1');
 
   static final myProfileAddReferencesPen = find.byValueKey('myProfileAddReferencesPen');
   static final myProfileAddReferencesAdd = find.byValueKey('myProfileAddReferencesAdd');
