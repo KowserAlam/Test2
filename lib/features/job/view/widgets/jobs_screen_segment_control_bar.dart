@@ -10,7 +10,7 @@ class JobsScreenSegmentControlBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var vm = Provider.of<JobScreenViewModel>(context);
-    var currentIndex = vm.currentIndex;
+//    var currentIndex = vm.currentIndex;
     var divider = Container(
       width: 1,
       color: borderColor,
@@ -33,20 +33,20 @@ class JobsScreenSegmentControlBar extends StatelessWidget {
               barItem(
                 context: context,
                 label: StringResources.allText,
-                key: Key('jobsSegmentAllText'),
+                buttonKey: Key('jobsSegmentAllText'),
                 index: 0,
               ),
               divider,
               barItem(
                   context: context,
                   label: StringResources.appliedText,
-                  key: Key('jobsSegmentAppliedText'),
+                  buttonKey: Key('jobsSegmentAppliedText'),
                   index: 1),
               divider,
               barItem(
                 context: context,
                 label: StringResources.favoriteText,
-                key: Key('jobsSegmentFavoriteText'),
+                buttonKey: Key('jobsSegmentFavoriteText'),
                 index: 2,
               )
             ]),
@@ -57,7 +57,7 @@ class JobsScreenSegmentControlBar extends StatelessWidget {
   Widget barItem({
     @required context,
     @required String label,
-    @required int index, Key key,
+    @required int index, Key buttonKey,
   }) {
     var vm = Provider.of<JobScreenViewModel>(context);
     bool isSelected = vm.currentIndex == index;
@@ -66,7 +66,7 @@ class JobsScreenSegmentControlBar extends StatelessWidget {
         child: Material(
           type: MaterialType.transparency,
           child: InkWell(
-            key: key,
+            key: buttonKey,
             onTap: () {
               vm.onChange(index);
             },

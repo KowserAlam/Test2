@@ -24,7 +24,7 @@ class _JobsScreenState extends State<JobsScreen> {
   Widget build(BuildContext context) {
     var vm = Provider.of<JobScreenViewModel>(context);
     return Scaffold(
-      body: children[vm.currentIndex],
+      body: children[vm.currentIndex??0],
     );
   }
 }
