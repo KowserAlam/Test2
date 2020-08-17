@@ -11,9 +11,6 @@ Future<void> appliedJobsTest()async{
 
   group('Applied Jobs Test :', () {
 
-    //final clickOnAppliedJobsFromSegmentScreen = find.bySemanticsLabel(StringResources.favoriteText);
-    //final clickOnAppliedJobsFromSegmentScreen = find.bySemanticsLabel(StringResources.allText);
-
     FlutterDriver driver;
     // Connect to the Flutter driver before running any tests.
     setUpAll(() async {
@@ -66,7 +63,9 @@ Future<void> appliedJobsTest()async{
     test('Check Unfavorite button is working', () async {
       await driver.tap(keys.checkFavoriteUnfavorite);
       await Future.delayed(const Duration(seconds: 4), () {});
+
     });
+
   });
 
 }
