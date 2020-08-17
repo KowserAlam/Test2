@@ -1,6 +1,6 @@
 import 'package:flutter_driver/flutter_driver.dart';
 
-class keys{
+class Keys{
 
   //app bar back button
   static final backButton = find.byTooltip('Back');
