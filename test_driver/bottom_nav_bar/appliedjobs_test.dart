@@ -7,7 +7,7 @@ main(){
 }
 Future<void> appliedJobsTest()async{
 
-  group('Applied Jobs Test', () {
+  group('Applied Jobs Test :', () {
 
     //final clickOnAppliedJobsFromSegmentScreen = find.bySemanticsLabel(StringResources.favoriteText);
     //final clickOnAppliedJobsFromSegmentScreen = find.bySemanticsLabel(StringResources.allText);
@@ -47,20 +47,24 @@ Future<void> appliedJobsTest()async{
       await Future.delayed(const Duration(seconds: 5), () {});
     });
 
+    //showing job details
     test('Check if job details are showing from applied job list', () async {
       await driver.tap(keys.clickOnFirstTileOnAppliedJobs); //to see job details is working from applied job list
       await Future.delayed(const Duration(seconds: 3), () {});
       await driver.tap(keys.backButton);
     });
 
-    test('Check ', () async {
-      await driver.tap(keys.clickOnFirstTileOnAppliedJobs); //to see job details is working from applied job list
+    test('Check Favorite button is working', () async {
+      await driver.tap(keys.checkFavoriteUnfavorite);
       await Future.delayed(const Duration(seconds: 3), () {});
-      await driver.tap(keys.backButton);
     });
 
-
+    test('Check Unfavorite button is working', () async {
+      await driver.tap(keys.checkFavoriteUnfavorite);
+      await Future.delayed(const Duration(seconds: 3), () {});
+    });
 
   });
-//flutter drive --flavor dev --target=test_driver/bottom_nav_bar/appliedjobs.dart
+
 }
+//flutter drive --flavor dev --target=test_driver/bottom_nav_bar/appliedjobs.dart
