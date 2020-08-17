@@ -109,11 +109,10 @@ main(){
       await Future.delayed(const Duration(seconds: 3), () {});
     });
 
-    test('Skipping the Onboarding screan and wait for dashboard', () async {
+   /* test('Skipping the Onboarding screan and wait for dashboard', () async {
       await driver.tap(skipOnboardingScreen);
       await Future.delayed(const Duration(seconds: 6), () {});
-
-    });
+    });*/
 
 
   });

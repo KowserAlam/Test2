@@ -47,10 +47,14 @@ class _ConversationScreenState extends State<ConversationScreen>
             title: Text(widget?.senderModel?.otherPartyName ?? ""),
             actions: [
               IconButton(
-                onPressed: vm.isFetchingData? null:() {
+                onPressed: vm.isFetchingData ? null : () {
                   vm.refresh(widget.senderModel.otherPartyUserId);
+
+                  _scrollController.animateTo(
+                      _scrollController.initialScrollOffset,
+                      duration: Duration(milliseconds: 500), curve:Curves.easeIn);
                 },
-                icon: vm.isFetchingData?Loader():Icon(Icons.refresh),
+                icon: vm.isFetchingData ? Loader() : Icon(Icons.refresh),
               ),
             ],
           ),
@@ -62,24 +66,24 @@ class _ConversationScreenState extends State<ConversationScreen>
                   child: vm.shouldShowPageLoader
                       ? Loader()
                       : ListView.builder(
-                          physics: AlwaysScrollableScrollPhysics(),
-                          controller: _scrollController,
-                          padding: EdgeInsets.symmetric(vertical: 4),
-                          itemCount: messages.length + 1,
-                          reverse: true,
-                          itemBuilder: (BuildContext context, int index) {
-                            if (index == messages.length) {
-                              return Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: vm.isGettingMoreData
-                                    ? Loader()
-                                    : SizedBox(),
-                              );
-                            }
+                      physics: AlwaysScrollableScrollPhysics(),
+                      controller: _scrollController,
+                      padding: EdgeInsets.symmetric(vertical: 4),
+                      itemCount: messages.length + 1,
+                      reverse: true,
+                      itemBuilder: (BuildContext context, int index) {
+                        if (index == messages.length) {
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: vm.isGettingMoreData
+                                ? Loader()
+                                : SizedBox(),
+                          );
+                        }
 
-                            var message = messages[index];
-                            return MessageBubble(message, widget.senderModel);
-                          }),
+                        var message = messages[index];
+                        return MessageBubble(message, widget.senderModel);
+                      }),
                 ),
                 Row(
                   children: [
@@ -89,7 +93,8 @@ class _ConversationScreenState extends State<ConversationScreen>
                         child: Container(
                           decoration: BoxDecoration(
                               boxShadow: CommonStyle.boxShadow,
-                              color: Theme.of(context)
+                              color: Theme
+                                  .of(context)
                                   .backgroundColor
                                   .withBlue(255),
                               borderRadius: BorderRadius.circular(20)),
@@ -99,7 +104,7 @@ class _ConversationScreenState extends State<ConversationScreen>
                               controller: _messageInoutTextEditingController,
                               decoration: InputDecoration(
                                   hintText:
-                                      StringResources.writeYourMessageText,
+                                  StringResources.writeYourMessageText,
                                   border: InputBorder.none),
                             ),
                           ),
@@ -108,37 +113,39 @@ class _ConversationScreenState extends State<ConversationScreen>
                     ),
                     vm.sendingMessage
                         ? IconButton(
-                            icon: Loader(),
-                            onPressed: null,
-                          )
+                      icon: Loader(),
+                      onPressed: null,
+                    )
                         : Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 5, 8, 5),
-                            child: Material(
-                              elevation: 3,
-                              shape: CircleBorder(),
-                              child: InkWell(
-                                key: Key('sendMessageButton'),
-                                customBorder: CircleBorder(),
-                                onTap: () {
-                                  if (_messageInoutTextEditingController
-                                      .text.isNotEmpty) {
-                                    vm.createMessage(
-                                        _messageInoutTextEditingController.text,
-                                        widget.senderModel.otherPartyUserId);
-                                    _messageInoutTextEditingController.clear();
-                                  }
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: Transform.rotate(
-                                    angle: 0.8,
-                                    child: Icon(FeatherIcons.send),
-                                  ),
-                                ),
-                              ),
-                              color: Theme.of(context).accentColor,
+                      padding: const EdgeInsets.fromLTRB(0, 5, 8, 5),
+                      child: Material(
+                        elevation: 3,
+                        shape: CircleBorder(),
+                        child: InkWell(
+                          key: Key('sendMessageButton'),
+                          customBorder: CircleBorder(),
+                          onTap: () {
+                            if (_messageInoutTextEditingController
+                                .text.isNotEmpty) {
+                              vm.createMessage(
+                                  _messageInoutTextEditingController.text,
+                                  widget.senderModel.otherPartyUserId);
+                              _messageInoutTextEditingController.clear();
+                            }
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Transform.rotate(
+                              angle: 0.8,
+                              child: Icon(FeatherIcons.send),
                             ),
                           ),
+                        ),
+                        color: Theme
+                            .of(context)
+                            .primaryColor,
+                      ),
+                    ),
                   ],
                 ),
               ],

@@ -1,3 +1,5 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:p7app/features/auth/view_models/password_change_view_model.dart';
 import 'package:p7app/features/auth/view_models/password_reset_view_model.dart';
@@ -29,6 +31,7 @@ import 'package:bot_toast/bot_toast.dart';
 class P7App extends StatelessWidget {
   final isEnabledDevicePreview;
   final CommonServiceRule commonServiceRule = CommonServiceRule();
+  FirebaseAnalytics analytics = FirebaseAnalytics();
 
   P7App({this.isEnabledDevicePreview = false});
 
@@ -51,7 +54,8 @@ class P7App extends StatelessWidget {
       ChangeNotifierProvider(create: (context) => CareerAdviceViewModel()),
       ChangeNotifierProvider(create: (context) => locator<SettingsViewModel>()),
       ChangeNotifierProvider(create: (context) => NotificationViewModel()),
-      ChangeNotifierProvider(create: (context) => MessageSenderListScreenViewModel()),
+      ChangeNotifierProvider(
+          create: (context) => MessageSenderListScreenViewModel()),
       ChangeNotifierProvider(create: (context) => JobScreenViewModel()),
     ];
     var appName = FlavorConfig.appName();
@@ -59,7 +63,10 @@ class P7App extends StatelessWidget {
     return MultiProvider(
       providers: providers,
       child: MaterialApp(
-        navigatorObservers: [BotToastNavigatorObserver()],
+        navigatorObservers: [
+          BotToastNavigatorObserver(),
+          FirebaseAnalyticsObserver(analytics: analytics),
+        ],
         builder: BotToastInit(),
         debugShowCheckedModeBanner: false,
         title: appName,

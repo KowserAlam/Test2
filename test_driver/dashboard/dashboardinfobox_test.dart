@@ -1,7 +1,7 @@
 import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
 import '../keys.dart';
-import '../bottom_nav_bar/appliedjobs_test.dart';
+import '../jobs_segment//appliedjobs_test.dart';
 
 
 
@@ -78,7 +78,7 @@ Future dashboardInfoBoxTest() async{
 
     test('Click on Notification icon to check notifications', () async {
       await driver.tap(dashboardNotificationIcon);
-      await expect(await driver.getText(keys.notificationsTextOnAppBar), 'Notifications');
+      await expect(await driver.getText(Keys.notificationsTextOnAppBar), 'Notifications');
       await Future.delayed(const Duration(seconds: 2), () {});
       await driver.tap(backButton);
     });
