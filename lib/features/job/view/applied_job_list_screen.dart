@@ -103,6 +103,7 @@ class _AppliedJobListScreenState extends State<AppliedJobListScreen>
                                           job,
                                           applyButtonKey: Key('appliedApplyKey'+index.toString()),
                                           listTileKey: Key('appliedTileKey'+index.toString()),
+                                          favoriteButtonKey: Key('appliedFavoriteButtonKey'+index.toString()),
                                           onFavorite: () {
                                             appliedJobListViewModel
                                                 .addToFavorite(job.jobId, index)

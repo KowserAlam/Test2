@@ -107,6 +107,7 @@ class _FavouriteJobListScreenState extends State<FavouriteJobListScreen>
                                           job,
                                           applyButtonKey: Key('favoriteApplyKey'+index.toString()),
                                           listTileKey: Key('favoriteTileKey'+index.toString()),
+                                          favoriteButtonKey: Key('favoriteFavoriteButtonKey'+index.toString()),
                                           onTap: () {
                                             Navigator.of(context).push(
                                                 MaterialPageRoute(

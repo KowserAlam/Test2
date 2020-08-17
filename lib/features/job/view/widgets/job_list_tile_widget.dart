@@ -19,9 +19,9 @@ class JobListTileWidget extends StatefulWidget {
   final Function onTap;
   final Function onApply;
   final Function onFavorite;
-  final Key listTileKey, applyButtonKey;
+  final Key listTileKey, applyButtonKey,favoriteButtonKey;
 
-  JobListTileWidget(this.jobModel, {this.onTap, this.onFavorite, this.onApply, this.listTileKey, this.applyButtonKey});
+  JobListTileWidget(this.jobModel, {this.onTap, this.onFavorite, this.onApply, this.listTileKey, this.applyButtonKey, this.favoriteButtonKey});
 
   @override
   _JobListTileWidgetState createState() => _JobListTileWidgetState();
@@ -104,13 +104,13 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
       child: Tooltip(
         message:isFavorite ?StringResources.removeFromFavoriteText : StringResources.addToFavoriteText,
         child: InkWell(
-          key: Key("favouriteButtonKey"),
           borderRadius: BorderRadius.circular(20),
           onTap: widget.onFavorite,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Icon(
               isFavorite ? FontAwesomeIcons.solidHeart : FontAwesomeIcons.heart,
+              key: widget.favoriteButtonKey,
               color: isFavorite ? AppTheme.orange : AppTheme.grey,
               size: 22,
             ),

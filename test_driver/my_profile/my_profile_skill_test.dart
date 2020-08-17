@@ -29,17 +29,19 @@ void main() {
       await driver.tap(keys.signInPassword);
       await driver.enterText('1234567s');
       await driver.tap(keys.signInButton);
-      await Future.delayed(const Duration(seconds: 3), (){});
-      await driver.tap(keys.onboardingPageSkipButton);
+//      await Future.delayed(const Duration(seconds: 3), (){});
+//      await driver.tap(keys.onboardingPageSkipButton);
       await Future.delayed(const Duration(seconds: 2), (){});
       await driver.tap(keys.bottomNavigationBarMyProfile);
       await expect(await driver.getText(keys.myProfileAppbarTitle), 'My Profile');
     });
 
     test('Getting to Skill Add screen', () async {
+      await driver.scrollUntilVisible(keys.myProfileScrollView, keys.myProfileAddSkillPen, dyScroll: -50);
       await driver.tap(keys.myProfileAddSkillPen);
       await driver.tap(keys.myProfileAddSkillAdd);
       await expect(await driver.getText(keys.professionalSkillAppbarTitle), 'Professional Skills');
+      await Future.delayed(const Duration(seconds: 5), (){});
     });
 
     test('Try to save while all fields are empty', () async {
@@ -47,11 +49,11 @@ void main() {
       await Future.delayed(const Duration(seconds: 2), (){});
       await expect(await driver.getText(keys.professionalSkillAppbarTitle), 'Professional Skills');
     });
-//
+
 //    test('Try to save with only skill name written', () async {
-//      await driver.tap(skillAddField);
+//      await driver.tap(keys.skillAddField);
 //      await driver.enterText('python');
-//      await driver.tap(skillSaveButton);
+//      await driver.tap(keys.skillSaveButton);
 //      await Future.delayed(const Duration(seconds: 5), (){});
 //    });
 //
