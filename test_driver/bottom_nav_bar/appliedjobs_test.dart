@@ -56,12 +56,12 @@ Future<void> appliedJobsTest()async{
 
     test('Check Favorite button is working', () async {
       await driver.tap(keys.checkFavoriteUnfavorite);
-      await Future.delayed(const Duration(seconds: 3), () {});
+      await Future.delayed(const Duration(seconds: 4), () {});
     });
 
     test('Check Unfavorite button is working', () async {
       await driver.tap(keys.checkFavoriteUnfavorite);
-      await Future.delayed(const Duration(seconds: 3), () {});
+      await Future.delayed(const Duration(seconds: 4), () {});
     });
 
   });
