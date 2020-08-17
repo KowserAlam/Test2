@@ -1,3 +1,5 @@
+
+import 'package:flutter/widgets.dart';
 import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
 import '../keys.dart';
@@ -45,6 +47,8 @@ Future<void> appliedJobsTest()async{
     test('Click on Applied Jobs on jobs Screen segment control bar', () async {
       await driver.tap(keys.clickOnAppliedJobsFromSegmentScreen);
       await Future.delayed(const Duration(seconds: 5), () {});
+
+     // expect((tester.firstWidget(find.byType(MaterialApp)) as Material).color, Colors.blue[200]);
     });
 
     //showing job details
@@ -63,7 +67,6 @@ Future<void> appliedJobsTest()async{
       await driver.tap(keys.checkFavoriteUnfavorite);
       await Future.delayed(const Duration(seconds: 4), () {});
     });
-
   });
 
 }

@@ -112,7 +112,7 @@ class keys{
   static final clickOnFirstApplyKeyOnAppliedJobs = find.byValueKey('appliedApplyKey0');
   static final clickOnFirstTileOnAppliedJobs = find.byValueKey('appliedTileKey0');
   static final searchForJobDetails = find.text('Job Details');
-  static final checkFavoriteUnfavorite = find.byValueKey('appliedJobsListFavoriteButtonKey');
+  static final checkFavoriteUnfavorite = find.byValueKey('appliedJobsListFavoriteButtonKey0'); //click on 1st tile
   //Job segment - Favorite jobs
 
   static final clickOnFirstApplyKeyOnFavoriteJobs = find.byValueKey('favoriteApplyKey0');
