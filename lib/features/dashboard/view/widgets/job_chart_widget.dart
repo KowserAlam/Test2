@@ -118,51 +118,63 @@ class JobChartWidget extends StatelessWidget {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(left: 2, bottom: 8),
-                        child: Row(
-                          children: [
-                            Text(
-                              StringResources.monthlyJobsText,
-                              style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.bold),
-                            ),
-                          ],
+                        child: Text(
+                          StringResources.monthlyJobsText,
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                       ),
                       SizedBox(
                         height: 2,
                       ),
-                      Text(
-                        "for Skills ($skillsString)",
-                        textAlign: TextAlign.center,
-                      ),
-                      if (hasMoreText)
-                        Padding(
-                          padding: const EdgeInsets.only(top: 5),
-                          child: InkWell(
-                            onTap: () {
-                              dashboardViewModel.idExpandedSkillList =
-                                  !isExpanded;
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.all(3.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    isExpanded
-                                        ? StringResources.seeLessText
-                                        : StringResources.seeMoreText,
-                                    style: TextStyle(color: Colors.blue),
-                                  ),
-                                ],
-                              ),
+                      Text.rich(TextSpan(children: [
+                        TextSpan(text: "for Skills ($skillsString "),
+                        WidgetSpan(
+                            child: InkWell(
+                          onTap: () {
+                            dashboardViewModel.idExpandedSkillList =
+                                !isExpanded;
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 3),
+                            child: Text(
+                              !isExpanded
+                                  ? StringResources.seeMoreText
+                                  : StringResources.seeLessText,
+                              style: TextStyle(color: Colors.blue),
                             ),
                           ),
-                        ),
+                        )),
+                        TextSpan(text: ")"),
+                      ])),
+//                      if (hasMoreText)
+//                        Padding(
+//                          padding: const EdgeInsets.only(top: 5),
+//                          child: InkWell(
+//                            onTap: () {
+//                              dashboardViewModel.idExpandedSkillList =
+//                                  !isExpanded;
+//                            },
+//                            child: Padding(
+//                              padding: const EdgeInsets.all(3.0),
+//                              child: Row(
+//                                mainAxisAlignment: MainAxisAlignment.center,
+//                                children: [
+//                                  Text(
+//                                    isExpanded
+//                                        ? StringResources.seeLessText
+//                                        : StringResources.seeMoreText,
+//                                    style: TextStyle(color: Colors.blue),
+//                                  ),
+//                                ],
+//                              ),
+//                            ),
+//                          ),
+//                        ),
                     ],
                   ),
                 );
@@ -236,13 +248,12 @@ class JobChartWidget extends StatelessWidget {
                         includePoints: true, includeArea: true),
                     domainAxis: new charts.DateTimeAxisSpec(),
                     primaryMeasureAxis: new charts.NumericAxisSpec(
-                      showAxisLine: true,
+                        showAxisLine: true,
                         tickProviderSpec:
                             new charts.BasicNumericTickProviderSpec(
                                 desiredTickCount: 4)),
                   ),
                 ),
-
 
 //                Container(
 //                  padding: EdgeInsets.all(8),
