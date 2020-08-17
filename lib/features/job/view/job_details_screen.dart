@@ -1,4 +1,5 @@
 import 'dart:math';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dartz/dartz.dart' as dartZ;
 import 'package:flutter/cupertino.dart';
@@ -11,6 +12,7 @@ import 'package:p7app/features/company/view/company_details.dart';
 import 'package:p7app/features/job/models/job_model.dart';
 import 'package:p7app/features/job/repositories/job_repository.dart';
 import 'package:p7app/features/job/view/widgets/job_apply_button.dart';
+import 'package:p7app/features/job/view/widgets/share_on_social_media_widget.dart';
 import 'package:p7app/features/job/view/widgets/simelar_jobs_widget.dart';
 import 'package:p7app/features/job/view_model/applied_job_list_view_model.dart';
 import 'package:p7app/features/job/view_model/favourite_job_list_view_model.dart';
@@ -18,15 +20,14 @@ import 'package:p7app/features/job/view_model/job_list_view_model.dart';
 import 'package:p7app/main_app/api_helpers/url_launcher_helper.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
-import 'package:p7app/main_app/repositories/country_repository.dart';
 import 'package:p7app/main_app/resource/const.dart';
-import 'package:p7app/main_app/util/date_format_uitl.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
+import 'package:p7app/main_app/util/date_format_uitl.dart';
 import 'package:p7app/main_app/views/widgets/failure_widget.dart';
 import 'package:p7app/main_app/views/widgets/loader.dart';
+import 'package:p7app/method_extension.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:p7app/method_extension.dart';
 
 enum JobListScreenType { main, applied, favorite }
 
@@ -327,25 +328,32 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    GestureDetector(
-                      child: Text(
-                        jobDetails.company != null
-                            ? jobDetails.company.name
-                            : StringResources.noneText,
-                        style: jobDetails.company == null
-                            ? topSideDescriptionFontStyle
-                            : hasCompanyFontStyle,
-                      ),
-                      onTap: () {
-                        jobDetails.company != null
-                            ? Navigator.push(
-                                context,
-                                CupertinoPageRoute(
-                                    builder: (context) => CompanyDetails(
-                                          company: jobDetails.company,
-                                        )))
-                            : null;
-                      },
+                    Row(
+                      children: [
+                        Expanded(
+                          child: GestureDetector(
+                            child: Text(
+                              jobDetails.company != null
+                                  ? jobDetails.company.name
+                                  : StringResources.noneText,
+                              style: jobDetails.company == null
+                                  ? topSideDescriptionFontStyle
+                                  : hasCompanyFontStyle,
+                            ),
+                            onTap: () {
+                              jobDetails.company != null
+                                  ? Navigator.push(
+                                      context,
+                                      CupertinoPageRoute(
+                                          builder: (context) => CompanyDetails(
+                                                company: jobDetails.company,
+                                              )))
+                                  : null;
+                            },
+                          ),
+                        ),
+                        ShareOnSocialMediaWidget(jobDetails,key: Key("shareButtonKey"),),
+                      ],
                     ),
                     SizedBox(height: 5),
                   ],

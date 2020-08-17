@@ -25,6 +25,7 @@ class StringResources {
   /// Validator
 
   static String invalidEmail = "Invalid Email";
+  static String shareText = "Share";
   static String pleaseEnterDecimalValue = "Please enter numeric value";
   static String pleaseEnterEmailText = "Please enter email";
   static String pleaseEnterAValidEmailText = "Please enter a valid email";
