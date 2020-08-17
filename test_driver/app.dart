@@ -10,3 +10,5 @@ void main() {
   // any widget you are interested in testing.
   app.main();
 }
+//flutter drive --flavor dev --target=test_driver/app.dart
+//flutter drive --target=test_driver/app.dart -d macOS

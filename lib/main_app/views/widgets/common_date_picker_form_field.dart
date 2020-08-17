@@ -47,6 +47,7 @@ class _CommonDatePickerFormFieldState extends State<CommonDatePickerFormField> {
 //        SizedBox(
 //          height: 8,
 //        ),
+
         CustomTextFormField(
           errorText: widget.errorText,
           isRequired: widget.isRequired,
@@ -108,19 +109,19 @@ class _CommonDatePickerFormFieldState extends State<CommonDatePickerFormField> {
                         ),
                       ),
                     ),
-                    InkWell(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
+                    Center(
+                      child: FlatButton(
+                        key: Key("doneButtonKey"),
+                    color: Theme.of(context).primaryColor,
                           child: Icon(
                             Icons.done,
-                            color: Theme.of(context).primaryColor,
                           ),
-                        ),
-                        onTap: () {
-                          widget
-                              .onDateTimeChanged(widget.date ?? DateTime.now());
-                          Navigator.pop(context);
-                        }),
+                          onPressed: () {
+                            widget
+                                .onDateTimeChanged(widget.date ?? DateTime.now());
+                            Navigator.pop(context);
+                          }),
+                    ),
                   ],
                 ),
               ),
