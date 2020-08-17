@@ -76,11 +76,11 @@ class _HomeState extends State<Home> {
           // dashboard
           BottomNavigationBarItem(
               icon: Padding(
+              key: Key('bottomNavigationBarDashboard'),
                 padding: const EdgeInsets.only(
                   bottom: 3,
                 ),
-                child: Icon(FontAwesomeIcons.home,
-                    key: Key('bottomNavigationBarDashboard')),
+                child: Icon(FontAwesomeIcons.home,),
               ),
               title: Text(StringResources.dashBoardText)),
           //jobs
@@ -102,7 +102,6 @@ class _HomeState extends State<Home> {
                 padding: const EdgeInsets.only(bottom: 5),
                 child: Icon(
                   FontAwesomeIcons.solidBuilding,
-                  key: Key('bottomNavigationBarCompany'),
                 ),
               ),
               title: Text(StringResources.companyListAppbarText)),
