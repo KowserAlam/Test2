@@ -20,9 +20,7 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
   String appVersion = "";
-  var divider = Divider(
-    height: 1,
-  );
+  var divider = Divider(height: 1);
 
   _navigateTo(Widget screen) {
     Navigator.push(context, CupertinoPageRoute(builder: (context) => screen));
@@ -110,7 +108,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
         return ListTile(
           title: Text(
             snapshot.hasData ? "VERSION: $appVersion.$buildNumber" : "",
-            style: TextStyle(color: Colors.grey[600],fontSize: 15,fontWeight: FontWeight.bold),
+            style: TextStyle(
+                color: Colors.grey[600],
+                fontSize: 15,
+                fontWeight: FontWeight.bold),
           ),
         );
       },
@@ -118,7 +119,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
     var signOut = ListTile(
       title: Text(
         StringResources.signOutText,
-        style: TextStyle(color: Colors.grey[600],fontSize: 15,fontWeight: FontWeight.bold),
+        style: TextStyle(
+            color: Colors.grey[600], fontSize: 15, fontWeight: FontWeight.bold),
       ),
       onTap: () {
         _showSignOutDialog();
