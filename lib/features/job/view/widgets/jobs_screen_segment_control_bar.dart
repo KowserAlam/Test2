@@ -66,6 +66,7 @@ class JobsScreenSegmentControlBar extends StatelessWidget {
         child: Material(
           type: MaterialType.transparency,
           child: InkWell(
+            key: key,
             onTap: () {
               vm.onChange(index);
             },
