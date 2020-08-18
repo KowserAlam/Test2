@@ -68,6 +68,9 @@ class Keys{
 
   static final myProfilePortfolioAddKey = find.byValueKey('myProfilePortfolioAddKey');
   static final myProfilePortfolioPenKey = find.byValueKey('myProfilePortfolioPenKey');
+  static final portfolioTileEditButton = find.byValueKey('portfolioTileEditButton0');
+  static final portfolioTileDeleteButton = find.byValueKey('portfolioTileDeleteButton0');
+  static final portfolioTileName = find.byValueKey('portfolioTileName0');
 
 
   //Header Edit Screen
@@ -112,6 +115,7 @@ class Keys{
   //Portfolio
   static final portfolioAppbarTitle = find.byValueKey('portfolioAppbarTitle');
   static final portfolioName = find.byValueKey('portfolioName');
+  static final portfolioSaveButton = find.byValueKey('portfolioSaveButton');
   static final portfolioDescription = find.byValueKey('portfolioDescription');
 
   //Jobs Segment

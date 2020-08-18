@@ -294,6 +294,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
         children: List.generate(list.length, (index) {
           var port = list[index];
           return PortfolioListItemWidget(
+            index: index,
             isInEditMode: isInEditModePortfolio,
             onTapDelete: () async {
               var val = await _deleteConfirmationDialog();
