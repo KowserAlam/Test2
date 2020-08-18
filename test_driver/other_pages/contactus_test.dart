@@ -43,6 +43,13 @@ Future<void> contactUSTest()async{
       await driver.tap(Keys.backButton);
     });
 
+    test('Click on contact us tile', () async {
+      await driver.tap(Keys.tapOnNameField);
+
+    });
+
+
+
   });
 
 }
