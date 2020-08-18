@@ -33,7 +33,7 @@ class ProfileHeaderEditScreen extends StatefulWidget {
 
   const ProfileHeaderEditScreen({
     @required this.userModel,
-     this.focusAboutMe=false,
+    this.focusAboutMe = false,
   });
 }
 
@@ -75,7 +75,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
       _experienceList = value.fold((l) => [], (r) => r);
       setState(() {});
     });
-    if(widget.focusAboutMe){
+    if (widget.focusAboutMe) {
       _aboutMeFocusNode.requestFocus();
     }
     super.initState();
@@ -170,7 +170,10 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        title: Text(StringResources.editProfileText, key: Key('myProfileHeaderAppbarTitle'),),
+        title: Text(
+          StringResources.editProfileText,
+          key: Key('myProfileHeaderAppbarTitle'),
+        ),
         actions: <Widget>[
           EditScreenSaveButton(
             key: Key("myProfileHeaderSaveButton"),
@@ -302,10 +305,18 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
 //            ),
 
             SizedBox(height: 10),
+
+            /// experience
             CustomDropdownSearchFormField<String>(
               dropdownKey: Key('myProfileHeaderExperiencePerYearField'),
               labelText: StringResources.experienceInYear,
               items: _experienceList,
+              popupItemBuilder:
+                  (BuildContext context, String exp, bool selected) => ListTile(
+                key: Key(exp),
+                title: Text(exp),
+                enabled: _selectedExperience != exp,
+              ),
               selectedItem: _selectedExperience,
               onChanged: (v) {
                 _selectedExperience = v;
