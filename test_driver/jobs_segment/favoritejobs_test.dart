@@ -1,6 +1,7 @@
 import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
 import '../keys.dart';
+import 'alljobs_test.dart';
 
 
 main(){
@@ -51,6 +52,12 @@ Future<void> favoriteJobsTest()async{
       await driver.tap(Keys.backButton);
     });
 
+    test('Click on apply button on favorite jobs', () async{
+      await driver.tap(Keys.clickOnFirstApplyKeyOnAllJobs);
+      await Future.delayed(const Duration(seconds: 5), () {});
+      await driver.tap(Keys.dialogBoxNoButton);
+     });
+
     test('Check Unuavorite is working', () async {
       await driver.tap(Keys.checkFavoriteUnfavoriteFromFavoriteList);
       await Future.delayed(const Duration(seconds: 4), () {});
@@ -63,6 +70,6 @@ Future<void> favoriteJobsTest()async{
     });
 
   });
-
+  allJobsTest();
 }
 //flutter drive --flavor dev --target=test_driver/jobs_segment/favoritejobs.dart
