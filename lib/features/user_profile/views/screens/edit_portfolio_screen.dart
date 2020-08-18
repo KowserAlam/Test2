@@ -213,7 +213,7 @@ class _EditPortfolioState extends State<EditPortfolio> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(StringResources.portfolioText),
+        title: Text(StringResources.portfolioText, key: Key('portfolioAppbarTitle'),),
         actions: <Widget>[
           EditScreenSaveButton(
             text: StringResources.saveText,
@@ -243,6 +243,7 @@ class _EditPortfolioState extends State<EditPortfolio> {
                     keyboardType: TextInputType.text,
                     focusNode: _portfolioNameFocusNode,
                     textInputAction: TextInputAction.next,
+                    textFieldKey: Key('portfolioName'),
                     onFieldSubmitted: (a) {
                       FocusScope.of(context)
                           .requestFocus(_portfolioDescriptionFocusNode);
@@ -258,6 +259,7 @@ class _EditPortfolioState extends State<EditPortfolio> {
                     labelText: StringResources.descriptionText,
                     focusNode: _portfolioDescriptionFocusNode,
                     controller: _descriptionZefyrController,
+                    zefyrKey: Key('portfolioDescription'),
                   ),
 //                CustomTextFormField(
 //                  keyboardType: TextInputType.multiline,

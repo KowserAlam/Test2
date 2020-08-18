@@ -279,6 +279,8 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
 
       return UserInfoListItem(
         isInEditMode: isInEditModePortfolio,
+        addKey: Key('myProfilePortfolioAddKey'),
+        penKey: Key('myProfilePortfolioPenKey'),
         onTapEditAction: () {
           isInEditModePortfolio = !isInEditModePortfolio;
           setState(() {});
