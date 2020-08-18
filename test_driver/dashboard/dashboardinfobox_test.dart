@@ -1,7 +1,7 @@
 import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
 import '../keys.dart';
-import '../jobs_segment//appliedjobs_test.dart';
+import '../jobs_segment/appliedjobs_test.dart';
 
 
 
@@ -118,6 +118,7 @@ Future dashboardInfoBoxTest() async{
       //await Future.delayed(const Duration(seconds: 6), () {});
       await driver.tap(backButton);
     });
+
     appliedJobsTest();
   });
 

@@ -107,10 +107,14 @@ class Keys{
   //Jobs Segment
   static final clickOnAppliedJobsFromSegmentScreen = find.byValueKey('jobsSegmentAppliedText');
   static final clickOnFavoriteJobsFromSegmentScreen = find.byValueKey('jobsSegmentFavoriteText');
-  static final clickOnAllFromSegmentScreen = find.byValueKey('jobsSegmentAllText');
+  static final clickOnAllJobsFromSegmentScreen = find.byValueKey('jobsSegmentAllText');
 
+  //Jobs Segment - All jobs
   static final clickOnFirstApplyKeyOnAllJobs = find.byValueKey('allJobsApplyKey0');
   static final clickOnFirstTileOnAllJobs = find.byValueKey('allJobsTileKey0');
+  static final checkFavoriteUnfavoriteFromAllJobsList = find.byValueKey('allJobsListFavoriteButtonKey0'); //click on 1st tile
+  static final dialogBoxNoButton = find.text('No');
+
 
   //Job Segment - Applied Jobs
   static final clickOnFirstApplyKeyOnAppliedJobs = find.byValueKey('appliedApplyKey0');
