@@ -10,6 +10,7 @@ import 'package:p7app/main_app/app_theme/common_style.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/validator.dart';
+import 'package:p7app/main_app/views/widgets/custom_searchable_dropdown_from_field.dart';
 import 'package:p7app/main_app/views/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/views/widgets/edit_screen_save_button.dart';
 import 'package:p7app/main_app/views/widgets/loader.dart';
@@ -32,8 +33,9 @@ class _AddEditProfessionalSkillState extends State<AddEditProfessionalSkill> {
   final SkillInfo technicalSkill;
   final int index;
   bool loading;
-  static List<Skill> searchList=[];
-  static TextEditingController searchController = new TextEditingController();
+  static List<Skill> searchList = [];
+
+//  static TextEditingController searchController = new TextEditingController();
   TextEditingController ratingController = new TextEditingController();
 
   _AddEditProfessionalSkillState(this.technicalSkill, this.index);
@@ -43,13 +45,12 @@ class _AddEditProfessionalSkillState extends State<AddEditProfessionalSkill> {
   Future<List<Skill>> _skillList;
   static Skill _selectedSkill;
 
-
   initState() {
     loading = true;
     ratingController.text =
         widget.skillInfo == null ? "" : widget.skillInfo.rating.toString();
-    searchController.text =
-        widget.skillInfo == null ? "" : widget.skillInfo.skill.name;
+//    searchController.text =
+//        widget.skillInfo == null ? "" : widget.skillInfo.skill.name;
     _selectedSkill = widget.skillInfo == null ? null : widget.skillInfo.skill;
     _getSkillList();
     super.initState();
@@ -64,23 +65,23 @@ class _AddEditProfessionalSkillState extends State<AddEditProfessionalSkill> {
             }));
   }
 
-  bool correctInput(String input) {
-    int x = 0;
-    for (int i = 0; i < searchList.length; i++) {
-      if (input.toLowerCase() == searchList[i].name.toLowerCase()) {
-        _selectedSkill = searchList[i];
-        x++;
-      }
-    }
-    if (x == 0) {
-      return false;
-    } else {
-      return true;
-    }
-    ;
-  }
+//  bool correctInput(String input) {
+//    int x = 0;
+//    for (int i = 0; i < searchList.length; i++) {
+//      if (input.toLowerCase() == searchList[i].name.toLowerCase()) {
+//        _selectedSkill = searchList[i];
+//        x++;
+//      }
+//    }
+//    if (x == 0) {
+//      return false;
+//    } else {
+//      return true;
+//    }
+//    ;
+//  }
 
-  bool sameSkill(String input) {
+  bool _isSkillAlreadyExist(String input) {
     int x = 0;
     for (int i = 0; i < widget.previouslyAddedSkills.length; i++) {
       if (input.toLowerCase() ==
@@ -89,154 +90,172 @@ class _AddEditProfessionalSkillState extends State<AddEditProfessionalSkill> {
       }
     }
     if (x == 0) {
-      return true;
-    } else {
       return false;
+    } else {
+      return true;
     }
-    ;
+  }
+
+  bool _isUpdating() => widget.skillInfo != null;
+
+  String _skillValidator(Skill skill) {
+    if (skill == null) {
+      return StringResources.thisFieldIsRequired;
+    }
+
+    if (_isUpdating()) {
+      bool isSkillChanged =
+          _selectedSkill?.name != widget?.skillInfo?.skill?.name;
+      if (isSkillChanged) {
+        if (_isSkillAlreadyExist(_selectedSkill.name)) {
+          return StringResources.youHaveAlreadyAddedThisSkillBeforeText;
+        }
+      } else {
+        return null;
+      }
+    } else {
+      if (_isSkillAlreadyExist(_selectedSkill.name)) {
+        return StringResources.youHaveAlreadyAddedThisSkillBeforeText;
+      }
+    }
+
+    return null;
   }
 
   _handleSave() {
     bool isValid = _formKey.currentState.validate();
     if (isValid) {
-      print(searchController.text);
-      if (correctInput(searchController.text)) {
-        if (widget.skillInfo == null) {
-          if (sameSkill(searchController.text)) {
-            var skillInfo = SkillInfo(
-              profSkillId: widget.skillInfo?.profSkillId,
-              rating: double.parse(ratingController.text),
-              skill: _selectedSkill,
-            );
-            print('Adding');
+      if (widget.skillInfo == null) {
+        var skillInfo = SkillInfo(
+          profSkillId: widget.skillInfo?.profSkillId,
+          rating: double.parse(ratingController.text),
+          skill: _selectedSkill,
+        );
 
-            /// adding new data
-            Provider.of<UserProfileViewModel>(context, listen: false)
-                .addSkillData(skillInfo)
-                .then((value) {
-              if (value) {
-                Navigator.pop(context);
-              }
-            });
-          } else {
-            BotToast.showText(text: StringResources.previouslyAddedSkillText);
+        /// adding new data
+        Provider.of<UserProfileViewModel>(context, listen: false)
+            .addSkillData(skillInfo)
+            .then((value) {
+          if (value) {
+            Navigator.pop(context);
           }
-        } else {
-          var updatedSKill = SkillInfo(
-            profSkillId: widget.skillInfo?.profSkillId,
-            rating: double.parse(ratingController.text),
-            skill: _selectedSkill,
-          );
-          print('Updating');
-          print(updatedSKill.skill.name);
-
-          /// updating existing data
-          if (updatedSKill.skill == widget.skillInfo.skill) {
-            Provider.of<UserProfileViewModel>(context, listen: false)
-                .updateSkillData(updatedSKill, widget.index)
-                .then((value) {
-              if (value) {
-                Navigator.pop(context);
-              }
-            });
-          } else {
-            if (sameSkill(searchController.text)) {
-              Provider.of<UserProfileViewModel>(context, listen: false)
-                  .updateSkillData(updatedSKill, widget.index)
-                  .then((value) {
-                if (value) {
-                  Navigator.pop(context);
-                }
-              });
-            } else {
-              BotToast.showText(text: StringResources.previouslyAddedSkillText);
-            }
-          }
-        }
+        });
       } else {
-        BotToast.showText(text: StringResources.enterValidSkillText);
+        var updatedSKill = SkillInfo(
+          profSkillId: widget.skillInfo?.profSkillId,
+          rating: double.parse(ratingController.text),
+          skill: _selectedSkill,
+        );
+
+        /// updating existing data
+        Provider.of<UserProfileViewModel>(context, listen: false)
+            .updateSkillData(updatedSKill, widget.index)
+            .then((value) {
+          if (value) {
+            Navigator.pop(context);
+          }
+        });
       }
     }
   }
 
-  List<Skill> filter(String pattern, List<Skill> a) {
-    searchList = a;
-    return a
-        .where(
-            (item) => item.name.toLowerCase().contains(pattern.toLowerCase()))
-        .toList();
-//    a.removeWhere((item) => !item.name.toLowerCase().contains(pattern.toLowerCase()));
-//    return a;
-  }
+//  List<Skill> filter(String pattern, List<Skill> a) {
+//    searchList = a;
+//    return a
+//        .where(
+//            (item) => item.name.toLowerCase().contains(pattern.toLowerCase()))
+//        .toList();
+////    a.removeWhere((item) => !item.name.toLowerCase().contains(pattern.toLowerCase()));
+////    return a;
+//  }
 
   @override
   Widget build(BuildContext context) {
-    var skillName = Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text("  " + StringResources.skillNameText ?? "",
-            style: TextStyle(fontWeight: FontWeight.bold)),
-        SizedBox(
-          height: 5,
-        ),
-        Container(
-          decoration: BoxDecoration(
-            color: Theme.of(context).backgroundColor,
-            borderRadius: BorderRadius.circular(7),
-            boxShadow: CommonStyle.boxShadow,
-          ),
-          child: TypeAheadFormField<Skill>(
-            key: Key('skillAddField'),
-            textFieldConfiguration: TextFieldConfiguration(
-                controller: searchController,
-                decoration: InputDecoration(
-                  hintText: StringResources.searchSkillText,
-                  border: InputBorder.none,
-                  contentPadding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                  focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(7),
-                      borderSide:
-                          BorderSide(color: Theme.of(context).primaryColor)),
-                )),
-            itemBuilder: (BuildContext context, Skill skill) {
-              return Container(
-                padding: EdgeInsets.all(8),
-                child: Text(skill.name ?? ""),
-              );
-            },
-            onSuggestionSelected: (Skill suggestion) {
-              print(suggestion.name);
-              searchController.text = suggestion.name;
-              _selectedSkill = suggestion;
-              setState(() {});
-            },
-            suggestionsBoxDecoration: SuggestionsBoxDecoration(
-              borderRadius: BorderRadius.circular(5),
-            ),
-            suggestionsCallback: (String pattern) async =>
-                filter(pattern, await _skillList),
-            loadingBuilder: (_) => Loader(),
-            validator: (v) {
-              return v.length < 2 ? StringResources.typeAtLeast2Letter : null;
-            },
-          ),
-        ),
-//        if (searchController != null)
-//          Padding(
-//            padding: const EdgeInsets.all(8.0),
-//            child: Text(
-//              "error",
-//              style: TextStyle(color: Colors.red),
-//            ),
+//    var skillName2 = Column(
+//      crossAxisAlignment: CrossAxisAlignment.start,
+//      children: <Widget>[
+//        Text("  " + StringResources.skillNameText ?? "",
+//            style: TextStyle(fontWeight: FontWeight.bold)),
+//        SizedBox(
+//          height: 5,
+//        ),
+//        Container(
+//          decoration: BoxDecoration(
+//            color: Theme.of(context).backgroundColor,
+//            borderRadius: BorderRadius.circular(7),
+//            boxShadow: CommonStyle.boxShadow,
 //          ),
-      ],
+//          child: TypeAheadFormField<Skill>(
+//            key: Key('skillAddField'),
+//            textFieldConfiguration: TextFieldConfiguration(
+//                controller: searchController,
+//                decoration: InputDecoration(
+//                  hintText: StringResources.searchSkillText,
+//                  border: InputBorder.none,
+//                  contentPadding:
+//                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+//                  focusedBorder: OutlineInputBorder(
+//                      borderRadius: BorderRadius.circular(7),
+//                      borderSide:
+//                          BorderSide(color: Theme.of(context).primaryColor)),
+//                )),
+//            itemBuilder: (BuildContext context, Skill skill) {
+//              return Container(
+//                padding: EdgeInsets.all(8),
+//                child: Text(skill.name ?? ""),
+//              );
+//            },
+//            onSuggestionSelected: (Skill suggestion) {
+//              print(suggestion.name);
+//              searchController.text = suggestion.name;
+//              _selectedSkill = suggestion;
+//              setState(() {});
+//            },
+//            suggestionsBoxDecoration: SuggestionsBoxDecoration(
+//              borderRadius: BorderRadius.circular(5),
+//            ),
+//            suggestionsCallback: (String pattern) async =>
+//                filter(pattern, await _skillList),
+//            loadingBuilder: (_) => Loader(),
+//            validator: (v) {
+//              return v.length < 2 ? StringResources.typeAtLeast2Letter : null;
+//            },
+//          ),
+//        ),
+////        if (searchController != null)
+////          Padding(
+////            padding: const EdgeInsets.all(8.0),
+////            child: Text(
+////              "error",
+////              style: TextStyle(color: Colors.red),
+////            ),
+////          ),
+//      ],
+//    );
+    var skillName = FutureBuilder(
+      future: _skillList,
+      builder: (BuildContext context, AsyncSnapshot<List<Skill>> snapshot) {
+        return CustomDropdownSearchFormField<Skill>(
+          showSearchBox: true,
+          isRequired: true,
+          validator: _skillValidator,
+          labelText: StringResources.skillNameText,
+          items: snapshot.data,
+          selectedItem: _selectedSkill,
+          onChanged: (v) {
+            _selectedSkill = v;
+          },
+        );
+      },
     );
 
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        title: Text(StringResources.professionalSkillText, key: Key('professionalSkillAppbarTitle'),),
+        title: Text(
+          StringResources.professionalSkillText,
+          key: Key('professionalSkillAppbarTitle'),
+        ),
         actions: <Widget>[
           EditScreenSaveButton(
             key: Key('skillSaveButton'),
@@ -246,13 +265,13 @@ class _AddEditProfessionalSkillState extends State<AddEditProfessionalSkill> {
         ],
       ),
       body: RefreshIndicator(
-        onRefresh: (){
+        onRefresh: () {
           _skillList = SkillListRepository()
               .getSkillList(forceGetFromServer: true)
               .then((value) => value.fold((l) => [], (r) {
-            if (this.mounted) setState(() {});
-            return r;
-          }));
+                    if (this.mounted) setState(() {});
+                    return r;
+                  }));
           return _skillList;
         },
         child: ListView(
@@ -342,6 +361,7 @@ class _AddEditProfessionalSkillState extends State<AddEditProfessionalSkill> {
                       height: 30,
                     ),
                     CustomTextFormField(
+                      isRequired: true,
                       textFieldKey: Key('skillExpertise'),
                       keyboardType: TextInputType.number,
                       controller: ratingController,
