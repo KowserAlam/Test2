@@ -255,6 +255,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                       SizedBox(height: 10,),
                       CustomTextFormField(
                         hintText: StringResources.contactUsNameText,
+                        textFieldKey: Key('contactUsNameTextField'),
                         controller: nameController,
                         validator: Validator().nullFieldValidate,
                         onFieldSubmitted: (v){
@@ -265,6 +266,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                       spaceBetweenLines,
                       CustomTextFormField(
                         hintText: StringResources.contactUsEmailText,
+                        textFieldKey: Key('contactUsEmailTextField'),
                         controller: emailController,
                         keyboardType: TextInputType.emailAddress,
                         validator: Validator().validateEmail,
@@ -277,6 +279,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                       spaceBetweenLines,
                       CustomTextFormField(
                         hintText: StringResources.contactUsPhoneText,
+                        textFieldKey: Key('contactUsPhoneTextField'),
                         controller: phoneController,
                         keyboardType: TextInputType.number,
                         validator: Validator().validatePhoneNumber,
@@ -289,6 +292,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                       spaceBetweenLines,
                       CustomTextFormField(
                         hintText: StringResources.contactUsSubjectText,
+                        textFieldKey: Key('contactUsSubjectTextField'),
                         controller: subjectController,
                         validator: Validator().nullFieldValidate,
                         focusNode: subjectFocusNode,
@@ -300,6 +304,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                       spaceBetweenLines,
                       CustomTextFormField(
                         hintText: StringResources.contactUsMessageText,
+                        textFieldKey: Key('contactUsMessageTextField'),
                         controller: messageController,
                         validator: Validator().nullFieldValidate,
                         maxLines: 5,
@@ -316,6 +321,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
             padding: EdgeInsets.symmetric(horizontal: 80),
             child: CommonButton(
               label: 'Submit',
+              key: Key('contactUsSubmitButtonKey'),
               onTap: (){
                 _handleSave();
               },
