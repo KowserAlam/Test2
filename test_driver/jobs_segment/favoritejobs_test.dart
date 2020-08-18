@@ -27,19 +27,19 @@ Future<void> favoriteJobsTest()async{
     //test cases are started from here
 
     //remove comment when it needs to be run individually
-    /*test('login with registered email and password', () async {
-      await driver.tap(keys.signInEmail);
+     /* test('login with registered email and password', () async {
+      await driver.tap(Keys.signInEmail);
       await driver.enterText('mahmudoni01@gmail.com');
-      await driver.tap(keys.signInPassword);
+      await driver.tap(Keys.signInPassword);
       await driver.enterText('1234567r');
-      await driver.tap(keys.signInButton);
+      await driver.tap(Keys.signInButton);
       await Future.delayed(const Duration(seconds: 3), () {});
-    });*/
-    /*test('Click on Jobs from bottom navigation bar', () async {
-      await driver.tap(keys.bottomNavigationBarJobs);
+    });
+      test('Click on Jobs from bottom navigation bar', () async {
+      await driver.tap(Keys.bottomNavigationBarJobs);
       await Future.delayed(const Duration(seconds: 10), () {});
-    });*/
-
+    });
+*/
     test('Go to Favorited Jobs list on jobs Screen segment control bar', () async {
       await driver.tap(Keys.clickOnFavoriteJobsFromSegmentScreen);
       await Future.delayed(const Duration(seconds: 5), () {});
@@ -53,12 +53,12 @@ Future<void> favoriteJobsTest()async{
     });
 
     test('Click on apply button on favorite jobs', () async{
-      await driver.tap(Keys.clickOnFirstApplyKeyOnAllJobs);
+      await driver.tap(Keys.clickOnFirstApplyKeyOnFavoriteJobs);
       await Future.delayed(const Duration(seconds: 5), () {});
       await driver.tap(Keys.dialogBoxNoButton);
      });
 
-    test('Check Unuavorite is working', () async {
+    /*test('Check Unuavorite is working', () async {
       await driver.tap(Keys.checkFavoriteUnfavoriteFromFavoriteList);
       await Future.delayed(const Duration(seconds: 4), () {});
     });
@@ -67,7 +67,7 @@ Future<void> favoriteJobsTest()async{
       await driver.tap(Keys.checkFavoriteUnfavoriteFromFavoriteList);
       await Future.delayed(const Duration(seconds: 4), () {});
 
-    });
+    });*/
 
   });
   allJobsTest();
