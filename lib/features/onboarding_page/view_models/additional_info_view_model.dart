@@ -39,7 +39,7 @@ class AdditionalInfoViewModel with ChangeNotifier {
     return;
   }
 
-  removeSkill(int id) {
+  removeSkill(String id) {
     _selectedSkills.removeWhere((element) => element.profSkillId == id);
     notifyListeners();
   }
