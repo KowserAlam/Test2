@@ -123,10 +123,17 @@ class Keys{
   static final checkFavoriteUnfavoriteFromAppliedList = find.byValueKey('appliedJobsListFavoriteButtonKey0'); //click on 1st tile
 
   //Job segment - Favorite jobs
-
   static final clickOnFirstApplyKeyOnFavoriteJobs = find.byValueKey('favoriteApplyKey0');
   static final clickOnFirstTileOnFavoriteJobs = find.byValueKey('favoriteTileKey0');
   static final checkFavoriteUnfavoriteFromFavoriteList = find.byValueKey('favoriteFavoriteButtonKey0'); //click on 1st tile
+
+  //Contact Us
+  static final tapOnNameField = find.text('Name');
+  static final tapOnEmailField = find.text('Email');
+  static final tapOnPhoneField = find.text('Phone');
+  static final tapOnSubjectField = find.text('Subject');
+  static final tapOnMessageField = find.text('Message');
+  static final tapOnSubmitButton = find.text('Submit');
 
 
 
