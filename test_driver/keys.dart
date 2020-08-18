@@ -2,8 +2,9 @@ import 'package:flutter_driver/flutter_driver.dart';
 
 class Keys{
 
-  //app bar back button
+  //Common keys
   static final backButton = find.byTooltip('Back');
+  static final doneButtonKey = find.byTooltip('doneButtonKey');
 
   //Sign in screen
   static final signInEmail = find.byValueKey('signInEmail');
@@ -65,6 +66,9 @@ class Keys{
   static final myProfileReferencesTileDeleteButton1 = find.byValueKey('myProfileReferencesTileDeleteButton1');
   static final referenceTileDescription1 = find.byValueKey('referenceTileDescription1');
 
+  static final myProfilePortfolioAddKey = find.byValueKey('myProfilePortfolioAddKey');
+  static final myProfilePortfolioPenKey = find.byValueKey('myProfilePortfolioPenKey');
+
 
   //Header Edit Screen
   static final myProfileHeaderAppbarTitle = find.byValueKey('myProfileHeaderAppbarTitle');
@@ -83,12 +87,13 @@ class Keys{
 
   //Work Experience
   static final workExperienceAppbarTitleKey = find.byValueKey('workExperienceAppbarTitleKey');
-  //static final workExperienceAppbarTitleKey = find.byValueKey('workExperienceAppbarTitleKey');
+  static final workExperienceSaveButton = find.byValueKey('workExperienceSaveButton');
   static final experienceDesignationKey = find.byValueKey('experienceDesignationKey');
   static final experienceDescriptionKey = find.byValueKey('experienceDescriptionKey');
   static final experienceCurrentlyWorkingKey = find.byValueKey('experienceCurrentlyWorkingKey');
-//  static final workExperienceAppbarTitleKey = find.byValueKey('workExperienceAppbarTitleKey');
-//  static final workExperienceAppbarTitleKey = find.byValueKey('workExperienceAppbarTitleKey');
+  static final experienceCompanyName = find.byValueKey('experienceCompanyName');
+  static final experienceLeavingDate = find.byValueKey('experienceLeavingDate');
+  static final experienceJoiningDate = find.byValueKey('experienceJoiningDate');
 
 
 
@@ -103,6 +108,11 @@ class Keys{
   static final referencesAppbarTitle = find.byValueKey('referencesAppbarTitle');
   static final myProfileReferencesSaveButton = find.byValueKey('myProfileReferencesSaveButton');
   static final referencesDescription = find.byValueKey('referencesDescription');
+
+  //Portfolio
+  static final portfolioAppbarTitle = find.byValueKey('portfolioAppbarTitle');
+  static final portfolioName = find.byValueKey('portfolioName');
+  static final portfolioDescription = find.byValueKey('portfolioDescription');
 
   //Jobs Segment
   static final clickOnAppliedJobsFromSegmentScreen = find.byValueKey('jobsSegmentAppliedText');

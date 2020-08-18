@@ -203,6 +203,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
             boxShadow: CommonStyle.boxShadow,
           ),
           child: TypeAheadFormField<Company>(
+            key: Key('experienceCompanyName'),
             textFieldConfiguration: TextFieldConfiguration(
                 controller: _companyNameController,
                 decoration: InputDecoration(
@@ -287,6 +288,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
             EditScreenSaveButton(
               text: StringResources.saveText,
               onPressed: _handleSave,
+              key: Key('workExperienceSaveButton'),
             ),
           ],
         ),
@@ -331,6 +333,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
                           errorText: _joiningDateErrorText,
                           label: StringResources.joiningDateText,
                           date: _joiningDate,
+                          dateFieldKey: Key('experienceJoiningDate'),
                           onDateTimeChanged: (v) {
                             setState(() {
                               _joiningDate = v;
@@ -368,6 +371,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
                             errorText: _leavingDateErrorText,
                             label: StringResources.leavingDateText,
                             date: _leavingDate,
+                            dateFieldKey: Key('experienceLeavingDate'),
                             onDateTimeChanged: (v) {
                               setState(() {
                                 _leavingDate = v;

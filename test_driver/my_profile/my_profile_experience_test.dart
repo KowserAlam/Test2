@@ -46,6 +46,31 @@ void main() {
       await Future.delayed(const Duration(seconds: 5), (){});
     });
 
+    test('Try to save while all fields are empty', () async {
+      await driver.tap(Keys.workExperienceSaveButton);
+      await expect(await driver.getText(Keys.workExperienceAppbarTitleKey), 'Work Experience');
+      await Future.delayed(const Duration(seconds: 5), (){});
+    });
+
+    test('Try to save while only company is filled from our list of companies', () async {
+      await driver.tap(Keys.experienceCompanyName);
+      await driver.enterText('Ishraak Solutions');
+      await driver.tap(Keys.workExperienceSaveButton);
+      await expect(await driver.getText(Keys.workExperienceAppbarTitleKey), 'Work Experience');
+      await Future.delayed(const Duration(seconds: 5), (){});
+    });
+
+    test('Try to save while only company is filled from our list of companies', () async {
+      await driver.tap(Keys.experienceJoiningDate);
+      print('click 1');
+      await Future.delayed(const Duration(seconds: 3), (){});
+      print('click 2');
+      await driver.tap(Keys.doneButtonKey);
+      await driver.tap(Keys.workExperienceSaveButton);
+      //await expect(await driver.getText(Keys.workExperienceAppbarTitleKey), 'Work Experience');
+      await Future.delayed(const Duration(seconds: 10), (){});
+    });
+
 
 
   });
