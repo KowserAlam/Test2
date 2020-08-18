@@ -114,6 +114,7 @@ class _AllJobListScreenState extends State<AllJobListScreen>
           Padding(
             padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
             child: CustomTextField(
+              textFieldKey: Key("jobListSearchInputFieldKey"),
               textInputAction: TextInputAction.search,
               focusNode: _searchFieldFocusNode,
               onChanged: (v) => jobListViewModel.jobListFilters.searchQuery,
@@ -122,6 +123,7 @@ class _AllJobListScreenState extends State<AllJobListScreen>
                 jobListViewModel.search(_searchTextEditingController.text);
               },
               suffixIcon: IconButton(
+                key: Key("jobListSearchButtonKey"),
                 icon: Icon(Icons.search),
                 onPressed: () {
 //                  if (_searchTextEditingController.text.isNotEmpty)
@@ -155,6 +157,7 @@ class _AllJobListScreenState extends State<AllJobListScreen>
           title: Text(StringResources.jobsText),
           actions: [
             IconButton(
+              key: Key("jobListSearchToggleButtonKey"),
               icon: Icon(isInSearchMode ? Icons.close : Icons.search),
               onPressed: () {
                 _searchTextEditingController?.clear();
@@ -168,6 +171,7 @@ class _AllJobListScreenState extends State<AllJobListScreen>
               },
             ),
             IconButton(
+              key: Key("filterButtonKey"),
               icon: Icon(Icons.filter_list),
               onPressed: () {
                 _scaffoldKey.currentState.openEndDrawer();

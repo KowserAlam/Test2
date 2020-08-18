@@ -1,23 +1,15 @@
 import 'package:after_layout/after_layout.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:p7app/features/auth/view/widgets/custom_text_field_rounded.dart';
+import 'package:flutter/material.dart';
 import 'package:p7app/features/job/models/job_list_model.dart';
 import 'package:p7app/features/job/view/job_details_screen.dart';
+import 'package:p7app/features/job/view/widgets/job_list_tile_widget.dart';
 import 'package:p7app/features/job/view/widgets/jobs_screen_segment_control_bar.dart';
-
 import 'package:p7app/features/job/view/widgets/no_favourite_jobs_widget.dart';
-import 'package:p7app/features/job/view_model/applied_job_list_view_model.dart';
 import 'package:p7app/features/job/view_model/favourite_job_list_view_model.dart';
 import 'package:p7app/features/job/view_model/job_list_view_model.dart';
-import 'package:p7app/features/job/models/job_model.dart';
-import 'package:p7app/features/job/view/widgets/job_list_tile_widget.dart';
-import 'package:p7app/main_app/app_theme/app_theme.dart';
-import 'package:p7app/main_app/flavour/flavor_banner.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
-import 'package:p7app/main_app/views/app_drawer.dart';
-import 'package:flutter/material.dart';
 import 'package:p7app/main_app/views/widgets/common_prompt_dialog.dart';
-import 'package:p7app/main_app/views/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/views/widgets/loader.dart';
 import 'package:provider/provider.dart';
 
