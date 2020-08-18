@@ -45,11 +45,11 @@ class UserProfileRepository {
         return left(AppError.httpError);
       }
     } on SocketException catch (e) {
-      logger.i(e);
+      logger.e(e);
       BotToast.showText(text: StringResources.unableToReachServerMessage);
       return left(AppError.networkError);
     } catch (e) {
-      logger.i(e);
+      logger.e(e);
       BotToast.showText(text: StringResources.somethingIsWrong);
       return left(AppError.serverError);
     }
@@ -93,12 +93,12 @@ class UserProfileRepository {
     } on SocketException catch (e) {
       BotToast.closeAllLoading();
       BotToast.showText(text: StringResources.unableToReachServerMessage);
-      logger.i(e);
+      logger.e(e);
       return left(AppError.networkError);
     } catch (e) {
       BotToast.closeAllLoading();
       BotToast.showText(text: StringResources.unableToSaveData);
-      logger.i(e);
+      logger.e(e);
       return left(AppError.serverError);
     }
   }
@@ -130,12 +130,12 @@ class UserProfileRepository {
     } on SocketException catch (e) {
       BotToast.closeAllLoading();
       BotToast.showText(text: StringResources.unableToSaveData);
-      logger.i(e);
+      logger.e(e);
       return left(AppError.networkError);
     } catch (e) {
       BotToast.closeAllLoading();
       BotToast.showText(text: StringResources.unableToSaveData);
-      logger.i(e);
+      logger.e(e);
       return left(AppError.serverError);
     }
   }
@@ -166,12 +166,12 @@ class UserProfileRepository {
     } on SocketException catch (e) {
       BotToast.closeAllLoading();
       BotToast.showText(text: StringResources.unableToSaveData);
-      logger.i(e);
+      logger.e(e);
       return left(AppError.networkError);
     } catch (e) {
       BotToast.closeAllLoading();
       BotToast.showText(text: StringResources.unableToSaveData);
-      logger.i(e);
+      logger.e(e);
       return left(AppError.serverError);
     }
   }
@@ -197,12 +197,12 @@ class UserProfileRepository {
     } on SocketException catch (e) {
       BotToast.closeAllLoading();
       BotToast.showText(text: StringResources.unableToSaveData);
-      logger.i(e);
+      logger.e(e);
       return left(AppError.networkError);
     } catch (e) {
       BotToast.closeAllLoading();
       BotToast.showText(text: StringResources.unableToSaveData);
-      logger.i(e);
+      logger.e(e);
       return left(AppError.serverError);
     }
   }
@@ -219,11 +219,13 @@ class UserProfileRepository {
 
     try {
       var response = await ApiClient().postRequest(url, data);
-//      logger.i(response.statusCode);
-//      logger.i(response.body);
+      logger.i(response.statusCode);
+      logger.i(response.body);
       if (response.statusCode == 200) {
         BotToast.closeAllLoading();
-        SkillInfo data = SkillInfo.fromJson(json.decode(response.body));
+        var decodedJson = json.decode(response.body);
+        logger.i(decodedJson);
+        SkillInfo data = SkillInfo.fromJson(decodedJson);
         return Right(data);
       } else {
         BotToast.closeAllLoading();
@@ -233,12 +235,12 @@ class UserProfileRepository {
     } on SocketException catch (e) {
       BotToast.closeAllLoading();
       BotToast.showText(text: StringResources.unableToSaveData);
-      logger.i(e);
+      logger.e(e);
       return left(AppError.networkError);
     } catch (e) {
       BotToast.closeAllLoading();
       BotToast.showText(text: StringResources.unableToSaveData);
-      logger.i(e);
+      logger.e(e);
       return left(AppError.serverError);
     }
   }
@@ -271,12 +273,12 @@ class UserProfileRepository {
     } on SocketException catch (e) {
       BotToast.closeAllLoading();
       BotToast.showText(text: StringResources.unableToSaveData);
-      logger.i(e);
+      logger.e(e);
       return left(AppError.networkError);
     } catch (e) {
       BotToast.closeAllLoading();
       BotToast.showText(text: StringResources.unableToSaveData);
-      logger.i(e);
+      logger.e(e);
       return left(AppError.serverError);
     }
   }
@@ -288,8 +290,8 @@ class UserProfileRepository {
 
     try {
       var response = await ApiClient().putRequest(url, data);
-//      logger.i(response.statusCode);
-//      logger.i(response.body);
+      logger.i(response.statusCode);
+      logger.i(response.body);
       if (response.statusCode == 200) {
         BotToast.closeAllLoading();
         return Right(true);
@@ -301,12 +303,12 @@ class UserProfileRepository {
     } on SocketException catch (e) {
       BotToast.closeAllLoading();
       BotToast.showText(text: StringResources.unableToSaveData);
-      logger.i(e);
+      logger.e(e);
       return left(AppError.networkError);
     } catch (e) {
       BotToast.closeAllLoading();
       BotToast.showText(text: StringResources.unableToSaveData);
-      logger.i(e);
+      logger.e(e);
       return left(AppError.serverError);
     }
   }
@@ -339,12 +341,12 @@ class UserProfileRepository {
     } on SocketException catch (e) {
       BotToast.closeAllLoading();
       BotToast.showText(text: StringResources.unableToSaveData);
-      logger.i(e);
+      logger.e(e);
       return left(AppError.networkError);
     } catch (e) {
       BotToast.closeAllLoading();
       BotToast.showText(text: StringResources.unableToSaveData);
-      logger.i(e);
+      logger.e(e);
       return left(AppError.serverError);
     }
   }
@@ -377,12 +379,12 @@ class UserProfileRepository {
     } on SocketException catch (e) {
       BotToast.closeAllLoading();
       BotToast.showText(text: StringResources.unableToSaveData);
-      logger.i(e);
+      logger.e(e);
       return left(AppError.networkError);
     } catch (e) {
       BotToast.closeAllLoading();
       BotToast.showText(text: StringResources.unableToSaveData);
-      logger.i(e);
+      logger.e(e);
       return left(AppError.serverError);
     }
   }
@@ -409,12 +411,12 @@ class UserProfileRepository {
     } on SocketException catch (e) {
       BotToast.closeAllLoading();
       BotToast.showText(text: StringResources.unableToSaveData);
-      logger.i(e);
+      logger.e(e);
       return left(AppError.networkError);
     } catch (e) {
       BotToast.closeAllLoading();
       BotToast.showText(text: StringResources.unableToSaveData);
-      logger.i(e);
+      logger.e(e);
       return left(AppError.serverError);
     }
   }
@@ -447,12 +449,12 @@ class UserProfileRepository {
     } on SocketException catch (e) {
       BotToast.closeAllLoading();
       BotToast.showText(text: StringResources.unableToSaveData);
-      logger.i(e);
+      logger.e(e);
       return left(AppError.networkError);
     } catch (e) {
       BotToast.closeAllLoading();
       BotToast.showText(text: StringResources.unableToSaveData);
-      logger.i(e);
+      logger.e(e);
       return left(AppError.serverError);
     }
   }
@@ -482,12 +484,12 @@ class UserProfileRepository {
     } on SocketException catch (e) {
       BotToast.closeAllLoading();
       BotToast.showText(text: StringResources.unableToSaveData);
-      logger.i(e);
+      logger.e(e);
       return left(AppError.networkError);
     } catch (e) {
       BotToast.closeAllLoading();
       BotToast.showText(text: StringResources.unableToSaveData);
-      logger.i(e);
+      logger.e(e);
       return left(AppError.serverError);
     }
   }
@@ -512,12 +514,12 @@ class UserProfileRepository {
     } on SocketException catch (e) {
       BotToast.closeAllLoading();
       BotToast.showText(text: StringResources.unableToSaveData);
-      logger.i(e);
+      logger.e(e);
       return left(AppError.networkError);
     } catch (e) {
       BotToast.closeAllLoading();
       BotToast.showText(text: StringResources.unableToSaveData);
-      logger.i(e);
+      logger.e(e);
       return left(AppError.serverError);
     }
   }
@@ -537,10 +539,10 @@ class UserProfileRepository {
         return Left(AppError.unknownError);
       }
     } on SocketException catch (e) {
-      logger.i(e);
+      logger.e(e);
       return left(AppError.networkError);
     } catch (e) {
-      logger.i(e);
+      logger.e(e);
       return left(AppError.serverError);
     }
   }
@@ -573,12 +575,12 @@ class UserProfileRepository {
     } on SocketException catch (e) {
       BotToast.closeAllLoading();
       BotToast.showText(text: StringResources.unableToSaveData);
-      logger.i(e);
+      logger.e(e);
       return left(AppError.networkError);
     } catch (e) {
       BotToast.closeAllLoading();
       BotToast.showText(text: StringResources.unableToSaveData);
-      logger.i(e);
+      logger.e(e);
       return left(AppError.serverError);
     }
   }
@@ -611,12 +613,12 @@ class UserProfileRepository {
     } on SocketException catch (e) {
       BotToast.closeAllLoading();
       BotToast.showText(text: StringResources.unableToSaveData);
-      logger.i(e);
+      logger.e(e);
       return left(AppError.networkError);
     } catch (e) {
       BotToast.closeAllLoading();
       BotToast.showText(text: StringResources.unableToSaveData);
-      logger.i(e);
+      logger.e(e);
       return left(AppError.serverError);
     }
   }
@@ -643,12 +645,12 @@ class UserProfileRepository {
     } on SocketException catch (e) {
       BotToast.closeAllLoading();
       BotToast.showText(text: StringResources.unableToSaveData);
-      logger.i(e);
+      logger.e(e);
       return left(AppError.networkError);
     } catch (e) {
       BotToast.closeAllLoading();
       BotToast.showText(text: StringResources.unableToSaveData);
-      logger.i(e);
+      logger.e(e);
       return left(AppError.serverError);
     }
   }
@@ -680,12 +682,12 @@ class UserProfileRepository {
     } on SocketException catch (e) {
       BotToast.closeAllLoading();
       BotToast.showText(text: StringResources.unableToSaveData);
-      logger.i(e);
+      logger.e(e);
       return left(AppError.networkError);
     } catch (e) {
       BotToast.closeAllLoading();
       BotToast.showText(text: StringResources.unableToSaveData);
-      logger.i(e);
+      logger.e(e);
       return left(AppError.serverError);
     }
   }
@@ -720,12 +722,12 @@ class UserProfileRepository {
     } on SocketException catch (e) {
       BotToast.closeAllLoading();
       BotToast.showText(text: StringResources.unableToSaveData);
-      logger.i(e);
+      logger.e(e);
       return left(AppError.networkError);
     } catch (e) {
       BotToast.closeAllLoading();
       BotToast.showText(text: StringResources.unableToSaveData);
-      logger.i(e);
+      logger.e(e);
       return left(AppError.serverError);
     }
   }
@@ -752,12 +754,12 @@ class UserProfileRepository {
     } on SocketException catch (e) {
       BotToast.closeAllLoading();
       BotToast.showText(text: StringResources.unableToSaveData);
-      logger.i(e);
+      logger.e(e);
       return left(AppError.networkError);
     } catch (e) {
       BotToast.closeAllLoading();
       BotToast.showText(text: StringResources.unableToSaveData);
-      logger.i(e);
+      logger.e(e);
       return left(AppError.serverError);
     }
   }
@@ -785,12 +787,12 @@ class UserProfileRepository {
     } on SocketException catch (e) {
       BotToast.closeAllLoading();
       BotToast.showText(text: StringResources.unableToSaveData);
-      logger.i(e);
+      logger.e(e);
       return left(AppError.networkError);
     } catch (e) {
       BotToast.closeAllLoading();
       BotToast.showText(text: StringResources.unableToSaveData);
-      logger.i(e);
+      logger.e(e);
       return left(AppError.serverError);
     }
   }
@@ -816,12 +818,12 @@ class UserProfileRepository {
     } on SocketException catch (e) {
       BotToast.closeAllLoading();
       BotToast.showText(text: StringResources.unableToSaveData);
-      logger.i(e);
+      logger.e(e);
       return left(AppError.networkError);
     } catch (e) {
       BotToast.closeAllLoading();
       BotToast.showText(text: StringResources.unableToSaveData);
-      logger.i(e);
+      logger.e(e);
       return left(AppError.serverError);
     }
   }
@@ -847,12 +849,12 @@ class UserProfileRepository {
     } on SocketException catch (e) {
       BotToast.closeAllLoading();
       BotToast.showText(text: StringResources.unableToSaveData);
-      logger.i(e);
+      logger.e(e);
       return left(AppError.networkError);
     } catch (e) {
       BotToast.closeAllLoading();
       BotToast.showText(text: StringResources.unableToSaveData);
-      logger.i(e);
+      logger.e(e);
       return left(AppError.serverError);
     }
   }
