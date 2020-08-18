@@ -35,7 +35,7 @@ class JobChartWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Column(
-//        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 5.0),
@@ -133,6 +133,7 @@ class JobChartWidget extends StatelessWidget {
                       ),
                       Text.rich(TextSpan(children: [
                         TextSpan(text: "for Skills ($skillsString "),
+                        if(hasMoreText)
                         WidgetSpan(
                             child: InkWell(
                           onTap: () {

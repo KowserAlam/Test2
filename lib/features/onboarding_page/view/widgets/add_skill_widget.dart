@@ -27,7 +27,7 @@ class _AddSkillWidgetState extends State<AddSkillWidget> {
     if (isValid) {
       if (widget.onAdd != null)
         widget.onAdd(SkillInfo(
-          profSkillId: DateTime.now().millisecondsSinceEpoch,
+//          profSkillId: DateTime.now().millisecondsSinceEpoch.toString(),
           verifiedBySkillCheck: false,
           rating: rating,
           skill: selectedSkill,

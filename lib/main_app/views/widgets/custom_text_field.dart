@@ -17,8 +17,10 @@ class CustomTextField extends StatelessWidget {
   final Widget prefix;
   final Widget suffixIcon;
   final Function onChanged;
+  final Key textFieldKey;
 
   const CustomTextField({
+    this.textFieldKey,
     this.suffixIcon,
     this.prefix,
     this.onChanged,
@@ -61,6 +63,7 @@ boxShadow: CommonStyle.boxShadow,
 //            ],
           ),
           child: TextField(
+            key: textFieldKey,
             minLines: minLines,
             onChanged: onChanged,
             onSubmitted: onSubmitted,

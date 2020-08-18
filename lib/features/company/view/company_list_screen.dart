@@ -104,6 +104,7 @@ class _CompanyListScreenState extends State<CompanyListScreen>
           title: Text(StringResources.companyListAppbarText),
           actions: [
             IconButton(
+              key: Key("companySearchToggleButtonKey"),
               icon: Icon(isInSearchMode ? Icons.close : Icons.search),
               onPressed: () {
                 _searchTextEditingController?.clear();
@@ -133,6 +134,7 @@ class _CompanyListScreenState extends State<CompanyListScreen>
                   padding:
                       const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4),
                   child: CustomTextField(
+                    textFieldKey: Key("companySearchInputTextFieldKey"),
                     focusNode: _searchFieldFocusNode,
                     controller: _searchTextEditingController,
                     hintText: StringResources.companyListSearchText,
@@ -152,6 +154,7 @@ class _CompanyListScreenState extends State<CompanyListScreen>
 //                    }
 //                  },
                     suffixIcon: IconButton(
+                      key: Key("companySearchButtonKey"),
                       icon: Icon(Icons.search),
                       onPressed: () {
                         search();
