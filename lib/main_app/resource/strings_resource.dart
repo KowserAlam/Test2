@@ -437,7 +437,7 @@ class StringResources {
   static var unableToLoadExpertiseListText = "Unable to load expertise list";
   static var unableToLoadSkillListText = "Unable to load skill list";
   static var enterValidSkillText = "Please enter a valid skill";
-  static var previouslyAddedSkillText =
+  static var youHaveAlreadyAddedThisSkillBeforeText =
       "You have already added this skill before";
 
   /// password reset
