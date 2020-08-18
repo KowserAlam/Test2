@@ -13,13 +13,15 @@ class PortfolioListItemWidget extends StatefulWidget {
   final Function onTapEdit;
   final bool isInEditMode;
   final Function onTapDelete;
+  final int index;
 
   const PortfolioListItemWidget(
       {Key key,
       @required this.portfolioInfo,
       this.onTapEdit,
       this.isInEditMode,
-      this.onTapDelete})
+      this.onTapDelete,
+      this.index})
       : super(key: key);
 
   @override
@@ -74,6 +76,7 @@ class _PortfolioListItemWidgetState extends State<PortfolioListItemWidget> {
 
                     Text(
                       widget.portfolioInfo.name ?? "",
+                      key: Key('portfolioTileName'+widget.index.toString()),
                       maxLines: 1,
                       style: Theme.of(context).textTheme.subtitle1,
                     ),
@@ -89,12 +92,14 @@ class _PortfolioListItemWidgetState extends State<PortfolioListItemWidget> {
                   children: [
                     IconButton(
                       icon: Icon(FontAwesomeIcons.edit),
+                      key: Key('portfolioTileEditButton'+widget.index.toString()),
                       onPressed: widget.onTapEdit,
                       iconSize: 18,
                       color: Colors.black,
                     ),
                     IconButton(
                       icon: Icon(FontAwesomeIcons.trash),
+                      key: Key('portfolioTileDeleteButton'+widget.index.toString()),
                       onPressed: widget.onTapDelete,
                       iconSize: 18,
                       color: Colors.black,

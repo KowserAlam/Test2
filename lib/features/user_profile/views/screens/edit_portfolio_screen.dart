@@ -216,6 +216,7 @@ class _EditPortfolioState extends State<EditPortfolio> {
         title: Text(StringResources.portfolioText, key: Key('portfolioAppbarTitle'),),
         actions: <Widget>[
           EditScreenSaveButton(
+            key: Key('portfolioSaveButton'),
             text: StringResources.saveText,
             onPressed: _handleSave,
           ),
