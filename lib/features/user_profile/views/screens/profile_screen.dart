@@ -339,6 +339,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
         children: List.generate(list.length, (index) {
           var cer = list[index];
           return CertificationsListItemWidget(
+            index: index,
             isInEditMode: isInEditModeCertifications,
             certificationInfo: cer,
             onTapDelete: () async {

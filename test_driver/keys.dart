@@ -79,6 +79,14 @@ class Keys{
   static final portfolioTileDeleteButton = find.byValueKey('portfolioTileDeleteButton0');
   static final portfolioTileName = find.byValueKey('portfolioTileName0');
 
+  static final myProfileCertificationPenKey = find.byValueKey('myProfileCertificationPenKey');
+  static final myProfileCertificationAddKey = find.byValueKey('myProfileCertificationAddKey');
+  static final certificationTileOrganizationNameKey = find.byValueKey('certificationTileOrganizationNameKey0');
+  static final certificationTileNameKey = find.byValueKey('certificationTileNameKey0');
+  static final certificationEditKey = find.byValueKey('certificationEditKey0');
+  static final certificationDeleteKey = find.byValueKey('certificationDeleteKey0');
+  static final addedCertificationTileNameKey = find.byValueKey('certificationTileNameKey1');
+
 
   //Header Edit Screen
   static final myProfileHeaderAppbarTitle = find.byValueKey('myProfileHeaderAppbarTitle');
@@ -118,6 +126,17 @@ class Keys{
   static final referencesAppbarTitle = find.byValueKey('referencesAppbarTitle');
   static final myProfileReferencesSaveButton = find.byValueKey('myProfileReferencesSaveButton');
   static final referencesDescription = find.byValueKey('referencesDescription');
+
+  //Certification
+  static final certificationAppbarTitle = find.byValueKey('certificationAppbarTitle');
+  static final certificationSaveButton = find.byValueKey('certificationSaveButton');
+  static final certificationName = find.byValueKey('certificationName');
+  static final certificationOrganizationName = find.byValueKey('certificationOrganizationName');
+  static final certificationCredentialIdName = find.byValueKey('certificationCredentialIdName');
+  static final certificationCredentialUrl = find.byValueKey('certificationCredentialUrl');
+  static final certificationIssueDate = find.byValueKey('certificationIssueDate');
+  static final certificationHasExpiryDate = find.byValueKey('certificationHasExpiryDate');
+  static final certificationExpiryDate = find.byValueKey('certificationExpiryDate');
 
   //Portfolio
   static final portfolioAppbarTitle = find.byValueKey('portfolioAppbarTitle');
