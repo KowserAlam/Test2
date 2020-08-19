@@ -3,8 +3,8 @@ import 'package:p7app/method_extension.dart';
 
 class ExperienceInfo {
   String experienceId;
-  String companyName;
-  String companyId;
+  String companyNameText;
+  String companyNameId;
   String designation;
   String description;
   DateTime startDate;
@@ -14,11 +14,11 @@ class ExperienceInfo {
 
   ExperienceInfo({
     this.description,
-    this.companyName,
+    this.companyNameText,
     this.designation,
     this.startDate,
     this.endDate,
-    this.companyId,
+    this.companyNameId,
     this.experienceId,
     this.companyProfilePic,
     this.isCurrentlyWorkingHere,
@@ -29,8 +29,8 @@ class ExperienceInfo {
 
     isCurrentlyWorkingHere = json['is_currently_working'];
     experienceId = json['id']?.toString();
-    companyName = json['company_text'];
-    companyId = json['company_id'];
+    companyNameText = json['company_text'];
+    companyNameId = json['company_id'];
     designation = json['designation'];
     description = json['description'];
     if (json['start_date'] != null) {
@@ -48,9 +48,9 @@ class ExperienceInfo {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     //data['id'] = this.experienceId;
-    data['company_text'] = this.companyName;
-    if(this.companyId != null){
-      data['company_id'] = this.companyId;
+    data['company_text'] = this.companyNameText;
+    if(this.companyNameId != null){
+      data['company_id'] = this.companyNameId;
     }
     data['is_currently_working'] = this.isCurrentlyWorkingHere;
     data['designation'] = this.designation;

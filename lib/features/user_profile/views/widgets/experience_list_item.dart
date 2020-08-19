@@ -62,7 +62,7 @@ class ExperienceListItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  experienceInfoModel.companyName ?? "",
+                  experienceInfoModel.companyNameText ?? "",
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
                 Column(
