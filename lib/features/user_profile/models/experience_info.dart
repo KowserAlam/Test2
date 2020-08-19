@@ -49,7 +49,10 @@ class ExperienceInfo {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     //data['id'] = this.experienceId;
     data['company_text'] = this.companyName;
-    data['company_id'] = this.companyId;
+    if(this.companyId != null){
+      data['company_id'] = this.companyId;
+    }
+    data['is_currently_working'] = this.isCurrentlyWorkingHere;
     data['designation'] = this.designation;
     data['description'] = this.description;
     data['start_date'] = this.startDate.toYYYMMDDString;

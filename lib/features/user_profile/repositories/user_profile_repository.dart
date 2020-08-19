@@ -664,7 +664,8 @@ class UserProfileRepository {
     var url = "${Urls.professionalExperienceUrl}/";
 
     var data = experienceInfo.toJson();
-    data.addAll({"professional_id": professionalId});
+//    data.addAll({"professional_id": professionalId});
+    logger.i(data);
 
     try {
       var response = await ApiClient().postRequest(url, data);
