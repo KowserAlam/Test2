@@ -308,7 +308,7 @@ class _ProfileHeaderEditScreenState extends State<ProfileHeaderEditScreen> {
 
             /// experience
             CustomDropdownSearchFormField<String>(
-              dropdownKey: Key('myProfileHeaderExperiencePerYearField'),
+              dropdownKey: Key('myProfileHeaderExperienceInYearField'),
               labelText: StringResources.experienceInYear,
               items: _experienceList,
               popupItemBuilder:
