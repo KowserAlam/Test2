@@ -86,15 +86,7 @@ void main() {
       await Future.delayed(const Duration(seconds: 5), (){});
     });
 
-    test('Check again if edit is working', () async {
-      await driver.tap(Keys.experienceEditButton);
-      await driver.tap(Keys.experienceCompanyName);
-      await driver.enterText('Test Company');
-      await driver.tap(Keys.workExperienceSaveButton);
-      await expect(await driver.getText(Keys.myProfileAppbarTitle), 'My Profile');
-      await expect(await driver.getText(Keys.experienceTileCompanyName), 'Test Company');
-      await Future.delayed(const Duration(seconds: 5), (){});
-    });
+
 
 //    test('Check if designation can be saved', () async {
 //      await driver.tap(Keys.experienceEditButton);

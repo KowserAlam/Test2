@@ -8,9 +8,10 @@ class CertificationsListItemWidget extends StatelessWidget {
   final Function onTapEdit;
   final Function onTapDelete;
   final bool isInEditMode;
+  final int index;
   const CertificationsListItemWidget({
     Key key,
-    this.certificationInfo,this.isInEditMode,this.onTapEdit,this.onTapDelete
+    this.certificationInfo,this.isInEditMode,this.onTapEdit,this.onTapDelete, this.index
   }) : super(key: key);
 
   @override
@@ -37,12 +38,14 @@ class CertificationsListItemWidget extends StatelessWidget {
           children: [
             IconButton(
               icon: Icon(FontAwesomeIcons.edit),
+              key: Key('certificationEditKey'+index.toString()),
               onPressed: onTapEdit,
               iconSize: 18,
               color: Colors.black,
             ),
             IconButton(
               icon: Icon(FontAwesomeIcons.trash),
+              key: Key('certificationDeleteKey'+index.toString()),
               onPressed: onTapDelete,
               iconSize: 18,
               color: Colors.black,
