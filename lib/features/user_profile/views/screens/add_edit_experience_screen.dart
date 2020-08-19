@@ -185,6 +185,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
     );
 
     var name = CustomAutoCompleteTextField<Company>(
+      hintText: StringResources.currentCompanyHint,
       controller: _companyNameController,
       textFieldKey: Key('experienceCompanyName'),
       labelText: StringResources.company,
@@ -197,7 +198,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
         setState(() {});
       },
       validator: (v) {
-        if (v.isEmptyOrNull) {
+        if (v?.trim()?.isEmptyOrNull??true) {
           return StringResources.thisFieldIsRequired;
         }
         return v.length < 3 ? StringResources.typeAtLeast3Letter : null;
