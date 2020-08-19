@@ -49,6 +49,8 @@ class Keys{
   static final myProfileHeaderEmail = find.byValueKey('myProfileHeaderEmail');
   static final myProfileHeaderDesignation = find.byValueKey('myProfileHeaderDesignation');
   static final myProfileHeaderCompany = find.byValueKey('myProfileHeaderCompany');
+  static final myProfileHeaderExperienceInYearField = find.byValueKey('myProfileHeaderExperienceInYearField');
+  static final myProfileHeaderExperienceInYearOptionChoice = find.byValueKey('1');
 
   static final myProfileExperiencePenKey = find.byValueKey('myProfileExperiencePenKey');
   static final myProfileExperienceAddKey = find.byValueKey('myProfileExperienceAddKey');
@@ -56,6 +58,7 @@ class Keys{
   static final experienceDeleteButton = find.byValueKey('experienceDeleteButton0');
   static final experienceTileDesignation = find.byValueKey('experienceTileDesignation0');
   static final experienceTileCompanyName = find.byValueKey('experienceTileCompanyName0');
+  static final addedExperienceTileCompanyName = find.byValueKey('experienceTileCompanyName1');
 
   static final myProfileAddSkillPen = find.byValueKey('myProfileAddSkillPen');
   static final myProfileAddSkillAdd = find.byValueKey('myProfileAddSkillAdd');

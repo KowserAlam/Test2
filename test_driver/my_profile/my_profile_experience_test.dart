@@ -78,46 +78,79 @@ void main() {
 
     test('Check if edit is working.', () async {
       await driver.tap(Keys.experienceEditButton);
-      await driver.tap(Keys.experienceDesignationKey);
-      await driver.enterText('Test Designation');
-      await Future.delayed(const Duration(seconds: 3), (){});
+      await driver.tap(Keys.experienceCompanyName);
+      await driver.enterText('Test Company');
       await driver.tap(Keys.workExperienceSaveButton);
       await expect(await driver.getText(Keys.myProfileAppbarTitle), 'My Profile');
-      await expect(await driver.getText(Keys.experienceTileDesignation), 'Test Designation');
+      await expect(await driver.getText(Keys.experienceTileCompanyName), 'Test Company');
       await Future.delayed(const Duration(seconds: 5), (){});
     });
 
-    test('Check if description can be saved & showing', () async {
+    test('Check again if edit is working', () async {
       await driver.tap(Keys.experienceEditButton);
-      await driver.tap(Keys.experienceDescriptionKey);
-      await driver.enterText('Test Description');
-      await Future.delayed(const Duration(seconds: 3), (){});
+      await driver.tap(Keys.experienceCompanyName);
+      await driver.enterText('Test Company');
       await driver.tap(Keys.workExperienceSaveButton);
       await expect(await driver.getText(Keys.myProfileAppbarTitle), 'My Profile');
+      await expect(await driver.getText(Keys.experienceTileCompanyName), 'Test Company');
       await Future.delayed(const Duration(seconds: 5), (){});
     });
 
-    test('Try to save after filled leaving date', () async {
-      await driver.tap(Keys.experienceEditButton);
-      await driver.tap(Keys.experienceCurrentlyWorkingKey);
-      await driver.tap(Keys.experienceLeavingDate);
-      await Future.delayed(const Duration(seconds: 3), (){});
-      await driver.tap(Keys.doneButtonKey);
-      await driver.tap(Keys.workExperienceSaveButton);
-      await expect(await driver.getText(Keys.myProfileAppbarTitle), 'My Profile');
-      await Future.delayed(const Duration(seconds: 5), (){});
-    });
+//    test('Check if designation can be saved', () async {
+//      await driver.tap(Keys.experienceEditButton);
+//      await driver.tap(Keys.experienceDesignationKey);
+//      await driver.enterText('Test Designation');
+////      await driver.tap(Keys.experienceDescriptionKey);
+////      await driver.enterText('Test Description');
+//      await Future.delayed(const Duration(seconds: 3), (){});
+//      await driver.tap(Keys.workExperienceSaveButton);
+//      await expect(await driver.getText(Keys.myProfileAppbarTitle), 'My Profile');
+//      await expect(await driver.getText(Keys.experienceTileDesignation), 'Test Designation');
+//      await Future.delayed(const Duration(seconds: 5), (){});
+//    });
 
-    test('Try to save after filled leaving date', () async {
-      await driver.tap(Keys.myProfileExperienceAddKey);
-      await driver.tap(Keys.experienceCurrentlyWorkingKey);
-      await driver.tap(Keys.experienceLeavingDate);
-      await Future.delayed(const Duration(seconds: 3), (){});
-      await driver.tap(Keys.doneButtonKey);
-      await driver.tap(Keys.workExperienceSaveButton);
-      await expect(await driver.getText(Keys.myProfileAppbarTitle), 'My Profile');
-      await Future.delayed(const Duration(seconds: 5), (){});
-    });
+//    test('Check if description can be saved & showing', () async {
+//      await driver.tap(Keys.experienceEditButton);
+//      await driver.tap(Keys.experienceDescriptionKey);
+//      await driver.enterText('Test Description');
+//      await Future.delayed(const Duration(seconds: 3), (){});
+//      await driver.tap(Keys.workExperienceSaveButton);
+//      await expect(await driver.getText(Keys.myProfileAppbarTitle), 'My Profile');
+//      await Future.delayed(const Duration(seconds: 5), (){});
+//    });
+//
+//    test('Try to save after filled leaving date', () async {
+//      await driver.tap(Keys.experienceEditButton);
+//      await driver.tap(Keys.experienceCurrentlyWorkingKey);
+//      await driver.tap(Keys.experienceLeavingDate);
+//      await Future.delayed(const Duration(seconds: 3), (){});
+//      await driver.tap(Keys.doneButtonKey);
+//      await driver.tap(Keys.workExperienceSaveButton);
+//      await expect(await driver.getText(Keys.myProfileAppbarTitle), 'My Profile');
+//      await Future.delayed(const Duration(seconds: 5), (){});
+//    });
+//
+//    test('Add a new entry to test if delete is working', () async {
+//      await driver.tap(Keys.myProfileExperienceAddKey);
+//      await driver.tap(Keys.experienceCompanyName);
+//      await driver.enterText('Test Company');
+//      await driver.tap(Keys.experienceJoiningDate);
+//      await Future.delayed(const Duration(seconds: 3), (){});
+//      await driver.tap(Keys.doneButtonKey);
+//      await driver.tap(Keys.experienceCurrentlyWorkingKey);
+//      await driver.tap(Keys.workExperienceSaveButton);
+//      await expect(await driver.getText(Keys.myProfileAppbarTitle), 'My Profile');
+//      await expect(await driver.getText(Keys.experienceTileCompanyName), 'Test Company');
+//      await Future.delayed(const Duration(seconds: 5), (){});
+//    });
+//
+//    test('Check if delete is working', () async {
+//      await expect(await driver.getText(Keys.experienceTileCompanyName), 'Ishraak Solutions');
+//      await driver.tap(Keys.experienceDeleteButton);
+//      await driver.tap(Keys.myProfileDialogBoxDeleteTile);
+//      await expect(await driver.getText(Keys.experienceTileCompanyName), 'Test Company');
+//      await Future.delayed(const Duration(seconds: 5), (){});
+//    });
 
 
   });
