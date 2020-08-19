@@ -1,12 +1,9 @@
-import 'package:bot_toast/bot_toast.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:p7app/features/company/models/company.dart';
 import 'package:p7app/features/company/repositories/company_list_repository.dart';
 import 'package:p7app/features/user_profile/models/experience_info.dart';
-import 'package:p7app/main_app/app_theme/common_style.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
@@ -15,8 +12,8 @@ import 'package:p7app/main_app/views/widgets/custom_auto_complete_text_field.dar
 import 'package:p7app/main_app/views/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/views/widgets/custom_zefyr_rich_text_from_field.dart';
 import 'package:p7app/main_app/views/widgets/edit_screen_save_button.dart';
-import 'package:provider/provider.dart';
 import 'package:p7app/method_extension.dart';
+import 'package:provider/provider.dart';
 
 class AddNewExperienceScreen extends StatefulWidget {
   final ExperienceInfo experienceInfoModel;
@@ -45,9 +42,9 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
   var _scaffoldKey = GlobalKey<ScaffoldState>();
   List<Company> companySuggestion = [];
 
-//  String _companyNameErrorText;
-  String _joiningDateErrorText;
-  String _leavingDateErrorText;
+////  String _companyNameErrorText;
+//  String _joiningDateErrorText;
+//  String _leavingDateErrorText;
 
   ZefyrController _descriptionZefyrController =
       ZefyrController(NotusDocument());
@@ -391,7 +388,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
                         /// Joining Date
                         CommonDatePickerFormField(
                           isRequired: true,
-                          errorText: _joiningDateErrorText,
+//                          errorText: _joiningDateErrorText,
                           label: StringResources.joiningDateText,
                           date: _joiningDate,
                           dateFieldKey: Key('experienceJoiningDate'),
@@ -446,7 +443,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
                               return null;
                             },
                             isRequired: true,
-                            errorText: _leavingDateErrorText,
+//                            errorText: _leavingDateErrorText,
                             label: StringResources.leavingDateText,
                             date: _leavingDate,
                             dateFieldKey: Key('experienceLeavingDate'),
