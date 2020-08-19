@@ -4,7 +4,7 @@ class Keys{
 
   //Common keys
   static final backButton = find.byTooltip('Back');
-  static final doneButtonKey = find.byTooltip('doneButtonKey');
+  static final doneButtonKey = find.byValueKey('doneButtonKey');
 
   //Sign in screen
   static final signInEmail = find.byValueKey('signInEmail');
@@ -52,6 +52,10 @@ class Keys{
 
   static final myProfileExperiencePenKey = find.byValueKey('myProfileExperiencePenKey');
   static final myProfileExperienceAddKey = find.byValueKey('myProfileExperienceAddKey');
+  static final experienceEditButton = find.byValueKey('experienceEditButton0');
+  static final experienceDeleteButton = find.byValueKey('experienceDeleteButton0');
+  static final experienceTileDesignation = find.byValueKey('experienceTileDesignation0');
+  static final experienceTileCompanyName = find.byValueKey('experienceTileCompanyName0');
 
   static final myProfileAddSkillPen = find.byValueKey('myProfileAddSkillPen');
   static final myProfileAddSkillAdd = find.byValueKey('myProfileAddSkillAdd');

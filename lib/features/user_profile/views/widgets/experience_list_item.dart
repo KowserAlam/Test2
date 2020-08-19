@@ -63,12 +63,13 @@ class ExperienceListItem extends StatelessWidget {
               children: [
                 Text(
                   experienceInfoModel.companyName ?? "",
+                  key: Key('experienceTileCompanyName'+index.toString()),
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(experienceInfoModel.designation ?? ""),
+                    Text(experienceInfoModel.designation ?? "", key: Key('experienceTileDesignation'+index.toString()),),
                     Text(
                       date,
                       style: TextStyle(fontSize: 12, color: Colors.grey),
