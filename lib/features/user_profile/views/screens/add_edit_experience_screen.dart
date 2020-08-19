@@ -87,29 +87,6 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
     ;
   }
 
-  void updateExp(ExperienceInfo experienceInfo) {
-    print('Updating');
-    Provider.of<UserProfileViewModel>(context, listen: false)
-        .updateExperienceData(experienceInfo, widget.index)
-        .then((value) {
-      if (value) {
-        Navigator.pop(context);
-      }
-    });
-  }
-
-  void addExp(ExperienceInfo experienceInfo) {
-    /// adding new data
-    print('Adding');
-    Provider.of<UserProfileViewModel>(context, listen: false)
-        .addExperienceData(experienceInfo)
-        .then((value) {
-      if (value) {
-        Navigator.pop(context);
-      }
-    });
-  }
-
   bool validate() {
     bool isNotEmpty = _companyNameController.text.isNotEmpty;
     _companyNameErrorText =
@@ -156,10 +133,11 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
         }
       }
       var experienceInfo = ExperienceInfo(
+        isCurrentlyWorkingHere: currentLyWorkingHere,
         experienceId: widget.experienceInfoModel?.experienceId,
         companyName: _companyNameController.text,
         designation: positionNameController.text,
-        companyId: selectedCompany?.name ?? _companyNameController.text,
+        companyId: selectedCompany?.name??_selectedCompanyId,
         startDate: _joiningDate,
         endDate: _leavingDate,
         description: ZeyfrHelper.notusDocumentToHTML(
@@ -173,6 +151,31 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
       }
     }
   }
+
+
+  void updateExp(ExperienceInfo experienceInfo) {
+    print('Updating');
+    Provider.of<UserProfileViewModel>(context, listen: false)
+        .updateExperienceData(experienceInfo, widget.index)
+        .then((value) {
+      if (value) {
+        Navigator.pop(context);
+      }
+    });
+  }
+
+  void addExp(ExperienceInfo experienceInfo) {
+    /// adding new data
+    print('Adding');
+    Provider.of<UserProfileViewModel>(context, listen: false)
+        .addExperienceData(experienceInfo)
+        .then((value) {
+      if (value) {
+        Navigator.pop(context);
+      }
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -243,6 +246,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
               print(suggestion.name);
               _companyNameController.text = suggestion.name;
               selectedCompany = suggestion;
+              _selectedCompanyId = suggestion?.name;
               setState(() {});
             },
             suggestionsBoxDecoration: SuggestionsBoxDecoration(

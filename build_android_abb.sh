@@ -1,0 +1,1 @@
+flutter build appbundle --flavor prod --target-platform android-arm,android-arm64,android-x64 --release --tree-shake-icons --split-debug-info --obfuscate -t lib/main_prod.dart
