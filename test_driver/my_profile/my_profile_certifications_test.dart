@@ -92,7 +92,7 @@ void main() {
 
     test('After checkbox checked end date is mandatory', () async {
       await driver.tap(Keys.certificationExpiryDate);
-      await Future.delayed(const Duration(seconds: 2), (){});
+      await driver.scrollUntilVisible(Keys.datePikerKey, find.text("2022"), dyScroll: -3);
       await driver.tap(Keys.doneButtonKey);
       await Future.delayed(const Duration(seconds: 2), (){});
       await driver.tap(Keys.certificationSaveButton);
