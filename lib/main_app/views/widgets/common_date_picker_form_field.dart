@@ -110,6 +110,7 @@ class _CommonDatePickerFormFieldState extends State<CommonDatePickerFormField> {
                         data: CupertinoThemeData(
                             brightness: Theme.of(context).brightness),
                         child: CupertinoDatePicker(
+                          key: Key("datePickerKey"),
                           maximumDate: _maxDate,
                           minimumDate: _miniDate,
                           initialDateTime: widget.date ?? DateTime.now(),

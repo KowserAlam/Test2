@@ -185,6 +185,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
     );
 
     var name = CustomAutoCompleteTextField<Company>(
+      hintText: StringResources.currentCompanyHint,
       controller: _companyNameController,
       textFieldKey: Key('experienceCompanyName'),
       labelText: StringResources.company,
