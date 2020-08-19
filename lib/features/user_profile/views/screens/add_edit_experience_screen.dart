@@ -197,7 +197,7 @@ class _AddNewExperienceScreenState extends State<AddNewExperienceScreen> {
         setState(() {});
       },
       validator: (v) {
-        if (v.isEmptyOrNull) {
+        if (v?.trim()?.isEmptyOrNull??true) {
           return StringResources.thisFieldIsRequired;
         }
         return v.length < 3 ? StringResources.typeAtLeast3Letter : null;
