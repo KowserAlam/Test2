@@ -30,19 +30,19 @@ Future<void> contactUSTest()async{
 
     //test cases are started from here
 
-    test('Try to login with registered email and password', () async {
+    /*test('Try to login with registered email and password', () async {
       await driver.tap(Keys.signInEmail);
       await driver.enterText('mahmudoni01@gmail.com');
       await driver.tap(Keys.signInPassword);
       await driver.enterText('1234567r');
       await driver.tap(Keys.signInButton);
       await Future.delayed(const Duration(seconds: 3), () {});
-    });
+    });*/
 
-    /*test('Click on Dashboard from bottom navigation bar', () async {
+    test('Click on Dashboard from bottom navigation bar', () async {
       await driver.tap(Keys.bottomNavigationBarDashboard);
       await Future.delayed(const Duration(seconds: 10), () {});
-    });*/
+    });
 
     test('Click on contact us tile', () async {
       await driver.scrollUntilVisible(dashBoardListview, dashBoardContactUsTile,

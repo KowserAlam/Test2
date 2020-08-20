@@ -1,8 +1,7 @@
 import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
-
-
 import '../keys.dart';
+import '../other_pages/contactus_test.dart';
 
 main(){
   allJobsTest();
@@ -46,6 +45,7 @@ Future<void> allJobsTest()async{
       await Future.delayed(const Duration(seconds: 4), () {});
 
     });
+    contactUSTest();
 
   });
 
