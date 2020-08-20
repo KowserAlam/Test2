@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/date_format_uitl.dart';
+import 'package:p7app/main_app/util/validator.dart';
 import 'package:p7app/main_app/views/widgets/custom_text_from_field.dart';
 
 class CommonDatePickerFormField extends StatefulWidget {
@@ -15,19 +16,20 @@ class CommonDatePickerFormField extends StatefulWidget {
   final FocusNode focusNode;
   final bool isRequired;
   final Key dateFieldKey;
+  final FormFieldValidator<DateTime> validator;
 
-  const CommonDatePickerFormField({
-    @required this.label,
-    @required this.date,
-    @required this.onDateTimeChanged,
-    this.onTapDateClear,
-    this.maxDate,
-    this.minDate,
-    this.errorText,
-    this.focusNode,
-    this.isRequired = false,
-    this.dateFieldKey
-  });
+  const CommonDatePickerFormField(
+      {@required this.label,
+      @required this.date,
+      @required this.onDateTimeChanged,
+      this.onTapDateClear,
+      this.maxDate,
+      this.validator,
+      this.minDate,
+      this.errorText,
+      this.focusNode,
+      this.isRequired = false,
+      this.dateFieldKey});
 
   @override
   _CommonDatePickerFormFieldState createState() =>
@@ -52,6 +54,15 @@ class _CommonDatePickerFormFieldState extends State<CommonDatePickerFormField> {
 
         CustomTextFormField(
           errorText: widget.errorText,
+          validator: (v) {
+            if (widget.validator != null) {
+              return widget.validator(widget.date);
+            } else if (widget.isRequired) {
+              return Validator().nullFieldValidate(v);
+            } else {
+              return null;
+            }
+          },
           isRequired: widget.isRequired,
           labelText: widget.label,
           textFieldKey: widget.dateFieldKey,
@@ -99,6 +110,7 @@ class _CommonDatePickerFormFieldState extends State<CommonDatePickerFormField> {
                         data: CupertinoThemeData(
                             brightness: Theme.of(context).brightness),
                         child: CupertinoDatePicker(
+                          key: Key("datePickerKey"),
                           maximumDate: _maxDate,
                           minimumDate: _miniDate,
                           initialDateTime: widget.date ?? DateTime.now(),
@@ -114,14 +126,14 @@ class _CommonDatePickerFormFieldState extends State<CommonDatePickerFormField> {
                     ),
                     Center(
                       child: FlatButton(
-                        key: Key("doneButtonKey"),
-                    color: Theme.of(context).primaryColor,
+                          key: Key("doneButtonKey"),
+                          color: Theme.of(context).primaryColor,
                           child: Icon(
                             Icons.done,
                           ),
                           onPressed: () {
-                            widget
-                                .onDateTimeChanged(widget.date ?? DateTime.now());
+                            widget.onDateTimeChanged(
+                                widget.date ?? DateTime.now());
                             Navigator.pop(context);
                           }),
                     ),

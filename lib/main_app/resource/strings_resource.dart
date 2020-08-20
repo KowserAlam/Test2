@@ -307,8 +307,10 @@ class StringResources {
   static String leavingDateText = "Leaving Date";
   static String currentlyWorkingHereText = "Currently working here";
   static String joining = "Currently working here";
-  static String joiningLeavingDateLogic =
+  static String leavingDateShouldBeAfterJoiningDateText = "Leaving date should occurs after joining date";
+  static String joiningBeforeLeavingDateLogic =
       "Please make sure your joining date occurs before your leaving date";
+
   static String sameExperience =
       "You\'ve already added this experience before.";
   static String graduationDateShouldBeAfterEnrollDate =

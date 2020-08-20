@@ -4,7 +4,8 @@ class Keys{
 
   //Common keys
   static final backButton = find.byTooltip('Back');
-  static final doneButtonKey = find.byTooltip('doneButtonKey');
+  static final doneButtonKey = find.byValueKey('doneButtonKey');
+  static final datePikerKey = find.byValueKey('datePickerKey');
 
   //Sign in screen
   static final signInEmail = find.byValueKey('signInEmail');
@@ -49,9 +50,16 @@ class Keys{
   static final myProfileHeaderEmail = find.byValueKey('myProfileHeaderEmail');
   static final myProfileHeaderDesignation = find.byValueKey('myProfileHeaderDesignation');
   static final myProfileHeaderCompany = find.byValueKey('myProfileHeaderCompany');
+  static final myProfileHeaderExperienceInYearField = find.byValueKey('myProfileHeaderExperienceInYearField');
+  static final myProfileHeaderExperienceInYearOptionChoice = find.byValueKey('1');
 
   static final myProfileExperiencePenKey = find.byValueKey('myProfileExperiencePenKey');
   static final myProfileExperienceAddKey = find.byValueKey('myProfileExperienceAddKey');
+  static final experienceEditButton = find.byValueKey('experienceEditButton0');
+  static final experienceDeleteButton = find.byValueKey('experienceDeleteButton0');
+  static final experienceTileDesignation = find.byValueKey('experienceTileDesignation0');
+  static final experienceTileCompanyName = find.byValueKey('experienceTileCompanyName0');
+  static final addedExperienceTileCompanyName = find.byValueKey('experienceTileCompanyName1');
 
   static final myProfileAddSkillPen = find.byValueKey('myProfileAddSkillPen');
   static final myProfileAddSkillAdd = find.byValueKey('myProfileAddSkillAdd');
@@ -71,6 +79,14 @@ class Keys{
   static final portfolioTileEditButton = find.byValueKey('portfolioTileEditButton0');
   static final portfolioTileDeleteButton = find.byValueKey('portfolioTileDeleteButton0');
   static final portfolioTileName = find.byValueKey('portfolioTileName0');
+
+  static final myProfileCertificationPenKey = find.byValueKey('myProfileCertificationPenKey');
+  static final myProfileCertificationAddKey = find.byValueKey('myProfileCertificationAddKey');
+  static final certificationTileOrganizationNameKey = find.byValueKey('certificationTileOrganizationNameKey0');
+  static final certificationTileNameKey = find.byValueKey('certificationTileNameKey0');
+  static final certificationEditKey = find.byValueKey('certificationEditKey0');
+  static final certificationDeleteKey = find.byValueKey('certificationDeleteKey0');
+  static final addedCertificationTileNameKey = find.byValueKey('certificationTileNameKey1');
 
 
   //Header Edit Screen
@@ -112,6 +128,17 @@ class Keys{
   static final myProfileReferencesSaveButton = find.byValueKey('myProfileReferencesSaveButton');
   static final referencesDescription = find.byValueKey('referencesDescription');
 
+  //Certification
+  static final certificationAppbarTitle = find.byValueKey('certificationAppbarTitle');
+  static final certificationSaveButton = find.byValueKey('certificationSaveButton');
+  static final certificationName = find.byValueKey('certificationName');
+  static final certificationOrganizationName = find.byValueKey('certificationOrganizationName');
+  static final certificationCredentialIdName = find.byValueKey('certificationCredentialIdName');
+  static final certificationCredentialUrl = find.byValueKey('certificationCredentialUrl');
+  static final certificationIssueDate = find.byValueKey('certificationIssueDate');
+  static final certificationHasExpiryDate = find.byValueKey('certificationHasExpiryDate');
+  static final certificationExpiryDate = find.byValueKey('certificationExpiryDate');
+
   //Portfolio
   static final portfolioAppbarTitle = find.byValueKey('portfolioAppbarTitle');
   static final portfolioName = find.byValueKey('portfolioName');
@@ -148,6 +175,8 @@ class Keys{
   static final tapOnSubjectField = find.text('contactUsSubjectTextField');
   static final tapOnMessageField = find.text('contactUsMessageTextField');
   static final tapOnSubmitButton = find.text('contactUsSubmitButtonKey');
+
+
 
 
 

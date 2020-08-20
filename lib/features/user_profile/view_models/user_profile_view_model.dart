@@ -12,6 +12,7 @@ import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/resource/json_keys.dart';
 import 'package:flutter/foundation.dart';
 import 'package:p7app/main_app/util/common_serviec_rule.dart';
+import 'package:p7app/main_app/util/logger_helper.dart';
 import 'package:uuid/uuid.dart';
 
 class UserProfileViewModel with ChangeNotifier {
@@ -132,7 +133,7 @@ class UserProfileViewModel with ChangeNotifier {
         .updateUserReference(referenceData)
         .then((res) {
       return res.fold((l) {
-        print(l);
+     logger.e(l);
         return false;
       }, (r) {
        userData.referenceData[index] = r;
@@ -145,7 +146,7 @@ class UserProfileViewModel with ChangeNotifier {
   Future<bool> addReferenceData(ReferenceData referenceData) {
     return UserProfileRepository().addUserReference(referenceData).then((res) {
       return res.fold((l) {
-        print(l);
+     logger.e(l);
         return false;
       }, (r) {
         userData.referenceData.add(r);
@@ -160,7 +161,7 @@ class UserProfileViewModel with ChangeNotifier {
         .deleteUserReference(referenceData)
         .then((res) {
       return res.fold((l) {
-        print(l);
+     logger.e(l);
         return false;
       }, (r) {
         userData.referenceData.removeAt(index);
@@ -174,7 +175,7 @@ class UserProfileViewModel with ChangeNotifier {
   Future<bool> addSkillData(SkillInfo skillInfo) {
     return UserProfileRepository().addUserSkill(skillInfo).then((res) {
       return res.fold((l) {
-        print(l);
+     logger.e(l);
         return false;
       }, (r) {
         userData.skillInfo.add(r);
@@ -187,7 +188,7 @@ class UserProfileViewModel with ChangeNotifier {
   Future<bool> updateSkillData(SkillInfo skillInfo, int index) {
     return UserProfileRepository().updateUserSkill(skillInfo).then((res) {
       return res.fold((l) {
-        print(l);
+     logger.e(l);
         return false;
       }, (r) {
         userData.skillInfo[index] = r;
@@ -200,7 +201,7 @@ class UserProfileViewModel with ChangeNotifier {
   Future<bool> deleteSkillData(SkillInfo skillInfo, int index) {
     return UserProfileRepository().deleteUserSkill(skillInfo).then((res) {
       return res.fold((l) {
-        print(l);
+     logger.e(l);
         return false;
       }, (r) {
         userData.skillInfo.removeAt(index);
@@ -216,7 +217,7 @@ class UserProfileViewModel with ChangeNotifier {
         .addUserMembership(membershipInfo)
         .then((res) {
       return res.fold((l) {
-        print(l);
+        logger.e(l);
         return false;
       }, (r) {
         userData.membershipInfo.add(r);
@@ -235,7 +236,7 @@ class UserProfileViewModel with ChangeNotifier {
         .updateUserMembership(membershipInfo)
         .then((res) {
       return res.fold((l) {
-        print(l);
+     logger.e(l);
         return false;
       }, (r) {
         userData.membershipInfo[index] = r;
@@ -254,7 +255,7 @@ class UserProfileViewModel with ChangeNotifier {
         .deleteUserMembership(membershipInfo)
         .then((res) {
       return res.fold((l) {
-        print(l);
+     logger.e(l);
         return false;
       }, (r) {
         userData.membershipInfo.removeAt(index);
@@ -270,7 +271,7 @@ class UserProfileViewModel with ChangeNotifier {
         .addUserCertification(certificationInfo)
         .then((res) {
       return res.fold((l) {
-        print(l);
+     logger.e(l);
         return false;
       }, (r) {
         userData.certificationInfo.add(r);
@@ -286,7 +287,7 @@ class UserProfileViewModel with ChangeNotifier {
         .updateUserCertification(certificationInfo)
         .then((res) {
       return res.fold((l) {
-        print(l);
+     logger.e(l);
         return false;
       }, (r) {
         userData.certificationInfo[index] = r;
@@ -302,7 +303,7 @@ class UserProfileViewModel with ChangeNotifier {
         .deleteUserCertification(certificationInfo)
         .then((res) {
       return res.fold((l) {
-        print(l);
+     logger.e(l);
         return false;
       }, (r) {
         userData.certificationInfo.removeAt(index);
@@ -319,7 +320,7 @@ class UserProfileViewModel with ChangeNotifier {
     var repository = userProfileRepository ?? UserProfileRepository();
     var res = await repository.createPortfolioInfo(data);
     return res.fold((l) {
-      print(l);
+   logger.e(l);
       return false;
     }, (r) {
       userData.portfolioInfo.add(r);
@@ -336,7 +337,7 @@ class UserProfileViewModel with ChangeNotifier {
         .updateUserPortfolioInfo(data, portfolioId)
         .then((res) {
       return res.fold((l) {
-        print(l);
+     logger.e(l);
         return false;
       }, (r) {
         userData.portfolioInfo[index] = r;
@@ -351,7 +352,7 @@ class UserProfileViewModel with ChangeNotifier {
     var repository = userProfileRepository ?? UserProfileRepository();
     return repository.deletePortfolio(portfolioInfo).then((res) {
       return res.fold((l) {
-        print(l);
+     logger.e(l);
         return false;
       }, (r) {
         userData.portfolioInfo.removeAt(index);
@@ -367,7 +368,7 @@ class UserProfileViewModel with ChangeNotifier {
         .addUserExperience(experienceInfo)
         .then((res) {
       return res.fold((l) {
-        print(l);
+     logger.e(l);
         return false;
       }, (r) {
 //        userData.experienceInfo.add(r);
@@ -387,7 +388,7 @@ class UserProfileViewModel with ChangeNotifier {
         .updateUserExperience(experienceInfo)
         .then((res) {
       return res.fold((l) {
-        print(l);
+     logger.e(l);
         return false;
       }, (r) {
         userData.experienceInfo[index] = r;
@@ -407,7 +408,7 @@ class UserProfileViewModel with ChangeNotifier {
         .deleteUserExperience(experienceInfo)
         .then((res) {
       return res.fold((l) {
-        print(l);
+     logger.e(l);
         return false;
       }, (r) {
         userData.experienceInfo.removeAt(index);
@@ -421,7 +422,7 @@ class UserProfileViewModel with ChangeNotifier {
   Future<bool> addEduInfo(EduInfo eduInfo) {
     return UserProfileRepository().addUserEducation(eduInfo).then((res) {
       return res.fold((l) {
-        print(l);
+     logger.e(l);
         return false;
       }, (r) {
         userData.eduInfo.add(r);
@@ -438,7 +439,7 @@ class UserProfileViewModel with ChangeNotifier {
   Future<bool> updateEduInfo(EduInfo eduInfo, int index) {
     return UserProfileRepository().updateUserEducation(eduInfo).then((res) {
       return res.fold((l) {
-        print(l);
+     logger.e(l);
         return false;
       }, (r) {
         userData.eduInfo[index] = r;
@@ -455,7 +456,7 @@ class UserProfileViewModel with ChangeNotifier {
   Future<bool> deleteEduInfo(EduInfo eduInfo, int index) {
     return UserProfileRepository().deleteUserEducation(eduInfo).then((res) {
       return res.fold((l) {
-        print(l);
+     logger.e(l);
         return false;
       }, (r) {
         userData.eduInfo.removeAt(index);

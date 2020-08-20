@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:p7app/main_app/util/validator.dart';
 
 class CustomTextFormField extends StatelessWidget {
-  final Function validator;
+  final FormFieldValidator<String> validator;
   final TextEditingController controller;
   final String labelText;
   final String hintText;

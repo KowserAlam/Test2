@@ -1,9 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:p7app/features/user_profile/models/experience_info.dart';
-import 'package:p7app/features/user_profile/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:intl/intl.dart';
+import 'package:p7app/features/user_profile/models/experience_info.dart';
 import 'package:p7app/main_app/app_theme/common_style.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/util/date_format_uitl.dart';
@@ -62,13 +60,14 @@ class ExperienceListItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  experienceInfoModel.companyName ?? "",
+                  experienceInfoModel.companyNameText ?? "",
+                  key: Key('experienceTileCompanyName'+index.toString()),
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(experienceInfoModel.designation ?? ""),
+                    Text(experienceInfoModel.designation ?? "", key: Key('experienceTileDesignation'+index.toString()),),
                     Text(
                       date,
                       style: TextStyle(fontSize: 12, color: Colors.grey),

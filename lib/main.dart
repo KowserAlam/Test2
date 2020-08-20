@@ -11,12 +11,10 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   setupLocator();
-
   FlavorConfig(
       flavor: Flavor.DEV,
       color: Colors.deepPurpleAccent,
       values: FlavorValues(baseUrl: kBaseUrDev));
-
   runApp(
     RestartWidget(
       child: P7App(),

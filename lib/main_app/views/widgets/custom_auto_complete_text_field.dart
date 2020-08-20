@@ -19,6 +19,7 @@ class CustomAutoCompleteTextField<T> extends StatelessWidget {
   final FormFieldSetter<String> onSaved;
   final FormFieldValidator<String> validator;
   final WidgetBuilder noItemsFoundBuilder;
+  final Key textFieldKey;
 
   const CustomAutoCompleteTextField({
     this.noItemsFoundBuilder,
@@ -26,6 +27,7 @@ class CustomAutoCompleteTextField<T> extends StatelessWidget {
     this.isRequired = false,
     this.maxLength,
     this.validator,
+    this.textFieldKey,
     this.prefix,
     this.onSaved,
     this.onChanged,
@@ -66,6 +68,7 @@ class CustomAutoCompleteTextField<T> extends StatelessWidget {
             boxShadow: CommonStyle.boxShadow,
           ),
           child: TypeAheadFormField<T>(
+            key: textFieldKey,
             initialValue: initialValue,
             textFieldConfiguration: TextFieldConfiguration(
                 controller: controller,

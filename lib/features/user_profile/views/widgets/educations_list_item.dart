@@ -1,14 +1,10 @@
-import 'package:p7app/features/user_profile/models/edu_info.dart';
-import 'package:p7app/features/user_profile/models/user_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:intl/intl.dart';
+import 'package:p7app/features/user_profile/models/edu_info.dart';
 import 'package:p7app/main_app/app_theme/common_style.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/date_format_uitl.dart';
-
-import '../screens/add_edit_education_screen.dart';
 
 class EducationsListItem extends StatelessWidget {
   final EduInfo eduInfoModel;
