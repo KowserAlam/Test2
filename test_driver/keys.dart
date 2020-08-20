@@ -169,12 +169,18 @@ class Keys{
   static final checkFavoriteUnfavoriteFromFavoriteList = find.byValueKey('favoriteFavoriteButtonKey0'); //click on 1st tile
 
   //Contact Us
-  static final tapOnNameField = find.byValueKey('contactUsNameField');
-  static final tapOnEmailField = find.text('contactUsEmailTextField');
-  static final tapOnPhoneField = find.text('contactUsPhoneTextField');
-  static final tapOnSubjectField = find.text('contactUsSubjectTextField');
-  static final tapOnMessageField = find.text('contactUsMessageTextField');
-  static final tapOnSubmitButton = find.text('contactUsSubmitButtonKey');
+  static final tapOnNameField = find.byValueKey('contactUsNameTextField');
+
+
+  static final tapOnEmailField = find.byValueKey('contactUsEmailTextField');
+  static final tapOnPhoneField = find.byValueKey('contactUsPhoneTextField');
+  static final tapOnSubjectField = find.byValueKey('contactUsSubjectTextField');
+  static final tapOnMessageField = find.byValueKey('contactUsMessageTextField');
+  static final tapOnSubmitButton = find.byValueKey('contactUsSubmitButtonKey');
+  static final confirmCompanyInfoAddress = find.text('House 76, Level 4,');
+  static final confirmCompanyInfoEmail = find.text('support@jobxprss.com');
+  static final confirmCompanyInfoPhone = find.text('01609500001');
+
 
 
 

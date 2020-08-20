@@ -48,7 +48,7 @@ Future<void> contactUSTest()async{
       await driver.scrollUntilVisible(dashBoardListview, dashBoardContactUsTile,
           dyScroll: -600);
       await driver.tap(dashBoardContactUsTile);
-      await driver.tap(Keys.backButton);
+      await Future.delayed(const Duration(seconds: 5), () {});
     });
 
     test('Click on Submit button while all the text boxes are empty', () async {
@@ -61,7 +61,7 @@ Future<void> contactUSTest()async{
       await driver.tap(Keys.tapOnEmailField);
       await driver.enterText('example@ishraak.com');
       await driver.tap(Keys.tapOnPhoneField);
-      await driver.enterText('01700000000');
+      await driver.enterText('01609500001');
       await driver.tap(Keys.tapOnSubjectField);
       await driver.enterText('Sample Email Subject');
       await driver.tap(Keys.tapOnMessageField);
@@ -69,13 +69,15 @@ Future<void> contactUSTest()async{
       await driver.tap(Keys.tapOnSubmitButton);
       await Future.delayed(const Duration(seconds: 3), () {});
     });
+
+    //Email Verification Test
     test('Try to submit while email textfield is empty', () async {
       await driver.tap(Keys.tapOnNameField);
       await driver.enterText('Ishraak');
       await driver.tap(Keys.tapOnEmailField);
       await driver.enterText('');
       await driver.tap(Keys.tapOnPhoneField);
-      await driver.enterText('01700000000');
+      await driver.enterText('01609500001');
       await driver.tap(Keys.tapOnSubjectField);
       await driver.enterText('Sample Email Subject');
       await driver.tap(Keys.tapOnMessageField);
@@ -83,6 +85,65 @@ Future<void> contactUSTest()async{
       await driver.tap(Keys.tapOnSubmitButton);
       await Future.delayed(const Duration(seconds: 3), () {});
     });
+    test('Try to submit while email textfield is filled with numaric values', () async {
+      await driver.tap(Keys.tapOnNameField);
+      await driver.enterText('Ishraak');
+      await driver.tap(Keys.tapOnEmailField);
+      await driver.enterText('000000000000000000');
+      await driver.tap(Keys.tapOnPhoneField);
+      await driver.enterText('01609500001');
+      await driver.tap(Keys.tapOnSubjectField);
+      await driver.enterText('Sample Email Subject');
+      await driver.tap(Keys.tapOnMessageField);
+      await driver.enterText('Sample message text for test the message field on test automation');
+      await driver.tap(Keys.tapOnSubmitButton);
+      await Future.delayed(const Duration(seconds: 3), () {});
+    });
+    test('Try to submit while email textfield is filled with alphabets', () async {
+      await driver.tap(Keys.tapOnNameField);
+      await driver.enterText('Ishraak');
+      await driver.tap(Keys.tapOnEmailField);
+      await driver.enterText('abcdefghijkl');
+      await driver.tap(Keys.tapOnPhoneField);
+      await driver.enterText('01609500001');
+      await driver.tap(Keys.tapOnSubjectField);
+      await driver.enterText('Sample Email Subject');
+      await driver.tap(Keys.tapOnMessageField);
+      await driver.enterText('Sample message text for test the message field on test automation');
+      await driver.tap(Keys.tapOnSubmitButton);
+      await Future.delayed(const Duration(seconds: 3), () {});
+    });
+    test('Try to submit while email textfield is filled with alphabets + numaric values', () async {
+      await driver.tap(Keys.tapOnNameField);
+      await driver.enterText('Ishraak');
+      await driver.tap(Keys.tapOnEmailField);
+      await driver.enterText('abcde12345');
+      await driver.tap(Keys.tapOnPhoneField);
+      await driver.enterText('01609500001');
+      await driver.tap(Keys.tapOnSubjectField);
+      await driver.enterText('Sample Email Subject');
+      await driver.tap(Keys.tapOnMessageField);
+      await driver.enterText('Sample message text for test the message field on test automation');
+      await driver.tap(Keys.tapOnSubmitButton);
+      await Future.delayed(const Duration(seconds: 3), () {});
+    });
+    test('Try to submit while email textfield is filled with symbols', () async {
+      await driver.tap(Keys.tapOnNameField);
+      await driver.enterText('Ishraak');
+      await driver.tap(Keys.tapOnEmailField);
+      await driver.enterText('@@@###@#@#@#');
+      await driver.tap(Keys.tapOnPhoneField);
+      await driver.enterText('01609500001');
+      await driver.tap(Keys.tapOnSubjectField);
+      await driver.enterText('Sample Email Subject');
+      await driver.tap(Keys.tapOnMessageField);
+      await driver.enterText('Sample message text for test the message field on test automation');
+      await driver.tap(Keys.tapOnSubmitButton);
+      await Future.delayed(const Duration(seconds: 3), () {});
+    });
+    //Email verification ends here
+
+    //Mobile verification starts here
     test('Try to submit while phone textfield is empty', () async {
       await driver.tap(Keys.tapOnNameField);
       await driver.enterText('Ishraak');
@@ -90,6 +151,120 @@ Future<void> contactUSTest()async{
       await driver.enterText('example@ishraak.com');
       await driver.tap(Keys.tapOnPhoneField);
       await driver.enterText('');
+      await driver.tap(Keys.tapOnSubjectField);
+      await driver.enterText('Sample Email Subject');
+      await driver.tap(Keys.tapOnMessageField);
+      await driver.enterText('Sample message text for test the message field on test automation');
+      await driver.tap(Keys.tapOnSubmitButton);
+      await Future.delayed(const Duration(seconds: 3), () {});
+    });
+    test('Try to submit while phone textfield is filled with Numaric values', () async {
+      await driver.tap(Keys.tapOnNameField);
+      await driver.enterText('Ishraak');
+      await driver.tap(Keys.tapOnEmailField);
+      await driver.enterText('example@ishraak.com');
+      await driver.tap(Keys.tapOnPhoneField);
+      await driver.enterText('000000000000000000');
+      await driver.tap(Keys.tapOnSubjectField);
+      await driver.enterText('Sample Email Subject');
+      await driver.tap(Keys.tapOnMessageField);
+      await driver.enterText('Sample message text for test the message field on test automation');
+      await driver.tap(Keys.tapOnSubmitButton);
+      await Future.delayed(const Duration(seconds: 3), () {});
+    });
+    test('Try to submit while phone textfield is filled with alphabets', () async {
+      await driver.tap(Keys.tapOnNameField);
+      await driver.enterText('Ishraak');
+      await driver.tap(Keys.tapOnEmailField);
+      await driver.enterText('example@ishraak.com');
+      await driver.tap(Keys.tapOnPhoneField);
+      await driver.enterText('abcdefghizklmnopqrst');
+      await driver.tap(Keys.tapOnSubjectField);
+      await driver.enterText('Sample Email Subject');
+      await driver.tap(Keys.tapOnMessageField);
+      await driver.enterText('Sample message text for test the message field on test automation');
+      await driver.tap(Keys.tapOnSubmitButton);
+      await Future.delayed(const Duration(seconds: 3), () {});
+    });
+    test('Try to submit while phone textfield is alphabet & numaric values', () async {
+      await driver.tap(Keys.tapOnNameField);
+      await driver.enterText('Ishraak');
+      await driver.tap(Keys.tapOnEmailField);
+      await driver.enterText('example@ishraak.com');
+      await driver.tap(Keys.tapOnPhoneField);
+      await driver.enterText('abcde12345');
+      await driver.tap(Keys.tapOnSubjectField);
+      await driver.enterText('Sample Email Subject');
+      await driver.tap(Keys.tapOnMessageField);
+      await driver.enterText('Sample message text for test the message field on test automation');
+      await driver.tap(Keys.tapOnSubmitButton);
+      await Future.delayed(const Duration(seconds: 3), () {});
+    });
+    test('Try to submit while phone textfield is filled with symbols', () async {
+      await driver.tap(Keys.tapOnNameField);
+      await driver.enterText('Ishraak');
+      await driver.tap(Keys.tapOnEmailField);
+      await driver.enterText('example@ishraak.com');
+      await driver.tap(Keys.tapOnPhoneField);
+      await driver.enterText('@#%^@@@@@@@');
+      await driver.tap(Keys.tapOnSubjectField);
+      await driver.enterText('Sample Email Subject');
+      await driver.tap(Keys.tapOnMessageField);
+      await driver.enterText('Sample message text for test the message field on test automation');
+      await driver.tap(Keys.tapOnSubmitButton);
+      await Future.delayed(const Duration(seconds: 3), () {});
+    });
+    test('Try to submit while phone textfield is filled with email', () async {
+      await driver.tap(Keys.tapOnNameField);
+      await driver.enterText('Ishraak');
+      await driver.tap(Keys.tapOnEmailField);
+      await driver.enterText('example@ishraak.com');
+      await driver.tap(Keys.tapOnPhoneField);
+      await driver.enterText('example@ishraak.com');
+      await driver.tap(Keys.tapOnSubjectField);
+      await driver.enterText('Sample Email Subject');
+      await driver.tap(Keys.tapOnMessageField);
+      await driver.enterText('Sample message text for test the message field on test automation');
+      await driver.tap(Keys.tapOnSubmitButton);
+      await Future.delayed(const Duration(seconds: 3), () {});
+    });
+    //Mobile verification ends here
+
+    test('Try to submit while Subject textfield is empty', () async {
+      await driver.tap(Keys.tapOnNameField);
+      await driver.enterText('Ishraak');
+      await driver.tap(Keys.tapOnEmailField);
+      await driver.enterText('example@ishraak.com');
+      await driver.tap(Keys.tapOnPhoneField);
+      await driver.enterText('01609500001');
+      await driver.tap(Keys.tapOnSubjectField);
+      await driver.enterText('');
+      await driver.tap(Keys.tapOnMessageField);
+      await driver.enterText('Sample message text for test the message field on test automation');
+      await driver.tap(Keys.tapOnSubmitButton);
+      await Future.delayed(const Duration(seconds: 3), () {});
+    });
+    test('Try to submit while Message textfield is empty', () async {
+      await driver.tap(Keys.tapOnNameField);
+      await driver.enterText('Ishraak');
+      await driver.tap(Keys.tapOnEmailField);
+      await driver.enterText('example@ishraak.com');
+      await driver.tap(Keys.tapOnPhoneField);
+      await driver.enterText('01609500001');
+      await driver.tap(Keys.tapOnSubjectField);
+      await driver.enterText('Sample Email Subject');
+      await driver.tap(Keys.tapOnMessageField);
+      await driver.enterText('');
+      await driver.tap(Keys.tapOnSubmitButton);
+      await Future.delayed(const Duration(seconds: 3), () {});
+    });
+    test('Submit, while all fields are properly filled', () async {
+      await driver.tap(Keys.tapOnNameField);
+      await driver.enterText('Ishraak');
+      await driver.tap(Keys.tapOnEmailField);
+      await driver.enterText('example@ishraak.com');
+      await driver.tap(Keys.tapOnPhoneField);
+      await driver.enterText('01609500001');
       await driver.tap(Keys.tapOnSubjectField);
       await driver.enterText('Sample Email Subject');
       await driver.tap(Keys.tapOnMessageField);
