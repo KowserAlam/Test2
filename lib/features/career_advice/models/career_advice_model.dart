@@ -27,8 +27,8 @@ class CareerAdviceModel {
     shortDescription = json['short_description'];
     description = json['description'];
     author = json['author'];
-    if (json['created_at'] != null) {
-      postedAt = DateTime.parse(json['created_at']);
+    if (json['posted_at'] != null) {
+      postedAt = DateTime.parse(json['posted_at']);
     }
     if (json['thumbnail_image'] != null) {
       var baseUrl = FlavorConfig.instance.values.baseUrl;

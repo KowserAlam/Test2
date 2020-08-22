@@ -84,7 +84,7 @@ class Urls {
   static String vitalStatsUrl = "/api/vital_stats/get/";
 
   static String jwtRefreshUrl = "/api/token/refresh/";
-  static String careerAdviceUrl = "/api/career_advise";
+  static String careerAdviceUrl = "/api/career_advice";
 
 //contact us
   static String settingsUrl = "/api/settings/";
