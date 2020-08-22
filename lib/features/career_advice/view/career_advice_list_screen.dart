@@ -1,16 +1,10 @@
 import 'package:after_layout/after_layout.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:p7app/features/career_advice/models/career_advice_model.dart';
-import 'package:p7app/features/career_advice/view/career_advice_details_screen.dart';
 import 'package:p7app/features/career_advice/view/widget/career_advice_list_tile.dart';
 import 'package:p7app/features/career_advice/view_models/career_advice_view_model.dart';
-import 'package:p7app/main_app/app_theme/app_theme.dart';
-import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
-import 'package:p7app/main_app/util/date_format_uitl.dart';
 import 'package:p7app/main_app/views/widgets/loader.dart';
 import 'package:provider/provider.dart';
 
@@ -62,6 +56,7 @@ class _CareerAdviceListScreenState extends State<CareerAdviceListScreen>
                 child: Loader(),
               )
             : ListView.separated(
+          physics: AlwaysScrollableScrollPhysics(),
                 padding: EdgeInsets.symmetric(horizontal: 4,vertical: 12),
                 controller: _scrollController,
                 itemCount: adviceList.length + 1,
