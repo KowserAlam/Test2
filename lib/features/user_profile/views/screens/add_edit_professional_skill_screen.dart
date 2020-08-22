@@ -171,72 +171,12 @@ class _AddEditProfessionalSkillState extends State<AddEditProfessionalSkill> {
 
   @override
   Widget build(BuildContext context) {
-//    var skillName2 = Column(
-//      crossAxisAlignment: CrossAxisAlignment.start,
-//      children: <Widget>[
-//        Text("  " + StringResources.skillNameText ?? "",
-//            style: TextStyle(fontWeight: FontWeight.bold)),
-//        SizedBox(
-//          height: 5,
-//        ),
-//        Container(
-//          decoration: BoxDecoration(
-//            color: Theme.of(context).backgroundColor,
-//            borderRadius: BorderRadius.circular(7),
-//            boxShadow: CommonStyle.boxShadow,
-//          ),
-//          child: TypeAheadFormField<Skill>(
-//            key: Key('skillAddField'),
-//            textFieldConfiguration: TextFieldConfiguration(
-//                controller: searchController,
-//                decoration: InputDecoration(
-//                  hintText: StringResources.searchSkillText,
-//                  border: InputBorder.none,
-//                  contentPadding:
-//                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-//                  focusedBorder: OutlineInputBorder(
-//                      borderRadius: BorderRadius.circular(7),
-//                      borderSide:
-//                          BorderSide(color: Theme.of(context).primaryColor)),
-//                )),
-//            itemBuilder: (BuildContext context, Skill skill) {
-//              return Container(
-//                padding: EdgeInsets.all(8),
-//                child: Text(skill.name ?? ""),
-//              );
-//            },
-//            onSuggestionSelected: (Skill suggestion) {
-//              print(suggestion.name);
-//              searchController.text = suggestion.name;
-//              _selectedSkill = suggestion;
-//              setState(() {});
-//            },
-//            suggestionsBoxDecoration: SuggestionsBoxDecoration(
-//              borderRadius: BorderRadius.circular(5),
-//            ),
-//            suggestionsCallback: (String pattern) async =>
-//                filter(pattern, await _skillList),
-//            loadingBuilder: (_) => Loader(),
-//            validator: (v) {
-//              return v.length < 2 ? StringResources.typeAtLeast2Letter : null;
-//            },
-//          ),
-//        ),
-////        if (searchController != null)
-////          Padding(
-////            padding: const EdgeInsets.all(8.0),
-////            child: Text(
-////              "error",
-////              style: TextStyle(color: Colors.red),
-////            ),
-////          ),
-//      ],
-//    );
     var skillName = FutureBuilder(
       future: _skillList,
       builder: (BuildContext context, AsyncSnapshot<List<Skill>> snapshot) {
         return CustomDropdownSearchFormField<Skill>(
           showSearchBox: true,
+          autoFocusSearchBox: true,
           isRequired: true,
           validator: _skillValidator,
           labelText: StringResources.skillNameText,
