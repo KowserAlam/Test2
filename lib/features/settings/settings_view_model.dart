@@ -1,5 +1,6 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_cache/flutter_cache.dart';
 import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/push_notification_service/push_notification_service.dart';
@@ -76,7 +77,7 @@ class SettingsViewModel with ChangeNotifier {
   signOut() {
     AuthService.getInstance().then((value) => value.removeUser()).then((value) {
       clearAllCachedData();
-      Cache.clear();
+//      Cache.clear();
       locator<RestartNotifier>().restartApp();
     });
   }
