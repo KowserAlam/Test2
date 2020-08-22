@@ -9,7 +9,7 @@ import 'package:p7app/features/dashboard/view/widgets/job_chart_widget.dart';
 import 'package:p7app/features/dashboard/view/widgets/other_screens_widget.dart';
 import 'package:p7app/features/dashboard/view/widgets/profile_complete_parcent_indicatior_widget.dart';
 import 'package:p7app/features/dashboard/view_model/dashboard_view_model.dart';
-import 'package:p7app/features/notification/views/notification_screen.dart';
+import 'package:p7app/features/settings/setings_screen.dart';
 import 'package:p7app/features/settings/settings_view_model.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
@@ -30,6 +30,11 @@ class DashBoard extends StatefulWidget {
 }
 
 class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
+  final List<String> menuItems = [
+    "Settings",
+    "Sign Out",
+  ];
+
   @override
   void afterFirstLayout(BuildContext context) {
     Provider.of<DashboardViewModel>(context, listen: false)
@@ -47,7 +52,8 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
     var dbVM = Provider.of<DashboardViewModel>(context, listen: false);
     var upVM = Provider.of<UserProfileViewModel>(context, listen: false);
     var cvm = Provider.of<CareerAdviceViewModel>(context, listen: false);
-    return Future.wait([dbVM.getDashboardData(), upVM.getUserData(),cvm.refresh()]);
+    return Future.wait(
+        [dbVM.getDashboardData(), upVM.getUserData(), cvm.refresh()]);
   }
 
   _signOut(context) {
@@ -98,6 +104,34 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
       appBar: AppBar(
         title: Text(StringResources.dashBoardText),
         actions: [
+          PopupMenuButton<String>(
+            key: Key("dashboardPopupMenuKey"),
+            onSelected: (v) {
+              switch (v){
+                case "Settings":{
+                  Navigator.of(context).push(CupertinoPageRoute(builder: (BuildContext context) {
+                    return SettingsScreen();
+                  }));
+                  break;
+                }
+                case "Sign Out":{
+                  locator<SettingsViewModel>().signOut();
+                  break;
+                }
+              }
+            },
+            icon: Icon(Icons.more_vert),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+            itemBuilder: (BuildContext context) =>
+                List.generate(menuItems.length, (index) {
+              return PopupMenuItem(
+                value: menuItems[index],
+                key: Key(menuItems[index]),
+                child: Text(menuItems[index]),
+              );
+            }),
+          ),
 //          IconButton(
 //            key: Key("dashboardNotificationIcon"),
 //            iconSize: 15,
@@ -118,30 +152,29 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
         child:
 //        dashboardViewModel.shouldShowError ?ListView(children: [errorWidget()]) :
             ListView(
-              key: Key('dashboardListview'),
+          key: Key('dashboardListview'),
           children: [
-            if(dashboardViewModel.showProfileCompletePercentIndicatorWidget)
-            ProfileCompletePercentIndicatorWidget(
-                dashboardViewModel.profileCompletePercent / 100),
+            if (dashboardViewModel.showProfileCompletePercentIndicatorWidget)
+              ProfileCompletePercentIndicatorWidget(
+                  dashboardViewModel.profileCompletePercent / 100),
             InfoBoxWidget(
               onTapApplied: widget.onTapApplied,
               onTapFavourite: widget.onTapFavourite,
             ),
-            JobChartWidget(
-            ),
+            JobChartWidget(),
 //            TopCategoriesWidget(),
 //            VitalStateWidget(),
-            SizedBox(height: 10,),
+            SizedBox(
+              height: 10,
+            ),
             CareerAdviceListHWidget(),
-            SizedBox(height: 10,),
+            SizedBox(
+              height: 10,
+            ),
             OtherScreensWidget(),
-
-
           ],
         ),
       ),
     );
   }
 }
-
-

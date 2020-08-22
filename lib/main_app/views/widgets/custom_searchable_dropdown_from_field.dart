@@ -51,7 +51,7 @@ class CustomDropdownSearchFormField<T> extends StatelessWidget {
 
   const CustomDropdownSearchFormField({
     this.showSelectedItem = false,
-    this.autoFocusSearchBox = false,
+    this.autoFocusSearchBox = true,
     this.selectedItem,
     this.onFind,
     this.items,
