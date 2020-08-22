@@ -31,8 +31,8 @@ class CertificationsListItemWidget extends StatelessWidget {
             width: 55,
             color: Theme.of(context).scaffoldBackgroundColor,
             child: Icon(FontAwesomeIcons.certificate)),
-        title: Text(certificationInfo.certificationName??""),
-        subtitle: Text(certificationInfo.organizationName??""),
+        title: Text(certificationInfo.certificationName??"", key: Key('certificationTileNameKey'+index.toString()),),
+        subtitle: Text(certificationInfo.organizationName??"",key: Key('certificationTileOrganizationNameKey'+index.toString())),
         trailing: !isInEditMode?SizedBox():Row(
           mainAxisSize: MainAxisSize.min,
           children: [

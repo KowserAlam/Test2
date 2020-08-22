@@ -134,11 +134,12 @@ class _EditCertificationState extends State<EditCertification> {
     ;
     return Scaffold(
       appBar: AppBar(
-        title: Text(StringResources.certificationsText),
+        title: Text(StringResources.certificationsText, key: Key('certificationAppbarTitle'),),
         actions: <Widget>[
           EditScreenSaveButton(
             text: StringResources.saveText,
             onPressed: _handleSave,
+            key: Key('certificationSaveButton'),
           ),
         ],
       ),
@@ -216,6 +217,7 @@ class _EditCertificationState extends State<EditCertification> {
                 spaceBetweenFields,
                 CommonDatePickerFormField(
                   isRequired: true,
+                  dateFieldKey: Key('certificationIssueDate'),
                   errorText: IssueDateErrorText,
                   label: StringResources.certificationIssueDateText,
                   date: _issueDate,
@@ -240,6 +242,7 @@ class _EditCertificationState extends State<EditCertification> {
                         Text(StringResources.hasExpiryDateText),
                         Checkbox(
                           value: hasExpiryDate,
+                          key: Key('certificationHasExpiryDate'),
                           onChanged: (bool newValue) {
                             if (newValue) {
                               hasExpiryDate = newValue;
@@ -259,6 +262,7 @@ class _EditCertificationState extends State<EditCertification> {
                 hasExpiryDate
                     ? CommonDatePickerFormField(
                         isRequired: hasExpiryDate,
+                        dateFieldKey: Key('certificationExpiryDate'),
                         errorText: expiryDateErrorText,
                         label: StringResources.certificationExpiryDateText,
                         date: _expiryDate,

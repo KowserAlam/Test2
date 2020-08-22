@@ -80,6 +80,14 @@ class Keys{
   static final portfolioTileDeleteButton = find.byValueKey('portfolioTileDeleteButton0');
   static final portfolioTileName = find.byValueKey('portfolioTileName0');
 
+  static final myProfileCertificationPenKey = find.byValueKey('myProfileCertificationPenKey');
+  static final myProfileCertificationAddKey = find.byValueKey('myProfileCertificationAddKey');
+  static final certificationTileOrganizationNameKey = find.byValueKey('certificationTileOrganizationNameKey0');
+  static final certificationTileNameKey = find.byValueKey('certificationTileNameKey0');
+  static final certificationEditKey = find.byValueKey('certificationEditKey0');
+  static final certificationDeleteKey = find.byValueKey('certificationDeleteKey0');
+  static final addedCertificationTileNameKey = find.byValueKey('certificationTileNameKey1');
+
 
   //Header Edit Screen
   static final myProfileHeaderAppbarTitle = find.byValueKey('myProfileHeaderAppbarTitle');
@@ -120,6 +128,17 @@ class Keys{
   static final myProfileReferencesSaveButton = find.byValueKey('myProfileReferencesSaveButton');
   static final referencesDescription = find.byValueKey('referencesDescription');
 
+  //Certification
+  static final certificationAppbarTitle = find.byValueKey('certificationAppbarTitle');
+  static final certificationSaveButton = find.byValueKey('certificationSaveButton');
+  static final certificationName = find.byValueKey('certificationName');
+  static final certificationOrganizationName = find.byValueKey('certificationOrganizationName');
+  static final certificationCredentialIdName = find.byValueKey('certificationCredentialIdName');
+  static final certificationCredentialUrl = find.byValueKey('certificationCredentialUrl');
+  static final certificationIssueDate = find.byValueKey('certificationIssueDate');
+  static final certificationHasExpiryDate = find.byValueKey('certificationHasExpiryDate');
+  static final certificationExpiryDate = find.byValueKey('certificationExpiryDate');
+
   //Portfolio
   static final portfolioAppbarTitle = find.byValueKey('portfolioAppbarTitle');
   static final portfolioName = find.byValueKey('portfolioName');
@@ -150,12 +169,18 @@ class Keys{
   static final checkFavoriteUnfavoriteFromFavoriteList = find.byValueKey('favoriteFavoriteButtonKey0'); //click on 1st tile
 
   //Contact Us
-  static final tapOnNameField = find.byValueKey('contactUsNameField');
-  static final tapOnEmailField = find.text('contactUsEmailTextField');
-  static final tapOnPhoneField = find.text('contactUsPhoneTextField');
-  static final tapOnSubjectField = find.text('contactUsSubjectTextField');
-  static final tapOnMessageField = find.text('contactUsMessageTextField');
-  static final tapOnSubmitButton = find.text('contactUsSubmitButtonKey');
+  static final tapOnNameField = find.byValueKey('contactUsNameTextField');
+
+
+  static final tapOnEmailField = find.byValueKey('contactUsEmailTextField');
+  static final tapOnPhoneField = find.byValueKey('contactUsPhoneTextField');
+  static final tapOnSubjectField = find.byValueKey('contactUsSubjectTextField');
+  static final tapOnMessageField = find.byValueKey('contactUsMessageTextField');
+  static final tapOnSubmitButton = find.byValueKey('contactUsSubmitButtonKey');
+  static final confirmCompanyInfoAddress = find.text('House 76, Level 4,');
+  static final confirmCompanyInfoEmail = find.text('support@jobxprss.com');
+  static final confirmCompanyInfoPhone = find.text('01609500001');
+
 
 
 
