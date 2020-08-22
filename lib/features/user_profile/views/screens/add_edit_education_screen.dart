@@ -243,6 +243,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
 
     var nameOfInstitution = CustomAutoCompleteTextField<Institution>(
       isRequired: true,
+      textFieldKey: Key('educationInstitutionName'),
       labelText: StringResources.InstitutionText,
       hintText: StringResources.InstitutionHintText,
       validator: Validator().nullFieldValidate,
@@ -273,6 +274,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
       builder: (context, AsyncSnapshot<List<EducationLevel>> snap) {
         return CustomDropdownSearchFormField<EducationLevel>(
           isRequired: true,
+          dropdownKey: Key('educatuionLevelOfEducation'),
           showSearchBox: true,
           itemAsString: (v) => v?.name,
           compareFn: (s1, s2) =>
@@ -398,11 +400,12 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
       key: _scaffoldKey,
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
-        title: Text(StringResources.educationsText),
+        title: Text(StringResources.educationsText, key: Key('educationAppbarTitle'),),
         actions: <Widget>[
           EditScreenSaveButton(
             text: StringResources.saveText,
             onPressed: _handleSave,
+            key: Key('educationSaveButton'),
           ),
         ],
       ),

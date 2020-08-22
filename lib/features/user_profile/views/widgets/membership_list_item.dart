@@ -8,9 +8,10 @@ class MemberShipListItem extends StatelessWidget {
   final Function onTapEdit;
   final Function onTapDelete;
   final bool isInEditMode;
+  final int index;
   MemberShipListItem({
     Key key,
-    @required this.memberShip,this.onTapEdit,this.isInEditMode,this.onTapDelete
+    @required this.memberShip,this.onTapEdit,this.isInEditMode,this.onTapDelete, this.index
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -28,19 +29,21 @@ class MemberShipListItem extends StatelessWidget {
             width: 55,
             color: Theme.of(context).scaffoldBackgroundColor,
             child: Icon(FontAwesomeIcons.certificate)),
-        title: Text(memberShip.orgName??""),
-        subtitle: Text(memberShip.positionHeld??""),
+        title: Text(memberShip.orgName??"", key: Key('membershipTileOrganizationName'+index.toString()),),
+        subtitle: Text(memberShip.positionHeld??"", key: Key('membershipTilePositionHeld'+index.toString())),
         trailing: !isInEditMode?SizedBox():Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             IconButton(
               icon: Icon(FontAwesomeIcons.edit),
+              key: Key('membershipEditKey'+index.toString()),
               onPressed: onTapEdit,
               iconSize: 18,
               color: Colors.black,
             ),
             IconButton(
               icon: Icon(FontAwesomeIcons.trash),
+              key: Key('membershipDeleteKey'+index.toString()),
               onPressed: onTapDelete,
               iconSize: 18,
               color: Colors.black,

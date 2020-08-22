@@ -365,6 +365,8 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
       List<MembershipInfo> list = userProfileViewModel.userData.membershipInfo;
 
       return UserInfoListItem(
+        penKey: Key('myProfileMembershipPenKey'),
+        addKey: Key('myProfileMembershipAddKey'),
         isInEditMode: isInEditModeMembersShip,
         onTapEditAction: () {
           isInEditModeMembersShip = !isInEditModeMembersShip;
@@ -379,6 +381,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
         children: List.generate(list.length, (index) {
           var memberShip = list[index];
           return MemberShipListItem(
+            index: index,
             isInEditMode: isInEditModeMembersShip,
             memberShip: memberShip,
             onTapEdit: () {

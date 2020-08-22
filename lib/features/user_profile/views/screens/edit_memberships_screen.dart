@@ -139,11 +139,12 @@ class _EditMemberShipsState extends State<EditMemberShips> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(StringResources.membershipAppbarText),
+        title: Text(StringResources.membershipAppbarText, key: Key('membershipAppbarTitle'),),
         actions: <Widget>[
           EditScreenSaveButton(
             text: StringResources.saveText,
             onPressed: _handleSave,
+            key: Key('membershipSaveButton'),
           ),
         ],
       ),
@@ -160,6 +161,7 @@ class _EditMemberShipsState extends State<EditMemberShips> {
                   CustomTextFormField(
                     isRequired: true,
                     validator: Validator().nullFieldValidate,
+                    textFieldKey: Key('membershipOrganizationName'),
                     keyboardType: TextInputType.text,
                     focusNode: _orgNameFocusNode,
                     autofocus: true,
@@ -177,6 +179,7 @@ class _EditMemberShipsState extends State<EditMemberShips> {
                   CustomTextFormField(
                     //validator: Validator().nullFieldValidate,
                     focusNode: _positionHeldFocusNode,
+                    textFieldKey: Key('membershipPositionHeld'),
                     keyboardType: TextInputType.text,
                     //textInputAction: TextInputAction.next,
                     onFieldSubmitted: (a) {
@@ -192,6 +195,7 @@ class _EditMemberShipsState extends State<EditMemberShips> {
                   //Description
                   CustomZefyrRichTextFormField(
                     labelText: StringResources.descriptionText,
+                    zefyrKey: Key('membershipDescription'),
                     focusNode: _descriptionFocusNode,
                     controller: _descriptionZefyrController,
                   ),
@@ -202,6 +206,7 @@ class _EditMemberShipsState extends State<EditMemberShips> {
                     errorText: startDateErrorText,
                     label: StringResources.startingDateText,
                     date: _startDate,
+                    dateFieldKey: Key('membershipStartDate'),
                     onDateTimeChanged: (v) {
                       setState(() {
                         _startDate = v;
@@ -222,6 +227,7 @@ class _EditMemberShipsState extends State<EditMemberShips> {
                         children: <Widget>[
                           Checkbox(
                             value: _membershipOngoing,
+                            key: Key('membershipOngoing'),
                             onChanged: (bool newValue) {
                               if (newValue) {
                                 _membershipOngoing = newValue;
@@ -244,6 +250,7 @@ class _EditMemberShipsState extends State<EditMemberShips> {
                           isRequired: !_membershipOngoing,
                           errorText: endDateErrorText,
                           label: StringResources.membershipEndDateText,
+                          dateFieldKey: Key('membershipEndDate'),
                           date: _endDate,
                           onDateTimeChanged: (v) {
                             setState(() {

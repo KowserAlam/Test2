@@ -80,6 +80,14 @@ class Keys{
   static final portfolioTileDeleteButton = find.byValueKey('portfolioTileDeleteButton0');
   static final portfolioTileName = find.byValueKey('portfolioTileName0');
 
+  static final myProfileMembershipPenKey = find.byValueKey('myProfileMembershipPenKey');
+  static final myProfileMembershipAddKey = find.byValueKey('myProfileMembershipAddKey');
+  static final membershipEditKey = find.byValueKey('membershipEditKey0');
+  static final membershipDeleteKey = find.byValueKey('membershipDeleteKey0');
+  static final membershipTileOrganizationName = find.byValueKey('membershipTileOrganizationName0');
+  static final addedMembershipTileOrganizationName = find.byValueKey('membershipTileOrganizationName1');
+  static final membershipTilePositionHeld = find.byValueKey('membershipTilePositionHeld0');
+
   static final myProfileCertificationPenKey = find.byValueKey('myProfileCertificationPenKey');
   static final myProfileCertificationAddKey = find.byValueKey('myProfileCertificationAddKey');
   static final certificationTileOrganizationNameKey = find.byValueKey('certificationTileOrganizationNameKey0');
@@ -144,6 +152,17 @@ class Keys{
   static final portfolioName = find.byValueKey('portfolioName');
   static final portfolioSaveButton = find.byValueKey('portfolioSaveButton');
   static final portfolioDescription = find.byValueKey('portfolioDescription');
+
+  //Education
+  static final membershipAppbarTitle = find.byValueKey('membershipAppbarTitle');
+  static final membershipSaveButton = find.byValueKey('membershipSaveButton');
+  static final membershipOrganizationName = find.byValueKey('membershipOrganizationName');
+  static final membershipPositionHeld = find.byValueKey('membershipPositionHeld');
+  static final membershipDescription = find.byValueKey('membershipDescription');
+  static final membershipStartDate = find.byValueKey('membershipStartDate');
+  static final membershipOngoing = find.byValueKey('membershipOngoing');
+  static final membershipEndDate = find.byValueKey('membershipEndDate');
+
 
   //Jobs Segment
   static final clickOnAppliedJobsFromSegmentScreen = find.byValueKey('jobsSegmentAppliedText');
