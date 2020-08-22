@@ -9,7 +9,9 @@ main(){
 Future<void> allJobsTest()async{
 
   group('All Jobs Test: ', () {
-
+    final jobListSearchToggleButtonKey = find.byValueKey('jobListSearchToggleButtonKey');
+    final jobListSearchInputFieldKey = find.byValueKey('jobListSearchInputFieldKey');
+    final jobListSearchButtonKey = find.byValueKey('jobListSearchButtonKey');
 
     FlutterDriver driver;
     // Connect to the Flutter driver before running any tests.
@@ -45,6 +47,34 @@ Future<void> allJobsTest()async{
       await Future.delayed(const Duration(seconds: 4), () {});
 
     });
+    test('Check toggle Search button is working', () async {
+      await driver.tap(jobListSearchToggleButtonKey);
+      await Future.delayed(const Duration(seconds: 4), () {});
+      await driver.tap(jobListSearchToggleButtonKey);
+    });
+
+    test('Check Random input search is working', () async {
+      await driver.tap(jobListSearchToggleButtonKey);
+      await driver.enterText('randomText');
+      await driver.tap(jobListSearchButtonKey);
+      await Future.delayed(const Duration(seconds: 5), () {});
+    });
+
+    test('Check DevOps input search is working', () async {
+      await driver.tap(jobListSearchToggleButtonKey);
+      await driver.enterText('DevOps');
+      await driver.tap(jobListSearchButtonKey);
+      await Future.delayed(const Duration(seconds: 5), () {});
+    });
+
+    test('Check Software input search is working', () async {
+      await driver.tap(jobListSearchToggleButtonKey);
+      await driver.enterText('Software');
+      await driver.tap(jobListSearchButtonKey);
+      await Future.delayed(const Duration(seconds: 5), () {});
+    });
+
+
     contactUSTest();
 
   });
