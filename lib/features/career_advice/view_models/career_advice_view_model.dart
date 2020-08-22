@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:p7app/features/career_advice/models/career_advice_model.dart';
-import 'package:p7app/features/career_advice/models/career_advice_screen_data_model.dart';
 import 'package:p7app/features/career_advice/repositories/c_a_repository.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
-import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/util/common_serviec_rule.dart';
 
 class CareerAdviceViewModel with ChangeNotifier {

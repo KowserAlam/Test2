@@ -38,7 +38,6 @@ class CareerAdviceDetailsScreen extends StatelessWidget {
                       height: coverImageHeight,
                       fit: BoxFit.cover,
                       imageUrl: careerAdviceModel.featuredImage ?? "",
-
                       placeholder: (c, i) => Image.asset(
                         kCareerAdvicePlaceholder,
                         colorBlendMode: BlendMode.color,
@@ -56,17 +55,19 @@ class CareerAdviceDetailsScreen extends StatelessWidget {
                       child: Container(
                         height: profileImageHW,
                         width: profileImageHW,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(4),
-                          child: CachedNetworkImage(
-                            fit: BoxFit.cover,
-                            imageUrl: careerAdviceModel.thumbnailImage ?? "",
-
-                            placeholder: (context, _) => Image.asset(
-                              kDefaultUserImageAsset,
+                        child: Card( elevation: 3,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(4),
+                            child: CachedNetworkImage(
                               fit: BoxFit.cover,
+                              imageUrl: careerAdviceModel.thumbnailImage ?? "",
+
+                              placeholder: (context, _) => Image.asset(
+                                kDefaultUserImageAsset,
+                                fit: BoxFit.cover,
+                              ),
+                              progressIndicatorBuilder: (c, _, p) => Loader(),
                             ),
-                            progressIndicatorBuilder: (c, _, p) => Loader(),
                           ),
                         ),
                       ),
@@ -100,7 +101,7 @@ class CareerAdviceDetailsScreen extends StatelessWidget {
                         SizedBox(height: 5),
                         Text(
                           DateFormatUtil()
-                                  .dateFormat1(careerAdviceModel.createdAt) ??
+                                  .dateFormat1(careerAdviceModel.postedAt) ??
                               "",
                           style:
                               TextStyle(fontSize: 13, color: Colors.grey[600]),

@@ -8,7 +8,7 @@ class CareerAdviceModel {
   String author;
   String thumbnailImage;
   String featuredImage;
-  DateTime createdAt;
+  DateTime postedAt;
 
   CareerAdviceModel({
     this.id,
@@ -16,7 +16,7 @@ class CareerAdviceModel {
     this.shortDescription,
     this.description,
     this.author,
-    this.createdAt,
+    this.postedAt,
     this.thumbnailImage,
     this.featuredImage,
   });
@@ -28,7 +28,7 @@ class CareerAdviceModel {
     description = json['description'];
     author = json['author'];
     if (json['created_at'] != null) {
-      createdAt = DateTime.parse(json['created_at']);
+      postedAt = DateTime.parse(json['posted_at']);
     }
     if (json['thumbnail_image'] != null) {
       var baseUrl = FlavorConfig.instance.values.baseUrl;
@@ -43,6 +43,6 @@ class CareerAdviceModel {
 
   @override
   String toString() {
-    return 'CareerAdviceModel{id: $id, title: $title, shortDescription: $shortDescription, description: $description, author: $author, thumbnailImage: $thumbnailImage, featuredImage: $featuredImage, createdAt: $createdAt}';
+    return 'CareerAdviceModel{id: $id, title: $title, shortDescription: $shortDescription, description: $description, author: $author, thumbnailImage: $thumbnailImage, featuredImage: $featuredImage, createdAt: $postedAt}';
   }
 }

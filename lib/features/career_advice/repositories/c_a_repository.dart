@@ -16,7 +16,7 @@ class CareerAdviceRepository {
       var url = "${Urls.careerAdviceUrl}/?page_size=${pageSize}&page=${page}";
       var client = apiClient ?? ApiClient();
       var res = await client.getRequest(url);
-      logger.i(res.statusCode);
+//      logger.i(res.statusCode);
 
       if (res.statusCode == 200) {
         var decodedJson = json.decode(utf8.decode(res.bodyBytes));
