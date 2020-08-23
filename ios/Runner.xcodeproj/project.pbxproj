@@ -1096,8 +1096,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 75D076A61C02734DA1641654 /* Pods-Runner.debug prod.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = NZYD2285D4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ishraak.jobxprss;
 				PRODUCT_NAME = Runner;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = "Debug prod";
 		};
@@ -1105,8 +1109,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34D71C842B7EF3637BCD43B5 /* Pods-Runner.profile prod.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = NZYD2285D4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ishraak.jobxprss;
 				PRODUCT_NAME = Runner;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = "Profile prod";
 		};
@@ -1114,8 +1122,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F75C7783072804D988A5C0C0 /* Pods-Runner.release prod.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = NZYD2285D4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ishraak.jobxprss;
 				PRODUCT_NAME = Runner;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = "Release prod";
 		};
