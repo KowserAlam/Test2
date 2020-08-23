@@ -178,12 +178,12 @@ class Keys{
   static final personalInfoSaveButton = find.byValueKey('personalInfoSaveButton');
   static final personalInfoDOB = find.byValueKey('personalInfoDOB');
   static final personalInfoFatherName = find.byValueKey('personalInfoFatherName');
-  static final membershipEndDate = find.byValueKey('membershipEndDate');
-  static final membershipEndDate = find.byValueKey('membershipEndDate');
-  static final membershipEndDate = find.byValueKey('membershipEndDate');
-  static final membershipEndDate = find.byValueKey('membershipEndDate');
-  static final membershipEndDate = find.byValueKey('membershipEndDate');
-  static final membershipEndDate = find.byValueKey('membershipEndDate');
+  static final personalInfoMotherName = find.byValueKey('personalInfoMotherName');
+  static final personalInfoCurrentAddress = find.byValueKey('personalInfoCurrentAddress');
+  static final personalInfoPermanentAddress = find.byValueKey('personalInfoPermanentAddress');
+//  static final membershipEndDate = find.byValueKey('membershipEndDate');
+//  static final membershipEndDate = find.byValueKey('membershipEndDate');
+//  static final membershipEndDate = find.byValueKey('membershipEndDate');
 
 
   //Jobs Segment
