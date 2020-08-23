@@ -14,7 +14,8 @@ class PersonalInfoWidget extends StatelessWidget {
   Widget _item(
       {@required BuildContext context,
       @required String label,
-      @required String value}) {
+      @required String value,
+      @required Key valueKey}) {
 //    double width = MediaQuery.of(context).size.width > 720 ? 160 : 130;
     return Padding(
       padding: const EdgeInsets.all(5.0),
@@ -22,7 +23,7 @@ class PersonalInfoWidget extends StatelessWidget {
         crossAxisAlignment:CrossAxisAlignment.start,
           children: [
         Text("$label: ",style: TextStyle(fontWeight: FontWeight.bold)),
-        Expanded(child: Text("${value ?? ""}")),
+        Expanded(child: Text("${value ?? ""}", key: valueKey,)),
       ],),
     );
 //    return Padding(
@@ -41,6 +42,7 @@ class PersonalInfoWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return UserInfoListItem(
       useSeparator: false,
+      penKey: Key('personalInfoPenKey'),
       icon: FontAwesomeIcons.infoCircle,
       label: StringResources.personalInfoText,
       onTapEditAction: () {
@@ -73,6 +75,7 @@ class PersonalInfoWidget extends StatelessWidget {
                 //dob
                 _item(
                     context: context,
+                    valueKey: Key('personalInfoTileDateOfBirth'),
                     label: StringResources.dateOfBirthText,
                     value: personalInfo.dateOfBirth != null
                         ? DateFormatUtil.formatDate(personalInfo.dateOfBirth)
@@ -80,41 +83,49 @@ class PersonalInfoWidget extends StatelessWidget {
                 //gender
                 _item(
                     context: context,
+                    valueKey: Key('personalInfoTileGender'),
                     label: StringResources.genderText,
                     value: personalInfo.gender ?? ""),
                 //father name
                 _item(
                     context: context,
+                    valueKey: Key('personalInfoTileFatherName'),
                     label: StringResources.fatherNameText,
                     value: personalInfo.fatherName ?? ""),
                 //mother name
                 _item(
                     context: context,
+                    valueKey: Key('personalInfoTileMotherName'),
                     label: StringResources.motherNameText,
                     value: personalInfo.motherName ?? ""),
 
                 //current address
                 _item(
                     context: context,
+                    valueKey: Key('personalInfoTileCurrentAddress'),
                     label: StringResources.addressText,
                     value: personalInfo.address ?? ""),
                 //permanent address
                 _item(
                     context: context,
+                    valueKey: Key('personalInfoTilePermanentAddress'),
                     label: StringResources.permanentAddressText,
                     value: personalInfo.permanentAddress ?? ""),
                 //nationality
                 _item(
                     context: context,
+                    valueKey: Key('personalInfoTileNationality'),
                     label: StringResources.nationalityText,
                     value: personalInfo.nationalityObj?.name ?? ""),
                 //religion
                 _item(
                     context: context,
+                    valueKey: Key('personalInfoTileReligion'),
                     label: StringResources.religionText,
                     value: personalInfo.religionObj?.name ?? ""),
                 _item(
                     context: context,
+                    valueKey: Key('personalInfoTileBloodGroup'),
                     label: StringResources.bloodGroupText,
                     value: personalInfo.bloodGroup ?? ""),
               ],

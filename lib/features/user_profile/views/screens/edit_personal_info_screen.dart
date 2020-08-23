@@ -214,11 +214,12 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(StringResources.personalInfoText),
+        title: Text(StringResources.personalInfoText, key: Key('personalInfoAppbarTitle'),),
         actions: <Widget>[
           EditScreenSaveButton(
             text: StringResources.saveText,
             onPressed: _handleSave,
+            key: Key('personalInfoSaveButton'),
           ),
         ],
       ),
@@ -233,6 +234,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                 //Date of Birth
                 CommonDatePickerFormField(
                   label: StringResources.dateOfBirthText,
+                  dateFieldKey: Key('personalInfoDOB'),
                   date: _chosenBirthDate,
                   onDateTimeChanged: (v) {
                     setState(() {
@@ -261,6 +263,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                 //Father's Name
                 CustomTextFormField(
                   keyboardType: TextInputType.text,
+                  textFieldKey: Key('personalInfoFatherName'),
                   //focusNode: _fatherNameFocusNode,
 //                    textInputAction: TextInputAction.next,
                   onFieldSubmitted: (a) {
@@ -275,6 +278,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                 //Mother's Name
                 CustomTextFormField(
                   keyboardType: TextInputType.text,
+                  textFieldKey: Key('personalInfoMotherName'),
                   onFieldSubmitted: (a) {
 //                      FocusScope.of(context)
 //                          .requestFocus(_currentAddressFocusNode);
@@ -287,6 +291,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                 //Current Address
                 CustomTextFormField(
                   maxLength: 255,
+                  textFieldKey: Key('personalInfoCurrentAddress'),
                   keyboardType: TextInputType.multiline,
                   minLines: 3,
                   maxLines: 8,
@@ -303,6 +308,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                 CustomTextFormField(
                   //validator: Validator().nullFieldValidate,
                   //focusNode: _permanentAddressFocusNode,
+                  textFieldKey: Key('personalInfoPermanentAddress'),
                   maxLength: 255,
                   minLines: 3,
                   maxLines: 8,

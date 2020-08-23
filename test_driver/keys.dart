@@ -96,6 +96,16 @@ class Keys{
   static final certificationDeleteKey = find.byValueKey('certificationDeleteKey0');
   static final addedCertificationTileNameKey = find.byValueKey('certificationTileNameKey1');
 
+  static final personalInfoTileDateOfBirth = find.byValueKey('personalInfoTileDateOfBirth');
+  static final personalInfoTileGender = find.byValueKey('personalInfoTileGender');
+  static final personalInfoTileFatherName = find.byValueKey('personalInfoTileFatherName');
+  static final personalInfoTileMotherName = find.byValueKey('personalInfoTileMotherName');
+  static final personalInfoTileCurrentAddress = find.byValueKey('personalInfoTileCurrentAddress');
+  static final personalInfoTilePermanentAddress = find.byValueKey('personalInfoTilePermanentAddress');
+  static final personalInfoTileNationality = find.byValueKey('personalInfoTileNationality');
+  static final personalInfoTileReligion = find.byValueKey('personalInfoTileReligion');
+  static final personalInfoTileBloodGroup = find.byValueKey('personalInfoTileBloodGroup');
+
 
   //Header Edit Screen
   static final myProfileHeaderAppbarTitle = find.byValueKey('myProfileHeaderAppbarTitle');
@@ -161,6 +171,18 @@ class Keys{
   static final membershipDescription = find.byValueKey('membershipDescription');
   static final membershipStartDate = find.byValueKey('membershipStartDate');
   static final membershipOngoing = find.byValueKey('membershipOngoing');
+  static final membershipEndDate = find.byValueKey('membershipEndDate');
+
+  //Personal Info
+  static final personalInfoAppbarTitle = find.byValueKey('personalInfoAppbarTitle');
+  static final personalInfoSaveButton = find.byValueKey('personalInfoSaveButton');
+  static final personalInfoDOB = find.byValueKey('personalInfoDOB');
+  static final personalInfoFatherName = find.byValueKey('personalInfoFatherName');
+  static final membershipEndDate = find.byValueKey('membershipEndDate');
+  static final membershipEndDate = find.byValueKey('membershipEndDate');
+  static final membershipEndDate = find.byValueKey('membershipEndDate');
+  static final membershipEndDate = find.byValueKey('membershipEndDate');
+  static final membershipEndDate = find.byValueKey('membershipEndDate');
   static final membershipEndDate = find.byValueKey('membershipEndDate');
 
 
