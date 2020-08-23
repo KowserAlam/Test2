@@ -5,6 +5,7 @@ import '../keys.dart';
 
 
 //flutter drive --flavor dev --target=test_driver/my_profile/my_profile_personal_info.dart
+//flutter drive --target=test_driver/my_profile/my_profile_personal_info.dart -d macOS
 
 void main() {
   group('My Profile - Personal Info Test', () {
@@ -30,7 +31,7 @@ void main() {
       await driver.tap(Keys.signInPassword);
       await driver.enterText('1234567s');
       await driver.tap(Keys.signInButton);
-      await Future.delayed(const Duration(seconds: 5), (){});
+//      await Future.delayed(const Duration(seconds: 5), (){});
 //      await driver.tap(Keys.onboardingPageSkipButton);
 //      await Future.delayed(const Duration(seconds: 5), (){});
       await driver.tap(Keys.bottomNavigationBarMyProfile);
@@ -87,10 +88,13 @@ void main() {
       await driver.tap(Keys.personalInfoPenKey);
       print('1');
       await driver.tap(Keys.personalInfoGender);
+      await driver.waitFor(Keys.personalInfoGender);
+//      await Future.delayed(const Duration(seconds: 1), (){});
       print('2');
       await driver.tap(Keys.personalInfoGenderMale);
       print('3');
       await driver.tap(Keys.personalInfoSaveButton);
+
       await Future.delayed(const Duration(seconds: 2), (){});
       await expect(await driver.getText(Keys.myProfileAppbarTitle), 'My Profile');
       await expect(await driver.getText(Keys.personalInfoTileGender), 'Male');
