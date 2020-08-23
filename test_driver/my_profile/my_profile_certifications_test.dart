@@ -6,7 +6,10 @@ import '../keys.dart';
 
 //flutter drive --flavor dev --target=test_driver/my_profile/my_profile_certifications.dart
 
-void main() {
+main(){
+  myProfileCertificationTest();
+}
+Future<void> myProfileCertificationTest()async{
   group('My Profile - Certifications Test', () {
 
 

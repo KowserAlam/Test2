@@ -119,7 +119,7 @@ Future dashboardInfoBoxTest() async{
       await driver.tap(backButton);
     });
 
-    appliedJobsTest();
+    //appliedJobsTest();
   });
 
 }
