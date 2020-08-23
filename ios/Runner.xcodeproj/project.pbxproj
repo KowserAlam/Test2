@@ -577,7 +577,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.ishraak.jobxprss;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jobxprss;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
@@ -716,7 +716,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.ishraak.jobxprss;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jobxprss;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
@@ -748,7 +748,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.ishraak.jobxprss;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jobxprss;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
@@ -1099,9 +1099,9 @@
 			baseConfigurationReference = 75D076A61C02734DA1641654 /* Pods-Runner.debug prod.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ishraak.jobxprss;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = NZYD2285D4;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jobxprss;
 				PRODUCT_NAME = Runner;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
@@ -1112,9 +1112,9 @@
 			baseConfigurationReference = 34D71C842B7EF3637BCD43B5 /* Pods-Runner.profile prod.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ishraak.jobxprss;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = NZYD2285D4;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jobxprss;
 				PRODUCT_NAME = Runner;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
@@ -1125,9 +1125,9 @@
 			baseConfigurationReference = F75C7783072804D988A5C0C0 /* Pods-Runner.release prod.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ishraak.jobxprss;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = NZYD2285D4;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jobxprss;
 				PRODUCT_NAME = Runner;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
