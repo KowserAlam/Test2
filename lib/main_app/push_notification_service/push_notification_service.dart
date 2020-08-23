@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:logger/logger.dart';
 import 'package:p7app/features/settings/settings_view_model.dart';
 import 'package:p7app/main_app/util/locator.dart';
+import 'package:p7app/main_app/util/logger_helper.dart';
 
 class PushNotificationService {
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
@@ -15,7 +16,8 @@ class PushNotificationService {
       _init();
       getToken();
     } else {
-      Logger().i(
+
+      logger.e(
           "Notification service not implemented for ${Platform.operatingSystem}!");
     }
   }

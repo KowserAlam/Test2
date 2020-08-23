@@ -7,7 +7,9 @@ import 'package:p7app/features/job/view_model/job_screen_view_model.dart';
 import 'package:p7app/features/messaging/view/sender_list_screen.dart';
 import 'package:p7app/features/user_profile/views/screens/profile_screen.dart';
 import 'package:p7app/main_app/flavour/flavor_banner.dart';
+import 'package:p7app/main_app/push_notification_service/push_notification_service.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
+import 'package:p7app/main_app/util/locator.dart';
 import 'package:p7app/main_app/util/token_refresh_scheduler.dart';
 import 'package:provider/provider.dart';
 
@@ -23,9 +25,13 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     TokenRefreshScheduler.getInstance();
+    _setupPushNotification();
     super.initState();
   }
 
+  _setupPushNotification() {
+    var pushNotificationService = locator<PushNotificationService>();
+  }
   @override
   Widget build(BuildContext context) {
     var bottomNavBar = BottomNavigationBar(
