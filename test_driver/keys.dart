@@ -105,6 +105,15 @@ class Keys{
   static final personalInfoTileNationality = find.byValueKey('personalInfoTileNationality');
   static final personalInfoTileReligion = find.byValueKey('personalInfoTileReligion');
   static final personalInfoTileBloodGroup = find.byValueKey('personalInfoTileBloodGroup');
+  static final personalInfoPenKey = find.byValueKey('personalInfoPenKey');
+
+  static final myProfileEducationPenKey = find.byValueKey('myProfileEducationPenKey');
+  static final myProfileEducationAddKey = find.byValueKey('myProfileEducationAddKey');
+  static final educationTileInstitutionName = find.byValueKey('educationTileInstitutionName0');
+  static final addedEducationTileInstitutionName = find.byValueKey('educationTileInstitutionName1');
+  static final educationTileDegree = find.byValueKey('educationTileDegree0');
+  static final educationTileEditButton = find.byValueKey('educationTileEditButton0');
+  static final educationTileDeleteButton = find.byValueKey('educationTileDeleteButton0');
 
 
   //Header Edit Screen
@@ -163,7 +172,7 @@ class Keys{
   static final portfolioSaveButton = find.byValueKey('portfolioSaveButton');
   static final portfolioDescription = find.byValueKey('portfolioDescription');
 
-  //Education
+  //Membership
   static final membershipAppbarTitle = find.byValueKey('membershipAppbarTitle');
   static final membershipSaveButton = find.byValueKey('membershipSaveButton');
   static final membershipOrganizationName = find.byValueKey('membershipOrganizationName');
@@ -176,14 +185,30 @@ class Keys{
   //Personal Info
   static final personalInfoAppbarTitle = find.byValueKey('personalInfoAppbarTitle');
   static final personalInfoSaveButton = find.byValueKey('personalInfoSaveButton');
+  static final personalInfoScrollView = find.byValueKey('personalInfoScrollView');
   static final personalInfoDOB = find.byValueKey('personalInfoDOB');
   static final personalInfoFatherName = find.byValueKey('personalInfoFatherName');
   static final personalInfoMotherName = find.byValueKey('personalInfoMotherName');
   static final personalInfoCurrentAddress = find.byValueKey('personalInfoCurrentAddress');
   static final personalInfoPermanentAddress = find.byValueKey('personalInfoPermanentAddress');
-//  static final membershipEndDate = find.byValueKey('membershipEndDate');
-//  static final membershipEndDate = find.byValueKey('membershipEndDate');
-//  static final membershipEndDate = find.byValueKey('membershipEndDate');
+  static final personalInfoGender = find.byValueKey('personalInfoGender');
+  static final personalInfoGenderMale = find.byValueKey('Male');
+  static final personalInfoNationality = find.byValueKey('personalInfoNationality');
+  static final personalInfoNationalityBangladeshi = find.byValueKey('personalInfoNationalityBangladeshi');
+  static final personalInfoReligion = find.byValueKey('personalInfoReligion');
+  static final personalInfoReligionIslam = find.byValueKey('Islam');
+  static final personalInfoBloodGroup = find.byValueKey('personalInfoBloodGroup');
+  static final personalInfoBloodGroupAPositive = find.byValueKey('A+');
+
+  //Education
+  static final educationAppbarTitle = find.byValueKey('educationAppbarTitle');
+  static final educationSaveButton = find.byValueKey('educationSaveButton');
+  static final educationInstitutionName = find.byValueKey('educationInstitutionName');
+  static final educationLevelOfEducation = find.byValueKey('educationLevelOfEducation');
+//  static final personalInfoPermanentAddress = find.byValueKey('personalInfoPermanentAddress');
+//  static final personalInfoPermanentAddress = find.byValueKey('personalInfoPermanentAddress');
+//  static final personalInfoPermanentAddress = find.byValueKey('personalInfoPermanentAddress');
+
 
 
   //Jobs Segment

@@ -190,6 +190,8 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
       return UserInfoListItem(
         isInEditMode: isInEditModeEducation,
         icon: FontAwesomeIcons.university,
+        penKey: Key('myProfileEducationPenKey'),
+        addKey: Key('myProfileEducationAddKey'),
         label: StringResources.educationsText,
         onTapEditAction: () {
           setState(() {

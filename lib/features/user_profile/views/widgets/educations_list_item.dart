@@ -63,11 +63,12 @@ class EducationsListItem extends StatelessWidget {
                   eduInfoModel.institutionObj?.name ??
                       eduInfoModel.institutionText ??
                       "",style: Theme.of(context).textTheme.subtitle1,
+                  key: Key('educationTileInstitutionName'+index.toString()),
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(eduInfoModel.degree ?? "",style: TextStyle(fontSize: 13),),
+                    Text(eduInfoModel.degree ?? "",style: TextStyle(fontSize: 13),key: Key('educationTileDegree'),),
                     Text(
                       date,
                       style: TextStyle(fontSize: 12, color: Colors.grey),
@@ -84,12 +85,14 @@ class EducationsListItem extends StatelessWidget {
                 IconButton(
                   icon: Icon(FontAwesomeIcons.edit),
                   onPressed: onTapEdit,
+                  key: Key('educationTileEditButton'+index.toString()),
                   iconSize: 18,
                   color: Colors.black,
                 ),
                 IconButton(
                   icon: Icon(FontAwesomeIcons.trash),
                   onPressed: onTapDelete,
+                  key: Key('educationTileDeleteButton'+index.toString()),
                   iconSize: 18,
                   color: Colors.black,
                 ),

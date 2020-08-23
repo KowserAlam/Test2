@@ -224,6 +224,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
         ],
       ),
       body: SingleChildScrollView(
+        key: Key('personalInfoScrollView'),
         child: Form(
           key: _formKey,
           child: Padding(
@@ -251,6 +252,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                 //Gender
                 CustomDropdownButtonFormField<String>(
                   labelText: StringResources.genderText,
+                  customDropdownKey: Key('personalInfoGender'),
                   hint: Text(StringResources.tapToSelectText),
                   value: _selectedGenderDropDownItem,
                   onChanged: (value) {
@@ -326,6 +328,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                 //Nationality
                 CustomDropdownButtonFormField<Nationality>(
                   labelText: StringResources.nationalityText,
+                  customDropdownKey: Key('personalInfoNationality'),
                   hint: Text(StringResources.tapToSelectText),
                   value: _selectedNationalityDropDownItem,
                   onChanged: (value) {
@@ -338,6 +341,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                 //Religion
                 CustomDropdownButtonFormField<Religion>(
                   labelText: StringResources.religionText,
+                  customDropdownKey: Key('personalInfoReligion'),
                   hint: Text(StringResources.tapToSelectText),
                   value: _selectedReligionDropDownItem,
                   onChanged: (value) {
@@ -347,9 +351,10 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                   items: _religionList,
                 ),
                 spaceBetweenFields,
-                //Mother's Name
+                //Blood Group
                 CustomDropdownButtonFormField<String>(
                   labelText: StringResources.bloodGroupText,
+                  customDropdownKey: Key('personalInfoBloodGroup'),
                   hint: Text(StringResources.tapToSelectText),
                   value: _selectedBloodGroup,
                   onChanged: (value) {
