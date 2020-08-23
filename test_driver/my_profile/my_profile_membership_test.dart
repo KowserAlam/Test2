@@ -6,7 +6,10 @@ import '../keys.dart';
 
 //flutter drive --flavor dev --target=test_driver/my_profile/my_profile_membership.dart
 
-void main() {
+main(){
+  myProfileMembershipTest();
+}
+Future<void> myProfileMembershipTest()async{
   group('My Profile - Membership Test', () {
 
 

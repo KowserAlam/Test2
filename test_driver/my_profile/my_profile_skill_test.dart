@@ -3,7 +3,10 @@ import 'package:test/test.dart';
 
 import '../keys.dart';
 
-void main() {
+main(){
+  myProfileSkillTest();
+}
+Future<void> myProfileSkillTest()async{
   group('My Profile - Professional Skill Test', () {
 
     //flutter drive --flavor dev --target=test_driver/my_profile/my_profile_skill.dart
