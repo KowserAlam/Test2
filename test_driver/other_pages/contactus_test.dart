@@ -13,6 +13,7 @@ Future<void> contactUSTest()async{
 
     final dashBoardContactUsTile = find.byValueKey('dashBoardContactUsTile');
     final dashBoardListview = find.byValueKey('dashBoardListview');
+    final contactUsTextOnAppBar = find.byValueKey('contactUsTextOnAppBar');
 
 
     FlutterDriver driver;
@@ -30,7 +31,7 @@ Future<void> contactUSTest()async{
 
     //test cases are started from here
 
-    /*test('Try to login with registered email and password', () async {
+/*    test('Try to login with registered email and password', () async {
       await driver.tap(Keys.signInEmail);
       await driver.enterText('mahmudoni01@gmail.com');
       await driver.tap(Keys.signInPassword);
@@ -48,7 +49,9 @@ Future<void> contactUSTest()async{
       await driver.scrollUntilVisible(dashBoardListview, dashBoardContactUsTile,
           dyScroll: -600);
       await driver.tap(dashBoardContactUsTile);
+      await expect(await driver.getText(contactUsTextOnAppBar), 'Contact Us');
       await Future.delayed(const Duration(seconds: 5), () {});
+      //contactUsTextOnAppBar
     });
 
     test('Click on Submit button while all the text boxes are empty', () async {

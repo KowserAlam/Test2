@@ -100,14 +100,14 @@ main(){
       await Future.delayed(const Duration(seconds: 2), (){});
     });*/
 
-    test('Try to login with registered email and password', () async {
+    /*test('Try to login with registered email and password', () async {
       await driver.tap(signinEmailField);
       await driver.enterText('mahmudoni01@gmail.com');
       await driver.tap(signinPasswordField);
       await driver.enterText('1234567r');
       await driver.tap(signinButtonClick);
       await Future.delayed(const Duration(seconds: 3), () {});
-    });
+    });*/
 
    /* test('Skipping the Onboarding screan and wait for dashboard', () async {
       await driver.tap(skipOnboardingScreen);
@@ -117,5 +117,5 @@ main(){
 
   });
 
-  dashboardTest();
+  //dashboardTest();
 }

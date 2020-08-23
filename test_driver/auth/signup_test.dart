@@ -149,6 +149,6 @@ signUpTest(){
     });
 
   });
-  loginTest();
+  //loginTest();
 
 }

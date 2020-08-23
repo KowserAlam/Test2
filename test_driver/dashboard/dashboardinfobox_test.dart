@@ -76,13 +76,14 @@ Future dashboardInfoBoxTest() async{
       await driver.tap(backButton);
     });
 
-    test('Click on Notification icon to check notifications', () async {
+    //it has been commented because notification section is hidden for now
+    /*test('Click on Notification icon to check notifications', () async {
       await driver.tap(dashboardNotificationIcon);
       await expect(await driver.getText(Keys.notificationsTextOnAppBar), 'Notifications');
       await Future.delayed(const Duration(seconds: 2), () {});
       await driver.tap(backButton);
     });
-
+*/
     test('Click on Career Advice - View All', () async {
       await driver.tap(careerAdviceViewAll);
       await Future.delayed(const Duration(seconds: 2), () {});

@@ -1,10 +1,14 @@
 import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
 
+import 'auth/forgotpassword_test.dart';
+import 'auth/login_test.dart';
+import 'auth/signup_test.dart';
 import 'dashboard/dashboardinfobox_test.dart';
 import 'jobs_segment/appliedjobs_test.dart';
 import 'jobs_segment/favoritejobs_test.dart';
 import 'keys.dart';
+import 'other_pages/contactus_test.dart';
 
 
 main() {
@@ -33,6 +37,11 @@ Future<void> allJobsTest() async {
     });
 
     //test cases are started from here
+    forgotPasswordTest();
+
+    signUpTest();
+
+    loginTest();
 
     test('login with registered email and password', () async {
       await driver.tap(Keys.signInEmail);
@@ -45,8 +54,11 @@ Future<void> allJobsTest() async {
 
     dashboardInfoBoxTest();
 
+    appliedJobsTest();
+
     favoriteJobsTest();
 
-    appliedJobsTest();
+    contactUSTest();
+
   });
 }
