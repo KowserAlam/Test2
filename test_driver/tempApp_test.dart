@@ -12,11 +12,11 @@ import 'other_pages/contactus_test.dart';
 
 
 main() {
-  allJobsTest();
+  allTestCaseAtOnce();
 }
 
-Future<void> allJobsTest() async {
-  group('All Jobs Test: ', () {
+Future<void> allTestCaseAtOnce() async {
+  group('All TestCase at Once: ', () {
     final jobListSearchToggleButtonKey =
     find.byValueKey('jobListSearchToggleButtonKey');
     final jobListSearchInputFieldKey =
