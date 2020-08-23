@@ -174,6 +174,7 @@ class Keys{
   static final clickOnFirstTileOnAllJobs = find.byValueKey('allJobsTileKey0');
   static final checkFavoriteUnfavoriteFromAllJobsList = find.byValueKey('allJobsListFavoriteButtonKey0'); //click on 1st tile
   static final dialogBoxNoButton = find.text('No');
+  static final dialogBoxYesButton = find.text('Yes');
 
 
   //Job Segment - Applied Jobs
