@@ -214,15 +214,17 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(StringResources.personalInfoText),
+        title: Text(StringResources.personalInfoText, key: Key('personalInfoAppbarTitle'),),
         actions: <Widget>[
           EditScreenSaveButton(
             text: StringResources.saveText,
             onPressed: _handleSave,
+            key: Key('personalInfoSaveButton'),
           ),
         ],
       ),
       body: SingleChildScrollView(
+        key: Key('personalInfoScrollView'),
         child: Form(
           key: _formKey,
           child: Padding(
@@ -233,6 +235,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                 //Date of Birth
                 CommonDatePickerFormField(
                   label: StringResources.dateOfBirthText,
+                  dateFieldKey: Key('personalInfoDOB'),
                   date: _chosenBirthDate,
                   onDateTimeChanged: (v) {
                     setState(() {
@@ -249,6 +252,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                 //Gender
                 CustomDropdownButtonFormField<String>(
                   labelText: StringResources.genderText,
+                  customDropdownKey: Key('personalInfoGender'),
                   hint: Text(StringResources.tapToSelectText),
                   value: _selectedGenderDropDownItem,
                   onChanged: (value) {
@@ -261,6 +265,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                 //Father's Name
                 CustomTextFormField(
                   keyboardType: TextInputType.text,
+                  textFieldKey: Key('personalInfoFatherName'),
                   //focusNode: _fatherNameFocusNode,
 //                    textInputAction: TextInputAction.next,
                   onFieldSubmitted: (a) {
@@ -275,6 +280,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                 //Mother's Name
                 CustomTextFormField(
                   keyboardType: TextInputType.text,
+                  textFieldKey: Key('personalInfoMotherName'),
                   onFieldSubmitted: (a) {
 //                      FocusScope.of(context)
 //                          .requestFocus(_currentAddressFocusNode);
@@ -287,6 +293,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                 //Current Address
                 CustomTextFormField(
                   maxLength: 255,
+                  textFieldKey: Key('personalInfoCurrentAddress'),
                   keyboardType: TextInputType.multiline,
                   minLines: 3,
                   maxLines: 8,
@@ -303,6 +310,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                 CustomTextFormField(
                   //validator: Validator().nullFieldValidate,
                   //focusNode: _permanentAddressFocusNode,
+                  textFieldKey: Key('personalInfoPermanentAddress'),
                   maxLength: 255,
                   minLines: 3,
                   maxLines: 8,
@@ -320,6 +328,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                 //Nationality
                 CustomDropdownButtonFormField<Nationality>(
                   labelText: StringResources.nationalityText,
+                  customDropdownKey: Key('personalInfoNationality'),
                   hint: Text(StringResources.tapToSelectText),
                   value: _selectedNationalityDropDownItem,
                   onChanged: (value) {
@@ -332,6 +341,7 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                 //Religion
                 CustomDropdownButtonFormField<Religion>(
                   labelText: StringResources.religionText,
+                  customDropdownKey: Key('personalInfoReligion'),
                   hint: Text(StringResources.tapToSelectText),
                   value: _selectedReligionDropDownItem,
                   onChanged: (value) {
@@ -341,9 +351,10 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                   items: _religionList,
                 ),
                 spaceBetweenFields,
-                //Mother's Name
+                //Blood Group
                 CustomDropdownButtonFormField<String>(
                   labelText: StringResources.bloodGroupText,
+                  customDropdownKey: Key('personalInfoBloodGroup'),
                   hint: Text(StringResources.tapToSelectText),
                   value: _selectedBloodGroup,
                   onChanged: (value) {
