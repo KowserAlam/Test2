@@ -6,7 +6,10 @@ import '../keys.dart';
 
 //flutter drive --flavor dev --target=test_driver/my_profile/my_profile_references.dart
 
-void main() {
+main(){
+  myProfileReferencesTest();
+}
+Future<void> myProfileReferencesTest()async{
   group('My Profile - References Test', () {
 
 

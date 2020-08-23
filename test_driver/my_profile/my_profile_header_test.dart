@@ -6,7 +6,10 @@ import '../keys.dart';
 
 //flutter drive --flavor dev --target=test_driver/my_profile/my_profile_header.dart
 
-void main() {
+main(){
+  myProfileHeaderTest();
+}
+Future<void> myProfileHeaderTest()async{
   group('My Profile - Header Test', () {
 
 
