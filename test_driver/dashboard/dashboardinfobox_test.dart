@@ -19,6 +19,7 @@ Future dashboardInfoBoxTest() async{
     final dashBoardFAQTile = find.byValueKey('dashBoardFAQTile');
     final dashBoardAboutUsTile = find.byValueKey('dashBoardAboutUsTile');
     final dashBoardListview = find.byValueKey('dashBoardListview');
+    final dashboardHorizontalCareerAdviceListKey = find.byValueKey('dashboardHorizontalCareerAdviceListKey');
     final dashboardNotificationIcon = find.byValueKey('dashboardNotificationIcon');
     final careerAdviceViewAll = find.byValueKey('careerAdviceViewAll');
     final careerAdviceTile1 = find.byValueKey('careerAdviceTile1');
@@ -103,18 +104,25 @@ Future dashboardInfoBoxTest() async{
     });
 
     test('Click on Career Advice - 3rd tile', () async {
+      await driver.scrollUntilVisible(dashboardHorizontalCareerAdviceListKey, careerAdviceTile3,
+          dyScroll: -600);
+      //dashboardHorizontalCareerAdviceListKey
       await driver.tap(careerAdviceTile3);
       //await Future.delayed(const Duration(seconds: 6), () {});
       await driver.tap(backButton);
     });
 
     test('Click on Career Advice - 4th tile', () async {
+      await driver.scrollUntilVisible(dashboardHorizontalCareerAdviceListKey, careerAdviceTile4,
+          dyScroll: -600);
       await driver.tap(careerAdviceTile4);
       //await Future.delayed(const Duration(seconds: 6), () {});
       await driver.tap(backButton);
     });
 
     test('Click on Career Advice - 5th tile', () async {
+      await driver.scrollUntilVisible(dashboardHorizontalCareerAdviceListKey, careerAdviceTile5,
+          dyScroll: -600);
       await driver.tap(careerAdviceTile5);
       //await Future.delayed(const Duration(seconds: 6), () {});
       await driver.tap(backButton);
