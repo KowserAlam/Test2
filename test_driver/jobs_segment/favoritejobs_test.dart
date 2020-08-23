@@ -70,6 +70,6 @@ Future<void> favoriteJobsTest()async{
     });*/
 
   });
-  allJobsTest();
+  //allJobsTest();
 }
 //flutter drive --flavor dev --target=test_driver/jobs_segment/favoritejobs.dart

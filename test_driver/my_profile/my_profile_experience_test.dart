@@ -6,7 +6,10 @@ import '../keys.dart';
 
 //flutter drive --flavor dev --target=test_driver/my_profile/my_profile_experience.dart
 
-void main() {
+main(){
+  myProfileExperienceTest();
+}
+Future<void> myProfileExperienceTest()async{
   group('My Profile - Experience Test', () {
 
 
