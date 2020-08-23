@@ -61,7 +61,7 @@ class _RootState extends State<Root> {
   }
 
   _naveGateToNextScreen({bool showDummyLoading = false}) {
-    _setupPushNotification();
+//    _setupPushNotification();
     _initUserdata();
 
     Future.delayed(Duration(seconds: showDummyLoading ? 0 : 2)).then((_) async {
@@ -86,9 +86,7 @@ class _RootState extends State<Root> {
     });
   }
 
-  _setupPushNotification() {
-    var pushNotificationService = locator<PushNotificationService>();
-  }
+
 
   _initUserdata() {
     Provider.of<UserProfileViewModel>(context, listen: false).getUserData();
