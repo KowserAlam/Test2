@@ -22,6 +22,12 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>FirebaseAppDelegateProxyEnabled</key>
 	<false/>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>facebook</string>
+		<string>twitter</string>
+		<string>whatsapp</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UIBackgroundModes</key>
@@ -50,18 +56,5 @@
 	<false/>
 	<key>io.flutter.embedded_views_preview</key>
 	<true/>
-
-			<!-- social_share -->
-	<key>LSApplicationQueriesSchemes</key>
-    	<array>
-    	<!-- <string>instagram-stories</string> -->
-    	<!-- <string>facebook-stories</string> -->
-    	<string>facebook</string>
-    	<!-- <string>instagram</string> -->
-    	<string>twitter</string>
-    	<string>whatsapp</string>
-        <!-- <string>tg</string> -->
-    	</array>
-
 </dict>
 </plist>
