@@ -238,6 +238,7 @@ class _SignInScreenState extends State<SignInScreen> {
           controller: _passwordTextController,
           hintText: StringResources.passwordText,
           onSubmitted: (s) {
+            _btnController.start();
             _handleLogin(_scaffoldKey.currentState.context);
           },
         );
