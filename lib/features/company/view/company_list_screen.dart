@@ -199,6 +199,7 @@ class _CompanyListScreenState extends State<CompanyListScreen>
                           ? errorWidget()
                           : Expanded(
                               child: ListView.builder(
+                                  key: Key('companyListView'),
                                   controller: _scrollController,
                                   itemCount: companySuggestion.length + 1,
                                   itemBuilder:

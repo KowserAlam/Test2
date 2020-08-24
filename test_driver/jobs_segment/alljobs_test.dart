@@ -8,7 +8,7 @@ main() {
 }
 
 Future<void> allJobsTest() async {
-  group('All Jobs Test: ', () {
+  return group('All Jobs Test: ', () {
     final jobListSearchToggleButtonKey =
         find.byValueKey('jobListSearchToggleButtonKey');
     final jobListSearchInputFieldKey =
