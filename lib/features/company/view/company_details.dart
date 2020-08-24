@@ -572,7 +572,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
         title: Text(StringResources.companyDetailsText),
       ),
       body: ListView(
-        key: Key("companyDetailsListView"),
+        key: Key("companyDetailsListViewKey"),
         children: [
           Container(
             padding: EdgeInsets.all(10),

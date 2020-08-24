@@ -13,8 +13,10 @@ Future<void> company() async{
     final companySearchToggleButtonKey = find.byValueKey('companySearchToggleButtonKey');
     final companySearchInputTextFieldKey = find.byValueKey('companySearchInputTextFieldKey');
     final companySearchButtonKey = find.byValueKey('companySearchButtonKey');
-    final companyListTileKey9 = find.byValueKey('companyListTileKey9');
+    final companyListTileKey8 = find.byValueKey('companyListTileKey8');
     final companyListView = find.byValueKey('companyListView');
+    final companyDetailsListViewKey = find.byValueKey('companyDetailsListViewKey');
+    final companyDetailsOpenJobsKey0 = find.byValueKey('companyDetailsOpenJobsKey0');
 
 
     FlutterDriver driver;
@@ -41,19 +43,19 @@ Future<void> company() async{
 
     test('Go to company screen from dashboard', () async{
       await driver.tap(Keys.bottomNavigationBarCompany);
-      await Future.delayed(const Duration(seconds: 5), () {});
+      await Future.delayed(const Duration(seconds: 15), () {});
 
     });
 
     test('Check job details is showing - tile 1', () async {
       await driver.tap(Keys.companyListTileKey0); //to see job details is working
-      await Future.delayed(const Duration(seconds: 3), () {});
+      await Future.delayed(const Duration(seconds: 6), () {});
       await driver.tap(Keys.backButton);
     });
 
     test('Check job details is showing - tile 2', () async {
       await driver.tap(Keys.companyListTileKey1); //to see job details is working
-      await Future.delayed(const Duration(seconds: 3), () {});
+      await Future.delayed(const Duration(seconds: 7), () {});
       await driver.tap(Keys.backButton);
     });
 
@@ -68,7 +70,7 @@ Future<void> company() async{
       await driver.tap(companySearchToggleButtonKey);
       await driver.enterText('randomText');
       await driver.tap(companySearchButtonKey);
-      await Future.delayed(const Duration(seconds: 5), () {});
+      await Future.delayed(const Duration(seconds: 8), () {});
     });
 
     test('Check ishraak input search is working', () async {
@@ -77,6 +79,7 @@ Future<void> company() async{
       await driver.tap(companySearchButtonKey);
       await Future.delayed(const Duration(seconds: 5), () {});
       await driver.tap(Keys.companyListTileKey0);
+      await Future.delayed(const Duration(seconds: 15), () {});
       await driver.tap(Keys.backButton);
     });
 
@@ -86,16 +89,24 @@ Future<void> company() async{
       await driver.tap(companySearchButtonKey);
       await Future.delayed(const Duration(seconds: 5), () {});
       await driver.tap(Keys.companyListTileKey0);
+      await Future.delayed(const Duration(seconds: 15), () {});
       await driver.tap(Keys.backButton);
       await driver.tap(companySearchToggleButtonKey);
       await Future.delayed(const Duration(seconds: 6), () {});
     });
 
     test('Check pagination is working', () async {
-      await driver.scrollUntilVisible(companyListView, companyListTileKey9,
+      await driver.scrollUntilVisible(companyListView, companyListTileKey8,
           dyScroll: -600);
-      await driver.tap(companyListTileKey9); //to see pagination is working
+      await driver.tap(companyListTileKey8); //to see pagination is working
       await Future.delayed(const Duration(seconds: 3), () {});
+    });
+
+    test('Click on first Open job', () async {
+      await driver.scrollUntilVisible(companyDetailsListViewKey, companyDetailsOpenJobsKey0,
+          dyScroll: -600);
+      await driver.tap(companyDetailsOpenJobsKey0); //to see pagination is working
+      await Future.delayed(const Duration(seconds: 6), () {});
       await driver.tap(Keys.backButton);
     });
 
@@ -104,3 +115,4 @@ Future<void> company() async{
   });
 
 }
+//flutter drive --flavor dev --target=test_driver/company.dart
