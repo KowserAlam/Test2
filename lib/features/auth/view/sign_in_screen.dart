@@ -11,6 +11,7 @@ import 'package:p7app/main_app/views/widgets/common_button.dart';
 import 'package:p7app/main_app/views/widgets/loader.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:p7app/main_app/views/widgets/rounded_loading_button.dart';
 import 'package:provider/provider.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -20,6 +21,8 @@ class SignInScreen extends StatefulWidget {
 
 class _SignInScreenState extends State<SignInScreen> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
+  final RoundedLoadingButtonController _btnController =
+      new RoundedLoadingButtonController();
 
   final _emailTextController = TextEditingController();
 
@@ -70,14 +73,21 @@ class _SignInScreenState extends State<SignInScreen> {
 
       if (res) {
         loginProvider.resetState();
-        Navigator.of(context).pushAndRemoveUntil(
-            CupertinoPageRoute(
-                builder: (BuildContext context) => Root(
-                      showDummyLoadingTime: true,
-                    )),
-            (_) => false);
+        _btnController.success();
+        Future.delayed(Duration(milliseconds: 800)).then((_) {
+          Navigator.of(context).pushAndRemoveUntil(
+              CupertinoPageRoute(
+                  builder: (BuildContext context) => Root(
+                        showDummyLoadingTime: true,
+                      )),
+              (_) => false);
+//          _btnController.reset();
+        });
+      } else {
+        _btnController.reset();
       }
     } else {
+      _btnController.reset();
       _showSnackBar(StringResources.checkRequiredField, Colors.red[800]);
     }
   }
@@ -251,7 +261,7 @@ class _SignInScreenState extends State<SignInScreen> {
         ),
       ],
     );
-    var signInButton = Consumer<SignInViewModel>(
+    var signInButton2 = Consumer<SignInViewModel>(
         builder: (BuildContext context, loginProvider, Widget child) {
       if (loginProvider.isBusyLogin) {
         return Loader();
@@ -268,6 +278,22 @@ class _SignInScreenState extends State<SignInScreen> {
         ),
       );
     });
+    var signInButton = Center(
+      child: RoundedLoadingButton(
+        key: Key('signInButton'),
+        valueColor: Colors.black,
+        height: 55,
+        width: 200,
+        child: Text(
+          StringResources.logInButtonText,
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+        controller: _btnController,
+        onPressed: () {
+          _handleLogin(context);
+        },
+      ),
+    );
     var socialLogin = Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
