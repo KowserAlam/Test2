@@ -261,23 +261,23 @@ class _SignInScreenState extends State<SignInScreen> {
         ),
       ],
     );
-    var signInButton2 = Consumer<SignInViewModel>(
-        builder: (BuildContext context, loginProvider, Widget child) {
-      if (loginProvider.isBusyLogin) {
-        return Loader();
-      }
-      return Container(
-        height: 50,
-        width: 200,
-        child: CommonButton(
-          key: Key('signInButton'),
-          onTap: () {
-            _handleLogin(context);
-          },
-          label: StringResources.signInText,
-        ),
-      );
-    });
+//    var signInButton2 = Consumer<SignInViewModel>(
+//        builder: (BuildContext context, loginProvider, Widget child) {
+//      if (loginProvider.isBusyLogin) {
+//        return Loader();
+//      }
+//      return Container(
+//        height: 50,
+//        width: 200,
+//        child: CommonButton(
+//          key: Key('signInButton'),
+//          onTap: () {
+//            _handleLogin(context);
+//          },
+//          label: StringResources.signInText,
+//        ),
+//      );
+//    });
     var signInButton = Center(
       child: RoundedLoadingButton(
         key: Key('signInButton'),
