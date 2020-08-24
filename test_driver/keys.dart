@@ -248,6 +248,10 @@ class Keys{
   static final confirmCompanyInfoEmail = find.text('support@jobxprss.com');
   static final confirmCompanyInfoPhone = find.text('01609500001');
 
+  //Company List Screen
+  static final companyListTileKey0 = find.byValueKey('companyListTileKey0');
+  static final companyListTileKey1 = find.byValueKey('companyListTileKey1');
+
 
 
 
