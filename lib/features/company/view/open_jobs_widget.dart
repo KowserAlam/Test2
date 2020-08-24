@@ -115,6 +115,7 @@ class _OpenJobsWidgetState extends State<OpenJobsWidget> {
               var job = _jobs[index];
               return JobListTileWidget(
                 job,
+                listTileKey: Key ('companyDetailsOpenJobsKey${index}'),
                 onApply: () async {
                   _showApplyForJobDialog(job,index);
                 },
