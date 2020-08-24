@@ -328,32 +328,25 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Row(
-                      children: [
-                        Expanded(
-                          child: GestureDetector(
-                            child: Text(
-                              jobDetails.company != null
-                                  ? jobDetails.company.name
-                                  : StringResources.noneText,
-                              style: jobDetails.company == null
-                                  ? topSideDescriptionFontStyle
-                                  : hasCompanyFontStyle,
-                            ),
-                            onTap: () {
-                              jobDetails.company != null
-                                  ? Navigator.push(
-                                      context,
-                                      CupertinoPageRoute(
-                                          builder: (context) => CompanyDetails(
-                                                company: jobDetails.company,
-                                              )))
-                                  : null;
-                            },
-                          ),
-                        ),
-                        ShareOnSocialMediaWidget(jobDetails,key: Key("shareButtonKey"),),
-                      ],
+                    InkWell(
+                      child: Text(
+                        jobDetails.company != null
+                            ? jobDetails.company.name
+                            : StringResources.noneText,
+                        style: jobDetails.company == null
+                            ? topSideDescriptionFontStyle
+                            : hasCompanyFontStyle,
+                      ),
+                      onTap: () {
+                        jobDetails.company != null
+                            ? Navigator.push(
+                                context,
+                                CupertinoPageRoute(
+                                    builder: (context) => CompanyDetails(
+                                          company: jobDetails.company,
+                                        )))
+                            : null;
+                      },
                     ),
                     SizedBox(height: 5),
                   ],
@@ -1019,11 +1012,13 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        elevation: 2,
         title: Text(
           StringResources.jobDetailsAppBarTitle,
         ),
         centerTitle: true,
+        actions: [
+          ShareOnSocialMediaWidget(jobDetails,key: Key("shareButtonKey"),),
+        ],
       ),
       body: RefreshIndicator(
         onRefresh: () async {
