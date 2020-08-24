@@ -34,8 +34,8 @@ Future<void> myProfileReferencesTest()async{
       await driver.enterText('1234567s');
       await driver.tap(Keys.signInButton);
       await Future.delayed(const Duration(seconds: 5), (){});
-      await driver.tap(Keys.onboardingPageSkipButton);
-      await Future.delayed(const Duration(seconds: 5), (){});
+//      await driver.tap(Keys.onboardingPageSkipButton);
+//      await Future.delayed(const Duration(seconds: 5), (){});
       await driver.tap(Keys.bottomNavigationBarMyProfile);
       await Future.delayed(const Duration(seconds: 5), (){});
     });

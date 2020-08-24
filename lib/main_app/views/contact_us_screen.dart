@@ -216,6 +216,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(StringResources.contactUsText),
+        key: Key('contactUsTextOnAppBar'),
       ),
       body: ListView(
         children: [

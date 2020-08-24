@@ -274,7 +274,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
       builder: (context, AsyncSnapshot<List<EducationLevel>> snap) {
         return CustomDropdownSearchFormField<EducationLevel>(
           isRequired: true,
-          dropdownKey: Key('educatuionLevelOfEducation'),
+          dropdownKey: Key('educationLevelOfEducation'),
           showSearchBox: true,
           itemAsString: (v) => v?.name,
           compareFn: (s1, s2) =>
