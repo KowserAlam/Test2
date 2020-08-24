@@ -19,9 +19,10 @@ class JobListTileWidget extends StatefulWidget {
   final Function onTap;
   final Function onApply;
   final Function onFavorite;
+  final int index;
   final Key listTileKey, applyButtonKey,favoriteButtonKey;
 
-  JobListTileWidget(this.jobModel, {this.onTap, this.onFavorite, this.onApply, this.listTileKey, this.applyButtonKey, this.favoriteButtonKey});
+  JobListTileWidget(this.jobModel, {this.onTap, this.index, this.onFavorite, this.onApply, this.listTileKey, this.applyButtonKey, this.favoriteButtonKey});
 
   @override
   _JobListTileWidgetState createState() => _JobListTileWidgetState();
