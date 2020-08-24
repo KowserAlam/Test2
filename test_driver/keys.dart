@@ -201,10 +201,12 @@ class Keys{
   static final personalInfoBloodGroupAPositive = find.byValueKey('A+');
 
   //Education
+  static final educationScrollView = find.byValueKey('educationScrollView');
   static final educationAppbarTitle = find.byValueKey('educationAppbarTitle');
   static final educationSaveButton = find.byValueKey('educationSaveButton');
   static final educationInstitutionName = find.byValueKey('educationInstitutionName');
   static final educationLevelOfEducation = find.byValueKey('educationLevelOfEducation');
+  static final educationCGPA = find.byValueKey('educationCGPA');
   static final educationEnrollDate = find.byValueKey('educationEnrollDate');
   static final educationGraduationDate = find.byValueKey('educationGraduationDate');
   static final educationMajor = find.byValueKey('educationMajor');

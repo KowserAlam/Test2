@@ -373,6 +373,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
     );
     var cgpa = CustomTextFormField(
       controller: gpaTextController,
+      textFieldKey: Key('educationCGPA'),
       labelText: StringResources.gpaText,
       hintText: StringResources.gpaHintText,
       validator: Validator().numberFieldValidateOptional,
@@ -417,6 +418,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
       ),
       body: ZefyrScaffold(
         child: SingleChildScrollView(
+          key: Key('educationScrollView'),
           physics: BouncingScrollPhysics(),
           child: Consumer<UserProfileViewModel>(
             builder: (context, addEditEducationProvider, ch) {
