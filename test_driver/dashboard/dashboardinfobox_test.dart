@@ -106,7 +106,6 @@ Future dashboardInfoBoxTest() async{
     test('Click on Career Advice - 3rd tile', () async {
       await driver.scrollUntilVisible(dashboardHorizontalCareerAdviceListKey, careerAdviceTile3,
           dyScroll: -600);
-      //dashboardHorizontalCareerAdviceListKey
       await driver.tap(careerAdviceTile3);
       //await Future.delayed(const Duration(seconds: 6), () {});
       await driver.tap(backButton);
