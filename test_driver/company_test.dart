@@ -15,7 +15,7 @@ Future<void> company() async{
     final companySearchInputTextFieldKey = find.byValueKey('companySearchInputTextFieldKey');
     final companySearchButtonKey = find.byValueKey('companySearchButtonKey');
     final companyListTileKey9 = find.byValueKey('companyListTileKey9');
-    final dashBoardListview = find.byValueKey('dashBoardListview');
+    final companyListView = find.byValueKey('companyListView');
 
 
     FlutterDriver driver;
@@ -93,7 +93,7 @@ Future<void> company() async{
     });
 
     test('Check pagination is working', () async {
-      await driver.scrollUntilVisible(dashBoardListview, companyListTileKey9,
+      await driver.scrollUntilVisible(companyListView, companyListTileKey9,
           dyScroll: -600);
       await driver.tap(companyListTileKey9); //to see pagination is working
       await Future.delayed(const Duration(seconds: 3), () {});
