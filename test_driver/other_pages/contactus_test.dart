@@ -274,6 +274,7 @@ Future<void> contactUSTest()async{
       await driver.enterText('Sample message text for test the message field on test automation');
       await driver.tap(Keys.tapOnSubmitButton);
       await Future.delayed(const Duration(seconds: 3), () {});
+      await driver.tap(Keys.backButton);
     });
   });
 
