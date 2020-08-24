@@ -12,7 +12,11 @@ class CompanyListTile extends StatefulWidget {
   final Company company;
   final Function onTap;
 
-  CompanyListTile({@required this.company,this.onTap});
+  CompanyListTile({
+    Key key,
+    @required this.company,
+    this.onTap,
+  }) : super(key: key);
 
   @override
   _CompanyListTileState createState() => _CompanyListTileState();
@@ -29,8 +33,8 @@ class _CompanyListTileState extends State<CompanyListTile> {
     var subtitleColor = isDarkMode ? Colors.white : AppTheme.grey;
 
     return Container(
-      decoration: BoxDecoration(
-          color: backgroundColor, boxShadow: CommonStyle.boxShadow
+      decoration:
+          BoxDecoration(color: backgroundColor, boxShadow: CommonStyle.boxShadow
 //        borderRadius: BorderRadius.circular(5),
 //          boxShadow: [
 //            BoxShadow(
@@ -42,7 +46,7 @@ class _CompanyListTileState extends State<CompanyListTile> {
 //                Colors.black.withOpacity(0.2),
 //                blurRadius: 10),
 //          ],
-          ),
+              ),
       margin: EdgeInsets.fromLTRB(0, 4, 0, 4),
       child: Material(
         type: MaterialType.transparency,
@@ -123,7 +127,8 @@ class _CompanyListTileState extends State<CompanyListTile> {
                         Text(
                           StringResources.companyListYearOfEstablishmentText,
                           style: TextStyle(
-                              color: subtitleColor, fontWeight: FontWeight.w600),
+                              color: subtitleColor,
+                              fontWeight: FontWeight.w600),
                         ),
                         SizedBox(width: 5),
                         Text(
@@ -132,7 +137,8 @@ class _CompanyListTileState extends State<CompanyListTile> {
                                   widget.company.yearOfEstablishment)
                               : StringResources.noneText,
                           style: TextStyle(
-                              color: subtitleColor, fontWeight: FontWeight.w100),
+                              color: subtitleColor,
+                              fontWeight: FontWeight.w100),
                         ),
                       ],
                     )
