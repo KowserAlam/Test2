@@ -295,6 +295,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
 
     var major = CustomAutoCompleteTextField<MajorSubject>(
       labelText: StringResources.majorText,
+      textFieldKey: Key('educationMajor'),
       hintText: StringResources.majorHint,
       onSuggestionSelected: (v) {
         majorTextController.text = v.name;
@@ -319,6 +320,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
     );
     var degree = CustomAutoCompleteTextField<String>(
       labelText: StringResources.degreeHText,
+      textFieldKey: Key('educationDegree'),
       hintText: StringResources.nameOfODegreeHintText,
       isRequired: true,
       validator: Validator().nullFieldValidate,
@@ -338,6 +340,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
 
     var enrolledDate = CommonDatePickerFormField(
       isRequired: true,
+      dateFieldKey: Key('educationEnrollDate'),
       errorText: enrollDateErrorText,
       date: _enrollDate,
       label: StringResources.Enrolled,
@@ -354,6 +357,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
     );
     var graduationDate = CommonDatePickerFormField(
       errorText: graduationDateErrorText,
+      dateFieldKey: Key('educationGraduationDate'),
       date: _graduationDate,
       label: StringResources.graduationText,
       onTapDateClear: () {
@@ -369,12 +373,14 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
     );
     var cgpa = CustomTextFormField(
       controller: gpaTextController,
+      textFieldKey: Key('educationCGPA'),
       labelText: StringResources.gpaText,
       hintText: StringResources.gpaHintText,
       validator: Validator().numberFieldValidateOptional,
       keyboardType: TextInputType.number,
     );
     var description = CustomZefyrRichTextFormField(
+      zefyrKey: Key('educationDescription'),
       labelText: StringResources.descriptionText,
       focusNode: _descriptionFocusNode,
       controller: _descriptionZefyrController,
@@ -384,6 +390,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
       children: [
         Text(StringResources.currentlyStudyingHereText),
         Checkbox(
+          key: Key('educationOngoing'),
           onChanged: (bool value) {
             isOnGoing = value;
             if (!isOnGoing) {
@@ -411,6 +418,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
       ),
       body: ZefyrScaffold(
         child: SingleChildScrollView(
+          key: Key('educationScrollView'),
           physics: BouncingScrollPhysics(),
           child: Consumer<UserProfileViewModel>(
             builder: (context, addEditEducationProvider, ch) {
