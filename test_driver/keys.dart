@@ -205,9 +205,13 @@ class Keys{
   static final educationSaveButton = find.byValueKey('educationSaveButton');
   static final educationInstitutionName = find.byValueKey('educationInstitutionName');
   static final educationLevelOfEducation = find.byValueKey('educationLevelOfEducation');
-//  static final personalInfoPermanentAddress = find.byValueKey('personalInfoPermanentAddress');
-//  static final personalInfoPermanentAddress = find.byValueKey('personalInfoPermanentAddress');
-//  static final personalInfoPermanentAddress = find.byValueKey('personalInfoPermanentAddress');
+  static final educationEnrollDate = find.byValueKey('educationEnrollDate');
+  static final educationGraduationDate = find.byValueKey('educationGraduationDate');
+  static final educationMajor = find.byValueKey('educationMajor');
+  static final educationDegree = find.byValueKey('educationDegree');
+  static final educationDescription = find.byValueKey('educationDescription');
+  static final educationOngoing = find.byValueKey('educationOngoing');
+
 
 
 
