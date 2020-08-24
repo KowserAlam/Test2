@@ -2,7 +2,7 @@ import 'package:after_layout/after_layout.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:p7app/features/company/models/company.dart';
-import 'package:p7app/features/company/view/company_list_tile.dart';
+import 'package:p7app/features/company/view/widgets/company_list_tile.dart';
 import 'package:p7app/features/company/view_model/company_list_view_model.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
@@ -209,6 +209,7 @@ class _CompanyListScreenState extends State<CompanyListScreen>
                                           : SizedBox();
                                     }
                                     return CompanyListTile(
+                                      key: Key("companyListTileKey${index}"),
                                       onTap: (){
                                         Navigator.push(
                                             context,
