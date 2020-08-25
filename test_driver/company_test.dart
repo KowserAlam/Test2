@@ -109,6 +109,7 @@ Future<void> company() async{
       await driver.tap(companyDetailsOpenJobsKey0); //to see pagination is working
       await Future.delayed(const Duration(seconds: 6), () {});
       await driver.tap(Keys.backButton);
+      await driver.tap(Keys.backButton);
     });
 
 
