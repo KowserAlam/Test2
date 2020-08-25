@@ -220,7 +220,7 @@ class UserProfileRepository {
     try {
       var response = await ApiClient().postRequest(url, data);
       logger.i(response.statusCode);
-      logger.i(response.body);
+//      logger.i(response.body);
       if (response.statusCode == 200) {
         BotToast.closeAllLoading();
         var decodedJson = json.decode(response.body);
@@ -286,6 +286,7 @@ class UserProfileRepository {
   Future<Either<AppError, bool>> deleteUserSkill(SkillInfo skillInfo) async {
     BotToast.showLoading();
     var url = "${Urls.professionalSkillUrl}/${skillInfo.profSkillId}/";
+
     var data = {"is_archived": true};
 
     try {

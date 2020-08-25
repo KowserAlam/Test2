@@ -180,6 +180,7 @@ class UserProfileViewModel with ChangeNotifier {
       }, (r) {
         userData.skillInfo.add(r);
         notifyListeners();
+        getUserData();
         return true;
       });
     });
