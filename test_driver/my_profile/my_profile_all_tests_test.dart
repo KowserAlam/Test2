@@ -2,8 +2,14 @@ import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
 
 import '../keys.dart';
+import 'my_profile_certifications_test.dart';
+import 'my_profile_education_test.dart';
 import 'my_profile_experience_test.dart';
 import 'my_profile_header_test.dart';
+import 'my_profile_membership_test.dart';
+import 'my_profile_personal_info_test.dart';
+import 'my_profile_portfolio_test.dart';
+import 'my_profile_references_test.dart';
 
 //flutter drive --flavor dev --target=test_driver/my_profile/my_profile_all_tests.dart
 
@@ -50,6 +56,18 @@ Future<void> allTestCaseAtOnce() async {
     myProfileHeaderTest();
 
     myProfileExperienceTest();
+
+    myProfileEducationTest();
+
+    myProfilePortfolioTest();
+
+    myProfileCertificationTest();
+
+    myProfileMembershipTest();
+
+    myProfileReferencesTest();
+
+    myProfilePersonalInfoTest();
 
 
   });

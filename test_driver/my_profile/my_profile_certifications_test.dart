@@ -27,20 +27,6 @@ Future<void> myProfileCertificationTest()async{
 
 
     //test cases are started from here
-    test('Getting to My Profile screen', () async {
-      await driver.tap(Keys.signInEmail);
-      await driver.enterText('kowser@ishraak.com');
-      await driver.tap(Keys.signInPassword);
-      await driver.enterText('1234567s');
-      await driver.tap(Keys.signInButton);
-//      await Future.delayed(const Duration(seconds: 3), (){});
-//      await driver.tap(keys.onboardingPageSkipButton);
-      await Future.delayed(const Duration(seconds: 5), (){});
-      await driver.tap(Keys.bottomNavigationBarMyProfile);
-      await Future.delayed(const Duration(seconds: 5), (){});
-      await expect(await driver.getText(Keys.myProfileAppbarTitle), 'My Profile');
-    });
-
     test('Get to edit certification screen', () async {
       await driver.scrollUntilVisible(Keys.myProfileScrollView, Keys.myProfileCertificationPenKey, dyScroll: -50);
       await driver.tap(Keys.myProfileCertificationPenKey);

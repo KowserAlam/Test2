@@ -26,19 +26,6 @@ Future<void> myProfilePortfolioTest()async{
 
 
     //test cases are started from here
-    test('Getting to Dashboard', () async {
-      await driver.tap(Keys.signInEmail);
-      await driver.enterText('kowser@ishraak.com');
-      await driver.tap(Keys.signInPassword);
-      await driver.enterText('1234567s');
-      await driver.tap(Keys.signInButton);
-//      await Future.delayed(const Duration(seconds: 3), (){});
-//      await driver.tap(keys.onboardingPageSkipButton);
-      await Future.delayed(const Duration(seconds: 2), (){});
-      await driver.tap(Keys.bottomNavigationBarMyProfile);
-      await expect(await driver.getText(Keys.myProfileAppbarTitle), 'My Profile');
-    });
-
     test('Getting to Portfolio Add screen', () async {
       await driver.scrollUntilVisible(Keys.myProfileScrollView, Keys.myProfilePortfolioPenKey, dyScroll: -50);
       await driver.tap(Keys.myProfilePortfolioPenKey);
