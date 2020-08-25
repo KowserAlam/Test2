@@ -56,7 +56,7 @@ Future<void> myProfileSkillTest()async{
 
     test('Try to save with only skill name written', () async {
       await driver.tap(Keys.skillAddField);
-      await driver.enterText('python');
+      await driver.tap(find.text('3D Animation'));
       await driver.tap(Keys.skillSaveButton);
       await expect(await driver.getText(Keys.professionalSkillAppbarTitle), 'Professional Skills');
       await Future.delayed(const Duration(seconds: 5), (){});
@@ -70,48 +70,46 @@ Future<void> myProfileSkillTest()async{
       await Future.delayed(const Duration(seconds: 5), (){});
     });
 
-    test('Try to save with only skill expertise gievn 0', () async {
+    test('Try to save with skill expertise gievn 5', () async {
       await driver.tap(Keys.skillExpertise);
-      await driver.enterText('0');
+      await driver.enterText('5');
       await driver.tap(Keys.skillSaveButton);
-      await expect(await driver.getText(Keys.professionalSkillAppbarTitle), 'Professional Skills');
-      await Future.delayed(const Duration(seconds: 5), (){});
+      await expect(await driver.getText(Keys.myProfileAppbarTitle), 'My Profile');
+      await expect(await driver.getText(Keys.tileSkillName), '3D Animation');
     });
 
 
 //    test('Check if edit is working', () async {
-//      await driver.tap(keys.skillEditButton);
-//      await driver.tap(keys.skillExpertise);
-//      await driver.enterText('10');
-//      await driver.tap(keys.skillSaveButton);
+//      await driver.tap(Keys.skillEditButton);
+//      await driver.tap(Keys.skillAddField);
+//      await driver.tap(find.text('3D Design'));
+//      await driver.tap(Keys.skillSaveButton);
 //      await Future.delayed(const Duration(seconds: 5), (){});
-//      await expect(await driver.getText(keys.myProfileAppbarTitle), 'My Profile');
+//      await expect(await driver.getText(Keys.myProfileAppbarTitle), 'My Profile');
+//      await expect(await driver.getText(Keys.tileSkillName), '3D Design');
 //    });
 
-//    test('Adding a second skill to check delete', () async {
-//      //await driver.tap(keys.myProfileAddSkillPen);
-//      await driver.tap(keys.myProfileAddSkillAdd);
-//      await expect(await driver.getText(keys.professionalSkillAppbarTitle), 'Professional Skills');
-//      await driver.tap(keys.skillAddField);
-//      await driver.enterText('dart');
-//      await driver.tap(keys.skillExpertise);
-//      await driver.enterText('10');
-//      await driver.tap(keys.skillSaveButton);
-//      await Future.delayed(const Duration(seconds: 5), (){});
-//      await expect(await driver.getText(keys.myProfileAppbarTitle), 'My Profile');
-//      await expect(await driver.getText(keys.addedTileSkillName), 'Dart');
-//      await Future.delayed(const Duration(seconds: 10), (){});
-//    });
+    test('Adding a second skill to check delete', () async {
+      await driver.tap(Keys.myProfileAddSkillAdd);
+      await expect(await driver.getText(Keys.professionalSkillAppbarTitle), 'Professional Skills');
+      await driver.tap(Keys.skillAddField);
+      await driver.tap(find.text('.NET'));
+      await driver.tap(Keys.skillExpertise);
+      await driver.enterText('10');
+      await driver.tap(Keys.skillSaveButton);
+      await Future.delayed(const Duration(seconds: 5), (){});
+      await expect(await driver.getText(Keys.myProfileAppbarTitle), 'My Profile');
+      await expect(await driver.getText(Keys.addedTileSkillName), '.NET');
+    });
 
-//    test('Check if delete is working', () async {
-//      await driver.tap(keys.skillDeleteButton);
-//      await Future.delayed(const Duration(seconds: 5), (){});
-//      await driver.tap(keys.myProfileDialogBoxDeleteTile);
-//      await Future.delayed(const Duration(seconds: 5), (){});
-//      await expect(await driver.getText(keys.myProfileAppbarTitle), 'My Profile');
-//      await expect(await driver.getText(keys.tileSkillName), 'Dart');
-//      await Future.delayed(const Duration(seconds: 5), (){});
-//    });
+    test('Check if delete is working', () async {
+      await driver.tap(Keys.skillDeleteButton);
+      await Future.delayed(const Duration(seconds: 5), (){});
+      await driver.tap(Keys.myProfileDialogBoxDeleteTile);
+      await Future.delayed(const Duration(seconds: 2), (){});
+      await expect(await driver.getText(Keys.myProfileAppbarTitle), 'My Profile');
+      await expect(await driver.getText(Keys.tileSkillName), '.NET');
+    });
   });
 
 }

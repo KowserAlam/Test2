@@ -7,6 +7,10 @@ import '../keys.dart';
 //flutter drive --flavor dev --target=test_driver/my_profile/my_profile_education.dart
 
 void main() {
+  myProfileEducationTest();
+}
+
+Future<void> myProfileEducationTest()async{
   group('My Profile - Education Test', () {
 
 
@@ -24,19 +28,6 @@ void main() {
 
 
     //test cases are started from here
-    test('Getting to My Profile screen', () async {
-      await driver.tap(Keys.signInEmail);
-      await driver.enterText('kowser@ishraak.com');
-      await driver.tap(Keys.signInPassword);
-      await driver.enterText('1234567s');
-      await driver.tap(Keys.signInButton);
-//      await Future.delayed(const Duration(seconds: 5), (){});
-//      await driver.tap(Keys.onboardingPageSkipButton);
-      await Future.delayed(const Duration(seconds: 5), (){});
-      await driver.tap(Keys.bottomNavigationBarMyProfile);
-      await Future.delayed(const Duration(seconds: 5), (){});
-    });
-
     test('Check add button is working', () async {
       await driver.scrollUntilVisible(Keys.myProfileScrollView, Keys.myProfileEducationPenKey, dyScroll: -100);
       await driver.tap(Keys.myProfileEducationPenKey);
@@ -156,5 +147,4 @@ void main() {
 
 
   });
-
 }
