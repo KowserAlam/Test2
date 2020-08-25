@@ -278,6 +278,7 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
                       spaceBetween,
                       // salary range
                       CustomRangeSlider(
+                        slideKey: Key("salaryRangeKey"),
                         labelText: StringResources.salaryRangeText,
                         max: maxSalary,
                         min: minSalary,
@@ -291,6 +292,7 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
                       spaceBetween,
                       // experience
                       CustomRangeSlider(
+                        slideKey: Key("experienceRangeKey"),
                         labelText: StringResources.experienceText,
                         max: experienceMax,
                         min: experienceMin,
@@ -370,8 +372,10 @@ class CustomRangeSlider extends StatelessWidget {
   final double max;
   final RangeValues values;
   final Function(RangeValues) onChanged;
+  final Key slideKey;
 
   const CustomRangeSlider({
+    this.slideKey,
     this.bottom,
     this.labelText,
     @required this.min,
@@ -401,6 +405,7 @@ class CustomRangeSlider extends StatelessWidget {
             boxShadow: CommonStyle.boxShadow,
           ),
           child: RangeSlider(
+            key: slideKey,
             activeColor: Theme.of(context).primaryColor,
             inactiveColor: Colors.grey,
             max: max,
