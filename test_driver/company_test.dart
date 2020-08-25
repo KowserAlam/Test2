@@ -33,14 +33,14 @@ Future<void> company() async{
     });
     //test cases are started from here
 
-    test('login with registered email and password', () async {
+    /*test('login with registered email and password', () async {
       await driver.tap(Keys.signInEmail);
       await driver.enterText('mahmudoni01@gmail.com');
       await driver.tap(Keys.signInPassword);
       await driver.enterText('1234567r');
       await driver.tap(Keys.signInButton);
       await Future.delayed(const Duration(seconds: 3), () {});
-    });
+    });*/
 
     test('Go to company screen from dashboard', () async{
       await driver.tap(Keys.bottomNavigationBarCompany);
@@ -108,6 +108,7 @@ Future<void> company() async{
           dyScroll: -600);
       await driver.tap(companyDetailsOpenJobsKey0); //to see pagination is working
       await Future.delayed(const Duration(seconds: 6), () {});
+      await driver.tap(Keys.backButton);
       await driver.tap(Keys.backButton);
     });
 

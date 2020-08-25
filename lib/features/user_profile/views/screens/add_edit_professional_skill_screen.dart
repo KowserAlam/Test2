@@ -176,6 +176,7 @@ class _AddEditProfessionalSkillState extends State<AddEditProfessionalSkill> {
       builder: (BuildContext context, AsyncSnapshot<List<Skill>> snapshot) {
         return CustomDropdownSearchFormField<Skill>(
           showSearchBox: true,
+          dropdownKey: Key('skillAddField'),
           autoFocusSearchBox: true,
           isRequired: true,
           validator: _skillValidator,

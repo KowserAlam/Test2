@@ -8,6 +8,10 @@ import '../keys.dart';
 //flutter drive --target=test_driver/my_profile/my_profile_personal_info.dart -d macOS
 
 void main() {
+  myProfilePersonalInfoTest();
+}
+
+Future<void> myProfilePersonalInfoTest()async{
   group('My Profile - Personal Info Test', () {
 
 
@@ -25,19 +29,6 @@ void main() {
 
 
     //test cases are started from here
-    test('Getting to My Profile screen', () async {
-      await driver.tap(Keys.signInEmail);
-      await driver.enterText('kowser@ishraak.com');
-      await driver.tap(Keys.signInPassword);
-      await driver.enterText('1234567s');
-      await driver.tap(Keys.signInButton);
-//      await Future.delayed(const Duration(seconds: 5), (){});
-//      await driver.tap(Keys.onboardingPageSkipButton);
-//      await Future.delayed(const Duration(seconds: 5), (){});
-      await driver.tap(Keys.bottomNavigationBarMyProfile);
-      await Future.delayed(const Duration(seconds: 5), (){});
-    });
-
     test('Check edit button is working', () async {
       await driver.scrollUntilVisible(Keys.myProfileScrollView, Keys.personalInfoPenKey, dyScroll: -200);
       await driver.tap(Keys.personalInfoPenKey);
@@ -84,21 +75,21 @@ void main() {
       await expect(await driver.getText(Keys.personalInfoTilePermanentAddress), 'Test Permanent Address');
     });
 
-    test('Try to save gender', () async {
-      await driver.tap(Keys.personalInfoPenKey);
-      print('1');
-      await driver.tap(Keys.personalInfoGender);
-      await driver.waitFor(Keys.personalInfoGender);
-//      await Future.delayed(const Duration(seconds: 1), (){});
-      print('2');
-      await driver.tap(Keys.personalInfoGenderMale);
-      print('3');
-      await driver.tap(Keys.personalInfoSaveButton);
-
-      await Future.delayed(const Duration(seconds: 2), (){});
-      await expect(await driver.getText(Keys.myProfileAppbarTitle), 'My Profile');
-      await expect(await driver.getText(Keys.personalInfoTileGender), 'Male');
-    });
+//    test('Try to save gender', () async {
+//      await driver.tap(Keys.personalInfoPenKey);
+//      print('1');
+//      await driver.tap(Keys.personalInfoGender);
+//      await driver.waitFor(Keys.personalInfoGender);
+////      await Future.delayed(const Duration(seconds: 1), (){});
+//      print('2');
+//      await driver.tap(Keys.personalInfoGenderMale);
+//      print('3');
+//      await driver.tap(Keys.personalInfoSaveButton);
+//
+//      await Future.delayed(const Duration(seconds: 2), (){});
+//      await expect(await driver.getText(Keys.myProfileAppbarTitle), 'My Profile');
+//      await expect(await driver.getText(Keys.personalInfoTileGender), 'Male');
+//    });
 
 //    test('Try to save nationality', () async {
 //      await driver.tap(Keys.personalInfoPenKey);
@@ -135,5 +126,4 @@ void main() {
 
 
   });
-
 }
