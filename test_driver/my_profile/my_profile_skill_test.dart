@@ -79,15 +79,15 @@ Future<void> myProfileSkillTest()async{
     });
 
 
-//    test('Check if edit is working', () async {
-//      await driver.tap(Keys.skillEditButton);
-//      await driver.tap(Keys.skillAddField);
-//      await driver.tap(find.text('3D Design'));
-//      await driver.tap(Keys.skillSaveButton);
-//      await Future.delayed(const Duration(seconds: 5), (){});
-//      await expect(await driver.getText(Keys.myProfileAppbarTitle), 'My Profile');
-//      await expect(await driver.getText(Keys.tileSkillName), '3D Design');
-//    });
+    test('Check if edit is working', () async {
+      await driver.tap(Keys.skillEditButton);
+      await driver.tap(Keys.skillAddField);
+      await driver.tap(find.text('3D Design'));
+      await driver.tap(Keys.skillSaveButton);
+      await Future.delayed(const Duration(seconds: 5), (){});
+      await expect(await driver.getText(Keys.myProfileAppbarTitle), 'My Profile');
+      await expect(await driver.getText(Keys.tileSkillName), '3D Design');
+    });
 
     test('Adding a second skill to check delete', () async {
       await driver.tap(Keys.myProfileAddSkillAdd);
