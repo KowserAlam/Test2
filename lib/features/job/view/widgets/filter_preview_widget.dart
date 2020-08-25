@@ -80,6 +80,7 @@ boxShadow: CommonStyle.boxShadow
 //          ],
         ),
         child: ListView(
+          key: Key('filterListViewKey'),
           scrollDirection: Axis.horizontal,
           children: [
             if (jobListViewModel.hasSortBy)

@@ -162,6 +162,7 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
                     RaisedButton(
                       color: Theme.of(context).primaryColor,
                       child: Text(StringResources.clearAll),
+                      key: Key('filterClearAllButtonKey'),
                       onPressed: () {
                         Provider.of<JobListFilterWidgetViewModel>(context,
                             listen: false)
@@ -172,6 +173,7 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
                     ),
                     // close button
                     IconButton(
+                      key: Key ('filterCloseButtonKey'),
                       icon: Icon(FontAwesomeIcons.times),
                       onPressed: () {
                         Navigator.pop(context);
@@ -194,6 +196,7 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
                       // sort by
                       CustomDropdownButtonFormField<SortItem>(
                         labelText: StringResources.sortBy,
+                        customDropdownKey: Key('filterSortByTextfieldKey'),
                         hint: Text(StringResources.tapToSelectText),
                         value: jobListFilterWidgetViewModel.selectedSortBy ??
                             jobListFilterWidgetViewModel.sortByList[0],
@@ -208,6 +211,7 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
                           mode: Mode.DIALOG,
                           labelText: StringResources.jobCategoryText,
                           hintText: StringResources.tapToSelectText,
+                          dropdownKey: Key('filterJobCategoryTextfieldKey'),
                           items: jobListFilterWidgetViewModel.jobCategories,
                           onChanged: (value) {
                             jobListFilterWidgetViewModel.selectedCategory =
@@ -221,6 +225,7 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
                         labelText: StringResources.locationText,
                         controller: _jobCityTextController,
                         hintText: StringResources.jobCityHintText,
+                        textFieldKey: Key ('filterLocationTextfieldKey'),
                         onChanged: (v) {
                           jobListFilterWidgetViewModel.selectedLocation = v;
                         },
@@ -256,6 +261,7 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
                         mode: Mode.DIALOG,
                         labelText: StringResources.skillText,
                         hintText: StringResources.tapToSelectText,
+                          dropdownKey: Key ('filterSkillTextfieldKey'),
                         items: jobListFilterWidgetViewModel.skills,
                         itemAsString: (Skill u) => u.name,
                         onChanged: (value) {
@@ -269,6 +275,7 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
                       CustomDropdownButtonFormField<JobType>(
                         labelText: StringResources.jobTypeText,
                         hint: Text(StringResources.tapToSelectText),
+                        customDropdownKey: Key ('filterJobTypeTextfieldKey'),
                         onChanged: (value) {
                           jobListFilterWidgetViewModel.selectedJobType = value;
                         },
@@ -278,6 +285,7 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
                       spaceBetween,
                       // salary range
                       CustomRangeSlider(
+                        slideKey: Key("salaryRangeKey"),
                         labelText: StringResources.salaryRangeText,
                         max: maxSalary,
                         min: minSalary,
@@ -291,6 +299,7 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
                       spaceBetween,
                       // experience
                       CustomRangeSlider(
+                        slideKey: Key("experienceRangeKey"),
                         labelText: StringResources.experienceText,
                         max: experienceMax,
                         min: experienceMin,
@@ -307,6 +316,7 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
                       CustomDropdownButtonFormField(
                         labelText: StringResources.qualificationText,
                         hint: Text(StringResources.tapToSelectText),
+                        customDropdownKey: Key('filterQualificationTextfieldKey'),
                         onChanged: (value) {
                           jobListFilterWidgetViewModel.selectedQualification =
                               value;
@@ -320,6 +330,7 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
                       CustomDropdownButtonFormField(
                         labelText: StringResources.genderText,
                         hint: Text(StringResources.tapToSelectText),
+                        customDropdownKey: Key ('filterGenderTextfieldKey'),
                         onChanged: (value) {
                           jobListFilterWidgetViewModel.selectedGender = value;
                         },
@@ -330,6 +341,7 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
                       CustomDropdownButtonFormField(
                         labelText: StringResources.datePosted,
                         hint: Text(StringResources.tapToSelectText),
+                        customDropdownKey: Key('filterDatePostedTextfieldKey'),
                         onChanged: (value) {
                           jobListFilterWidgetViewModel.selectedDatePosted =
                               value;
@@ -355,6 +367,7 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
                     _handleApply();
                   },
                   label: StringResources.applyFilterText,
+                  key: Key ('applyFilterButtonKey'),
                 ),
               ),
             ],
@@ -370,8 +383,10 @@ class CustomRangeSlider extends StatelessWidget {
   final double max;
   final RangeValues values;
   final Function(RangeValues) onChanged;
+  final Key slideKey;
 
   const CustomRangeSlider({
+    this.slideKey,
     this.bottom,
     this.labelText,
     @required this.min,
@@ -401,6 +416,7 @@ class CustomRangeSlider extends StatelessWidget {
             boxShadow: CommonStyle.boxShadow,
           ),
           child: RangeSlider(
+            key: slideKey,
             activeColor: Theme.of(context).primaryColor,
             inactiveColor: Colors.grey,
             max: max,

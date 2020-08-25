@@ -68,12 +68,12 @@ Future dashboardInfoBoxTest() async{
     });
     test('Click on FAQ tile', () async {
       await driver.tap(dashBoardFAQTile);
-      //await Future.delayed(const Duration(seconds: 9), () {});
+      await Future.delayed(const Duration(seconds: 15), () {});
       await driver.tap(backButton);
     });
     test('Click on About Us tile', () async {
       await driver.tap(dashBoardAboutUsTile);
-      //await Future.delayed(const Duration(seconds: 9), () {});
+      await Future.delayed(const Duration(seconds: 15), () {});
       await driver.tap(backButton);
     });
 
