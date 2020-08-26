@@ -176,8 +176,19 @@ Future<void> filterTest()async{
           dyScroll: -150);
       await driver.tap(filterDatePostedTextfieldKey);
       await driver.tap(find.text('Last 30 days'));
+      await driver.tap(applyFilterButtonKey);
       await Future.delayed(const Duration(seconds: 10), () {});
     });
+    //salaryRangeKey
+
+    //experienceRangeKey
+
+
+
+    //setState(() => value = something);
+
+    //MyWidget testWidget = MyWidget() then await tester.pumpWidget(testWidget);.
+    // Now you can call testWidget.setState();
   });
 
 }
