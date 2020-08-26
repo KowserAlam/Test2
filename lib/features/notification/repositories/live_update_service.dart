@@ -1,10 +1,12 @@
+import 'dart:convert';
+
 import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/util/logger_helper.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:socket_io/socket_io.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
-class NotificationUpdateService {
+class LiveUpdateService {
   var _notification = PublishSubject();
   initSocket() async {
 //    logger.i("initSocket");
@@ -15,20 +17,21 @@ class NotificationUpdateService {
     // Dart client
     IO.Socket socket = IO.io(url, {
       'transports': ['websocket'],
-      'autoConnect': false,
+      'autoConnect': true,
     });
     socket.on('connect', (_) {
-      logger.i('connect - Notification');
+      logger.i('connect');
 //      socket.emit('receive', 'test');
     });
     socket.on('event', (data) => logger.i(data));
     socket.on('disconnect', (_) => logger.i('disconnect'));
-    socket.on('receive', (data) {
-      logger.i(data);
+    socket.on('receive', ( d) {
+      var data = json.decode(d);
+      print(data);
       if(data['type']=="notification"){
-
+        print("Notification");
       }
     });
-    socket.connect();
+//    socket.connect();
   }
 }
