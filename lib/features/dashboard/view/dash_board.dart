@@ -105,16 +105,16 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
       appBar: AppBar(
         title: Text(StringResources.dashBoardText),
         actions: [
-          IconButton(
-            key: Key("dashboardNotificationIcon"),
-            iconSize: 15,
-            tooltip: StringResources.notificationsText,
-            icon: Icon(FontAwesomeIcons.solidBell),
-            onPressed: () {
-              Navigator.of(context).push(CupertinoPageRoute(
-                  builder: (BuildContext context) => NotificationScreen()));
-            },
-          ),
+//          IconButton(
+//            key: Key("dashboardNotificationIcon"),
+//            iconSize: 15,
+//            tooltip: StringResources.notificationsText,
+//            icon: Icon(FontAwesomeIcons.solidBell),
+//            onPressed: () {
+//              Navigator.of(context).push(CupertinoPageRoute(
+//                  builder: (BuildContext context) => NotificationScreen()));
+//            },
+//          ),
           PopupMenuButton<String>(
             key: Key("dashboardPopupMenuKey"),
             onSelected: (v) {
