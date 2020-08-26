@@ -221,6 +221,7 @@ class Keys{
   static final clickOnAppliedJobsFromSegmentScreen = find.byValueKey('jobsSegmentAppliedText');
   static final clickOnFavoriteJobsFromSegmentScreen = find.byValueKey('jobsSegmentFavoriteText');
   static final clickOnAllJobsFromSegmentScreen = find.byValueKey('jobsSegmentAllText');
+  static final jobsAppbarTitle = find.byValueKey('jobsAppbarTitle');
 
   //Jobs Segment - All jobs
   static final clickOnFirstApplyKeyOnAllJobs = find.byValueKey('allJobsApplyKey0');
