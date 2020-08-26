@@ -94,6 +94,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                         child: Text(
                           companyDetails.name ?? StringResources.noneText,
                           style: headerTextStyle,
+                          key: Key('companyDetailsCompanyName'),
                         ),
                       ),
                     ],

@@ -45,18 +45,18 @@ Future<void> allJobsTest() async {
     });
     test('Check if job details are showing from All jobs list', () async {
       await driver
-          .tap(Keys.clickOnFirstTileOnAllJobs); //to see job details is working
+          .tap(Keys.allJobsTile); //to see job details is working
       await Future.delayed(const Duration(seconds: 3), () {});
       await driver.tap(Keys.backButton);
     });
 
     test('Check Favorite button is working', () async {
-      await driver.tap(Keys.checkFavoriteUnfavoriteFromAllJobsList);
+      await driver.tap(Keys.allJobsTileFavoriteButton);
       await Future.delayed(const Duration(seconds: 4), () {});
     });
 
     test('Check Unfavorite button is working', () async {
-      await driver.tap(Keys.checkFavoriteUnfavoriteFromAllJobsList);
+      await driver.tap(Keys.allJobsTileFavoriteButton);
       await Future.delayed(const Duration(seconds: 4), () {});
     });
     test('Check toggle Search button is working', () async {
@@ -88,22 +88,22 @@ Future<void> allJobsTest() async {
     });
     test('Check job details is working after job search', () async {
       await driver
-          .tap(Keys.clickOnFirstTileOnAllJobs); //to see job details is working
+          .tap(Keys.allJobsTile); //to see job details is working
       await Future.delayed(const Duration(seconds: 3), () {});
       await driver.tap(Keys.backButton);
     });
     test('Check Favorite button is working', () async {
-      await driver.tap(Keys.checkFavoriteUnfavoriteFromAllJobsList);
+      await driver.tap(Keys.allJobsTileFavoriteButton);
       await Future.delayed(const Duration(seconds: 4), () {});
     });
 
     test('Check Unfavorite button is working', () async {
-      await driver.tap(Keys.checkFavoriteUnfavoriteFromAllJobsList);
+      await driver.tap(Keys.allJobsTileFavoriteButton);
       await Future.delayed(const Duration(seconds: 4), () {});
     });
 
     test('Check apply button is working and popup shows', () async {
-      await driver.tap(Keys.clickOnFirstApplyKeyOnAllJobs);
+      await driver.tap(Keys.allJobsTileApplyButton);
       await Future.delayed(const Duration(seconds: 2), () {});
       await driver.tap(Keys.dialogBoxNoButton);
     });

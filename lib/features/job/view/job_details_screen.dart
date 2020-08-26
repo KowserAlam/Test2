@@ -1,4 +1,4 @@
-import 'dart:math';
+ import 'dart:math';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dartz/dartz.dart' as dartZ;
@@ -264,16 +264,25 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
         },
         child: Padding(
           padding: const EdgeInsets.all(5.0),
-          child: Icon(
-            isFavorite ? FontAwesomeIcons.solidHeart : FontAwesomeIcons.heart,
-            color: isFavorite ? AppTheme.orange : AppTheme.grey,
-            size: 22,
+          child: Stack(
+            children: [
+              Icon(
+                isFavorite ? FontAwesomeIcons.solidHeart : FontAwesomeIcons.heart,
+                color: isFavorite ? AppTheme.orange : AppTheme.grey,
+                size: 22,
+                key: Key('jobDetailsFavoriteButton'),
+              ),
+              Opacity(
+                  opacity: 0.1,
+                  child: Text(isFavorite?'favorite':'notFavorite',key: Key('checkJobFavorite'), style: TextStyle(fontSize: 1),))
+            ],
           ),
         ),
       ),
     );
 
     var applyButton = JobApplyButton(
+      key: Key('jobDetailsApplyButton'),
       isApplied: isApplied,
       applicationDeadline: jobDetails.applicationDeadline,
       onPressedApply: () {
@@ -316,6 +325,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                               ? jobDetails.title
                               : StringResources.noneText,
                           style: headerTextStyle,
+                          key: Key('jobDetailsJobTitle'),
                         ),
                       ),
                     ),
@@ -336,6 +346,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                         style: jobDetails.company == null
                             ? topSideDescriptionFontStyle
                             : hasCompanyFontStyle,
+                        key: Key('jobDetailsCompanyName'),
                       ),
                       onTap: () {
                         jobDetails.company != null
@@ -1014,6 +1025,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
       appBar: AppBar(
         title: Text(
           StringResources.jobDetailsAppBarTitle,
+          key: Key('jobDetailsAppbarTitle'),
         ),
         centerTitle: true,
         actions: [
@@ -1025,6 +1037,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
           return getJobDetails(force: true);
         },
         child: ListView(
+          key: Key('jobDetailsScrollKey'),
           children: <Widget>[
             Container(
               padding: EdgeInsets.all(10),

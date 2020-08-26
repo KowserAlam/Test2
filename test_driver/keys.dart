@@ -223,11 +223,13 @@ class Keys{
   static final clickOnAllJobsFromSegmentScreen = find.byValueKey('jobsSegmentAllText');
 
   //Jobs Segment - All jobs
-  static final clickOnFirstApplyKeyOnAllJobs = find.byValueKey('allJobsApplyKey0');
-  static final clickOnFirstTileOnAllJobs = find.byValueKey('allJobsTileKey0');
-  static final checkFavoriteUnfavoriteFromAllJobsList = find.byValueKey('allJobsListFavoriteButtonKey0'); //click on 1st tile
+  static final allJobsTileApplyButton = find.byValueKey('allJobsApplyKey0');
+  static final allJobsTile = find.byValueKey('allJobsTileKey0');
+  static final allJobsTileFavoriteButton = find.byValueKey('allJobsListFavoriteButtonKey0'); //click on 1st tile
   static final dialogBoxNoButton = find.text('No');
   static final dialogBoxYesButton = find.text('Yes');
+  static final jobTileCompanyName = find.byValueKey('jobTileCompanyName0');
+  static final jobTileJobTitle = find.byValueKey('jobTileJobTitle0');
 
 
   //Job Segment - Applied Jobs
@@ -240,6 +242,16 @@ class Keys{
   static final clickOnFirstApplyKeyOnFavoriteJobs = find.byValueKey('favoriteApplyKey0');
   static final clickOnFirstTileOnFavoriteJobs = find.byValueKey('favoriteTileKey0');
   static final checkFavoriteUnfavoriteFromFavoriteList = find.byValueKey('favoriteFavoriteButtonKey0'); //click on 1st tile
+
+  //Job Details
+  static final jobDetailsScrollKey = find.byValueKey('jobDetailsScrollKey');
+  static final jobDetailsAppbarTitle = find.byValueKey('jobDetailsAppbarTitle');
+  static final jobDetailsJobTitle = find.byValueKey('jobDetailsJobTitle');
+  static final jobDetailsCompanyName = find.byValueKey('jobDetailsCompanyName');
+  static final jobDetailsFavoriteButton = find.byValueKey('jobDetailsFavoriteButton');
+  static final checkJobFavorite = find.byValueKey('checkJobFavorite');
+  static final jobDetailsApplyButton = find.byValueKey('jobDetailsApplyButton');
+  static final similarJobsTitle = find.byValueKey('similarJobsTitle');
 
   //Contact Us
   static final tapOnNameField = find.byValueKey('contactUsNameTextField');
@@ -258,7 +270,8 @@ class Keys{
   static final companyListTileKey0 = find.byValueKey('companyListTileKey0');
   static final companyListTileKey1 = find.byValueKey('companyListTileKey1');
 
-
+  //Company Details
+  static final companyDetailsCompanyName = find.byValueKey('companyDetailsCompanyName');
 
 
 
