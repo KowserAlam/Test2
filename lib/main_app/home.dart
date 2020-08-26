@@ -5,6 +5,7 @@ import 'package:p7app/features/dashboard/view/dash_board.dart';
 import 'package:p7app/features/job/view/jobs_screen.dart';
 import 'package:p7app/features/job/view_model/job_screen_view_model.dart';
 import 'package:p7app/features/messaging/view/sender_list_screen.dart';
+import 'package:p7app/features/notification/repositories/notification_update_service.dart';
 import 'package:p7app/features/user_profile/views/screens/profile_screen.dart';
 import 'package:p7app/main_app/flavour/flavor_banner.dart';
 import 'package:p7app/main_app/push_notification_service/push_notification_service.dart';
@@ -26,6 +27,7 @@ class _HomeState extends State<Home> {
   void initState() {
     TokenRefreshScheduler.getInstance();
     _setupPushNotification();
+    locator<NotificationUpdateService>().initSocket();
     super.initState();
   }
 

@@ -9,6 +9,7 @@ import 'package:p7app/features/dashboard/view/widgets/job_chart_widget.dart';
 import 'package:p7app/features/dashboard/view/widgets/other_screens_widget.dart';
 import 'package:p7app/features/dashboard/view/widgets/profile_complete_parcent_indicatior_widget.dart';
 import 'package:p7app/features/dashboard/view_model/dashboard_view_model.dart';
+import 'package:p7app/features/notification/views/notification_screen.dart';
 import 'package:p7app/features/settings/setings_screen.dart';
 import 'package:p7app/features/settings/settings_view_model.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
@@ -104,6 +105,16 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
       appBar: AppBar(
         title: Text(StringResources.dashBoardText),
         actions: [
+          IconButton(
+            key: Key("dashboardNotificationIcon"),
+            iconSize: 15,
+            tooltip: StringResources.notificationsText,
+            icon: Icon(FontAwesomeIcons.solidBell),
+            onPressed: () {
+              Navigator.of(context).push(CupertinoPageRoute(
+                  builder: (BuildContext context) => NotificationScreen()));
+            },
+          ),
           PopupMenuButton<String>(
             key: Key("dashboardPopupMenuKey"),
             onSelected: (v) {
@@ -132,16 +143,7 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
               );
             }),
           ),
-//          IconButton(
-//            key: Key("dashboardNotificationIcon"),
-//            iconSize: 15,
-//            tooltip: StringResources.notificationsText,
-//            icon: Icon(FontAwesomeIcons.solidBell),
-//            onPressed: () {
-//              Navigator.of(context).push(CupertinoPageRoute(
-//                  builder: (BuildContext context) => NotificationScreen()));
-//            },
-//          )
+
         ],
       ),
 //      drawer: AppDrawer(
