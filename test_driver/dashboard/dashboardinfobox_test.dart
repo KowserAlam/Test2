@@ -48,14 +48,14 @@ Future dashboardInfoBoxTest() async{
 
     test('Click on Applied button on infobox', () async {
       await driver.tap(infoboxAppliedButton);
-      await Future.delayed(const Duration(seconds: 4), () {});
+      await Future.delayed(const Duration(seconds: 15), () {});
       await driver.tap(clickOnDashboard);
       await Future.delayed(const Duration(seconds: 4), () {});
     });
 
     test('Click on favorite button on infobox', () async {
       await driver.tap(infoboxFavoriteButton);
-      await Future.delayed(const Duration(seconds: 4), () {});
+      await Future.delayed(const Duration(seconds: 15), () {});
       await driver.tap(clickOnDashboard);
       await Future.delayed(const Duration(seconds: 4), () {});
     });
