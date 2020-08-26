@@ -30,6 +30,7 @@ class AllJobListWidget extends StatelessWidget {
 
           return JobListTileWidget(
             job,
+            index: index,
             applyButtonKey: Key('allJobsApplyKey'+index.toString()),
             listTileKey: Key('allJobsTileKey'+index.toString()),
             favoriteButtonKey: Key('allJobsListFavoriteButtonKey'+index.toString()),
