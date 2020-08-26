@@ -20,7 +20,7 @@ class CareerAdviceRepository {
 
       if (res.statusCode == 200) {
         var decodedJson = json.decode(utf8.decode(res.bodyBytes));
-        logger.i({"CareerAdviceRepository": decodedJson});
+//        logger.i({"CareerAdviceRepository": decodedJson});
         return Right(CareerAdviceScreenDataModel.fromJson(decodedJson));
       } else {
         logger.e({"statusCode": res.statusCode, "body": res.body});

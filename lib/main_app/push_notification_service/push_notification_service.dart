@@ -16,9 +16,9 @@ class PushNotificationService {
       _init();
       getToken();
     } else {
-
-      logger.e(
-          "Notification service not implemented for ${Platform.operatingSystem}!");
+//
+//      logger.e(
+//          "Notification service not implemented for ${Platform.operatingSystem}!");
     }
   }
 

@@ -54,6 +54,7 @@ Future<void> filterTest()async{
     test('Click on Jobs from bottom navigation bar', () async {
       await driver.tap(Keys.bottomNavigationBarJobs);
       await Future.delayed(const Duration(seconds: 10), () {});
+      await expect(await driver.getText(Keys.jobsAppbarTitle), 'Jobs');
     });
 
     test('Open & close filter section', () async {
@@ -66,15 +67,117 @@ Future<void> filterTest()async{
       await driver.tap(filterButtonKey);
       await driver.tap(filterLocationTextfieldKey);
       await driver.enterText('Khulna');
-      await driver.scrollUntilVisible(filterListViewKey, applyFilterButtonKey,
-          dyScroll: -600);
       await driver.tap(applyFilterButtonKey);
-      await Future.delayed(const Duration(seconds: 6), () {});
-      //expect(find.text('Khulna'), findTextKhulna);
-      //await expect(await driver.getText(findTextKhulna), 'Khulna');
-      //await Future.delayed(const Duration(seconds: 6), () {});
+      await Future.delayed(const Duration(seconds: 8), () {});
     });
 
+    test('Open filter section and search Category', () async {
+      await driver.tap(filterButtonKey);
+      await driver.tap(filterClearAllButtonKey);
+      await driver.tap(filterJobCategoryTextfieldKey);
+      await driver.enterText('Back-End Develop');
+      await driver.tap(find.text('Back-End Developer'));
+      await driver.tap(applyFilterButtonKey);
+      await Future.delayed(const Duration(seconds: 8), () {});
+    });
+
+    test('Open filter section and search Sort By - Top Rated', () async {
+      await driver.tap(filterButtonKey);
+      await driver.tap(filterClearAllButtonKey);
+      await driver.tap(filterSortByTextfieldKey);
+      await driver.tap(find.text('Top Rated'));
+      await driver.tap(applyFilterButtonKey);
+      await Future.delayed(const Duration(seconds: 8), () {});
+    });
+
+    test('Open filter section and search Sort By - Most Recent', () async {
+      await driver.tap(filterButtonKey);
+      await driver.tap(filterClearAllButtonKey);
+      await driver.tap(filterSortByTextfieldKey);
+      await driver.tap(find.text('Most Recent'));
+      await driver.tap(applyFilterButtonKey);
+      await Future.delayed(const Duration(seconds: 8), () {});
+    });
+
+    test('Open filter section and search Skill', () async {
+      await driver.tap(filterButtonKey);
+      await driver.tap(filterClearAllButtonKey);
+      await driver.tap(filterSkillTextfieldKey);
+      await driver.enterText('Pytho');
+      await driver.tap(find.text('Python'));
+      await driver.tap(applyFilterButtonKey);
+      await Future.delayed(const Duration(seconds: 8), () {});
+    });
+
+    test('Open filter section and search Job Type', () async {
+      await driver.tap(filterButtonKey);
+      await driver.tap(filterClearAllButtonKey);
+      await driver.tap(filterJobTypeTextfieldKey);
+      await driver.tap(find.text('Permanent'));
+      await driver.tap(applyFilterButtonKey);
+      await Future.delayed(const Duration(seconds: 8), () {});
+    });
+
+    test('Open filter section and search Qualification', () async {
+      await driver.tap(filterButtonKey);
+      await driver.tap(filterClearAllButtonKey);
+      await driver.scrollUntilVisible(filterListViewKey, filterQualificationTextfieldKey,
+          dyScroll: -150);
+      await driver.tap(filterQualificationTextfieldKey);
+      await driver.tap(find.text('BSc in CSE'));
+      await driver.tap(applyFilterButtonKey);
+      await Future.delayed(const Duration(seconds: 8), () {});
+    });
+
+    test('Open filter section and search Gender', () async {
+      await driver.tap(filterButtonKey);
+      await driver.tap(filterClearAllButtonKey);
+      await driver.scrollUntilVisible(filterListViewKey, filterGenderTextfieldKey,
+          dyScroll: -150);
+      await driver.tap(filterGenderTextfieldKey);
+      await driver.tap(find.text('Male'));
+      await driver.tap(applyFilterButtonKey);
+      await Future.delayed(const Duration(seconds: 6), () {});
+    });
+
+    test('Open filter section and search Date Posted', () async {
+      await driver.tap(filterButtonKey);
+      await driver.tap(filterClearAllButtonKey);
+      await driver.scrollUntilVisible(filterListViewKey, filterDatePostedTextfieldKey,
+          dyScroll: -150);
+      await driver.tap(filterDatePostedTextfieldKey);
+      await driver.tap(find.text('Last 7 days'));
+      await driver.tap(applyFilterButtonKey);
+      await Future.delayed(const Duration(seconds: 6), () {});
+    });
+
+    test('Open filter section and search while all fields are filled', () async {
+      await driver.tap(filterButtonKey);
+      await driver.tap(filterClearAllButtonKey);
+      await driver.tap(filterJobCategoryTextfieldKey);
+      await driver.enterText('Back-End Develop');
+      await driver.tap(find.text('Back-End Developer'));
+      await driver.tap(filterLocationTextfieldKey);
+      await driver.enterText('Khulna');
+      await driver.tap(filterSkillTextfieldKey);
+      await driver.enterText('Pytho');
+      await driver.tap(find.text('Python'));
+      await driver.tap(filterJobTypeTextfieldKey);
+      await driver.tap(find.text('Permanent'));
+      await driver.scrollUntilVisible(filterListViewKey, filterQualificationTextfieldKey,
+          dyScroll: -150);
+      await driver.tap(filterQualificationTextfieldKey);
+      await driver.tap(find.text('BSc in CSE'));
+      await driver.scrollUntilVisible(filterListViewKey, filterGenderTextfieldKey,
+          dyScroll: -150);
+      await driver.tap(filterGenderTextfieldKey);
+      await driver.tap(find.text('Male'));
+      await driver.scrollUntilVisible(filterListViewKey, filterGenderTextfieldKey,
+          dyScroll: -150);
+      await driver.tap(filterDatePostedTextfieldKey);
+      await driver.tap(find.text('Last 30 days'));
+      await Future.delayed(const Duration(seconds: 10), () {});
+    });
   });
 
 }

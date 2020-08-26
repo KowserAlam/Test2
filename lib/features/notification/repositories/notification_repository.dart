@@ -8,6 +8,7 @@ import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
+import 'package:p7app/main_app/util/logger_helper.dart';
 
 class NotificationRepository {
   Future<Either<AppError, NotificationScreenDataModel>>
@@ -15,7 +16,7 @@ class NotificationRepository {
     try {
       var response = await ApiClient().getRequest(Urls.notificationListUrl);
       print(response.statusCode);
-//      print(response.body);
+      logger.i(response.body);
       if (response.statusCode == 200) {
         var mapData = json.decode(utf8.decode(response.bodyBytes));
 
@@ -40,7 +41,6 @@ class NotificationRepository {
   }
 
   Future<bool> markAsRead(int id) async {
-
     var url = "${Urls.notificationMarkReadUrl}/${id}/";
 
 //    print(url);

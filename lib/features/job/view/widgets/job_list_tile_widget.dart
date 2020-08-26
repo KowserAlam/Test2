@@ -62,9 +62,8 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
         color: scaffoldBackgroundColor,
       ),
       child: CachedNetworkImage(
-        imageUrl: widget.jobModel.profilePicture ?? "",
+        imageUrl: widget.jobModel.profilePicture,
         placeholder: (context, _) => Image.asset(kCompanyImagePlaceholder),
-        progressIndicatorBuilder: (c, _, p) => Loader(),
       ),
     ); //That pointless fruit logo
     var jobTitle = Text(

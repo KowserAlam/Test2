@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p7app/features/notification/models/notification_model.dart';
 import 'package:p7app/features/notification/notification_helpers.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
+import 'package:p7app/main_app/app_theme/common_style.dart';
 
 class NotificationTile extends StatefulWidget {
   final Function onTap;
@@ -25,17 +27,15 @@ class _NotificationTileState extends State<NotificationTile> {
     bool isRead = widget.notificationModel?.isRead ?? false;
     var tileBackgroundColor =
         isRead ? backgroundColor : AppTheme.selectedBackgroundColor;
-    var titleColor =
-        isRead ? Theme.of(context).textTheme.subtitle1.color : primaryColor;
+    var titleColor = Colors.black;
     return Container(
-      height: 65,
-      margin: EdgeInsets.symmetric(vertical: 4,),
+      height: 70,
+      margin: EdgeInsets.symmetric(
+        vertical: 4,
+      ),
       decoration: BoxDecoration(
         color: tileBackgroundColor,
-        boxShadow: [
-          BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 10),
-          BoxShadow(color: Colors.black.withOpacity(0.2), blurRadius: 10),
-        ],
+        boxShadow: CommonStyle.boxShadow
       ),
       child: Material(
         color: Colors.transparent,
@@ -43,53 +43,70 @@ class _NotificationTileState extends State<NotificationTile> {
           onTap: widget.onTap,
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 5),
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: Row(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 5),
-                  child: Row(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Icon(
+                 FontAwesomeIcons.bell,
+                    size: 35,
+                    color:   isRead?  Colors.grey: Colors.orange,
+                  ),
+                ),
+                Expanded(
+                  child: Column(
                     mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Flexible(
-                        child: Container(
-                          height: 15,
-                          child: Text(
-                            widget.notificationModel.title ?? "",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: titleColor,
-                                fontSize: 14),
-                            overflow: TextOverflow.ellipsis,
-                          ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 5),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Flexible(
+                              child: Container(
+                                height: 15,
+                                child: Text(
+                                  widget.notificationModel.title ?? "",
+                                  style: TextStyle(
+                                      fontWeight: isRead
+                                          ? FontWeight.normal
+                                          : FontWeight.bold,
+                                      color: titleColor,
+                                      fontSize: isRead ? 13 : 14),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ),
+                            Container(
+                              height: 15,
+                              width: 60,
+                              child: Center(
+                                  child: Text(
+                                time,
+                                style: TextStyle(fontSize: 10),
+                              )),
+                            ),
+                          ],
                         ),
                       ),
-                      Container(
-                        height: 15,
-                        width: 60,
-                        child: Center(
-                            child: Text(
-                          time,
-                          style: TextStyle(fontSize: 10, color: primaryColor),
-                        )),
-                      ),
+                      Flexible(
+                        child: Container(
+                          padding: EdgeInsets.only(bottom: 5, top: 2),
+                          child: Text(
+                            widget.notificationModel.message ?? "",
+                            style: TextStyle(fontSize: 12,color: Colors.grey[800]),
+                            overflow: TextOverflow.ellipsis,
+
+                            maxLines: 2,
+                          ),
+                        ),
+                      )
                     ],
                   ),
                 ),
-                Flexible(
-                  child: Container(
-                    padding: EdgeInsets.only(bottom: 5, top: 2),
-                    child: Text(
-                      widget.notificationModel.message ?? "",
-                      style: TextStyle(fontSize: 13),
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 2,
-                    ),
-                  ),
-                )
               ],
             ),
           ),

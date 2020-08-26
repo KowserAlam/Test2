@@ -1,7 +1,11 @@
+import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:p7app/features/notification/models/notification_model.dart';
 import 'package:p7app/features/notification/repositories/notification_repository.dart';
+import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
+import 'package:p7app/main_app/util/logger_helper.dart';
+
 
 class NotificationViewModel with ChangeNotifier {
   AppError _appError;
@@ -13,6 +17,7 @@ class NotificationViewModel with ChangeNotifier {
   Future<void> refresh() {
     return getNotifications();
   }
+
 
   Future<void> getNotifications() async {
     _isFetchingData = true;
