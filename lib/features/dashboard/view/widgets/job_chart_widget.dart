@@ -133,23 +133,24 @@ class JobChartWidget extends StatelessWidget {
                       ),
                       Text.rich(TextSpan(children: [
                         TextSpan(text: "for Skills ($skillsString "),
-                        if(hasMoreText)
-                        WidgetSpan(
-                            child: InkWell(
-                          onTap: () {
-                            dashboardViewModel.idExpandedSkillList =
-                                !isExpanded;
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 3),
-                            child: Text(
-                              !isExpanded
-                                  ? StringResources.seeMoreText
-                                  : StringResources.seeLessText,
-                              style: TextStyle(color: Colors.blue),
+                        if (hasMoreText)
+                          WidgetSpan(
+                              child: InkWell(
+                            onTap: () {
+                              dashboardViewModel.idExpandedSkillList =
+                                  !isExpanded;
+                            },
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 3),
+                              child: Text(
+                                !isExpanded
+                                    ? StringResources.seeMoreText
+                                    : StringResources.seeLessText,
+                                style: TextStyle(color: Colors.blue),
+                              ),
                             ),
-                          ),
-                        )),
+                          )),
                         TextSpan(text: ")"),
                       ])),
 //                      if (hasMoreText)
@@ -212,8 +213,7 @@ class JobChartWidget extends StatelessWidget {
                 domainFn: (v, _) => v.dateTimeValue,
                 measureFn: (v, _) => v.total ?? 0,
                 fillColorFn: (_, __) =>
-                    charts.ColorUtil.fromDartColor(AppTheme.colorPrimary)
-                        .darker,
+                    charts.ColorUtil.fromDartColor(Colors.orange),
                 colorFn: (_, __) =>
                     charts.ColorUtil.fromDartColor(AppTheme.colorPrimary),
                 data: list.reversed.toList(),
@@ -249,11 +249,13 @@ class JobChartWidget extends StatelessWidget {
                         includePoints: true, includeArea: true),
                     domainAxis: new charts.DateTimeAxisSpec(),
                     primaryMeasureAxis: new charts.NumericAxisSpec(
-                        showAxisLine: true,
-                        tickProviderSpec:
-                            new charts.BasicNumericTickProviderSpec(
-                                desiredTickCount: 4)),
+                      showAxisLine: true,
+                      tickProviderSpec: new charts.BasicNumericTickProviderSpec(
+                          desiredTickCount: 5),
+                    ),
+
                   ),
+
                 ),
 
 //                Container(
