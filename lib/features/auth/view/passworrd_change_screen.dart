@@ -40,6 +40,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         bool isObscure = passwordChangeViewModel.isObscurePasswordOld;
         return CustomTextFieldRounded(
           labelText: StringResources.currentPasswordText,
+          textFieldKey: Key('changePasswordOldPassword'),
           onChanged: passwordChangeViewModel.onChangeOldPassword,
           errorText: passwordChangeViewModel.errorTextOldPassword,
           prefixIcon: Icon(
@@ -69,6 +70,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         bool isObscure = passwordChangeViewModel.isObscurePasswordNew;
         return CustomTextFieldRounded(
           labelText: StringResources.newPasswordText,
+          textFieldKey: Key('changePasswordNewPassword'),
           onChanged: passwordChangeViewModel.onChangeNewPassword,
           errorText: passwordChangeViewModel.errorTextNewPassword,
           prefixIcon: Icon(
@@ -98,6 +100,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         bool isObscure = passwordChangeViewModel.isObscurePasswordConfirm;
         return CustomTextFieldRounded(
           labelText: StringResources.confirmPasswordText,
+          textFieldKey: Key('changePasswordConfirmPassword'),
           onChanged: passwordChangeViewModel.onChangeConfirmPassword,
           errorText: passwordChangeViewModel.errorTextConfirmPassword,
           prefixIcon: Icon(
@@ -131,13 +134,14 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                 _handleChangePassword(context);
               }
             : null,
+        key: Key('changePasswordSubmitButton'),
         label: StringResources.submitButtonText,
       ),
     );
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(StringResources.changePasswordAppbarText),
+        title: Text(StringResources.changePasswordAppbarText, key: Key('changePasswordAppbarTitle'),),
       ),
       body: SingleChildScrollView(
         child: Container(

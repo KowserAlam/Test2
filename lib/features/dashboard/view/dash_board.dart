@@ -103,7 +103,7 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(StringResources.dashBoardText),
+        title: Text(StringResources.dashBoardText, key: Key('dashboardAppbardTitle'),),
         actions: [
 //          IconButton(
 //            key: Key("dashboardNotificationIcon"),
