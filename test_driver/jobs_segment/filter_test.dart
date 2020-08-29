@@ -23,6 +23,7 @@ Future<void> filterTest()async{
     final filterGenderTextfieldKey = find.byValueKey('filterGenderTextfieldKey');
     final filterDatePostedTextfieldKey = find.byValueKey('filterDatePostedTextfieldKey');
     final applyFilterButtonKey = find.byValueKey('applyFilterButtonKey');
+    final salaryRangeKey = find.byValueKey('salaryRangeKey');
 
     final findTextKhulna = find.text('Khulna');
 
@@ -178,6 +179,16 @@ Future<void> filterTest()async{
       await driver.tap(find.text('Last 30 days'));
       await driver.tap(applyFilterButtonKey);
       await Future.delayed(const Duration(seconds: 10), () {});
+    });
+
+    test('Open filter section and search Gender', () async {
+      await driver.tap(filterButtonKey);
+      await driver.tap(filterClearAllButtonKey);
+      await driver.scrollUntilVisible(filterListViewKey, salaryRangeKey,
+          dyScroll: -150);
+      await driver.tap(salaryRangeKey);
+      await driver.tap(applyFilterButtonKey);
+      await Future.delayed(const Duration(seconds: 6), () {});
     });
     //salaryRangeKey
 
