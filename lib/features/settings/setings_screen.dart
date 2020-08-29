@@ -134,8 +134,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
         children: <Widget>[
           changePassword,
           divider,
-//          pushNotification,
-//          divider,
+          pushNotification,
+          divider,
           emailSubscriptions,
           divider,
           clearCache,
