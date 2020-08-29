@@ -3,7 +3,7 @@ import 'package:test/test.dart';
 
 import '../keys.dart';
 
-//flutter drive --flavor dev --target=test_driver/jobs_segment/change_password.dart
+//flutter drive --flavor dev --target=test_driver/settings/change_password.dart
 
 
 main() {
