@@ -97,12 +97,14 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
             title: Text(StringResources.doYouWantToApplyText),
             actions: [
               RawMaterialButton(
+                key: Key('jobDetailsApplyNoButton'),
                 onPressed: () {
                   Navigator.pop(context);
                 },
                 child: Text(StringResources.noText),
               ),
               RawMaterialButton(
+                key: Key('jobDetailsApplyYesButton'),
                 onPressed: () {
                   applyForJob(jobDetails.jobId).then((value) {
                     setState(() {

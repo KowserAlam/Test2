@@ -41,7 +41,7 @@ Future<void> favoriteJobsTest()async{
     });
 */
     test('Go to Favorited Jobs list on jobs Screen segment control bar', () async {
-      await driver.tap(Keys.clickOnFavoriteJobsFromSegmentScreen);
+      await driver.tap(Keys.jobsSegmentFavoriteText);
       await Future.delayed(const Duration(seconds: 5), () {});
     });
 

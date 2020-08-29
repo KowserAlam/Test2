@@ -6,6 +6,7 @@ class Keys{
   static final backButton = find.byTooltip('Back');
   static final doneButtonKey = find.byValueKey('doneButtonKey');
   static final datePikerKey = find.byValueKey('datePickerKey');
+  static final applyButtonText = find.byValueKey('applyButtonText');
 
   //Sign in screen
   static final signInWelcomeText = find.byValueKey('signInWelcomeText');
@@ -233,9 +234,9 @@ class Keys{
 
 
   //Jobs Segment
-  static final clickOnAppliedJobsFromSegmentScreen = find.byValueKey('jobsSegmentAppliedText');
-  static final clickOnFavoriteJobsFromSegmentScreen = find.byValueKey('jobsSegmentFavoriteText');
-  static final clickOnAllJobsFromSegmentScreen = find.byValueKey('jobsSegmentAllText');
+  static final jobsSegmentAppliedText = find.byValueKey('jobsSegmentAppliedText');
+  static final jobsSegmentFavoriteText = find.byValueKey('jobsSegmentFavoriteText');
+  static final jobsSegmentAllText = find.byValueKey('jobsSegmentAllText');
   static final jobsAppbarTitle = find.byValueKey('jobsAppbarTitle');
 
   //Jobs Segment - All jobs
@@ -250,7 +251,7 @@ class Keys{
 
   //Job Segment - Applied Jobs
   static final clickOnFirstApplyKeyOnAppliedJobs = find.byValueKey('appliedApplyKey0');
-  static final clickOnFirstTileOnAppliedJobs = find.byValueKey('appliedTileKey0');
+  static final appliedTileKey = find.byValueKey('appliedTileKey0');
   static final searchForJobDetails = find.text('Job Details');
   static final checkFavoriteUnfavoriteFromAppliedList = find.byValueKey('appliedJobsListFavoriteButtonKey0'); //click on 1st tile
 
@@ -268,6 +269,8 @@ class Keys{
   static final checkJobFavorite = find.byValueKey('checkJobFavorite');
   static final jobDetailsApplyButton = find.byValueKey('jobDetailsApplyButton');
   static final similarJobsTitle = find.byValueKey('similarJobsTitle');
+  static final jobDetailsApplyNoButton = find.byValueKey('jobDetailsApplyNoButton');
+  static final jobDetailsApplyYesButton = find.byValueKey('jobDetailsApplyYesButton');
 
   //Contact Us
   static final tapOnNameField = find.byValueKey('contactUsNameTextField');
