@@ -72,25 +72,21 @@ Future<void> allTestCaseAtOnce() async {
 
     test('Check apply button is working', () async {
       //await expect(await driver.getText(Keys.applyButtonText), 'Apply');
-      print('1');
       await driver.tap(Keys.jobDetailsApplyButton);
-      print('2');
       await driver.tap(Keys.jobDetailsApplyYesButton);
-      print('3');
       //await expect(await driver.getText(Keys.applyButtonText), 'Applied');
       await driver.tap(Keys.backButton);
       await expect(await driver.getText(Keys.jobsAppbarTitle), 'Jobs');
       print('4');
       await driver.tap(Keys.jobsSegmentAppliedText);
-      print('5');
       await driver.tap(Keys.appliedTileKey);
       await expect(await driver.getText(Keys.jobDetailsJobTitle), jobTitle);
     });
-//
-//    test('Check scroll / pagination working', () async {
-//      await driver.scrollUntilVisible(Keys.jobDetailsScrollKey, Keys.similarJobsTitle, dyScroll: -1000);
-//      await expect(await driver.getText(Keys.similarJobsTitle), 'Similar Jobs');
-//    });
+
+    test('Check scroll / pagination working', () async {
+      await driver.scrollUntilVisible(Keys.jobDetailsScrollKey, Keys.similarJobsTitle, dyScroll: -1000);
+      await expect(await driver.getText(Keys.similarJobsTitle), 'Similar Jobs');
+    });
 
 
 
