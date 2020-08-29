@@ -8,6 +8,7 @@ class Keys{
   static final datePikerKey = find.byValueKey('datePickerKey');
 
   //Sign in screen
+  static final signInWelcomeText = find.byValueKey('signInWelcomeText');
   static final signInEmail = find.byValueKey('signInEmail');
   static final signInPassword = find.byValueKey('signInPassword');
   static final signInButton = find.byValueKey('signInButton');
@@ -35,12 +36,26 @@ class Keys{
   static final bottomNavigationBarMessages = find.byValueKey('bottomNavigationBarMessages');
   static final bottomNavigationBarJobs = find.byValueKey('bottomNavigationBarJobs');
   static final notificationsTextOnAppBar = find.byValueKey('notificationsText');
+  static final dashboardAppbardTitle = find.byValueKey('dashboardAppbardTitle');
+
+  //Settings Screen
+  static final settingsAppbarTitle = find.byValueKey('settingsAppbarTitle');
+  static final settingsChangePassword = find.byValueKey('settingsChangePassword');
+  static final settingsSignOut = find.byValueKey('settingsSignOut');
+
+  //Change Password
+  static final changePasswordAppbarTitle = find.byValueKey('changePasswordAppbarTitle');
+  static final changePasswordOldPassword = find.byValueKey('changePasswordOldPassword');
+  static final changePasswordNewPassword = find.byValueKey('changePasswordNewPassword');
+  static final changePasswordConfirmPassword = find.byValueKey('changePasswordConfirmPassword');
+  static final changePasswordSubmitButton = find.byValueKey('changePasswordSubmitButton');
 
   ///////////         My Profile          /////////////
   static final myProfileAppbarTitle = find.byValueKey('myProfileAppbarTitle');
   static final myProfileScrollView = find.byValueKey('myProfileScrollView');
   static final myProfileDialogBoxDeleteTile = find.byValueKey('myProfileDialogBoxDeleteTile');
   static final myProfileDialogBoxCancelDeleteTile = find.byValueKey('myProfileDialogBoxCancelDeleteTile');
+  static final myProfileSettingsButton = find.byValueKey('myProfileSettingsButton');
 
   static final myProfileHeaderEditButton = find.byValueKey('myProfileHeaderEditButton');
   static final myProfileHeaderName = find.byValueKey('myProfileHeaderName');

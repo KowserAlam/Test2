@@ -136,6 +136,7 @@ class _SignInScreenState extends State<SignInScreen> {
         Text(
           StringResources.welcomeBack,
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+          key: Key('signInWelcomeText'),
         ),
         SizedBox(
           height: 10,
