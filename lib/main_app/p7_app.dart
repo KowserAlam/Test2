@@ -70,6 +70,7 @@ class P7App extends StatelessWidget {
         builder: BotToastInit(),
         debugShowCheckedModeBanner: false,
         title: appName,
+//        darkTheme: AppTheme.darkTheme,
         theme: AppTheme.lightTheme.copyWith(
           textTheme: GoogleFonts.robotoTextTheme(Theme.of(context).textTheme),
         ),
