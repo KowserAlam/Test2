@@ -56,7 +56,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
   }
 
   _refreshJobList() {
-    Provider.of<JobListViewModel>(context, listen: false).refresh();
+    Provider.of<JobListViewModel>(context, listen: false).getJobList();
     if (widget.fromJobListScreenType != null) {
       switch (widget.fromJobListScreenType) {
         case JobListScreenType.main:

@@ -116,6 +116,7 @@ class JobListViewModel with ChangeNotifier {
     return getJobList();
   }
 
+
   Future<bool> getJobList({bool isFormOnPageLoad = false}) async {
     _totalJobCount = 0;
     _appError = null;
