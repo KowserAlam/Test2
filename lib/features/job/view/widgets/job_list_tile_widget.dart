@@ -69,11 +69,13 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
     var jobTitle = Text(
       widget.jobModel.title ?? "",
       style: titleStyle,
+      key: Key('jobTileJobTitle'+widget.index.toString()),
       maxLines: 3,
       overflow: TextOverflow.ellipsis,
     );
     var companyName = Text(
       widget.jobModel.companyName ?? "",
+      key: Key('jobTileCompanyName'+widget.index.toString()),
       style: subTitleStyle,
     );
     var companyLocation = Container(

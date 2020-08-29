@@ -86,6 +86,7 @@ class _SimilarJobsWidgetState extends State<SimilarJobsWidget> {
               ),
               Text(
                 StringResources.similarJobsText,
+                key: Key('similarJobsTitle'),
                 style: sectionTitleFont,
               )
             ],

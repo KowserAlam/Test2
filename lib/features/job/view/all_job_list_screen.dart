@@ -154,7 +154,7 @@ class _AllJobListScreenState extends State<AllJobListScreen>
       return Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
-          title: Text(StringResources.jobsText),
+          title: Text(StringResources.jobsText, key: Key ('jobsAppbarTitle')),
           actions: [
             IconButton(
               key: Key("jobListSearchToggleButtonKey"),
