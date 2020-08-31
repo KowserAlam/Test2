@@ -102,15 +102,18 @@ class SignInViewModel with ChangeNotifier {
 
   Future<bool> loginWithEmailAndPassword() async {
     isBusyLogin = true;
-    var body = {JsonKeys.email: email, JsonKeys.password: password};
+    var body = {
+      JsonKeys.email: email,
+      JsonKeys.password: password,
+      "device_id": "123321"
+    };
 
     try {
-
-
       var baseUrl = FlavorConfig.instance.values.baseUrl;
 //      var url = "$baseUrl${Urls.loginUrl}";
 
-      http.Response response = await ApiClient().postRequest(Urls.loginUrl, body);
+      http.Response response =
+          await ApiClient().postRequest(Urls.loginUrl, body);
 
       print(response.body);
       print(response.statusCode);
