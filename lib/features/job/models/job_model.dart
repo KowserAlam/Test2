@@ -1,7 +1,7 @@
 import 'package:dartz/dartz_unsafe.dart';
 import 'package:p7app/features/company/models/company.dart';
 import 'package:p7app/main_app/flavour/flavour_config.dart';
-import 'package:p7app/features/user_profile/models/skill.dart';
+import 'package:p7app/main_app/models/skill.dart';
 
 class JobModel {
   String jobId;
