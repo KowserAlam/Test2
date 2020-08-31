@@ -73,8 +73,8 @@ class _NotificationScreenState extends State<NotificationScreen>
     return Scaffold(
       appBar: AppBar(
         title: Text(StringResources.notificationsText),
+        key: Key ('notificationsText'),
       ),
-      drawer: AppDrawer(),
       body: Consumer<NotificationViewModel>(
           builder: (context, notificationViewModel, _) {
         if (notificationViewModel.shouldShowPageLoader) {

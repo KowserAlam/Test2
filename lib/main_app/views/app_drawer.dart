@@ -1,27 +1,18 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:p7app/features/auth/view_models/login_view_model.dart';
-import 'package:p7app/features/auth/view/login_screen.dart';
-import 'package:p7app/features/company/view/company_list_screen.dart';
-import 'package:p7app/features/config/config_screen.dart';
-import 'package:p7app/features/job/view_model/applied_job_list_view_model.dart';
-import 'package:p7app/features/job/view_model/favourite_job_list_view_model.dart';
-import 'package:p7app/features/job/view_model/job_list_filter_widget_view_model.dart';
-import 'package:p7app/features/job/view_model/job_list_view_model.dart';
-import 'package:p7app/features/jobs_on_map/jobs_on_map_screen.dart';
-import 'package:p7app/features/onboarding_page/onboarding_page.dart';
-import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
-import 'package:p7app/features/user_profile/views/screens/profile_screen.dart';
-import 'package:p7app/main_app/auth_service/auth_service.dart';
-import 'package:p7app/main_app/auth_service/auth_user_model.dart';
-import 'package:p7app/main_app/p7_app.dart';
-import 'package:p7app/main_app/resource/const.dart';
-import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:p7app/main_app/root.dart';
+import 'package:p7app/features/career_advice/view/career_advice_list_screen.dart';
+import 'package:p7app/features/company/view/company_list_screen.dart';
+import 'package:p7app/features/settings/setings_screen.dart';
+import 'package:p7app/features/settings/settings_view_model.dart';
+import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
+import 'package:p7app/features/user_profile/views/screens/profile_screen.dart';
+import 'package:p7app/main_app/auth_service/auth_service.dart';
+import 'package:p7app/main_app/resource/const.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
+import 'package:p7app/main_app/util/locator.dart';
 import 'package:p7app/main_app/views/about_us_screen.dart';
-import 'package:p7app/features/career_advice/view/career_advice_screen.dart';
 import 'package:p7app/main_app/views/contact_us_screen.dart';
 import 'package:p7app/main_app/views/faq_screen.dart';
 import 'package:p7app/main_app/views/widgets/app_version_widget_small.dart';
@@ -44,7 +35,7 @@ class _AppDrawerState extends State<AppDrawer> {
   @override
   void initState() {
     Future.delayed(Duration.zero).then((value) {
-      var upvm = Provider.of<UserProfileViewModel>(context,listen: false);
+      var upvm = Provider.of<UserProfileViewModel>(context, listen: false);
       var user = upvm?.userData?.personalInfo;
       if (user == null) {
         upvm.getUserData();
@@ -52,6 +43,7 @@ class _AppDrawerState extends State<AppDrawer> {
     });
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     var headerBackgroundColor = Color(0xff08233A);
@@ -95,7 +87,7 @@ class _AppDrawerState extends State<AppDrawer> {
                             Navigator.push(
                                 context,
                                 CupertinoPageRoute(
-                                    builder: (context) => ConfigScreen()));
+                                    builder: (context) => SettingsScreen()));
                           },
                         ),
                         Container(
@@ -254,7 +246,7 @@ class _AppDrawerState extends State<AppDrawer> {
                     onTap: () {
                       Navigator.pop(context);
                       Navigator.of(context).push(CupertinoPageRoute(
-                          builder: (context) => CareerAdviceScreen()));
+                          builder: (context) => CareerAdviceListScreen()));
                     },
                   ),
 
@@ -319,18 +311,13 @@ class _AppDrawerState extends State<AppDrawer> {
 }
 
 _handleSignOut(context) {
-//  Provider.of<LoginViewModel>(context, listen: false).signOut();
-//  Provider.of<JobListViewModel>(context, listen: false).resetState();
-//  Provider.of<FavouriteJobListViewModel>(context, listen: false).resetState();
-//  Provider.of<AppliedJobListViewModel>(context, listen: false).resetState();
-//  Provider.of<JobListFilterWidgetViewModel>(context, listen: false)
-//      .resetState();
-//  Provider.of<UserProfileViewModel>(context, listen: false).resetState();
-
-
-  AuthService.getInstance().then((value) => value.removeUser()).then((value){
-    RestartWidget.restartApp(context);
-  });
+//  AuthService.getInstance().then((value) => value.removeUser()).then((value){
+//    Provider.of<SettingsViewModel>(context, listen: false).clearAllCachedData();
+////    RestartWidget.restartApp(context);
+//    locator<RestartNotifier>().restartApp();
+//
+//  });
+  locator<SettingsViewModel>().signOut();
 }
 
 /// App Drawer item widget
@@ -369,7 +356,7 @@ class DrawerListWidget extends StatelessWidget {
                   ? Theme.of(context).primaryColor
                   : Theme.of(context).scaffoldBackgroundColor,
               width: 4,
-              height: AppBar().preferredSize.height/1.2,
+              height: AppBar().preferredSize.height / 1.2,
             ),
             Expanded(
               child: Row(
@@ -385,10 +372,11 @@ class DrawerListWidget extends StatelessWidget {
                   Text(
                     label,
                     style: TextStyle(
-                        fontSize: 15, fontWeight: FontWeight.w600, color: color),
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600,
+                        color: color),
                   ),
                 ],
-
               ),
             ),
           ],

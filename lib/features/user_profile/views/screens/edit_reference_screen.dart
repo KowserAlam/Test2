@@ -81,6 +81,7 @@ class _EditReferenceScreenState extends State<EditReferenceScreen> {
 
 
     var description = CustomTextFormField(
+      textFieldKey: Key('referencesDescription'),
       validator: Validator().nullFieldValidate,
       keyboardType: TextInputType.multiline,
       controller: _descriptionController,
@@ -94,32 +95,30 @@ class _EditReferenceScreenState extends State<EditReferenceScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(StringResources.referenceAppbarText),
+        title: Text(StringResources.referenceAppbarText, key: Key('referencesAppbarTitle'),),
         actions: <Widget>[
           EditScreenSaveButton(
+            key: Key('myProfileReferencesSaveButton'),
             text: StringResources.saveText,
             onPressed: _handleSave,
           ),
         ],
       ),
-      body: Container(
-        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
-        child: SingleChildScrollView(
-          child: Form(
-            key: _formKey,
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  //Name
-                  description,
-                  spaceBetweenFields,
-                  SizedBox(
-                    height: 40,
-                  ),
-                ],
-              ),
+      body: SingleChildScrollView(
+        child: Form(
+          key: _formKey,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                //Name
+                description,
+                spaceBetweenFields,
+                SizedBox(
+                  height: 40,
+                ),
+              ],
             ),
           ),
         ),

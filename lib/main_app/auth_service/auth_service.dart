@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:jwt_decode/jwt_decode.dart';
+import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
 import 'package:p7app/main_app/auth_service/auth_user_model.dart';
 import 'package:p7app/main_app/flavour/flavour_config.dart';
@@ -35,7 +36,6 @@ class AuthService {
     return AuthUserModel.fromJsonLocal(json.decode(userMap));
   }
 
-
   Future<bool> saveUser(Map<String, dynamic> data) {
     var encodedData = json.encode(data);
     return _localStorageService.saveString(JsonKeys.user, encodedData);
@@ -54,7 +54,7 @@ class AuthService {
     return _instance.saveUser(data);
   }
 
-  String _getAssessToken()  {
+  String _getAssessToken() {
     var user = _instance.getUser();
     if (user?.userId == null || user?.professionalId == null) {
       return null;
@@ -70,9 +70,9 @@ class AuthService {
     return user.refresh;
   }
 
-  Duration getRefreshInterval()  {
+  Duration getRefreshInterval() {
     DateTime expTime;
-    String token = _instance. _getAssessToken();
+    String token = _instance._getAssessToken();
     if (token != null) {
       var payload = Jwt.parseJwt(token);
       debugPrint(payload.toString());
@@ -87,9 +87,10 @@ class AuthService {
       return null;
     }
   }
-  bool isAccessTokenValid()  {
+
+  bool isAccessTokenValid() {
     DateTime expTime;
-    String token = _instance. _getAssessToken();
+    String token = _instance._getAssessToken();
     if (token != null) {
       var payload = Jwt.parseJwt(token);
       debugPrint(payload.toString());
@@ -108,9 +109,9 @@ class AuthService {
     }
   }
 
-  bool _isRefreshTokenValid()  {
+  bool _isRefreshTokenValid() {
     DateTime expTime;
-    String token =  _getRefreshToken();
+    String token = _getRefreshToken();
     if (token != null) {
       var payload = Jwt.parseJwt(token);
       debugPrint(payload.toString());
@@ -136,7 +137,8 @@ class AuthService {
         String rfToken = _instance._getRefreshToken();
         var body = {"refresh": rfToken};
         print(body);
-        var res = await http.post("${baseUrl}${Urls.jwtRefreshUrl}",body: body);
+        var res = await ApiClient().postRequest(Urls.jwtRefreshUrl, body);
+//        var res = await http.post("${baseUrl}${Urls.jwtRefreshUrl}",body: body);
         print(res.statusCode);
         print(res.body);
         if (res.statusCode == 200) {

@@ -1,7 +1,7 @@
 import 'package:dartz/dartz_unsafe.dart';
 import 'package:p7app/features/company/models/company.dart';
 import 'package:p7app/main_app/flavour/flavour_config.dart';
-import 'package:p7app/features/user_profile/models/skill.dart';
+import 'package:p7app/main_app/models/skill.dart';
 
 class JobModel {
   String jobId;
@@ -11,8 +11,8 @@ class JobModel {
   String jobAddress;
   String jobCountry;
   String jobArea;
-  String salaryMin;
-  String salaryMax;
+  int salaryMin;
+  int salaryMax;
   int vacancy;
   DateTime applicationDeadline;
   String descriptions;
@@ -99,8 +99,12 @@ class JobModel {
     slug = json['slug'];
     title = json['title']?.toString();
     jobCity = json['job_city'];
-    salaryMin = json['salary_min'];
-    salaryMax = json['salary_max'];
+    if(json['salary_min'] != null){
+      salaryMin = num.parse(json['salary_min'].toString()).toInt();
+    }
+    if(json['salary_max'] != null){
+      salaryMax = num.parse(json['salary_max'].toString()).toInt();
+    }
     vacancy = json['vacancy'];
     if (json['application_deadline'] != null) {
       applicationDeadline = DateTime.parse(json['application_deadline']);
@@ -158,10 +162,10 @@ class JobModel {
 
     isApplied = json['is_applied'] == null
         ? false
-        : (json['is_applied'] == "True" ? true : false);
+        : (json['is_applied'].toString() == "1" ? true : false);
     isFavourite = json['is_favourite'] == null
         ? false
-        : (json['is_favourite'] == "True" ? true : false);
+        : (json['is_favourite'].toString() == "1" ? true : false);
 
 //    if (json['profile_picture'] != null) {
 //      profilePicture = "$baseUrl${json['profile_picture']}";

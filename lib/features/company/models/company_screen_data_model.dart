@@ -6,12 +6,17 @@ class CompanyScreenDataModel {
   bool previous;
   List<Company> companies;
 
-  CompanyScreenDataModel({this.count, this.next, this.previous, this.companies});
+  CompanyScreenDataModel({
+    this.count,
+    this.next,
+    this.previous,
+    this.companies,
+  });
 
   CompanyScreenDataModel.fromJson(Map<String, dynamic> json) {
-    count = json['count']??0;
-    next = json['next'] != null;
-    previous = json['previous'] != null;
+    count = json['count'] ?? 0;
+    next = json['pages']['next_url'] != null;
+    previous = json['pages']['previous_url'] != null;
     if (json['results'] != null) {
       companies = new List<Company>();
       json['results'].forEach((v) {

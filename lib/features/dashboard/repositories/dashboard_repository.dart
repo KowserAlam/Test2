@@ -3,18 +3,23 @@ import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:dartz/dartz_unsafe.dart';
+import 'package:logger/logger.dart';
 import 'package:p7app/features/dashboard/models/info_box_data_model.dart';
 import 'package:p7app/features/dashboard/models/skill_job_chart_data_model.dart';
+import 'package:p7app/features/dashboard/models/top_categories_model.dart';
+import 'package:p7app/features/dashboard/models/vital_stats_data_model.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
+import 'package:p7app/main_app/util/logger_helper.dart';
 
 class DashBoardRepository {
   Future<Either<AppError, InfoBoxDataModel>> getInfoBoxData() async {
     try {
       var res = await ApiClient().getRequest(Urls.dashboardInfoBoxUrl);
       print(res.statusCode);
+//      print(res.body);
       if (res.statusCode == 200) {
         var decodedJson = json.decode(res.body);
         var model = InfoBoxDataModel.fromJson(decodedJson);
@@ -37,7 +42,8 @@ class DashBoardRepository {
       getSkillJobChart() async {
     try {
       var res = await ApiClient().getRequest(Urls.dashboardSkillJobChartUrl);
-      print(res.statusCode);
+//      logger.i(res.statusCode);
+//      logger.i(res.body);
       if (res.statusCode == 200) {
         var decodedJson = json.decode(res.body);
         List<SkillJobChartDataModel> data = [];
@@ -70,6 +76,49 @@ class DashBoardRepository {
     } catch (e) {
       print(e);
       return 0;
+    }
+  }
+
+  Future<Either<AppError, VitalStatsDataModel>> getVitalStats() async {
+    try {
+      var res = await ApiClient().getRequest(Urls.vitalStatsUrl);
+      print(res.statusCode);
+      if (res.statusCode == 200) {
+        var decodedJson = json.decode(res.body);
+//        Logger().i(decodedJson);
+        var data = VitalStatsDataModel.fromJson(decodedJson);
+        return Right(data);
+      } else {
+        return Left(AppError.serverError);
+      }
+    } on SocketException catch (e) {
+      print(e);
+      return Left(AppError.networkError);
+    } catch (e) {
+      print(e);
+      return Left(AppError.unknownError);
+    }
+  }
+
+  Future<Either<AppError, List<TopCategoriesModel>>> getTopCategories() async {
+    try {
+      var res = await ApiClient().getRequest(Urls.topCategoriesListUrl);
+      print(res.statusCode);
+      if (res.statusCode == 200) {
+        var decodedJson = json.decode(res.body);
+        Logger().i(decodedJson);
+        List<TopCategoriesModel> list = [];
+        decodedJson.forEach((e)=>list.add(TopCategoriesModel.fromJson(e)));
+        return Right(list);
+      } else {
+        return Left(AppError.serverError);
+      }
+    } on SocketException catch (e) {
+      print(e);
+      return Left(AppError.networkError);
+    } catch (e) {
+      print(e);
+      return Left(AppError.unknownError);
     }
   }
 }

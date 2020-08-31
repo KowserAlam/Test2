@@ -1,5 +1,5 @@
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
-import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
+import 'package:p7app/main_app/app_theme/common_style.dart';
 import 'package:p7app/features/user_profile/views/screens/edit_personal_info_screen.dart';
 import 'package:p7app/features/user_profile/views/widgets/user_info_list_item.dart';
 import 'package:p7app/main_app/resource/const.dart';
@@ -55,7 +55,7 @@ class ContactInfoWidget extends StatelessWidget {
           decoration: BoxDecoration(
             color: Theme.of(context).backgroundColor,
             borderRadius: BorderRadius.circular(5),
-            boxShadow: CommonStyleTextField.boxShadow,),
+            boxShadow: CommonStyle.boxShadow,),
           child: Consumer<UserProfileViewModel>(builder: (context, userProvider, _) {
             var personalInfo = userProvider.userData.personalInfo;
             return Column(

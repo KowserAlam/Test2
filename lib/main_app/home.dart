@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:p7app/features/notification/views/notification_screen.dart';
+import 'package:p7app/features/company/view/company_list_screen.dart';
 import 'package:p7app/features/dashboard/view/dash_board.dart';
-import 'package:p7app/features/job/view/applied_job_list_screen.dart';
-import 'package:p7app/features/job/view/favourite_job_list_screen.dart';
-import 'package:p7app/features/job/view/job_list_screen.dart';
+import 'package:p7app/features/job/view/jobs_screen.dart';
+import 'package:p7app/features/job/view_model/job_screen_view_model.dart';
+import 'package:p7app/features/messaging/view/sender_list_screen.dart';
+import 'package:p7app/features/notification/repositories/live_update_service.dart';
+import 'package:p7app/features/user_profile/views/screens/profile_screen.dart';
 import 'package:p7app/main_app/flavour/flavor_banner.dart';
+import 'package:p7app/main_app/push_notification_service/push_notification_service.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
+import 'package:p7app/main_app/util/locator.dart';
 import 'package:p7app/main_app/util/token_refresh_scheduler.dart';
+import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -21,69 +26,113 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     TokenRefreshScheduler.getInstance();
+    _setupPushNotification();
+    locator<LiveUpdateService>().initSocket();
     super.initState();
+  }
+
+  _setupPushNotification() {
+    var pushNotificationService = locator<PushNotificationService>();
   }
   @override
   Widget build(BuildContext context) {
     var bottomNavBar = BottomNavigationBar(
 //        selectedItemColor: Theme.of(context).primaryColor,
 //        unselectedItemColor: Colors.grey,
-        onTap: (int index) {
-          _paeViewController.animateToPage(index,
-              duration: const Duration(milliseconds: 400),
-              curve: Curves.easeInOut);
+
+        onTap: (int index) async {
+          if (currentIndex != index) {
+            var offset = 0;
+//            int quickJumpTarget;
+            if (index > currentIndex) {
+              offset = 100;
+//              quickJumpTarget = currentIndex + 1;
+            } else if (index < currentIndex) {
+//              quickJumpTarget = currentIndex - 1;
+              offset = -100;
+            }
+
+//            await _paeViewController.animateToPage(quickJumpTarget,
+//                duration: const Duration(milliseconds: 400),
+//                curve: Curves.easeInOut);
+            await _paeViewController.animateTo(
+                _paeViewController.offset + offset,
+                duration: const Duration(milliseconds: 50),
+                curve: Curves.easeInOut);
+            _paeViewController.jumpToPage(index);
+          }
+
+//
+//          _paeViewController.animateToPage(index,
+//              duration: const Duration(milliseconds: 400),
+//              curve: Curves.easeInOut);
         },
         currentIndex: currentIndex,
         iconSize: 17,
-        selectedLabelStyle: TextStyle(fontWeight: FontWeight.w600),
-        unselectedLabelStyle: TextStyle(fontWeight: FontWeight.w600),
+        selectedItemColor: Theme.of(context).accentColor,
+        unselectedItemColor: Colors.grey[800],
+        selectedLabelStyle:
+            TextStyle(fontWeight: FontWeight.bold, color: Colors.blue),
+        unselectedLabelStyle: TextStyle(
+          fontWeight: FontWeight.w600,
+        ),
         selectedFontSize: 10,
         unselectedFontSize: 10,
+        elevation: 4,
         type: BottomNavigationBarType.fixed,
         items: [
-
           // dashboard
           BottomNavigationBarItem(
               icon: Padding(
+              key: Key('bottomNavigationBarDashboard'),
                 padding: const EdgeInsets.only(
                   bottom: 3,
                 ),
-                child: Icon(
-                  FontAwesomeIcons.home,
-                ),
+                child: Icon(FontAwesomeIcons.home,),
               ),
               title: Text(StringResources.dashBoardText)),
           //jobs
           BottomNavigationBarItem(
               icon: Padding(
+                key: Key('bottomNavigationBarJobs'),
                 padding: const EdgeInsets.only(
                   bottom: 3,
                 ),
                 child: Icon(
                   FontAwesomeIcons.briefcase,
+
                 ),
               ),
               title: Text(StringResources.jobsText)),
-          //applied
           BottomNavigationBarItem(
               icon: Padding(
-                  padding: const EdgeInsets.only(bottom: 5),
-                  child: Icon(FontAwesomeIcons.solidCheckSquare)),
-              title: Text(StringResources.appliedText)),
-          // favourite
-          BottomNavigationBarItem(
-              icon: Padding(
+                key: Key('bottomNavigationBarCompany'),
                 padding: const EdgeInsets.only(bottom: 5),
-                child: Icon(FontAwesomeIcons.solidHeart),
+                child: Icon(
+                  FontAwesomeIcons.solidBuilding,
+                ),
               ),
-              title: Text(StringResources.favoriteText)),
+              title: Text(StringResources.companyListAppbarText)),
           //notifications
           BottomNavigationBarItem(
               icon: Padding(
+                key: Key('bottomNavigationBarMessages'),
                 padding: const EdgeInsets.only(bottom: 5),
-                child: Icon(FontAwesomeIcons.solidBell),
+                child: Icon(
+                  FontAwesomeIcons.solidComments,
+                ),
               ),
-              title: Text(StringResources.notificationsText)),
+              title: Text(StringResources.messagesText)),
+          // profile
+          BottomNavigationBarItem(
+              icon: Padding(
+                key: Key('bottomNavigationBarMyProfile'),
+                padding: const EdgeInsets.only(bottom: 5),
+                child: Icon(
+                  FontAwesomeIcons.solidUserCircle,
+                ),
+              ),
+              title: Text(StringResources.myProfileText)),
         ]);
 
     return WillPopScope(
@@ -110,20 +159,26 @@ class _HomeState extends State<Home> {
             children: <Widget>[
               DashBoard(
                 onTapApplied: () {
-                  _paeViewController.animateToPage(2,
+                  _paeViewController.animateToPage(1,
                       duration: const Duration(milliseconds: 400),
                       curve: Curves.easeInOut);
+                  Provider.of<JobScreenViewModel>(context, listen: false)
+                      .onChange(1);
                 },
                 onTapFavourite: () {
-                  _paeViewController.animateToPage(3,
+                  _paeViewController.animateToPage(1,
                       duration: const Duration(milliseconds: 400),
                       curve: Curves.easeInOut);
+                  Provider.of<JobScreenViewModel>(context, listen: false)
+                      .onChange(2);
                 },
               ),
-              JobListScreen(),
-              AppliedJobListScreen(),
-              FavouriteJobListScreen(),
-              NotificationScreen(),
+              JobsScreen(),
+//              AppliedJobListScreen(),
+//              FavouriteJobListScreen(),
+              CompanyListScreen(),
+              SenderListScreen(),
+              ProfileScreen()
             ],
           ),
         ),
@@ -131,5 +186,3 @@ class _HomeState extends State<Home> {
     );
   }
 }
-
-

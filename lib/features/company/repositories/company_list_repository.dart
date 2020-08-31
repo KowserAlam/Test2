@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart';
+import 'package:logger/logger.dart';
 import 'package:p7app/features/company/models/company.dart';
 import 'package:p7app/features/company/models/company_screen_data_model.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
@@ -11,17 +12,20 @@ import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 
 class CompanyListRepository {
-  Future<Either<AppError, CompanyScreenDataModel>> getList({String query,int pageSize =10,int page=1}) async {
+  Future<Either<AppError, CompanyScreenDataModel>> getList(
+      {String query, int pageSize = 10, int page = 1}) async {
     try {
-      var url = "${Urls.companySearchUrl}/?page_size=$pageSize&name=${query??""}&page=${page}";
+      var url =
+          "${Urls.companySearchUrl}/?page_size=$pageSize&name=${query ?? ""}&page=${page}";
       debugPrint(url);
       var res = await ApiClient().getRequest(url);
       debugPrint(res.statusCode.toString());
       if (res.statusCode == 200) {
         var decodedJson = json.decode(res.body);
-//        debugPrint(decodedJson.toString());
-        CompanyScreenDataModel list = CompanyScreenDataModel.fromJson(decodedJson);
-        return Right(list);
+//        Logger().i(decodedJson);
+        CompanyScreenDataModel data =
+            CompanyScreenDataModel.fromJson(decodedJson);
+        return Right(data);
       } else {
         return Left(AppError.serverError);
       }

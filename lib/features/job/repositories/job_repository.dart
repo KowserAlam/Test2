@@ -1,10 +1,13 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:bot_toast/bot_toast.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dartz/dartz_unsafe.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_cache/flutter_cache.dart';
+import 'package:logger/logger.dart';
 import 'package:p7app/features/job/models/job_list_model.dart';
 import 'package:p7app/features/job/models/job_model.dart';
 import 'package:p7app/features/job/models/job_list_filters.dart';
@@ -52,17 +55,21 @@ class JobRepository {
 
     try {
       var response = await ApiClient().getRequest(url);
-      debugPrint(url);
-      print(response.statusCode);
+//      debugPrint(url);
+      Logger().i(response.statusCode);
 //      print(response.body);
       if (response.statusCode == 200) {
-        var mapData = json.decode(utf8.decode(response.bodyBytes));
-
-        var jobList = fromJson(mapData);
+        var decodedJson = json.decode(utf8.decode(response.bodyBytes));
+//        Logger().i(decodedJson);
+        var jobList = fromJson(decodedJson);
         var dataModel = JobListScreenDataModel(
-            jobList: jobList,
-            count: mapData['count'],
-            nextPage: mapData['next_pages'] ?? false);
+          jobList: jobList,
+          count: decodedJson['count'],
+          nextPage: decodedJson['pages'] != null
+              ? decodedJson['pages']['next_url'] != null
+              : false,
+//        nextPage: decodedJson["next_pages"]??false,
+        );
         return Right(dataModel);
       } else if (response.statusCode == 401) {
         BotToast.showText(text: StringResources.unauthorizedText);
@@ -92,24 +99,40 @@ class JobRepository {
     return jobList;
   }
 
-  Future<Either<AppError, JobModel>> fetchJobDetails(String slug) async {
-    //var url = "/api/load_job/seo-expert-78caf3ac";
-    var url = "${Urls.jobDetailsUrl}${slug}";
-
-    try {
+  /// JOB Details
+  Future<Map<String, dynamic>> _getJobDetailsBody(
+      String url, bool forceFromServer) async {
+    var cache = await Cache.load(url);
+//    print(cache);
+    if (cache != null && !forceFromServer) {
+      return cache;
+    } else {
       var response = await ApiClient().getRequest(url);
       debugPrint(url);
       print(response.statusCode);
 //      print(response.body);
       if (response.statusCode == 200) {
-        var mapData = json.decode(utf8.decode(response.bodyBytes));
-
-        var jobDetails = JobModel.fromJson(mapData);
-        return Right(jobDetails);
+        var decodedJson = json.decode(utf8.decode(response.bodyBytes));
+        Cache.remember(url, decodedJson, 30 * 60);
+        return decodedJson;
       } else {
-        BotToast.showText(text: StringResources.somethingIsWrong);
-        return Left(AppError.unknownError);
+        return null;
       }
+    }
+  }
+
+  Future<Either<AppError, JobModel>> fetchJobDetails(String slug,
+      {bool forceFromServer = false}) async {
+    //var url = "/api/load_job/seo-expert-78caf3ac";
+    var url = "${Urls.jobDetailsUrl}${slug}";
+
+    try {
+      Map<String, dynamic> decodedJson =
+          await _getJobDetailsBody(url, forceFromServer);
+
+//      Logger().i(decodedJson);
+      var jobDetails = JobModel.fromJson(decodedJson);
+      return Right(jobDetails);
     } on SocketException catch (e) {
       print(e);
       BotToast.showText(text: StringResources.unableToReachServerMessage);
@@ -196,8 +219,31 @@ class JobRepository {
       print(res.statusCode);
       if (res.statusCode == 200) {
         var _list = <JobListModel>[];
-        var decodedJso = json.decode(res.body);
+        var decodedJso = json.decode(utf8.decode(res.bodyBytes));
         decodedJso.forEach((element) {
+          _list.add(JobListModel.fromJson(element));
+        });
+        return _list;
+      } else {
+        return [];
+      }
+    } catch (e) {
+      print(e);
+      return [];
+    }
+  }
+
+  Future<List<JobListModel>> getOpenJobs(String companyName) async {
+    var url = "${Urls.openJobsCompany}$companyName";
+
+    try {
+      var res = await ApiClient().getRequest(url);
+      print(res.statusCode);
+      if (res.statusCode == 200) {
+        var _list = <JobListModel>[];
+        var decodedJso = json.decode(utf8.decode(res.bodyBytes));
+
+        decodedJso['results'].forEach((element) {
           _list.add(JobListModel.fromJson(element));
         });
         return _list;

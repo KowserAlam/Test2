@@ -1,13 +1,12 @@
+import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:p7app/features/dashboard/models/skill_job_chart_data_model.dart';
 import 'package:p7app/features/dashboard/view_model/dashboard_view_model.dart';
-import 'package:p7app/features/user_profile/models/skill.dart';
 import 'package:p7app/features/user_profile/models/skill_info.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/features/user_profile/views/screens/add_edit_professional_skill_screen.dart';
-import 'package:p7app/features/user_profile/views/widgets/professional_skill_list_item.dart';
+import 'package:p7app/main_app/app_theme/app_theme.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
@@ -21,7 +20,7 @@ class JobChartWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var screenHeight = MediaQuery.of(context).size.height;
-    var chartHeight = screenHeight / 2.2;
+    var chartHeight = 230.0; //screenHeight / 2.2;
     var primaryColor = Theme.of(context).primaryColor;
 
 //    var dummyDataList = [
@@ -36,7 +35,7 @@ class JobChartWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Column(
-//        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 5.0),
@@ -82,7 +81,7 @@ class JobChartWidget extends StatelessWidget {
                     ? skillText ?? ""
                     : "${skillText?.substring(0, chLength)} ...." ?? "";
 
-                if(userProfileViewModel.appError !=  null){
+                if (userProfileViewModel.appError != null) {
                   return SizedBox();
                 }
 
@@ -119,36 +118,65 @@ class JobChartWidget extends StatelessWidget {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(StringResources.monthlyJobsText,style:TextStyle(fontSize: 18,fontWeight: FontWeight.bold)),
-                     SizedBox(height: 2,),
-                      Text("for Skills ($skillsString)",textAlign: TextAlign.center,),
-                      if (hasMoreText)
-                        Padding(
-                          padding: const EdgeInsets.only(top: 5),
-                          child: InkWell(
+                      Padding(
+                        padding: const EdgeInsets.only(left: 2, bottom: 8),
+                        child: Text(
+                          StringResources.monthlyJobsText,
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 2,
+                      ),
+                      Text.rich(TextSpan(children: [
+                        TextSpan(text: "for Skills ($skillsString "),
+                        if (hasMoreText)
+                          WidgetSpan(
+                              child: InkWell(
                             onTap: () {
                               dashboardViewModel.idExpandedSkillList =
                                   !isExpanded;
                             },
                             child: Padding(
-                              padding: const EdgeInsets.all(3.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    isExpanded
-                                        ? StringResources.seeLessText
-                                        : StringResources.seeMoreText,
-                                    style: TextStyle(
-                                        color: Theme.of(context).primaryColor),
-                                  ),
-                                ],
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 3),
+                              child: Text(
+                                !isExpanded
+                                    ? StringResources.seeMoreText
+                                    : StringResources.seeLessText,
+                                style: TextStyle(color: Colors.blue),
                               ),
                             ),
-                          ),
-                        ),
+                          )),
+                        TextSpan(text: ")"),
+                      ])),
+//                      if (hasMoreText)
+//                        Padding(
+//                          padding: const EdgeInsets.only(top: 5),
+//                          child: InkWell(
+//                            onTap: () {
+//                              dashboardViewModel.idExpandedSkillList =
+//                                  !isExpanded;
+//                            },
+//                            child: Padding(
+//                              padding: const EdgeInsets.all(3.0),
+//                              child: Row(
+//                                mainAxisAlignment: MainAxisAlignment.center,
+//                                children: [
+//                                  Text(
+//                                    isExpanded
+//                                        ? StringResources.seeLessText
+//                                        : StringResources.seeMoreText,
+//                                    style: TextStyle(color: Colors.blue),
+//                                  ),
+//                                ],
+//                              ),
+//                            ),
+//                          ),
+//                        ),
                     ],
                   ),
                 );
@@ -179,40 +207,89 @@ class JobChartWidget extends StatelessWidget {
             else
               list = dashboardViewModel.skillJobChartData;
 
-            var seriesList = [
-              charts.Series<SkillJobChartDataModel, String>(
-                id: "Job Chart",
-                domainFn: (v, _) => v.month ?? "Month",
+            var seriesList2 = [
+              charts.Series<SkillJobChartDataModel, DateTime>(
+                id: "Job Chart2",
+                domainFn: (v, _) => v.dateTimeValue,
                 measureFn: (v, _) => v.total ?? 0,
+                fillColorFn: (_, __) =>
+                    charts.ColorUtil.fromDartColor(Colors.orange),
+                colorFn: (_, __) =>
+                    charts.ColorUtil.fromDartColor(AppTheme.colorPrimary),
                 data: list.reversed.toList(),
-                labelAccessorFn: (v, _) => '${v.total ?? ""}',
               )
             ];
+//            var seriesList = [
+//              charts.Series<SkillJobChartDataModel, String>(
+//                id: "Job Chart",
+//                domainFn: (v, _) => v.monthName ?? "Month",
+//                measureFn: (v, _) => v.total ?? 0,
+//                fillColorFn: (_, __) =>
+//                    charts.ColorUtil.fromDartColor(AppTheme.colorPrimary),
+//                colorFn: (_, __) =>
+//                    charts.ColorUtil.fromDartColor(AppTheme.colorPrimary)
+//                        .darker,
+//                data: list.reversed.toList(),
+//                insideLabelStyleAccessorFn: (_, __) => charts.TextStyleSpec(
+//                  color: charts.MaterialPalette.black,
+//                ),
+//                labelAccessorFn: (v, _) => '${v.total ?? ""}',
+//              )
+//            ];
 
-            return Container(
-              padding: EdgeInsets.all(8),
-              height: chartHeight,
-              child: charts.BarChart(
-                seriesList,
-                barGroupingType: charts.BarGroupingType.grouped,
-//                vertical: false,
-                animate: animate,
-//        flipVerticalAxis: true,
-                barRendererDecorator: new charts.BarLabelDecorator<String>(),
+            return Column(
+              children: [
+                Container(
+                  padding: EdgeInsets.all(8),
+                  height: chartHeight,
+                  child: charts.TimeSeriesChart(
+                    seriesList2,
+                    animate: animate,
+                    defaultRenderer: new charts.LineRendererConfig(
+                        includePoints: true, includeArea: true),
+                    domainAxis: new charts.DateTimeAxisSpec(),
+                    primaryMeasureAxis: new charts.NumericAxisSpec(
+                      showAxisLine: true,
+                      tickProviderSpec: new charts.BasicNumericTickProviderSpec(
+                          desiredTickCount: 5),
+                    ),
 
-                behaviors: [
-//              new charts.ChartTitle('Jobs Per Month',
-//                  behaviorPosition: charts.BehaviorPosition.bottom,
-//                  titleOutsideJustification:
-//                      charts.OutsideJustification.middleDrawArea),
-                ],
-                primaryMeasureAxis: new charts.NumericAxisSpec(
-                    tickProviderSpec: new charts.BasicNumericTickProviderSpec(
-                        desiredTickCount: 10)),
-                secondaryMeasureAxis: new charts.NumericAxisSpec(
-                    tickProviderSpec: new charts.BasicNumericTickProviderSpec(
-                        desiredTickCount: 3)),
-              ),
+                  ),
+
+                ),
+
+//                Container(
+//                  padding: EdgeInsets.all(8),
+//                  height: chartHeight,
+//                  child: charts.BarChart(
+//                    seriesList,
+//                    barGroupingType: charts.BarGroupingType.grouped,
+////                vertical: false,
+//                    animate: animate,
+////        flipVerticalAxis: true,
+////                defaultRenderer: new charts.BarRendererConfig(
+////                    groupingType: charts.BarGroupingType.grouped,
+////
+////                    strokeWidthPx: 2.0),
+//                    barRendererDecorator: new charts.BarLabelDecorator<String>(
+//                        labelPosition: charts.BarLabelPosition.inside,
+//                        labelAnchor: charts.BarLabelAnchor.end,
+//                        insideLabelStyleSpec: charts.TextStyleSpec()),
+//                    behaviors: [
+////              new charts.ChartTitle('Jobs Per Month',
+////                  behaviorPosition: charts.BehaviorPosition.bottom,
+////                  titleOutsideJustification:
+////                      charts.OutsideJustification.middleDrawArea),
+//                    ],
+//                    primaryMeasureAxis: new charts.NumericAxisSpec(
+//                        tickProviderSpec: new charts.BasicNumericTickProviderSpec(
+//                            desiredTickCount: 10)),
+//                    secondaryMeasureAxis: new charts.NumericAxisSpec(
+//                        tickProviderSpec: new charts.BasicNumericTickProviderSpec(
+//                            desiredTickCount: 3)),
+//                  ),
+//                ),
+              ],
             );
           }),
         ],

@@ -1,14 +1,10 @@
-import 'package:p7app/features/user_profile/models/edu_info.dart';
-import 'package:p7app/features/user_profile/models/user_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:intl/intl.dart';
-import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
+import 'package:p7app/features/user_profile/models/edu_info.dart';
+import 'package:p7app/main_app/app_theme/common_style.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/date_format_uitl.dart';
-
-import '../screens/add_edit_education_screen.dart';
 
 class EducationsListItem extends StatelessWidget {
   final EduInfo eduInfoModel;
@@ -38,7 +34,7 @@ class EducationsListItem extends StatelessWidget {
       decoration: BoxDecoration(
         color: backgroundColor,
         borderRadius: BorderRadius.circular(5),
-        boxShadow: CommonStyleTextField.boxShadow,
+        boxShadow: CommonStyle.boxShadow,
       ),
       child: Row(
         children: [
@@ -52,7 +48,7 @@ class EducationsListItem extends StatelessWidget {
               child: Icon(
                 FontAwesomeIcons.university,
                 size: 45,
-                color: Theme.of(context).primaryColor,
+                color: Colors.grey[400],
               ),
             ),
           ),
@@ -67,11 +63,12 @@ class EducationsListItem extends StatelessWidget {
                   eduInfoModel.institutionObj?.name ??
                       eduInfoModel.institutionText ??
                       "",style: Theme.of(context).textTheme.subtitle1,
+                  key: Key('educationTileInstitutionName'+index.toString()),
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(eduInfoModel.degree ?? "",style: TextStyle(fontSize: 13),),
+                    Text(eduInfoModel.degree ?? "",style: TextStyle(fontSize: 13),key: Key('educationTileDegree'+index.toString()),),
                     Text(
                       date,
                       style: TextStyle(fontSize: 12, color: Colors.grey),
@@ -88,12 +85,14 @@ class EducationsListItem extends StatelessWidget {
                 IconButton(
                   icon: Icon(FontAwesomeIcons.edit),
                   onPressed: onTapEdit,
+                  key: Key('educationTileEditButton'+index.toString()),
                   iconSize: 18,
                   color: Colors.black,
                 ),
                 IconButton(
                   icon: Icon(FontAwesomeIcons.trash),
                   onPressed: onTapDelete,
+                  key: Key('educationTileDeleteButton'+index.toString()),
                   iconSize: 18,
                   color: Colors.black,
                 ),

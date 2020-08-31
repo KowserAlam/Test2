@@ -5,10 +5,8 @@ class EditScreenSaveButton extends StatelessWidget {
   final Function onPressed;
   final String text;
 
-  EditScreenSaveButton({
-    @required this.onPressed,
-    @required this.text,
-  });
+  EditScreenSaveButton({@required this.onPressed, @required this.text, Key key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +18,8 @@ class EditScreenSaveButton extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              text??"",style: TextStyle(color: Colors.white),
+              text ?? "",
+//              style: TextStyle(color: Colors.white),
             ),
           ),
         ),

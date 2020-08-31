@@ -43,7 +43,7 @@ extension StringExtension on String {
       return null;
   }
 
-  String get titleCase {
+  String get toSentenceCase {
     if(this != null){
       String x = '';
       for(int i=1; i<this.length; i++){
@@ -52,6 +52,18 @@ extension StringExtension on String {
       return this[0].toUpperCase()+x;
     }else
       return null;
+  }
+
+  String get swapValueByComa {
+    if(this == null)
+      return null;
+    try {
+      List<String> list = this.split(",");
+      return "${list[1]}, ${list[0]}";
+    } catch (e) {
+      print(e);
+      return this;
+    }
   }
 }
 extension ListExtension<T> on List<T>{

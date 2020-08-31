@@ -4,11 +4,13 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p7app/features/job/models/job_list_model.dart';
 import 'package:p7app/features/job/models/job_model.dart';
+import 'package:p7app/main_app/app_theme/common_style.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/date_format_uitl.dart';
-
+import 'package:p7app/main_app/views/widgets/loader.dart';
+import 'package:p7app/method_extension.dart';
 
 import 'job_apply_button.dart';
 
@@ -17,8 +19,17 @@ class JobListTileWidget extends StatefulWidget {
   final Function onTap;
   final Function onApply;
   final Function onFavorite;
+  final int index;
+  final Key listTileKey, applyButtonKey, favoriteButtonKey;
 
-  JobListTileWidget(this.jobModel, {this.onTap, this.onFavorite, this.onApply});
+  JobListTileWidget(this.jobModel,
+      {this.onTap,
+      this.index,
+      this.onFavorite,
+      this.onApply,
+      this.listTileKey,
+      this.applyButtonKey,
+      this.favoriteButtonKey});
 
   @override
   _JobListTileWidgetState createState() => _JobListTileWidgetState();
@@ -30,11 +41,11 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
     bool isFavorite = widget.jobModel.isFavourite;
 
     String publishDateText = widget.jobModel.postDate == null
-        ? StringResources.unspecifiedText
+        ? StringResources.noneText
         : DateFormatUtil().dateFormat1(widget.jobModel.postDate);
 
     String deadLineText = widget.jobModel.applicationDeadline == null
-        ? StringResources.unspecifiedText
+        ? StringResources.noneText
         : DateFormatUtil().dateFormat1(widget.jobModel.applicationDeadline);
 //    bool isDateExpired = widget.jobModel.applicationDeadline != null
 //        ? DateTime.now().isAfter(widget.jobModel.applicationDeadline)
@@ -65,11 +76,13 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
     var jobTitle = Text(
       widget.jobModel.title ?? "",
       style: titleStyle,
+      key: Key('jobTileJobTitle' + widget.index.toString()),
       maxLines: 3,
       overflow: TextOverflow.ellipsis,
     );
     var companyName = Text(
       widget.jobModel.companyName ?? "",
+      key: Key('jobTileCompanyName' + widget.index.toString()),
       style: subTitleStyle,
     );
     var companyLocation = Container(
@@ -85,7 +98,7 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
           ),
           Expanded(
             child: Text(
-              widget.jobModel.jobCity ?? "",
+              widget.jobModel.jobCity.swapValueByComa ?? "",
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: subTitleStyle,
@@ -97,25 +110,31 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
     var heartButton = Material(
       color: Colors.transparent,
       borderRadius: BorderRadius.circular(20),
-      child: InkWell(
-        borderRadius: BorderRadius.circular(20),
-        onTap: widget.onFavorite,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Icon(
-            isFavorite ? FontAwesomeIcons.solidHeart : FontAwesomeIcons.heart,
-            color: isFavorite ? AppTheme.orange : AppTheme.grey,
-            size: 22,
+      child: Tooltip(
+        message: isFavorite
+            ? StringResources.removeFromFavoriteText
+            : StringResources.addToFavoriteText,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(20),
+          onTap: widget.onFavorite,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Icon(
+              isFavorite ? FontAwesomeIcons.solidHeart : FontAwesomeIcons.heart,
+              key: widget.favoriteButtonKey,
+              color: isFavorite ? AppTheme.orange : AppTheme.grey,
+              size: 22,
+            ),
           ),
         ),
       ),
     );
 
-
     var applyButton = JobApplyButton(
       applicationDeadline: widget.jobModel.applicationDeadline,
       onPressedApply: widget.onApply,
       isApplied: widget.jobModel.isApplied,
+      key: widget.applyButtonKey,
     );
 //    var jobType = Row(
 //      children: <Widget>[
@@ -161,12 +180,15 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
     );
 
     return Container(
-      decoration: BoxDecoration(color: scaffoldBackgroundColor,
+      key: widget.listTileKey,
+      decoration: BoxDecoration(
+          color: scaffoldBackgroundColor, boxShadow: CommonStyle.boxShadow
 //        borderRadius: BorderRadius.circular(5),
-          boxShadow: [
-            BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 10),
-            BoxShadow(color: Colors.black.withOpacity(0.2), blurRadius: 10),
-          ]),
+//        boxShadow: [
+//          BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 10),
+//          BoxShadow(color: Colors.black.withOpacity(0.2), blurRadius: 10),
+//        ],
+          ),
       margin: EdgeInsets.fromLTRB(0, 4, 0, 4),
       child: Material(
         color: backgroundColor,

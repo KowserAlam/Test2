@@ -1,5 +1,5 @@
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
-import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
+import 'package:p7app/main_app/app_theme/common_style.dart';
 import 'package:p7app/features/user_profile/views/screens/edit_personal_info_screen.dart';
 import 'package:p7app/features/user_profile/views/widgets/user_info_list_item.dart';
 import 'package:p7app/main_app/resource/const.dart';
@@ -14,24 +14,35 @@ class PersonalInfoWidget extends StatelessWidget {
   Widget _item(
       {@required BuildContext context,
       @required String label,
-      @required String value}) {
-    double width = MediaQuery.of(context).size.width > 720 ? 160 : 130;
+      @required String value,
+      @required Key valueKey}) {
+//    double width = MediaQuery.of(context).size.width > 720 ? 160 : 130;
     return Padding(
       padding: const EdgeInsets.all(5.0),
-      child: Text.rich(TextSpan(children: [
-        TextSpan(
-          text: "$label",
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-        TextSpan(text: ": ${value ?? ""}"),
-      ])),
+      child: Row(
+        crossAxisAlignment:CrossAxisAlignment.start,
+          children: [
+        Text("$label: ",style: TextStyle(fontWeight: FontWeight.bold)),
+        Expanded(child: Text("${value ?? ""}", key: valueKey,)),
+      ],),
     );
+//    return Padding(
+//      padding: const EdgeInsets.all(5.0),
+//      child: Text.rich(TextSpan(children: [
+//        TextSpan(
+//          text: "$label",
+//          style: TextStyle(fontWeight: FontWeight.bold),
+//        ),
+//        TextSpan(text: ": ${value ?? ""}"),
+//      ])),
+//    );
   }
 
   @override
   Widget build(BuildContext context) {
     return UserInfoListItem(
       useSeparator: false,
+      penKey: Key('personalInfoPenKey'),
       icon: FontAwesomeIcons.infoCircle,
       label: StringResources.personalInfoText,
       onTapEditAction: () {
@@ -50,7 +61,7 @@ class PersonalInfoWidget extends StatelessWidget {
           decoration: BoxDecoration(
             color: Theme.of(context).backgroundColor,
             borderRadius: BorderRadius.circular(5),
-            boxShadow: CommonStyleTextField.boxShadow,
+            boxShadow: CommonStyle.boxShadow,
           ),
           child: Consumer<UserProfileViewModel>(
               builder: (context, userProvider, _) {
@@ -64,6 +75,7 @@ class PersonalInfoWidget extends StatelessWidget {
                 //dob
                 _item(
                     context: context,
+                    valueKey: Key('personalInfoTileDateOfBirth'),
                     label: StringResources.dateOfBirthText,
                     value: personalInfo.dateOfBirth != null
                         ? DateFormatUtil.formatDate(personalInfo.dateOfBirth)
@@ -71,41 +83,49 @@ class PersonalInfoWidget extends StatelessWidget {
                 //gender
                 _item(
                     context: context,
+                    valueKey: Key('personalInfoTileGender'),
                     label: StringResources.genderText,
                     value: personalInfo.gender ?? ""),
                 //father name
                 _item(
                     context: context,
+                    valueKey: Key('personalInfoTileFatherName'),
                     label: StringResources.fatherNameText,
                     value: personalInfo.fatherName ?? ""),
                 //mother name
                 _item(
                     context: context,
+                    valueKey: Key('personalInfoTileMotherName'),
                     label: StringResources.motherNameText,
                     value: personalInfo.motherName ?? ""),
 
                 //current address
                 _item(
                     context: context,
-                    label: StringResources.currentAddressText,
+                    valueKey: Key('personalInfoTileCurrentAddress'),
+                    label: StringResources.addressText,
                     value: personalInfo.address ?? ""),
                 //permanent address
                 _item(
                     context: context,
+                    valueKey: Key('personalInfoTilePermanentAddress'),
                     label: StringResources.permanentAddressText,
                     value: personalInfo.permanentAddress ?? ""),
                 //nationality
                 _item(
                     context: context,
+                    valueKey: Key('personalInfoTileNationality'),
                     label: StringResources.nationalityText,
                     value: personalInfo.nationalityObj?.name ?? ""),
                 //religion
                 _item(
                     context: context,
+                    valueKey: Key('personalInfoTileReligion'),
                     label: StringResources.religionText,
                     value: personalInfo.religionObj?.name ?? ""),
                 _item(
                     context: context,
+                    valueKey: Key('personalInfoTileBloodGroup'),
                     label: StringResources.bloodGroupText,
                     value: personalInfo.bloodGroup ?? ""),
               ],

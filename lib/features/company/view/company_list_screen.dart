@@ -1,24 +1,18 @@
 import 'package:after_layout/after_layout.dart';
-import 'package:autocomplete_textfield/autocomplete_textfield.dart';
-import 'package:bot_toast/bot_toast.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:p7app/features/company/models/company.dart';
-import 'package:p7app/features/company/view/company_list_tile.dart';
+import 'package:p7app/features/company/view/widgets/company_list_tile.dart';
 import 'package:p7app/features/company/view_model/company_list_view_model.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
-import 'package:p7app/main_app/util/date_format_uitl.dart';
+import 'package:p7app/main_app/resource/strings_resource.dart';
+import 'package:p7app/main_app/views/widgets/custom_text_field.dart';
 import 'package:p7app/main_app/views/widgets/failure_widget.dart';
 import 'package:p7app/main_app/views/widgets/loader.dart';
-import 'company_details.dart';
-import 'package:p7app/main_app/resource/const.dart';
-import 'package:p7app/main_app/resource/strings_resource.dart';
-import 'package:p7app/main_app/util/debouncer.dart';
-import 'package:p7app/main_app/views/widgets/custom_text_field.dart';
 import 'package:provider/provider.dart';
+
+import 'company_details.dart';
 
 class CompanyListScreen extends StatefulWidget {
   @override
@@ -110,6 +104,7 @@ class _CompanyListScreenState extends State<CompanyListScreen>
           title: Text(StringResources.companyListAppbarText),
           actions: [
             IconButton(
+              key: Key("companySearchToggleButtonKey"),
               icon: Icon(isInSearchMode ? Icons.close : Icons.search),
               onPressed: () {
                 _searchTextEditingController?.clear();
@@ -139,6 +134,7 @@ class _CompanyListScreenState extends State<CompanyListScreen>
                   padding:
                       const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4),
                   child: CustomTextField(
+                    textFieldKey: Key("companySearchInputTextFieldKey"),
                     focusNode: _searchFieldFocusNode,
                     controller: _searchTextEditingController,
                     hintText: StringResources.companyListSearchText,
@@ -158,6 +154,7 @@ class _CompanyListScreenState extends State<CompanyListScreen>
 //                    }
 //                  },
                     suffixIcon: IconButton(
+                      key: Key("companySearchButtonKey"),
                       icon: Icon(Icons.search),
                       onPressed: () {
                         search();
@@ -202,6 +199,7 @@ class _CompanyListScreenState extends State<CompanyListScreen>
                           ? errorWidget()
                           : Expanded(
                               child: ListView.builder(
+                                  key: Key('companyListView'),
                                   controller: _scrollController,
                                   itemCount: companySuggestion.length + 1,
                                   itemBuilder:
@@ -211,21 +209,21 @@ class _CompanyListScreenState extends State<CompanyListScreen>
                                           ? Loader()
                                           : SizedBox();
                                     }
-                                    return GestureDetector(
-                                        onTap: () {
-                                          Navigator.push(
-                                              context,
-                                              CupertinoPageRoute(
-                                                  builder: (context) =>
-                                                      CompanyDetails(
-                                                        company:
-                                                            companySuggestion[
-                                                                index],
-                                                      )));
-                                        },
-                                        child: CompanyListTile(
-                                          company: companySuggestion[index],
-                                        ));
+                                    return CompanyListTile(
+                                      key: Key("companyListTileKey${index}"),
+                                      onTap: (){
+                                        Navigator.push(
+                                            context,
+                                            CupertinoPageRoute(
+                                                builder: (context) =>
+                                                    CompanyDetails(
+                                                      company:
+                                                      companySuggestion[
+                                                      index],
+                                                    )));
+                                      },
+                                      company: companySuggestion[index],
+                                    );
                                   }),
                             ),
                     )

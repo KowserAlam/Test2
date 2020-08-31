@@ -116,13 +116,14 @@ class JobListViewModel with ChangeNotifier {
     return getJobList();
   }
 
-  Future<bool> getJobList({bool isFormOnPageLoad = false}) async {
 
+  Future<bool> getJobList({bool isFormOnPageLoad = false}) async {
     _totalJobCount = 0;
     _appError = null;
 
     if (isFormOnPageLoad) {
-      bool shouldNotFetchData = CommonServiceRule.instance.shouldNotFetchData(_lastFetchTime, _appError);
+      bool shouldNotFetchData = CommonServiceRule.instance
+          .shouldNotFetchData(_lastFetchTime, _appError);
       if (shouldNotFetchData) return null;
     }
 
@@ -353,6 +354,8 @@ class JobListViewModel with ChangeNotifier {
   set jobListRepository(JobRepository value) {
     _jobListRepository = value;
   }
+
+  bool get shouldShowNoJobsFound => jobList.length == 0 && !isFetchingData;
 
   bool get shouldShowPageLoader =>
       _jobList.length == 0 &&

@@ -1,7 +1,8 @@
-import 'package:p7app/features/user_profile/models/skill.dart';
+import 'package:equatable/equatable.dart';
+import 'package:p7app/main_app/models/skill.dart';
 
-class SkillInfo {
-  int profSkillId;
+class SkillInfo extends Equatable{
+  String profSkillId;
   Skill skill;
   double rating;
   bool verifiedBySkillCheck;
@@ -9,13 +10,15 @@ class SkillInfo {
   SkillInfo({this.profSkillId, this.rating, this.verifiedBySkillCheck,this.skill});
 
   SkillInfo.fromJson(Map<String, dynamic> json) {
-    profSkillId = json['id'];
+    profSkillId = json['id']?.toString();
     if (json['skill_obj'] != null) {
       skill = Skill.fromJson(json['skill_obj']);
     }
-    rating =  (json['rating'] as num).toDouble();
-    verifiedBySkillCheck = json['verified_by_skillcheck'];
+    rating =  (json['rating'] as num)?.toDouble();
+    verifiedBySkillCheck = json['verified_by_skillcheck']??false;
   }
+
+
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
@@ -30,4 +33,8 @@ class SkillInfo {
     data['rating'] = this.rating;
     return data;
   }
+
+  @override
+  // TODO: implement props
+  List<Object> get props => [this.profSkillId,this.skill,this.rating,this.verifiedBySkillCheck];
 }

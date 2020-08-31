@@ -11,11 +11,10 @@ class CompanyListViewModel with ChangeNotifier {
   List<Company> companyList = [];
   bool _isFetchingData = false;
   bool _isFetchingMoreData = false;
-  CompanyListRepository _companyListRepository = CompanyListRepository();
   String _query;
   int _companiesCount = 0;
   bool isInSearchMode = false;
-  bool _hasMoreData;
+  bool _hasMoreData= false;
   int _page = 1;
   AppError _appError;
 
@@ -41,7 +40,7 @@ class CompanyListViewModel with ChangeNotifier {
     _isFetchingData = true;
     notifyListeners();
     Either<AppError, CompanyScreenDataModel> result =
-        await _companyListRepository.getList(query: _query);
+        await CompanyListRepository().getList(query: _query);
     return result.fold((l) {
       _isFetchingData = false;
       print(l);
@@ -61,6 +60,9 @@ class CompanyListViewModel with ChangeNotifier {
   }
 
   getMoreData() async {
+    debugPrint("Getting more data");
+    debugPrint(_hasMoreData.toString());
+
     if (_hasMoreData && !_isFetchingMoreData && !_isFetchingData) {
       _appError = null;
       debugPrint("Getting more data");
@@ -69,7 +71,7 @@ class CompanyListViewModel with ChangeNotifier {
       notifyListeners();
 
       Either<AppError, CompanyScreenDataModel> result =
-          await _companyListRepository.getList(query: _query, page: _page);
+          await CompanyListRepository().getList(query: _query, page: _page);
       return result.fold((l) {
         _isFetchingMoreData = false;
         _appError = l;
@@ -115,7 +117,6 @@ class CompanyListViewModel with ChangeNotifier {
     _isFetchingData = false;
     _isFetchingMoreData = false;
     isInSearchMode = false;
-    _companyListRepository = CompanyListRepository();
     _companiesCount = 0;
     _query = "";
     _page = 1;

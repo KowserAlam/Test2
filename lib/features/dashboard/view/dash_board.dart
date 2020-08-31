@@ -2,21 +2,21 @@ import 'package:after_layout/after_layout.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:p7app/features/auth/view/login_screen.dart';
+import 'package:p7app/features/career_advice/view_models/career_advice_view_model.dart';
+import 'package:p7app/features/dashboard/view/widgets/career_advice_list_h_widget.dart';
 import 'package:p7app/features/dashboard/view/widgets/info_box_widget.dart';
 import 'package:p7app/features/dashboard/view/widgets/job_chart_widget.dart';
+import 'package:p7app/features/dashboard/view/widgets/other_screens_widget.dart';
 import 'package:p7app/features/dashboard/view/widgets/profile_complete_parcent_indicatior_widget.dart';
 import 'package:p7app/features/dashboard/view_model/dashboard_view_model.dart';
-import 'package:p7app/features/messaging/view/message_screen.dart';
+import 'package:p7app/features/notification/views/notification_screen.dart';
+import 'package:p7app/features/settings/setings_screen.dart';
+import 'package:p7app/features/settings/settings_view_model.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
-import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
-import 'package:p7app/main_app/p7_app.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
-import 'package:p7app/main_app/root.dart';
-import 'package:p7app/main_app/views/app_drawer.dart';
+import 'package:p7app/main_app/util/locator.dart';
 import 'package:p7app/main_app/views/widgets/failure_widget.dart';
-import 'package:p7app/main_app/views/widgets/restart_widget.dart';
 import 'package:provider/provider.dart';
 
 class DashBoard extends StatefulWidget {
@@ -31,33 +31,34 @@ class DashBoard extends StatefulWidget {
 }
 
 class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
+  final List<String> menuItems = [
+    "Settings",
+    "Sign Out",
+  ];
+
   @override
   void afterFirstLayout(BuildContext context) {
     Provider.of<DashboardViewModel>(context, listen: false)
         .getDashboardData(isFormOnPageLoad: true)
         .then((value) {
-
       if (value == AppError.unauthorized) {
         _signOut(context);
         return;
       }
-      Provider.of<UserProfileViewModel>(context, listen: false).getUserData();
+//      Provider.of<UserProfileViewModel>(context, listen: false).getUserData();
     });
-
-
   }
 
   Future<void> _refreshData() async {
     var dbVM = Provider.of<DashboardViewModel>(context, listen: false);
     var upVM = Provider.of<UserProfileViewModel>(context, listen: false);
-    return Future.wait([dbVM.getDashboardData(), upVM.getUserData()]);
+    var cvm = Provider.of<CareerAdviceViewModel>(context, listen: false);
+    return Future.wait(
+        [dbVM.getDashboardData(), upVM.getUserData(), cvm.refresh()]);
   }
 
   _signOut(context) {
-
-    AuthService.getInstance().then((value) => value.removeUser()).then((value){
-      RestartWidget.restartApp(context);
-    });
+    locator<SettingsViewModel>().signOut();
   }
 
   @override
@@ -102,41 +103,79 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(StringResources.dashBoardText),
+        title: Text(StringResources.dashBoardText, key: Key('dashboardAppbardTitle'),),
         actions: [
 //          IconButton(
-//            icon: Icon(FontAwesomeIcons.solidComment),
+//            key: Key("dashboardNotificationIcon"),
+//            iconSize: 15,
+//            tooltip: StringResources.notificationsText,
+//            icon: Icon(FontAwesomeIcons.solidBell),
 //            onPressed: () {
 //              Navigator.of(context).push(CupertinoPageRoute(
-//                  builder: (BuildContext context) => MessageScreen()));
+//                  builder: (BuildContext context) => NotificationScreen()));
 //            },
-//          )
+//          ),
+          PopupMenuButton<String>(
+            key: Key("dashboardPopupMenuKey"),
+            onSelected: (v) {
+              switch (v){
+                case "Settings":{
+                  Navigator.of(context).push(CupertinoPageRoute(builder: (BuildContext context) {
+                    return SettingsScreen();
+                  }));
+                  break;
+                }
+                case "Sign Out":{
+                  locator<SettingsViewModel>().signOut();
+                  break;
+                }
+              }
+            },
+            icon: Icon(Icons.more_vert),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+            itemBuilder: (BuildContext context) =>
+                List.generate(menuItems.length, (index) {
+              return PopupMenuItem(
+                value: menuItems[index],
+                key: Key(menuItems[index]),
+                child: Text(menuItems[index]),
+              );
+            }),
+          ),
+
         ],
       ),
-      drawer: AppDrawer(
-        routeName: 'dashboard',
-      ),
+//      drawer: AppDrawer(
+//        routeName: 'dashboard',
+//      ),
       body: RefreshIndicator(
         onRefresh: _refreshData,
-        child: dashboardViewModel.shouldShowError
-            ? ListView(
-                children: [
-                  errorWidget(),
-                ],
-              )
-            : ListView(
-                children: [
-                  ProfileCompletePercentIndicatorWidget(
-                      dashboardViewModel.profileCompletePercent / 100),
-                  InfoBoxWidget(
-                    onTapApplied: widget.onTapApplied,
-                    onTapFavourite: widget.onTapFavourite,
-                  ),
-                  JobChartWidget(
-                    animate: true,
-                  ),
-                ],
-              ),
+        child:
+//        dashboardViewModel.shouldShowError ?ListView(children: [errorWidget()]) :
+            ListView(
+          key: Key('dashboardListview'),
+          children: [
+            if (dashboardViewModel.showProfileCompletePercentIndicatorWidget)
+              ProfileCompletePercentIndicatorWidget(
+                  dashboardViewModel.profileCompletePercent / 100),
+            InfoBoxWidget(
+              onTapApplied: widget.onTapApplied,
+              onTapFavourite: widget.onTapFavourite,
+            ),
+            JobChartWidget(),
+//            TopCategoriesWidget(),
+//            VitalStateWidget(),
+            SizedBox(
+              height: 10,
+            ),
+            CareerAdviceListHWidget(),
+            SizedBox(
+              height: 10,
+            ),
+            OtherScreensWidget(),
+          ],
+        ),
       ),
     );
   }

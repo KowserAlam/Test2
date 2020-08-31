@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p7app/features/user_profile/models/member_ship_info.dart';
-import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
+import 'package:p7app/main_app/app_theme/common_style.dart';
 
 class MemberShipListItem extends StatelessWidget {
   final MembershipInfo memberShip;
   final Function onTapEdit;
   final Function onTapDelete;
   final bool isInEditMode;
+  final int index;
   MemberShipListItem({
     Key key,
-    @required this.memberShip,this.onTapEdit,this.isInEditMode,this.onTapDelete
+    @required this.memberShip,this.onTapEdit,this.isInEditMode,this.onTapDelete, this.index
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,7 @@ class MemberShipListItem extends StatelessWidget {
       decoration: BoxDecoration(
         color: Theme.of(context).backgroundColor,
         borderRadius: BorderRadius.circular(5),
-        boxShadow: CommonStyleTextField.boxShadow,),
+        boxShadow: CommonStyle.boxShadow,),
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: ListTile(
         contentPadding: EdgeInsets.zero,
@@ -28,19 +29,21 @@ class MemberShipListItem extends StatelessWidget {
             width: 55,
             color: Theme.of(context).scaffoldBackgroundColor,
             child: Icon(FontAwesomeIcons.certificate)),
-        title: Text(memberShip.orgName??""),
-        subtitle: Text(memberShip.positionHeld??""),
+        title: Text(memberShip.orgName??"", key: Key('membershipTileOrganizationName'+index.toString()),),
+        subtitle: Text(memberShip.positionHeld??"", key: Key('membershipTilePositionHeld'+index.toString())),
         trailing: !isInEditMode?SizedBox():Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             IconButton(
               icon: Icon(FontAwesomeIcons.edit),
+              key: Key('membershipEditKey'+index.toString()),
               onPressed: onTapEdit,
               iconSize: 18,
               color: Colors.black,
             ),
             IconButton(
               icon: Icon(FontAwesomeIcons.trash),
+              key: Key('membershipDeleteKey'+index.toString()),
               onPressed: onTapDelete,
               iconSize: 18,
               color: Colors.black,

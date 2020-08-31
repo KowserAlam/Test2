@@ -1,10 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:p7app/features/user_profile/models/experience_info.dart';
-import 'package:p7app/features/user_profile/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:intl/intl.dart';
-import 'package:p7app/features/user_profile/styles/common_style_text_field.dart';
+import 'package:p7app/features/user_profile/models/experience_info.dart';
+import 'package:p7app/main_app/app_theme/common_style.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/util/date_format_uitl.dart';
 
@@ -13,12 +11,14 @@ class ExperienceListItem extends StatelessWidget {
   final Function onTapEdit;
   final Function onTapDelete;
   final bool isInEditMode;
+  final int index;
 
   ExperienceListItem(
       {this.experienceInfoModel,
       this.onTapEdit,
       this.isInEditMode,
-      this.onTapDelete});
+      this.onTapDelete,
+      this.index});
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,7 @@ class ExperienceListItem extends StatelessWidget {
       decoration: BoxDecoration(
         color: Theme.of(context).backgroundColor,
         borderRadius: BorderRadius.circular(5),
-        boxShadow: CommonStyleTextField.boxShadow,
+        boxShadow: CommonStyle.boxShadow,
       ),
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       child: Row(
@@ -60,13 +60,14 @@ class ExperienceListItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  experienceInfoModel.companyName ?? "",
+                  experienceInfoModel.companyNameText ?? "",
+                  key: Key('experienceTileCompanyName'+index.toString()),
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(experienceInfoModel.designation ?? ""),
+                    Text(experienceInfoModel.designation ?? "", key: Key('experienceTileDesignation'+index.toString()),),
                     Text(
                       date,
                       style: TextStyle(fontSize: 12, color: Colors.grey),
@@ -82,12 +83,14 @@ class ExperienceListItem extends StatelessWidget {
               children: [
                 IconButton(
                   icon: Icon(FontAwesomeIcons.edit),
+                  key: Key('experienceEditButton'+index.toString()),
                   onPressed: onTapEdit,
                   iconSize: 18,
                   color: Colors.black,
                 ),
                 IconButton(
                   icon: Icon(FontAwesomeIcons.trash),
+                  key: Key('experienceDeleteButton'+index.toString()),
                   onPressed: onTapDelete,
                   iconSize: 18,
                   color: Colors.black,

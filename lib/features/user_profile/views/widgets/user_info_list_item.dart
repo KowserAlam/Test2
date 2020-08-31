@@ -10,6 +10,7 @@ class UserInfoListItem extends StatefulWidget {
   final List<Widget> children;
   final bool useSeparator;
   final bool isInEditMode;
+  final Key penKey, addKey;
 
   UserInfoListItem({
     @required this.icon,
@@ -19,6 +20,8 @@ class UserInfoListItem extends StatefulWidget {
     this.isInEditMode = false,
     this.useSeparator = true,
     @required this.children,
+    this.penKey,
+    this.addKey
   });
 
   @override
@@ -31,18 +34,13 @@ class _UserInfoListItemState extends State<UserInfoListItem> {
     var titleTextStyle = TextStyle(fontSize: 17, fontWeight: FontWeight.bold);
 
     var addNewButton = widget.isInEditMode
-        ? InkWell(
-            borderRadius: BorderRadius.circular(50),
-            onTap: widget.onTapAddNewAction,
-            child: Material(
-                borderRadius: BorderRadius.circular(50),
-                color: Theme.of(context).primaryColor.withOpacity(.1),
-                child: Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: Icon(FontAwesomeIcons.plus,
-                      size: 20,
-                      color: Theme.of(context).primaryColor.withOpacity(.8)),
-                )),
+        ? IconButton(
+      tooltip: StringResources.addNewText,
+            onPressed: widget.onTapAddNewAction,
+            icon: Icon(FontAwesomeIcons.plus,
+                key: widget.addKey,
+                size: 20,
+                color: Theme.of(context).accentColor),
           )
         : SizedBox();
     return Column(
@@ -59,20 +57,17 @@ class _UserInfoListItemState extends State<UserInfoListItem> {
             Expanded(child: Text(widget.label, style: titleTextStyle)),
             
             addNewButton,
-            SizedBox(
-              width:15,
-            ),
-            InkWell(
-              borderRadius: BorderRadius.circular(50),
-              child: Padding(
-                padding: const EdgeInsets.all(6.0),
-                child: Icon(
-                  widget.isInEditMode ? FontAwesomeIcons.check : Icons.edit,
-                  size: 20,
-                  color: Theme.of(context).primaryColor,
-                ),
+
+            if(widget.onTapEditAction != null)
+            IconButton(
+              tooltip: !widget.isInEditMode ? "${StringResources.editText} ${widget.label} " :"${StringResources.doneText} ${widget.label}",
+              icon: Icon(
+                widget.isInEditMode ? FontAwesomeIcons.check : Icons.edit,
+                size: 20,
+                  key: widget.penKey,
+                color: Theme.of(context).accentColor,
               ),
-              onTap: widget.onTapEditAction,
+              onPressed: widget.onTapEditAction,
             ),
           ],
         ),

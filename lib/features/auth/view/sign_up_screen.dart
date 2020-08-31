@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:p7app/features/auth/view/widgets/custom_text_field_rounded.dart';
-import 'package:p7app/features/auth/view_models/login_view_model.dart';
+import 'package:p7app/features/auth/view_models/sign_in_view_model.dart';
 import 'package:p7app/features/auth/view_models/signup_viewmodel.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
@@ -69,7 +69,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           signUpProvider.resetState();
           Navigator.pop(context);
 //          BotToast.showSimpleNotification(title: "Check your email verify account");
-          Provider.of<LoginViewModel>(context,listen: false).isFromSuccessfulSignUp = true;
+          Provider.of<SignInViewModel>(context,listen: false).isFromSuccessfulSignUp = true;
 
         }
       });
@@ -88,7 +88,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     Widget logo = Container(
       height: 60,
       width: 150,
-      child: Image.asset(kDefaultLogo),
+      child: Image.asset(kDefaultLogoSq),
     );
     Widget backToSignIn = RichText(
       text: TextSpan(children: [
@@ -119,6 +119,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             height: 50,
             width: 200,
             child: CommonButton(
+              key: Key("signUpRegisterButton"),
               onTap: () {
                 _handleRegister(context);
               },
@@ -142,6 +143,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               Consumer<SignUpViewModel>(
                 builder: (context, signUpModel, _) {
                   return CustomTextFieldRounded(
+                    textFieldKey: Key("signUpName"),
                     errorText: signUpModel.errorTextName,
                     keyboardType: TextInputType.text,
                     focusNode: _nameFocusNode,
@@ -167,6 +169,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               Consumer<SignUpViewModel>(
                 builder: (context, signUpModel, _) {
                   return CustomTextFieldRounded(
+                    textFieldKey: Key("signUpEmail"),
                     errorText: signUpModel.errorTextEmail,
                     keyboardType: TextInputType.emailAddress,
                     focusNode: _emailFocusNode,
@@ -191,6 +194,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               Consumer<SignUpViewModel>(
                 builder: (context, signUpModel, _) {
                   return CustomTextFieldRounded(
+                    textFieldKey: Key("signUpMobile"),
                     errorText: signUpModel.errorTextMobile,
                     keyboardType: TextInputType.number,
                     focusNode: _mobileFocusNode,
@@ -216,6 +220,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 builder: (context, signupViewModel, _) {
                   bool isObscure = signupViewModel.isObscurePassword;
                   return CustomTextFieldRounded(
+                    textFieldKey: Key("signUpPassword"),
                     onChanged: signupViewModel.validatePasswordLocal,
                     errorText: signupViewModel.errorTextPassword,
                     focusNode: _passwordFocusNode,
@@ -254,6 +259,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 builder: (context, signupViewModel, _) {
                   bool isObscure = signupViewModel.isObscureConfirmPassword;
                   return CustomTextFieldRounded(
+                    textFieldKey: Key("signUpConfirmPassword"),
                     onChanged: signupViewModel.validateConfirmPasswordLocal,
                     errorText: signupViewModel.errorTextConfirmPassword,
                     focusNode: _confirmPasswordFocusNode,
@@ -293,6 +299,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     Widget acceptTermAndCondition = Row(
       children: <Widget>[
         Checkbox(
+          key: Key("signUpTerms&Conditions"),
           value: _checkboxValue,
           checkColor: primaryColor,
           activeColor: Colors.white,

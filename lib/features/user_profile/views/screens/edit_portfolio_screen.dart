@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:image_crop/image_crop.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:p7app/features/user_profile/models/portfolio_info.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
@@ -14,6 +14,7 @@ import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/image_compress_util.dart';
 import 'package:p7app/main_app/util/validator.dart';
+import 'package:p7app/main_app/views/widgets/custom_zefyr_rich_text_from_field.dart';
 import 'package:p7app/main_app/views/widgets/edit_screen_save_button.dart';
 import 'package:p7app/main_app/views/widgets/loader.dart';
 import 'package:provider/provider.dart';
@@ -35,12 +36,11 @@ class _EditPortfolioState extends State<EditPortfolio> {
   bool isBusyImageCrop = false;
   final _formKey = GlobalKey<FormState>();
   File fileImage;
-  final cropKey = GlobalKey<CropState>();
 
   //TextEditingController
   final _portfolioNameController = TextEditingController();
-  final _portfolioDescriptionController = TextEditingController();
-
+  ZefyrController _descriptionZefyrController =
+  ZefyrController(NotusDocument());
   //FocusNodes
   final _portfolioNameFocusNode = FocusNode();
   final _portfolioDescriptionFocusNode = FocusNode();
@@ -50,11 +50,15 @@ class _EditPortfolioState extends State<EditPortfolio> {
     height: 15,
   );
 
+
   initState() {
-    if (widget.portfolioInfo != null) {}
-    _portfolioDescriptionController.text =
-        widget.portfolioInfo?.description ?? "";
-    _portfolioNameController.text = widget.portfolioInfo?.name ?? "";
+    if (widget.portfolioInfo != null) {
+      _descriptionZefyrController = ZefyrController(
+          ZeyfrHelper.htmlToNotusDocument(
+              widget.portfolioInfo?.description));
+      _portfolioNameController.text = widget.portfolioInfo?.name ?? "";
+    }
+
     super.initState();
   }
 
@@ -68,10 +72,31 @@ class _EditPortfolioState extends State<EditPortfolio> {
   }
 
   Future getImage() async {
-    File image = await ImagePicker.pickImage(source: ImageSource.gallery);
-    if (image != null) {
-      var compressedImage = await ImageCompressUtil.compressImage(image, 40);
-      _showCropDialog(compressedImage);
+    var file = await ImagePicker().getImage(source: ImageSource.gallery);
+    if (file != null) {
+
+      Future<File> croppedFile =  ImageCropper.cropImage(
+          sourcePath: file.path,
+          aspectRatioPresets: [
+            CropAspectRatioPreset.square,
+          ],
+          androidUiSettings: AndroidUiSettings(
+              toolbarTitle: 'Cropper',
+              toolbarColor: Theme.of(context).primaryColor,
+              toolbarWidgetColor: Colors.white,
+              initAspectRatio: CropAspectRatioPreset.original,
+              lockAspectRatio: false),
+          iosUiSettings: IOSUiSettings(
+            minimumAspectRatio: 1.0,
+          )
+      );
+
+      croppedFile.then((value) {
+        fileImage = value;
+        setState(() {
+
+        });
+      });
     } else {}
   }
 
@@ -84,7 +109,8 @@ class _EditPortfolioState extends State<EditPortfolio> {
 
       var data = {
         "name": _portfolioNameController.text,
-        "description": _portfolioDescriptionController.text,
+        "description": ZeyfrHelper.notusDocumentToHTML(
+            _descriptionZefyrController.document),
         "professional_id": professionalId
       };
 
@@ -106,11 +132,12 @@ class _EditPortfolioState extends State<EditPortfolio> {
 
       } else {
         // update existing item
+        print(widget.portfolioInfo.toString());
         userProviderViewModel
             .updatePortfolio(
                 data: data,
                 index: widget.index,
-                portfolioId: widget.portfolioInfo.portfolioId.toString())
+                portfolioId: widget.portfolioInfo?.portfolioId?.toString())
             .then((value) {
           if (value) {
             Navigator.pop(context);
@@ -186,21 +213,21 @@ class _EditPortfolioState extends State<EditPortfolio> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(StringResources.portfolioText),
+        title: Text(StringResources.portfolioText, key: Key('portfolioAppbarTitle'),),
         actions: <Widget>[
           EditScreenSaveButton(
+            key: Key('portfolioSaveButton'),
             text: StringResources.saveText,
             onPressed: _handleSave,
           ),
         ],
       ),
-      body: Container(
-        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+      body: ZefyrScaffold(
         child: SingleChildScrollView(
           child: Form(
             key: _formKey,
             child: Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: const EdgeInsets.all(8.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
@@ -217,27 +244,34 @@ class _EditPortfolioState extends State<EditPortfolio> {
                     keyboardType: TextInputType.text,
                     focusNode: _portfolioNameFocusNode,
                     textInputAction: TextInputAction.next,
+                    textFieldKey: Key('portfolioName'),
                     onFieldSubmitted: (a) {
                       FocusScope.of(context)
                           .requestFocus(_portfolioDescriptionFocusNode);
                     },
                     controller: _portfolioNameController,
-                    labelText: StringResources.portfolioNameText,
-                    hintText: StringResources.portfolioNameText,
+                    labelText: StringResources.titleText,
+                    hintText: StringResources.titleText,
                   ),
                   spaceBetweenFields,
                   //Description
-                  //Name
-                  CustomTextFormField(
-                    keyboardType: TextInputType.multiline,
-                    minLines: 5,
-                    maxLines: 12,
-                    maxLength: 800,
+
+                  CustomZefyrRichTextFormField(
+                    labelText: StringResources.descriptionText,
                     focusNode: _portfolioDescriptionFocusNode,
-                    controller: _portfolioDescriptionController,
-                    labelText: StringResources.portfolioDescriptionText,
-                    hintText: StringResources.portfolioDescriptionText,
+                    controller: _descriptionZefyrController,
+                    zefyrKey: Key('portfolioDescription'),
                   ),
+//                CustomTextFormField(
+//                  keyboardType: TextInputType.multiline,
+//                  minLines: 5,
+//                  maxLines: 12,
+//                  maxLength: 800,
+//                  focusNode: _portfolioDescriptionFocusNode,
+//                  controller: _portfolioDescriptionController,
+//                  labelText: StringResources.portfolioDescriptionText,
+//                  hintText: StringResources.portfolioDescriptionText,
+//                ),
                   spaceBetweenFields,
                 ],
               ),
@@ -248,99 +282,5 @@ class _EditPortfolioState extends State<EditPortfolio> {
     );
   }
 
-  /// Image Crop Screen with dialog
-  _showCropDialog(File image) async {
-    var primaryColor = Theme.of(context).primaryColor;
-    final sample = await ImageCrop.sampleImage(
-      file: image,
-      preferredSize: context.size.longestSide.ceil(),
-    );
-    showDialog(
-        context: context,
-        builder: (context) {
-          return Material(
-            color: Colors.black,
-            child: Column(
-              children: <Widget>[
-                Expanded(
-                  child: Crop.file(
-                    sample,
-                    key: cropKey,
-                    aspectRatio: 1 / 1,
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.only(top: 20.0),
-                  alignment: AlignmentDirectional.center,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      RawMaterialButton(
-                        child: Text(
-                          StringResources.cancelText,
-                          style: Theme.of(context)
-                              .textTheme
-                              .button
-                              .copyWith(color: Colors.white),
-                        ),
-                        fillColor: primaryColor,
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                      ),
-                      RawMaterialButton(
-                        child: Text(
-                          StringResources.cropImageText,
-                          style: Theme.of(context)
-                              .textTheme
-                              .button
-                              .copyWith(color: Colors.white),
-                        ),
-                        fillColor: primaryColor,
-                        onPressed: () {
-                          _cropImage(image);
-                          Navigator.pop(context);
-                        },
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          );
-        });
-  }
 
-  /// Method to crop Image file
-  Future<void> _cropImage(File image) async {
-    final scale = cropKey.currentState.scale;
-    final area = cropKey.currentState.area;
-    if (area == null) {
-      isBusyImageCrop = false;
-      setState(() {});
-      // cannot crop, widget is not setup
-      return;
-    }
-
-    final sample = await ImageCrop.sampleImage(
-      file: image,
-      preferredSize: (2000 / scale).round(),
-    );
-
-    final file = await ImageCrop.cropImage(
-      file: sample,
-      area: area,
-    );
-
-    sample.delete();
-
-    fileImage = file;
-    isBusyImageCrop = false;
-    setState(() {});
-
-//    _lastCropped?.delete();
-//    _lastCropped = file;
-
-    debugPrint('$file');
-  }
 }

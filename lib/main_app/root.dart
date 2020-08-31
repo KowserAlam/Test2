@@ -1,11 +1,10 @@
 import 'package:flutter/services.dart';
 import 'package:logger/logger.dart';
-import 'package:p7app/features/job/view/job_list_screen.dart';
-import 'package:p7app/features/onboarding_page/onboarding_page.dart';
+import 'package:p7app/features/onboarding_page/view/onboarding_page.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/auth_service/auth_user_model.dart';
-import 'package:p7app/features/auth/view/login_screen.dart';
+import 'package:p7app/features/auth/view/sign_in_screen.dart';
 import 'package:p7app/main_app/home.dart';
 import 'package:p7app/main_app/push_notification_service/push_notification_service.dart';
 import 'package:p7app/main_app/resource/const.dart';
@@ -56,17 +55,24 @@ class _RootState extends State<Root> {
     Future.delayed(Duration(seconds: 1)).then((_) {
       Navigator.pushAndRemoveUntil(
           context,
-          CupertinoPageRoute(builder: (context) => LoginScreen()),
+          CupertinoPageRoute(builder: (context) => SignInScreen()),
           (Route<dynamic> route) => false);
     });
   }
 
   _naveGateToNextScreen({bool showDummyLoading = false}) {
-    _setupPushNotification();
+//    _setupPushNotification();
     _initUserdata();
 
     Future.delayed(Duration(seconds: showDummyLoading ? 0 : 2)).then((_) async {
+
+
+
       if (await shouldShowOnBoardingScreens()) {
+//        Navigator.pushAndRemoveUntil(
+//            context,
+//            CupertinoPageRoute(builder: (context) => AdditionalInfoScreens()),
+//                (Route<dynamic> route) => false);
         Navigator.pushAndRemoveUntil(
             context,
             CupertinoPageRoute(builder: (context) => OnboardingPage()),
@@ -80,15 +86,14 @@ class _RootState extends State<Root> {
     });
   }
 
-  _setupPushNotification() {
-    var pushNotificationService = locator<PushNotificationService>();
-  }
+
 
   _initUserdata() {
     Provider.of<UserProfileViewModel>(context, listen: false).getUserData();
   }
 
   Future<bool> shouldShowOnBoardingScreens() async {
+    return false;
     var _storage = await LocalStorageService.getInstance();
     var val = _storage.getBool("showIntro");
     if (val == null) return true;
@@ -111,20 +116,23 @@ class _RootState extends State<Root> {
   var appLogoText = Column(
     mainAxisSize: MainAxisSize.min,
     children: <Widget>[
-      Container(
-        width: 170,
-        child: Hero(
-            tag: kDefaultLogo,
-            child: Image.asset(
-              kDefaultLogo,
-              fit: BoxFit.cover,
-            )),
-      ),
+//      Container(
+//        width: 170,
+//        child: Hero(
+//            tag: kDefaultLogoSq,
+//            child: Image.asset(
+//              kDefaultLogoSq,
+//              fit: BoxFit.cover,
+//            )),
+//      ),
       Container(
         width: 250,
-        child: Image.asset(
-          kDefaultLogoText,
-          fit: BoxFit.cover,
+        child: Hero(
+          tag: kDefaultLogoSq,
+          child: Image.asset(
+            kDefaultLogoFull,
+            fit: BoxFit.cover,
+          ),
         ),
       ),
     ],
@@ -142,20 +150,23 @@ class _RootState extends State<Root> {
     var appLogoText = Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
+//        Container(
+//          width: width * 0.3,
+//          child: Hero(
+//              tag: kDefaultLogoSq,
+//              child: Image.asset(
+//                kDefaultLogoSq,
+//                fit: BoxFit.cover,
+//              )),
+//        ),
         Container(
-          width: width * 0.3,
+          width: width * 0.7,
           child: Hero(
-              tag: kDefaultLogo,
-              child: Image.asset(
-                kDefaultLogo,
-                fit: BoxFit.cover,
-              )),
-        ),
-        Container(
-          width: width * 0.5,
-          child: Image.asset(
-            kDefaultLogoText,
-            fit: BoxFit.cover,
+            tag: kDefaultLogoSq,
+            child: Image.asset(
+              kDefaultLogoFull,
+              fit: BoxFit.cover,
+            ),
           ),
         ),
       ],

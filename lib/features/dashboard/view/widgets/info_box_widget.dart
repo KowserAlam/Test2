@@ -63,6 +63,7 @@ class InfoBoxWidget extends StatelessWidget {
                           ]),
                           iconData: FontAwesomeIcons.tools,
                           label: StringResources.skillsText,
+                          key: Key('dashboardSkillInfoBox'),
                           count: infoBoxData?.skillsCount ?? 0),
                     ),
 
@@ -78,6 +79,7 @@ class InfoBoxWidget extends StatelessWidget {
                               ]),
                               iconData: FontAwesomeIcons.solidCheckSquare,
                               label: StringResources.appliedText,
+                              key: Key('dashboardAppliedInfoBox'),
                               onTap: onTapApplied,
                               count: infoBoxData?.appliedJobCount),
                     ),
@@ -91,6 +93,7 @@ class InfoBoxWidget extends StatelessWidget {
                           ]),
                           iconData: FontAwesomeIcons.solidHeart,
                           label: StringResources.favoriteText,
+                          key: Key('dashboardFavoriteInfoBox'),
                           count: infoBoxData?.favouriteJobCount,
                           onTap: onTapFavourite),
                     ),
@@ -107,6 +110,7 @@ class InfoBoxWidget extends StatelessWidget {
     IconData iconData,
     LinearGradient linearGradient,
     Function onTap,
+    Key key,
   }) {
     return LayoutBuilder(builder: (context, constrain) {
       var screenHeight = MediaQuery.of(context).size.height;
@@ -116,6 +120,7 @@ class InfoBoxWidget extends StatelessWidget {
       double textFontSize = iconSize / 3;
       double boxHeight = iconSize * (1.2+(screenHeight* .002));
       return Container(
+        key: key,
         margin: EdgeInsets.all(4),
         height: boxHeight,
         decoration: BoxDecoration(
