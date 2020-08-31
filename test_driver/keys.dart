@@ -238,6 +238,9 @@ class Keys{
   static final jobsSegmentFavoriteText = find.byValueKey('jobsSegmentFavoriteText');
   static final jobsSegmentAllText = find.byValueKey('jobsSegmentAllText');
   static final jobsAppbarTitle = find.byValueKey('jobsAppbarTitle');
+  static final jobListSearchInputFieldKey = find.byValueKey('jobListSearchInputFieldKey');
+  static final jobListSearchButtonKey = find.byValueKey('jobListSearchButtonKey');
+  static final jobListSearchToggleButtonKey = find.byValueKey('jobListSearchToggleButtonKey');
 
   //Jobs Segment - All jobs
   static final allJobsTileApplyButton = find.byValueKey('allJobsApplyKey0');
@@ -269,9 +272,12 @@ class Keys{
   static final jobDetailsFavoriteButton = find.byValueKey('jobDetailsFavoriteButton');
   static final checkJobFavorite = find.byValueKey('checkJobFavorite');
   static final jobDetailsApplyButton = find.byValueKey('jobDetailsApplyButton');
-  static final similarJobsTitle = find.byValueKey('similarJobsTitle');
   static final jobDetailsApplyNoButton = find.byValueKey('jobDetailsApplyNoButton');
   static final jobDetailsApplyYesButton = find.byValueKey('jobDetailsApplyYesButton');
+  static final jobDetailsPublishDate = find.byValueKey('jobDetailsPublishDate');
+  static final jobDetailsDeadlineDate = find.byValueKey('jobDetailsDeadlineDate');
+  static final similarJobsTitle = find.byValueKey('similarJobsTitle');
+  static final similarJobsTile = find.byValueKey('similarJobsTile0');
 
   //Contact Us
   static final tapOnNameField = find.byValueKey('contactUsNameTextField');
