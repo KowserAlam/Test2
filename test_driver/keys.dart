@@ -241,12 +241,13 @@ class Keys{
 
   //Jobs Segment - All jobs
   static final allJobsTileApplyButton = find.byValueKey('allJobsApplyKey0');
-  static final allJobsTile = find.byValueKey('allJobsTileKey0');
+  static final allJobsTile0 = find.byValueKey('allJobsTileKey0');
   static final allJobsTileFavoriteButton = find.byValueKey('allJobsListFavoriteButtonKey0'); //click on 1st tile
   static final dialogBoxNoButton = find.text('No');
   static final dialogBoxYesButton = find.text('Yes');
   static final jobTileCompanyName = find.byValueKey('jobTileCompanyName0');
   static final jobTileJobTitle = find.byValueKey('jobTileJobTitle0');
+
 
 
   //Job Segment - Applied Jobs

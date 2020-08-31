@@ -7,10 +7,10 @@ import '../keys.dart';
 
 
 main() {
-  allTestCaseAtOnce();
+  jobDetailsTest();
 }
 
-Future<void> allTestCaseAtOnce() async {
+Future<void> jobDetailsTest() async {
   String jobTitle, jobCompanyName;
 
   group('All My Profile Test Cases: ', () {
@@ -43,7 +43,7 @@ Future<void> allTestCaseAtOnce() async {
     test('Getting to Job Detail screen', () async {
       jobTitle = await driver.getText(Keys.jobTileJobTitle);
       jobCompanyName = await driver.getText(Keys.jobTileCompanyName);
-      await driver.tap(Keys.allJobsTile);
+      await driver.tap(Keys.allJobsTile0);
       await expect(await driver.getText(Keys.jobDetailsAppbarTitle), 'Job Details');
       await Future.delayed(const Duration(seconds: 2), (){});
     });
