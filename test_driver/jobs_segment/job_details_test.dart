@@ -11,7 +11,8 @@ main() {
 }
 
 Future<void> allTestCaseAtOnce() async {
-  String jobTitle, jobCompanyName;
+  String jobTitle = 'Test Job Title 7890';
+  String jobCompanyName;
 
   group('All My Profile Test Cases: ', () {
 
@@ -41,7 +42,11 @@ Future<void> allTestCaseAtOnce() async {
     });
 
     test('Getting to Job Detail screen', () async {
-      jobTitle = await driver.getText(Keys.jobTileJobTitle);
+      await driver.tap(Keys.jobListSearchToggleButtonKey);
+      await driver.tap(Keys.jobListSearchInputFieldKey);
+      await driver.enterText(jobTitle);
+      await driver.tap(Keys.jobListSearchButtonKey);
+      await Future.delayed(const Duration(seconds: 2), (){});
       jobCompanyName = await driver.getText(Keys.jobTileCompanyName);
       await driver.tap(Keys.allJobsTile);
       await expect(await driver.getText(Keys.jobDetailsAppbarTitle), 'Job Details');
@@ -61,6 +66,15 @@ Future<void> allTestCaseAtOnce() async {
       await expect(await driver.getText(Keys.jobDetailsAppbarTitle), 'Job Details');
     });
 
+//    test('Showing publish date if not found publish date show none', () async {
+//      await expect(await driver.getText(Keys.jobDetailsPublishDate), '31/08/2020');
+//    });
+//
+//    test('Showing deadline date if not found publish date show none', () async {
+//      await expect(await driver.getText(Keys.jobDetailsDeadlineDate), 'none');
+//    });
+
+
     test('Check favorite button can favorite the job', () async {
       await driver.tap(Keys.jobDetailsFavoriteButton);
       await Future.delayed(const Duration(seconds: 3), (){});
@@ -70,22 +84,28 @@ Future<void> allTestCaseAtOnce() async {
       await expect(await driver.getText(Keys.checkJobFavorite), 'notFavorite');
     });
 
-    test('Check apply button is working', () async {
-      //await expect(await driver.getText(Keys.applyButtonText), 'Apply');
-      await driver.tap(Keys.jobDetailsApplyButton);
-      await driver.tap(Keys.jobDetailsApplyYesButton);
-      //await expect(await driver.getText(Keys.applyButtonText), 'Applied');
-      await driver.tap(Keys.backButton);
-      await expect(await driver.getText(Keys.jobsAppbarTitle), 'Jobs');
-      print('4');
-      await driver.tap(Keys.jobsSegmentAppliedText);
-      await driver.tap(Keys.appliedTileKey);
-      await expect(await driver.getText(Keys.jobDetailsJobTitle), jobTitle);
-    });
+//    test('Check apply button is working', () async {
+//      //await expect(await driver.getText(Keys.applyButtonText), 'Apply');
+//      await driver.tap(Keys.jobDetailsApplyButton);
+//      await driver.tap(Keys.jobDetailsApplyYesButton);
+//      //await expect(await driver.getText(Keys.applyButtonText), 'Applied');
+//      await driver.tap(Keys.backButton);
+//      await expect(await driver.getText(Keys.jobsAppbarTitle), 'Jobs');
+//      print('4');
+//      await driver.tap(Keys.jobsSegmentAppliedText);
+//      await driver.tap(Keys.appliedTileKey);
+//      await expect(await driver.getText(Keys.jobDetailsJobTitle), jobTitle);
+//    });
 
     test('Check scroll / pagination working', () async {
       await driver.scrollUntilVisible(Keys.jobDetailsScrollKey, Keys.similarJobsTitle, dyScroll: -1000);
       await expect(await driver.getText(Keys.similarJobsTitle), 'Similar Jobs');
+    });
+
+    test('Check similer jobs are showing if have', () async {
+      await driver.scrollUntilVisible(Keys.jobDetailsScrollKey, Keys.similarJobsTile, dyScroll: -10);
+      await driver.tap(Keys.similarJobsTile);
+      await expect(await driver.getText(Keys.jobDetailsJobTitle), 'Test Job Title 789');
     });
 
 

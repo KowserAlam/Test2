@@ -977,6 +977,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
               jobDetails.postDate != null
                   ? DateFormatUtil.formatDate(jobDetails.postDate)
                   : StringResources.noneText,
+              key: Key('jobDetailsPublishDate'),
               style: topSideDescriptionFontStyle,
             ),
           ],
@@ -996,6 +997,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
               jobDetails.applicationDeadline != null
                   ? DateFormatUtil.formatDate(jobDetails.applicationDeadline)
                   : StringResources.noneText,
+              key: Key('jobDetailsDeadlineDate'),
               style: topSideDescriptionFontStyle,
             ),
           ],
