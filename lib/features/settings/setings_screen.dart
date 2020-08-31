@@ -45,6 +45,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       }),
     );
     var changePassword = ListTile(
+      key: Key('settingsChangePassword'),
       onTap: () {
         _navigateTo(ChangePasswordScreen());
       },
@@ -117,6 +118,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       },
     );
     var signOut = ListTile(
+      key: Key('settingsSignOut'),
       title: Text(
         StringResources.signOutText,
         style: TextStyle(
@@ -128,7 +130,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
     return Scaffold(
       appBar: AppBar(
-        title: Text(StringResources.settingsText),
+        title: Text(StringResources.settingsText, key: Key('settingsAppbarTitle'),),
       ),
       body: ListView(
         children: <Widget>[

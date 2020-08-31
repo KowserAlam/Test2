@@ -451,6 +451,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
         title: Text(StringResources.myProfileText, key: Key('myProfileAppbarTitle'),),
         actions: [
           IconButton(
+            key: Key('myProfileSettingsButton'),
             icon: Icon(
               Icons.settings,
             ),
