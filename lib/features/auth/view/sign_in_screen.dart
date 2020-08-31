@@ -93,7 +93,7 @@ class _SignInScreenState extends State<SignInScreen> {
   }
 
   _handleGoogleLogin(){
-    var loginViewModel = Provider.of<LoginViewModel>(context, listen: false);
+    var loginViewModel = Provider.of<SignInViewModel>(context, listen: false);
     loginViewModel.signInWithGoogle();
   }
 
