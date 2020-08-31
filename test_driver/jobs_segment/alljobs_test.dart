@@ -40,7 +40,7 @@ Future<void> allJobsTest() async {
     });*/
 
     test('Go to All Jobs on jobs Screen segment control bar', () async {
-      await driver.tap(Keys.clickOnAllJobsFromSegmentScreen);
+      await driver.tap(Keys.jobsSegmentAllText);
       await Future.delayed(const Duration(seconds: 5), () {});
     });
     test('Check if job details are showing from All jobs list', () async {
