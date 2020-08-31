@@ -113,6 +113,8 @@ class _SimilarJobsWidgetState extends State<SimilarJobsWidget> {
                     var job = _jobs[index];
                     return JobListTileWidget(
                       job,
+                      index: index,
+                      listTileKey: Key('similarJobsTile'+index.toString()),
                       onApply: () async {
                         _showApplyForJobDialog(job, index);
                       },

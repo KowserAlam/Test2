@@ -23,7 +23,6 @@ import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/date_format_uitl.dart';
-import 'package:p7app/main_app/views/widgets/common_prompt_dialog.dart';
 import 'package:p7app/main_app/views/widgets/failure_widget.dart';
 import 'package:p7app/main_app/views/widgets/loader.dart';
 import 'package:p7app/method_extension.dart';
@@ -94,38 +93,30 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
     showDialog(
         context: context,
         builder: (context) {
-          return CommonPromptDialog(onCancel: (){
-            Navigator.pop(context);
-          }, onAccept: (){
-            applyForJob(jobDetails.jobId).then((value) {
-              setState(() {
-                jobDetails.isApplied = value;
-              });
-            });
-            Navigator.pop(context);
-          }, titleText: StringResources.doYouWantToApplyText,);
-          // return AlertDialog(
-          //   title: Text(StringResources.doYouWantToApplyText),
-          //   actions: [
-          //     RawMaterialButton(
-          //       onPressed: () {
-          //         Navigator.pop(context);
-          //       },
-          //       child: Text(StringResources.noText),
-          //     ),
-          //     RawMaterialButton(
-          //       onPressed: () {
-          //         applyForJob(jobDetails.jobId).then((value) {
-          //           setState(() {
-          //             jobDetails.isApplied = value;
-          //           });
-          //         });
-          //         Navigator.pop(context);
-          //       },
-          //       child: Text(StringResources.yesText),
-          //     ),
-          //   ],
-          // );
+          return AlertDialog(
+            title: Text(StringResources.doYouWantToApplyText),
+            actions: [
+              RawMaterialButton(
+                key: Key('jobDetailsApplyNoButton'),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text(StringResources.noText),
+              ),
+              RawMaterialButton(
+                key: Key('jobDetailsApplyYesButton'),
+                onPressed: () {
+                  applyForJob(jobDetails.jobId).then((value) {
+                    setState(() {
+                      jobDetails.isApplied = value;
+                    });
+                  });
+                  Navigator.pop(context);
+                },
+                child: Text(StringResources.yesText),
+              ),
+            ],
+          );
         });
   }
 
@@ -986,6 +977,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
               jobDetails.postDate != null
                   ? DateFormatUtil.formatDate(jobDetails.postDate)
                   : StringResources.noneText,
+              key: Key('jobDetailsPublishDate'),
               style: topSideDescriptionFontStyle,
             ),
           ],
@@ -1005,6 +997,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
               jobDetails.applicationDeadline != null
                   ? DateFormatUtil.formatDate(jobDetails.applicationDeadline)
                   : StringResources.noneText,
+              key: Key('jobDetailsDeadlineDate'),
               style: topSideDescriptionFontStyle,
             ),
           ],

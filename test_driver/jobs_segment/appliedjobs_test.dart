@@ -42,7 +42,7 @@ Future<void> appliedJobsTest()async{
     });
 
     test('Click on Applied Jobs on jobs Screen segment control bar', () async {
-      await driver.tap(Keys.clickOnAppliedJobsFromSegmentScreen);
+      await driver.tap(Keys.jobsSegmentAppliedText);
       await Future.delayed(const Duration(seconds: 5), () {});
 
      // expect((tester.firstWidget(find.byType(MaterialApp)) as Material).color, Colors.blue[200]);
@@ -50,7 +50,7 @@ Future<void> appliedJobsTest()async{
 
     //showing job details
     test('Check if job details are showing from applied job list', () async {
-      await driver.tap(Keys.clickOnFirstTileOnAppliedJobs); //to see job details is working from applied job list
+      await driver.tap(Keys.appliedTileKey); //to see job details is working from applied job list
       await Future.delayed(const Duration(seconds: 3), () {});
       await driver.tap(Keys.backButton);
     });
