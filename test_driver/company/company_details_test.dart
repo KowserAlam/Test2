@@ -13,7 +13,7 @@ main() {
 Future<void> jobDetailsTest() async {
   String jobTitle ,jobCompanyName;
 
-  group('All My Profile Test Cases: ', () {
+  group('Company Details Test Cases: ', () {
 
     FlutterDriver driver;
     // Connect to the Flutter driver before running any tests.
@@ -58,15 +58,11 @@ Future<void> jobDetailsTest() async {
       await Future.delayed(const Duration(seconds: 5), (){});
     });
 
-//    test('Check showing deadline if not found show none', () async {
-//      await expect(await driver.getText(Keys.jobDetailsDeadlineDate), 'none');
-//      await driver.tap(Keys.backButton);
-//      await driver.tap(Keys.allJobsTile1);
-//      await expect(await driver.getText(Keys.jobDetailsDeadlineDate), '01/09/2020');
-//      await driver.tap(Keys.backButton);
-//      await driver.tap(Keys.allJobsTile0);
-//      await Future.delayed(const Duration(seconds: 5), (){});
-//    });
+    test('Check showing deadline if not found show none', () async {
+      await expect(await driver.getText(Keys.jobDetailsDeadlineDate), '');
+      await expect(await driver.getText(Keys.jobDetailsCompanyName), jobCompanyName);
+      await Future.delayed(const Duration(seconds: 5), (){});
+    });
 
     test('Check if clicking on company name gets user to company details of that company', () async {
       await driver.tap(Keys.jobDetailsCompanyName);
@@ -119,18 +115,8 @@ Future<void> jobDetailsTest() async {
     });
 
     test('Check if publish date & deadline date is showing', () async {
-      await expect(await driver.getText(Keys.similarJobsTilePublishedDate), '31/08/2020');
-      await expect(await driver.getText(Keys.similarJobsTileDeadline), '01/09/2020');
-      await Future.delayed(const Duration(seconds: 5), (){});
-    });
-
-    test('Check if company name is showing', () async {
-      await expect(await driver.getText(Keys.jobTileCompanyName), 'Ishraak Solutions');
-      await Future.delayed(const Duration(seconds: 5), (){});
-    });
-
-    test('Check if company location is showing', () async {
-      await expect(await driver.getText(Keys.similarJobsTileCompanyLocation), 'Khulna, Bangladesh');
+      await expect(await driver.getText(Keys.similarJobsTilePublishedDate), '');
+      await expect(await driver.getText(Keys.similarJobsTileDeadline), jobCompanyName);
       await Future.delayed(const Duration(seconds: 5), (){});
     });
 

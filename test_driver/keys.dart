@@ -245,12 +245,12 @@ class Keys{
   //Jobs Segment - All jobs
   static final allJobsTileApplyButton = find.byValueKey('allJobsApplyKey0');
   static final allJobsTile0 = find.byValueKey('allJobsTileKey0');
+  static final allJobsTile1 = find.byValueKey('allJobsTileKey1');
   static final allJobsTileFavoriteButton = find.byValueKey('allJobsListFavoriteButtonKey0'); //click on 1st tile
   static final dialogBoxNoButton = find.text('No');
   static final dialogBoxYesButton = find.text('Yes');
   static final jobTileCompanyName = find.byValueKey('jobTileCompanyName0');
   static final jobTileJobTitle = find.byValueKey('jobTileJobTitle0');
-  static final secondJobTileJobTitle = find.byValueKey('jobTileJobTitle1');
 
 
 
@@ -283,6 +283,7 @@ class Keys{
   static final similarJobsTileApply = find.byValueKey('similarJobsTileApply0');
   static final similarJobsTilePublishedDate = find.byValueKey('similarJobsTilePublishedDate0');
   static final similarJobsTileDeadline = find.byValueKey('similarJobsTileDeadline0');
+  static final similarJobsTileCompanyLocation = find.byValueKey('similarJobsTileCompanyLocation0');
 
   //Contact Us
   static final tapOnNameField = find.byValueKey('contactUsNameTextField');
