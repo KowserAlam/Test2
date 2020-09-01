@@ -38,7 +38,6 @@ class _RootState extends State<Root> {
 //    authService.refreshToken();
     if (authService.isAccessTokenValid()) {
       debugPrint("user: ${authService.getUser()}");
-
       _naveGateToNextScreen(showDummyLoading: widget.showDummyLoadingTime);
     } else {
       bool isSuccess = await authService.refreshToken();

@@ -27,7 +27,7 @@ class _HomeState extends State<Home> {
   void initState() {
     TokenRefreshScheduler.getInstance();
     _setupPushNotification();
-    locator<LiveUpdateService>().initSocket();
+    // locator<LiveUpdateService>().initSocket();
     super.initState();
   }
 
