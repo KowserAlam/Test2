@@ -114,6 +114,11 @@ class _SimilarJobsWidgetState extends State<SimilarJobsWidget> {
                     return JobListTileWidget(
                       job,
                       index: index,
+                      favoriteButtonKey: Key('similarJobsTileFavorite'+index.toString()),
+                      applyButtonKey: Key('similarJobsTileApply'+index.toString()),
+                      publishedDateKey: Key('similarJobsTilePublishedDate'+index.toString()),
+                      deadlineKey: Key('similarJobsTileDeadline'+index.toString()),
+                      companyLocationKey: Key('similarJobsTileCompanyLocation'+index.toString()),
                       listTileKey: Key('similarJobsTile'+index.toString()),
                       onApply: () async {
                         _showApplyForJobDialog(job, index);
