@@ -20,9 +20,9 @@ class JobListTileWidget extends StatefulWidget {
   final Function onApply;
   final Function onFavorite;
   final int index;
-  final Key listTileKey, applyButtonKey,favoriteButtonKey;
+  final Key listTileKey, applyButtonKey,favoriteButtonKey, publishedDateKey, deadlineKey;
 
-  JobListTileWidget(this.jobModel, {this.onTap, this.index, this.onFavorite, this.onApply, this.listTileKey, this.applyButtonKey, this.favoriteButtonKey});
+  JobListTileWidget(this.jobModel, {this.onTap, this.index, this.onFavorite, this.onApply, this.listTileKey, this.applyButtonKey, this.favoriteButtonKey, this.deadlineKey, this.publishedDateKey});
 
   @override
   _JobListTileWidgetState createState() => _JobListTileWidgetState();
@@ -159,6 +159,7 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
         Text(
           deadLineText,
           style: subTitleStyle,
+          key: widget.deadlineKey,
         ),
       ],
     );
@@ -173,6 +174,7 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
         Text(
           publishDateText,
           style: subTitleStyle,
+          key: widget.publishedDateKey,
         ),
       ],
     );

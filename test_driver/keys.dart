@@ -250,6 +250,7 @@ class Keys{
   static final dialogBoxYesButton = find.text('Yes');
   static final jobTileCompanyName = find.byValueKey('jobTileCompanyName0');
   static final jobTileJobTitle = find.byValueKey('jobTileJobTitle0');
+  static final secondJobTileJobTitle = find.byValueKey('jobTileJobTitle1');
 
 
 
@@ -278,6 +279,10 @@ class Keys{
   static final jobDetailsDeadlineDate = find.byValueKey('jobDetailsDeadlineDate');
   static final similarJobsTitle = find.byValueKey('similarJobsTitle');
   static final similarJobsTile = find.byValueKey('similarJobsTile0');
+  static final similarJobsTileFavorite = find.byValueKey('similarJobsTileFavorite0');
+  static final similarJobsTileApply = find.byValueKey('similarJobsTileApply0');
+  static final similarJobsTilePublishedDate = find.byValueKey('similarJobsTilePublishedDate0');
+  static final similarJobsTileDeadline = find.byValueKey('similarJobsTileDeadline0');
 
   //Contact Us
   static final tapOnNameField = find.byValueKey('contactUsNameTextField');
