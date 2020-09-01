@@ -3,7 +3,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:p7app/features/user_profile/models/skill.dart';
+import 'package:p7app/main_app/models/skill.dart';
 import 'package:p7app/features/user_profile/models/skill_info.dart';
 import 'package:p7app/main_app/repositories/skill_list_repository.dart';
 import 'package:p7app/main_app/app_theme/common_style.dart';

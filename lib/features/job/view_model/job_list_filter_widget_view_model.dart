@@ -8,7 +8,7 @@ import 'package:p7app/features/job/repositories/job_list_sort_items_repository.d
 import 'package:p7app/features/job/repositories/job_location_list_repository.dart';
 import 'package:p7app/features/job/repositories/job_type_list_repository.dart';
 import 'package:p7app/features/job/repositories/job_categories_list_repository.dart';
-import 'package:p7app/features/user_profile/models/skill.dart';
+import 'package:p7app/main_app/models/skill.dart';
 import 'package:p7app/features/user_profile/repositories/degree_list_repository.dart';
 import 'package:p7app/features/user_profile/repositories/gender_list_repository.dart';
 import 'package:p7app/main_app/repositories/skill_list_repository.dart';

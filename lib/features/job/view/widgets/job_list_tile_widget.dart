@@ -20,9 +20,16 @@ class JobListTileWidget extends StatefulWidget {
   final Function onApply;
   final Function onFavorite;
   final int index;
-  final Key listTileKey, applyButtonKey,favoriteButtonKey, publishedDateKey, deadlineKey;
+  final Key listTileKey, applyButtonKey, favoriteButtonKey;
 
-  JobListTileWidget(this.jobModel, {this.onTap, this.index, this.onFavorite, this.onApply, this.listTileKey, this.applyButtonKey, this.favoriteButtonKey, this.deadlineKey, this.publishedDateKey});
+  JobListTileWidget(this.jobModel,
+      {this.onTap,
+      this.index,
+      this.onFavorite,
+      this.onApply,
+      this.listTileKey,
+      this.applyButtonKey,
+      this.favoriteButtonKey});
 
   @override
   _JobListTileWidgetState createState() => _JobListTileWidgetState();
@@ -62,20 +69,20 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
         color: scaffoldBackgroundColor,
       ),
       child: CachedNetworkImage(
-        imageUrl: widget.jobModel.profilePicture??"",
+        imageUrl: widget.jobModel.profilePicture ?? "",
         placeholder: (context, _) => Image.asset(kCompanyImagePlaceholder),
       ),
     ); //That pointless fruit logo
     var jobTitle = Text(
       widget.jobModel.title ?? "",
       style: titleStyle,
-      key: Key('jobTileJobTitle'+widget.index.toString()),
+      key: Key('jobTileJobTitle' + widget.index.toString()),
       maxLines: 3,
       overflow: TextOverflow.ellipsis,
     );
     var companyName = Text(
       widget.jobModel.companyName ?? "",
-      key: Key('jobTileCompanyName'+widget.index.toString()),
+      key: Key('jobTileCompanyName' + widget.index.toString()),
       style: subTitleStyle,
     );
     var companyLocation = Container(
@@ -104,7 +111,9 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
       color: Colors.transparent,
       borderRadius: BorderRadius.circular(20),
       child: Tooltip(
-        message:isFavorite ?StringResources.removeFromFavoriteText : StringResources.addToFavoriteText,
+        message: isFavorite
+            ? StringResources.removeFromFavoriteText
+            : StringResources.addToFavoriteText,
         child: InkWell(
           borderRadius: BorderRadius.circular(20),
           onTap: widget.onFavorite,
@@ -159,7 +168,6 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
         Text(
           deadLineText,
           style: subTitleStyle,
-          key: widget.deadlineKey,
         ),
       ],
     );
@@ -174,7 +182,6 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
         Text(
           publishDateText,
           style: subTitleStyle,
-          key: widget.publishedDateKey,
         ),
       ],
     );
@@ -182,14 +189,13 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
     return Container(
       key: widget.listTileKey,
       decoration: BoxDecoration(
-        color: scaffoldBackgroundColor,
-boxShadow: CommonStyle.boxShadow
+          color: scaffoldBackgroundColor, boxShadow: CommonStyle.boxShadow
 //        borderRadius: BorderRadius.circular(5),
 //        boxShadow: [
 //          BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 10),
 //          BoxShadow(color: Colors.black.withOpacity(0.2), blurRadius: 10),
 //        ],
-      ),
+          ),
       margin: EdgeInsets.fromLTRB(0, 4, 0, 4),
       child: Material(
         color: backgroundColor,

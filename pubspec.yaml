@@ -2,7 +2,7 @@ name: p7app
 description: A new Flutter application for Project Seven.
 
 
-version: 1.0.13+191
+version: 1.0.14+192
 
 
 environment:
@@ -24,15 +24,15 @@ dependencies:
   shared_preferences: ^0.5.10
   intl: ^0.16.1
   page_view_indicators: ^1.3.1
-  uuid: ^2.2.0
+  uuid: ^2.2.2
   image_cropper: ^1.3.0
   image_picker: ^0.6.7+7
   package_info: ^0.4.3
   dartz: ^0.9.1
   google_fonts: ^1.1.0
-  bot_toast: ^3.0.3
-  url_launcher: ^5.5.0
-  cached_network_image: ^2.3.0
+  bot_toast: ^3.0.4
+  url_launcher: 5.5.0
+  cached_network_image: ^2.3.1
   flutter_image_compress: 0.6.8
   equatable: ^1.2.4
 #  device_id: ^0.2.0
@@ -60,6 +60,7 @@ dependencies:
   social_share: ^2.0.5
   socket_io: ^0.9.4
   socket_io_client: ^0.9.11
+#  device_info: ^0.4.2+7
 
 
 

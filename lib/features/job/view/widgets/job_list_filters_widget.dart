@@ -7,7 +7,7 @@ import 'package:p7app/features/job/models/jon_type_model.dart';
 import 'package:p7app/features/job/models/sort_item.dart';
 import 'package:p7app/features/job/view_model/job_list_filter_widget_view_model.dart';
 import 'package:p7app/features/job/view_model/job_list_view_model.dart';
-import 'package:p7app/features/user_profile/models/skill.dart';
+import 'package:p7app/main_app/models/skill.dart';
 import 'package:p7app/main_app/app_theme/common_style.dart';
 import 'package:p7app/features/user_profile/views/widgets/custom_dropdown_button_form_field.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
