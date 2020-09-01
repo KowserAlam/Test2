@@ -29,6 +29,15 @@ Future<void> myProfilePersonalInfoTest()async{
 
 
     //test cases are started from here
+    test('login with registered email and password', () async {
+      await driver.tap(Keys.signInEmail);
+      await driver.enterText('mahmudoni01@gmail.com');
+      await driver.tap(Keys.signInPassword);
+      await driver.enterText('1234567r');
+      await driver.tap(Keys.signInButton);
+      await Future.delayed(const Duration(seconds: 10), () {});
+    });
+
     test('Check edit button is working', () async {
       await driver.scrollUntilVisible(Keys.myProfileScrollView, Keys.personalInfoPenKey, dyScroll: -200);
       await driver.tap(Keys.personalInfoPenKey);
@@ -73,6 +82,16 @@ Future<void> myProfilePersonalInfoTest()async{
       await Future.delayed(const Duration(seconds: 2), (){});
       await expect(await driver.getText(Keys.myProfileAppbarTitle), 'My Profile');
       await expect(await driver.getText(Keys.personalInfoTilePermanentAddress), 'Test Permanent Address');
+    });
+
+    test('Try to save Nationality', () async {
+      await driver.tap(Keys.personalInfoPenKey);
+      await driver.scrollUntilVisible(Keys.myProfileScrollView, Keys.personalInfoNationality, dyScroll: -100);
+      await driver.tap(Keys.personalInfoNationality);
+      await driver.tap(find.text('Indian'));
+      await driver.tap(Keys.personalInfoSaveButton);
+      await expect(await driver.getText(Keys.myProfileAppbarTitle), 'My Profile');
+      //await expect(await driver.getText(Keys.personalInfoTilePermanentAddress), 'Test Permanent Address');
     });
 
 //    test('Try to save gender', () async {

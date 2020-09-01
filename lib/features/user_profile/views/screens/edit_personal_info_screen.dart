@@ -328,8 +328,8 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
                 //Nationality
                 CustomDropdownButtonFormField<Nationality>(
                   labelText: StringResources.nationalityText,
-                  customDropdownKey: Key('personalInfoNationality'),
                   hint: Text(StringResources.tapToSelectText),
+                  customDropdownKey: Key('personalInfoNationality'),
                   value: _selectedNationalityDropDownItem,
                   onChanged: (value) {
                     _selectedNationalityDropDownItem = value;
