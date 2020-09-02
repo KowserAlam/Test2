@@ -7,7 +7,9 @@ import 'package:socket_io/socket_io.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class LiveUpdateService {
-  var _notification = PublishSubject();
+  var notificationUpdate = PublishSubject<String>();
+
+
   initSocket() async {
 //    logger.i("initSocket");
     var token = await AuthService.getInstance()
@@ -27,11 +29,17 @@ class LiveUpdateService {
     socket.on('disconnect', (_) => logger.i('disconnect'));
     socket.on('receive', ( d) {
       var data = json.decode(d);
-      print(data);
+      logger.i(data);
       if(data['type']=="notification"){
-        print("Notification");
+        logger.i("notification");
+        notificationUpdate.sink.add("notification");
+
       }
     });
 //    socket.connect();
+  }
+
+  dispose(){
+    notificationUpdate.close();
   }
 }

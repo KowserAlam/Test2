@@ -11,7 +11,7 @@ class NotificationScreenDataModel {
 
   NotificationScreenDataModel.fromJson(Map<String, dynamic> json) {
     count = json['count'];
-    next = json['next']??false;
+    next = json["pages"]['next_url'] != null;
     previous = json['previous'];
     if (json['results'] != null) {
       notifications = new List<NotificationModel>();

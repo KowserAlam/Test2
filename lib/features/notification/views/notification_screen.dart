@@ -2,6 +2,7 @@ import 'package:after_layout/after_layout.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:p7app/features/notification/models/notification_model.dart';
+import 'package:p7app/features/notification/repositories/live_update_service.dart';
 import 'package:p7app/features/notification/repositories/notification_repository.dart';
 import 'package:p7app/features/notification/view_models/notificaion_view_model.dart';
 import 'package:p7app/features/notification/views/widgets/no_notification_widget.dart';
@@ -31,8 +32,11 @@ class _NotificationScreenState extends State<NotificationScreen>
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
         notiVM.getMoreData();
+        notiVM.listenNotification();
       }
     });
+
+
   }
 
   errorWidget() {
