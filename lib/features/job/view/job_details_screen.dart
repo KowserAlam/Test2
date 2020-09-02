@@ -78,6 +78,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
   ) async {
     bool res = await JobRepository().addToFavorite(jobId);
     _refreshJobList();
+    getJobDetails(force: true);
     return res;
   }
 
@@ -86,6 +87,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
   ) async {
     bool res = await JobRepository().applyForJob(jobId);
     _refreshJobList();
+    getJobDetails(force: true);
     return res;
   }
 

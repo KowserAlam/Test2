@@ -49,9 +49,9 @@ class JobApplyButton extends StatelessWidget {
 //          padding: EdgeInsets.symmetric(vertical: 6, horizontal: 15),
 
             child: Text(
-              isApplied
+              "${isApplied
                   ? StringResources.appliedText
-                  : StringResources.applyText,
+                  : StringResources.applyText}",
               key: Key('applyButtonText'),
               style: TextStyle(
                   fontSize: 15, color: textColor, fontWeight: FontWeight.w600),
