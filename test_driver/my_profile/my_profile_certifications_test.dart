@@ -132,7 +132,7 @@ Future<void> myProfileCertificationTest()async{
 
     test('Check if delete is working', () async {
       await driver.tap(Keys.certificationDeleteKey);
-      await driver.tap(Keys.myProfileDialogBoxDeleteTile);
+      await driver.tap(Keys.commonPromptYes);
       await expect(await driver.getText(Keys.myProfileAppbarTitle), 'My Profile');
       await expect(await driver.getText(Keys.certificationTileNameKey), 'Test Certification Name 2');
       await Future.delayed(const Duration(seconds: 5), (){});

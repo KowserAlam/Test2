@@ -50,7 +50,7 @@ Future<void> appliedJobsTest()async{
 
     //showing job details
     test('Check if job details are showing from applied job list', () async {
-      await driver.tap(Keys.appliedTileKey); //to see job details is working from applied job list
+      await driver.tap(Keys.appliedTileKey0); //to see job details is working from applied job list
       await Future.delayed(const Duration(seconds: 3), () {});
       await driver.tap(Keys.backButton);
     });
