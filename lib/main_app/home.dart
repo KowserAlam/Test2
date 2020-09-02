@@ -13,6 +13,7 @@ import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/locator.dart';
 import 'package:p7app/main_app/util/token_refresh_scheduler.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class Home extends StatefulWidget {
   @override
@@ -32,8 +33,15 @@ class _HomeState extends State<Home> {
   }
 
   _setupPushNotification() {
-    var pushNotificationService = locator<PushNotificationService>();
+
+    if(!kIsWeb){
+      bool isIOS = Theme.of(context).platform == TargetPlatform.iOS;
+      bool isAndroid = Theme.of(context).platform == TargetPlatform.android;
+      if (isIOS || isAndroid) locator<PushNotificationService>().initPush();
+    }
+
   }
+
   @override
   Widget build(BuildContext context) {
     var bottomNavBar = BottomNavigationBar(
@@ -84,11 +92,13 @@ class _HomeState extends State<Home> {
           // dashboard
           BottomNavigationBarItem(
               icon: Padding(
-              key: Key('bottomNavigationBarDashboard'),
+                key: Key('bottomNavigationBarDashboard'),
                 padding: const EdgeInsets.only(
                   bottom: 3,
                 ),
-                child: Icon(FontAwesomeIcons.home,),
+                child: Icon(
+                  FontAwesomeIcons.home,
+                ),
               ),
               title: Text(StringResources.dashBoardText)),
           //jobs
@@ -100,7 +110,6 @@ class _HomeState extends State<Home> {
                 ),
                 child: Icon(
                   FontAwesomeIcons.briefcase,
-
                 ),
               ),
               title: Text(StringResources.jobsText)),

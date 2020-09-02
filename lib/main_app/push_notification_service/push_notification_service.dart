@@ -11,16 +11,13 @@ import 'package:p7app/main_app/util/logger_helper.dart';
 class PushNotificationService {
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 
-  PushNotificationService() {
-    if (Platform.isAndroid || Platform.isIOS) {
+  initPush(){
+
       _init();
       getToken();
-    } else {
-//
-//      logger.e(
-//          "Notification service not implemented for ${Platform.operatingSystem}!");
-    }
   }
+
+
 
   void fcmSubscribeNews() {
     _firebaseMessaging.subscribeToTopic('news');
