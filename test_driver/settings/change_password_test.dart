@@ -87,7 +87,7 @@ Future<void> allTestCaseAtOnce() async {
       await Future.delayed(const Duration(seconds: 2), (){});
       await expect(await driver.getText(Keys.settingsAppbarTitle), 'Settings');
       await driver.tap(Keys.settingsSignOut);
-      await driver.tap(Keys.myProfileDialogBoxDeleteTile);
+      await driver.tap(Keys.commonPromptYes);
       await expect(await driver.getText(Keys.signInWelcomeText), 'Welcome back!');
     });
 

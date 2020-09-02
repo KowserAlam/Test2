@@ -70,7 +70,7 @@ Future<void> myProfileReferencesTest()async{
     test('Check delete button is working with confirmation popup', () async {
       await driver.tap(Keys.myProfileReferencesTileDeleteButton1);
       await Future.delayed(const Duration(seconds: 5), (){});
-      await driver.tap(Keys.myProfileDialogBoxDeleteTile);
+      await driver.tap(Keys.commonPromptYes);
       await Future.delayed(const Duration(seconds: 10), (){});
       await expect(await driver.getText(Keys.referenceTileDescription1), 'Second Test Description');
     });

@@ -97,7 +97,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text(StringResources.doYouWantToApplyText),
+            title: Text(StringResources.doYouWantToApplyText, key: Key('jobDetailsApplyButtonText'),),
             actions: [
               RawMaterialButton(
                 key: Key('jobDetailsApplyNoButton'),

@@ -13,7 +13,7 @@ main() {
 Future<void> jobDetailsTest() async {
   String jobTitle ,jobCompanyName;
 
-  group('All My Profile Test Cases: ', () {
+  group('Job Details & Similar Jobs Tests: ', () {
 
     FlutterDriver driver;
     // Connect to the Flutter driver before running any tests.
@@ -84,18 +84,20 @@ Future<void> jobDetailsTest() async {
       //await expect(await driver.getText(Keys.checkJobFavorite), 'notFavorite');
     });
 
-//    test('Check apply button is working', () async {
-//      //await expect(await driver.getText(Keys.applyButtonText), 'Apply');
-//      await driver.tap(Keys.jobDetailsApplyButton);
-//      await driver.tap(Keys.jobDetailsApplyYesButton);
-//      //await expect(await driver.getText(Keys.applyButtonText), 'Applied');
-//      await driver.tap(Keys.backButton);
-//      await expect(await driver.getText(Keys.jobsAppbarTitle), 'Jobs');
-//      print('4');
-//      await driver.tap(Keys.jobsSegmentAppliedText);
-//      await driver.tap(Keys.appliedTileKey);
-//      await expect(await driver.getText(Keys.jobDetailsJobTitle), jobTitle);
-//    });
+    test('Check Apply button showing popup', () async {
+      //await expect(await driver.getText(Keys.applyButtonText), 'Apply');
+      await driver.tap(Keys.jobDetailsApplyButton);
+      await expect(await driver.getText(Keys.jobDetailsApplyButtonText), 'Do you want to apply for this job?');
+    });
+
+    test('Check popup Yes button is working', () async {
+      await driver.tap(Keys.jobDetailsApplyYesButton);
+      await driver.tap(Keys.backButton);
+      await expect(await driver.getText(Keys.jobsAppbarTitle), 'Jobs');
+      await driver.tap(Keys.jobsSegmentAppliedText);
+      await driver.tap(Keys.appliedTileKey0);
+      await expect(await driver.getText(Keys.jobDetailsJobTitle), jobTitle);
+    });
 
     test('Check scroll / pagination working', () async {
       await driver.scrollUntilVisible(Keys.jobDetailsScrollKey, Keys.similarJobsTitle, dyScroll: -1000);
@@ -105,9 +107,10 @@ Future<void> jobDetailsTest() async {
     test('Check similer jobs are showing if have', () async {
       await driver.scrollUntilVisible(Keys.jobDetailsScrollKey, Keys.similarJobsTile, dyScroll: -20);
       await driver.tap(Keys.similarJobsTile);
-      await expect(await driver.getText(Keys.jobDetailsJobTitle), 'Test Job Title 789');
+      await expect(await driver.getText(Keys.jobDetailsJobTitle), 'Test Job Title 78');
       await driver.tap(Keys.backButton);
     });
+
 
     test('Check favorite button can favorite the similar job', () async {
       await driver.tap(Keys.similarJobsTileFavorite);
@@ -118,9 +121,9 @@ Future<void> jobDetailsTest() async {
       //await expect(await driver.getText(Keys.checkJobFavorite), 'notFavorite');
     });
 
-    test('Check if publish date & deadline date is showing', () async {
-      await expect(await driver.getText(Keys.similarJobsTilePublishedDate), '31/08/2020');
-      await expect(await driver.getText(Keys.similarJobsTileDeadline), '01/09/2020');
+    test('Check if publish deadline date is showing', () async {
+      await expect(await driver.getText(Keys.similarJobsTileDeadline0), 'none');
+      await expect(await driver.getText(Keys.similarJobsTileDeadline1), '01/09/2022');
       await Future.delayed(const Duration(seconds: 5), (){});
     });
 
@@ -133,6 +136,21 @@ Future<void> jobDetailsTest() async {
       await expect(await driver.getText(Keys.similarJobsTileCompanyLocation), 'Khulna, Bangladesh');
       await Future.delayed(const Duration(seconds: 5), (){});
     });
+
+    test('Check Similar jobs Apply button showing popup', () async {
+      await driver.tap(Keys.similarJobsTileApply);
+      await expect(await driver.getText(Keys.commonPromptText), 'Do you want to apply for this job?');
+    });
+
+    test('Check popup Yes button is working', () async {
+      await driver.tap(Keys.commonPromptYes);
+      await driver.tap(Keys.backButton);
+      await expect(await driver.getText(Keys.jobsAppbarTitle), 'Jobs');
+      await driver.tap(Keys.jobsSegmentAppliedText);
+      await driver.tap(Keys.appliedTileKey1);
+      await expect(await driver.getText(Keys.jobDetailsJobTitle), jobTitle);
+    });
+
 
 
 

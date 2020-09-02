@@ -116,7 +116,7 @@ Future<void> jobDetailsTest() async {
 
     test('Check if publish date & deadline date is showing', () async {
       await expect(await driver.getText(Keys.similarJobsTilePublishedDate), '');
-      await expect(await driver.getText(Keys.similarJobsTileDeadline), jobCompanyName);
+      await expect(await driver.getText(Keys.similarJobsTileDeadline0), jobCompanyName);
       await Future.delayed(const Duration(seconds: 5), (){});
     });
 

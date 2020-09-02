@@ -12,10 +12,10 @@ class CommonPromptDialog extends StatelessWidget {
     var buttonTextStyles = TextStyle(color: Colors.black);
 
     return AlertDialog(
-      title: Text(titleText),
+      title: Text(titleText, key: Key('commonPromptText'),),
       actions: [
         FlatButton(
-          key: Key('myProfileDialogBoxCancelDeleteTile'),
+          key: Key('commonPromtNo'),
           color: Theme.of(context).accentColor,
           onPressed: onCancel,
           child: Text(StringResources.noText, style: buttonTextStyles),
@@ -24,7 +24,7 @@ class CommonPromptDialog extends StatelessWidget {
           width: 8,
         ),
         FlatButton(
-          key: Key('myProfileDialogBoxDeleteTile'),
+          key: Key('CommonPromptYes'),
           color: Theme.of(context).accentColor,
           onPressed: onAccept,
           child: Text(

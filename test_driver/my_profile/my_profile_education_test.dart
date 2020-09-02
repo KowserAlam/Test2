@@ -140,7 +140,7 @@ Future<void> myProfileEducationTest()async{
 
     test('Check if delete is working', () async {
       await driver.tap(Keys.educationTileDeleteButton);
-      await driver.tap(Keys.myProfileDialogBoxDeleteTile);
+      await driver.tap(Keys.commonPromptYes);
       await expect(await driver.getText(Keys.myProfileAppbarTitle), 'My Profile');
       await expect(await driver.getText(Keys.educationTileInstitutionName), 'Test Institution Name 2');
     });
