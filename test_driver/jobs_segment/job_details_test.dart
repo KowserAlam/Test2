@@ -111,6 +111,7 @@ Future<void> jobDetailsTest() async {
       await driver.tap(Keys.backButton);
     });
 
+
     test('Check favorite button can favorite the similar job', () async {
       await driver.tap(Keys.similarJobsTileFavorite);
       await Future.delayed(const Duration(seconds: 3), (){});
