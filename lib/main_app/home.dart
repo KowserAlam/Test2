@@ -13,7 +13,7 @@ import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/locator.dart';
 import 'package:p7app/main_app/util/token_refresh_scheduler.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
+
 
 class Home extends StatefulWidget {
   @override
@@ -33,13 +33,7 @@ class _HomeState extends State<Home> {
   }
 
   _setupPushNotification() {
-
-    if(!kIsWeb){
-      bool isIOS = Theme.of(context).platform == TargetPlatform.iOS;
-      bool isAndroid = Theme.of(context).platform == TargetPlatform.android;
-      if (isIOS || isAndroid) locator<PushNotificationService>().initPush();
-    }
-
+    locator<PushNotificationService>().initPush();
   }
 
   @override

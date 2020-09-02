@@ -38,22 +38,28 @@ class UserProfileHeader extends StatelessWidget {
 
     var profileImageWidget = Container(
       margin: EdgeInsets.only(bottom: 15, top: 8),
-      height: 65,
-      width: 65,
-      decoration:
-          BoxDecoration(borderRadius: BorderRadius.circular(100), boxShadow: [
-        BoxShadow(color: Colors.black12, blurRadius: 5, spreadRadius: 5),
-      ]),
+      // height: 65,
+      // width: 65,
+
+      decoration: BoxDecoration(
+        color: Theme.of(context).scaffoldBackgroundColor,
+        borderRadius: BorderRadius.circular(100),
+        boxShadow: CommonStyle.boxShadow,
+      ),
       child: Consumer<UserProfileViewModel>(
           builder: (context, userProfileViewModel, s) {
         return ClipRRect(
           borderRadius: BorderRadius.circular(100),
           child: CachedNetworkImage(
+            height: 65,
+            width: 65,
             fit: BoxFit.cover,
-            imageUrl: userProfileViewModel.userData.personalInfo.profileImage,
+            imageUrl: userProfileViewModel.userData?.personalInfo?.profileImage ??"",
             placeholder: (context, _) => Image.asset(
               kDefaultUserImageAsset,
               fit: BoxFit.cover,
+              height: 65,
+              width: 65,
             ),
           ),
         );
@@ -339,7 +345,10 @@ class UserProfileHeader extends StatelessWidget {
                     ],
                   ),
                 );
-              return HtmlWidget(aboutMeText, key: Key('myProfileHeaderDescription'),);
+              return HtmlWidget(
+                aboutMeText,
+                key: Key('myProfileHeaderDescription'),
+              );
 //                  return Text(
 //                    data,
 //                    textAlign: TextAlign.left,

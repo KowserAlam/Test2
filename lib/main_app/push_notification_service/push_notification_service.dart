@@ -7,14 +7,22 @@ import 'package:logger/logger.dart';
 import 'package:p7app/features/settings/settings_view_model.dart';
 import 'package:p7app/main_app/util/locator.dart';
 import 'package:p7app/main_app/util/logger_helper.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class PushNotificationService {
+
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 
   initPush(){
-
+    if(!kIsWeb)
+    if (Platform.isAndroid || Platform.isIOS) {
       _init();
       getToken();
+    } else {
+
+     logger.e(
+         "Notification service not implemented for ${Platform.operatingSystem}!");
+    }
   }
 
 
