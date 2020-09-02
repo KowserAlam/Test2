@@ -1,4 +1,4 @@
- import 'dart:math';
+import 'dart:math';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dartz/dartz.dart' as dartZ;
@@ -43,7 +43,8 @@ class JobDetailsScreen extends StatefulWidget {
 
 class _JobDetailsScreenState extends State<JobDetailsScreen> {
   JobModel jobDetails;
-  var salaryFormat = NumberFormat.simpleCurrency(decimalDigits: 0,name: "");
+  var salaryFormat = NumberFormat.simpleCurrency(decimalDigits: 0, name: "");
+
 //  Company jobCompany;
   bool _isBusy = false;
   AppError _appError;
@@ -271,14 +272,20 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
           child: Stack(
             children: [
               Icon(
-                isFavorite ? FontAwesomeIcons.solidHeart : FontAwesomeIcons.heart,
+                isFavorite
+                    ? FontAwesomeIcons.solidHeart
+                    : FontAwesomeIcons.heart,
                 color: isFavorite ? AppTheme.orange : AppTheme.grey,
                 size: 22,
                 key: Key('jobDetailsFavoriteButton'),
               ),
               Opacity(
                   opacity: 0.1,
-                  child: Text(isFavorite?'favorite':'notFavorite',key: Key('checkJobFavorite'), style: TextStyle(fontSize: 1),))
+                  child: Text(
+                    isFavorite ? 'favorite' : 'notFavorite',
+                    key: Key('checkJobFavorite'),
+                    style: TextStyle(fontSize: 1),
+                  ))
             ],
           ),
         ),
@@ -648,10 +655,12 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                   ],
                 ),
                 SizedBox(height: 5),
-                jobSummeryRichText(
-                  StringResources.jobCompanyProfileText,
-                  jobDetails.companyProfile,
-                ),
+                HtmlWidget(
+                    " <b>${StringResources.jobCompanyProfileText}</b>: ${jobDetails.companyProfile ?? ""}",textStyle: descriptionFontStyle,),
+                // jobSummeryRichText(
+                //   StringResources.jobCompanyProfileText,
+                //   jobDetails.companyProfile,
+                // ),
 //                Row(
 //                  mainAxisSize: MainAxisSize.max,
 //                  mainAxisAlignment: MainAxisAlignment.start,
@@ -747,7 +756,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                         jobSummeryRichText(
                             StringResources.vacancy,
                             jobDetails.vacancy != null
-                                ? "${jobDetails.vacancy == 0 ?StringResources.notSpecifiedText:jobDetails.vacancy}"
+                                ? "${jobDetails.vacancy == 0 ? StringResources.notSpecifiedText : jobDetails.vacancy}"
                                 : StringResources.noneText)
                       ],
                     ),
@@ -824,7 +833,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
           );
 
     bool hideSalary = (jobDetails.salary == null &&
-        jobDetails.salaryMin== null &&
+        jobDetails.salaryMin == null &&
         jobDetails.salaryMax == null);
     var salary = hideSalary
         ? SizedBox()
@@ -851,13 +860,13 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                   height: 5,
                 ),
 
-                (jobDetails.salaryMin == null ||
-                    jobDetails.salaryMax == null)?
-                jobSummeryRichText(
-                  StringResources.currentOffer,
-                  StringResources.negotiableText,
-                ):jobSummeryRichText(StringResources.salaryRangeText, "${salaryFormat.format(jobDetails.salaryMin)} - ${salaryFormat.format(jobDetails.salaryMax)} "),
-
+                (jobDetails.salaryMin == null || jobDetails.salaryMax == null)
+                    ? jobSummeryRichText(
+                        StringResources.currentOffer,
+                        StringResources.negotiableText,
+                      )
+                    : jobSummeryRichText(StringResources.salaryRangeText,
+                        "${salaryFormat.format(jobDetails.salaryMin)} - ${salaryFormat.format(jobDetails.salaryMax)} "),
 
 //                if (jobDetails.salaryMin.isEmptyOrNull &&
 //                    jobDetails.salaryMax.isEmptyOrNull)
@@ -1035,7 +1044,10 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
         ),
         centerTitle: true,
         actions: [
-          ShareOnSocialMediaWidget(jobDetails,key: Key("shareButtonKey"),),
+          ShareOnSocialMediaWidget(
+            jobDetails,
+            key: Key("shareButtonKey"),
+          ),
         ],
       ),
       body: RefreshIndicator(
