@@ -75,6 +75,7 @@ class EduInfo {
     data['description'] = this.description;
     data['institution_text'] = this.institutionText;
     data['cgpa'] = this.cgpa;
+    data['is_ongoing'] = this.isOnGoing??false;
     data['major_id'] = this.major?.id;
     data['major_text'] = this.majorText;
     data['enrolled_date'] = this.enrolledDate.toYYYMMDDString;

@@ -35,15 +35,16 @@ class ApiClient {
   }
 
   Future<http.Response> postRequest(String url, Map<String, dynamic> body,
-      {Duration timeout}) async {
+      {Duration timeout, bool checkAccessValidity = true}) async {
     var completeUrl = _buildUrl(url);
     var headers = await _getHeaders();
     var encodedBody = json.encode(body);
 //    print(headers);
-    return _checkTokenValidity().then((value) =>
-        httClient.post(completeUrl, headers: headers, body: encodedBody));
-
-//    return httClient.post(completeUrl, headers: headers, body: encodedBody);
+    if (checkAccessValidity) {
+      return _checkTokenValidity().then((value) =>
+          httClient.post(completeUrl, headers: headers, body: encodedBody));
+    }
+   return httClient.post(completeUrl, headers: headers, body: encodedBody);
   }
 
   Future<http.Response> putRequest(String url, Map<String, dynamic> body,
