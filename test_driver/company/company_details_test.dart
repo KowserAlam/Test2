@@ -58,69 +58,6 @@ Future<void> jobDetailsTest() async {
       await Future.delayed(const Duration(seconds: 5), (){});
     });
 
-    test('Check showing deadline if not found show none', () async {
-      await expect(await driver.getText(Keys.jobDetailsDeadlineDate), '');
-      await expect(await driver.getText(Keys.jobDetailsCompanyName), jobCompanyName);
-      await Future.delayed(const Duration(seconds: 5), (){});
-    });
-
-    test('Check if clicking on company name gets user to company details of that company', () async {
-      await driver.tap(Keys.jobDetailsCompanyName);
-      await expect(await driver.getText(Keys.companyDetailsCompanyName), jobCompanyName);
-      await driver.tap(Keys.backButton);
-      await expect(await driver.getText(Keys.jobDetailsAppbarTitle), 'Job Details');
-    });
-
-    test('Check favorite button can favorite the job', () async {
-      await driver.tap(Keys.jobDetailsFavoriteButton);
-      await Future.delayed(const Duration(seconds: 3), (){});
-      //await expect(await driver.getText(Keys.checkJobFavorite), 'favorite');
-      await driver.tap(Keys.jobDetailsFavoriteButton);
-      await Future.delayed(const Duration(seconds: 3), (){});
-      //await expect(await driver.getText(Keys.checkJobFavorite), 'notFavorite');
-    });
-
-//    test('Check apply button is working', () async {
-//      //await expect(await driver.getText(Keys.applyButtonText), 'Apply');
-//      await driver.tap(Keys.jobDetailsApplyButton);
-//      await driver.tap(Keys.jobDetailsApplyYesButton);
-//      //await expect(await driver.getText(Keys.applyButtonText), 'Applied');
-//      await driver.tap(Keys.backButton);
-//      await expect(await driver.getText(Keys.jobsAppbarTitle), 'Jobs');
-//      print('4');
-//      await driver.tap(Keys.jobsSegmentAppliedText);
-//      await driver.tap(Keys.appliedTileKey);
-//      await expect(await driver.getText(Keys.jobDetailsJobTitle), jobTitle);
-//    });
-
-    test('Check scroll / pagination working', () async {
-      await driver.scrollUntilVisible(Keys.jobDetailsScrollKey, Keys.similarJobsTitle, dyScroll: -1000);
-      await expect(await driver.getText(Keys.similarJobsTitle), 'Similar Jobs');
-    });
-
-    test('Check similer jobs are showing if have', () async {
-      await driver.scrollUntilVisible(Keys.jobDetailsScrollKey, Keys.similarJobsTile, dyScroll: -20);
-      await driver.tap(Keys.similarJobsTile);
-      await expect(await driver.getText(Keys.jobDetailsJobTitle), 'Test Job Title 789');
-      await driver.tap(Keys.backButton);
-    });
-
-    test('Check favorite button can favorite the similar job', () async {
-      await driver.tap(Keys.similarJobsTileFavorite);
-      await Future.delayed(const Duration(seconds: 3), (){});
-      //await expect(await driver.getText(Keys.checkJobFavorite), 'favorite');
-      await driver.tap(Keys.similarJobsTileFavorite);
-      await Future.delayed(const Duration(seconds: 3), (){});
-      //await expect(await driver.getText(Keys.checkJobFavorite), 'notFavorite');
-    });
-
-    test('Check if publish date & deadline date is showing', () async {
-      await expect(await driver.getText(Keys.similarJobsTilePublishedDate), '');
-      await expect(await driver.getText(Keys.similarJobsTileDeadline), jobCompanyName);
-      await Future.delayed(const Duration(seconds: 5), (){});
-    });
-
-
 
   });
 }

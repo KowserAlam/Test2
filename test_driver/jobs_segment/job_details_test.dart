@@ -152,7 +152,5 @@ Future<void> jobDetailsTest() async {
     });
 
 
-
-
   });
 }
