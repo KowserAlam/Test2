@@ -216,8 +216,6 @@ class Keys{
   static final islam = find.text('Islam');
   static final personalInfoBloodGroup = find.byValueKey('personalInfoBloodGroup');
   static final bloodGroupAplus = find.text('A+');
-  static final bloodGroupBplus = find.text('B+');
-  static final bloodGroupOplus = find.text('O+');
 
   //Education
   static final educationScrollView = find.byValueKey('educationScrollView');

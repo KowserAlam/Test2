@@ -84,42 +84,45 @@ Future<void> myProfilePersonalInfoTest()async{
       await expect(await driver.getText(Keys.personalInfoTilePermanentAddress), 'Test Permanent Address');
     });
 
-    test('Try to save Nationality', () async {
+    test('Try to save Nationality and confirm successfully saved', () async {
       await driver.tap(Keys.personalInfoPenKey);
+      await Future.delayed(const Duration(seconds: 10), (){});
       await driver.scrollUntilVisible(Keys.myProfileScrollView, Keys.personalInfoNationality, dyScroll: -100);
       await driver.tap(Keys.personalInfoNationality);
-      await driver.scrollUntilVisible(Keys.bangladeshi, find.text('Bangladeshi'), dyScroll: -2);
+      await Future.delayed(const Duration(seconds: 5), (){});
+      await driver.tap(find.text('Bangladeshi'));
+      //await driver.scrollUntilVisible(Keys.bangladeshi, find.text('Bangladeshi'), dyScroll: -2);
       await driver.tap(Keys.personalInfoSaveButton);
       await expect(await driver.getText(Keys.myProfileAppbarTitle), 'My Profile');
+      await expect(await driver.getText(Keys.personalInfoTileNationality), 'Bangladeshi');
     });
 
-    test('Try to save Relegion', () async {
+    test('Try to save Relegion and confirm successfully saved', () async {
       await driver.tap(Keys.personalInfoPenKey);
+      await Future.delayed(const Duration(seconds: 10), (){});
       await driver.scrollUntilVisible(Keys.myProfileScrollView, Keys.personalInfoReligion, dyScroll: -100);
       await driver.tap(Keys.personalInfoReligion);
-      await driver.scrollUntilVisible(Keys.islam, find.text('Islam'), dyScroll: -2);
+      await Future.delayed(const Duration(seconds: 5), (){});
+      await driver.tap(find.text('Islam'));
+      //await driver.scrollUntilVisible(Keys.islam, find.text('Islam'), dyScroll: -2);
       await driver.tap(Keys.personalInfoSaveButton);
       await expect(await driver.getText(Keys.myProfileAppbarTitle), 'My Profile');
+      await expect(await driver.getText(Keys.personalInfoTileReligion), 'Islam');
     });
 
-    test('Try to save Blood Group O+', () async {
+    test('Try to save Blood Group A+ and confirm successfully saved', () async {
       await driver.tap(Keys.personalInfoPenKey);
+      await Future.delayed(const Duration(seconds: 10), (){});
       await driver.scrollUntilVisible(Keys.myProfileScrollView, Keys.personalInfoBloodGroup, dyScroll: -100);
       await driver.tap(Keys.personalInfoBloodGroup);
-      await driver.scrollUntilVisible(Keys.bloodGroupOplus, find.text('O+'), dyScroll: -2);
+      await Future.delayed(const Duration(seconds: 5), (){});
+      await driver.tap(find.text('A+'));
+      //await driver.scrollUntilVisible(Keys.bloodGroupAplus, find.text('A+'), dyScroll: -2);
       await driver.tap(Keys.personalInfoSaveButton);
       await expect(await driver.getText(Keys.myProfileAppbarTitle), 'My Profile');
+      await expect(await driver.getText(Keys.personalInfoTileBloodGroup), 'A+');
     });
-    test('Try to save Blood Group (select B+ first, confirm A+, after)', () async {
-      await driver.tap(Keys.personalInfoPenKey);
-      await driver.scrollUntilVisible(Keys.myProfileScrollView, Keys.personalInfoBloodGroup, dyScroll: -100);
-      await driver.tap(Keys.personalInfoBloodGroup);
-      await driver.scrollUntilVisible(Keys.bloodGroupBplus, find.text('B+'), dyScroll: -2);
-      await driver.tap(Keys.personalInfoBloodGroup);
-      await driver.scrollUntilVisible(Keys.bloodGroupAplus, find.text('A+'), dyScroll: -2);
-      await driver.tap(Keys.personalInfoSaveButton);
-      await expect(await driver.getText(Keys.myProfileAppbarTitle), 'My Profile');
-    });
+
 
   });
 }
