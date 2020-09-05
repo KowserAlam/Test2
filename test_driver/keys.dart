@@ -303,11 +303,22 @@ class Keys{
   static final confirmCompanyInfoPhone = find.text('01609500001');
 
   //Company List Screen
+  static final companyListAppbarTitle = find.byValueKey('companyListAppbarTitle');
   static final companyListTileKey0 = find.byValueKey('companyListTileKey0');
   static final companyListTileKey1 = find.byValueKey('companyListTileKey1');
 
   //Company Details
+  static final companyDetailsAppbarTitle = find.byValueKey('companyDetailsAppbarTitle');
+  static final companyDetailsListViewKey = find.byValueKey('companyDetailsListViewKey');
   static final companyDetailsCompanyName = find.byValueKey('companyDetailsCompanyName');
+  static final openJobsCompanyLocation0 = find.byValueKey('openJobsCompanyLocation0');
+  static final openJobsDeadline0 = find.byValueKey('openJobsDeadline0');
+  static final openJobsDeadline1 = find.byValueKey('openJobsDeadline1');
+  static final openJobsPublishedDate0 = find.byValueKey('openJobsPublishedDate0');
+  static final openJobsFavorite0 = find.byValueKey('openJobsFavorite0');
+  static final openJobsApplyButton0 = find.byValueKey('openJobsApplyButton');
+  static final companyDetailsOpenJobsKey0 = find.byValueKey('companyDetailsOpenJobsKey0');
+
 
 
 
