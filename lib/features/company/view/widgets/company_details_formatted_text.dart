@@ -31,7 +31,7 @@ class CompanyDetailsFormattedText extends StatelessWidget {
                 : description,
             style: descriptionFontStyle),
       ]),
-      style: descriptionFontStyle,
+      style: descriptionFontStyle
     );
   }
 }

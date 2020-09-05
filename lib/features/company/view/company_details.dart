@@ -570,7 +570,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(StringResources.companyDetailsText),
+        title: Text(StringResources.companyDetailsText, key: Key('companyDetailsAppbarTitle'),),
       ),
       body: ListView(
         key: Key("companyDetailsListViewKey"),
