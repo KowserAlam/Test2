@@ -11,15 +11,11 @@ import 'package:p7app/main_app/util/date_format_uitl.dart';
 class CompanyListTile extends StatefulWidget {
   final Company company;
   final Function onTap;
-  final Key companyTileKey, companyTileCompanyName, companyTileCompanyLocation;
 
   CompanyListTile({
     Key key,
     @required this.company,
     this.onTap,
-    this.companyTileCompanyLocation,
-    this.companyTileCompanyName,
-    this.companyTileKey
   }) : super(key: key);
 
   @override
@@ -84,7 +80,6 @@ class _CompanyListTileState extends State<CompanyListTile> {
                         Text(
                           widget.company.name ?? "",
                           style: titleStyle,
-                          key: ,
                         ),
 //                                                SizedBox(height: 3),
 //                                                Text(
