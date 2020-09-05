@@ -209,6 +209,7 @@ class Keys{
   static final personalInfoCurrentAddress = find.byValueKey('personalInfoCurrentAddress');
   static final personalInfoPermanentAddress = find.byValueKey('personalInfoPermanentAddress');
   static final personalInfoGender = find.byValueKey('personalInfoGender');
+  static final genderMale = find.text('Male');
   static final personalInfoGenderMale = find.byValueKey('Male');
   static final personalInfoNationality = find.byValueKey('personalInfoNationality');
   static final bangladeshi = find.text('Bangladeshi');
