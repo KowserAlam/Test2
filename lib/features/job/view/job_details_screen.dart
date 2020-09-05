@@ -23,6 +23,7 @@ import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/date_format_uitl.dart';
+import 'package:p7app/main_app/views/widgets/common_prompt_dialog.dart';
 import 'package:p7app/main_app/views/widgets/failure_widget.dart';
 import 'package:p7app/main_app/views/widgets/loader.dart';
 import 'package:p7app/method_extension.dart';
@@ -96,31 +97,49 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
     showDialog(
         context: context,
         builder: (context) {
-          return AlertDialog(
-            title: Text(StringResources.doYouWantToApplyText, key: Key('jobDetailsApplyButtonText'),),
-            actions: [
-              RawMaterialButton(
-                key: Key('jobDetailsApplyNoButton'),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: Text(StringResources.noText),
-              ),
-              RawMaterialButton(
-                key: Key('jobDetailsApplyYesButton'),
-                onPressed: () {
-                  applyForJob(jobDetails.jobId).then((value) {
-                    setState(() {
-                      jobDetails.isApplied = value;
-                    });
-                  });
-                  Navigator.pop(context);
-                },
-                child: Text(StringResources.yesText),
-              ),
-            ],
+          return CommonPromptDialog(
+            titleText: StringResources.doYouWantToApplyText,
+            onCancel: () {
+              Navigator.pop(context);
+            },
+            onAccept: () {
+              applyForJob(jobDetails.jobId).then((value) {
+                setState(() {
+                  jobDetails.isApplied = value;
+                });
+              });
+              Navigator.pop(context);
+            },
           );
         });
+    // showDialog(
+    //     context: context,
+    //     builder: (context) {
+    //       return AlertDialog(
+    //         title: Text(StringResources.doYouWantToApplyText, key: Key('jobDetailsApplyButtonText'),),
+    //         actions: [
+    //           RawMaterialButton(
+    //             key: Key('jobDetailsApplyNoButton'),
+    //             onPressed: () {
+    //               Navigator.pop(context);
+    //             },
+    //             child: Text(StringResources.noText),
+    //           ),
+    //           RawMaterialButton(
+    //             key: Key('jobDetailsApplyYesButton'),
+    //             onPressed: () {
+    //               applyForJob(jobDetails.jobId).then((value) {
+    //                 setState(() {
+    //                   jobDetails.isApplied = value;
+    //                 });
+    //               });
+    //               Navigator.pop(context);
+    //             },
+    //             child: Text(StringResources.yesText),
+    //           ),
+    //         ],
+    //       );
+    //     });
   }
 
   String skillListToString() {
@@ -656,7 +675,9 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                 ),
                 SizedBox(height: 5),
                 HtmlWidget(
-                    " <b>${StringResources.jobCompanyProfileText}</b>: ${jobDetails.companyProfile ?? ""}",textStyle: descriptionFontStyle,),
+                  " <b>${StringResources.jobCompanyProfileText}</b>: ${jobDetails.companyProfile ?? ""}",
+                  textStyle: descriptionFontStyle,
+                ),
                 // jobSummeryRichText(
                 //   StringResources.jobCompanyProfileText,
                 //   jobDetails.companyProfile,

@@ -102,7 +102,7 @@ class SignInViewModel with ChangeNotifier {
     var body = {
       JsonKeys.email: email,
       JsonKeys.password: password,
-      "device_id": "123321"
+      "device_id": "123321abc"
     };
 
     try {
