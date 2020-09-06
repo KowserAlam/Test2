@@ -29,6 +29,8 @@ Future<void> otherSettings()async{
     //test cases are started from here
     test('Getting to My Profile screen', () async {
       await driver.tap(Keys.bottomNavigationBarMyProfile);
+      await driver.tap(Keys.myProfileSettingsButton);
+      await expect(await driver.getText(Keys.settingsAppbarTitle), 'Settings');
       await Future.delayed(const Duration(seconds: 5), (){});
     });
 
