@@ -9,6 +9,7 @@ import 'dashboard/dashboardinfobox_test.dart';
 import 'jobs_segment/alljobs_test.dart';
 import 'jobs_segment/appliedjobs_test.dart';
 import 'jobs_segment/favoritejobs_test.dart';
+import 'jobs_segment/filter_test.dart';
 import 'keys.dart';
 import 'other_pages/contactus_test.dart';
 
@@ -65,6 +66,8 @@ Future<void> allTestCaseAtOnce() async {
     contactUSTest();
 
     company();
+
+    filterTest();
 
   });
 }

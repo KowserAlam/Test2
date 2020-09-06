@@ -46,12 +46,14 @@ Future<void> company() async{
 
     test('Go to company screen from dashboard', () async{
       await driver.tap(Keys.bottomNavigationBarCompany);
+      await expect(await driver.getText(Keys.companyListAppbarTitle), 'Companies');
       await Future.delayed(const Duration(seconds: 10), () {});
 
     });
 
     test('Check job details is showing - tile 1', () async {
       await driver.tap(Keys.companyListTileKey0); //to see job details is working
+      await expect(await driver.getText(Keys.companyDetailsAppbarTitle), 'Company Details');
       await Future.delayed(const Duration(seconds: 6), () {});
       await driver.tap(Keys.backButton);
     });
@@ -117,6 +119,7 @@ Future<void> company() async{
       await Future.delayed(const Duration(seconds: 6), () {});
       await driver.tap(Keys.backButton);
       //await driver.tap(Keys.backButton);
+
     });
 
 
