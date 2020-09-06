@@ -548,7 +548,7 @@ class StringResources {
   static const String clearCachedData = 'Clear Cached Data';
   static const String emailSubscriptionText = 'Email Subscription';
   static const String pushNotificationText = 'Push Notification';
-  static const String managePushNotificationText = 'Manage push notification';
+  static const String managePushNotificationText = 'Manage Push Notification';
   static const String emailSubscriptionInfo = 'Job alert email subscription';
   static const String clearCachedDataInfo =
       "Clear you all cached data eg. Images";

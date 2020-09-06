@@ -60,7 +60,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
       onTap: () {
         _navigateTo(EmailSubscriptionsScreen());
       },
-      title: Text(StringResources.emailSubscriptionText),
+      title: Text(StringResources.emailSubscriptionText, key: Key ('emailSubscriptionTextKey')),
+      key: Key ('emailSubscriptionTextKey'),
       subtitle: Text(StringResources.emailSubscriptionInfo),
     );
     var pushNotification = ListTile(
