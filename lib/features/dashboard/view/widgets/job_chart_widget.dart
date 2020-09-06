@@ -99,6 +99,7 @@ class JobChartWidget extends StatelessWidget {
                           Text(
                             StringResources.addSkillText,
                             style: TextStyle(color: primaryColor),
+                            key: Key('dashboardAddSkillButton'),
                           ),
                           Icon(
                             Icons.add,

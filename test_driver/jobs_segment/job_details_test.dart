@@ -75,7 +75,7 @@ Future<void> jobDetailsTest() async {
       await expect(await driver.getText(Keys.jobDetailsAppbarTitle), 'Job Details');
     });
 
-    test('Check favorite button can favorite the job', () async {
+    test('Check favorite button can favorite & unfavorite the job', () async {
       await driver.tap(Keys.jobDetailsFavoriteButton);
       await Future.delayed(const Duration(seconds: 3), (){});
       //await expect(await driver.getText(Keys.checkJobFavorite), 'favorite');
@@ -112,7 +112,7 @@ Future<void> jobDetailsTest() async {
     });
 
 
-    test('Check favorite button can favorite the similar job', () async {
+    test('Check favorite button can favorite & unfavorite the similar job', () async {
       await driver.tap(Keys.similarJobsTileFavorite);
       await Future.delayed(const Duration(seconds: 3), (){});
       //await expect(await driver.getText(Keys.checkJobFavorite), 'favorite');

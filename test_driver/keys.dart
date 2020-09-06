@@ -8,8 +8,8 @@ class Keys{
   static final datePikerKey = find.byValueKey('datePickerKey');
   static final applyButtonText = find.byValueKey('applyButtonText');
   static final commonPromptText = find.byValueKey('commonPromptText');
-  static final commonPromptYes = find.byValueKey('CommonPromptYes');
-  static final commonPromptNo = find.byValueKey('CommonPromptNo');
+  static final commonPromptYes = find.byValueKey('commonPromptYes');
+  static final commonPromptNo = find.byValueKey('commonPromtNo');
 
   //Sign in screen
   static final signInWelcomeText = find.byValueKey('signInWelcomeText');
@@ -41,6 +41,7 @@ class Keys{
   static final bottomNavigationBarJobs = find.byValueKey('bottomNavigationBarJobs');
   static final notificationsTextOnAppBar = find.byValueKey('notificationsText');
   static final dashboardAppbardTitle = find.byValueKey('dashboardAppbardTitle');
+  static final dashboardAddSkillButton = find.byValueKey('dashboardAddSkillButton');
 
   //Settings Screen
   static final settingsAppbarTitle = find.byValueKey('settingsAppbarTitle');
@@ -316,8 +317,9 @@ class Keys{
   static final openJobsDeadline1 = find.byValueKey('openJobsDeadline1');
   static final openJobsPublishedDate0 = find.byValueKey('openJobsPublishedDate0');
   static final openJobsFavorite0 = find.byValueKey('openJobsFavorite0');
-  static final openJobsApplyButton0 = find.byValueKey('openJobsApplyButton');
+  static final openJobsApplyButton0 = find.byValueKey('openJobsApplyButton0');
   static final companyDetailsOpenJobsKey0 = find.byValueKey('companyDetailsOpenJobsKey0');
+  static final noOpenJobs = find.byValueKey('noOpenJobs');
 
 
 

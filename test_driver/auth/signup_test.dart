@@ -133,7 +133,7 @@ signUpTest(){
       await Future.delayed(const Duration(seconds: 2), (){});
     });
 
-    test('Sign up using existing email and check replay', () async {
+    test('Sign up using proper information', () async {
       await driver.tap(signUpNameField);
       await driver.enterText('Name');
       await driver.tap(signUpEmailField);

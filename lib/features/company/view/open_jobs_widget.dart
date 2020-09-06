@@ -105,7 +105,7 @@ class _OpenJobsWidgetState extends State<OpenJobsWidget> {
             color: sectionColor,
           ),
           child: Center(
-            child: Text(StringResources.noOpenJobsFound),
+            child: Text(StringResources.noOpenJobsFound, key: Key('noOpenJobs')),
           ),
         )
             :        Padding(

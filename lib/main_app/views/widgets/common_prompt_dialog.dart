@@ -24,7 +24,7 @@ class CommonPromptDialog extends StatelessWidget {
           width: 8,
         ),
         FlatButton(
-          key: Key('CommonPromptYes'),
+          key: Key('commonPromptYes'),
           color: Theme.of(context).accentColor,
           onPressed: onAccept,
           child: Text(
