@@ -44,19 +44,24 @@ Future<void> filterTest()async{
     //test cases are started from here
 
     //remove comment when it needs to be run individually
-    test('login with registered email and password', () async {
+    /*test('login with registered email and password', () async {
       await driver.tap(Keys.signInEmail);
       await driver.enterText('mahmudoni01@gmail.com');
       await driver.tap(Keys.signInPassword);
       await driver.enterText('1234567r');
       await driver.tap(Keys.signInButton);
       await Future.delayed(const Duration(seconds: 3), () {});
-    });
+    });*/
 
     test('Click on Jobs from bottom navigation bar', () async {
       await driver.tap(Keys.bottomNavigationBarJobs);
       await Future.delayed(const Duration(seconds: 10), () {});
       await expect(await driver.getText(Keys.jobsAppbarTitle), 'Jobs');
+    });
+
+    test('Go to All Jobs on jobs Screen segment control bar', () async {
+      await driver.tap(Keys.jobsSegmentAllText);
+      await Future.delayed(const Duration(seconds: 5), () {});
     });
 
     test('Open & close filter section', () async {

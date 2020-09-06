@@ -90,6 +90,7 @@ class AuthService {
   }
 
   bool isAccessTokenValid() {
+    // _isRefreshTokenValid();
     DateTime expTime;
     String token = _instance._getAssessToken();
     if (token != null) {

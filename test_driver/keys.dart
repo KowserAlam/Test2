@@ -210,13 +210,14 @@ class Keys{
   static final personalInfoCurrentAddress = find.byValueKey('personalInfoCurrentAddress');
   static final personalInfoPermanentAddress = find.byValueKey('personalInfoPermanentAddress');
   static final personalInfoGender = find.byValueKey('personalInfoGender');
+  static final genderMale = find.text('Male');
   static final personalInfoGenderMale = find.byValueKey('Male');
   static final personalInfoNationality = find.byValueKey('personalInfoNationality');
-  static final personalInfoNationalityBangladeshi = find.byValueKey('personalInfoNationalityBangladeshi');
+  static final bangladeshi = find.text('Bangladeshi');
   static final personalInfoReligion = find.byValueKey('personalInfoReligion');
-  static final personalInfoReligionIslam = find.byValueKey('Islam');
+  static final islam = find.text('Islam');
   static final personalInfoBloodGroup = find.byValueKey('personalInfoBloodGroup');
-  static final personalInfoBloodGroupAPositive = find.byValueKey('A+');
+  static final bloodGroupAplus = find.text('A+');
 
   //Education
   static final educationScrollView = find.byValueKey('educationScrollView');
