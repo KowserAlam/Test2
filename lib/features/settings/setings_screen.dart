@@ -60,7 +60,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
       onTap: () {
         _navigateTo(EmailSubscriptionsScreen());
       },
-      title: Text(StringResources.emailSubscriptionText, key: Key ('emailSubscriptionTextKey')),
+      title: Text(StringResources.emailSubscriptionText),
+      key: Key('emailSubscriptionTextKey'),
       subtitle: Text(StringResources.emailSubscriptionInfo),
     );
     var pushNotification = ListTile(
@@ -68,6 +69,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         _navigateTo(PushNotificationManageScreen());
       },
       title: Text(StringResources.pushNotificationText),
+      key: Key('pushNotificationTextKey'),
       subtitle: Text(StringResources.managePushNotificationText),
     );
     var clearCache = ListTile(
@@ -75,6 +77,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         _showClearCacheDialog();
       },
       title: Text(StringResources.clearCachedData),
+      key: Key ('clearCachedDataKey'),
       subtitle: Text(StringResources.clearCachedDataInfo),
     );
     var licenses = ListTile(

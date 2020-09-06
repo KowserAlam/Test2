@@ -7,7 +7,7 @@ class EmailSubscriptionsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(StringResources.emailSubscriptionText),
+        title: Text(StringResources.emailSubscriptionText, key: Key('emailSubscriptionAppBarText'),),
       ),
       body: ListView(
         children: [

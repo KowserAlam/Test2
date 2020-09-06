@@ -45,6 +45,9 @@ class Keys{
   //Settings Screen
   static final settingsAppbarTitle = find.byValueKey('settingsAppbarTitle');
   static final settingsChangePassword = find.byValueKey('settingsChangePassword');
+  static final pushNotificationTextKey = find.byValueKey('pushNotificationTextKey');
+  static final emailSubscriptionTextKey = find.byValueKey('emailSubscriptionTextKey');
+  static final clearCachedDataKey = find.byValueKey('clearCachedDataKey');
   static final settingsSignOut = find.byValueKey('settingsSignOut');
 
   //Change Password

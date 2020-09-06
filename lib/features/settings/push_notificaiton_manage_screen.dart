@@ -9,7 +9,7 @@ class PushNotificationManageScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(StringResources.managePushNotificationText),
+        title: Text(StringResources.managePushNotificationText, key: Key('managePushNotificationAppBarText')),
       ),
       body: Consumer<SettingsViewModel>(
         builder: (context, vm,_) {
