@@ -95,6 +95,7 @@ class _OpenJobsWidgetState extends State<OpenJobsWidget> {
 
 
         SizedBox(
+          key: Key('openJobsSizedBox'),
             height: 2
         ),
         (_jobs.length == 0)
@@ -105,7 +106,7 @@ class _OpenJobsWidgetState extends State<OpenJobsWidget> {
             color: sectionColor,
           ),
           child: Center(
-            child: Text(StringResources.noOpenJobsFound),
+            child: Text(StringResources.noOpenJobsFound, key: Key ('noOpenJobsFoundKey'),),
           ),
         )
             :        Padding(

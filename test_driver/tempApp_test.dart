@@ -4,7 +4,7 @@ import 'package:test/test.dart';
 import 'auth/forgotpassword_test.dart';
 import 'auth/login_test.dart';
 import 'auth/signup_test.dart';
-import 'company_test.dart';
+import 'company/company_test.dart';
 import 'dashboard/dashboardinfobox_test.dart';
 import 'jobs_segment/alljobs_test.dart';
 import 'jobs_segment/appliedjobs_test.dart';
