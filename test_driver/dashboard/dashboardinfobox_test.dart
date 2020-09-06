@@ -46,6 +46,11 @@ Future dashboardInfoBoxTest() async{
     });
     //test cases are started from here
 
+    test('If no skilles added, showing skill add button', () async {
+      await expect(await driver.getText(Keys.dashboardAddSkillButton), 'Add Skill');
+      await Future.delayed(const Duration(seconds: 2), () {});
+    });
+
     test('Click on Applied button on infobox', () async {
       await driver.tap(infoboxAppliedButton);
       await Future.delayed(const Duration(seconds: 15), () {});

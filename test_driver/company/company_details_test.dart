@@ -11,7 +11,6 @@ main() {
 }
 
 Future<void> jobDetailsTest() async {
-  String jobTitle ,jobCompanyName;
 
   group('Company Details & Open Jobs Test Cases: ', () {
 
@@ -82,6 +81,44 @@ Future<void> jobDetailsTest() async {
     test('Check showing company location', () async {
       await expect(await driver.getText(Keys.openJobsCompanyLocation0), 'Dhaka, Bangladesh');
       await Future.delayed(const Duration(seconds: 2), (){});
+    });
+
+    test('Check favorite button can favorite & unfavorite the job', () async {
+      await driver.tap(Keys.openJobsFavorite0);
+      await Future.delayed(const Duration(seconds: 3), (){});
+      //await expect(await driver.getText(Keys.checkJobFavorite), 'favorite');
+      await driver.tap(Keys.openJobsFavorite0);
+      await Future.delayed(const Duration(seconds: 3), (){});
+      //await expect(await driver.getText(Keys.checkJobFavorite), 'notFavorite');
+    });
+
+    test('Check Open jobs Apply button showing popup', () async {
+      await driver.tap(Keys.openJobsApplyButton0);
+      await expect(await driver.getText(Keys.commonPromptText), 'Do you want to apply for this job?');
+    });
+
+    test('Check popup No button is working', () async {
+      await driver.tap(Keys.commonPromptNo);
+      await Future.delayed(const Duration(seconds: 2), (){});
+    });
+
+    test('Check popup Yes button is working', () async {
+      await driver.tap(Keys.openJobsApplyButton0);
+      await driver.tap(Keys.commonPromptYes);
+      await driver.tap(Keys.backButton);
+      await expect(await driver.getText(Keys.companyListAppbarTitle), 'Companies');
+      await driver.tap(Keys.bottomNavigationBarJobs);
+      await driver.tap(Keys.jobsSegmentAppliedText);
+      await driver.tap(Keys.appliedTileKey0);
+      await expect(await driver.getText(Keys.jobDetailsJobTitle), 'Additional Test job 2');
+    });
+
+    test('if dont have Open jobs showing \'No open job(s) found\'', () async {
+      await driver.tap(Keys.backButton);
+      await driver.tap(Keys.bottomNavigationBarCompany);
+      await driver.tap(Keys.companyListTileKey1);
+      await driver.scrollUntilVisible(Keys.companyDetailsListViewKey, Keys.noOpenJobs, dyScroll: -200);
+      await expect(await driver.getText(Keys.noOpenJobs), 'No Open Job(s) Found.');
     });
 
 
