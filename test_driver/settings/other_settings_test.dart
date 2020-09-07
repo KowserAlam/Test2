@@ -11,6 +11,10 @@ main(){
 }
 Future<void> otherSettings()async{
   group('Other Settings Test: ', () {
+    final backButton = find.byTooltip('Back');
+    final emailSubscriptionAppBarText = find.byValueKey('emailSubscriptionAppBarText');
+    final managePushNotificationAppBarText = find.byValueKey('managePushNotificationAppBarText');
+
 
 
     FlutterDriver driver;
@@ -27,10 +31,41 @@ Future<void> otherSettings()async{
 
 
     //test cases are started from here
-    test('Getting to My Profile screen', () async {
+    test('Getting to Settings screen', () async {
       await driver.tap(Keys.bottomNavigationBarMyProfile);
-      await Future.delayed(const Duration(seconds: 5), (){});
+      await driver.tap(Keys.myProfileSettingsButton);
+      await expect(await driver.getText(Keys.settingsAppbarTitle), 'Settings');
+      await Future.delayed(const Duration(seconds: 3), (){});
     });
+
+    test('Check push notification', () async {
+      await driver.tap(Keys.pushNotificationTextKey);
+      await expect(await driver.getText(managePushNotificationAppBarText), 'Manage push notification');
+      await driver.tap(backButton);
+    });
+
+    test('Check Email Subscription', () async {
+      await driver.tap(Keys.emailSubscriptionTextKey);
+      await expect(await driver.getText(emailSubscriptionAppBarText), 'Email subscription');
+      await driver.tap(backButton);
+    });
+
+    test('Check Clear cache data', () async {
+      await driver.tap(Keys.clearCachedDataKey);
+      await driver.tap(find.text('No'));
+      await driver.tap(Keys.clearCachedDataKey);
+      await driver.tap(find.text('Yes'));
+      await driver.tap(backButton);
+    });
+
+    test('Check Signout', () async {
+      await driver.tap(Keys.myProfileSettingsButton);
+      await driver.tap(Keys.settingsSignOut);
+      await driver.tap(find.text('No'));
+      await driver.tap(Keys.settingsSignOut);
+      await driver.tap(find.text('Yes'));
+    });
+
 
 
 

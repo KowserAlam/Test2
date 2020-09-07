@@ -12,6 +12,7 @@ import 'jobs_segment/favoritejobs_test.dart';
 import 'jobs_segment/filter_test.dart';
 import 'keys.dart';
 import 'other_pages/contactus_test.dart';
+import 'settings/other_settings_test.dart';
 
 
 main() {
@@ -68,6 +69,8 @@ Future<void> allTestCaseAtOnce() async {
     company();
 
     filterTest();
+
+    otherSettings();
 
   });
 }
