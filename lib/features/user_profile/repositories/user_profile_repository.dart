@@ -431,6 +431,7 @@ class UserProfileRepository {
 
     var data = eduInfo.toJson();
     data.addAll({"professional_id": professionalId});
+    data.removeWhere((key, value) => value == null);
     logger.i(data);
     try {
       var response = await ApiClient().postRequest(url, data);
