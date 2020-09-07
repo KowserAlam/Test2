@@ -40,7 +40,7 @@ class _FavouriteJobListScreenState extends State<FavouriteJobListScreen>
   void afterFirstLayout(BuildContext context) {
     var jobListViewModel =
         Provider.of<FavouriteJobListViewModel>(context, listen: false);
-    jobListViewModel.getJobList(isFormOnPageLoad: true);
+    jobListViewModel.getJobList();
   }
 
   @override
@@ -63,7 +63,7 @@ class _FavouriteJobListScreenState extends State<FavouriteJobListScreen>
         debugPrint("${jobList.length}");
         return Scaffold(
           appBar: AppBar(
-            title: Text(StringResources.favoriteJobsText),
+            title: Text(StringResources.favoriteJobsText, key: Key('faqAppBarTitleKey'),),
           ),
 //          drawer: AppDrawer(
 //            routeName: 'favorite_job_list',
