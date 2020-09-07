@@ -86,6 +86,7 @@ class JobListViewModel with ChangeNotifier {
   }
 
   applyFilters(JobListFilters filters) {
+    filters.searchQuery = _jobListFilters.searchQuery;
     _jobList = [];
     resetPageCounter();
     _jobListFilters.page = _pageCount;
