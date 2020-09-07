@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:p7app/features/notification/models/notification_model.dart';
 import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/util/logger_helper.dart';
 import 'package:rxdart/rxdart.dart';
@@ -7,7 +8,7 @@ import 'package:socket_io/socket_io.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class LiveUpdateService {
-  var notificationUpdate = PublishSubject<String>();
+  var notificationUpdate = PublishSubject<NotificationModel>();
 
 
   initSocket() async {
@@ -32,8 +33,9 @@ class LiveUpdateService {
       logger.i(data);
       if(data['type']=="notification"){
         logger.i("notification");
-        notificationUpdate.sink.add("notification");
-
+        var notificationMap = json.decode(data["text"]);
+        logger.i(notificationMap);
+        notificationUpdate.sink.add(NotificationModel.fromJson(notificationMap));
       }
     });
 //    socket.connect();

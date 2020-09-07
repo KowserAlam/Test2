@@ -28,7 +28,13 @@ class NotificationViewModel with ChangeNotifier {
     logger.i("listening");
     locator<LiveUpdateService>().notificationUpdate.listen((value) {
       logger.i(value);
-      refresh();
+      if(_notifications.contains(value)){
+
+       var index =  _notifications.indexWhere((element) => element.id == value.id);
+       _notifications.insert(index, value);
+      }else{
+        _notifications.insert(0, value);
+      }
     },onError: (e){
       logger.e(e);
     });
