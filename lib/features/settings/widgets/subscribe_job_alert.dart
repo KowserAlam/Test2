@@ -90,6 +90,7 @@ class _SubscribeJobAlertState extends State<SubscribeJobAlert> {
       )
           : Container(
         child: Switch(
+          key: Key('subscribeEmailNotificationToggleButton'),
           value: jobAlerSstatus,
           onChanged: (bool value) {
             _toggle();

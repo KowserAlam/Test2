@@ -63,7 +63,7 @@ class _FavouriteJobListScreenState extends State<FavouriteJobListScreen>
         debugPrint("${jobList.length}");
         return Scaffold(
           appBar: AppBar(
-            title: Text(StringResources.favoriteJobsText),
+            title: Text(StringResources.favoriteJobsText, key: Key('faqAppBarTitleKey'),),
           ),
 //          drawer: AppDrawer(
 //            routeName: 'favorite_job_list',
@@ -97,14 +97,13 @@ class _FavouriteJobListScreenState extends State<FavouriteJobListScreen>
 
                                         return JobListTileWidget(
                                           job,
-                                          applyButtonKey: Key(
-                                              'favoriteApplyKey' +
-                                                  index.toString()),
-                                          listTileKey: Key('favoriteTileKey' +
-                                              index.toString()),
-                                          favoriteButtonKey: Key(
-                                              'favoriteJobsListFavoriteButtonKey' +
-                                                  index.toString()),
+                                          index: index,
+                                          applyButtonKey: Key('favoriteApplyKey'+index.toString()),
+                                          listTileKey: Key('favoriteTileKey'+index.toString()),
+                                          deadlineKey: Key('favoriteDeadline$index'),
+                                          publishedDateKey: Key('favoritePublishedDate$index'),
+                                          companyLocationKey: Key('favoriteCompanyLocation$index'),
+                                          favoriteButtonKey: Key('favoriteJobsListFavoriteButtonKey'+index.toString()),
                                           onTap: () {
                                             Navigator.of(context).push(
                                                 MaterialPageRoute(

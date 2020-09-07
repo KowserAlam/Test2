@@ -197,7 +197,7 @@ Future<void> filterTest()async{
       await driver.tap(applyFilterButtonKey);
       //await driver.tap(Keys.allJobsTile0);
       await Future.delayed(const Duration(seconds: 6), () {});
-      jobTitle = await driver.getText(Keys.jobTileJobTitle);
+      jobTitle = await driver.getText(Keys.jobTileJobTitle0);
       await driver.tap(Keys.allJobsTile0);
       await expect(await driver.getText(Keys.jobDetailsAppbarTitle), 'Job Details');
       await expect(await driver.getText(Keys.jobDetailsJobTitle), jobTitle);

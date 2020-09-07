@@ -45,7 +45,7 @@ Future<void> jobDetailsTest() async {
       await driver.tap(Keys.jobListSearchInputFieldKey);
       await driver.enterText('Test Job Title 789');
       await driver.tap(Keys.jobListSearchButtonKey);
-      jobTitle = await driver.getText(Keys.jobTileJobTitle);
+      jobTitle = await driver.getText(Keys.jobTileJobTitle0);
       jobCompanyName = await driver.getText(Keys.jobTileCompanyName);
       await driver.tap(Keys.allJobsTile0);
       await expect(await driver.getText(Keys.jobDetailsAppbarTitle), 'Job Details');
