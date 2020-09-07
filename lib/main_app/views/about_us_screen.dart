@@ -57,7 +57,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(StringResources.aboutUsText),
+        title: Text(StringResources.aboutUsText, key: Key('aboutUsAppBarTitleKey'),),
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(8),
