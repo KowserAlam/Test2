@@ -19,7 +19,7 @@ class _FAQScreenState extends State<FAQScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(StringResources.faqText),
+        title: Text(StringResources.faqText, key: Key('faqAppBarTitleKey'),),
       ),
       body: PgeViewWidget(url: url,),
     );

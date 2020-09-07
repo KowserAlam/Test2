@@ -19,7 +19,8 @@ class PushNotificationManageScreen extends StatelessWidget {
                 title: Text(StringResources.receiveNewsNUpdatesText),
                 trailing: Switch(value: vm.isEnabledNewsPush, onChanged: (bool value) {
                   vm.togglePushNotificationNewUpdate();
-                },),
+                }
+                ,key: Key('managePushNotificationToggleButton')),
               )
             ],
           );

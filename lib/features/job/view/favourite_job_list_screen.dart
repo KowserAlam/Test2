@@ -40,7 +40,7 @@ class _FavouriteJobListScreenState extends State<FavouriteJobListScreen>
   void afterFirstLayout(BuildContext context) {
     var jobListViewModel =
         Provider.of<FavouriteJobListViewModel>(context, listen: false);
-    jobListViewModel.getJobList();
+    jobListViewModel.getJobList(isFormOnPageLoad: true);
   }
 
   @override
@@ -97,14 +97,13 @@ class _FavouriteJobListScreenState extends State<FavouriteJobListScreen>
 
                                         return JobListTileWidget(
                                           job,
-                                          applyButtonKey: Key(
-                                              'favoriteApplyKey' +
-                                                  index.toString()),
-                                          listTileKey: Key('favoriteTileKey' +
-                                              index.toString()),
-                                          favoriteButtonKey: Key(
-                                              'favoriteJobsListFavoriteButtonKey' +
-                                                  index.toString()),
+                                          index: index,
+                                          applyButtonKey: Key('favoriteApplyKey'+index.toString()),
+                                          listTileKey: Key('favoriteTileKey'+index.toString()),
+                                          deadlineKey: Key('favoriteDeadline$index'),
+                                          publishedDateKey: Key('favoritePublishedDate$index'),
+                                          companyLocationKey: Key('favoriteCompanyLocation$index'),
+                                          favoriteButtonKey: Key('favoriteJobsListFavoriteButtonKey'+index.toString()),
                                           onTap: () {
                                             Navigator.of(context).push(
                                                 MaterialPageRoute(

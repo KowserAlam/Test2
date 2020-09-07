@@ -54,7 +54,7 @@ class SettingsViewModel with ChangeNotifier {
     return DefaultCacheManager().emptyCache();
   }
 
-  togglePushNotificationNewUpdate() async {
+  togglePushNotificationNewUpdate({Key key}) async {
     isEnabledNewsPush = !isEnabledNewsPush;
     var storage = await LocalStorageService.getInstance();
    var pushService =  locator<PushNotificationService>();
