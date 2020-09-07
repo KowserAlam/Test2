@@ -35,8 +35,10 @@ enum JobListScreenType { main, applied, favorite }
 class JobDetailsScreen extends StatefulWidget {
   final String slug;
   final JobListScreenType fromJobListScreenType;
+  final Function onApply;
+  final Function onFavourite;
 
-  JobDetailsScreen({@required this.slug, this.fromJobListScreenType});
+  JobDetailsScreen({@required this.slug, this.fromJobListScreenType,this.onApply,this.onFavourite});
 
   @override
   _JobDetailsScreenState createState() => _JobDetailsScreenState();
@@ -57,30 +59,13 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
     super.initState();
   }
 
-  _refreshJobList() {
-    Provider.of<JobListViewModel>(context, listen: false).getJobList();
-    if (widget.fromJobListScreenType != null) {
-      switch (widget.fromJobListScreenType) {
-        case JobListScreenType.main:
-          break;
-        case JobListScreenType.applied:
-          Provider.of<AppliedJobListViewModel>(context, listen: false)
-              .refresh();
-          break;
-        case JobListScreenType.favorite:
-          Provider.of<FavouriteJobListViewModel>(context, listen: false)
-              .refresh();
-          break;
-      }
-    }
-  }
 
   Future<bool> addToFavorite(
     String jobId,
   ) async {
     bool res = await JobRepository().addToFavorite(jobId);
-    _refreshJobList();
-    getJobDetails(force: true);
+      if(widget.onFavourite != null)
+      widget.onFavourite();
     return res;
   }
 
@@ -88,8 +73,8 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
     String jobId,
   ) async {
     bool res = await JobRepository().applyForJob(jobId);
-    _refreshJobList();
-    getJobDetails(force: true);
+    if(widget.onApply != null)
+      widget.onApply();
     return res;
   }
 
