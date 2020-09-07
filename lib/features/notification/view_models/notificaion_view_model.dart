@@ -1,9 +1,7 @@
-import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:p7app/features/notification/models/notification_model.dart';
 import 'package:p7app/features/notification/repositories/live_update_service.dart';
 import 'package:p7app/features/notification/repositories/notification_repository.dart';
-import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/util/locator.dart';
 import 'package:p7app/main_app/util/logger_helper.dart';
@@ -29,7 +27,6 @@ class NotificationViewModel with ChangeNotifier {
     locator<LiveUpdateService>().notificationUpdate.listen((value) {
       logger.i(value);
       if(_notifications.contains(value)){
-
        var index =  _notifications.indexWhere((element) => element.id == value.id);
        _notifications.insert(index, value);
       }else{
