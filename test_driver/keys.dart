@@ -253,10 +253,12 @@ class Keys{
   static final allJobsTile0 = find.byValueKey('allJobsTileKey0');
   static final allJobsTile1 = find.byValueKey('allJobsTileKey1');
   static final allJobsTileFavoriteButton = find.byValueKey('allJobsListFavoriteButtonKey0'); //click on 1st tile
+  static final allJobsTileFavoriteButton1 = find.byValueKey('allJobsListFavoriteButtonKey1');
   static final dialogBoxNoButton = find.text('No');
   static final dialogBoxYesButton = find.text('Yes');
   static final jobTileCompanyName = find.byValueKey('jobTileCompanyName0');
-  static final jobTileJobTitle = find.byValueKey('jobTileJobTitle0');
+  static final jobTileJobTitle0 = find.byValueKey('jobTileJobTitle0');
+  static final jobTileJobTitle1 = find.byValueKey('jobTileJobTitle1');
 
 
 
@@ -268,9 +270,14 @@ class Keys{
   static final checkFavoriteUnfavoriteFromAppliedList = find.byValueKey('appliedJobsListFavoriteButtonKey0'); //click on 1st tile
 
   //Job segment - Favorite jobs
-  static final clickOnFirstApplyKeyOnFavoriteJobs = find.byValueKey('favoriteApplyKey0');
+  static final favoriteJobsApplyButton = find.byValueKey('favoriteApplyKey0');
+  static final noFavoriteJobs = find.byValueKey('noFavoriteJobs');
+  static final favoriteDeadline0 = find.byValueKey('favoriteDeadline0');
+  static final favoriteDeadline1= find.byValueKey('favoriteDeadline1');
+  static final favoritePublishedDate = find.byValueKey('favoritePublishedDate');
+  static final favoriteCompanyLocation = find.byValueKey('favoriteCompanyLocation0');
   static final clickOnFirstTileOnFavoriteJobs = find.byValueKey('favoriteTileKey0');
-  static final checkFavoriteUnfavoriteFromFavoriteList = find.byValueKey('favoriteFavoriteButtonKey0'); //click on 1st tile
+  static final favoriteJobsFavoriteButton = find.byValueKey('favoriteFavoriteButtonKey0'); //click on 1st tile
 
   //Job Details
   static final jobDetailsScrollKey = find.byValueKey('jobDetailsScrollKey');

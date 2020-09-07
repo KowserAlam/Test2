@@ -67,12 +67,6 @@ Future<void> jobDetailsTest() async {
       await Future.delayed(const Duration(seconds: 2), (){});
     });
 
-    test('Check showing deadline if not found show none', () async {
-      await expect(await driver.getText(Keys.openJobsDeadline0), 'none');
-      await expect(await driver.getText(Keys.openJobsDeadline1), '30/08/2020');
-      await Future.delayed(const Duration(seconds: 2), (){});
-    });
-
     test('Check showing company name', () async {
       await expect(await driver.getText(Keys.jobTileCompanyName), '000000');
       await Future.delayed(const Duration(seconds: 2), (){});
