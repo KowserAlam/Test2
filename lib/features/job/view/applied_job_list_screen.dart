@@ -41,7 +41,7 @@ class _AppliedJobListScreenState extends State<AppliedJobListScreen>
   void afterFirstLayout(BuildContext context) {
     var jobListViewModel =
         Provider.of<AppliedJobListViewModel>(context, listen: false);
-    jobListViewModel.getJobList(isFormOnPageLoad: true);
+    jobListViewModel.getJobList();
   }
 
   @override
