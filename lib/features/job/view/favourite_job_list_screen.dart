@@ -97,8 +97,12 @@ class _FavouriteJobListScreenState extends State<FavouriteJobListScreen>
 
                                         return JobListTileWidget(
                                           job,
+                                          index: index,
                                           applyButtonKey: Key('favoriteApplyKey'+index.toString()),
                                           listTileKey: Key('favoriteTileKey'+index.toString()),
+                                          deadlineKey: Key('favoriteDeadline$index'),
+                                          publishedDateKey: Key('favoritePublishedDate$index'),
+                                          companyLocationKey: Key('favoriteCompanyLocation$index'),
                                           favoriteButtonKey: Key('favoriteJobsListFavoriteButtonKey'+index.toString()),
                                           onTap: () {
                                             Navigator.of(context).push(

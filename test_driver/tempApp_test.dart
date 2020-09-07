@@ -59,7 +59,7 @@ Future<void> allTestCaseAtOnce() async {
 
     appliedJobsTest();
 
-    favoriteJobsTest();
+    //favoriteJobsTest();
 
     allJobsTest();
 
