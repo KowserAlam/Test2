@@ -162,12 +162,13 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
             Center(
                 child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: RaisedButton(
+              child: RawMaterialButton(
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                 onPressed: () {
                   Navigator.of(context).push(
                       CupertinoPageRoute(builder: (context) => SignInScreen()));
                 },
-                child: Text(StringResources.signInText),
+                child: Text(StringResources.logInButtonText),
               ),
             ))
         ],

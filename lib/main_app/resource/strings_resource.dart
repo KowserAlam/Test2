@@ -101,6 +101,7 @@ class StringResources {
   static String recentExamsText = "Recent Exams";
 
   static String viewMoreText = "View More";
+  static String viewDetailsText = "View Details";
   static String viewAllText = "View All";
 
   /// ***************** Feature Assessment ***********************
