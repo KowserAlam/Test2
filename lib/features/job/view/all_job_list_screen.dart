@@ -8,6 +8,7 @@ import 'package:p7app/features/job/view/widgets/jobs_screen_segment_control_bar.
 import 'package:p7app/features/job/view_model/job_list_filter_widget_view_model.dart';
 import 'package:p7app/features/job/view_model/job_list_view_model.dart';
 import 'package:p7app/features/settings/settings_view_model.dart';
+import 'package:p7app/main_app/auth_service/auth_view_model.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/locator.dart';
@@ -201,6 +202,7 @@ class _AllJobListScreenState extends State<AllJobListScreen>
                         children: [
                           Column(
                             children: [
+                              if(Provider.of<AuthViewModel>(context).isLoggerIn)
                               SizedBox(height: 35),
                               if (jobListViewModel.isInSearchMode)
                                 searchInputWidget,
@@ -234,6 +236,7 @@ class _AllJobListScreenState extends State<AllJobListScreen>
                               ),
                             ],
                           ),
+                          if(Provider.of<AuthViewModel>(context).isLoggerIn)
                           JobsScreenSegmentControlBar(),
                         ],
                       ),

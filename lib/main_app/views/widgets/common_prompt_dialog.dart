@@ -5,6 +5,7 @@ class CommonPromptDialog extends StatelessWidget {
   final String titleText;
   final Function onCancel;
   final Function onAccept;
+  final Widget content;
 
   @override
   Widget build(BuildContext context) {
@@ -13,6 +14,7 @@ class CommonPromptDialog extends StatelessWidget {
 
     return AlertDialog(
       title: Text(titleText, key: Key('commonPromptText'),),
+      content: content,
       actions: [
         FlatButton(
           key: Key('commonPromtNo'),
@@ -39,6 +41,7 @@ class CommonPromptDialog extends StatelessWidget {
   const CommonPromptDialog({
     @required this.titleText,
     @required this.onCancel,
+    @required this.content,
     @required this.onAccept, key,
   });
 }
