@@ -2,6 +2,7 @@ import 'package:after_layout/after_layout.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:p7app/features/auth/view/sign_in_screen.dart';
 import 'package:p7app/features/career_advice/view_models/career_advice_view_model.dart';
 import 'package:p7app/features/dashboard/view/widgets/career_advice_list_h_widget.dart';
 import 'package:p7app/features/dashboard/view/widgets/info_box_widget.dart';
@@ -17,6 +18,7 @@ import 'package:p7app/features/settings/settings_view_model.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/main_app/auth_service/auth_view_model.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
+import 'package:p7app/main_app/flavour/flavour_config.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/locator.dart';
 import 'package:p7app/main_app/views/widgets/failure_widget.dart';
@@ -42,7 +44,7 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
   @override
   void afterFirstLayout(BuildContext context) {
     Provider.of<DashboardViewModel>(context, listen: false)
-        .getDashboardData(isFormOnPageLoad: true)
+        .getDashboardData()
         .then((value) {
       if (value == AppError.unauthorized) {
         _signOut(context);
@@ -109,51 +111,65 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          StringResources.dashBoardText,
+          isLoggedIn ? StringResources.dashBoardText : FlavorConfig.appName(),
           key: Key('dashboardAppbarTitle'),
         ),
         actions: [
-          IconButton(
-            key: Key("dashboardNotificationIcon"),
-            iconSize: 15,
-            tooltip: StringResources.notificationsText,
-            icon: Icon(FontAwesomeIcons.solidBell),
-            onPressed: () {
-              Navigator.of(context).push(CupertinoPageRoute(
-                  builder: (BuildContext context) => NotificationScreen()));
-            },
-          ),
-          PopupMenuButton<String>(
-            key: Key("dashboardPopupMenuKey"),
-            onSelected: (v) {
-              switch (v) {
-                case "Settings":
-                  {
-                    Navigator.of(context).push(
-                        CupertinoPageRoute(builder: (BuildContext context) {
-                      return SettingsScreen();
-                    }));
-                    break;
-                  }
-                case "Sign Out":
-                  {
-                    locator<SettingsViewModel>().signOut();
-                    break;
-                  }
-              }
-            },
-            icon: Icon(Icons.more_vert),
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-            itemBuilder: (BuildContext context) =>
-                List.generate(menuItems.length, (index) {
-              return PopupMenuItem(
-                value: menuItems[index],
-                key: Key(menuItems[index]),
-                child: Text(menuItems[index]),
-              );
-            }),
-          ),
+          if (isLoggedIn)
+            IconButton(
+              key: Key("dashboardNotificationIcon"),
+              iconSize: 15,
+              tooltip: StringResources.notificationsText,
+              icon: Icon(FontAwesomeIcons.solidBell),
+              onPressed: () {
+                Navigator.of(context).push(CupertinoPageRoute(
+                    builder: (BuildContext context) => NotificationScreen()));
+              },
+            ),
+          if (isLoggedIn)
+            PopupMenuButton<String>(
+              key: Key("dashboardPopupMenuKey"),
+              onSelected: (v) {
+                switch (v) {
+                  case "Settings":
+                    {
+                      Navigator.of(context).push(
+                          CupertinoPageRoute(builder: (BuildContext context) {
+                        return SettingsScreen();
+                      }));
+                      break;
+                    }
+                  case "Sign Out":
+                    {
+                      locator<SettingsViewModel>().signOut();
+                      break;
+                    }
+                }
+              },
+              icon: Icon(Icons.more_vert),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5)),
+              itemBuilder: (BuildContext context) =>
+                  List.generate(menuItems.length, (index) {
+                return PopupMenuItem(
+                  value: menuItems[index],
+                  key: Key(menuItems[index]),
+                  child: Text(menuItems[index]),
+                );
+              }),
+            ),
+          if (!isLoggedIn)
+            Center(
+                child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: RaisedButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                      CupertinoPageRoute(builder: (context) => SignInScreen()));
+                },
+                child: Text(StringResources.signInText),
+              ),
+            ))
         ],
       ),
 //      drawer: AppDrawer(

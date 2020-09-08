@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:p7app/features/auth/view/sign_in_screen.dart';
 import 'package:p7app/features/company/view/company_list_screen.dart';
 import 'package:p7app/features/dashboard/view/dash_board.dart';
 import 'package:p7app/features/job/view/jobs_screen.dart';
@@ -7,13 +9,13 @@ import 'package:p7app/features/job/view_model/job_screen_view_model.dart';
 import 'package:p7app/features/messaging/view/sender_list_screen.dart';
 import 'package:p7app/features/notification/repositories/live_update_service.dart';
 import 'package:p7app/features/user_profile/views/screens/profile_screen.dart';
+import 'package:p7app/main_app/auth_service/auth_view_model.dart';
 import 'package:p7app/main_app/flavour/flavor_banner.dart';
 import 'package:p7app/main_app/push_notification_service/push_notification_service.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/locator.dart';
 import 'package:p7app/main_app/util/token_refresh_scheduler.dart';
 import 'package:provider/provider.dart';
-
 
 class Home extends StatefulWidget {
   @override
@@ -33,11 +35,18 @@ class _HomeState extends State<Home> {
   }
 
   _setupPushNotification() {
-    locator<PushNotificationService>().initPush();
+    locator<PushNotificationService>().fcmSubscribeNews();
+    Future.delayed(Duration.zero).then((value) {
+      var authVM = Provider.of<AuthViewModel>(context,listen: false);
+      if (authVM.isLoggerIn) locator<PushNotificationService>().initPush();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    var authVM = Provider.of<AuthViewModel>(context);
+    bool isLoggedIn = authVM.isLoggerIn;
+
     var bottomNavBar = BottomNavigationBar(
 //        selectedItemColor: Theme.of(context).primaryColor,
 //        unselectedItemColor: Colors.grey,
@@ -179,9 +188,9 @@ class _HomeState extends State<Home> {
               JobsScreen(),
 //              AppliedJobListScreen(),
 //              FavouriteJobListScreen(),
-              CompanyListScreen(),
-              SenderListScreen(),
-              ProfileScreen()
+              isLoggedIn ? CompanyListScreen(): SignInScreen(),
+              isLoggedIn ? SenderListScreen(): SignInScreen(),
+              isLoggedIn ? ProfileScreen() : SignInScreen(),
             ],
           ),
         ),

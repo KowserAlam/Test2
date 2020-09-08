@@ -43,7 +43,7 @@ class PushNotificationService {
       print(d);
     });
     if (await locator<SettingsViewModel>().getNewsPushStatus()) {
-      fcmSubscribeNews();
+
     }
 
     _firebaseMessaging.configure(

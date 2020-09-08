@@ -48,11 +48,16 @@ class AuthService {
 
   Future<bool> saveUser(Map<String, dynamic> data) {
     var encodedData = json.encode(data);
-    return _localStorageService.saveString(JsonKeys.user, encodedData);
+    return _localStorageService.saveString(JsonKeys.user, encodedData).then((value){
+      getUser();
+      return value;
+    });
   }
 
   Future<bool> removeUser() {
     _instance = AuthService();
+    // update auth status in auth view model !
+    locator<AuthViewModel>().user = null;
     return _localStorageService.remove(JsonKeys.user);
   }
 

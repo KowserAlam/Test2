@@ -16,9 +16,7 @@ void main() async {
       color: Colors.deepPurpleAccent,
       values: FlavorValues(baseUrl: kBaseUrDev));
   runApp(
-    RestartWidget(
-      child: P7App(),
-    ),
+    P7App(),
   );
 }
  

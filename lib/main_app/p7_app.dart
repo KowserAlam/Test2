@@ -25,6 +25,7 @@ import 'package:p7app/main_app/flavour/flavour_config.dart';
 import 'package:p7app/main_app/root.dart';
 import 'package:p7app/main_app/util/common_serviec_rule.dart';
 import 'package:p7app/main_app/util/locator.dart';
+import 'package:p7app/main_app/views/widgets/restart_widget.dart';
 import 'package:provider/provider.dart';
 
 class P7App extends StatelessWidget {
@@ -34,8 +35,15 @@ class P7App extends StatelessWidget {
 
   P7App({this.isEnabledDevicePreview = false});
 
+
+
   @override
   Widget build(BuildContext context) {
+    var locators = [
+      ChangeNotifierProvider(create: (context) => locator<SettingsViewModel>()),
+      ChangeNotifierProvider(create: (context) => locator<AuthViewModel>()),
+    ];
+
     var providers = [
       ChangeNotifierProvider(create: (context) => SignInViewModel()),
       ChangeNotifierProvider(create: (context) => SignUpViewModel()),
@@ -51,31 +59,37 @@ class P7App extends StatelessWidget {
       ChangeNotifierProvider(create: (context) => PasswordChangeViewModel()),
       ChangeNotifierProvider(create: (context) => DashboardViewModel()),
       ChangeNotifierProvider(create: (context) => CareerAdviceViewModel()),
-      ChangeNotifierProvider(create: (context) => locator<SettingsViewModel>()),
       ChangeNotifierProvider(create: (context) => NotificationViewModel()),
       ChangeNotifierProvider(
           create: (context) => MessageSenderListScreenViewModel()),
       ChangeNotifierProvider(create: (context) => JobScreenViewModel()),
-      ChangeNotifierProvider(create: (context) => locator<AuthViewModel>()),
     ];
     var appName = FlavorConfig.appName();
 
     return MultiProvider(
-      providers: providers,
-      child: MaterialApp(
-        navigatorObservers: [
-          BotToastNavigatorObserver(),
-          FirebaseAnalyticsObserver(analytics: analytics),
-        ],
-        builder: BotToastInit(),
-        debugShowCheckedModeBanner: false,
-        title: appName,
+      providers: locators,
+      child: Consumer<AuthViewModel>(
+        builder: (context,vm,child){
+          return MultiProvider(
+            key: Key(vm.user?.userId??""),
+            providers: providers,
+            child: MaterialApp(
+              navigatorObservers: [
+                BotToastNavigatorObserver(),
+                FirebaseAnalyticsObserver(analytics: analytics),
+              ],
+              builder: BotToastInit(),
+              debugShowCheckedModeBanner: false,
+              title: appName,
 //        darkTheme: AppTheme.darkTheme,
-        theme: AppTheme.lightTheme.copyWith(
-          textTheme: GoogleFonts.robotoTextTheme(Theme.of(context).textTheme),
-        ),
+              theme: AppTheme.lightTheme.copyWith(
+                textTheme: GoogleFonts.robotoTextTheme(Theme.of(context).textTheme),
+              ),
 //      darkTheme: AppTheme.darkTheme,
-        home: Root(),
+              home: Root(),
+            ),
+          );
+        },
       ),
     );
   }
