@@ -29,16 +29,19 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     TokenRefreshScheduler.getInstance();
-    _setupPushNotification();
-    locator<LiveUpdateService>().initSocket();
+    _init();
+   
     super.initState();
   }
 
-  _setupPushNotification() {
+  _init() {
     locator<PushNotificationService>().fcmSubscribeNews();
     Future.delayed(Duration.zero).then((value) {
       var authVM = Provider.of<AuthViewModel>(context,listen: false);
-      if (authVM.isLoggerIn) locator<PushNotificationService>().initPush();
+      if (authVM.isLoggerIn) {
+        locator<LiveUpdateService>().initSocket();
+        locator<PushNotificationService>().initPush();
+      }
     });
   }
 
