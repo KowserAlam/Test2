@@ -95,6 +95,7 @@ class _OpenJobsWidgetState extends State<OpenJobsWidget> {
 
 
         SizedBox(
+          key: Key ('openJobsSizedBox'),
             height: 2
         ),
         (_jobs.length == 0)

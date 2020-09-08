@@ -1,13 +1,11 @@
 import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
-import 'login_test.dart';
-import 'signup_test.dart';
 
-void main() {
+
+main(){
   forgotPasswordTest();
 }
-
-forgotPasswordTest() {
+Future<void> forgotPasswordTest()async{
   group('Forgot Password test', () {
     final passwordResetTextField = find.byValueKey('passwordResetTextField');
     final passwordResetButton = find.byValueKey('passwordResetButton');

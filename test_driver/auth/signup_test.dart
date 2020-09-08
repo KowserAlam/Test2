@@ -1,13 +1,11 @@
 import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
-import 'login_test.dart';
 
-void main() {
 
+main(){
   signUpTest();
 }
-
-signUpTest(){
+Future<void> signUpTest()async{
   group('Signup Test', () {
     final signUpNameField = find.byValueKey('signUpName');
     final signUpEmailField = find.byValueKey('signUpEmail');

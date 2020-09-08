@@ -1,8 +1,6 @@
 import 'package:flutter_driver/flutter_driver.dart';
-import 'package:p7app/main_app/views/faq_screen.dart';
 import 'package:test/test.dart';
 import '../keys.dart';
-import '../jobs_segment/appliedjobs_test.dart';
 
 
 
@@ -10,7 +8,7 @@ main(){
   dashboardInfoBoxTest();
 }
 
-Future dashboardInfoBoxTest() async{
+Future<void> dashboardInfoBoxTest() async{
   return group('Dashboard Infobox', () {
     final backButton = find.byTooltip('Back');
     final infoboxFavoriteButton = find.byValueKey('dashboardFavoriteInfoBox');
