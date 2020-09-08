@@ -22,66 +22,77 @@ class CareerAdviceListTileH extends StatelessWidget {
         elevation: 2,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(4),
-          child: Container(
-            width: 180,
-            child: Stack(
-              children: [
-                CachedNetworkImage(
-                  width: double.infinity,
-                  height: double.infinity,
-                  fit: BoxFit.cover,
-                  imageUrl: adviceModel.featuredImage ?? "",
-                  placeholder: (c, i) => Image.asset(
-                    kCareerAdvicePlaceholder,
-                    colorBlendMode: BlendMode.color,
-                    width: double.infinity,
-                    height: double.infinity,
+          child: InkWell(
+            key: Key('careerAdviceTile${(index + 1)}'),
+            onTap: () {
+              Navigator.of(context).push(CupertinoPageRoute(
+                  builder: (BuildContext context) => CareerAdviceDetailsScreen(
+                        careerAdviceModel: adviceModel,
+                      )));
+            },
+            child: Container(
+              width: 180,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  CachedNetworkImage(
+                    height: 100,
+                    width: 180,
                     fit: BoxFit.cover,
-                  ),
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            Colors.transparent,
-                            Colors.transparent,
-                            Colors.black12,
-                            Colors.black45,
-                            Colors.black87,
-                          ])),
-                ),
-                Column(
-                  children: [
-                    Spacer(),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        adviceModel.title ?? "",
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
+                    imageUrl: adviceModel.featuredImage ?? "",
+                    placeholder: (c, i) => Image.asset(
+                      kCareerAdvicePlaceholder,
+                      colorBlendMode: BlendMode.color ,
+                      height: 100,
+                      width: 180,
+                      fit: BoxFit.fitWidth,
                     ),
-                  ],
-                ),
-                Material(
-                    type: MaterialType.transparency,
-                    child: InkWell(
-                      key: Key('careerAdviceTile'+(index+1).toString()),
-                      onTap: () {
-                        Navigator.of(context).push(CupertinoPageRoute(
-                            builder: (BuildContext context) =>
-                                CareerAdviceDetailsScreen(
-                                  careerAdviceModel: adviceModel,
-                                )));
-                      },
-                      child: Center(),
-                    ))
-              ],
+                  ),
+
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 4),
+                    child: Text(
+                      adviceModel.title ?? "",
+                      style: TextStyle(
+                        // color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    child: Row(
+                      children: [
+                        Icon(Icons.person,size: 12, color: Colors.grey,),
+                        SizedBox(width: 3,),
+                        Text(
+                          adviceModel.author ?? "",
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 4),
+                    child: Text(
+                      adviceModel.shortDescription ?? "",
+                      style: TextStyle(
+                        // color: Colors.white,
+                        fontWeight: FontWeight.normal,
+                        fontSize: 12
+                      ),
+                      maxLines: 4,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
