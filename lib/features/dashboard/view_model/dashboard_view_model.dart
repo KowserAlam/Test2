@@ -5,6 +5,7 @@ import 'package:p7app/features/dashboard/models/skill_job_chart_data_model.dart'
 import 'package:p7app/features/dashboard/models/top_categories_model.dart';
 import 'package:p7app/features/dashboard/models/vital_stats_data_model.dart';
 import 'package:p7app/features/dashboard/repositories/dashboard_repository.dart';
+import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/util/common_serviec_rule.dart';
 
@@ -28,8 +29,10 @@ class DashboardViewModel with ChangeNotifier {
   double profileCompletePercent = 0;
 
   Future<AppError> getDashboardData({bool isFormOnPageLoad = false}) async {
+    bool loggedIn = await  AuthService.getInstance().then((value) => value.isAccessTokenValid());
     if (isFormOnPageLoad) {
-      bool shouldNotFetchData = CommonServiceRule.instance.shouldNotFetchData(_lastFetchTime, _infoBoxError);
+      bool shouldNotFetchData = CommonServiceRule.instance
+          .shouldNotFetchData(_lastFetchTime, _infoBoxError);
       if (shouldNotFetchData) return null;
     }
 
@@ -39,11 +42,17 @@ class DashboardViewModel with ChangeNotifier {
     _skillJobChartError = null;
     notifyListeners();
     return Future.wait([
-      _getInfoBoxData(),
-      _getISkillJobChartData(),
-      _getProfileCompleteness(),
-    ]).then((value) {
 
+      if(loggedIn)
+      _getInfoBoxData(),
+      if(loggedIn)
+      _getISkillJobChartData(),
+      if(loggedIn)
+      _getProfileCompleteness(),
+      
+      _getVitalStats(),
+      _getTopCategories(),
+    ]).then((value) {
       _lastFetchTime = DateTime.now();
       return _infoBoxError;
     });
@@ -88,7 +97,7 @@ class DashboardViewModel with ChangeNotifier {
     });
   }
 
-  Future<bool> _getVitalStats()async{
+  Future<bool> _getVitalStats() async {
     var result = await DashBoardRepository().getVitalStats();
 
     return result.fold((l) {
@@ -103,7 +112,8 @@ class DashboardViewModel with ChangeNotifier {
       return true;
     });
   }
-  Future<bool> _getTopCategories()async{
+
+  Future<bool> _getTopCategories() async {
     var result = await DashBoardRepository().getTopCategories();
 
     return result.fold((l) {
@@ -140,7 +150,9 @@ class DashboardViewModel with ChangeNotifier {
   bool get idExpandedSkillList => _idExpandedSkillList;
 
   bool get shouldShowError => _infoBoxError != null && infoBoxData == null;
-  bool get showProfileCompletePercentIndicatorWidget => profileCompletePercent != 100;
+
+  bool get showProfileCompletePercentIndicatorWidget =>
+      profileCompletePercent != 100;
 
   set idExpandedSkillList(bool value) {
     _idExpandedSkillList = value;

@@ -4,10 +4,12 @@ import 'package:jwt_decode/jwt_decode.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
 import 'package:p7app/main_app/auth_service/auth_user_model.dart';
+import 'package:p7app/main_app/auth_service/auth_view_model.dart';
 import 'package:p7app/main_app/flavour/flavour_config.dart';
 import 'package:p7app/main_app/resource/json_keys.dart';
 import 'package:p7app/main_app/util/local_storage.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
+import 'package:p7app/main_app/util/locator.dart';
 import 'package:p7app/main_app/util/logger_helper.dart';
 import 'package:p7app/main_app/util/token_refresh_scheduler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -31,10 +33,17 @@ class AuthService {
     var userMap = _localStorageService.getString(JsonKeys.user);
 //    debugPrint("UserMap: ${userMap}");
     if (userMap == null) {
+      // update auth status in auth view model !
+      locator<AuthViewModel>().user = null;
       return null;
     }
 //    return AuthUserModel.fromJson(json.decode(userMap));
-    return AuthUserModel.fromJsonLocal(json.decode(userMap));
+
+    var user = AuthUserModel.fromJsonLocal(json.decode(userMap));
+
+    // update auth status in auth view model !
+    locator<AuthViewModel>().user = user;
+    return user;
   }
 
   Future<bool> saveUser(Map<String, dynamic> data) {
@@ -101,7 +110,7 @@ class AuthService {
         var isValid = DateTime.now().isBefore(expTime);
 
         logger.i({
-          " AccessTokenExpTime":  expTime?.toString(),
+          " AccessTokenExpTime": expTime?.toString(),
           " TimeDiff": expTime.difference(DateTime.now()).inMinutes,
           "isValid": isValid,
         });
