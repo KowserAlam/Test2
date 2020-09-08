@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:p7app/main_app/api_helpers/url_launcher_helper.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
@@ -147,15 +148,54 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
     double fontAwesomeIconSize = 15;
 
     TextStyle titleStyle = TextStyle(fontWeight: FontWeight.bold,fontSize: 18);
-    Widget contactInfoItems(IconData iconData, String data){
-      return Row(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Icon(iconData, size: 15,),
-          SizedBox(width: 5,),
-          Text(data, style: TextStyle(fontSize: 13),)
-        ],
+    Widget contactInfoItems(IconData iconData, String data, Function onTap){
+      return InkWell(
+        onTap: onTap,
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              border: Border.all(color: Colors.grey[300]),
+              color: Colors.grey.shade100,
+              gradient: LinearGradient(
+                  colors: [Colors.grey[100], Colors.white],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight
+              ),
+              boxShadow: [
+                BoxShadow(
+                    color: Colors.black.withOpacity(0.075),
+                    offset: Offset(5,5),
+                    blurRadius: 10
+                ),
+                BoxShadow(
+                    color: Colors.white,
+                    offset: Offset(-5,-5),
+                    blurRadius: 10
+                )
+              ]
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(data, style: TextStyle(fontSize: 15, color: Colors.grey[700], fontWeight: FontWeight.bold),),
+              SizedBox(width: 7,),
+              Container(
+                height: 45,
+                width: 45,
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.white,
+                    border: Border.all(color: Colors.grey[600], width: 2)
+                ),
+                child: Center(
+                  child: Icon(iconData, size: 16, color: Colors.grey[600],),
+                ),
+              ),
+            ],
+          ),
+        ),
       );
     };
 
@@ -227,7 +267,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    padding: EdgeInsets.all(15),
+                    padding: EdgeInsets.all(10),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
                       gradient: AppTheme.lightLinearGradient,
@@ -237,13 +277,19 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(StringResources.contactUsContactInfoText,style: titleStyle,),
+                        Text(StringResources.contactUsContactInfoText,style: titleStyle),
                         Divider(height: 25,),
-                        contactInfoItems(Icons.pin_drop, _settingsModel.address),
+                        contactInfoItems(Icons.language, 'www.ishraak.com', (){UrlLauncherHelper.launchUrl('ishraak.com');}),
                         spaceBetweenLines,
-                        contactInfoItems(Icons.mail_outline, _settingsModel.supportEmail),
+                        contactInfoItems(Icons.email, _settingsModel.supportEmail, (){UrlLauncherHelper.sendMail(_settingsModel.supportEmail);}),
                         spaceBetweenLines,
-                        contactInfoItems(Icons.phone_in_talk, _settingsModel.phone),
+                        contactInfoItems(Icons.phone_in_talk, _settingsModel.phone, (){UrlLauncherHelper.launchDialer(_settingsModel.phone);}),
+                        SizedBox(height: 25,),
+                        Text.rich(TextSpan(children: <TextSpan>[
+                          TextSpan(text: 'Address: ', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17)),
+                          TextSpan(text: _settingsModel.address, style: TextStyle(fontSize: 17))
+                        ])),
+                        spaceBetweenLines
                       ],
                     ),
                   ),
