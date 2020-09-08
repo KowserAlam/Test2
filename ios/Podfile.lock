@@ -1,7 +1,4 @@
 PODS:
-  - connectivity (0.0.1):
-    - Flutter
-    - Reachability
   - Firebase/Analytics (6.26.0):
     - Firebase/Core
   - Firebase/Core (6.26.0):
@@ -138,7 +135,6 @@ PODS:
     - Flutter
   - PromisesObjC (1.2.10)
   - Protobuf (3.13.0)
-  - Reachability (3.2)
   - SDWebImage/Core (5.8.4)
   - SDWebImageWebPCoder (0.6.1):
     - libwebp (~> 1.0)
@@ -157,7 +153,6 @@ PODS:
     - Flutter
 
 DEPENDENCIES:
-  - connectivity (from `.symlinks/plugins/connectivity/ios`)
   - firebase_analytics (from `.symlinks/plugins/firebase_analytics/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - firebase_messaging (from `.symlinks/plugins/firebase_messaging/ios`)
@@ -196,14 +191,11 @@ SPEC REPOS:
     - nanopb
     - PromisesObjC
     - Protobuf
-    - Reachability
     - SDWebImage
     - SDWebImageWebPCoder
     - TOCropViewController
 
 EXTERNAL SOURCES:
-  connectivity:
-    :path: ".symlinks/plugins/connectivity/ios"
   firebase_analytics:
     :path: ".symlinks/plugins/firebase_analytics/ios"
   firebase_core:
@@ -238,7 +230,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/webview_flutter/ios"
 
 SPEC CHECKSUMS:
-  connectivity: c4130b2985d4ef6fd26f9702e886bd5260681467
   Firebase: 7cf5f9c67f03cb3b606d1d6535286e1080e57eb6
   firebase_analytics: 3ad65aa7be059752b2c1a6392bfafe030b4ab9fa
   firebase_core: 3134fe79d257d430f163b558caf52a10a87efe8a
@@ -269,7 +260,6 @@ SPEC CHECKSUMS:
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
   PromisesObjC: b14b1c6b68e306650688599de8a45e49fae81151
   Protobuf: 3dac39b34a08151c6d949560efe3f86134a3f748
-  Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   SDWebImage: cf6922231e95550934da2ada0f20f2becf2ceba9
   SDWebImageWebPCoder: d0dac55073088d24b2ac1b191a71a8f8d0adac21
   shared_preferences: af6bfa751691cdc24be3045c43ec037377ada40d
@@ -279,6 +269,6 @@ SPEC CHECKSUMS:
   url_launcher: 6fef411d543ceb26efce54b05a0a40bfd74cbbef
   webview_flutter: d2b4d6c66968ad042ad94cbb791f5b72b4678a96
 
-PODFILE CHECKSUM: 8f4050908692c165a4e9b8780cf2bc96c89c5ad2
+PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
 
 COCOAPODS: 1.9.1

@@ -8,6 +8,8 @@ import 'package:p7app/features/dashboard/view/widgets/info_box_widget.dart';
 import 'package:p7app/features/dashboard/view/widgets/job_chart_widget.dart';
 import 'package:p7app/features/dashboard/view/widgets/other_screens_widget.dart';
 import 'package:p7app/features/dashboard/view/widgets/profile_complete_parcent_indicatior_widget.dart';
+import 'package:p7app/features/dashboard/view/widgets/top_categories_widget.dart';
+import 'package:p7app/features/dashboard/view/widgets/vital_state_widget.dart';
 import 'package:p7app/features/dashboard/view_model/dashboard_view_model.dart';
 import 'package:p7app/features/notification/views/notification_screen.dart';
 import 'package:p7app/features/settings/setings_screen.dart';
@@ -164,8 +166,8 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
               onTapFavourite: widget.onTapFavourite,
             ),
             JobChartWidget(),
-//            TopCategoriesWidget(),
-//            VitalStateWidget(),
+           TopCategoriesWidget(),
+           VitalStateWidget(),
             SizedBox(
               height: 10,
             ),

@@ -22,7 +22,7 @@ class CompanyListRepository {
       debugPrint(res.statusCode.toString());
       if (res.statusCode == 200) {
         var decodedJson = json.decode(res.body);
-//        Logger().i(decodedJson);
+       // Logger().i(decodedJson);
         CompanyScreenDataModel data =
             CompanyScreenDataModel.fromJson(decodedJson);
         return Right(data);

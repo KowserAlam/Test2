@@ -54,6 +54,7 @@
 	<false/>
 	<key>io.flutter.embedded_views_preview</key>
 	<true/>
+	
 	<key>NSCameraUsageDescription</key>
 	<string>This app requires accessing your  Camera</string>
 	<key>NSPhotoLibraryUsageDescription</key>
