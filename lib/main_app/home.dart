@@ -53,23 +53,21 @@ class _HomeState extends State<Home> {
 
         onTap: (int index) async {
           if (currentIndex != index) {
-            var offset = 0;
-//            int quickJumpTarget;
-            if (index > currentIndex) {
-              offset = 100;
-//              quickJumpTarget = currentIndex + 1;
-            } else if (index < currentIndex) {
-//              quickJumpTarget = currentIndex - 1;
-              offset = -100;
-            }
 
-//            await _paeViewController.animateToPage(quickJumpTarget,
-//                duration: const Duration(milliseconds: 400),
-//                curve: Curves.easeInOut);
-            await _paeViewController.animateTo(
-                _paeViewController.offset + offset,
-                duration: const Duration(milliseconds: 50),
-                curve: Curves.easeInOut);
+
+            // // animation
+            // var offset = 0;
+            // if (index > currentIndex) {
+            //   offset = 100;
+            // } else if(index < currentIndex) {
+            //   offset = -100;
+            // }
+            // await _paeViewController.animateTo(
+            //     _paeViewController.offset + offset,
+            //     duration: const Duration(milliseconds: 50),
+            //     curve: Curves.easeInOut);
+
+
             _paeViewController.jumpToPage(index);
           }
 
