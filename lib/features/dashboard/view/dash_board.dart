@@ -58,8 +58,13 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
     var dbVM = Provider.of<DashboardViewModel>(context, listen: false);
     var upVM = Provider.of<UserProfileViewModel>(context, listen: false);
     var cvm = Provider.of<CareerAdviceViewModel>(context, listen: false);
-    return Future.wait(
-        [dbVM.getDashboardData(), upVM.getUserData(), cvm.refresh()]);
+    var isLoggedIn = Provider.of<AuthViewModel>(context, listen: false).isLoggerIn;
+    return Future.wait([
+      dbVM.getDashboardData(),
+      if(isLoggedIn)
+      upVM.getUserData(),
+      cvm.refresh(),
+    ]);
   }
 
   _signOut(context) {
@@ -164,7 +169,8 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
               padding: const EdgeInsets.all(8.0),
               child: RawMaterialButton(
                 key: Key("dashboardLoginButtonKey"),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20)),
                 onPressed: () {
                   Navigator.of(context).push(
                       CupertinoPageRoute(builder: (context) => SignInScreen()));
@@ -198,10 +204,8 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
                   JobChartWidget(),
                 ],
               ),
-            if (!isLoggedIn)
-            TopCategoriesWidget(),
-            if (!isLoggedIn)
-            VitalStateWidget(),
+            if (!isLoggedIn) TopCategoriesWidget(),
+            if (!isLoggedIn) VitalStateWidget(),
             SizedBox(
               height: 10,
             ),
