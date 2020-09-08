@@ -7,10 +7,10 @@ import '../keys.dart';
 
 
 main() {
-  jobDetailsTest();
+  favoriteJobsTest();
 }
 
-Future<void> jobDetailsTest() async {
+Future<void> favoriteJobsTest() async {
   String jobTitle ,jobCompanyName;
 
   group('Job Details & Similar Jobs Tests: ', () {
@@ -30,13 +30,6 @@ Future<void> jobDetailsTest() async {
 
     //test cases are started from here
     test('Getting to Favorite Jobs screen', () async {
-      await driver.tap(Keys.signInEmail);
-      await driver.enterText('kowser@ishraak.com');
-      await driver.tap(Keys.signInPassword);
-      await driver.enterText('1234567s');
-      await driver.tap(Keys.signInButton);
-      await Future.delayed(const Duration(seconds: 3), (){});
-      await driver.tap(Keys.bottomNavigationBarJobs);
       await driver.tap(Keys.jobsSegmentFavoriteText);
       await Future.delayed(const Duration(seconds: 5), (){});
     });
