@@ -30,12 +30,12 @@ class VitalStateWidget extends StatelessWidget {
 //            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               vitalStateItem(
-                  label: StringResources.openJobsText,
+                  label: StringResources.jobsText,
                   count: vitalStatsData?.openJob,
                   iconData: FontAwesomeIcons.briefcase),
               vitalStateItem(
-                  label: StringResources.professionalsText,
-                  count: vitalStatsData?.professionalCount,
+                  label: StringResources.vacanciesText,
+                  count: vitalStatsData?.numOfVacancy,
                   iconData: FontAwesomeIcons.usersCog),
             ],
           ),

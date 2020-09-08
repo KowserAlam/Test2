@@ -198,7 +198,9 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
                   JobChartWidget(),
                 ],
               ),
+            if (!isLoggedIn)
             TopCategoriesWidget(),
+            if (!isLoggedIn)
             VitalStateWidget(),
             SizedBox(
               height: 10,

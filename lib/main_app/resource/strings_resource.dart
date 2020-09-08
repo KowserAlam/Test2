@@ -192,6 +192,7 @@ class StringResources {
   static var jobLocationPrefText = "Job Location Preference";
   static var professionalSkillText = "Professional Skills";
   static var professionalsText = "Professionals";
+  static var vacanciesText = "Vacancies";
   static var projectsText = "Portfolio";
   static var certificationsText = "Certifications";
   static var hasExpiryDateText = "Has Expiry date";
@@ -603,4 +604,5 @@ class StringResources {
   static const String monthlyJobsText = "Monthly Jobs";
   static const String similarJobsText = "Similar Jobs";
   static const String openJobsText = "Open Jobs";
+
 }
