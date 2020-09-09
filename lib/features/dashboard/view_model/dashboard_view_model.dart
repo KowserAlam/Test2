@@ -5,6 +5,7 @@ import 'package:p7app/features/dashboard/models/skill_job_chart_data_model.dart'
 import 'package:p7app/features/dashboard/models/top_categories_model.dart';
 import 'package:p7app/features/dashboard/models/vital_stats_data_model.dart';
 import 'package:p7app/features/dashboard/repositories/dashboard_repository.dart';
+import 'package:p7app/features/job/models/job_list_model.dart';
 import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/util/common_serviec_rule.dart';
@@ -14,16 +15,19 @@ class DashboardViewModel with ChangeNotifier {
   AppError _skillJobChartError;
   AppError _vitalStateError;
   AppError _topCategoriesError;
+  AppError _recentJobsError;
 
   InfoBoxDataModel _infoBoxData;
   VitalStatsDataModel _vitalStatsData;
   List<SkillJobChartDataModel> _skillJobChartData = [];
   List<TopCategoriesModel> _topCategoryList = [];
+  List<JobListModel> _recentJobsList = [];
 
   bool _isLoadingInfoBoxData = false;
   bool _isLoadingSkillJobChartData = false;
   bool _isLoadingVitalState = false;
   bool _isLoadingTopCategories = false;
+  bool _isLoadingRecentJobs = false;
   bool _idExpandedSkillList = false;
   DateTime _lastFetchTime;
   double profileCompletePercent = 0;
@@ -48,6 +52,7 @@ class DashboardViewModel with ChangeNotifier {
 
       _getVitalStats(),
       _getTopCategories(),
+      _getRecentJobs()
     ]).then((value) {
       _lastFetchTime = DateTime.now();
       return _infoBoxError;
@@ -125,6 +130,22 @@ class DashboardViewModel with ChangeNotifier {
     });
   }
 
+  Future<bool> _getRecentJobs() async {
+    var result = await DashBoardRepository().getRecentJobs();
+
+    return result.fold((l) {
+      _recentJobsError = l;
+      _isLoadingRecentJobs = false;
+      notifyListeners();
+      return false;
+    }, (r) {
+      _recentJobsList = r;
+      _isLoadingRecentJobs = false;
+      notifyListeners();
+      return true;
+    });
+  }
+
   bool get shouldShowInfoBoxLoader =>
       _isLoadingInfoBoxData && (_infoBoxData == null);
 
@@ -163,7 +184,13 @@ class DashboardViewModel with ChangeNotifier {
 
   bool get isLoadingTopCategories => _isLoadingTopCategories;
 
+  bool get isLoadingRecentJobs => _isLoadingRecentJobs;
+
   List<TopCategoriesModel> get topCategoryList => _topCategoryList;
 
+  List<JobListModel> get recebtJobsList => _recentJobsList;
+
   AppError get topCategoriesError => _topCategoriesError;
+
+  AppError get recentJobsError => _recentJobsError;
 }

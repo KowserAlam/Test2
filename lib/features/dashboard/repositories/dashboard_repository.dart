@@ -8,6 +8,7 @@ import 'package:p7app/features/dashboard/models/info_box_data_model.dart';
 import 'package:p7app/features/dashboard/models/skill_job_chart_data_model.dart';
 import 'package:p7app/features/dashboard/models/top_categories_model.dart';
 import 'package:p7app/features/dashboard/models/vital_stats_data_model.dart';
+import 'package:p7app/features/job/models/job_list_model.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
@@ -109,6 +110,28 @@ class DashBoardRepository {
         Logger().i(decodedJson);
         List<TopCategoriesModel> list = [];
         decodedJson.forEach((e)=>list.add(TopCategoriesModel.fromJson(e)));
+        return Right(list);
+      } else {
+        return Left(AppError.serverError);
+      }
+    } on SocketException catch (e) {
+      print(e);
+      return Left(AppError.networkError);
+    } catch (e) {
+      print(e);
+      return Left(AppError.unknownError);
+    }
+  }
+
+  Future<Either<AppError, List<JobListModel>>> getRecentJobs() async {
+    try {
+      var res = await ApiClient().getRequest(Urls.recentJobsListUrl);
+      print(res.statusCode);
+      if (res.statusCode == 200) {
+        var decodedJson = json.decode(res.body);
+        Logger().i(decodedJson);
+        List<JobListModel> list = [];
+        decodedJson.forEach((e)=>list.add(JobListModel.fromJson(e)));
         return Right(list);
       } else {
         return Left(AppError.serverError);

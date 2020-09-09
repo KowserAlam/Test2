@@ -164,6 +164,7 @@ class StringResources {
 
   static String dashBoardText = "Dashboard";
   static String areYouSure = "Are you sure?";
+  static String recentJobsText = "Recent Jobs";
 
   /// **************** Profile *****************
 
