@@ -85,7 +85,7 @@ class DashBoardRepository {
       logger.i(res.statusCode);
       if (res.statusCode == 200) {
         var decodedJson = json.decode(res.body);
-       Logger().i(decodedJson);
+       // Logger().i(decodedJson);
         var data = VitalStatsDataModel.fromJson(decodedJson);
         return Right(data);
       } else {
@@ -106,7 +106,7 @@ class DashBoardRepository {
       logger.i(res.statusCode);
       if (res.statusCode == 200) {
         var decodedJson = json.decode(res.body);
-        Logger().i(decodedJson);
+        // Logger().i(decodedJson);
         List<TopCategoriesModel> list = [];
         decodedJson.forEach((e)=>list.add(TopCategoriesModel.fromJson(e)));
         return Right(list);

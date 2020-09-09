@@ -16,7 +16,7 @@ class LiveUpdateService {
     var token = await AuthService.getInstance()
         .then((value) => value.getUser().accessToken);
     var url = "https://iss.ishraak.com?token=$token";
-    logger.i(url);
+    // logger.i(url);
     // Dart client
     IO.Socket socket = IO.io(url, {
       'transports': ['websocket'],

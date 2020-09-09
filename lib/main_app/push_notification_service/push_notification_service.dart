@@ -28,8 +28,16 @@ class PushNotificationService {
 
 
   void fcmSubscribeNews() {
-    _firebaseMessaging.subscribeToTopic('news');
-    debugPrint("subscribeToTopic - news");
+    if(!kIsWeb)
+      if (Platform.isAndroid || Platform.isIOS) {
+        _firebaseMessaging.subscribeToTopic('news');
+        debugPrint("subscribeToTopic - news");
+      } else {
+
+        logger.e(
+            "Notification service not implemented for ${Platform.operatingSystem}!");
+      }
+
   }
 
   void fcmUnSubscribeNews() {

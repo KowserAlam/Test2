@@ -42,11 +42,13 @@ class AllJobListWidget extends StatelessWidget {
                         height: 10,
                       ),
                       RaisedButton(
+
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                           child: Text(StringResources.logInButtonText),
                           onPressed: () {
                             Navigator.of(context).push(CupertinoPageRoute(
                                 builder: (context) => SignInScreen()));
+
                           }),
                       SizedBox(
                         height: 10,

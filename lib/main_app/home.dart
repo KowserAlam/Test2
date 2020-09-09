@@ -18,6 +18,8 @@ import 'package:p7app/main_app/util/token_refresh_scheduler.dart';
 import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
+
+  Home();
   @override
   _HomeState createState() => _HomeState();
 }

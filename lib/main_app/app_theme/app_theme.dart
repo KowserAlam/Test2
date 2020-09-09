@@ -31,8 +31,8 @@ class AppTheme {
   static Color colorPrimary = Color(0xffF7E01E);
   static Color colorPrimaryDark = Color(0xffF7E01E);
   static Color colorAccent = Color(0xfff7cc1e);
-  static Color lightBG = Colors.grey[100];
-  static Color lightScaffoldColor = Colors.white;
+  static Color lightScaffoldColor = Colors.grey[100];
+  static Color lightBackgroundColorColor = Colors.white;
 
   static Color darkBG = Colors.grey[900];
   static Color darkScaffoldColor = Colors.grey[800];
@@ -68,10 +68,10 @@ class AppTheme {
     fontFamily: fontFamily,
     visualDensity: VisualDensity.adaptivePlatformDensity,
     brightness: Brightness.light,
-    backgroundColor: lightScaffoldColor,
+    backgroundColor: lightBackgroundColorColor,
     primaryColor: colorPrimary,
     accentColor: colorAccent,
-    scaffoldBackgroundColor: lightBG,
+    scaffoldBackgroundColor: lightScaffoldColor,
     buttonColor: colorPrimary,
     appBarTheme: AppBarTheme(
       brightness: Brightness.light,
