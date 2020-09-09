@@ -18,6 +18,9 @@ class UrlLauncherHelper {
     }
   }
 
+  static launchDialer(String number)async{
+    launch("tel: $number");
+  }
 
   static launchUrl(String url) async {
     debugPrint("Launching url: $url");

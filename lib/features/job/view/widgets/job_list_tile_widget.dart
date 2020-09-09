@@ -6,11 +6,13 @@ import 'package:p7app/features/job/models/job_list_model.dart';
 import 'package:p7app/features/job/models/job_model.dart';
 import 'package:p7app/main_app/app_theme/common_style.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
+import 'package:p7app/main_app/auth_service/auth_view_model.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/date_format_uitl.dart';
 import 'package:p7app/main_app/views/widgets/loader.dart';
 import 'package:p7app/method_extension.dart';
+import 'package:provider/provider.dart';
 
 import 'job_apply_button.dart';
 
@@ -20,19 +22,26 @@ class JobListTileWidget extends StatefulWidget {
   final Function onApply;
   final Function onFavorite;
   final int index;
-  final Key listTileKey, applyButtonKey, favoriteButtonKey, publishedDateKey, deadlineKey, companyLocationKey;
+  final Key listTileKey,
+      applyButtonKey,
+      favoriteButtonKey,
+      publishedDateKey,
+      deadlineKey,
+      companyLocationKey;
 
-  JobListTileWidget(this.jobModel,
-      {this.onTap,
-      this.index,
-      this.onFavorite,
-      this.onApply,
-      this.listTileKey,
-      this.applyButtonKey,
-      this.favoriteButtonKey,
-      this.deadlineKey,
-      this.publishedDateKey,
-      this.companyLocationKey,});
+  JobListTileWidget(
+    this.jobModel, {
+    this.onTap,
+    this.index,
+    this.onFavorite,
+    this.onApply,
+    this.listTileKey,
+    this.applyButtonKey,
+    this.favoriteButtonKey,
+    this.deadlineKey,
+    this.publishedDateKey,
+    this.companyLocationKey,
+  });
 
   @override
   _JobListTileWidgetState createState() => _JobListTileWidgetState();
@@ -126,14 +135,20 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
             child: Stack(
               children: [
                 Icon(
-                  isFavorite ? FontAwesomeIcons.solidHeart : FontAwesomeIcons.heart,
+                  isFavorite
+                      ? FontAwesomeIcons.solidHeart
+                      : FontAwesomeIcons.heart,
                   key: widget.favoriteButtonKey,
                   color: isFavorite ? AppTheme.orange : AppTheme.grey,
                   size: 22,
                 ),
                 Opacity(
                     opacity: 0.1,
-                    child: Text(isFavorite?'favorite':'notFavorite',key: Key('checkJobFavorite'), style: TextStyle(fontSize: 1),))
+                    child: Text(
+                      isFavorite ? 'favorite' : 'notFavorite',
+                      key: Key('checkJobFavorite'),
+                      style: TextStyle(fontSize: 1),
+                    ))
               ],
             ),
           ),
@@ -141,11 +156,18 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
       ),
     );
 
-    var applyButton = JobApplyButton(
-      applicationDeadline: widget.jobModel.applicationDeadline,
-      onPressedApply: widget.onApply,
-      isApplied: widget.jobModel.isApplied,
-      key: widget.applyButtonKey,
+    // var applyButton = JobApplyButton(
+    //   applicationDeadline: widget.jobModel.applicationDeadline,
+    //   onPressedApply: widget.onApply,
+    //   isApplied: widget.jobModel.isApplied,
+    //   key: widget.applyButtonKey,
+    // );
+    var applyButton = Material(
+      color: Theme.of(context).primaryColor,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 4,horizontal: 8),
+        child: Text(StringResources.viewDetailsText),
+      ),
     );
 //    var jobType = Row(
 //      children: <Widget>[
@@ -229,6 +251,7 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
                       ],
                     )),
                     SizedBox(width: 8),
+                    if(Provider.of<AuthViewModel>(context).isLoggerIn)
                     heartButton,
                   ],
                 ),

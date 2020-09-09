@@ -19,6 +19,7 @@ import 'package:p7app/features/job/view_model/favourite_job_list_view_model.dart
 import 'package:p7app/features/job/view_model/job_list_view_model.dart';
 import 'package:p7app/main_app/api_helpers/url_launcher_helper.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
+import 'package:p7app/main_app/auth_service/auth_view_model.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
@@ -38,7 +39,11 @@ class JobDetailsScreen extends StatefulWidget {
   final Function onApply;
   final Function onFavourite;
 
-  JobDetailsScreen({@required this.slug, this.fromJobListScreenType,this.onApply,this.onFavourite});
+  JobDetailsScreen(
+      {@required this.slug,
+      this.fromJobListScreenType,
+      this.onApply,
+      this.onFavourite});
 
   @override
   _JobDetailsScreenState createState() => _JobDetailsScreenState();
@@ -59,13 +64,11 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
     super.initState();
   }
 
-
   Future<bool> addToFavorite(
     String jobId,
   ) async {
     bool res = await JobRepository().addToFavorite(jobId);
-      if(widget.onFavourite != null)
-      widget.onFavourite();
+    if (widget.onFavourite != null) widget.onFavourite();
     return res;
   }
 
@@ -73,9 +76,25 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
     String jobId,
   ) async {
     bool res = await JobRepository().applyForJob(jobId);
-    if(widget.onApply != null)
-      widget.onApply();
+    if (widget.onApply != null) widget.onApply();
     return res;
+  }
+
+  _showLoginDialog() {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return CommonPromptDialog(
+            titleText: StringResources.signInRequiredText,
+            content: Text(StringResources.doYouWantToSingInNowText),
+            onCancel: () {
+              Navigator.pop(context);
+            },
+            onAccept: () {
+              Navigator.pop(context);
+            },
+          );
+        });
   }
 
   _showApplyDialog() {
@@ -219,7 +238,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
     TextStyle descriptionFontStyleBold =
         TextStyle(fontSize: 12, fontWeight: FontWeight.bold);
     double fontAwesomeIconSize = 15;
-
+    bool isLoggerIn = Provider.of<AuthViewModel>(context).isLoggerIn;
     Text jobSummeryRichText(String title, String description) {
       return Text.rich(
         TextSpan(children: <TextSpan>[
@@ -263,13 +282,16 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
       child: InkWell(
         borderRadius: BorderRadius.circular(20),
         onTap: () {
-          addToFavorite(jobDetails.jobId).then((value) {
-            if (value) {
-              jobDetails.isFavourite = !jobDetails.isFavourite;
-            }
+          if (isLoggerIn)
+            addToFavorite(jobDetails.jobId).then((value) {
+              if (value) {
+                jobDetails.isFavourite = !jobDetails.isFavourite;
+              }
 
-            setState(() {});
-          });
+              setState(() {});
+            });
+          else
+            _showLoginDialog();
         },
         child: Padding(
           padding: const EdgeInsets.all(5.0),
@@ -301,7 +323,10 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
       isApplied: isApplied,
       applicationDeadline: jobDetails.applicationDeadline,
       onPressedApply: () {
-        _showApplyDialog();
+        if (isLoggerIn)
+          _showApplyDialog();
+        else
+          _showLoginDialog();
       },
     );
 
@@ -364,14 +389,13 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                         key: Key('jobDetailsCompanyName'),
                       ),
                       onTap: () {
-                        jobDetails.company != null
-                            ? Navigator.push(
-                                context,
-                                CupertinoPageRoute(
-                                    builder: (context) => CompanyDetails(
-                                          company: jobDetails.company,
-                                        )))
-                            : null;
+                        if (jobDetails.company != null)
+                          Navigator.push(
+                              context,
+                              CupertinoPageRoute(
+                                  builder: (context) => CompanyDetails(
+                                        company: jobDetails.company,
+                                      )));
                       },
                     ),
                     SizedBox(height: 5),

@@ -78,7 +78,8 @@ class SettingsViewModel with ChangeNotifier {
     AuthService.getInstance().then((value) => value.removeUser()).then((value) {
       clearAllCachedData();
 //      Cache.clear();
-      locator<RestartNotifier>().restartApp();
+//       locator<RestartNotifier>().restartApp();
+//       locator.reset();
     });
   }
 }

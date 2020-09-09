@@ -85,7 +85,7 @@ class DashBoardRepository {
       print(res.statusCode);
       if (res.statusCode == 200) {
         var decodedJson = json.decode(res.body);
-//        Logger().i(decodedJson);
+       Logger().i(decodedJson);
         var data = VitalStatsDataModel.fromJson(decodedJson);
         return Right(data);
       } else {

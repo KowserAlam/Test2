@@ -14,4 +14,5 @@ void setupLocator(){
   locator.registerLazySingleton<CareerAdviceViewModel>(() => CareerAdviceViewModel());
   locator.registerLazySingleton<LiveUpdateService>(() => LiveUpdateService());
   locator.registerLazySingleton<AuthViewModel>(() => AuthViewModel());
+
 }

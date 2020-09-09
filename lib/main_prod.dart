@@ -24,9 +24,7 @@ void main() async {
     values: FlavorValues(baseUrl: kBaseUrlProd),
   );
   runApp(
-    RestartWidget(
-      child: P7App(),
-    ),
+    P7App(),
   );
 }
 

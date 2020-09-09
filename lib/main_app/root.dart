@@ -35,6 +35,8 @@ class _RootState extends State<Root> {
 
   init() async {
     var authService = await AuthService.getInstance();
+
+
 //    authService.refreshToken();
     if (authService.isAccessTokenValid()) {
       debugPrint("user: ${authService.getUser()}");
@@ -44,17 +46,28 @@ class _RootState extends State<Root> {
       if (isSuccess) {
         _naveGateToNextScreen();
       } else {
-        _navigateToLoginScreen();
+        _navigateHomeScreenAnonymously();
         authService.removeUser();
       }
     }
   }
+
+
 
   _navigateToLoginScreen() {
     Future.delayed(Duration(seconds: 1)).then((_) {
       Navigator.pushAndRemoveUntil(
           context,
           CupertinoPageRoute(builder: (context) => SignInScreen()),
+          (Route<dynamic> route) => false);
+    });
+  }
+  _navigateHomeScreenAnonymously() {
+
+    Future.delayed(Duration(seconds: 1)).then((_) {
+      Navigator.pushAndRemoveUntil(
+          context,
+          CupertinoPageRoute(builder: (context) => Home()),
           (Route<dynamic> route) => false);
     });
   }

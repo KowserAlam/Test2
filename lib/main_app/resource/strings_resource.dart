@@ -1,5 +1,6 @@
 import 'package:p7app/features/user_profile/models/reference_data.dart';
 import 'package:p7app/features/user_profile/views/screens/profile_header_edit_screen.dart';
+import 'package:p7app/main_app/flavour/flavour_config.dart';
 
 class StringResources {
   /// login screen
@@ -9,7 +10,7 @@ class StringResources {
 
   static String passwordChangeSuccessful =
       "Your password has been changed successfully";
-  static String appName = "Job Xprss";
+  static String appName = "JobXprss";
   static String appNameDev = "$appName Dev";
   static String appNameBeta = "$appName Beta";
   static String appNameQA = "$appName  QA";
@@ -100,6 +101,7 @@ class StringResources {
   static String recentExamsText = "Recent Exams";
 
   static String viewMoreText = "View More";
+  static String viewDetailsText = "View Details";
   static String viewAllText = "View All";
 
   /// ***************** Feature Assessment ***********************
@@ -190,6 +192,7 @@ class StringResources {
   static var jobLocationPrefText = "Job Location Preference";
   static var professionalSkillText = "Professional Skills";
   static var professionalsText = "Professionals";
+  static var vacanciesText = "Vacancies";
   static var projectsText = "Portfolio";
   static var certificationsText = "Certifications";
   static var hasExpiryDateText = "Has Expiry date";
@@ -253,9 +256,12 @@ class StringResources {
   //Reference Edit Screen
   static var referenceDescriptionText = "Description";
   static var referenceAppbarText = "Reference";
-  static var pleaseProvideSomeAdditionalInfoText =  "Please provide some additional information.";
-  static var itWillHelpUsSupportYouWithJobText =  "It will help us  support you with job  recommendations better suited for you. ";
+  static var pleaseProvideSomeAdditionalInfoText =
+      "Please provide some additional information.";
+  static var itWillHelpUsSupportYouWithJobText =
+      "It will help us  support you with job  recommendations better suited for you. ";
   static var membershipAppbarText = "Membership";
+
   //Membership Edit Screen
   static var areYouLookingForJobText = "Are you currently looking for a job?";
   static var membershipOrgNameText = "Organization Name";
@@ -284,8 +290,10 @@ class StringResources {
   static var blankExpiryDateWarningText = "Please insert the expiry date";
 
 //  static var dateLogicWarningText = "Issue date needs to occur before expiry date";
-  static var expireDateCanNotBeBeforeIssueDateText = "Expiry date can't be before issue date";
-  static var endDateCanNotBeBeforeIssueDateText = "End date can't be before issue date";
+  static var expireDateCanNotBeBeforeIssueDateText =
+      "Expiry date can't be before issue date";
+  static var endDateCanNotBeBeforeIssueDateText =
+      "End date can't be before issue date";
 
   //Portfolio Edit Screen
   static var titleText = "Title";
@@ -307,7 +315,8 @@ class StringResources {
   static String leavingDateText = "Leaving Date";
   static String currentlyWorkingHereText = "Currently working here";
   static String joining = "Currently working here";
-  static String leavingDateShouldBeAfterJoiningDateText = "Leaving date should occurs after joining date";
+  static String leavingDateShouldBeAfterJoiningDateText =
+      "Leaving date should occurs after joining date";
   static String joiningBeforeLeavingDateLogic =
       "Please make sure your joining date occurs before your leaving date";
 
@@ -568,6 +577,8 @@ class StringResources {
   static const String jobsOnMapText = 'Job On Map';
   static const String doYouWantToApplyText =
       'Do you want to apply for this job?';
+  static const String signInRequiredText = 'Sign In required !';
+  static const String doYouWantToSingInNowText = 'Do you want to sign in now?';
   static const String doYouWantToDeleteText = "Do You Want to delete?";
   static const String jobsFoundText = 'jobs found';
   static const String sortBy = 'Sort By';
@@ -593,4 +604,5 @@ class StringResources {
   static const String monthlyJobsText = "Monthly Jobs";
   static const String similarJobsText = "Similar Jobs";
   static const String openJobsText = "Open Jobs";
+
 }
