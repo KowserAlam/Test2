@@ -93,6 +93,7 @@ class _SimilarJobsWidgetState extends State<SimilarJobsWidget> {
           ),
         ),
         SizedBox(
+          key: Key('noSimilarJobsFound'),
           height: 2
         ),
         (_jobs.length == 0)
