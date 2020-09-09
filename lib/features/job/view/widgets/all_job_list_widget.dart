@@ -35,13 +35,14 @@ class AllJobListWidget extends StatelessWidget {
                         height: 10,
                       ),
                       Text(
-                        "You have to login to see more jobs!",
+                        StringResources.youHaveToLoginToSeeMoreJobsText,
                         style: TextStyle(fontSize: 18),
                       ),
                       SizedBox(
                         height: 10,
                       ),
                       RaisedButton(
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                           child: Text(StringResources.logInButtonText),
                           onPressed: () {
                             Navigator.of(context).push(CupertinoPageRoute(

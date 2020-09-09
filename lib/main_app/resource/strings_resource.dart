@@ -374,6 +374,7 @@ class StringResources {
   static var unauthorizedText = "Unauthorized";
   static var googleText = "Google";
   static var googleSignInText = "Sign in with Google";
+  static var youHaveToLoginToSeeMoreJobsText = "You have to login to see more jobs!";
 
   /// AddEditSkill Screen
 
