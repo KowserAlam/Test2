@@ -9,6 +9,7 @@ import 'package:p7app/features/dashboard/view/widgets/info_box_widget.dart';
 import 'package:p7app/features/dashboard/view/widgets/job_chart_widget.dart';
 import 'package:p7app/features/dashboard/view/widgets/other_screens_widget.dart';
 import 'package:p7app/features/dashboard/view/widgets/profile_complete_parcent_indicatior_widget.dart';
+import 'package:p7app/features/dashboard/view/widgets/recent_jobs_widget.dart';
 import 'package:p7app/features/dashboard/view/widgets/top_categories_widget.dart';
 import 'package:p7app/features/dashboard/view/widgets/vital_state_widget.dart';
 import 'package:p7app/features/dashboard/view_model/dashboard_view_model.dart';
@@ -21,6 +22,7 @@ import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/flavour/flavour_config.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/locator.dart';
+import 'package:p7app/main_app/util/logger_helper.dart';
 import 'package:p7app/main_app/views/widgets/failure_widget.dart';
 import 'package:provider/provider.dart';
 
@@ -205,6 +207,7 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
                 ],
               ),
             if (!isLoggedIn) TopCategoriesWidget(),
+            if(!isLoggedIn) RecentJobs(),
             if (!isLoggedIn) VitalStateWidget(),
             SizedBox(
               height: 10,
