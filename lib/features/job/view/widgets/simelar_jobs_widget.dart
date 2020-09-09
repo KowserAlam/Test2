@@ -93,7 +93,7 @@ class _SimilarJobsWidgetState extends State<SimilarJobsWidget> {
           ),
         ),
         SizedBox(
-          key: Key('noSimilarJobsFound'),
+          key: Key('noSimilarJobsFoundSizedBoxKey'),
           height: 2
         ),
         (_jobs.length == 0)
@@ -104,7 +104,7 @@ class _SimilarJobsWidgetState extends State<SimilarJobsWidget> {
                   color: sectionColor,
                 ),
                 child: Center(
-                  child: Text(StringResources.noSimilarJobsFound),
+                  child: Text(StringResources.noSimilarJobsFound, key: Key('noSimilarJobsFoundKey'),),
                 ),
               )
             : Padding(
