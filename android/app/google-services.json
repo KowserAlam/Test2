@@ -8,12 +8,88 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:282452792859:android:f7f125e3c198b03bb7cabe",
+        "android_client_info": {
+          "package_name": "com.ishraak.jobxprss"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "282452792859-dt8lb9066s89a7p0apem4q6blu9oc93d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ishraak.jobxprss",
+            "certificate_hash": "4f24057fdb51db32befc1f66eff9cfea73480fe4"
+          }
+        },
+        {
+          "client_id": "282452792859-mbt631f02lkmsiv7qpjh2js78hf4s2jb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ishraak.jobxprss",
+            "certificate_hash": "5b9806a6bdac8cb545bc8479806b60bdc28f4745"
+          }
+        },
+        {
+          "client_id": "282452792859-l38d76n00da0fqd0g4mqcufcfa7dprl1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ishraak.jobxprss",
+            "certificate_hash": "b9b4c298494352e95708df3f8fa54e2e7814565e"
+          }
+        },
+        {
+          "client_id": "282452792859-1pu8vul874uskifva0ug37iktfrk6rkj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFF0JesPkE5sLt7jumN2FOt_WN1KowK2E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "282452792859-1pu8vul874uskifva0ug37iktfrk6rkj.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "282452792859-v20eihjslfk1tn7jn83ujb0ng282dtq3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.jobxprss"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:282452792859:android:a925700933ba7c46b7cabe",
         "android_client_info": {
           "package_name": "com.ishraak.p7app"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "282452792859-rg57q8l91i64f45dkipsua5gjdj7v43k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ishraak.p7app",
+            "certificate_hash": "4f24057fdb51db32befc1f66eff9cfea73480fe4"
+          }
+        },
+        {
+          "client_id": "282452792859-60l4r0nbvl0ffp42tt0u9hhela824pae.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ishraak.p7app",
+            "certificate_hash": "10386985b4f68da88c697310043a554388a96937"
+          }
+        },
         {
           "client_id": "282452792859-gj84eqeb45g161rbeo8tlaakdpsdn7rt.apps.googleusercontent.com",
           "client_type": 1,
@@ -38,6 +114,13 @@
             {
               "client_id": "282452792859-1pu8vul874uskifva0ug37iktfrk6rkj.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "282452792859-v20eihjslfk1tn7jn83ujb0ng282dtq3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.jobxprss"
+              }
             }
           ]
         }
