@@ -1,3 +1,4 @@
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p7app/features/auth/view/password_reset_screens.dart';
 import 'package:p7app/features/auth/view/sign_up_screen.dart';
 import 'package:p7app/features/auth/view/widgets/custom_text_field_rounded.dart';
@@ -375,7 +376,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 width: 120,
                 padding: EdgeInsets.symmetric(vertical: 10),
                 decoration: BoxDecoration(
-                  color: Color.fromARGB(0xFF, 243, 80, 29),
+                  color: Color(0XffEA4335),
                   borderRadius: BorderRadius.circular(40),
                   // borderRadius: BorderRadius.only(
                   //   topRight: Radius.circular(40),
@@ -387,19 +388,12 @@ class _SignInScreenState extends State<SignInScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
-                      ClipRRect(
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(40),
-                              bottomLeft: Radius.circular(40)),
-                          child: Image.asset(
-                            'assets/images/gmail_red_icon.png',
-                            fit: BoxFit.cover,
-                          )),
+                      Icon(FontAwesomeIcons.google,size: 14,color: Colors.white,),
                       SizedBox(
                         width: 5,
                       ),
                       Text(
-                        'Google',
+                        StringResources.googleText,
                         style: TextStyle(color: Colors.white),
                       )
                     ],
