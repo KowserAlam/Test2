@@ -41,7 +41,7 @@ class CommonPromptDialog extends StatelessWidget {
   const CommonPromptDialog({
     @required this.titleText,
     @required this.onCancel,
-    @required this.content,
+ this.content,
     @required this.onAccept, key,
   });
 }

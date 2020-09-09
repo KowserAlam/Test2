@@ -203,7 +203,7 @@ class _SignInScreenState extends State<SignInScreen> {
               '  ${StringResources.signupText}',
               key: Key('signUpText'),
               style: TextStyle(
-                  color: Theme.of(context).primaryColor,
+                  color: Theme.of(context).accentColor,
                   fontWeight: FontWeight.bold,
                   fontSize: 15),
             ),
@@ -461,6 +461,10 @@ class _SignInScreenState extends State<SignInScreen> {
 
     return FlavorBanner(
       child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).backgroundColor,
+          elevation: 0,
+        ),
         backgroundColor: Theme.of(context).backgroundColor,
         key: _scaffoldKey,
         body: SafeArea(
@@ -473,7 +477,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    SizedBox(height: 0),
+                    // SizedBox(height: 0),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,

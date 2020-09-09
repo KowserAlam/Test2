@@ -72,7 +72,7 @@ class AppTheme {
     primaryColor: colorPrimary,
     accentColor: colorAccent,
     scaffoldBackgroundColor: lightBG,
-    buttonColor: colorAccent,
+    buttonColor: colorPrimary,
     appBarTheme: AppBarTheme(
       brightness: Brightness.light,
       textTheme: GoogleFonts.robotoTextTheme().copyWith(

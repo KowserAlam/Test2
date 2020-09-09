@@ -49,7 +49,9 @@ class _AllJobListScreenState extends State<AllJobListScreen>
     }
 
     _scrollController.addListener(() {
-      if (_scrollController.position.pixels ==
+      var isLoggedIn =
+          Provider.of<AuthViewModel>(context, listen: false).isLoggerIn;
+      if (isLoggedIn) if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
         jobListViewModel.getMoreData();
       }
@@ -60,47 +62,6 @@ class _AllJobListScreenState extends State<AllJobListScreen>
   void dispose() {
     _scrollController.dispose();
     super.dispose();
-  }
-
-  Widget errorWidget() {
-    var jobListViewModel =
-        Provider.of<JobListViewModel>(context, listen: false);
-    switch (jobListViewModel.appError) {
-      case AppError.serverError:
-        return FailureFullScreenWidget(
-          errorMessage: StringResources.unableToLoadData,
-          onTap: () {
-            return Provider.of<JobListViewModel>(context, listen: false)
-                .refresh();
-          },
-        );
-
-      case AppError.networkError:
-        return FailureFullScreenWidget(
-          errorMessage: StringResources.unableToReachServerMessage,
-          onTap: () {
-            return Provider.of<JobListViewModel>(context, listen: false)
-                .refresh();
-          },
-        );
-
-      case AppError.unauthorized:
-        return FailureFullScreenWidget(
-          errorMessage: StringResources.somethingIsWrong,
-          onTap: () {
-            return locator<SettingsViewModel>().signOut();
-          },
-        );
-
-      default:
-        return FailureFullScreenWidget(
-          errorMessage: StringResources.somethingIsWrong,
-          onTap: () {
-            return Provider.of<JobListViewModel>(context, listen: false)
-                .refresh();
-          },
-        );
-    }
   }
 
   @override
@@ -202,8 +163,9 @@ class _AllJobListScreenState extends State<AllJobListScreen>
                         children: [
                           Column(
                             children: [
-                              if(Provider.of<AuthViewModel>(context).isLoggerIn)
-                              SizedBox(height: 35),
+                              if (Provider.of<AuthViewModel>(context)
+                                  .isLoggerIn)
+                                SizedBox(height: 35),
                               if (jobListViewModel.isInSearchMode)
                                 searchInputWidget,
                               if (jobListViewModel.isFilterApplied)
@@ -236,12 +198,53 @@ class _AllJobListScreenState extends State<AllJobListScreen>
                               ),
                             ],
                           ),
-                          if(Provider.of<AuthViewModel>(context).isLoggerIn)
-                          JobsScreenSegmentControlBar(),
+                          if (Provider.of<AuthViewModel>(context).isLoggerIn)
+                            JobsScreenSegmentControlBar(),
                         ],
                       ),
               ),
       ),
     );
+  }
+
+  Widget errorWidget() {
+    var jobListViewModel =
+        Provider.of<JobListViewModel>(context, listen: false);
+    switch (jobListViewModel.appError) {
+      case AppError.serverError:
+        return FailureFullScreenWidget(
+          errorMessage: StringResources.unableToLoadData,
+          onTap: () {
+            return Provider.of<JobListViewModel>(context, listen: false)
+                .refresh();
+          },
+        );
+
+      case AppError.networkError:
+        return FailureFullScreenWidget(
+          errorMessage: StringResources.unableToReachServerMessage,
+          onTap: () {
+            return Provider.of<JobListViewModel>(context, listen: false)
+                .refresh();
+          },
+        );
+
+      case AppError.unauthorized:
+        return FailureFullScreenWidget(
+          errorMessage: StringResources.somethingIsWrong,
+          onTap: () {
+            return locator<SettingsViewModel>().signOut();
+          },
+        );
+
+      default:
+        return FailureFullScreenWidget(
+          errorMessage: StringResources.somethingIsWrong,
+          onTap: () {
+            return Provider.of<JobListViewModel>(context, listen: false)
+                .refresh();
+          },
+        );
+    }
   }
 }

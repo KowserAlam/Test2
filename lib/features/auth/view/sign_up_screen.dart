@@ -83,7 +83,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     final topPadding = AppBar().preferredSize.height;
     final primaryColor = Theme.of(context).primaryColor;
 
-
+    var spaceBetweenFields = SizedBox(height: 10,);
 
     Widget logo = Container(
       height: 60,
@@ -128,7 +128,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           );
         });
 
-    var spaceBetweenFields = SizedBox(height: 20,);
+
 
      Widget signUpFrom = Consumer<SignUpViewModel>(
       builder: (context, signUpViewModel, _) {
@@ -139,7 +139,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             children: <Widget>[
 
               //Name
-              SizedBox(height: 25),
+              spaceBetweenFields,
               Consumer<SignUpViewModel>(
                 builder: (context, signUpModel, _) {
                   return CustomTextFieldRounded(
@@ -315,19 +315,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
       ],
     );
 
-    Widget _registerNewAccountText(){
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Text('Sign up', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),),
-          SizedBox(height: 10,),
-//          Text('Login to your existing account', style: TextStyle(fontSize: 15, color: Colors.grey[400]),)
-        ],
-      );
+    Widget _signupTitle(){
+      return Text('Sign up', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),);
     }
 
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        elevation: 0,
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Center(
@@ -337,13 +333,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  SizedBox(height: topPadding),
+                  // SizedBox(height: topPadding),
                   logo,
-                  SizedBox(height: 20),
-                  _registerNewAccountText(),
+                  spaceBetweenFields,
+                  _signupTitle(),
                   signUpFrom,
 //              acceptTermAndCondition,
-                  SizedBox(height: 30),
+                  spaceBetweenFields,
                   registerButton,
                   SizedBox(height: 30),
                   backToSignIn,

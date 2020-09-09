@@ -16,6 +16,7 @@ import 'package:p7app/main_app/api_helpers/urls.dart';
 import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
+import 'package:p7app/main_app/util/logger_helper.dart';
 
 /// http://dev.ishraak.com/api/job_list/?page=1&q=job&location=&category=
 /// &location_from_homepage=&keyword_from_homepage=&skill=&salaryMin=
@@ -55,8 +56,8 @@ class JobRepository {
 
     try {
       var response = await ApiClient().getRequest(url);
-//      debugPrint(url);
-      Logger().i(response.statusCode);
+     logger.i(url);
+      logger.i(response.statusCode);
 //      print(response.body);
       if (response.statusCode == 200) {
         var decodedJson = json.decode(utf8.decode(response.bodyBytes));
