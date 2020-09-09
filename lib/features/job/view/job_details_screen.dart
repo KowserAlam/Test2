@@ -1,4 +1,4 @@
- import 'dart:math';
+import 'dart:math';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dartz/dartz.dart' as dartZ;
@@ -35,8 +35,10 @@ enum JobListScreenType { main, applied, favorite }
 class JobDetailsScreen extends StatefulWidget {
   final String slug;
   final JobListScreenType fromJobListScreenType;
+  final Function onApply;
+  final Function onFavourite;
 
-  JobDetailsScreen({@required this.slug, this.fromJobListScreenType});
+  JobDetailsScreen({@required this.slug, this.fromJobListScreenType,this.onApply,this.onFavourite});
 
   @override
   _JobDetailsScreenState createState() => _JobDetailsScreenState();
@@ -44,7 +46,8 @@ class JobDetailsScreen extends StatefulWidget {
 
 class _JobDetailsScreenState extends State<JobDetailsScreen> {
   JobModel jobDetails;
-  var salaryFormat = NumberFormat.simpleCurrency(decimalDigits: 0,name: "");
+  var salaryFormat = NumberFormat.simpleCurrency(decimalDigits: 0, name: "");
+
 //  Company jobCompany;
   bool _isBusy = false;
   AppError _appError;
@@ -56,29 +59,13 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
     super.initState();
   }
 
-  _refreshJobList() {
-    Provider.of<JobListViewModel>(context, listen: false).getJobList();
-    if (widget.fromJobListScreenType != null) {
-      switch (widget.fromJobListScreenType) {
-        case JobListScreenType.main:
-          break;
-        case JobListScreenType.applied:
-          Provider.of<AppliedJobListViewModel>(context, listen: false)
-              .refresh();
-          break;
-        case JobListScreenType.favorite:
-          Provider.of<FavouriteJobListViewModel>(context, listen: false)
-              .refresh();
-          break;
-      }
-    }
-  }
 
   Future<bool> addToFavorite(
     String jobId,
   ) async {
     bool res = await JobRepository().addToFavorite(jobId);
-    _refreshJobList();
+      if(widget.onFavourite != null)
+      widget.onFavourite();
     return res;
   }
 
@@ -86,7 +73,8 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
     String jobId,
   ) async {
     bool res = await JobRepository().applyForJob(jobId);
-    _refreshJobList();
+    if(widget.onApply != null)
+      widget.onApply();
     return res;
   }
 
@@ -94,39 +82,49 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
     showDialog(
         context: context,
         builder: (context) {
-          return CommonPromptDialog(onCancel: (){
-            Navigator.pop(context);
-          }, onAccept: (){
-            applyForJob(jobDetails.jobId).then((value) {
-              setState(() {
-                jobDetails.isApplied = value;
+          return CommonPromptDialog(
+            titleText: StringResources.doYouWantToApplyText,
+            onCancel: () {
+              Navigator.pop(context);
+            },
+            onAccept: () {
+              applyForJob(jobDetails.jobId).then((value) {
+                setState(() {
+                  jobDetails.isApplied = value;
+                });
               });
-            });
-            Navigator.pop(context);
-          }, titleText: StringResources.doYouWantToApplyText,);
-          // return AlertDialog(
-          //   title: Text(StringResources.doYouWantToApplyText),
-          //   actions: [
-          //     RawMaterialButton(
-          //       onPressed: () {
-          //         Navigator.pop(context);
-          //       },
-          //       child: Text(StringResources.noText),
-          //     ),
-          //     RawMaterialButton(
-          //       onPressed: () {
-          //         applyForJob(jobDetails.jobId).then((value) {
-          //           setState(() {
-          //             jobDetails.isApplied = value;
-          //           });
-          //         });
-          //         Navigator.pop(context);
-          //       },
-          //       child: Text(StringResources.yesText),
-          //     ),
-          //   ],
-          // );
+              Navigator.pop(context);
+            },
+          );
         });
+    // showDialog(
+    //     context: context,
+    //     builder: (context) {
+    //       return AlertDialog(
+    //         title: Text(StringResources.doYouWantToApplyText, key: Key('jobDetailsApplyButtonText'),),
+    //         actions: [
+    //           RawMaterialButton(
+    //             key: Key('jobDetailsApplyNoButton'),
+    //             onPressed: () {
+    //               Navigator.pop(context);
+    //             },
+    //             child: Text(StringResources.noText),
+    //           ),
+    //           RawMaterialButton(
+    //             key: Key('jobDetailsApplyYesButton'),
+    //             onPressed: () {
+    //               applyForJob(jobDetails.jobId).then((value) {
+    //                 setState(() {
+    //                   jobDetails.isApplied = value;
+    //                 });
+    //               });
+    //               Navigator.pop(context);
+    //             },
+    //             child: Text(StringResources.yesText),
+    //           ),
+    //         ],
+    //       );
+    //     });
   }
 
   String skillListToString() {
@@ -278,14 +276,20 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
           child: Stack(
             children: [
               Icon(
-                isFavorite ? FontAwesomeIcons.solidHeart : FontAwesomeIcons.heart,
+                isFavorite
+                    ? FontAwesomeIcons.solidHeart
+                    : FontAwesomeIcons.heart,
                 color: isFavorite ? AppTheme.orange : AppTheme.grey,
                 size: 22,
                 key: Key('jobDetailsFavoriteButton'),
               ),
               Opacity(
                   opacity: 0.1,
-                  child: Text(isFavorite?'favorite':'notFavorite',key: Key('checkJobFavorite'), style: TextStyle(fontSize: 1),))
+                  child: Text(
+                    isFavorite ? 'favorite' : 'notFavorite',
+                    key: Key('checkJobFavorite'),
+                    style: TextStyle(fontSize: 1),
+                  ))
             ],
           ),
         ),
@@ -655,10 +659,14 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                   ],
                 ),
                 SizedBox(height: 5),
-                jobSummeryRichText(
-                  StringResources.jobCompanyProfileText,
-                  jobDetails.companyProfile,
+                HtmlWidget(
+                  " <b>${StringResources.jobCompanyProfileText}</b>: ${jobDetails.companyProfile ?? ""}",
+                  textStyle: descriptionFontStyle,
                 ),
+                // jobSummeryRichText(
+                //   StringResources.jobCompanyProfileText,
+                //   jobDetails.companyProfile,
+                // ),
 //                Row(
 //                  mainAxisSize: MainAxisSize.max,
 //                  mainAxisAlignment: MainAxisAlignment.start,
@@ -754,7 +762,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                         jobSummeryRichText(
                             StringResources.vacancy,
                             jobDetails.vacancy != null
-                                ? "${jobDetails.vacancy == 0 ?StringResources.notSpecifiedText:jobDetails.vacancy}"
+                                ? "${jobDetails.vacancy == 0 ? StringResources.notSpecifiedText : jobDetails.vacancy}"
                                 : StringResources.noneText)
                       ],
                     ),
@@ -831,7 +839,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
           );
 
     bool hideSalary = (jobDetails.salary == null &&
-        jobDetails.salaryMin== null &&
+        jobDetails.salaryMin == null &&
         jobDetails.salaryMax == null);
     var salary = hideSalary
         ? SizedBox()
@@ -858,13 +866,13 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                   height: 5,
                 ),
 
-                (jobDetails.salaryMin == null ||
-                    jobDetails.salaryMax == null)?
-                jobSummeryRichText(
-                  StringResources.currentOffer,
-                  StringResources.negotiableText,
-                ):jobSummeryRichText(StringResources.salaryRangeText, "${salaryFormat.format(jobDetails.salaryMin)} - ${salaryFormat.format(jobDetails.salaryMax)} "),
-
+                (jobDetails.salaryMin == null || jobDetails.salaryMax == null)
+                    ? jobSummeryRichText(
+                        StringResources.currentOffer,
+                        StringResources.negotiableText,
+                      )
+                    : jobSummeryRichText(StringResources.salaryRangeText,
+                        "${salaryFormat.format(jobDetails.salaryMin)} - ${salaryFormat.format(jobDetails.salaryMax)} "),
 
 //                if (jobDetails.salaryMin.isEmptyOrNull &&
 //                    jobDetails.salaryMax.isEmptyOrNull)
@@ -986,6 +994,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
               jobDetails.postDate != null
                   ? DateFormatUtil.formatDate(jobDetails.postDate)
                   : StringResources.noneText,
+              key: Key('jobDetailsPublishDate'),
               style: topSideDescriptionFontStyle,
             ),
           ],
@@ -1005,6 +1014,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
               jobDetails.applicationDeadline != null
                   ? DateFormatUtil.formatDate(jobDetails.applicationDeadline)
                   : StringResources.noneText,
+              key: Key('jobDetailsDeadlineDate'),
               style: topSideDescriptionFontStyle,
             ),
           ],
@@ -1040,7 +1050,10 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
         ),
         centerTitle: true,
         actions: [
-          ShareOnSocialMediaWidget(jobDetails,key: Key("shareButtonKey"),),
+          ShareOnSocialMediaWidget(
+            jobDetails,
+            key: Key("shareButtonKey"),
+          ),
         ],
       ),
       body: RefreshIndicator(

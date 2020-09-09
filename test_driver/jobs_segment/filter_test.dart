@@ -7,6 +7,7 @@ main(){
   filterTest();
 }
 Future<void> filterTest()async{
+  String jobTitle ;
 
   group('Filter Test :', () {
 
@@ -43,19 +44,24 @@ Future<void> filterTest()async{
     //test cases are started from here
 
     //remove comment when it needs to be run individually
-    test('login with registered email and password', () async {
+    /*test('login with registered email and password', () async {
       await driver.tap(Keys.signInEmail);
       await driver.enterText('mahmudoni01@gmail.com');
       await driver.tap(Keys.signInPassword);
       await driver.enterText('1234567r');
       await driver.tap(Keys.signInButton);
       await Future.delayed(const Duration(seconds: 3), () {});
-    });
+    });*/
 
     test('Click on Jobs from bottom navigation bar', () async {
       await driver.tap(Keys.bottomNavigationBarJobs);
       await Future.delayed(const Duration(seconds: 10), () {});
       await expect(await driver.getText(Keys.jobsAppbarTitle), 'Jobs');
+    });
+
+    test('Go to All Jobs on jobs Screen segment control bar', () async {
+      await driver.tap(Keys.jobsSegmentAllText);
+      await Future.delayed(const Duration(seconds: 5), () {});
     });
 
     test('Open & close filter section', () async {
@@ -181,17 +187,27 @@ Future<void> filterTest()async{
       await Future.delayed(const Duration(seconds: 10), () {});
     });
 
-    test('Open filter section and search Gender', () async {
+    test('go to that job details and make sure that job details showing', () async {
       await driver.tap(filterButtonKey);
       await driver.tap(filterClearAllButtonKey);
-      await driver.scrollUntilVisible(filterListViewKey, salaryRangeKey,
+      await driver.scrollUntilVisible(filterListViewKey, filterDatePostedTextfieldKey,
           dyScroll: -150);
-      await driver.tap(salaryRangeKey);
+      await driver.tap(filterDatePostedTextfieldKey);
+      await driver.tap(find.text('Last 7 days'));
       await driver.tap(applyFilterButtonKey);
+      //await driver.tap(Keys.allJobsTile0);
       await Future.delayed(const Duration(seconds: 6), () {});
+      jobTitle = await driver.getText(Keys.jobTileJobTitle0);
+      await driver.tap(Keys.allJobsTile0);
+      await expect(await driver.getText(Keys.jobDetailsAppbarTitle), 'Job Details');
+      await expect(await driver.getText(Keys.jobDetailsJobTitle), jobTitle);
+      await Future.delayed(const Duration(seconds: 5), (){});
     });
-    //salaryRangeKey
 
+
+
+
+    //salaryRangeKey
     //experienceRangeKey
 
 

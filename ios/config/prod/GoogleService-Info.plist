@@ -3,11 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>282452792859-b0anr8m2ct0aql6oknvc8ov6242ftnqh.apps.googleusercontent.com</string>
+	<string>282452792859-v20eihjslfk1tn7jn83ujb0ng282dtq3.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.282452792859-b0anr8m2ct0aql6oknvc8ov6242ftnqh</string>
+	<string>com.googleusercontent.apps.282452792859-v20eihjslfk1tn7jn83ujb0ng282dtq3</string>
 	<key>ANDROID_CLIENT_ID</key>
-	<string>282452792859-l38d76n00da0fqd0g4mqcufcfa7dprl1.apps.googleusercontent.com</string>
+	<string>282452792859-mbt631f02lkmsiv7qpjh2js78hf4s2jb.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
 	<string>AIzaSyBF7TWyhfdVujZ70ndA2FRoUeJ19h4rQuk</string>
 	<key>GCM_SENDER_ID</key>
@@ -15,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.ishraak.jobxprss</string>
+	<string>com.jobxprss</string>
 	<key>PROJECT_ID</key>
 	<string>p7app-df2de</string>
 	<key>STORAGE_BUCKET</key>
@@ -31,7 +31,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:282452792859:ios:acd4e47bd92b4c3db7cabe</string>
+	<string>1:282452792859:ios:28858edf7d8c4115b7cabe</string>
 	<key>DATABASE_URL</key>
 	<string>https://p7app-df2de.firebaseio.com</string>
 </dict>

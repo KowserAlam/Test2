@@ -8,11 +8,14 @@ import 'package:p7app/features/dashboard/view/widgets/info_box_widget.dart';
 import 'package:p7app/features/dashboard/view/widgets/job_chart_widget.dart';
 import 'package:p7app/features/dashboard/view/widgets/other_screens_widget.dart';
 import 'package:p7app/features/dashboard/view/widgets/profile_complete_parcent_indicatior_widget.dart';
+import 'package:p7app/features/dashboard/view/widgets/top_categories_widget.dart';
+import 'package:p7app/features/dashboard/view/widgets/vital_state_widget.dart';
 import 'package:p7app/features/dashboard/view_model/dashboard_view_model.dart';
 import 'package:p7app/features/notification/views/notification_screen.dart';
 import 'package:p7app/features/settings/setings_screen.dart';
 import 'package:p7app/features/settings/settings_view_model.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
+import 'package:p7app/main_app/auth_service/auth_view_model.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/locator.dart';
@@ -64,6 +67,8 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
   @override
   Widget build(BuildContext context) {
     var dashboardViewModel = Provider.of<DashboardViewModel>(context);
+    var authVM = Provider.of<AuthViewModel>(context);
+    bool isLoggedIn = authVM.isLoggerIn;
 
     errorWidget() {
       switch (dashboardViewModel.infoBoxError) {
@@ -103,32 +108,38 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(StringResources.dashBoardText, key: Key('dashboardAppbardTitle'),),
+        title: Text(
+          StringResources.dashBoardText,
+          key: Key('dashboardAppbarTitle'),
+        ),
         actions: [
-//          IconButton(
-//            key: Key("dashboardNotificationIcon"),
-//            iconSize: 15,
-//            tooltip: StringResources.notificationsText,
-//            icon: Icon(FontAwesomeIcons.solidBell),
-//            onPressed: () {
-//              Navigator.of(context).push(CupertinoPageRoute(
-//                  builder: (BuildContext context) => NotificationScreen()));
-//            },
-//          ),
+          IconButton(
+            key: Key("dashboardNotificationIcon"),
+            iconSize: 15,
+            tooltip: StringResources.notificationsText,
+            icon: Icon(FontAwesomeIcons.solidBell),
+            onPressed: () {
+              Navigator.of(context).push(CupertinoPageRoute(
+                  builder: (BuildContext context) => NotificationScreen()));
+            },
+          ),
           PopupMenuButton<String>(
             key: Key("dashboardPopupMenuKey"),
             onSelected: (v) {
-              switch (v){
-                case "Settings":{
-                  Navigator.of(context).push(CupertinoPageRoute(builder: (BuildContext context) {
-                    return SettingsScreen();
-                  }));
-                  break;
-                }
-                case "Sign Out":{
-                  locator<SettingsViewModel>().signOut();
-                  break;
-                }
+              switch (v) {
+                case "Settings":
+                  {
+                    Navigator.of(context).push(
+                        CupertinoPageRoute(builder: (BuildContext context) {
+                      return SettingsScreen();
+                    }));
+                    break;
+                  }
+                case "Sign Out":
+                  {
+                    locator<SettingsViewModel>().signOut();
+                    break;
+                  }
               }
             },
             icon: Icon(Icons.more_vert),
@@ -143,7 +154,6 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
               );
             }),
           ),
-
         ],
       ),
 //      drawer: AppDrawer(
@@ -156,16 +166,22 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
             ListView(
           key: Key('dashboardListview'),
           children: [
-            if (dashboardViewModel.showProfileCompletePercentIndicatorWidget)
-              ProfileCompletePercentIndicatorWidget(
-                  dashboardViewModel.profileCompletePercent / 100),
-            InfoBoxWidget(
-              onTapApplied: widget.onTapApplied,
-              onTapFavourite: widget.onTapFavourite,
-            ),
-            JobChartWidget(),
-//            TopCategoriesWidget(),
-//            VitalStateWidget(),
+            if (isLoggedIn)
+              Column(
+                children: [
+                  if (dashboardViewModel
+                      .showProfileCompletePercentIndicatorWidget)
+                    ProfileCompletePercentIndicatorWidget(
+                        dashboardViewModel.profileCompletePercent / 100),
+                  InfoBoxWidget(
+                    onTapApplied: widget.onTapApplied,
+                    onTapFavourite: widget.onTapFavourite,
+                  ),
+                  JobChartWidget(),
+                ],
+              ),
+            TopCategoriesWidget(),
+            VitalStateWidget(),
             SizedBox(
               height: 10,
             ),

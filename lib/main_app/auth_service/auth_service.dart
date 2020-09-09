@@ -4,10 +4,13 @@ import 'package:jwt_decode/jwt_decode.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
 import 'package:p7app/main_app/auth_service/auth_user_model.dart';
+import 'package:p7app/main_app/auth_service/auth_view_model.dart';
 import 'package:p7app/main_app/flavour/flavour_config.dart';
 import 'package:p7app/main_app/resource/json_keys.dart';
 import 'package:p7app/main_app/util/local_storage.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
+import 'package:p7app/main_app/util/locator.dart';
+import 'package:p7app/main_app/util/logger_helper.dart';
 import 'package:p7app/main_app/util/token_refresh_scheduler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -30,10 +33,17 @@ class AuthService {
     var userMap = _localStorageService.getString(JsonKeys.user);
 //    debugPrint("UserMap: ${userMap}");
     if (userMap == null) {
+      // update auth status in auth view model !
+      locator<AuthViewModel>().user = null;
       return null;
     }
 //    return AuthUserModel.fromJson(json.decode(userMap));
-    return AuthUserModel.fromJsonLocal(json.decode(userMap));
+
+    var user = AuthUserModel.fromJsonLocal(json.decode(userMap));
+
+    // update auth status in auth view model !
+    locator<AuthViewModel>().user = user;
+    return user;
   }
 
   Future<bool> saveUser(Map<String, dynamic> data) {
@@ -89,6 +99,7 @@ class AuthService {
   }
 
   bool isAccessTokenValid() {
+    // _isRefreshTokenValid();
     DateTime expTime;
     String token = _instance._getAssessToken();
     if (token != null) {
@@ -97,9 +108,12 @@ class AuthService {
       if (payload['exp'] != null) {
         expTime = DateTime.fromMillisecondsSinceEpoch(payload['exp'] * 1000);
         var isValid = DateTime.now().isBefore(expTime);
-        print(expTime.difference(DateTime.now()).inMinutes);
-        print(expTime);
-        print(isValid);
+
+        logger.i({
+          " AccessTokenExpTime": expTime?.toString(),
+          " TimeDiff": expTime.difference(DateTime.now()).inMinutes,
+          "isValid": isValid,
+        });
         return isValid;
       }
 
@@ -118,9 +132,11 @@ class AuthService {
       if (payload['exp'] != null) {
         expTime = DateTime.fromMillisecondsSinceEpoch(payload['exp'] * 1000);
         var isValid = DateTime.now().isBefore(expTime);
-        print(expTime.difference(DateTime.now()).inMinutes);
-        print(expTime);
-        print(isValid);
+        logger.i({
+          "RefreshTokenExpTime": expTime?.toString(),
+          " TimeDiff": expTime.difference(DateTime.now()).inMinutes,
+          "isValid": isValid,
+        });
         return isValid;
       }
 
@@ -131,16 +147,17 @@ class AuthService {
   }
 
   Future<bool> refreshToken() async {
-    if (await _isRefreshTokenValid()) {
+    if (_isRefreshTokenValid()) {
       try {
         var baseUrl = FlavorConfig.instance.values.baseUrl;
         String rfToken = _instance._getRefreshToken();
         var body = {"refresh": rfToken};
-        print(body);
-        var res = await ApiClient().postRequest(Urls.jwtRefreshUrl, body);
+        logger.i(body);
+        var res = await ApiClient()
+            .postRequest(Urls.jwtRefreshUrl, body, checkAccessValidity: false);
 //        var res = await http.post("${baseUrl}${Urls.jwtRefreshUrl}",body: body);
-        print(res.statusCode);
-        print(res.body);
+//         logger.i(res.statusCode);
+        logger.i(res.body);
         if (res.statusCode == 200) {
           var data = json.decode(res.body);
           debugPrint("Token refreshed: {${res.body}");
@@ -152,7 +169,7 @@ class AuthService {
           return false;
         }
       } catch (e) {
-        print(e);
+        logger.i(e);
         return false;
       }
     } else {

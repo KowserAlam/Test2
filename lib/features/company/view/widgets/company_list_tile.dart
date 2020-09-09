@@ -29,7 +29,7 @@ class _CompanyListTileState extends State<CompanyListTile> {
     var scaffoldBackgroundColor = Theme.of(context).scaffoldBackgroundColor;
     bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     var titleStyle = TextStyle(fontSize: 16, fontWeight: FontWeight.w600);
-    double iconSize = 14.0;
+    double iconSize = 13.0;
     var subtitleColor = isDarkMode ? Colors.white : AppTheme.grey;
 
     return Container(
@@ -90,11 +90,15 @@ class _CompanyListTileState extends State<CompanyListTile> {
                         if (widget.company.address != null)
                           Container(
                             child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                Icon(
-                                  FeatherIcons.mapPin,
-                                  color: subtitleColor,
-                                  size: iconSize,
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 2),
+                                  child: Icon(
+                                    FeatherIcons.mapPin,
+                                    color: subtitleColor,
+                                    size: iconSize,
+                                  ),
                                 ),
                                 SizedBox(
                                   width: 5,
@@ -102,7 +106,7 @@ class _CompanyListTileState extends State<CompanyListTile> {
                                 Expanded(
                                   child: Text(
                                     widget.company.address ?? "",
-                                    maxLines: 1,
+                                    maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(color: subtitleColor),
                                   ),
@@ -116,35 +120,35 @@ class _CompanyListTileState extends State<CompanyListTile> {
                   ],
                 ),
               ),
-              Divider(height: 1),
-              Padding(
-                padding: EdgeInsets.all(8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    Row(
-                      children: <Widget>[
-                        Text(
-                          StringResources.companyListYearOfEstablishmentText,
-                          style: TextStyle(
-                              color: subtitleColor,
-                              fontWeight: FontWeight.w600),
-                        ),
-                        SizedBox(width: 5),
-                        Text(
-                          widget.company.yearOfEstablishment != null
-                              ? DateFormatUtil.formatDate(
-                                  widget.company.yearOfEstablishment)
-                              : StringResources.noneText,
-                          style: TextStyle(
-                              color: subtitleColor,
-                              fontWeight: FontWeight.w100),
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-              ),
+              // Divider(height: 1),
+              // Padding(
+              //   padding: EdgeInsets.all(8),
+              //   child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.start,
+              //     children: <Widget>[
+              //       Row(
+              //         children: <Widget>[
+              //           Text(
+              //             StringResources.companyListYearOfEstablishmentText,
+              //             style: TextStyle(
+              //                 color: subtitleColor,
+              //                 fontWeight: FontWeight.w600),
+              //           ),
+              //           SizedBox(width: 5),
+              //           Text(
+              //             widget.company.yearOfEstablishment != null
+              //                 ? DateFormatUtil.formatDate(
+              //                     widget.company.yearOfEstablishment)
+              //                 : StringResources.noneText,
+              //             style: TextStyle(
+              //                 color: subtitleColor,
+              //                 fontWeight: FontWeight.w100),
+              //           ),
+              //         ],
+              //       )
+              //     ],
+              //   ),
+              // ),
             ],
           ),
         ),

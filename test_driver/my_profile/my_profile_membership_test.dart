@@ -112,7 +112,7 @@ Future<void> myProfileMembershipTest()async{
 
     test('Check if delete is working with confirmation pop up', () async {
       await driver.tap(Keys.membershipDeleteKey);
-      await driver.tap(Keys.myProfileDialogBoxDeleteTile);
+      await driver.tap(Keys.commonPromptYes);
       await expect(await driver.getText(Keys.membershipTileOrganizationName), 'Test Organization Name 2');
       await expect(await driver.getText(Keys.myProfileAppbarTitle), 'My Profile');
     });

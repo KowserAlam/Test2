@@ -41,7 +41,7 @@ class _AppliedJobListScreenState extends State<AppliedJobListScreen>
   void afterFirstLayout(BuildContext context) {
     var jobListViewModel =
         Provider.of<AppliedJobListViewModel>(context, listen: false);
-    jobListViewModel.getJobList(isFormOnPageLoad: true);
+    jobListViewModel.getJobList();
   }
 
   @override
@@ -101,6 +101,7 @@ class _AppliedJobListScreenState extends State<AppliedJobListScreen>
 
                                         return JobListTileWidget(
                                           job,
+                                          index: index,
                                           applyButtonKey: Key('appliedApplyKey'+index.toString()),
                                           listTileKey: Key('appliedTileKey'+index.toString()),
                                           favoriteButtonKey: Key('appliedJobsListFavoriteButtonKey'+index.toString()),

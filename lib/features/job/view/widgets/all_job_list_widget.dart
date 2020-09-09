@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:p7app/features/job/models/job_list_model.dart';
 import 'package:p7app/features/job/view/job_details_screen.dart';
@@ -35,10 +36,18 @@ class AllJobListWidget extends StatelessWidget {
             listTileKey: Key('allJobsTileKey'+index.toString()),
             favoriteButtonKey: Key('allJobsListFavoriteButtonKey'+index.toString()),
             onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
+              Navigator.of(context).push(CupertinoPageRoute(
                   builder: (context) => JobDetailsScreen(
                         slug: job.slug,
                         fromJobListScreenType: JobListScreenType.main,
+                    onFavourite: (){
+                      job.isFavourite = true;
+                      jobListViewModel.jobList[index] = job;
+                    },
+                    onApply: (){
+                          job.isApplied = true;
+                          jobListViewModel.jobList[index] = job;
+                    },
                       )));
             },
             onFavorite: () {

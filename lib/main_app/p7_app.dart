@@ -1,5 +1,7 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
+import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:p7app/features/auth/view_models/password_change_view_model.dart';
 import 'package:p7app/features/auth/view_models/password_reset_view_model.dart';
@@ -7,7 +9,6 @@ import 'package:p7app/features/auth/view_models/sign_in_view_model.dart';
 import 'package:p7app/features/auth/view_models/signup_viewmodel.dart';
 import 'package:p7app/features/career_advice/view_models/career_advice_view_model.dart';
 import 'package:p7app/features/company/view_model/company_list_view_model.dart';
-import 'package:flutter/material.dart';
 import 'package:p7app/features/dashboard/view_model/dashboard_view_model.dart';
 import 'package:p7app/features/job/view_model/applied_job_list_view_model.dart';
 import 'package:p7app/features/job/view_model/favourite_job_list_view_model.dart';
@@ -17,16 +18,14 @@ import 'package:p7app/features/job/view_model/job_screen_view_model.dart';
 import 'package:p7app/features/messaging/view_mpdel/message_sender_list_screen_view_model.dart';
 import 'package:p7app/features/notification/view_models/notificaion_view_model.dart';
 import 'package:p7app/features/settings/settings_view_model.dart';
-import 'package:p7app/main_app/flavour/flavour_config.dart';
-import 'package:p7app/main_app/util/common_serviec_rule.dart';
-import 'package:p7app/main_app/util/locator.dart';
-import 'package:p7app/main_app/views/widgets/restart_widget.dart';
-import 'package:provider/provider.dart';
-import 'package:p7app/main_app/root.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
-import 'package:p7app/main_app/resource/strings_resource.dart';
-import 'package:bot_toast/bot_toast.dart';
+import 'package:p7app/main_app/auth_service/auth_view_model.dart';
+import 'package:p7app/main_app/flavour/flavour_config.dart';
+import 'package:p7app/main_app/root.dart';
+import 'package:p7app/main_app/util/common_serviec_rule.dart';
+import 'package:p7app/main_app/util/locator.dart';
+import 'package:provider/provider.dart';
 
 class P7App extends StatelessWidget {
   final isEnabledDevicePreview;
@@ -57,6 +56,7 @@ class P7App extends StatelessWidget {
       ChangeNotifierProvider(
           create: (context) => MessageSenderListScreenViewModel()),
       ChangeNotifierProvider(create: (context) => JobScreenViewModel()),
+      ChangeNotifierProvider(create: (context) => locator<AuthViewModel>()),
     ];
     var appName = FlavorConfig.appName();
 

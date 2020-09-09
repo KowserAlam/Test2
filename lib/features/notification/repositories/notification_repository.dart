@@ -12,14 +12,15 @@ import 'package:p7app/main_app/util/logger_helper.dart';
 
 class NotificationRepository {
   Future<Either<AppError, NotificationScreenDataModel>>
-      getNotificationsList() async {
+      getNotificationsList({int page}) async {
     try {
-      var response = await ApiClient().getRequest(Urls.notificationListUrl);
-      print(response.statusCode);
-      logger.i(response.body);
+      var url = "${Urls.notificationListUrl}?page=${page??1}";
+      var response = await ApiClient().getRequest(url);
+      logger.i(response.statusCode);
+      // logger.i(response.body);
       if (response.statusCode == 200) {
         var mapData = json.decode(utf8.decode(response.bodyBytes));
-
+        logger.i(mapData);
         var data = NotificationScreenDataModel.fromJson(mapData);
         return Right(data);
       } else if (response.statusCode == 401) {
@@ -30,11 +31,11 @@ class NotificationRepository {
         return Left(AppError.unknownError);
       }
     } on SocketException catch (e) {
-      print(e);
+      logger.e(e);
       BotToast.showText(text: StringResources.unableToReachServerMessage);
       return Left(AppError.networkError);
     } catch (e) {
-      print(e);
+      logger.e(e);
       BotToast.showText(text: StringResources.somethingIsWrong);
       return Left(AppError.serverError);
     }
@@ -43,20 +44,20 @@ class NotificationRepository {
   Future<bool> markAsRead(int id) async {
     var url = "${Urls.notificationMarkReadUrl}/${id}/";
 
-//    print(url);
+//    logger.i(url);
     try {
       var res = await ApiClient().putRequest(
         url,
         {'is_read': 1},
       );
-      print(res.statusCode);
-      print(res.body);
+      logger.i(res.statusCode);
+      logger.i(res.body);
       if (res.statusCode == 200) {
         return true;
       } else {}
       return false;
     } catch (e) {
-      print(e);
+      logger.e(e);
       return false;
     }
   }

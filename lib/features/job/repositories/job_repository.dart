@@ -102,11 +102,6 @@ class JobRepository {
   /// JOB Details
   Future<Map<String, dynamic>> _getJobDetailsBody(
       String url, bool forceFromServer) async {
-    var cache = await Cache.load(url);
-//    print(cache);
-    if (cache != null && !forceFromServer) {
-      return cache;
-    } else {
       var response = await ApiClient().getRequest(url);
       debugPrint(url);
       print(response.statusCode);
@@ -118,7 +113,7 @@ class JobRepository {
       } else {
         return null;
       }
-    }
+
   }
 
   Future<Either<AppError, JobModel>> fetchJobDetails(String slug,

@@ -20,7 +20,7 @@ class JobListTileWidget extends StatefulWidget {
   final Function onApply;
   final Function onFavorite;
   final int index;
-  final Key listTileKey, applyButtonKey, favoriteButtonKey;
+  final Key listTileKey, applyButtonKey, favoriteButtonKey, publishedDateKey, deadlineKey, companyLocationKey;
 
   JobListTileWidget(this.jobModel,
       {this.onTap,
@@ -29,7 +29,10 @@ class JobListTileWidget extends StatefulWidget {
       this.onApply,
       this.listTileKey,
       this.applyButtonKey,
-      this.favoriteButtonKey});
+      this.favoriteButtonKey,
+      this.deadlineKey,
+      this.publishedDateKey,
+      this.companyLocationKey,});
 
   @override
   _JobListTileWidgetState createState() => _JobListTileWidgetState();
@@ -102,6 +105,7 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: subTitleStyle,
+              key: widget.companyLocationKey,
             ),
           )
         ],
@@ -119,11 +123,18 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
           onTap: widget.onFavorite,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Icon(
-              isFavorite ? FontAwesomeIcons.solidHeart : FontAwesomeIcons.heart,
-              key: widget.favoriteButtonKey,
-              color: isFavorite ? AppTheme.orange : AppTheme.grey,
-              size: 22,
+            child: Stack(
+              children: [
+                Icon(
+                  isFavorite ? FontAwesomeIcons.solidHeart : FontAwesomeIcons.heart,
+                  key: widget.favoriteButtonKey,
+                  color: isFavorite ? AppTheme.orange : AppTheme.grey,
+                  size: 22,
+                ),
+                Opacity(
+                    opacity: 0.1,
+                    child: Text(isFavorite?'favorite':'notFavorite',key: Key('checkJobFavorite'), style: TextStyle(fontSize: 1),))
+              ],
             ),
           ),
         ),
@@ -161,6 +172,7 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
         Text(
           deadLineText,
           style: subTitleStyle,
+          key: widget.deadlineKey,
         ),
       ],
     );
@@ -175,6 +187,7 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
         Text(
           publishDateText,
           style: subTitleStyle,
+          key: widget.publishedDateKey,
         ),
       ],
     );

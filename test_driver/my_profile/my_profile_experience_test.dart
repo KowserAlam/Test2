@@ -119,7 +119,7 @@ Future<void> myProfileExperienceTest()async{
     test('Check if delete is working', () async {
       await expect(await driver.getText(Keys.experienceTileCompanyName), 'Ishraak Solutions');
       await driver.tap(Keys.experienceDeleteButton);
-      await driver.tap(Keys.myProfileDialogBoxDeleteTile);
+      await driver.tap(Keys.commonPromptYes);
       await expect(await driver.getText(Keys.experienceTileCompanyName), 'Test Company');
       await Future.delayed(const Duration(seconds: 5), (){});
     });

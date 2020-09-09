@@ -1,6 +1,6 @@
 import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
-import 'keys.dart';
+import '../keys.dart';
 
 
 
@@ -18,6 +18,8 @@ Future<void> company() async{
     final companyListView = find.byValueKey('companyListView');
     final companyDetailsListViewKey = find.byValueKey('companyDetailsListViewKey');
     final companyDetailsOpenJobsKey0 = find.byValueKey('companyDetailsOpenJobsKey0');
+    final openJobsSizedBox = find.byValueKey('openJobsSizedBox');
+    final noOpenJobsFoundKey = find.byValueKey('noOpenJobsFoundKey');
 
 
     FlutterDriver driver;
@@ -44,12 +46,14 @@ Future<void> company() async{
 
     test('Go to company screen from dashboard', () async{
       await driver.tap(Keys.bottomNavigationBarCompany);
-      await Future.delayed(const Duration(seconds: 15), () {});
+      await expect(await driver.getText(Keys.companyListAppbarTitle), 'Companies');
+      await Future.delayed(const Duration(seconds: 10), () {});
 
     });
 
     test('Check job details is showing - tile 1', () async {
       await driver.tap(Keys.companyListTileKey0); //to see job details is working
+      await expect(await driver.getText(Keys.companyDetailsAppbarTitle), 'Company Details');
       await Future.delayed(const Duration(seconds: 6), () {});
       await driver.tap(Keys.backButton);
     });
@@ -80,7 +84,7 @@ Future<void> company() async{
       await driver.tap(companySearchButtonKey);
       await Future.delayed(const Duration(seconds: 5), () {});
       await driver.tap(Keys.companyListTileKey0);
-      await Future.delayed(const Duration(seconds: 15), () {});
+      await Future.delayed(const Duration(seconds: 10), () {});
       await driver.tap(Keys.backButton);
     });
 
@@ -90,7 +94,7 @@ Future<void> company() async{
       await driver.tap(companySearchButtonKey);
       await Future.delayed(const Duration(seconds: 5), () {});
       await driver.tap(Keys.companyListTileKey0);
-      await Future.delayed(const Duration(seconds: 15), () {});
+      await Future.delayed(const Duration(seconds: 10), () {});
       await driver.tap(Keys.backButton);
       await driver.tap(companySearchToggleButtonKey);
       await Future.delayed(const Duration(seconds: 6), () {});
@@ -104,12 +108,18 @@ Future<void> company() async{
     });
 
     test('Click on first Open job', () async {
-      await driver.scrollUntilVisible(companyDetailsListViewKey, companyDetailsOpenJobsKey0,
+      await driver.scrollUntilVisible(companyDetailsListViewKey, openJobsSizedBox,
           dyScroll: -600);
-      await driver.tap(companyDetailsOpenJobsKey0); //to see pagination is working
+      if(openJobsSizedBox != null){
+        //await driver.getText(find.text('No Open Job(s) Found'));
+        await expect(await driver.getText(noOpenJobsFoundKey), 'No Open Job(s) Found.');
+      } else {
+        await driver.tap(companyDetailsOpenJobsKey0); //to see pagination is working
+      }
       await Future.delayed(const Duration(seconds: 6), () {});
       await driver.tap(Keys.backButton);
       await driver.tap(Keys.backButton);
+
     });
 
 

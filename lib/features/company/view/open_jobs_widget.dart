@@ -105,7 +105,7 @@ class _OpenJobsWidgetState extends State<OpenJobsWidget> {
             color: sectionColor,
           ),
           child: Center(
-            child: Text(StringResources.noOpenJobsFound),
+            child: Text(StringResources.noOpenJobsFound, key: Key('noOpenJobs')),
           ),
         )
             :        Padding(
@@ -115,6 +115,12 @@ class _OpenJobsWidgetState extends State<OpenJobsWidget> {
               var job = _jobs[index];
               return JobListTileWidget(
                 job,
+                index: index,
+                companyLocationKey: Key('openJobsCompanyLocation${index}'),
+                deadlineKey: Key('openJobsDeadline${index}'),
+                publishedDateKey: Key('openJobsPublishedDate${index}'),
+                favoriteButtonKey: Key('openJobsFavorite${index}'),
+                applyButtonKey: Key('openJobsApplyButton${index}'),
                 listTileKey: Key ('companyDetailsOpenJobsKey${index}'),
                 onApply: () async {
                   _showApplyForJobDialog(job,index);

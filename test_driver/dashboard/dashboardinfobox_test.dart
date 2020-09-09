@@ -1,4 +1,5 @@
 import 'package:flutter_driver/flutter_driver.dart';
+import 'package:p7app/main_app/views/faq_screen.dart';
 import 'package:test/test.dart';
 import '../keys.dart';
 import '../jobs_segment/appliedjobs_test.dart';
@@ -16,8 +17,11 @@ Future dashboardInfoBoxTest() async{
     final infoboxAppliedButton = find.byValueKey('dashboardAppliedInfoBox');
     final clickOnDashboard = find.text('Dashboard'); //bottom navigation bar
     final dashBoardContactUsTile = find.byValueKey('dashBoardContactUsTile');
+    final contactUsTextOnAppBar = find.byValueKey('contactUsTextOnAppBar');
     final dashBoardFAQTile = find.byValueKey('dashBoardFAQTile');
+    final faqAppBarTitleKey = find.byValueKey('faqAppBarTitleKey');
     final dashBoardAboutUsTile = find.byValueKey('dashBoardAboutUsTile');
+    final aboutUsAppBarTitleKey = find.byValueKey('aboutUsAppBarTitleKey');
     final dashBoardListview = find.byValueKey('dashBoardListview');
     final dashboardHorizontalCareerAdviceListKey = find.byValueKey('dashboardHorizontalCareerAdviceListKey');
     final dashboardNotificationIcon = find.byValueKey('dashboardNotificationIcon');
@@ -27,6 +31,7 @@ Future dashboardInfoBoxTest() async{
     final careerAdviceTile3 = find.byValueKey('careerAdviceTile3');
     final careerAdviceTile4 = find.byValueKey('careerAdviceTile4');
     final careerAdviceTile5 = find.byValueKey('careerAdviceTile5');
+    final FAQ = find.text('Frequently Asked Questions');
 
 
     //wait for text
@@ -46,6 +51,11 @@ Future dashboardInfoBoxTest() async{
     });
     //test cases are started from here
 
+    test('If no skilles added, showing skill add button', () async {
+      await expect(await driver.getText(Keys.dashboardAddSkillButton), 'Add Skill');
+      await Future.delayed(const Duration(seconds: 2), () {});
+    });
+
     test('Click on Applied button on infobox', () async {
       await driver.tap(infoboxAppliedButton);
       await Future.delayed(const Duration(seconds: 15), () {});
@@ -64,16 +74,20 @@ Future dashboardInfoBoxTest() async{
       await driver.scrollUntilVisible(dashBoardListview, dashBoardContactUsTile,
           dyScroll: -600);
       await driver.tap(dashBoardContactUsTile);
+      await expect(await driver.getText(contactUsTextOnAppBar), 'Contact Us');
       await driver.tap(backButton);
     });
     test('Click on FAQ tile', () async {
       await driver.tap(dashBoardFAQTile);
+      await expect(await driver.getText(faqAppBarTitleKey), 'FAQ');
+      await expect(await driver.getText(FAQ), 'Frequently Asked Questions');
       await Future.delayed(const Duration(seconds: 15), () {});
       await driver.tap(backButton);
     });
     test('Click on About Us tile', () async {
       await driver.tap(dashBoardAboutUsTile);
-      await Future.delayed(const Duration(seconds: 15), () {});
+      await expect(await driver.getText(aboutUsAppBarTitleKey), 'About Us');
+      await Future.delayed(const Duration(seconds: 6), () {});
       await driver.tap(backButton);
     });
 

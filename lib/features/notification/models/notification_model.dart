@@ -1,4 +1,6 @@
-class NotificationModel {
+import 'package:equatable/equatable.dart';
+
+class NotificationModel extends Equatable {
   int id;
   String createdBy;
   DateTime createdAt;
@@ -30,6 +32,17 @@ class NotificationModel {
     recipient = json['recipient'];
     isRead = json['is_read'];
   }
+
+  @override
+  // TODO: implement props
+  List<Object> get props => [
+        id,
+        createdBy,
+        createdAt,
+        createdFrom,
+        title,
+        message,
+        recipient,
+        isRead
+      ];
 }
-
-

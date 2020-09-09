@@ -101,7 +101,7 @@ class _CompanyListScreenState extends State<CompanyListScreen>
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text(StringResources.companyListAppbarText),
+          title: Text(StringResources.companyListAppbarText, key: Key('companyListAppbarTitle'),),
           actions: [
             IconButton(
               key: Key("companySearchToggleButtonKey"),

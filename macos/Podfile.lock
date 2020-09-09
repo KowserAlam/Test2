@@ -1,8 +1,4 @@
 PODS:
-  - connectivity (0.0.1)
-  - connectivity_macos (0.0.1):
-    - FlutterMacOS
-    - Reachability
   - Firebase/CoreOnly (6.26.0):
     - FirebaseCore (= 6.7.2)
   - firebase_core (0.5.0):
@@ -40,7 +36,6 @@ PODS:
   - path_provider_macos (0.0.1):
     - FlutterMacOS
   - PromisesObjC (1.2.10)
-  - Reachability (3.2)
   - shared_preferences (0.0.1)
   - shared_preferences_macos (0.0.1):
     - FlutterMacOS
@@ -52,8 +47,6 @@ PODS:
     - FlutterMacOS
 
 DEPENDENCIES:
-  - connectivity (from `Flutter/ephemeral/.symlinks/plugins/connectivity/macos`)
-  - connectivity_macos (from `Flutter/ephemeral/.symlinks/plugins/connectivity_macos/macos`)
   - firebase_core (from `Flutter/ephemeral/.symlinks/plugins/firebase_core/macos`)
   - FlutterMacOS (from `Flutter/ephemeral/.symlinks/flutter/darwin-x64`)
   - package_info (from `Flutter/ephemeral/.symlinks/plugins/package_info/macos`)
@@ -76,13 +69,8 @@ SPEC REPOS:
     - GoogleUtilities
     - nanopb
     - PromisesObjC
-    - Reachability
 
 EXTERNAL SOURCES:
-  connectivity:
-    :path: Flutter/ephemeral/.symlinks/plugins/connectivity/macos
-  connectivity_macos:
-    :path: Flutter/ephemeral/.symlinks/plugins/connectivity_macos/macos
   firebase_core:
     :path: Flutter/ephemeral/.symlinks/plugins/firebase_core/macos
   FlutterMacOS:
@@ -105,8 +93,6 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/url_launcher_macos/macos
 
 SPEC CHECKSUMS:
-  connectivity: 5da134a8c10a7b6f334a17217fe4d0cfc4fb1c64
-  connectivity_macos: 9f30e9d0e67a0bc08a0c563ee82310b51ca6e818
   Firebase: 7cf5f9c67f03cb3b606d1d6535286e1080e57eb6
   firebase_core: dd6486c333f1bceec3f20fc59fd2519ba6eda067
   FirebaseCore: f42e5e5f382cdcf6b617ed737bf6c871a6947b17
@@ -121,7 +107,6 @@ SPEC CHECKSUMS:
   path_provider: e0848572d1d38b9a7dd099e79cf83f5b7e2cde9f
   path_provider_macos: a0a3fd666cb7cd0448e936fb4abad4052961002b
   PromisesObjC: b14b1c6b68e306650688599de8a45e49fae81151
-  Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   shared_preferences: 9fec34d1bd906196a4da48fcf6c3ad521cc00b8d
   shared_preferences_macos: 480ce071d0666e37cef23fe6c702293a3d21799e
   sqflite: 6c1f07e1d4399d619ea619fea9171251dd24d058

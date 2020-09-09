@@ -1,15 +1,19 @@
 import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
+
 import '../keys.dart';
-import 'alljobs_test.dart';
+
+//flutter drive --flavor dev --target=test_driver/jobs_segment/favoritejob.dart
 
 
-main(){
+main() {
   favoriteJobsTest();
 }
-Future<void> favoriteJobsTest()async{
 
-  group('Favorite Jobs Test :', () {
+Future<void> favoriteJobsTest() async {
+  String jobTitle ,jobCompanyName;
+
+  group('Job Details & Similar Jobs Tests: ', () {
 
     FlutterDriver driver;
     // Connect to the Flutter driver before running any tests.
@@ -25,51 +29,76 @@ Future<void> favoriteJobsTest()async{
     });
 
     //test cases are started from here
-
-    //remove comment when it needs to be run individually
-     /* test('login with registered email and password', () async {
-      await driver.tap(Keys.signInEmail);
-      await driver.enterText('mahmudoni01@gmail.com');
-      await driver.tap(Keys.signInPassword);
-      await driver.enterText('1234567r');
-      await driver.tap(Keys.signInButton);
-      await Future.delayed(const Duration(seconds: 3), () {});
-    });
-      test('Click on Jobs from bottom navigation bar', () async {
-      await driver.tap(Keys.bottomNavigationBarJobs);
-      await Future.delayed(const Duration(seconds: 10), () {});
-    });
-*/
-    test('Go to Favorited Jobs list on jobs Screen segment control bar', () async {
-      await driver.tap(Keys.clickOnFavoriteJobsFromSegmentScreen);
-      await Future.delayed(const Duration(seconds: 5), () {});
+    test('Getting to Favorite Jobs screen', () async {
+      await driver.tap(Keys.jobsSegmentFavoriteText);
+      await Future.delayed(const Duration(seconds: 5), (){});
     });
 
-    //showing job details
-    test('Check if job details are showing from favorite job list', () async {
-      await driver.tap(Keys.clickOnFirstTileOnFavoriteJobs); //to see job details is working from applied job list
-      await Future.delayed(const Duration(seconds: 3), () {});
-      await driver.tap(Keys.backButton);
+    test('Check favorited job list are showing if dont have favorited jobs showing null massage', () async {
+      await expect(await driver.getText(Keys.noFavoriteJobs), 'You don\'t have any favorite job');
+      await Future.delayed(const Duration(seconds: 2), (){});
     });
 
-    test('Click on apply button on favorite jobs', () async{
-      await driver.tap(Keys.clickOnFirstApplyKeyOnFavoriteJobs);
-      await Future.delayed(const Duration(seconds: 5), () {});
-      await driver.tap(Keys.dialogBoxNoButton);
-     });
-
-    /*test('Check Unuavorite is working', () async {
-      await driver.tap(Keys.checkFavoriteUnfavoriteFromFavoriteList);
-      await Future.delayed(const Duration(seconds: 4), () {});
+    test('Check clicking favorite on a job gets it to favorite screen', () async {
+      await driver.tap(Keys.jobsSegmentAllText);
+      await driver.tap(Keys.jobListSearchToggleButtonKey);
+      await driver.tap(Keys.jobListSearchInputFieldKey);
+      await driver.enterText('Test Job Title 789');
+      await driver.tap(Keys.jobListSearchButtonKey);
+      await driver.tap(Keys.allJobsTileFavoriteButton);
+      await driver.tap(Keys.allJobsTileFavoriteButton1);
+      await Future.delayed(const Duration(seconds: 2), (){});
+      await driver.tap(Keys.jobsSegmentFavoriteText);
+      await expect(await driver.getText(Keys.jobTileJobTitle0), 'Test Job Title 789');
+      await expect(await driver.getText(Keys.jobTileJobTitle1), 'Test Job Title 7890');
     });
 
-    test('Check Favorite is working', () async {
-      await driver.tap(Keys.checkFavoriteUnfavoriteFromFavoriteList);
-      await Future.delayed(const Duration(seconds: 4), () {});
+    test('Check showing deadline if not found show none', () async {
+      await expect(await driver.getText(Keys.favoriteDeadline0), '02/09/2022');
+      await expect(await driver.getText(Keys.favoriteDeadline1), 'none');
+      await Future.delayed(const Duration(seconds: 2), (){});
+    });
 
-    });*/
+    test('Check if company name is showing', () async {
+      await expect(await driver.getText(Keys.jobTileCompanyName), 'Ishraak Solutions');
+      await Future.delayed(const Duration(seconds: 5), (){});
+    });
+
+    test('Check if company location is showing', () async {
+      await expect(await driver.getText(Keys.favoriteCompanyLocation), 'Khulna, Bangladesh');
+      await Future.delayed(const Duration(seconds: 5), (){});
+    });
+
+//    test('Check favorite button can favorite & unfavorite the similar job', () async {
+//      await driver.tap(Keys.similarJobsTileFavorite);
+//      await Future.delayed(const Duration(seconds: 3), (){});
+//      //await expect(await driver.getText(Keys.checkJobFavorite), 'favorite');
+//      await driver.tap(Keys.similarJobsTileFavorite);
+//      await Future.delayed(const Duration(seconds: 3), (){});
+//      //await expect(await driver.getText(Keys.checkJobFavorite), 'notFavorite');
+//    });
+//
+//    test('Check if publish deadline date is showing', () async {
+//      await expect(await driver.getText(Keys.similarJobsTileDeadline0), 'none');
+//      await expect(await driver.getText(Keys.similarJobsTileDeadline1), '01/09/2022');
+//      await Future.delayed(const Duration(seconds: 5), (){});
+//    });
+//
+//
+//
+
+
+    test('Check Similar jobs Apply button showing popup', () async {
+      await driver.tap(Keys.favoriteJobsApplyButton);
+      await expect(await driver.getText(Keys.commonPromptText), 'Do you want to apply for this job?');
+    });
+
+    test('Check popup Yes button is working', () async {
+      await driver.tap(Keys.commonPromptYes);
+      await driver.tap(Keys.jobsSegmentAppliedText);
+      await expect(await driver.getText(Keys.jobTileJobTitle0), 'Test Job Title 789');
+    });
+
 
   });
-  //allJobsTest();
 }
-//flutter drive --flavor dev --target=test_driver/jobs_segment/favoritejobs.dart

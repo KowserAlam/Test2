@@ -75,7 +75,7 @@ Future<void> myProfilePortfolioTest()async{
 
     test('Check if delete is working', () async {
       await driver.tap(Keys.portfolioTileDeleteButton);
-      await driver.tap(Keys.myProfileDialogBoxDeleteTile);
+      await driver.tap(Keys.commonPromptYes);
       await expect(await driver.getText(Keys.portfolioTileName), 'Test Title 2');
       await Future.delayed(const Duration(seconds: 5), (){});
     });

@@ -330,23 +330,26 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                SizedBox(height: topPadding),
-                logo,
-                SizedBox(height: 20),
-                _registerNewAccountText(),
-                signUpFrom,
+          child: Center(
+            child: Container(
+              constraints: BoxConstraints(maxWidth: 400),
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  SizedBox(height: topPadding),
+                  logo,
+                  SizedBox(height: 20),
+                  _registerNewAccountText(),
+                  signUpFrom,
 //              acceptTermAndCondition,
-                SizedBox(height: 30),
-                registerButton,
-                SizedBox(height: 30),
-                backToSignIn,
-                SizedBox(height: 40),
-              ],
+                  SizedBox(height: 30),
+                  registerButton,
+                  SizedBox(height: 30),
+                  backToSignIn,
+                  SizedBox(height: 40),
+                ],
+              ),
             ),
           ),
         ),

@@ -1,25 +1,44 @@
-import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:p7app/features/notification/models/notification_model.dart';
+import 'package:p7app/features/notification/repositories/live_update_service.dart';
 import 'package:p7app/features/notification/repositories/notification_repository.dart';
-import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
+import 'package:p7app/main_app/util/locator.dart';
 import 'package:p7app/main_app/util/logger_helper.dart';
 
 
 class NotificationViewModel with ChangeNotifier {
+
   AppError _appError;
   List<NotificationModel> _notifications = [];
   bool _isFetchingData = false;
   bool _isGettingMoreData = false;
   bool _hasMoreData = false;
+  int _page = 1;
 
   Future<void> refresh() {
+    _page = 1;
     return getNotifications();
   }
 
 
+  void listenNotification(){
+    logger.i("listening");
+    locator<LiveUpdateService>().notificationUpdate.listen((value) {
+      logger.i(value);
+      if(_notifications.contains(value)){
+       var index =  _notifications.indexWhere((element) => element.id == value.id);
+       _notifications.insert(index, value);
+      }else{
+        _notifications.insert(0, value);
+      }
+    },onError: (e){
+      logger.e(e);
+    });
+  }
+
   Future<void> getNotifications() async {
+    _page = 1;
     _isFetchingData = true;
     notifyListeners();
     var res = await NotificationRepository().getNotificationsList();
@@ -37,10 +56,12 @@ class NotificationViewModel with ChangeNotifier {
   }
 
   getMoreData() async {
+
     if (_hasMoreData && !isGettingMoreData) {
+      _page++;
       _isGettingMoreData = true;
       notifyListeners();
-      var res = await NotificationRepository().getNotificationsList();
+      var res = await NotificationRepository().getNotificationsList(page: _page);
       res.fold((l) {
         _isGettingMoreData = false;
         _appError = l;

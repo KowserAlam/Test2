@@ -105,7 +105,7 @@ Future<void> myProfileSkillTest()async{
     test('Check if delete is working', () async {
       await driver.tap(Keys.skillDeleteButton);
       await Future.delayed(const Duration(seconds: 5), (){});
-      await driver.tap(Keys.myProfileDialogBoxDeleteTile);
+      await driver.tap(Keys.commonPromptYes);
       await Future.delayed(const Duration(seconds: 2), (){});
       await expect(await driver.getText(Keys.myProfileAppbarTitle), 'My Profile');
       await expect(await driver.getText(Keys.tileSkillName), '.NET');

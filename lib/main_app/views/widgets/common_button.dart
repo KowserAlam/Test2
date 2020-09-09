@@ -24,29 +24,26 @@ class CommonButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Tooltip(
-      message: StringResources.signInText,
-      child: Material(
-        borderRadius: BorderRadius.circular(circularRadius),
-        color: Colors.transparent,
-        elevation: onTap == null ? 0 : 5.0,
-        child: Container(
-          width: width,
-          height: height,
-          decoration: BoxDecoration(
-            color: onTap == null ? Colors.grey : Theme.of(context).primaryColor,
+    return Material(
+      borderRadius: BorderRadius.circular(circularRadius),
+      color: Colors.transparent,
+      elevation: onTap == null ? 0 : 5.0,
+      child: Container(
+        width: width,
+        height: height,
+        decoration: BoxDecoration(
+          color: onTap == null ? Colors.grey : Theme.of(context).primaryColor,
+          borderRadius: BorderRadius.circular(circularRadius),
+        ),
+        child: Material(
+          color: Colors.transparent,
+          child: InkWell(
             borderRadius: BorderRadius.circular(circularRadius),
-          ),
-          child: Material(
-            color: Colors.transparent,
-            child: InkWell(
-              borderRadius: BorderRadius.circular(circularRadius),
-              onTap: onTap,
-              child: Center(
-                child: Text(
-                  label,
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
+            onTap: onTap,
+            child: Center(
+              child: Text(
+                label,
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
             ),
           ),

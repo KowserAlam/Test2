@@ -9,7 +9,7 @@ class PushNotificationManageScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(StringResources.managePushNotificationText),
+        title: Text(StringResources.managePushNotificationText, key: Key('managePushNotificationAppBarText')),
       ),
       body: Consumer<SettingsViewModel>(
         builder: (context, vm,_) {
@@ -19,7 +19,8 @@ class PushNotificationManageScreen extends StatelessWidget {
                 title: Text(StringResources.receiveNewsNUpdatesText),
                 trailing: Switch(value: vm.isEnabledNewsPush, onChanged: (bool value) {
                   vm.togglePushNotificationNewUpdate();
-                },),
+                }
+                ,key: Key('managePushNotificationToggleButton')),
               )
             ],
           );

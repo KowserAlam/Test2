@@ -1,4 +1,4 @@
-import 'package:connectivity/connectivity.dart';
+
 import 'package:flutter/material.dart';
 
 class ConnectionStatusIndicator extends StatelessWidget {
@@ -12,24 +12,24 @@ class ConnectionStatusIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        StreamBuilder<ConnectivityResult>(
-          stream:  Connectivity().onConnectivityChanged,
-          builder: (context,AsyncSnapshot<ConnectivityResult> snapshot) {
-            if(snapshot.hasData){
-
-              return  Container(
-                alignment: Alignment.center,
-                width: double.infinity,
-                color: Colors.orange,
-                height: 30,
-                child: Text("Device is offline",style: TextStyle(color: Colors.white),),
-              );
-            }
-
-            return SizedBox();
-
-          }
-        ),
+        // StreamBuilder<ConnectivityResult>(
+        //   stream:  Connectivity().onConnectivityChanged,
+        //   builder: (context,AsyncSnapshot<ConnectivityResult> snapshot) {
+        //     if(snapshot.hasData){
+        //
+        //       return  Container(
+        //         alignment: Alignment.center,
+        //         width: double.infinity,
+        //         color: Colors.orange,
+        //         height: 30,
+        //         child: Text("Device is offline",style: TextStyle(color: Colors.white),),
+        //       );
+        //     }
+        //
+        //     return SizedBox();
+        //
+        //   }
+        // ),
 
         Expanded(
           child: child,

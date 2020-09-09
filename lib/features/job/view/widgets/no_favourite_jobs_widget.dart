@@ -17,7 +17,7 @@ class NoFavouriteJobsWidget extends StatelessWidget {
           mainAxisSize:MainAxisSize.min ,children: [
           Icon(FontAwesomeIcons.heart,color: color,),
           SizedBox(height: 15,),
-          Text(StringResources.youDoNotHaveAnyFavoriteJob,style: TextStyle(color: color),)
+          Text(StringResources.youDoNotHaveAnyFavoriteJob,style: TextStyle(color: color),key: Key('noFavoriteJobs'),)
         ],),),
       ),
     );
