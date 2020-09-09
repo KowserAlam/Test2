@@ -372,6 +372,8 @@ class StringResources {
   static var somethingIsWrong = "Something is wrong ! \nTry again later";
   static var somethingIsWrongSingleLine = "Something is wrong!";
   static var unauthorizedText = "Unauthorized";
+  static var googleText = "Google";
+  static var googleSignInText = "Sign in with Google";
 
   /// AddEditSkill Screen
 

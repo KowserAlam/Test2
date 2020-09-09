@@ -3,14 +3,18 @@ import 'dart:io';
 
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
+import 'package:logger/logger.dart';
+import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/auth_service/auth_user_model.dart';
 import 'package:p7app/main_app/flavour/flavour_config.dart';
 import 'package:p7app/main_app/resource/json_keys.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
+import 'package:p7app/main_app/util/logger_helper.dart';
 import 'package:p7app/main_app/util/validator.dart';
 
 class SignInViewModel with ChangeNotifier {
@@ -140,6 +144,47 @@ class SignInViewModel with ChangeNotifier {
       print(e);
       isBusyLogin = false;
       BotToast.showText(text: StringResources.somethingIsWrong);
+      return false;
+    }
+  }
+  Future<bool> signInWithGoogle() async {
+    BotToast.showLoading();
+    final GoogleSignIn googleSignIn = GoogleSignIn(
+      scopes: [
+        'email',
+        'https://www.googleapis.com/auth/contacts.readonly',
+      ],
+    );
+    try {
+      final GoogleSignInAuthentication googleSignInAuthentication =
+      await googleSignIn.signIn().then((a) async => await a.authentication);
+
+      print("accessToken: ${googleSignInAuthentication.accessToken}");
+      print("idToken: ${googleSignInAuthentication.idToken}");
+
+      // handle google signing with backend
+
+      var body = {"token": googleSignInAuthentication.accessToken};
+      var url = "${FlavorConfig.instance.values.baseUrl}${Urls.googleSignIn}";
+      var response = await http.post(url,body:body);
+
+      logger.i(response.body);
+      if (response.statusCode == 200) {
+        Map<String, dynamic> decodedJson = jsonDecode(response.body);
+        _saveAuthData(decodedJson);
+        // clearMessage();
+        BotToast.closeAllLoading();
+        return true;
+      }
+
+      BotToast.showText(text: "Unable Signin");
+      BotToast.closeAllLoading();
+      return false;
+    }  catch (e) {
+      Logger().e(e);
+      print(e);
+      BotToast.showText(text: "Unable Signin");
+      BotToast.closeAllLoading();
       return false;
     }
   }

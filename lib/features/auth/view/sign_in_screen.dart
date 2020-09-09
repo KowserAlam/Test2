@@ -1,3 +1,4 @@
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p7app/features/auth/view/password_reset_screens.dart';
 import 'package:p7app/features/auth/view/sign_up_screen.dart';
 import 'package:p7app/features/auth/view/widgets/custom_text_field_rounded.dart';
@@ -89,6 +90,26 @@ class _SignInScreenState extends State<SignInScreen> {
     } else {
       _btnController.reset();
       _showSnackBar(StringResources.checkRequiredField, Colors.red[800]);
+    }
+  }
+
+  _handleGoogleLogin(BuildContext context) async {
+    var loginViewModel = Provider.of<SignInViewModel>(context, listen: false);
+    var res = await loginViewModel.signInWithGoogle();
+    if (res) {
+      // loginViewModel.resetState();
+      // _btnController.success();
+
+      Navigator.of(context).pushAndRemoveUntil(
+          CupertinoPageRoute(
+              builder: (BuildContext context) => Root(
+                    showDummyLoadingTime: true,
+                  )),
+          (_) => false);
+//          _btnController.reset();
+
+    } else {
+      _btnController.reset();
     }
   }
 
@@ -310,75 +331,109 @@ class _SignInScreenState extends State<SignInScreen> {
         Row(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Container(
-              height: 40,
-              width: 120,
-              padding: EdgeInsets.symmetric(vertical: 13),
-              decoration: BoxDecoration(
-                  color: Color.fromARGB(0xFF, 59, 89, 152),
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(40),
-                      bottomLeft: Radius.circular(40))),
-              child: Center(
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    ClipRRect(
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(40),
-                            bottomLeft: Radius.circular(40)),
-                        child: Image.asset(
-                          'assets/images/fbIcon.png',
-                          fit: BoxFit.cover,
-                        )),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Text(
-                      'Facebook',
-                      style: TextStyle(color: Colors.white),
-                    )
-                  ],
-                ),
+            // Container(
+            //   height: 40,
+            //   width: 120,
+            //   padding: EdgeInsets.symmetric(vertical: 13),
+            //   decoration: BoxDecoration(
+            //       color: Color.fromARGB(0xFF, 59, 89, 152),
+            //       borderRadius: BorderRadius.only(
+            //           topLeft: Radius.circular(40),
+            //           bottomLeft: Radius.circular(40))),
+            //   child: Center(
+            //     child: Row(
+            //       crossAxisAlignment: CrossAxisAlignment.center,
+            //       mainAxisSize: MainAxisSize.min,
+            //       children: <Widget>[
+            //         ClipRRect(
+            //             borderRadius: BorderRadius.only(
+            //                 topLeft: Radius.circular(40),
+            //                 bottomLeft: Radius.circular(40)),
+            //             child: Image.asset(
+            //               'assets/images/fbIcon.png',
+            //               fit: BoxFit.cover,
+            //             )),
+            //         SizedBox(
+            //           width: 5,
+            //         ),
+            //         Text(
+            //           'Facebook',
+            //           style: TextStyle(color: Colors.white),
+            //         )
+            //       ],
+            //     ),
+            //   ),
+            // ),
+            // SizedBox(
+            //   width: 10,
+            // ),
+
+            RawMaterialButton(
+   
+                onPressed: (){
+              _handleGoogleLogin(context);
+            },
+                fillColor: Theme.of(context).backgroundColor,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  ClipRRect(
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(40),
+                          bottomLeft: Radius.circular(40)),
+                      child: Image.asset(
+                        kGoogleLogo,
+                        fit: BoxFit.cover,
+                        height: 20,width: 20,
+                      )),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Text(
+                    StringResources.googleText,
+                    style: TextStyle(),
+                  )
+                ],
               ),
-            ),
-            SizedBox(
-              width: 10,
-            ),
-            Container(
-              height: 40,
-              width: 120,
-              padding: EdgeInsets.symmetric(vertical: 10),
-              decoration: BoxDecoration(
-                  color: Color.fromARGB(0xFF, 243, 80, 29),
-                  borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(40),
-                      bottomRight: Radius.circular(40))),
-              child: Center(
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    ClipRRect(
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(40),
-                            bottomLeft: Radius.circular(40)),
-                        child: Image.asset(
-                          'assets/images/gmail_red_icon.png',
-                          fit: BoxFit.cover,
-                        )),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Text(
-                      'Google +',
-                      style: TextStyle(color: Colors.white),
-                    )
-                  ],
-                ),
-              ),
-            )
+            )),
+            // InkWell(
+            //   onTap: () {
+            //     _handleGoogleLogin(context);
+            //   },
+            //   child: SizedBox(
+            //     height: 40,
+            //     child: Material(
+            //       borderRadius: BorderRadius.circular(40),
+            //       child: Padding(
+            //         padding: EdgeInsets.symmetric(vertical: 10),
+            //         child: Row(
+            //           crossAxisAlignment: CrossAxisAlignment.center,
+            //           mainAxisSize: MainAxisSize.min,
+            //           children: <Widget>[
+            //             ClipRRect(
+            //                 borderRadius: BorderRadius.only(
+            //                     topLeft: Radius.circular(40),
+            //                     bottomLeft: Radius.circular(40)),
+            //                 child: Image.asset(
+            //                   kGoogleLogo,
+            //                   fit: BoxFit.cover,
+            //                 )),
+            //             SizedBox(
+            //               width: 5,
+            //             ),
+            //             Text(
+            //               StringResources.googleSignInText,
+            //               style: TextStyle(),
+            //             )
+            //           ],
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // )
           ],
         )
       ],
@@ -396,8 +451,8 @@ class _SignInScreenState extends State<SignInScreen> {
           forgotPasswordWidget,
           SizedBox(height: 5),
           signInButton,
-//          SizedBox(height: 20),
-//          socialLogin,
+          SizedBox(height: 20),
+          socialLogin,
           SizedBox(height: 20),
           registerText,
         ],

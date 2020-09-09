@@ -26,7 +26,7 @@ class _SenderListScreenState extends State<SenderListScreen>
   void afterFirstLayout(BuildContext context) {
     Provider.of<UserProfileViewModel>(context, listen: false).getUserData();
     var notiVM =
-        Provider.of<MessageSenderListScreenViewModel>(context, listen: false);
+    Provider.of<MessageSenderListScreenViewModel>(context, listen: false);
     notiVM.getSenderList();
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
@@ -51,48 +51,51 @@ class _SenderListScreenState extends State<SenderListScreen>
         showError: vm.shouldShowAppError,
         child: Consumer<MessageSenderListScreenViewModel>(
             builder: (context, messagesViewModel, _) {
-          if (messagesViewModel.shouldShowNoMessage) {
-            return NoMessagesWidget();
-          }
+              if (messagesViewModel.shouldShowNoMessage) {
+                return NoMessagesWidget();
+              }
 
-          return RefreshIndicator(
-            onRefresh: () async => messagesViewModel.getSenderList(),
-            child: SafeArea(
-              child: ListView.builder(
-                  physics: AlwaysScrollableScrollPhysics(),
-                  controller: _scrollController,
-                  padding: EdgeInsets.symmetric(vertical: 4),
-                  itemCount: messagesViewModel.senderList.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    var senderModel = messagesViewModel.senderList[index];
-                    return Container(
-                      margin: EdgeInsets.symmetric(vertical: 4),
-                      decoration: BoxDecoration(
-                          color: Theme.of(context).backgroundColor,
-                          boxShadow: CommonStyle.boxShadow),
-                      child: Material(
-                        type: MaterialType.transparency,
-                        child: ListTile(
-                          onTap: () {
-                            Navigator.of(context).push(CupertinoPageRoute(
-                                builder: (context) =>
-                                    ConversationScreen(senderModel)));
-                          },
-                          leading: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: CachedNetworkImage(
-                              imageUrl: senderModel.otherPartyImage,
-                              placeholder: (__,_)=>Image.asset(kCompanyImagePlaceholder),
+              return RefreshIndicator(
+                onRefresh: () async => messagesViewModel.getSenderList(),
+                child: SafeArea(
+                  child: ListView.builder(
+                      physics: AlwaysScrollableScrollPhysics(),
+                      controller: _scrollController,
+                      padding: EdgeInsets.symmetric(vertical: 4),
+                      itemCount: messagesViewModel.senderList.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        var senderModel = messagesViewModel.senderList[index];
+                        return Container(
+                          margin: EdgeInsets.symmetric(vertical: 4),
+                          decoration: BoxDecoration(
+                              color: Theme.of(context).backgroundColor,
+                              boxShadow: CommonStyle.boxShadow),
+                          child: Material(
+                            type: MaterialType.transparency,
+                            child: ListTile(
+                              contentPadding: EdgeInsets.zero,
+                              onTap: () {
+                                Navigator.of(context).push(CupertinoPageRoute(
+                                    builder: (context) =>
+                                        ConversationScreen(senderModel)));
+                              },
+                              leading: Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 4),
+                                child: CachedNetworkImage(
+                                  height: 60,
+                                  width: 60,
+                                  imageUrl: senderModel.otherPartyImage,
+                                  placeholder: (__,_)=>Image.asset(kCompanyImagePlaceholder),
+                                ),
+                              ),
+                              title: Text(senderModel.otherPartyName ?? ""),
                             ),
                           ),
-                          title: Text(senderModel.otherPartyName ?? ""),
-                        ),
-                      ),
-                    );
-                  }),
-            ),
-          );
-        }),
+                        );
+                      }),
+                ),
+              );
+            }),
       ),
     );
   }

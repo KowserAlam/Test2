@@ -2,7 +2,7 @@ name: p7app
 description: A new Flutter application for Project Seven.
 
 
-version: 1.0.22+221
+version: 1.1.22+221
 
 
 environment:
@@ -62,6 +62,7 @@ dependencies:
   socket_io: ^0.9.4
   socket_io_client: ^0.9.11
 #  device_info: ^0.4.2+7
+  google_sign_in: ^4.5.3
 
 
 

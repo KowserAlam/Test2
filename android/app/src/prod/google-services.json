@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "282452792859-dt8lb9066s89a7p0apem4q6blu9oc93d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ishraak.jobxprss",
+            "certificate_hash": "4f24057fdb51db32befc1f66eff9cfea73480fe4"
+          }
+        },
+        {
           "client_id": "282452792859-mbt631f02lkmsiv7qpjh2js78hf4s2jb.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -48,10 +56,10 @@
               "client_type": 3
             },
             {
-              "client_id": "282452792859-b0anr8m2ct0aql6oknvc8ov6242ftnqh.apps.googleusercontent.com",
+              "client_id": "282452792859-v20eihjslfk1tn7jn83ujb0ng282dtq3.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.ishraak.jobxprss"
+                "bundle_id": "com.jobxprss"
               }
             }
           ]
@@ -66,6 +74,22 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "282452792859-rg57q8l91i64f45dkipsua5gjdj7v43k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ishraak.p7app",
+            "certificate_hash": "4f24057fdb51db32befc1f66eff9cfea73480fe4"
+          }
+        },
+        {
+          "client_id": "282452792859-60l4r0nbvl0ffp42tt0u9hhela824pae.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ishraak.p7app",
+            "certificate_hash": "10386985b4f68da88c697310043a554388a96937"
+          }
+        },
         {
           "client_id": "282452792859-gj84eqeb45g161rbeo8tlaakdpsdn7rt.apps.googleusercontent.com",
           "client_type": 1,
@@ -92,10 +116,10 @@
               "client_type": 3
             },
             {
-              "client_id": "282452792859-b0anr8m2ct0aql6oknvc8ov6242ftnqh.apps.googleusercontent.com",
+              "client_id": "282452792859-v20eihjslfk1tn7jn83ujb0ng282dtq3.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.ishraak.jobxprss"
+                "bundle_id": "com.jobxprss"
               }
             }
           ]
