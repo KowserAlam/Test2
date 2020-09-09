@@ -11,7 +11,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>$(BUNDLE_NAME)</string>
+	<string>JobXprss</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -54,14 +54,11 @@
 	<false/>
 	<key>io.flutter.embedded_views_preview</key>
 	<true/>
-	
 	<key>NSCameraUsageDescription</key>
 	<string>This app requires accessing your  Camera</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>This app requires accessing your  Photo Library</string>
-
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>This app needs your location to show yor location on Maps.</string>
-	
 </dict>
 </plist>
