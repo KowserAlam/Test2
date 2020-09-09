@@ -158,6 +158,8 @@ class SignInViewModel with ChangeNotifier {
 
       // handle google signing with backend
 
+      http.post(Urls.googleSignIn);
+
       BotToast.showText(text: "Unable Signin");
       BotToast.closeAllLoading();
       return false;

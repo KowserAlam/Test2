@@ -10,6 +10,7 @@ class Urls {
   /// base url will added by [ApiClient] before sending request
 
   static String loginUrl = "/api/pro/signin/";
+  static String googleSignIn = "/api/pro/google/signin/";
   static String signUpUrl = "/api/professional/create_with_user/";
   static String passwordResetUrl = "/api/professional/password_reset/";
   static String dashboardUrl = "/api/app-dashboard";
