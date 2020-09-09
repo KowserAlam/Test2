@@ -1,4 +1,5 @@
 import 'package:flutter_driver/flutter_driver.dart';
+import 'package:p7app/main_app/app_theme/app_theme.dart';
 import 'package:test/test.dart';
 
 import '../keys.dart';
@@ -14,6 +15,9 @@ Future<void> jobDetailsTest() async {
   String jobTitle ,jobCompanyName;
 
   group('Job Details & Similar Jobs Tests: ', () {
+
+    final noSimilarJobsFoundSizedBoxKey = find.byValueKey('noSimilarJobsFoundSizedBoxKey');
+    final noSimilarJobsFoundKey = find.byValueKey('noSimilarJobsFoundKey');
 
     FlutterDriver driver;
     // Connect to the Flutter driver before running any tests.
@@ -105,8 +109,12 @@ Future<void> jobDetailsTest() async {
     });
 
     test('Check similer jobs are showing if have', () async {
-      await driver.scrollUntilVisible(Keys.jobDetailsScrollKey, Keys.similarJobsTile, dyScroll: -20);
-      await driver.tap(Keys.similarJobsTile);
+      await driver.scrollUntilVisible(Keys.jobDetailsScrollKey, noSimilarJobsFoundSizedBoxKey, dyScroll: -40);
+      if (noSimilarJobsFoundSizedBoxKey != null){
+        await expect( driver.getText(noSimilarJobsFoundKey), 'No Similar Job(s) Found.');
+      }else{
+        await driver.tap(Keys.similarJobsTile);
+      }
       await expect(await driver.getText(Keys.jobDetailsJobTitle), 'Test Job Title 78');
       await driver.tap(Keys.backButton);
     });
@@ -143,6 +151,9 @@ Future<void> jobDetailsTest() async {
     });
 
     test('Check popup Yes button is working', () async {
+      await driver.tap(Keys.commonPromptNo);
+      await driver.tap(Keys.similarJobsTileApply);
+      await expect(await driver.getText(Keys.commonPromptText), 'Do you want to apply for this job?');
       await driver.tap(Keys.commonPromptYes);
       await driver.tap(Keys.backButton);
       await expect(await driver.getText(Keys.jobsAppbarTitle), 'Jobs');
