@@ -14,6 +14,7 @@ import 'package:p7app/main_app/auth_service/auth_user_model.dart';
 import 'package:p7app/main_app/flavour/flavour_config.dart';
 import 'package:p7app/main_app/resource/json_keys.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
+import 'package:p7app/main_app/util/logger_helper.dart';
 import 'package:p7app/main_app/util/validator.dart';
 
 class SignInViewModel with ChangeNotifier {
@@ -148,7 +149,12 @@ class SignInViewModel with ChangeNotifier {
   }
   Future<bool> signInWithGoogle() async {
     BotToast.showLoading();
-    final GoogleSignIn googleSignIn = GoogleSignIn();
+    final GoogleSignIn googleSignIn = GoogleSignIn(
+      scopes: [
+        'email',
+        'https://www.googleapis.com/auth/contacts.readonly',
+      ],
+    );
     try {
       final GoogleSignInAuthentication googleSignInAuthentication =
       await googleSignIn.signIn().then((a) async => await a.authentication);
@@ -158,7 +164,18 @@ class SignInViewModel with ChangeNotifier {
 
       // handle google signing with backend
 
-      http.post(Urls.googleSignIn);
+      var body = {"token": googleSignInAuthentication.accessToken};
+      var url = "${FlavorConfig.instance.values.baseUrl}${Urls.googleSignIn}";
+      var response = await http.post(url,body:body);
+
+      logger.i(response.body);
+      if (response.statusCode == 200) {
+        Map<String, dynamic> decodedJson = jsonDecode(response.body);
+        _saveAuthData(decodedJson);
+        // clearMessage();
+        BotToast.closeAllLoading();
+        return true;
+      }
 
       BotToast.showText(text: "Unable Signin");
       BotToast.closeAllLoading();

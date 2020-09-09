@@ -18,8 +18,8 @@ class DashBoardRepository {
   Future<Either<AppError, InfoBoxDataModel>> getInfoBoxData() async {
     try {
       var res = await ApiClient().getRequest(Urls.dashboardInfoBoxUrl);
-      print(res.statusCode);
-//      print(res.body);
+      logger.i(res.statusCode);
+//      logger.i(res.body);
       if (res.statusCode == 200) {
         var decodedJson = json.decode(res.body);
         var model = InfoBoxDataModel.fromJson(decodedJson);
@@ -30,10 +30,10 @@ class DashBoardRepository {
         return Left(AppError.serverError);
       }
     } on SocketException catch (e) {
-      print(e);
+      logger.i(e);
       return Left(AppError.networkError);
     } catch (e) {
-      print(e);
+      logger.i(e);
       return Left(AppError.unknownError);
     }
   }
@@ -56,10 +56,10 @@ class DashBoardRepository {
         return Left(AppError.serverError);
       }
     } on SocketException catch (e) {
-      print(e);
+      logger.i(e);
       return Left(AppError.networkError);
     } catch (e) {
-      print(e);
+      logger.i(e);
       return Left(AppError.unknownError);
     }
   }
@@ -74,7 +74,7 @@ class DashBoardRepository {
         return 0;
       }
     } catch (e) {
-      print(e);
+      logger.i(e);
       return 0;
     }
   }
@@ -82,7 +82,7 @@ class DashBoardRepository {
   Future<Either<AppError, VitalStatsDataModel>> getVitalStats() async {
     try {
       var res = await ApiClient().getRequest(Urls.vitalStatsUrl);
-      print(res.statusCode);
+      logger.i(res.statusCode);
       if (res.statusCode == 200) {
         var decodedJson = json.decode(res.body);
        Logger().i(decodedJson);
@@ -92,10 +92,10 @@ class DashBoardRepository {
         return Left(AppError.serverError);
       }
     } on SocketException catch (e) {
-      print(e);
+      logger.i(e);
       return Left(AppError.networkError);
     } catch (e) {
-      print(e);
+      logger.i(e);
       return Left(AppError.unknownError);
     }
   }
@@ -103,7 +103,7 @@ class DashBoardRepository {
   Future<Either<AppError, List<TopCategoriesModel>>> getTopCategories() async {
     try {
       var res = await ApiClient().getRequest(Urls.topCategoriesListUrl);
-      print(res.statusCode);
+      logger.i(res.statusCode);
       if (res.statusCode == 200) {
         var decodedJson = json.decode(res.body);
         Logger().i(decodedJson);
@@ -114,10 +114,10 @@ class DashBoardRepository {
         return Left(AppError.serverError);
       }
     } on SocketException catch (e) {
-      print(e);
+      logger.i(e);
       return Left(AppError.networkError);
     } catch (e) {
-      print(e);
+      logger.i(e);
       return Left(AppError.unknownError);
     }
   }

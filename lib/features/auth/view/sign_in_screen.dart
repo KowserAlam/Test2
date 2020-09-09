@@ -92,9 +92,24 @@ class _SignInScreenState extends State<SignInScreen> {
     }
   }
 
-  _handleGoogleLogin(){
+  _handleGoogleLogin(BuildContext context) async {
     var loginViewModel = Provider.of<SignInViewModel>(context, listen: false);
-    loginViewModel.signInWithGoogle();
+    var res = await loginViewModel.signInWithGoogle();
+    if (res) {
+      // loginViewModel.resetState();
+      // _btnController.success();
+
+      Navigator.of(context).pushAndRemoveUntil(
+          CupertinoPageRoute(
+              builder: (BuildContext context) => Root(
+                    showDummyLoadingTime: true,
+                  )),
+          (_) => false);
+//          _btnController.reset();
+
+    } else {
+      _btnController.reset();
+    }
   }
 
   _showSnackBar(String text, Color color) {
@@ -315,53 +330,58 @@ class _SignInScreenState extends State<SignInScreen> {
         Row(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Container(
-              height: 40,
-              width: 120,
-              padding: EdgeInsets.symmetric(vertical: 13),
-              decoration: BoxDecoration(
-                  color: Color.fromARGB(0xFF, 59, 89, 152),
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(40),
-                      bottomLeft: Radius.circular(40))),
-              child: Center(
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    ClipRRect(
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(40),
-                            bottomLeft: Radius.circular(40)),
-                        child: Image.asset(
-                          'assets/images/fbIcon.png',
-                          fit: BoxFit.cover,
-                        )),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Text(
-                      'Facebook',
-                      style: TextStyle(color: Colors.white),
-                    )
-                  ],
-                ),
-              ),
-            ),
-            SizedBox(
-              width: 10,
-            ),
+            // Container(
+            //   height: 40,
+            //   width: 120,
+            //   padding: EdgeInsets.symmetric(vertical: 13),
+            //   decoration: BoxDecoration(
+            //       color: Color.fromARGB(0xFF, 59, 89, 152),
+            //       borderRadius: BorderRadius.only(
+            //           topLeft: Radius.circular(40),
+            //           bottomLeft: Radius.circular(40))),
+            //   child: Center(
+            //     child: Row(
+            //       crossAxisAlignment: CrossAxisAlignment.center,
+            //       mainAxisSize: MainAxisSize.min,
+            //       children: <Widget>[
+            //         ClipRRect(
+            //             borderRadius: BorderRadius.only(
+            //                 topLeft: Radius.circular(40),
+            //                 bottomLeft: Radius.circular(40)),
+            //             child: Image.asset(
+            //               'assets/images/fbIcon.png',
+            //               fit: BoxFit.cover,
+            //             )),
+            //         SizedBox(
+            //           width: 5,
+            //         ),
+            //         Text(
+            //           'Facebook',
+            //           style: TextStyle(color: Colors.white),
+            //         )
+            //       ],
+            //     ),
+            //   ),
+            // ),
+            // SizedBox(
+            //   width: 10,
+            // ),
             InkWell(
-              onTap: _handleGoogleLogin,
+              onTap: () {
+                _handleGoogleLogin(context);
+              },
               child: Container(
                 height: 40,
                 width: 120,
                 padding: EdgeInsets.symmetric(vertical: 10),
                 decoration: BoxDecoration(
-                    color: Color.fromARGB(0xFF, 243, 80, 29),
-                    borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(40),
-                        bottomRight: Radius.circular(40))),
+                  color: Color.fromARGB(0xFF, 243, 80, 29),
+                  borderRadius: BorderRadius.circular(40),
+                  // borderRadius: BorderRadius.only(
+                  //   topRight: Radius.circular(40),
+                  //   bottomRight: Radius.circular(40),
+                  // ),
+                ),
                 child: Center(
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
