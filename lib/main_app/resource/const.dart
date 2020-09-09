@@ -23,6 +23,7 @@ const String  kUserProfileCoverImageAsset = "assets/images/user_profile_cover.pn
 const String  kCompanyImagePlaceholder = "assets/images/company_placeholder.png";
 const String  kCareerAdvicePlaceholder = "assets/images/career_advice_place_holder.jpeg";
 const String  kVitalStatsBg = "assets/images/bg_vital_stats.png";
+const String  kGoogleLogo = "assets/images/google_logo.png";
 
 const Duration  kDefaultTimeToPreventAutoRefresh = const Duration(minutes: 5);
 

@@ -367,40 +367,73 @@ class _SignInScreenState extends State<SignInScreen> {
             // SizedBox(
             //   width: 10,
             // ),
-            InkWell(
-              onTap: () {
-                _handleGoogleLogin(context);
-              },
-              child: Container(
-                height: 40,
-                width: 120,
-                padding: EdgeInsets.symmetric(vertical: 10),
-                decoration: BoxDecoration(
-                  color: Color(0XffEA4335),
-                  borderRadius: BorderRadius.circular(40),
-                  // borderRadius: BorderRadius.only(
-                  //   topRight: Radius.circular(40),
-                  //   bottomRight: Radius.circular(40),
-                  // ),
-                ),
-                child: Center(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Icon(FontAwesomeIcons.google,size: 14,color: Colors.white,),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        StringResources.googleText,
-                        style: TextStyle(color: Colors.white),
-                      )
-                    ],
+
+            RawMaterialButton(
+   
+                onPressed: (){
+              _handleGoogleLogin(context);
+            },
+                fillColor: Theme.of(context).backgroundColor,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  ClipRRect(
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(40),
+                          bottomLeft: Radius.circular(40)),
+                      child: Image.asset(
+                        kGoogleLogo,
+                        fit: BoxFit.cover,
+                        height: 20,width: 20,
+                      )),
+                  SizedBox(
+                    width: 5,
                   ),
-                ),
+                  Text(
+                    StringResources.googleText,
+                    style: TextStyle(),
+                  )
+                ],
               ),
-            )
+            )),
+            // InkWell(
+            //   onTap: () {
+            //     _handleGoogleLogin(context);
+            //   },
+            //   child: SizedBox(
+            //     height: 40,
+            //     child: Material(
+            //       borderRadius: BorderRadius.circular(40),
+            //       child: Padding(
+            //         padding: EdgeInsets.symmetric(vertical: 10),
+            //         child: Row(
+            //           crossAxisAlignment: CrossAxisAlignment.center,
+            //           mainAxisSize: MainAxisSize.min,
+            //           children: <Widget>[
+            //             ClipRRect(
+            //                 borderRadius: BorderRadius.only(
+            //                     topLeft: Radius.circular(40),
+            //                     bottomLeft: Radius.circular(40)),
+            //                 child: Image.asset(
+            //                   kGoogleLogo,
+            //                   fit: BoxFit.cover,
+            //                 )),
+            //             SizedBox(
+            //               width: 5,
+            //             ),
+            //             Text(
+            //               StringResources.googleSignInText,
+            //               style: TextStyle(),
+            //             )
+            //           ],
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // )
           ],
         )
       ],
