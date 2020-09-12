@@ -184,7 +184,7 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
                   Navigator.of(context).push(
                       CupertinoPageRoute(builder: (context) => SignInScreen()));
                 },
-                child: Text(StringResources.logInButtonText),
+                child: Text(StringResources.signInButtonText),
               ),
             ))
         ],
@@ -217,12 +217,11 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
                   JobChartWidget(),
                 ],
               ),
-            if (!isLoggedIn)  FeaturedCompaniesWidget(),
+            if (!isLoggedIn) FeaturedCompaniesWidget(),
             if (!isLoggedIn) RecentJobs(),
             if (!isLoggedIn) TopCategoriesWidget(),
             if (!isLoggedIn) VitalStateWidget(),
             SizedBox(height: 10),
-
             SizedBox(height: 10),
             CareerAdviceListHWidget(),
             SizedBox(height: 10),

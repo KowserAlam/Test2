@@ -15,13 +15,13 @@ class StringResources {
   static String appNameBeta = "$appName Beta";
   static String appNameQA = "$appName  QA";
 
-  static String logInButtonText = "LOG IN";
-  static String loginSuccessMessage = "Login Successful";
-  static String loginUnsuccessfulMessage = "Login unsuccessful";
+  static String signInButtonText = "Sign In";
+  static String loginSuccessMessage = "Sign in Successful";
+  static String loginUnsuccessfulMessage = "Sign in unsuccessful";
   static String unableToReachServerMessage = "Unable To Reach Server";
   static String forgotPassword = "Forgot Password ?";
   static String welcomeBack = "Welcome back!";
-  static String loginToYourExistingAccount = "Login to your existing account";
+  static String loginToYourExistingAccount = "Sign in to your existing account";
 
   /// Validator
 
@@ -376,7 +376,7 @@ class StringResources {
   static var unauthorizedText = "Unauthorized";
   static var googleText = "Google";
   static var googleSignInText = "Sign in with Google";
-  static var youHaveToLoginToSeeMoreJobsText = "You have to login to see more jobs!";
+  static var pleaseSignInToSeeMoreJobsText = "Please sign in to see more jobs!";
 
   /// AddEditSkill Screen
 
