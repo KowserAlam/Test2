@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:p7app/features/auth/view/email_verification.dart';
 import 'package:p7app/features/auth/view/widgets/custom_text_field_rounded.dart';
 import 'package:p7app/features/auth/view_models/sign_in_view_model.dart';
 import 'package:p7app/features/auth/view_models/signup_viewmodel.dart';
@@ -57,6 +58,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     bool isValid = signUpProvider.validate();
     if(isValid){print('Validated');}else{print('Not validated');}
 
+
     if(isValid){
       _fromKey.currentState.save();
       Provider.of<SignUpViewModel>(context,listen: false).signUpWithEmailPassword(
@@ -67,10 +69,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
       ).then((v) {
         if(v){
           signUpProvider.resetState();
-          Navigator.pop(context);
+//          Navigator.pop(context);
 //          BotToast.showSimpleNotification(title: "Check your email verify account");
           Provider.of<SignInViewModel>(context,listen: false).isFromSuccessfulSignUp = true;
-
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (BuildContext context) => EmailVerification()));
         }
       });
 
