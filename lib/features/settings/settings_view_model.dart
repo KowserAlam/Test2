@@ -2,6 +2,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_cache/flutter_cache.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/push_notification_service/push_notification_service.dart';
 
@@ -11,13 +12,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:p7app/main_app/util/local_storage.dart';
 import 'package:p7app/main_app/util/locator.dart';
+import 'package:p7app/main_app/util/logger_helper.dart';
 import 'package:p7app/main_app/views/widgets/restart_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
 class SettingsViewModel with ChangeNotifier {
   String _isEnabledNewsPushKey = "isEnabledNewsPush";
-  bool isEnabledNewsPush =false;
+  bool isEnabledNewsPush = false;
 
   SettingsViewModel() {
 //    initPref();
@@ -27,7 +29,9 @@ class SettingsViewModel with ChangeNotifier {
   initSettings() {
     Future.wait([
       getNewsPushStatus(),
-    ]).then((value) {notifyListeners();});
+    ]).then((value) {
+      notifyListeners();
+    });
   }
 
   initPref() async {
@@ -57,10 +61,10 @@ class SettingsViewModel with ChangeNotifier {
   togglePushNotificationNewUpdate({Key key}) async {
     isEnabledNewsPush = !isEnabledNewsPush;
     var storage = await LocalStorageService.getInstance();
-   var pushService =  locator<PushNotificationService>();
-    if(isEnabledNewsPush){
+    var pushService = locator<PushNotificationService>();
+    if (isEnabledNewsPush) {
       pushService.fcmSubscribeNews();
-    }else{
+    } else {
       pushService.fcmUnSubscribeNews();
     }
     storage.saveBool(_isEnabledNewsPushKey, isEnabledNewsPush);
@@ -77,9 +81,21 @@ class SettingsViewModel with ChangeNotifier {
   signOut() {
     AuthService.getInstance().then((value) => value.removeUser()).then((value) {
       clearAllCachedData();
+      _disconnectGoogleAccount();
 //      Cache.clear();
 //       locator<RestartNotifier>().restartApp();
 //       locator.reset();
     });
+  }
+
+  _disconnectGoogleAccount() async {
+    try {
+      GoogleSignIn _googleSignIn = GoogleSignIn();
+      await _googleSignIn.disconnect();
+    } catch (e) {
+      logger.i(e);
+    }
+    GoogleSignIn _googleSignIn = GoogleSignIn();
+    await _googleSignIn.disconnect();
   }
 }

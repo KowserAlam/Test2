@@ -156,6 +156,7 @@ class SignInViewModel with ChangeNotifier {
       ],
     );
     try {
+
       final GoogleSignInAuthentication googleSignInAuthentication =
       await googleSignIn.signIn().then((a) async => await a.authentication);
 
