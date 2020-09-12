@@ -20,8 +20,8 @@ class RecentJobs extends StatefulWidget {
 }
 
 class _RecentJobsState extends State<RecentJobs> {
-  double cardWidth = 180;
-  double cardHeight = 240;
+  double cardWidth = 220;
+  double cardHeight = 180;
 
 
   @override
@@ -53,131 +53,87 @@ class _RecentJobsState extends State<RecentJobs> {
                   fromJobListScreenType: JobListScreenType.main,
                 )));
           },
-          child: Container(
-            height: cardHeight-20,
-            width: cardWidth,
-            margin: EdgeInsets.only(right: 15),
-            alignment: Alignment.topCenter,
-            child: Stack(
-              children: [
-                Positioned(
-                  top: 20,
-                  child: Container(
-                    height: cardHeight-40,
-                    width: cardWidth,
-                    padding: EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        border: Border.all(color: Colors.grey[200]),
-                        color: Colors.grey.shade100,
-                        gradient: LinearGradient(
-                            colors: [Colors.grey[200], Colors.white],
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight
-                        ),
-                        boxShadow: [
-                          BoxShadow(
-                              color: Colors.grey[200],
-                              offset: Offset(4,4),
-                              blurRadius: 2
-                          ),
-                          BoxShadow(
-                              color: Colors.white,
-                              offset: Offset(-1,-1),
-                              blurRadius: 2
-                          )
-                        ]
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SizedBox(height: 45,),
-                        Text(jobListModel.title, maxLines: 2, overflow: TextOverflow.ellipsis, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
-                        SizedBox(height: 5,),
-                        Text(jobListModel.companyName, maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 12, color: Colors.blueAccent),),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: Divider(height: 15, thickness: 1,),
-                        ),
-                        SizedBox(height: 5,),
-                        Expanded(child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: <Widget>[
-                                Icon(
-                                  FeatherIcons.mapPin,
-                                  color: subtitleColor,
-                                  size: iconSize,
-                                ),
-                                SizedBox(
-                                  width: 5,
-                                ),
-                                Expanded(
-                                  child: Text(
-                                    jobListModel.jobCity.swapValueByComa ?? "",
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: subTitleStyle,
-                                  ),
-                                )
-                              ],
-                            ),
-                            SizedBox(height: 5,),
-                            Row(
-                              children: <Widget>[
-                                Icon(FeatherIcons.clock, size: iconSize, color: subtitleColor),
-                                SizedBox(width: 5),
-                                Text(
-                                  deadLineText,
-                                  style: subTitleStyle,
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: 5,),
-                            Row(
-                              children: <Widget>[
-                                Icon(
-                                  FeatherIcons.calendar,
-                                  size: iconSize,
-                                  color: subtitleColor,
-                                ),
-                                SizedBox(width: 5),
-                                Text(
-                                  publishDateText,
-                                  style: subTitleStyle,
-                                ),
-                              ],
-                            )
-                          ],
-                        ))
-                      ],
-                    ),
+          child: Card(
+            child: Container(
+              height: cardHeight,
+              width: cardWidth,
+              padding: EdgeInsets.all(6),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        height: 60,
+                        width: 60,
+                        child: CachedNetworkImage(
+                          imageUrl: jobListModel.profilePicture ?? "",
+                          placeholder: (context, _) => Image.asset(kCompanyImagePlaceholder),),
+                      ),
+                      SizedBox(width: 3,),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(jobListModel.title, maxLines: 2, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),),
+                          SizedBox(height: 5,),
+                          Text(jobListModel.title, style: TextStyle(fontSize: 10, color: Colors.blueAccent),),
+                        ],
+                      )
+                    ],
                   ),
-                ),
-                Positioned(
-                  left: cardWidth/3,
-                  top: 0,
-                  child: Container(
-                    height: cardWidth/3,
-                    width: cardWidth/3,
-                    padding: EdgeInsets.all(2),
-                    decoration: BoxDecoration(
-                        color: Theme.of(context).scaffoldBackgroundColor,
-                        borderRadius: BorderRadius.circular(5),
-                        border: Border.all(width: 1, color: Colors.grey[200]),
-                        boxShadow: [BoxShadow(
-                            color: Colors.black26,
-                            offset: Offset(0, 2),
-                            blurRadius: 6)]
-                    ),
-                    child: CachedNetworkImage(
-                      imageUrl: jobListModel.profilePicture ?? "",
-                      placeholder: (context, _) => Image.asset(kCompanyImagePlaceholder),
-                    ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 5),
+                    child: Divider(height: 20,),
                   ),
-                ),
-              ],
+                  Row(
+                    children: <Widget>[
+                      Icon(
+                        FeatherIcons.mapPin,
+                        color: subtitleColor,
+                        size: iconSize,
+                      ),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Expanded(
+                        child: Text(
+                          jobListModel.jobCity.swapValueByComa ?? "",
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: subTitleStyle,
+                        ),
+                      )
+                    ],
+                  ),
+                  SizedBox(height: 7,),
+                  Row(
+                    children: <Widget>[
+                      Icon(
+                        FeatherIcons.calendar,
+                        size: iconSize,
+                        color: subtitleColor,
+                      ),
+                      SizedBox(width: 5),
+                      Text(
+                        publishDateText,
+                        style: subTitleStyle,
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 7,),
+                  Row(
+                    children: <Widget>[
+                      Icon(FeatherIcons.clock, size: iconSize, color: subtitleColor),
+                      SizedBox(width: 5),
+                      Text(
+                        deadLineText,
+                        style: subTitleStyle,
+                      ),
+                    ],
+                  )
+                ],
+              ),
             ),
           ),
         );
