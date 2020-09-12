@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p7app/features/user_profile/models/reference_data.dart';
 import 'package:p7app/main_app/app_theme/common_style.dart';
@@ -62,9 +63,10 @@ class _ReferencesListItemWidgetState extends State<ReferencesListItemWidget> {
                   child: Icon(FontAwesomeIcons.user,size: 30,),
                 ),
                 Expanded(
-                  child: Text(
-                    text ?? "", key: Key('referenceTileDescription'+(widget.index+1).toString()),
-                  ),
+//                  child: Text(
+//                    text ?? "", key: Key('referenceTileDescription'+(widget.index+1).toString()),
+//                  ),
+                child: HtmlWidget(text),
                 ),
                 if (widget.isInEditMode)
                   Row(

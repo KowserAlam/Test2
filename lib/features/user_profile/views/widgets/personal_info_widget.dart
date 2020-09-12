@@ -1,3 +1,4 @@
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/main_app/app_theme/common_style.dart';
 import 'package:p7app/features/user_profile/views/screens/edit_personal_info_screen.dart';
@@ -36,6 +37,35 @@ class PersonalInfoWidget extends StatelessWidget {
 //        TextSpan(text: ": ${value ?? ""}"),
 //      ])),
 //    );
+
+  }
+
+  Widget _htmlItem(
+      {@required BuildContext context,
+        @required String label,
+        @required String value,
+        @required Key valueKey}) {
+//    double width = MediaQuery.of(context).size.width > 720 ? 160 : 130;
+    return Padding(
+      padding: const EdgeInsets.all(5.0),
+      child: Row(
+        crossAxisAlignment:CrossAxisAlignment.start,
+        children: [
+          Text("$label: ",style: TextStyle(fontWeight: FontWeight.bold)),
+          Expanded(child: HtmlWidget("${value ?? ""}", key: valueKey,)),
+        ],),
+    );
+//    return Padding(
+//      padding: const EdgeInsets.all(5.0),
+//      child: Text.rich(TextSpan(children: [
+//        TextSpan(
+//          text: "$label",
+//          style: TextStyle(fontWeight: FontWeight.bold),
+//        ),
+//        TextSpan(text: ": ${value ?? ""}"),
+//      ])),
+//    );
+
   }
 
   @override
@@ -100,13 +130,13 @@ class PersonalInfoWidget extends StatelessWidget {
                     value: personalInfo.motherName ?? ""),
 
                 //current address
-                _item(
+                _htmlItem(
                     context: context,
                     valueKey: Key('personalInfoTileCurrentAddress'),
                     label: StringResources.addressText,
                     value: personalInfo.address ?? ""),
                 //permanent address
-                _item(
+                _htmlItem(
                     context: context,
                     valueKey: Key('personalInfoTilePermanentAddress'),
                     label: StringResources.permanentAddressText,
