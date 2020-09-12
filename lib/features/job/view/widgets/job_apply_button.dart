@@ -38,15 +38,15 @@ class JobApplyButton extends StatelessWidget {
       message: "Apply Button",
       child: Material(
         color: buttonColor,
-        borderRadius: BorderRadius.circular(5),
+        borderRadius: BorderRadius.circular(20),
         child: InkWell(
           onTap: isAppliedDisabled ? () {} : onPressedApply,
           borderRadius: BorderRadius.circular(5),
           child: Container(
             height: 30,
-            width: 65,
+            width: 80,
             alignment: Alignment.center,
-//          padding: EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+         // padding: EdgeInsets.symmetric(vertical: 6, horizontal: 15),
 
             child: Text(
               "${isApplied
@@ -54,7 +54,7 @@ class JobApplyButton extends StatelessWidget {
                   : StringResources.applyText}",
               key: Key('applyButtonText'),
               style: TextStyle(
-                  fontSize: 15, color: textColor, fontWeight: FontWeight.w600),
+                  fontSize: 15, color: textColor, ),
             ),
           ),
         ),

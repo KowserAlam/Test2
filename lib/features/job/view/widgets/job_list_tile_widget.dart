@@ -199,7 +199,7 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
         ),
       ],
     );
-    var publishDate = Row(
+    var publishDate =      (widget.jobModel.postDate == null) ?SizedBox():Row(
       children: <Widget>[
         Icon(
           FeatherIcons.calendar,
@@ -264,7 +264,9 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
+
                     publishDate,
+                    if(widget.jobModel.applicationDeadline != null)
                     applicationDeadlineWidget,
                     applyButton,
                   ],
