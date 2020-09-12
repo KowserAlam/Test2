@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:dartz/dartz_unsafe.dart';
 import 'package:logger/logger.dart';
+import 'package:p7app/features/company/models/company.dart';
 import 'package:p7app/features/dashboard/models/info_box_data_model.dart';
 import 'package:p7app/features/dashboard/models/skill_job_chart_data_model.dart';
 import 'package:p7app/features/dashboard/models/top_categories_model.dart';
@@ -31,10 +32,10 @@ class DashBoardRepository {
         return Left(AppError.serverError);
       }
     } on SocketException catch (e) {
-      logger.i(e);
+      logger.e(e);
       return Left(AppError.networkError);
     } catch (e) {
-      logger.i(e);
+      logger.e(e);
       return Left(AppError.unknownError);
     }
   }
@@ -57,10 +58,10 @@ class DashBoardRepository {
         return Left(AppError.serverError);
       }
     } on SocketException catch (e) {
-      logger.i(e);
+      logger.e(e);
       return Left(AppError.networkError);
     } catch (e) {
-      logger.i(e);
+      logger.e(e);
       return Left(AppError.unknownError);
     }
   }
@@ -75,7 +76,7 @@ class DashBoardRepository {
         return 0;
       }
     } catch (e) {
-      logger.i(e);
+      logger.e(e);
       return 0;
     }
   }
@@ -93,10 +94,10 @@ class DashBoardRepository {
         return Left(AppError.serverError);
       }
     } on SocketException catch (e) {
-      logger.i(e);
+      logger.e(e);
       return Left(AppError.networkError);
     } catch (e) {
-      logger.i(e);
+      logger.e(e);
       return Left(AppError.unknownError);
     }
   }
@@ -115,10 +116,10 @@ class DashBoardRepository {
         return Left(AppError.serverError);
       }
     } on SocketException catch (e) {
-      logger.i(e);
+      logger.e(e);
       return Left(AppError.networkError);
     } catch (e) {
-      logger.i(e);
+      logger.e(e);
       return Left(AppError.unknownError);
     }
   }
@@ -126,10 +127,10 @@ class DashBoardRepository {
   Future<Either<AppError, List<JobListModel>>> getRecentJobs() async {
     try {
       var res = await ApiClient().getRequest(Urls.recentJobsListUrl);
-      print(res.statusCode);
+      logger.i(res.statusCode);
       if (res.statusCode == 200) {
         var decodedJson = json.decode(res.body);
-        Logger().i(decodedJson);
+        // Logger().i(decodedJson);
         List<JobListModel> list = [];
         decodedJson.forEach((e)=>list.add(JobListModel.fromJson(e)));
         return Right(list);
@@ -137,10 +138,31 @@ class DashBoardRepository {
         return Left(AppError.serverError);
       }
     } on SocketException catch (e) {
-      print(e);
+      logger.e(e);
       return Left(AppError.networkError);
     } catch (e) {
-      print(e);
+      logger.e(e);
+      return Left(AppError.unknownError);
+    }
+  }
+  Future<Either<AppError, List<Company>>> getFeaturedCompanies() async {
+    try {
+      var res = await ApiClient().getRequest(Urls.featuredCompaniesListUrl);
+      logger.i(res.statusCode);
+      if (res.statusCode == 200) {
+        var decodedJson = json.decode(res.body);
+        // Logger().i(decodedJson);
+        List<Company> list = [];
+        decodedJson['results'].forEach((e)=>list.add(Company.fromJson(e)));
+        return Right(list);
+      } else {
+        return Left(AppError.serverError);
+      }
+    } on SocketException catch (e) {
+      logger.e(e);
+      return Left(AppError.networkError);
+    } catch (e) {
+      logger.e(e);
       return Left(AppError.unknownError);
     }
   }
