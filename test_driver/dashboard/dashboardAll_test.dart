@@ -30,6 +30,7 @@ Future<void> dashboardInfoBoxTest() async{
     final careerAdviceTile4 = find.byValueKey('careerAdviceTile4');
     final careerAdviceTile5 = find.byValueKey('careerAdviceTile5');
     final FAQ = find.text('Frequently Asked Questions');
+    final dashboardMonthlyJobsTextKey = find.byValueKey('dashboardMonthlyJobsTextKey');
 
 
     //wait for text
@@ -50,8 +51,11 @@ Future<void> dashboardInfoBoxTest() async{
     //test cases are started from here
 
     test('If no skilles added, showing skill add button', () async {
-      await expect(await driver.getText(Keys.dashboardAddSkillButton), 'Add Skill');
-      await Future.delayed(const Duration(seconds: 2), () {});
+      if(Keys.dashboardAddSkillButton != null){
+        await expect(await driver.getText(Keys.dashboardAddSkillButton), 'Add Skill');
+      }else{
+        await expect(await driver.getText(dashboardMonthlyJobsTextKey), 'Monthly Jobs');
+      }
     });
 
     test('Click on Applied button on infobox', () async {
