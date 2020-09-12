@@ -45,15 +45,15 @@ class _RecentJobsState extends State<RecentJobs> {
           : DateFormatUtil().dateFormat1(jobListModel.applicationDeadline);
 
       return LayoutBuilder(builder: (context, c) {
-        return InkWell(
-          onTap: (){
-            Navigator.of(context).push(CupertinoPageRoute(
-                builder: (context) => JobDetailsScreen(
-                  slug: jobListModel.slug,
-                  fromJobListScreenType: JobListScreenType.main,
-                )));
-          },
-          child: Card(
+        return Card(
+          child: InkWell(
+            onTap: (){
+              Navigator.of(context).push(CupertinoPageRoute(
+                  builder: (context) => JobDetailsScreen(
+                    slug: jobListModel.slug,
+                    fromJobListScreenType: JobListScreenType.main,
+                  )));
+            },
             child: Container(
               height: cardHeight,
               width: cardWidth,
@@ -77,7 +77,7 @@ class _RecentJobsState extends State<RecentJobs> {
                         children: [
                           Text(jobListModel.title, maxLines: 2, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),),
                           SizedBox(height: 5,),
-                          Text(jobListModel.title, style: TextStyle(fontSize: 10, color: Colors.blueAccent),),
+                          Text(jobListModel.companyName, style: TextStyle(fontSize: 10, color: Colors.blueAccent),),
                         ],
                       )
                     ],
