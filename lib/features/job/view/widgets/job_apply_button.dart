@@ -37,11 +37,12 @@ class JobApplyButton extends StatelessWidget {
     return Tooltip(
       message: "Apply Button",
       child: Material(
+        elevation: 4,
         color: buttonColor,
         borderRadius: BorderRadius.circular(20),
         child: InkWell(
           onTap: isAppliedDisabled ? () {} : onPressedApply,
-          borderRadius: BorderRadius.circular(5),
+          borderRadius: BorderRadius.circular(20),
           child: Container(
             height: 30,
             width: 80,

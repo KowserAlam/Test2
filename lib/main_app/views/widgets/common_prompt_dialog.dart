@@ -16,23 +16,28 @@ class CommonPromptDialog extends StatelessWidget {
       title: Text(titleText, key: Key('commonPromptText'),),
       content: content,
       actions: [
-        FlatButton(
+        RawMaterialButton(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           key: Key('commonPromtNo'),
-          color: Theme.of(context).accentColor,
+          fillColor: Theme.of(context).primaryColor,
           onPressed: onCancel,
           child: Text(StringResources.noText, style: buttonTextStyles),
         ),
         SizedBox(
           width: 8,
         ),
-        FlatButton(
+        RawMaterialButton(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           key: Key('commonPromptYes'),
-          color: Theme.of(context).accentColor,
+          fillColor: Theme.of(context).primaryColor,
           onPressed: onAccept,
           child: Text(
             StringResources.yesText,
             style: buttonTextStyles,
           ),
+        ),
+        SizedBox(
+          width: 8,
         ),
       ],
     );
