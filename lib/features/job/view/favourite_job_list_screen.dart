@@ -7,7 +7,7 @@ import 'package:p7app/features/job/view/widgets/job_list_tile_widget.dart';
 import 'package:p7app/features/job/view/widgets/jobs_screen_segment_control_bar.dart';
 import 'package:p7app/features/job/view/widgets/no_favourite_jobs_widget.dart';
 import 'package:p7app/features/job/view_model/favourite_job_list_view_model.dart';
-import 'package:p7app/features/job/view_model/job_list_view_model.dart';
+import 'package:p7app/features/job/view_model/all_job_list_view_model.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/views/widgets/common_prompt_dialog.dart';
 import 'package:p7app/main_app/views/widgets/loader.dart';
@@ -123,7 +123,7 @@ class _FavouriteJobListScreenState extends State<FavouriteJobListScreen>
                                                 .addToFavorite(job.jobId, index)
                                                 .then((value) {
                                               return Provider.of<
-                                                          JobListViewModel>(
+                                                          AllJobListViewModel>(
                                                       context,
                                                       listen: false)
                                                   .refresh();
@@ -158,7 +158,7 @@ class _FavouriteJobListScreenState extends State<FavouriteJobListScreen>
                   .applyForJob(job.jobId, index)
                   .then((value) {
                 Navigator.pop(context);
-                return Provider.of<JobListViewModel>(context, listen: false)
+                return Provider.of<AllJobListViewModel>(context, listen: false)
                     .refresh();
               });
             },

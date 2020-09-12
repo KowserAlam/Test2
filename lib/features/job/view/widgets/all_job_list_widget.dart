@@ -4,7 +4,7 @@ import 'package:p7app/features/auth/view/sign_in_screen.dart';
 import 'package:p7app/features/job/models/job_list_model.dart';
 import 'package:p7app/features/job/view/job_details_screen.dart';
 import 'package:p7app/features/job/view/widgets/job_list_tile_widget.dart';
-import 'package:p7app/features/job/view_model/job_list_view_model.dart';
+import 'package:p7app/features/job/view_model/all_job_list_view_model.dart';
 import 'package:p7app/main_app/auth_service/auth_view_model.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/views/widgets/common_prompt_dialog.dart';
@@ -14,7 +14,7 @@ import 'package:provider/provider.dart';
 class AllJobListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var jobListViewModel = Provider.of<JobListViewModel>(context);
+    var jobListViewModel = Provider.of<AllJobListViewModel>(context);
     var jobList = jobListViewModel.jobList;
     var isLoggedIn =
         Provider.of<AuthViewModel>(context, listen: false).isLoggerIn;
@@ -110,7 +110,7 @@ class AllJobListWidget extends StatelessWidget {
               Navigator.pop(context);
             },
             onAccept: () {
-              Provider.of<JobListViewModel>(context, listen: false)
+              Provider.of<AllJobListViewModel>(context, listen: false)
                   .applyForJob(jobModel.jobId, index);
               Navigator.pop(context);
             },

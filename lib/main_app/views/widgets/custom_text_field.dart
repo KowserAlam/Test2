@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:p7app/main_app/app_theme/common_style.dart';
 import 'package:p7app/main_app/util/validator.dart';
@@ -17,12 +19,16 @@ class CustomTextField extends StatelessWidget {
   final Widget prefix;
   final Widget suffixIcon;
   final Function onChanged;
+  final Function onTap;
   final Key textFieldKey;
+  final bool readOnly;
 
   const CustomTextField({
+    this.readOnly=false,
     this.textFieldKey,
     this.suffixIcon,
     this.prefix,
+    this.onTap,
     this.onChanged,
     this.textInputAction,
     this.controller,
@@ -63,6 +69,8 @@ boxShadow: CommonStyle.boxShadow,
 //            ],
           ),
           child: TextField(
+            onTap: onTap,
+            readOnly: readOnly,
             key: textFieldKey,
             minLines: minLines,
             onChanged: onChanged,

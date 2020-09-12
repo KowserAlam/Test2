@@ -9,7 +9,7 @@ import 'package:p7app/features/job/models/job_list_model.dart';
 import 'package:p7app/features/job/models/job_model.dart';
 import 'package:p7app/features/job/models/job_list_filters.dart';
 import 'package:p7app/features/job/repositories/job_repository.dart';
-import 'package:p7app/features/job/view_model/job_list_view_model.dart';
+import 'package:p7app/features/job/view_model/all_job_list_view_model.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:http/http.dart' as http;
 import 'package:p7app/main_app/p7_app.dart';
@@ -20,7 +20,7 @@ class MockJobListRepository extends Mock implements JobRepository {}
 
 main() {
 
-  JobListViewModel viewModel = JobListViewModel();
+  AllJobListViewModel viewModel = AllJobListViewModel();
   var client = MockApiClient();
   var mockRepository = MockJobListRepository();
   viewModel.jobListRepository = mockRepository;

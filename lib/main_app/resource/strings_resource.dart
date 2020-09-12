@@ -371,6 +371,7 @@ class StringResources {
   static var emailAlreadyExistText =
       "Email Already exist! Try login or rest password";
   static var somethingIsWrong = "Something is wrong ! \nTry again later";
+  static var somethingIsWrongPleaseUserDifferentGoogleAccount = "Something is wrong,\nPlease use different google account";
   static var somethingIsWrongSingleLine = "Something is wrong!";
   static var unauthorizedText = "Unauthorized";
   static var googleText = "Google";
@@ -478,6 +479,8 @@ class StringResources {
   static String noExamFoundText = "No exam found !";
 
   static var homText = "home";
+  static var allTheGreatJobsInOnePlace = "All the Great Jobs in One Place!";
+  static var findJobsEmploymentText = "Find Jobs, Employment & Career Opportunities";
 
   static String enumName(String enumToString) {
     List<String> paths = enumToString.split(".");

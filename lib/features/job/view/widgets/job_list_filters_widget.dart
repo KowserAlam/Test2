@@ -6,7 +6,7 @@ import 'package:p7app/features/job/models/job_list_filters.dart';
 import 'package:p7app/features/job/models/jon_type_model.dart';
 import 'package:p7app/features/job/models/sort_item.dart';
 import 'package:p7app/features/job/view_model/job_list_filter_widget_view_model.dart';
-import 'package:p7app/features/job/view_model/job_list_view_model.dart';
+import 'package:p7app/features/job/view_model/all_job_list_view_model.dart';
 import 'package:p7app/main_app/models/skill.dart';
 import 'package:p7app/main_app/app_theme/common_style.dart';
 import 'package:p7app/features/user_profile/views/widgets/custom_dropdown_button_form_field.dart';
@@ -43,7 +43,7 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
 
   _handleApply() {
     var jobListViewModel =
-    Provider.of<JobListViewModel>(context, listen: false);
+    Provider.of<AllJobListViewModel>(context, listen: false);
     var filterVM =
     Provider.of<JobListFilterWidgetViewModel>(context, listen: false);
     var filter = JobListFilters(
@@ -70,7 +70,7 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
   Widget build(BuildContext context) {
     var spaceBetween = SizedBox(height: 15);
 
-    var jobListViewModel = Provider.of<JobListViewModel>(context);
+    var jobListViewModel = Provider.of<AllJobListViewModel>(context);
 
     return Consumer<JobListFilterWidgetViewModel>(
         builder: (context, jobListFilterWidgetViewModel, _) {

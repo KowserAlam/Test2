@@ -147,6 +147,7 @@ class SignInViewModel with ChangeNotifier {
       return false;
     }
   }
+
   Future<bool> signInWithGoogle() async {
     BotToast.showLoading();
     final GoogleSignIn googleSignIn = GoogleSignIn(
@@ -156,9 +157,8 @@ class SignInViewModel with ChangeNotifier {
       ],
     );
     try {
-
       final GoogleSignInAuthentication googleSignInAuthentication =
-      await googleSignIn.signIn().then((a) async => await a.authentication);
+          await googleSignIn.signIn().then((a) async => await a.authentication);
 
       print("accessToken: ${googleSignInAuthentication.accessToken}");
       print("idToken: ${googleSignInAuthentication.idToken}");
@@ -167,8 +167,9 @@ class SignInViewModel with ChangeNotifier {
 
       var body = {"token": googleSignInAuthentication.accessToken};
       var url = "${FlavorConfig.instance.values.baseUrl}${Urls.googleSignIn}";
-      var response = await http.post(url,body:body);
+      var response = await http.post(url, body: body);
 
+      logger.i(response.statusCode);
       logger.i(response.body);
       if (response.statusCode == 200) {
         Map<String, dynamic> decodedJson = jsonDecode(response.body);
@@ -178,11 +179,14 @@ class SignInViewModel with ChangeNotifier {
         return true;
       }
 
-      BotToast.showText(text: "Unable Signin");
+      googleSignIn.disconnect();
+      BotToast.showText(
+          text: StringResources.somethingIsWrongPleaseUserDifferentGoogleAccount);
       BotToast.closeAllLoading();
       return false;
-    }  catch (e) {
+    } catch (e) {
       Logger().e(e);
+      googleSignIn.disconnect();
       print(e);
       BotToast.showText(text: "Unable Signin");
       BotToast.closeAllLoading();

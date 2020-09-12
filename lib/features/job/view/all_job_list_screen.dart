@@ -6,7 +6,7 @@ import 'package:p7app/features/job/view/widgets/filter_preview_widget.dart';
 import 'package:p7app/features/job/view/widgets/job_list_filters_widget.dart';
 import 'package:p7app/features/job/view/widgets/jobs_screen_segment_control_bar.dart';
 import 'package:p7app/features/job/view_model/job_list_filter_widget_view_model.dart';
-import 'package:p7app/features/job/view_model/job_list_view_model.dart';
+import 'package:p7app/features/job/view_model/all_job_list_view_model.dart';
 import 'package:p7app/features/settings/settings_view_model.dart';
 import 'package:p7app/main_app/auth_service/auth_view_model.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
@@ -34,7 +34,7 @@ class _AllJobListScreenState extends State<AllJobListScreen>
   @override
   void afterFirstLayout(BuildContext context) {
     var jobListViewModel =
-        Provider.of<JobListViewModel>(context, listen: false);
+        Provider.of<AllJobListViewModel>(context, listen: false);
     jobListViewModel.getJobList(isFormOnPageLoad: true).then((v) {
       if (jobListViewModel.appError != null) {
         if (jobListViewModel.appError == AppError.unauthorized) {
@@ -69,13 +69,14 @@ class _AllJobListScreenState extends State<AllJobListScreen>
     var backgroundColor = Theme.of(context).backgroundColor;
     var scaffoldBackgroundColor = Theme.of(context).backgroundColor;
 
-    var jobListViewModel = Provider.of<JobListViewModel>(context);
+    var jobListViewModel = Provider.of<AllJobListViewModel>(context);
     var isInSearchMode = jobListViewModel.isInSearchMode;
     var searchInputWidget = Column(
       children: [
         Padding(
           padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
           child: CustomTextField(
+            autofocus: true,
             textFieldKey: Key("jobListSearchInputFieldKey"),
             textInputAction: TextInputAction.search,
             focusNode: _searchFieldFocusNode,
@@ -149,7 +150,7 @@ class _AllJobListScreenState extends State<AllJobListScreen>
           _searchTextEditingController?.clear();
           Provider.of<JobListFilterWidgetViewModel>(context, listen: false)
               .resetState();
-          return Provider.of<JobListViewModel>(context, listen: false)
+          return Provider.of<AllJobListViewModel>(context, listen: false)
               .refresh();
         },
         child: jobListViewModel.shouldShowPageLoader
@@ -209,13 +210,13 @@ class _AllJobListScreenState extends State<AllJobListScreen>
 
   Widget errorWidget() {
     var jobListViewModel =
-        Provider.of<JobListViewModel>(context, listen: false);
+        Provider.of<AllJobListViewModel>(context, listen: false);
     switch (jobListViewModel.appError) {
       case AppError.serverError:
         return FailureFullScreenWidget(
           errorMessage: StringResources.unableToLoadData,
           onTap: () {
-            return Provider.of<JobListViewModel>(context, listen: false)
+            return Provider.of<AllJobListViewModel>(context, listen: false)
                 .refresh();
           },
         );
@@ -224,7 +225,7 @@ class _AllJobListScreenState extends State<AllJobListScreen>
         return FailureFullScreenWidget(
           errorMessage: StringResources.unableToReachServerMessage,
           onTap: () {
-            return Provider.of<JobListViewModel>(context, listen: false)
+            return Provider.of<AllJobListViewModel>(context, listen: false)
                 .refresh();
           },
         );
@@ -241,7 +242,7 @@ class _AllJobListScreenState extends State<AllJobListScreen>
         return FailureFullScreenWidget(
           errorMessage: StringResources.somethingIsWrong,
           onTap: () {
-            return Provider.of<JobListViewModel>(context, listen: false)
+            return Provider.of<AllJobListViewModel>(context, listen: false)
                 .refresh();
           },
         );

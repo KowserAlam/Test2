@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p7app/features/dashboard/models/top_categories_model.dart';
 import 'package:p7app/features/dashboard/view_model/dashboard_view_model.dart';
+import 'package:p7app/main_app/app_theme/common_style.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:provider/provider.dart';
 
@@ -16,7 +17,13 @@ class TopCategoriesWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 16,horizontal: 8),
       child: Column(
         children: [
-          Text(StringResources.topCategories,style: Theme.of(context).textTheme.subtitle1,),
+          Row(children: [
+            SizedBox(width: 8,),
+            Text(StringResources.topCategories,
+              style: CommonStyle.dashboardSectionTitleTexStyle,
+            ),
+          ],),
+          // Text(StringResources.topCategories,style: Theme.of(context).textTheme.subtitle1,),
           SizedBox(height: 10,),
           Container(
             height: 150,

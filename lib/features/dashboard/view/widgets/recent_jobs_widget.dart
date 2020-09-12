@@ -7,6 +7,7 @@ import 'package:p7app/features/job/models/job_list_model.dart';
 import 'package:p7app/features/job/view/job_details_screen.dart';
 import 'package:p7app/features/job/view/widgets/all_job_list_widget.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
+import 'package:p7app/main_app/app_theme/common_style.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/date_format_uitl.dart';
@@ -192,10 +193,16 @@ class _RecentJobsState extends State<RecentJobs> {
       padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
       child: Column(
         children: [
-          Text(StringResources.recentJobsText, style: Theme
-              .of(context)
-              .textTheme
-              .subtitle1,),
+          Row(children: [
+            SizedBox(width: 8,),
+            Text(StringResources.recentJobsText,
+              style: CommonStyle.dashboardSectionTitleTexStyle,
+            ),
+          ],),
+          // Text(StringResources.recentJobsText, style: Theme
+          //     .of(context)
+          //     .textTheme
+          //     .subtitle1,),
           SizedBox(height: 10,),
           Container(
             height: cardHeight,

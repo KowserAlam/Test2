@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p7app/features/auth/view/sign_in_screen.dart';
 import 'package:p7app/features/career_advice/view_models/career_advice_view_model.dart';
 import 'package:p7app/features/dashboard/view/widgets/career_advice_list_h_widget.dart';
+import 'package:p7app/features/dashboard/view/widgets/dashboard_header.dart';
 import 'package:p7app/features/dashboard/view/widgets/info_box_widget.dart';
 import 'package:p7app/features/dashboard/view/widgets/job_chart_widget.dart';
 import 'package:p7app/features/dashboard/view/widgets/other_screens_widget.dart';
@@ -29,9 +30,14 @@ import 'package:provider/provider.dart';
 class DashBoard extends StatefulWidget {
   final Function onTapFavourite;
   final Function onTapApplied;
+  final Function onTapSearch;
 
-  DashBoard({Key key, this.onTapFavourite, this.onTapApplied})
-      : super(key: key);
+  DashBoard({
+    Key key,
+    this.onTapFavourite,
+    this.onTapApplied,
+    this.onTapSearch,
+  }) : super(key: key);
 
   @override
   _DashBoardState createState() => _DashBoardState();
@@ -60,11 +66,11 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
     var dbVM = Provider.of<DashboardViewModel>(context, listen: false);
     var upVM = Provider.of<UserProfileViewModel>(context, listen: false);
     var cvm = Provider.of<CareerAdviceViewModel>(context, listen: false);
-    var isLoggedIn = Provider.of<AuthViewModel>(context, listen: false).isLoggerIn;
+    var isLoggedIn =
+        Provider.of<AuthViewModel>(context, listen: false).isLoggerIn;
     return Future.wait([
       dbVM.getDashboardData(),
-      if(isLoggedIn)
-      upVM.getUserData(),
+      if (isLoggedIn) upVM.getUserData(),
       cvm.refresh(),
     ]);
   }
@@ -192,6 +198,7 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
             ListView(
           key: Key('dashboardListview'),
           children: [
+            if (!isLoggedIn) DashboardHeader(onTapSearch: widget.onTapSearch,),
             if (isLoggedIn)
               Column(
                 children: [
@@ -207,7 +214,7 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
                 ],
               ),
             if (!isLoggedIn) TopCategoriesWidget(),
-            if(!isLoggedIn) RecentJobs(),
+            if (!isLoggedIn) RecentJobs(),
             if (!isLoggedIn) VitalStateWidget(),
             SizedBox(
               height: 10,

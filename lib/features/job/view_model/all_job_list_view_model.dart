@@ -10,7 +10,7 @@ import 'package:p7app/main_app/util/common_serviec_rule.dart';
 import 'package:p7app/main_app/util/debouncer.dart';
 import 'package:p7app/method_extension.dart';
 
-class JobListViewModel with ChangeNotifier {
+class AllJobListViewModel with ChangeNotifier {
   List<JobListModel> _jobList = [];
   bool _isFetchingData = false;
   bool _isFetchingMoreData = false;
@@ -67,6 +67,13 @@ class JobListViewModel with ChangeNotifier {
       _jobListFilters.searchQuery = "";
       getJobList();
     }
+    notifyListeners();
+  }
+  enableSearchMode() {
+//    _jobList = [];
+    _isInSearchMode = true;
+    _totalJobCount = 0;
+    resetPageCounter();
     notifyListeners();
   }
 

@@ -5,6 +5,7 @@ import 'package:p7app/features/auth/view/sign_in_screen.dart';
 import 'package:p7app/features/company/view/company_list_screen.dart';
 import 'package:p7app/features/dashboard/view/dash_board.dart';
 import 'package:p7app/features/job/view/jobs_screen.dart';
+import 'package:p7app/features/job/view_model/all_job_list_view_model.dart';
 import 'package:p7app/features/job/view_model/job_screen_view_model.dart';
 import 'package:p7app/features/messaging/view/sender_list_screen.dart';
 import 'package:p7app/features/notification/repositories/live_update_service.dart';
@@ -173,6 +174,14 @@ class _HomeState extends State<Home> {
             controller: _paeViewController,
             children: <Widget>[
               DashBoard(
+                onTapSearch: (){
+                  _paeViewController.animateToPage(1,
+                      duration: const Duration(milliseconds: 400),
+                      curve: Curves.easeInOut);
+                  Provider.of<JobScreenViewModel>(context, listen: false)
+                      .onChange(0);
+                  Provider.of<AllJobListViewModel>(context, listen: false).enableSearchMode();
+                },
                 onTapApplied: () {
                   _paeViewController.animateToPage(1,
                       duration: const Duration(milliseconds: 400),

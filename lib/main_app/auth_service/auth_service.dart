@@ -114,11 +114,11 @@ class AuthService {
         expTime = DateTime.fromMillisecondsSinceEpoch(payload['exp'] * 1000);
         var isValid = DateTime.now().isBefore(expTime);
 
-        logger.i({
-          " AccessTokenExpTime": expTime?.toString(),
-          " TimeDiff": expTime.difference(DateTime.now()).inMinutes,
-          "isValid": isValid,
-        });
+        // logger.i({
+        //   " AccessTokenExpTime": expTime?.toString(),
+        //   " TimeDiff": expTime.difference(DateTime.now()).inMinutes,
+        //   "isValid": isValid,
+        // });
         return isValid;
       }
 
@@ -137,11 +137,11 @@ class AuthService {
       if (payload['exp'] != null) {
         expTime = DateTime.fromMillisecondsSinceEpoch(payload['exp'] * 1000);
         var isValid = DateTime.now().isBefore(expTime);
-        logger.i({
-          "RefreshTokenExpTime": expTime?.toString(),
-          " TimeDiff": expTime.difference(DateTime.now()).inMinutes,
-          "isValid": isValid,
-        });
+        // logger.i({
+        //   "RefreshTokenExpTime": expTime?.toString(),
+        //   " TimeDiff": expTime.difference(DateTime.now()).inMinutes,
+        //   "isValid": isValid,
+        // });
         return isValid;
       }
 

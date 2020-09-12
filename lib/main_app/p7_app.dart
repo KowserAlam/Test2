@@ -13,7 +13,7 @@ import 'package:p7app/features/dashboard/view_model/dashboard_view_model.dart';
 import 'package:p7app/features/job/view_model/applied_job_list_view_model.dart';
 import 'package:p7app/features/job/view_model/favourite_job_list_view_model.dart';
 import 'package:p7app/features/job/view_model/job_list_filter_widget_view_model.dart';
-import 'package:p7app/features/job/view_model/job_list_view_model.dart';
+import 'package:p7app/features/job/view_model/all_job_list_view_model.dart';
 import 'package:p7app/features/job/view_model/job_screen_view_model.dart';
 import 'package:p7app/features/messaging/view_mpdel/message_sender_list_screen_view_model.dart';
 import 'package:p7app/features/notification/view_models/notificaion_view_model.dart';
@@ -47,7 +47,7 @@ class P7App extends StatelessWidget {
     var providers = [
       ChangeNotifierProvider(create: (context) => SignInViewModel()),
       ChangeNotifierProvider(create: (context) => SignUpViewModel()),
-      ChangeNotifierProvider(create: (context) => JobListViewModel()),
+      ChangeNotifierProvider(create: (context) => AllJobListViewModel()),
       ChangeNotifierProvider(create: (context) => AppliedJobListViewModel()),
       ChangeNotifierProvider(create: (context) => FavouriteJobListViewModel()),
       ChangeNotifierProvider(create: (context) => CompanyListViewModel()),

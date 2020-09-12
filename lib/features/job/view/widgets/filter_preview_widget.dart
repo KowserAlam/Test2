@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:p7app/features/job/view_model/job_list_filter_widget_view_model.dart';
-import 'package:p7app/features/job/view_model/job_list_view_model.dart';
+import 'package:p7app/features/job/view_model/all_job_list_view_model.dart';
 import 'package:p7app/main_app/app_theme/common_style.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:provider/provider.dart';
@@ -65,7 +65,7 @@ class FilterPreviewWidget extends StatelessWidget {
     var backgroundColor = Theme.of(context).backgroundColor;
     var jobListFilterWidgetViewModel =
         Provider.of<JobListFilterWidgetViewModel>(context);
-    return Consumer<JobListViewModel>(builder: (context, jobListViewModel, _) {
+    return Consumer<AllJobListViewModel>(builder: (context, jobListViewModel, _) {
       var filters = jobListViewModel.jobListFilters;
       return Container(
         height: 36,
