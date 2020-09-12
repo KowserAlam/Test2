@@ -8,6 +8,7 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:p7app/features/auth/view/sign_in_screen.dart';
 import 'package:p7app/features/company/view/company_details.dart';
 import 'package:p7app/features/job/models/job_model.dart';
 import 'package:p7app/features/job/repositories/job_repository.dart';
@@ -92,6 +93,8 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
             },
             onAccept: () {
               Navigator.pop(context);
+              Navigator.of(context).push(CupertinoPageRoute(builder: (context)=>SignInScreen()));
+
             },
           );
         });

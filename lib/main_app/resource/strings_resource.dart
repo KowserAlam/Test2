@@ -102,6 +102,7 @@ class StringResources {
 
   static String viewMoreText = "View More";
   static String viewDetailsText = "View Details";
+  static String detailsText = "Details";
   static String viewAllText = "View All";
 
   /// ***************** Feature Assessment ***********************
@@ -377,6 +378,7 @@ class StringResources {
   static var googleText = "Google";
   static var googleSignInText = "Sign in with Google";
   static var pleaseSignInToSeeMoreJobsText = "Please sign in to see more jobs!";
+  static var pleaseSignInToProceed = "Please sign in to proceed !";
 
   /// AddEditSkill Screen
 

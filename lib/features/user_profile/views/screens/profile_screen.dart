@@ -22,12 +22,14 @@ import 'package:p7app/features/user_profile/views/widgets/professional_skill_lis
 import 'package:p7app/features/user_profile/views/widgets/references_list_item_widget.dart';
 import 'package:p7app/features/user_profile/views/widgets/user_info_list_item.dart';
 import 'package:p7app/features/user_profile/views/widgets/user_profile_header.dart';
+import 'package:p7app/main_app/auth_service/auth_view_model.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/views/widgets/common_prompt_dialog.dart';
 import 'package:p7app/main_app/views/widgets/failure_widget.dart';
 import 'package:p7app/main_app/views/widgets/loader.dart';
 import 'package:p7app/main_app/views/widgets/rectangular_button.dart';
+import 'package:p7app/main_app/views/widgets/sign_in_message_widget.dart';
 import 'package:provider/provider.dart';
 
 import 'edit_certifications_screen.dart';
@@ -49,8 +51,11 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
 
   @override
   void afterFirstLayout(BuildContext context) {
+    var isLoggerIn = Provider.of<AuthViewModel>(context,listen: false).isLoggerIn;
+    if (isLoggerIn) {
     Provider.of<UserProfileViewModel>(context, listen: false)
         .getUserData(isFormOnPageLoad: true);
+  }
   }
 
   Widget userContactInfo(context) => InkWell(
@@ -133,6 +138,12 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
 
   @override
   Widget build(BuildContext context) {
+
+    var isLoggerIn = Provider.of<AuthViewModel>(context).isLoggerIn;
+    if (!isLoggerIn) {
+      return SignInMessageWidget();
+    }
+
     var primaryColor = Theme.of(context).primaryColor;
 
 
