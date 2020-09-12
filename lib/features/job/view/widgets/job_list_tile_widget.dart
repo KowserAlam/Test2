@@ -163,9 +163,10 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
     //   key: widget.applyButtonKey,
     // );
     var applyButton = Material(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       color: Theme.of(context).primaryColor,
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 4,horizontal: 8),
+        padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 16),
         child: Text(StringResources.viewDetailsText),
       ),
     );

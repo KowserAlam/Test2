@@ -15,7 +15,7 @@ class StringResources {
   static String appNameBeta = "$appName Beta";
   static String appNameQA = "$appName  QA";
 
-  static String logInButtonText = "LOG IN";
+  static String logInButtonText = "Sign In";
   static String loginSuccessMessage = "Login Successful";
   static String loginUnsuccessfulMessage = "Login unsuccessful";
   static String unableToReachServerMessage = "Unable To Reach Server";
