@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -38,20 +39,26 @@ class EducationsListItem extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Container(
-            padding: EdgeInsets.all(8),
-            decoration: BoxDecoration(
-                color: Colors.grey[100],
-                borderRadius: BorderRadius.circular(5)
-            ),
-            child: Center(
-              child: Icon(
-                FontAwesomeIcons.university,
-                size: 45,
-                color: Colors.grey[400],
+          CachedNetworkImage(
+            imageUrl: eduInfoModel?.institutionObj?.image??"",
+            height: 61,
+            width: 61,
+            placeholder: (v,i)=>    Container(
+              padding: EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                  color: Colors.grey[100],
+                  borderRadius: BorderRadius.circular(5)
+              ),
+              child: Center(
+                child: Icon(
+                  FontAwesomeIcons.university,
+                  size: 45,
+                  color: Colors.grey[400],
+                ),
               ),
             ),
           ),
+
           SizedBox(
             width: 8,
           ),
@@ -68,7 +75,7 @@ class EducationsListItem extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(eduInfoModel.degree ?? "",style: TextStyle(fontSize: 13),key: Key('educationTileDegree'+index.toString()),),
+                    Text("${eduInfoModel?.degreeText??eduInfoModel.degreeText??""}",style: TextStyle(fontSize: 13),key: Key('educationTileDegree'+index.toString()),),
                     Text(
                       date,
                       style: TextStyle(fontSize: 12, color: Colors.grey),

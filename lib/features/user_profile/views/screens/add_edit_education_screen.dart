@@ -40,11 +40,14 @@ class AddEditEducationScreen extends StatefulWidget {
 class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
   final EduInfo educationModel;
   final int index;
+  bool isEditMode = false;
 
   _AddEditEducationScreenState(
     this.educationModel,
     this.index,
-  );
+  ) {
+    isEditMode = educationModel != null;
+  }
 
   TextEditingController institutionNameController = TextEditingController();
   TextEditingController gpaTextController = TextEditingController();
@@ -230,7 +233,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
           }
         }
       }
-    }else{
+    } else {
       BotToast.showText(text: StringResources.checkRequiredField);
     }
   }
@@ -242,6 +245,7 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
     );
 
     var nameOfInstitution = CustomAutoCompleteTextField<Institution>(
+      enabled: !isEditMode,
       isRequired: true,
       textFieldKey: Key('educationInstitutionName'),
       labelText: StringResources.InstitutionText,
@@ -407,7 +411,10 @@ class _AddEditEducationScreenState extends State<AddEditEducationScreen> {
       key: _scaffoldKey,
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
-        title: Text(StringResources.educationsText, key: Key('educationAppbarTitle'),),
+        title: Text(
+          StringResources.educationsText,
+          key: Key('educationAppbarTitle'),
+        ),
         actions: <Widget>[
           EditScreenSaveButton(
             text: StringResources.saveText,
