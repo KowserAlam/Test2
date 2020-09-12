@@ -377,6 +377,7 @@ class StringResources {
   static var googleText = "Google";
   static var googleSignInText = "Sign in with Google";
   static var pleaseSignInToSeeMoreJobsText = "Please sign in to see more jobs!";
+  static var pleaseSignInToProceed = "Please sign in to proceed !";
 
   /// AddEditSkill Screen
 

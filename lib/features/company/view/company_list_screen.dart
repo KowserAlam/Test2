@@ -5,11 +5,13 @@ import 'package:p7app/features/company/models/company.dart';
 import 'package:p7app/features/company/view/widgets/company_list_tile.dart';
 import 'package:p7app/features/company/view_model/company_list_view_model.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
+import 'package:p7app/main_app/auth_service/auth_view_model.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/views/widgets/custom_text_field.dart';
 import 'package:p7app/main_app/views/widgets/failure_widget.dart';
 import 'package:p7app/main_app/views/widgets/loader.dart';
+import 'package:p7app/main_app/views/widgets/sign_in_message_widget.dart';
 import 'package:provider/provider.dart';
 
 import 'company_details.dart';
@@ -29,16 +31,24 @@ class _CompanyListScreenState extends State<CompanyListScreen>
 
   @override
   void afterFirstLayout(BuildContext context) {
-    var companyViewModel =
-        Provider.of<CompanyListViewModel>(context, listen: false);
-    companyViewModel.getCompanyList();
 
-    _scrollController.addListener(() {
-      if (_scrollController.position.pixels ==
-          _scrollController.position.maxScrollExtent) {
-        companyViewModel.getMoreData();
-      }
-    });
+    var companyViewModel = Provider.of<CompanyListViewModel>(context);
+    var isLoggerIn = Provider.of<AuthViewModel>(context).isLoggerIn;
+    if (isLoggerIn) {
+
+      var companyViewModel =
+      Provider.of<CompanyListViewModel>(context, listen: false);
+      companyViewModel.getCompanyList();
+
+      _scrollController.addListener(() {
+        if (_scrollController.position.pixels ==
+            _scrollController.position.maxScrollExtent) {
+          companyViewModel.getMoreData();
+        }
+      });
+
+    }
+
   }
 
   errorWidget() {
@@ -73,6 +83,12 @@ class _CompanyListScreenState extends State<CompanyListScreen>
   @override
   Widget build(BuildContext context) {
     var companyViewModel = Provider.of<CompanyListViewModel>(context);
+    var isLoggerIn = Provider.of<AuthViewModel>(context).isLoggerIn;
+    if (!isLoggerIn) {
+      return SignInMessageWidget();
+
+    }
+
     List<Company> companySuggestion = companyViewModel.companyList == null
         ? []
         : companyViewModel.companyList;
@@ -101,7 +117,10 @@ class _CompanyListScreenState extends State<CompanyListScreen>
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text(StringResources.companyListAppbarText, key: Key('companyListAppbarTitle'),),
+          title: Text(
+            StringResources.companyListAppbarText,
+            key: Key('companyListAppbarTitle'),
+          ),
           actions: [
             IconButton(
               key: Key("companySearchToggleButtonKey"),
@@ -184,7 +203,8 @@ class _CompanyListScreenState extends State<CompanyListScreen>
                                   StringResources
                                       .companyListMultipleCompaniesFoundText)
                               : Text(' ' +
-                                  StringResources.companyListSingleCompanyFoundText)
+                                  StringResources
+                                      .companyListSingleCompanyFoundText)
                         ],
                       ))
                   : SizedBox(),
@@ -211,15 +231,15 @@ class _CompanyListScreenState extends State<CompanyListScreen>
                                     }
                                     return CompanyListTile(
                                       key: Key("companyListTileKey${index}"),
-                                      onTap: (){
+                                      onTap: () {
                                         Navigator.push(
                                             context,
                                             CupertinoPageRoute(
                                                 builder: (context) =>
                                                     CompanyDetails(
                                                       company:
-                                                      companySuggestion[
-                                                      index],
+                                                          companySuggestion[
+                                                              index],
                                                     )));
                                       },
                                       company: companySuggestion[index],

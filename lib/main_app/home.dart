@@ -7,7 +7,7 @@ import 'package:p7app/features/dashboard/view/dash_board.dart';
 import 'package:p7app/features/job/view/jobs_screen.dart';
 import 'package:p7app/features/job/view_model/all_job_list_view_model.dart';
 import 'package:p7app/features/job/view_model/job_screen_view_model.dart';
-import 'package:p7app/features/messaging/view/sender_list_screen.dart';
+import 'package:p7app/features/messaging/view/message_screen.dart';
 import 'package:p7app/features/notification/repositories/live_update_service.dart';
 import 'package:p7app/features/user_profile/views/screens/profile_screen.dart';
 import 'package:p7app/main_app/auth_service/auth_view_model.dart';
@@ -200,9 +200,9 @@ class _HomeState extends State<Home> {
               JobsScreen(),
 //              AppliedJobListScreen(),
 //              FavouriteJobListScreen(),
-              isLoggedIn ? CompanyListScreen(): SignInScreen(),
-              isLoggedIn ? SenderListScreen(): SignInScreen(),
-              isLoggedIn ? ProfileScreen() : SignInScreen(),
+             CompanyListScreen(),
+            MessageScreen(),
+            ProfileScreen(),
             ],
           ),
         ),

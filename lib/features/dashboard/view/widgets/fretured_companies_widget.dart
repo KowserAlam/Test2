@@ -81,7 +81,7 @@ class FeaturedCompaniesWidget extends StatelessWidget {
                     ),
                     SizedBox(height: 5),
                     Text(
-                      company.name,
+                      company.name??"",
                       textAlign: TextAlign.center,
                     ),
                     SizedBox(height: 2),
@@ -95,7 +95,7 @@ class FeaturedCompaniesWidget extends StatelessWidget {
                         ),
                         Flexible(
                           child: Text(
-                            company.city.swapValueByComa,
+                            company?.city?.swapValueByComa??"",
                             style: TextStyle(color: Colors.grey, fontSize: 12),
                           ),
                         ),
@@ -111,7 +111,7 @@ class FeaturedCompaniesWidget extends StatelessWidget {
                         child: Center(
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Text("${company.numberOfPost} Job(s)"),
+                            child: Text("${company.numberOfPost??"0"} Job(s)"),
                           ),
                         ),
                       ),
