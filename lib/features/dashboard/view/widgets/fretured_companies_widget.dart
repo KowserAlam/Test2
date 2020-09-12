@@ -1,13 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p7app/features/company/models/company.dart';
-import 'package:p7app/features/dashboard/models/top_categories_model.dart';
+import 'package:p7app/features/company/view/company_details.dart';
 import 'package:p7app/features/dashboard/view_model/dashboard_view_model.dart';
+import 'package:p7app/features/job/view/job_details_screen.dart';
 import 'package:p7app/main_app/app_theme/common_style.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:provider/provider.dart';
+import 'package:p7app/method_extension.dart';
 
 class FeaturedCompaniesWidget extends StatelessWidget {
   @override
@@ -35,7 +37,7 @@ class FeaturedCompaniesWidget extends StatelessWidget {
             height: 10,
           ),
           Container(
-            height: 150,
+            height: 180,
             child: ListView.builder(
               itemCount: list.length,
               scrollDirection: Axis.horizontal,
@@ -53,42 +55,69 @@ class FeaturedCompaniesWidget extends StatelessWidget {
   Widget listItem(Company company) {
     return LayoutBuilder(builder: (context, c) {
       return SizedBox(
-        width: 140,
+        width: 180,
         child: Padding(
           padding: const EdgeInsets.only(bottom: 10, right: 5),
-          child: Material(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Stack(
-                children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        width: double.infinity,
+          child: Card(
+            child: InkWell(
+              onTap: (){
+                Navigator.of(context).push(CupertinoPageRoute(builder:(context)=> CompanyDetails(company: company,)));
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      width: double.infinity,
+                    ),
+                    SizedBox(
+                      height: 50,
+                      child: CachedNetworkImage(
+                        imageUrl: company.profilePicture ?? "",
+                        placeholder: (c, i) =>
+                            Image.asset(kCompanyImagePlaceholder),
                       ),
-                      Expanded(
-                        flex: 4,
-                        child: CachedNetworkImage(
-                          imageUrl: company.profilePicture??"",
-                          placeholder: (c,i)=>Image.asset(kCompanyImagePlaceholder),
+                    ),
+                    SizedBox(height: 5),
+                    Text(
+                      company.name,
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: 2),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.location_on,
+                          size: 14,
+                          color: Colors.grey,
                         ),
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Expanded(
-                        flex: 5,
-                        child: Center(
+                        Flexible(
                           child: Text(
-                            company.name,
-                            textAlign: TextAlign.center,
+                            company.city.swapValueByComa,
+                            style: TextStyle(color: Colors.grey, fontSize: 12),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 5),
+                    Material(
+                      elevation: 2  ,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                      color: Theme.of(context).primaryColor,
+                      child: SizedBox(
+                        width: 200,
+                        child: Center(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text("${company.numberOfPost} Job(s)"),
                           ),
                         ),
                       ),
-                    ],
-                  ),
-                ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

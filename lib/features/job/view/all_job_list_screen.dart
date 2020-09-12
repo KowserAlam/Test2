@@ -56,6 +56,10 @@ class _AllJobListScreenState extends State<AllJobListScreen>
         jobListViewModel.getMoreData();
       }
     });
+
+    if (jobListViewModel.isInSearchMode) {
+      _searchFieldFocusNode.requestFocus();
+    }
   }
 
   @override
@@ -153,57 +157,56 @@ class _AllJobListScreenState extends State<AllJobListScreen>
           return Provider.of<AllJobListViewModel>(context, listen: false)
               .refresh();
         },
-        child: jobListViewModel.shouldShowPageLoader
-            ? Center(child: Loader())
-            : Container(
-                child: jobListViewModel.shouldShowAppError
-                    ? ListView(
-                        children: [errorWidget()],
-                      )
-                    : Stack(
-                        children: [
-                          Column(
+        child: Container(
+          child: jobListViewModel.shouldShowAppError
+              ? ListView(
+                  children: [errorWidget()],
+                )
+              : Stack(
+                  children: [
+                    Column(
+                      children: [
+                        if (Provider.of<AuthViewModel>(context).isLoggerIn)
+                          SizedBox(height: 35),
+                        if (jobListViewModel.isInSearchMode) searchInputWidget,
+                        if (jobListViewModel.isFilterApplied)
+                          FilterPreviewWidget(),
+                        Expanded(
+                          child: ListView(
+                            physics: AlwaysScrollableScrollPhysics(),
+                            controller: _scrollController,
                             children: [
-                              if (Provider.of<AuthViewModel>(context)
-                                  .isLoggerIn)
-                                SizedBox(height: 35),
-                              if (jobListViewModel.isInSearchMode)
-                                searchInputWidget,
-                              if (jobListViewModel.isFilterApplied)
-                                FilterPreviewWidget(),
-                              Expanded(
-                                child: ListView(
-                                  physics: AlwaysScrollableScrollPhysics(),
-                                  controller: _scrollController,
-                                  children: [
-                                    // loader for search and filter
-                                    if (jobListViewModel
-                                        .shouldSearchNFilterLoader)
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Loader(),
-                                      ),
-
-                                    jobListViewModel.shouldShowNoJobsFound
-                                        ? Center(
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Text(
-                                                  StringResources.noJobsFound),
-                                            ),
-                                          )
-                                        : AllJobListWidget(),
-                                  ],
+                              // loader for search and filter
+                              if (jobListViewModel.shouldSearchNFilterLoader)
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Loader(),
                                 ),
-                              ),
+                              jobListViewModel.shouldShowPageLoader
+                                  ? Container(
+                                height: MediaQuery.of(context).size.height-(2*AppBar().preferredSize.height),
+                                      child: Center(child: Loader()),
+
+                                    )
+                                  : jobListViewModel.shouldShowNoJobsFound
+                                      ? Center(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(
+                                                StringResources.noJobsFound),
+                                          ),
+                                        )
+                                      : AllJobListWidget(),
                             ],
                           ),
-                          if (Provider.of<AuthViewModel>(context).isLoggerIn)
-                            JobsScreenSegmentControlBar(),
-                        ],
-                      ),
-              ),
+                        ),
+                      ],
+                    ),
+                    if (Provider.of<AuthViewModel>(context).isLoggerIn)
+                      JobsScreenSegmentControlBar(),
+                  ],
+                ),
+        ),
       ),
     );
   }

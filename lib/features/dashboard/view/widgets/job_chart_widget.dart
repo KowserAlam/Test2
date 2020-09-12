@@ -125,6 +125,7 @@ class JobChartWidget extends StatelessWidget {
                         padding: const EdgeInsets.only(left: 2, bottom: 8),
                         child: Text(
                           StringResources.monthlyJobsText,
+                          key: Key('dashboardMonthlyJobsTextKey'),
                           style: TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold),
                         ),

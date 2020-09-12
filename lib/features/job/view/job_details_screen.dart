@@ -1007,6 +1007,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
     var betweenDividerSection = Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
+        jobDetails.postDate == null?SizedBox():
         Row(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
@@ -1023,6 +1024,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
             ),
           ],
         ),
+        jobDetails.applicationDeadline == null?SizedBox():
         Row(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[

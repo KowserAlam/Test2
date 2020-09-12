@@ -14,6 +14,7 @@ class DashboardHeader extends StatelessWidget {
       width: double.infinity,
       height: 200,
       decoration: BoxDecoration(
+        color: Color(0xff1F3245),
         image: DecorationImage(
           image: AssetImage(kUserProfileCoverImageAsset),
           fit: BoxFit.cover,

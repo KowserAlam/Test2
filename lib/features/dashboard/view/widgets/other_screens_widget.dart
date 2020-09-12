@@ -100,6 +100,7 @@ class OtherScreensWidget extends StatelessWidget {
                   Center(
                     child: Text(
                       label ?? "",
+                      textAlign: TextAlign.center,
                       style: GoogleFonts.poppins(fontSize: 17,fontWeight: FontWeight.bold),
                     ),
                   ),

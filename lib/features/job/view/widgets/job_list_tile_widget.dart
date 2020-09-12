@@ -163,9 +163,10 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
     //   key: widget.applyButtonKey,
     // );
     var applyButton = Material(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       color: Theme.of(context).primaryColor,
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 4,horizontal: 8),
+        padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 16),
         child: Text(StringResources.viewDetailsText),
       ),
     );
@@ -198,7 +199,7 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
         ),
       ],
     );
-    var publishDate = Row(
+    var publishDate =      (widget.jobModel.postDate == null) ?SizedBox():Row(
       children: <Widget>[
         Icon(
           FeatherIcons.calendar,
@@ -263,7 +264,9 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
+
                     publishDate,
+                    if(widget.jobModel.applicationDeadline != null)
                     applicationDeadlineWidget,
                     applyButton,
                   ],
