@@ -33,6 +33,7 @@ class Company extends Equatable {
   String createdDate;
   String division;
   String city;
+  int numberOfPost;
 
   Company(
       {this.name,
@@ -79,6 +80,7 @@ class Company extends Equatable {
       yearOfEstablishment = DateTime.parse(json['year_of_eastablishment']);
     }
     address = json['address']?.toString();
+    numberOfPost = json['num_posts'];
     country = json['country']?.toString();
     companyContactNoOne = json['company_contact_no_one']?.toString();
     companyContactNoTwo = json['company_contact_no_two']?.toString();

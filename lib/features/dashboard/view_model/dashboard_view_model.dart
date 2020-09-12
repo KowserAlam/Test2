@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:p7app/features/auth/view/sign_in_screen.dart';
+import 'package:p7app/features/company/models/company.dart';
 import 'package:p7app/features/dashboard/models/info_box_data_model.dart';
 import 'package:p7app/features/dashboard/models/skill_job_chart_data_model.dart';
 import 'package:p7app/features/dashboard/models/top_categories_model.dart';
@@ -16,18 +17,21 @@ class DashboardViewModel with ChangeNotifier {
   AppError _vitalStateError;
   AppError _topCategoriesError;
   AppError _recentJobsError;
+  AppError _featureCompaniesError;
 
   InfoBoxDataModel _infoBoxData;
   VitalStatsDataModel _vitalStatsData;
   List<SkillJobChartDataModel> _skillJobChartData = [];
   List<TopCategoriesModel> _topCategoryList = [];
   List<JobListModel> _recentJobsList = [];
+  List<Company> _featuredCompanies = [];
 
   bool _isLoadingInfoBoxData = false;
   bool _isLoadingSkillJobChartData = false;
   bool _isLoadingVitalState = false;
   bool _isLoadingTopCategories = false;
   bool _isLoadingRecentJobs = false;
+  bool _isLoadingFeatureCompanies = false;
   bool _idExpandedSkillList = false;
   DateTime _lastFetchTime;
   double profileCompletePercent = 0;
@@ -52,7 +56,8 @@ class DashboardViewModel with ChangeNotifier {
 
       _getVitalStats(),
       _getTopCategories(),
-      _getRecentJobs()
+      _getRecentJobs(),
+      _getFeaturedCompanies(),
     ]).then((value) {
       _lastFetchTime = DateTime.now();
       return _infoBoxError;
@@ -145,6 +150,21 @@ class DashboardViewModel with ChangeNotifier {
       return true;
     });
   }
+  Future<bool> _getFeaturedCompanies() async {
+    var result = await DashBoardRepository().getFeaturedCompanies();
+
+    return result.fold((l) {
+      _featureCompaniesError = l;
+      _isLoadingFeatureCompanies = false;
+      notifyListeners();
+      return false;
+    }, (r) {
+      _featuredCompanies = r;
+      _isLoadingFeatureCompanies = false;
+      notifyListeners();
+      return true;
+    });
+  }
 
   bool get shouldShowInfoBoxLoader =>
       _isLoadingInfoBoxData && (_infoBoxData == null);
@@ -193,4 +213,6 @@ class DashboardViewModel with ChangeNotifier {
   AppError get topCategoriesError => _topCategoriesError;
 
   AppError get recentJobsError => _recentJobsError;
+
+  List<Company> get featuredCompanies => _featuredCompanies;
 }

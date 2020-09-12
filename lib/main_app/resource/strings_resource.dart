@@ -547,6 +547,7 @@ class StringResources {
   static const String vacancy = 'Vacancy';
   static const String category = 'Category';
   static const String topCategories = 'Top Categories';
+  static const String featuredCompanies = 'Featured Companies';
   static const String doYouWantToClearAllCacheText =
       "Do you want to clear all cache ?";
   static const String doYouWantToSignOutText = "Do you want to sign out ?";

@@ -6,6 +6,7 @@ import 'package:p7app/features/auth/view/sign_in_screen.dart';
 import 'package:p7app/features/career_advice/view_models/career_advice_view_model.dart';
 import 'package:p7app/features/dashboard/view/widgets/career_advice_list_h_widget.dart';
 import 'package:p7app/features/dashboard/view/widgets/dashboard_header.dart';
+import 'package:p7app/features/dashboard/view/widgets/fretured_companies_widget.dart';
 import 'package:p7app/features/dashboard/view/widgets/info_box_widget.dart';
 import 'package:p7app/features/dashboard/view/widgets/job_chart_widget.dart';
 import 'package:p7app/features/dashboard/view/widgets/other_screens_widget.dart';
@@ -198,7 +199,10 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
             ListView(
           key: Key('dashboardListview'),
           children: [
-            if (!isLoggedIn) DashboardHeader(onTapSearch: widget.onTapSearch,),
+            if (!isLoggedIn)
+              DashboardHeader(
+                onTapSearch: widget.onTapSearch,
+              ),
             if (isLoggedIn)
               Column(
                 children: [
@@ -213,17 +217,15 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
                   JobChartWidget(),
                 ],
               ),
-
+            if (!isLoggedIn)  FeaturedCompaniesWidget(),
             if (!isLoggedIn) RecentJobs(),
             if (!isLoggedIn) TopCategoriesWidget(),
             if (!isLoggedIn) VitalStateWidget(),
-            SizedBox(
-              height: 10,
-            ),
+            SizedBox(height: 10),
+
+            SizedBox(height: 10),
             CareerAdviceListHWidget(),
-            SizedBox(
-              height: 10,
-            ),
+            SizedBox(height: 10),
             OtherScreensWidget(),
           ],
         ),

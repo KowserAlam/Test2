@@ -55,6 +55,8 @@ class Urls {
   static String jobCategoriesListUrl = "/api/job-category/list/";
   static String topCategoriesListUrl = "/api/job/top-categories/";
   static String recentJobsListUrl = "/api/job/recent/";
+  static String topCompaniesListUrl = "/api/job/top-companies/";
+  static String featuredCompaniesListUrl = "/api/company/list/featured";
   static String jobTypeListUrl = "/api/job-type/list";
   static String jobLocationListUrl = "/api/location/";
   static String jobSourceList = "/api/job-source/list/";
