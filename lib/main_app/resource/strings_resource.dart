@@ -102,6 +102,7 @@ class StringResources {
 
   static String viewMoreText = "View More";
   static String viewDetailsText = "View Details";
+  static String detailsText = "Details";
   static String viewAllText = "View All";
 
   /// ***************** Feature Assessment ***********************

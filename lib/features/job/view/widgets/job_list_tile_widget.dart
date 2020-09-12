@@ -167,7 +167,7 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
       color: Theme.of(context).primaryColor,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 16),
-        child: Text(StringResources.viewDetailsText),
+        child: Text(StringResources.detailsText),
       ),
     );
 //    var jobType = Row(
@@ -220,6 +220,7 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
       decoration: BoxDecoration(
           color: scaffoldBackgroundColor, boxShadow: CommonStyle.boxShadow
 //        borderRadius: BorderRadius.circular(5),
+//        boxShadow: [
 //        boxShadow: [
 //          BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 10),
 //          BoxShadow(color: Colors.black.withOpacity(0.2), blurRadius: 10),
