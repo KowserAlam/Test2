@@ -308,7 +308,7 @@ class _SignInScreenState extends State<SignInScreen> {
         height: 55,
         width: 200,
         child: Text(
-          StringResources.logInButtonText,
+          StringResources.signInButtonText,
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
         controller: _btnController,

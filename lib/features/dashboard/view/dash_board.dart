@@ -184,7 +184,7 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
                   Navigator.of(context).push(
                       CupertinoPageRoute(builder: (context) => SignInScreen()));
                 },
-                child: Text(StringResources.logInButtonText),
+                child: Text(StringResources.signInButtonText),
               ),
             ))
         ],

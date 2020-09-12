@@ -35,7 +35,7 @@ class AllJobListWidget extends StatelessWidget {
                         height: 10,
                       ),
                       Text(
-                        StringResources.youHaveToLoginToSeeMoreJobsText,
+                        StringResources.pleaseSignInToSeeMoreJobsText,
                         style: TextStyle(fontSize: 18),
                       ),
                       SizedBox(
@@ -44,7 +44,7 @@ class AllJobListWidget extends StatelessWidget {
                       RaisedButton(
 
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                          child: Text(StringResources.logInButtonText),
+                          child: Text(StringResources.signInButtonText),
                           onPressed: () {
                             Navigator.of(context).push(CupertinoPageRoute(
                                 builder: (context) => SignInScreen()));
