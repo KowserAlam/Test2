@@ -89,7 +89,7 @@ class FeaturedCompaniesWidget extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
-                          Icons.location_on_outlined,
+                          Icons.location_on,
                           size: 14,
                           color: Colors.grey,
                         ),
