@@ -11,20 +11,26 @@ class TopCategoriesWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     var vm = Provider.of<DashboardViewModel>(context);
     var list = vm.topCategoryList;
-    if(vm.topCategoryList.length ==0)
-      return SizedBox();
+    if (vm.topCategoryList.length == 0) return SizedBox();
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16,horizontal: 8),
+      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
       child: Column(
         children: [
-          Row(children: [
-            SizedBox(width: 8,),
-            Text(StringResources.topCategories,
-              style: CommonStyle.dashboardSectionTitleTexStyle,
-            ),
-          ],),
+          Row(
+            children: [
+              SizedBox(
+                width: 8,
+              ),
+              Text(
+                StringResources.topCategories,
+                style: CommonStyle.dashboardSectionTitleTexStyle,
+              ),
+            ],
+          ),
           // Text(StringResources.topCategories,style: Theme.of(context).textTheme.subtitle1,),
-          SizedBox(height: 10,),
+          SizedBox(
+            height: 10,
+          ),
           Container(
             height: 150,
             child: ListView.builder(
@@ -49,36 +55,61 @@ class TopCategoriesWidget extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.only(bottom: 10, right: 5),
-              child: Card(
+              child: Material(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                  child: Stack(
                     children: [
-                      SizedBox(
-                        width: double.infinity,
-                      ),
-                      Expanded(
-                        flex: 4,
-                        child: CircleAvatar(
-                          child: Icon(
-                            FontAwesomeIcons.tools,
-                            color: Colors.grey,
-                            size: 30,
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            width: double.infinity,
                           ),
-                          radius: 30,
-                          backgroundColor: Theme.of(context).primaryColor,
-                        ),
+                          Expanded(
+                            flex: 4,
+                            child: CircleAvatar(
+                              child: Icon(
+                                FontAwesomeIcons.tools,
+                                color: Colors.grey,
+                                size: 30,
+                              ),
+                              radius: 30,
+                              backgroundColor: Theme.of(context).primaryColor,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Expanded(
+                            flex: 5,
+                            child: Center(
+                              child: Text(
+                                category.name,
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Expanded(
-                        flex: 5,
+                      Positioned(
+                        top: 0,
+                        right: 10,
                         child: Center(
-                          child: Text(
-                            category.name,
-                            textAlign: TextAlign.center,
+                          child: Container(
+                            height: 32,
+                            width: 32,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                color: Color(0xff0062DE)),
+                            child: Text(
+                              "${category.numPosts ?? ""}",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 10,
+                              ),
+                            ),
                           ),
                         ),
                       ),
@@ -87,34 +118,6 @@ class TopCategoriesWidget extends StatelessWidget {
                 ),
               ),
             ),
-            Positioned(
-              bottom: 0,
-              right: 0,
-              child: SizedBox(height: 40,width: 40,
-                child: Stack(
-                  children: [
-                    Container(
-                      height: 40,
-                      width: 40,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Color(0xff6EE9F3)),
-                    ),
-                    Center(
-                      child: Container(
-                        height: 32,
-                        width: 32,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Color(0xff0062DE)),
-                        child: Text("${category.numPosts??""}",style: TextStyle(color: Colors.white),),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            )
           ],
         ),
       );
