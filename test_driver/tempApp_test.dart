@@ -48,7 +48,6 @@ Future<void> allTestCaseAtOnce() async {
     loginTest();
 
     test('login with registered email and password', () async {
-      await driver.tap(Keys.dashboardLoginButtonKey);
       await driver.tap(Keys.signInEmail);
       await driver.enterText('mahmudoni01@gmail.com');
       await driver.tap(Keys.signInPassword);

@@ -143,7 +143,8 @@ Future<void> signUpTest()async{
       await driver.tap(signUpConfirmPasswordField);
       await driver.enterText('1234567s');
       await driver.tap(signUpRegisterButton);
-      await Future.delayed(const Duration(seconds: 2), (){});
+      await Future.delayed(const Duration(seconds: 5), (){});
+      //ok buttton tap code will be here
     });
 
   });
