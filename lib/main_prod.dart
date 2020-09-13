@@ -32,5 +32,9 @@ Future _loadCertificate() async {
   ByteData data =
       await rootBundle.load('assets/certification/jobxprss-com-chain.pem');
   SecurityContext context = SecurityContext.defaultContext;
+  ByteData data2 =
+  await rootBundle.load('assets/certification/iss-ishraak-com-chain.pem');
+  SecurityContext context2 = SecurityContext.defaultContext;
+   context2.setTrustedCertificatesBytes(data2.buffer.asUint8List());
   return context.setTrustedCertificatesBytes(data.buffer.asUint8List());
 }
