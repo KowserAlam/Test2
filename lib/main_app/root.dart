@@ -1,19 +1,16 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:logger/logger.dart';
+import 'package:p7app/features/auth/view/sign_in_screen.dart';
 import 'package:p7app/features/onboarding_page/view/onboarding_page.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/auth_service/auth_user_model.dart';
-import 'package:p7app/features/auth/view/sign_in_screen.dart';
 import 'package:p7app/main_app/home.dart';
-import 'package:p7app/main_app/push_notification_service/push_notification_service.dart';
 import 'package:p7app/main_app/resource/const.dart';
-import 'package:p7app/main_app/util/locator.dart';
 import 'package:p7app/main_app/util/local_storage.dart';
-import 'package:p7app/main_app/util/token_refresh_scheduler.dart';
 import 'package:p7app/main_app/views/widgets/app_version_widget_small.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:p7app/main_app/views/widgets/loader.dart';
 import 'package:provider/provider.dart';
 
@@ -27,15 +24,18 @@ class Root extends StatefulWidget {
 }
 
 class _RootState extends State<Root> {
+  var _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   void initState() {
-    init();
+
     super.initState();
+    Future.delayed(Duration.zero).then((value) {
+      init();
+    });
   }
 
   init() async {
     var authService = await AuthService.getInstance();
-
 
 //    authService.refreshToken();
     if (authService.isAccessTokenValid()) {
@@ -57,7 +57,7 @@ class _RootState extends State<Root> {
   _navigateToLoginScreen() {
     Future.delayed(Duration(seconds: 1)).then((_) {
       Navigator.pushAndRemoveUntil(
-          context,
+          _scaffoldKey.currentContext,
           CupertinoPageRoute(builder: (context) => SignInScreen()),
           (Route<dynamic> route) => false);
     });
@@ -66,7 +66,7 @@ class _RootState extends State<Root> {
 
     Future.delayed(Duration(seconds: 1)).then((_) {
       Navigator.pushAndRemoveUntil(
-          context,
+          _scaffoldKey.currentContext,
           CupertinoPageRoute(builder: (context) => Home()),
           (Route<dynamic> route) => false);
     });
@@ -74,11 +74,9 @@ class _RootState extends State<Root> {
 
   _naveGateToNextScreen({bool showDummyLoading = false}) {
 //    _setupPushNotification();
-    _initUserdata();
+//     _initUserdata();
 
     Future.delayed(Duration(seconds: showDummyLoading ? 0 : 2)).then((_) async {
-
-
 
       if (await shouldShowOnBoardingScreens()) {
 //        Navigator.pushAndRemoveUntil(
@@ -86,12 +84,12 @@ class _RootState extends State<Root> {
 //            CupertinoPageRoute(builder: (context) => AdditionalInfoScreens()),
 //                (Route<dynamic> route) => false);
         Navigator.pushAndRemoveUntil(
-            context,
+            _scaffoldKey.currentContext,
             CupertinoPageRoute(builder: (context) => OnboardingPage()),
             (Route<dynamic> route) => false);
       } else {
         Navigator.pushAndRemoveUntil(
-            context,
+            _scaffoldKey.currentContext,
             CupertinoPageRoute(builder: (context) => Home()),
             (Route<dynamic> route) => false);
       }
@@ -100,9 +98,6 @@ class _RootState extends State<Root> {
 
 
 
-  _initUserdata() {
-    Provider.of<UserProfileViewModel>(context, listen: false).getUserData();
-  }
 
   Future<bool> shouldShowOnBoardingScreens() async {
     return false;
@@ -186,6 +181,7 @@ class _RootState extends State<Root> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
+        key: _scaffoldKey,
         child: AnnotatedRegion<SystemUiOverlayStyle>(
           value: SystemUiOverlayStyle.light
               .copyWith(statusBarColor: Theme.of(context).primaryColor),

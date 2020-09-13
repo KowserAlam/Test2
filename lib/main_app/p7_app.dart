@@ -36,7 +36,7 @@ class P7App extends StatelessWidget {
   P7App({this.isEnabledDevicePreview = false});
 
 
-
+  final navigatorKey = GlobalKey<NavigatorState>();
   @override
   Widget build(BuildContext context) {
     var locators = [
@@ -67,6 +67,7 @@ class P7App extends StatelessWidget {
     var appName = FlavorConfig.appName();
 
     return MultiProvider(
+
       providers: locators,
       child: Consumer<AuthViewModel>(
         builder: (context,vm,child){
@@ -74,6 +75,7 @@ class P7App extends StatelessWidget {
             key: Key(vm.user?.userId??""),
             providers: providers,
             child: MaterialApp(
+              navigatorKey: navigatorKey,
               navigatorObservers: [
                 BotToastNavigatorObserver(),
                 FirebaseAnalyticsObserver(analytics: analytics),

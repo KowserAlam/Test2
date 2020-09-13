@@ -6,10 +6,10 @@ import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/logger_helper.dart';
 import 'package:social_share/social_share.dart';
 
-class ShareOnSocialMediaWidget extends StatelessWidget {
+class ShareJobOnSocialMediaWidget extends StatelessWidget {
   final JobModel jobModel;
 
-  ShareOnSocialMediaWidget(this.jobModel,{Key key}):super(key:key);
+  ShareJobOnSocialMediaWidget(this.jobModel,{Key key}):super(key:key);
 
   @override
   Widget build(BuildContext context) {

@@ -73,10 +73,10 @@ class OtherScreensWidget extends StatelessWidget {
   }) {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
-        var screenHeight = MediaQuery.of(context).size.height;
         var deviceWidth = MediaQuery.of(context).size.width;
+
         double iconSize = deviceWidth * .183;
-        double textFontSize = iconSize / 3;
+        double textFontSize =  constraints.maxWidth/8;
         double boxHeight = iconSize * 1.1;
         return Padding(
           padding: const EdgeInsets.all(4.0),
@@ -101,7 +101,7 @@ class OtherScreensWidget extends StatelessWidget {
                     child: Text(
                       label ?? "",
                       textAlign: TextAlign.center,
-                      style: GoogleFonts.poppins(fontSize: 17,fontWeight: FontWeight.bold),
+                      style: GoogleFonts.poppins(fontSize: textFontSize,fontWeight: FontWeight.bold),
                     ),
                   ),
                 ],

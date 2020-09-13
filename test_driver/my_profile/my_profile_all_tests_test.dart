@@ -41,6 +41,7 @@ Future<void> allTestCaseAtOnce() async {
 
     //test cases are started from here
     test('Getting to My Profile screen', () async {
+      await driver.tap(Keys.dashboardLoginButtonKey);
       await driver.tap(Keys.signInEmail);
       await driver.enterText('example@jobxprss.com');
       await driver.tap(Keys.signInPassword);

@@ -76,7 +76,7 @@ class _SignInScreenState extends State<SignInScreen> {
         loginProvider.resetState();
         _btnController.success();
         Future.delayed(Duration(milliseconds: 800)).then((_) {
-          Navigator.of(context).pushAndRemoveUntil(
+          Navigator.pushAndRemoveUntil(context,
               CupertinoPageRoute(
                   builder: (BuildContext context) => Root(
                         showDummyLoadingTime: true,

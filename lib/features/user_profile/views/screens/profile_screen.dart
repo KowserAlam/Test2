@@ -24,6 +24,7 @@ import 'package:p7app/features/user_profile/views/widgets/user_info_list_item.da
 import 'package:p7app/features/user_profile/views/widgets/user_profile_header.dart';
 import 'package:p7app/main_app/auth_service/auth_view_model.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
+import 'package:p7app/main_app/flavour/flavour_config.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/views/widgets/common_prompt_dialog.dart';
 import 'package:p7app/main_app/views/widgets/failure_widget.dart';
@@ -31,6 +32,7 @@ import 'package:p7app/main_app/views/widgets/loader.dart';
 import 'package:p7app/main_app/views/widgets/rectangular_button.dart';
 import 'package:p7app/main_app/views/widgets/sign_in_message_widget.dart';
 import 'package:provider/provider.dart';
+import 'package:social_share/social_share.dart';
 
 import 'edit_certifications_screen.dart';
 import 'edit_memberships_screen.dart';
@@ -462,6 +464,21 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
         title: Text(StringResources.myProfileText, key: Key('myProfileAppbarTitle'),),
         actions: [
           IconButton(
+            tooltip: "Share Public Profile",
+
+            key: Key('myProfileShareButton'),
+            icon: Icon(
+              Icons.share,
+            ),
+            onPressed: () {
+              var userInfo = Provider.of<UserProfileViewModel>(context, listen: false)
+                  .userData.personalInfo;
+              var link = "${FlavorConfig.instance.values.baseUrl}/pro/${userInfo.slug}/";
+              SocialShare.shareOptions("${userInfo?.fullName}\n $link");
+            },
+          ),
+          IconButton(
+            tooltip: "Settings",
             key: Key('myProfileSettingsButton'),
             icon: Icon(
               Icons.settings,

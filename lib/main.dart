@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
@@ -8,7 +10,9 @@ import 'main_app/flavour/flavour_config.dart';
 import 'main_app/util/locator.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+   WidgetsFlutterBinding.ensureInitialized();
+  // user trust SSL certificate for iss.ishraak.com socket server
+  await _loadCertificate();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   setupLocator();
   FlavorConfig(
@@ -18,5 +22,11 @@ void main() async {
   runApp(
     P7App(),
   );
+
 }
- 
+Future _loadCertificate() async {
+  ByteData data =
+  await rootBundle.load('assets/certification/iss-ishraak-com-chain.pem');
+  SecurityContext context = SecurityContext.defaultContext;
+  return context.setTrustedCertificatesBytes(data.buffer.asUint8List());
+}
