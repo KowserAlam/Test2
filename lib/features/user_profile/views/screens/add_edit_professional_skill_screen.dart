@@ -129,7 +129,7 @@ class _AddEditProfessionalSkillState extends State<AddEditProfessionalSkill> {
       if (widget.skillInfo == null) {
         var skillInfo = SkillInfo(
           profSkillId: widget.skillInfo?.profSkillId,
-          rating: double.parse(ratingController.text),
+          rating: expertiseLevel,
           skill: _selectedSkill,
         );
 
@@ -144,7 +144,7 @@ class _AddEditProfessionalSkillState extends State<AddEditProfessionalSkill> {
       } else {
         var updatedSKill = SkillInfo(
           profSkillId: widget.skillInfo?.profSkillId,
-          rating: double.parse(ratingController.text),
+          rating: expertiseLevel,
           skill: _selectedSkill,
         );
 
@@ -299,56 +299,57 @@ class _AddEditProfessionalSkillState extends State<AddEditProfessionalSkill> {
 //                  height: 30,
 //                ),
                     skillName,
-                    SizedBox(
-                      height: 30,
-                    ),
-                    CustomTextFormField(
-                      isRequired: true,
-                      textFieldKey: Key('skillExpertise'),
-                      keyboardType: TextInputType.number,
-                      controller: ratingController,
-                      validator: Validator().expertiseFieldValidate,
-                      labelText: "${StringResources.expertiseLevel} (0 - 10)",
-                    ),
 //                    SizedBox(
 //                      height: 30,
 //                    ),
-//                    Text('Expertise Level (0 - 10)', style: TextStyle(fontWeight: FontWeight.bold),),
-//                    SizedBox(height: 5,),
-//                    Container(
-//                      decoration: BoxDecoration(
-//                        borderRadius: BorderRadius.circular(5),
-//                        color: Colors.white,
-//                        boxShadow: [
-//                          BoxShadow(
-//                            offset: Offset(1,1),
-//                            color: Colors.grey[300],
-//                            spreadRadius: 1
-//                          )
-//                        ]
-//                      ),
-//                      child: Column(
-//                        crossAxisAlignment: CrossAxisAlignment.center,
-//                        children: [
-//                          SizedBox(height: 10,),
-//                          Text(StringResources.expertiseMessage[expertiseLevel.toInt()], textAlign: TextAlign.center,),
-//                          SizedBox(height: 20,),
-//                          Slider(
-//                            value: expertiseLevel,
-//                            onChanged: (double v){
-//                              setState(() {
-//                                expertiseLevel = v;
-//                                print(expertiseLevel);
-//                              });
-//                            },
-//                            divisions: 10,
-//                            min: 0,
-//                            max: 10,
-//                            label: expertiseLevel.toString(),
-//                          ),
-//                        ],
-//                      ),
+//                    CustomTextFormField(
+//                      isRequired: true,
+//                      textFieldKey: Key('skillExpertise'),
+//                      keyboardType: TextInputType.number,
+//                      controller: ratingController,
+//                      validator: Validator().expertiseFieldValidate,
+//                      labelText: "${StringResources.expertiseLevel} (0 - 10)",
 //                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Text("${StringResources.expertiseLevel} (0 - 10)", style: TextStyle(fontWeight: FontWeight.bold),),
+                    SizedBox(height: 10,),
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            offset: Offset(1,1),
+                            color: Colors.grey[300],
+                            spreadRadius: 1
+                          )
+                        ]
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(height: 10,),
+//                          Text(StringResources.expertiseMessage[expertiseLevel.toInt()], textAlign: TextAlign.center,),
+                          Text( expertiseLevel.toStringAsFixed(2), textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),),
+                          SizedBox(height: 20,),
+                          Slider(
+                            value: expertiseLevel,
+                            onChanged: (double v){
+                              setState(() {
+                                expertiseLevel = v;
+                                print(expertiseLevel);
+                              });
+                            },
+//                            divisions: 10,
+                            min: 0,
+                            max: 10,
+                            label: expertiseLevel.toString(),
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
