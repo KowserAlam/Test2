@@ -14,6 +14,7 @@ import 'package:p7app/main_app/auth_service/auth_user_model.dart';
 import 'package:p7app/main_app/flavour/flavour_config.dart';
 import 'package:p7app/main_app/resource/json_keys.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
+import 'package:p7app/main_app/util/device_info_util.dart';
 import 'package:p7app/main_app/util/logger_helper.dart';
 import 'package:p7app/main_app/util/validator.dart';
 
@@ -106,7 +107,7 @@ class SignInViewModel with ChangeNotifier {
     var body = {
       JsonKeys.email: email,
       JsonKeys.password: password,
-      "device_id": "123321abc"
+      "device_id":  await DeviceInfoUtil().getDeviceID(),
     };
 
     try {
@@ -165,7 +166,10 @@ class SignInViewModel with ChangeNotifier {
 
       // handle google signing with backend
 
-      var body = {"token": googleSignInAuthentication.accessToken};
+      var body = {
+        "token": googleSignInAuthentication.accessToken,
+        "device_id": await DeviceInfoUtil().getDeviceID(),
+      };
       var url = "${FlavorConfig.instance.values.baseUrl}${Urls.googleSignIn}";
       var response = await http.post(url, body: body);
 
@@ -181,7 +185,8 @@ class SignInViewModel with ChangeNotifier {
 
       googleSignIn.disconnect();
       BotToast.showText(
-          text: StringResources.somethingIsWrongPleaseUserDifferentGoogleAccount);
+          text:
+              StringResources.somethingIsWrongPleaseUserDifferentGoogleAccount);
       BotToast.closeAllLoading();
       return false;
     } catch (e) {

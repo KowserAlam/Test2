@@ -9,11 +9,13 @@ import 'package:p7app/features/job/view_model/all_job_list_view_model.dart';
 import 'package:p7app/features/job/view_model/job_screen_view_model.dart';
 import 'package:p7app/features/messaging/view/message_screen.dart';
 import 'package:p7app/features/notification/repositories/live_update_service.dart';
+import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/features/user_profile/views/screens/profile_screen.dart';
 import 'package:p7app/main_app/auth_service/auth_view_model.dart';
 import 'package:p7app/main_app/flavour/flavor_banner.dart';
 import 'package:p7app/main_app/push_notification_service/push_notification_service.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
+import 'package:p7app/main_app/util/device_info_util.dart';
 import 'package:p7app/main_app/util/locator.dart';
 import 'package:p7app/main_app/util/token_refresh_scheduler.dart';
 import 'package:provider/provider.dart';
@@ -44,8 +46,15 @@ class _HomeState extends State<Home> {
       if (authVM.isLoggerIn) {
         locator<LiveUpdateService>().initSocket();
         locator<PushNotificationService>().initPush();
+        _initUserdata();
       }
     });
+    DeviceInfoUtil().getDeviceID();
+  }
+
+
+  _initUserdata() {
+    Provider.of<UserProfileViewModel>(context, listen: false).getUserData();
   }
 
   @override

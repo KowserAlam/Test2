@@ -464,6 +464,8 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
         title: Text(StringResources.myProfileText, key: Key('myProfileAppbarTitle'),),
         actions: [
           IconButton(
+            tooltip: "Share Public Profile",
+
             key: Key('myProfileShareButton'),
             icon: Icon(
               Icons.share,
@@ -476,6 +478,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
             },
           ),
           IconButton(
+            tooltip: "Settings",
             key: Key('myProfileSettingsButton'),
             icon: Icon(
               Icons.settings,
