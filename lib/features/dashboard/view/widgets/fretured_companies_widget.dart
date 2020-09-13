@@ -80,10 +80,13 @@ class FeaturedCompaniesWidget extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 5),
+                    Spacer(),
                     Text(
                       company.name??"",
                       textAlign: TextAlign.center,
+                      maxLines: 2,
                     ),
+                    Spacer(),
                     SizedBox(height: 2),
                     Container(
                       height: 13,
@@ -121,6 +124,7 @@ class FeaturedCompaniesWidget extends StatelessWidget {
                         ),
                       ),
                     ),
+                    SizedBox(height: 5),
                   ],
                 ),
               ),

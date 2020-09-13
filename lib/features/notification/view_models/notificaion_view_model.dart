@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:p7app/features/notification/models/notification_model.dart';
 import 'package:p7app/features/notification/repositories/live_update_service.dart';
 import 'package:p7app/features/notification/repositories/notification_repository.dart';
+import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/util/locator.dart';
 import 'package:p7app/main_app/util/logger_helper.dart';
@@ -17,8 +18,11 @@ class NotificationViewModel extends GetxController {
 
   @override
   void onInit() {
-    getNotifications();
-    listenNotification();
+    AuthService.getInstance().then((value) => value.isAccessTokenValid()).then((value) {
+      getNotifications();
+      listenNotification();
+    });
+
   }
 
   Future<void> refresh() {
