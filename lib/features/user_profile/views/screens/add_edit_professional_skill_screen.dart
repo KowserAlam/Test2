@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:bot_toast/bot_toast.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
@@ -33,7 +34,7 @@ class _AddEditProfessionalSkillState extends State<AddEditProfessionalSkill> {
   final SkillInfo technicalSkill;
   final int index;
   bool loading;
-  static List<Skill> searchList = [];
+  static double expertiseLevel = 0;
 
 //  static TextEditingController searchController = new TextEditingController();
   TextEditingController ratingController = new TextEditingController();
@@ -309,9 +310,45 @@ class _AddEditProfessionalSkillState extends State<AddEditProfessionalSkill> {
                       validator: Validator().expertiseFieldValidate,
                       labelText: "${StringResources.expertiseLevel} (0 - 10)",
                     ),
-                    SizedBox(
-                      height: 30,
-                    )
+//                    SizedBox(
+//                      height: 30,
+//                    ),
+//                    Text('Expertise Level (0 - 10)', style: TextStyle(fontWeight: FontWeight.bold),),
+//                    SizedBox(height: 5,),
+//                    Container(
+//                      decoration: BoxDecoration(
+//                        borderRadius: BorderRadius.circular(5),
+//                        color: Colors.white,
+//                        boxShadow: [
+//                          BoxShadow(
+//                            offset: Offset(1,1),
+//                            color: Colors.grey[300],
+//                            spreadRadius: 1
+//                          )
+//                        ]
+//                      ),
+//                      child: Column(
+//                        crossAxisAlignment: CrossAxisAlignment.center,
+//                        children: [
+//                          SizedBox(height: 10,),
+//                          Text(StringResources.expertiseMessage[expertiseLevel.toInt()], textAlign: TextAlign.center,),
+//                          SizedBox(height: 20,),
+//                          Slider(
+//                            value: expertiseLevel,
+//                            onChanged: (double v){
+//                              setState(() {
+//                                expertiseLevel = v;
+//                                print(expertiseLevel);
+//                              });
+//                            },
+//                            divisions: 10,
+//                            min: 0,
+//                            max: 10,
+//                            label: expertiseLevel.toString(),
+//                          ),
+//                        ],
+//                      ),
+//                    ),
                   ],
                 ),
               ),

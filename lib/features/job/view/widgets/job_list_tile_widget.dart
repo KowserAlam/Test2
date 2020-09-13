@@ -135,20 +135,20 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
             child: Stack(
               children: [
                 Icon(
-                  isFavorite
-                      ? FontAwesomeIcons.solidHeart
-                      : FontAwesomeIcons.heart,
-                  key: widget.favoriteButtonKey,
-                  color: isFavorite ? AppTheme.orange : AppTheme.grey,
+                  FontAwesomeIcons.heart,
+                  color: Colors.black,
                   size: 22,
                 ),
-                Opacity(
-                    opacity: 0.1,
-                    child: Text(
-                      isFavorite ? 'favorite' : 'notFavorite',
-                      key: Key('checkJobFavorite'),
-                      style: TextStyle(fontSize: 1),
-                    ))
+                Positioned(
+                  left: 2,
+                  top: 1,
+                  child: Icon(
+                    FontAwesomeIcons.solidHeart,
+                    key: widget.favoriteButtonKey,
+                    color: isFavorite ? Colors.yellowAccent : Colors.white,
+                    size: 18,
+                  ),
+                ),
               ],
             ),
           ),

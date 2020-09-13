@@ -85,21 +85,26 @@ class FeaturedCompaniesWidget extends StatelessWidget {
                       textAlign: TextAlign.center,
                     ),
                     SizedBox(height: 2),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.location_on,
-                          size: 14,
-                          color: Colors.grey,
-                        ),
-                        Flexible(
-                          child: Text(
-                            company?.city?.swapValueByComa??"",
-                            style: TextStyle(color: Colors.grey, fontSize: 12),
-                          ),
-                        ),
-                      ],
+                    Container(
+                      height: 13,
+                      child: Center(
+                        child: company.city !=null?Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.location_on,
+                              size: 14,
+                              color: Colors.grey,
+                            ),
+                            Flexible(
+                              child: Text(
+                                company.city.swapValueByComa,
+                                style: TextStyle(color: Colors.grey, fontSize: 12),
+                              ),
+                            ),
+                          ],
+                        ):SizedBox(),
+                      ),
                     ),
                     SizedBox(height: 5),
                     Material(
