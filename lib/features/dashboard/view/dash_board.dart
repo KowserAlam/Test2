@@ -26,8 +26,6 @@ import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/flavour/flavour_config.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/locator.dart';
-import 'package:p7app/main_app/util/logger_helper.dart';
-import 'package:p7app/main_app/views/widgets/failure_widget.dart';
 import 'package:provider/provider.dart';
 
 class DashBoard extends StatefulWidget {
@@ -106,16 +104,17 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
               },
             ),
           ),
-          if(hastUnreadNoti)
-          Positioned(
-              right: 8,
-              top: 18,
-              child: Container(
-                height: 10,
-                width: 10,
-                decoration: BoxDecoration(
-                    color: Colors.red, borderRadius: BorderRadius.circular(5)),
-              )),
+          if (hastUnreadNoti)
+            Positioned(
+                right: 8,
+                top: 18,
+                child: Container(
+                  height: 10,
+                  width: 10,
+                  decoration: BoxDecoration(
+                      color: Colors.red,
+                      borderRadius: BorderRadius.circular(5)),
+                )),
         ],
       );
     });
