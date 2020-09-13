@@ -138,7 +138,7 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
                 Icon(
                   FontAwesomeIcons.solidHeart,
                   key: widget.favoriteButtonKey,
-                  color: isFavorite ? Colors.yellowAccent : Colors.white,
+                  color: isFavorite ? AppTheme.colorPrimary : Colors.white,
                   size: 22,
                 ),
                 Icon(
