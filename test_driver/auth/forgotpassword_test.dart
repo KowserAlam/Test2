@@ -1,6 +1,8 @@
 import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
 
+import '../keys.dart';
+
 
 main(){
   forgotPasswordTest();
@@ -29,6 +31,7 @@ Future<void> forgotPasswordTest()async{
 
     //test cases are started from here
     test('Click on forgot password link from login page', () async {
+      await driver.tap(Keys.dashboardLoginButtonKey);
       await driver.tap(forgotPasswordLink);
       await Future.delayed(const Duration(seconds: 3), () {});
     });

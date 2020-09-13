@@ -4,6 +4,8 @@ PODS:
     - AppAuth/ExternalUserAgent (= 1.4.0)
   - AppAuth/Core (1.4.0)
   - AppAuth/ExternalUserAgent (1.4.0)
+  - device_info (0.0.1):
+    - Flutter
   - Firebase/Analytics (6.26.0):
     - Firebase/Core
   - Firebase/Core (6.26.0):
@@ -173,6 +175,7 @@ PODS:
     - Flutter
 
 DEPENDENCIES:
+  - device_info (from `.symlinks/plugins/device_info/ios`)
   - firebase_analytics (from `.symlinks/plugins/firebase_analytics/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - firebase_messaging (from `.symlinks/plugins/firebase_messaging/ios`)
@@ -221,6 +224,8 @@ SPEC REPOS:
     - TOCropViewController
 
 EXTERNAL SOURCES:
+  device_info:
+    :path: ".symlinks/plugins/device_info/ios"
   firebase_analytics:
     :path: ".symlinks/plugins/firebase_analytics/ios"
   firebase_core:
@@ -258,6 +263,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AppAuth: 31bcec809a638d7bd2f86ea8a52bd45f6e81e7c7
+  device_info: d7d233b645a32c40dfdc212de5cf646ca482f175
   Firebase: 7cf5f9c67f03cb3b606d1d6535286e1080e57eb6
   firebase_analytics: 3ad65aa7be059752b2c1a6392bfafe030b4ab9fa
   firebase_core: 3134fe79d257d430f163b558caf52a10a87efe8a
@@ -303,4 +309,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 0a317cdda126893b5969ca09c757a57838d7d31c
 
-COCOAPODS: 1.9.1
+COCOAPODS: 1.10.0.beta.2
