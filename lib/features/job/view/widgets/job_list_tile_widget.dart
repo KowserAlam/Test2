@@ -133,21 +133,18 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Stack(
+              alignment: Alignment.center,
               children: [
+                Icon(
+                  FontAwesomeIcons.solidHeart,
+                  key: widget.favoriteButtonKey,
+                  color: isFavorite ? Colors.yellowAccent : Colors.white,
+                  size: 22,
+                ),
                 Icon(
                   FontAwesomeIcons.heart,
                   color: Colors.black,
                   size: 22,
-                ),
-                Positioned(
-                  left: 2,
-                  top: 1,
-                  child: Icon(
-                    FontAwesomeIcons.solidHeart,
-                    key: widget.favoriteButtonKey,
-                    color: isFavorite ? Colors.yellowAccent : Colors.white,
-                    size: 18,
-                  ),
                 ),
               ],
             ),
