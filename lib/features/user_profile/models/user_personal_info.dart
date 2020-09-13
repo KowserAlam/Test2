@@ -36,6 +36,7 @@ class UserPersonalInfo {
   Religion religionObj;
   Nationality nationalityObj;
   String bloodGroup;
+  String slug;
 
   UserPersonalInfo({
     this.id,
@@ -76,6 +77,7 @@ class UserPersonalInfo {
     var imageUlr = json['image'] == null ? kDefaultUserImageNetwork : "$baseUrl${json['image']}";
 
     id = json['id'];
+    slug = json['slug'];
     professionalId = json['professional_id'];
     fullName = json['full_name'];
     email = json['email'];

@@ -13,7 +13,7 @@ import 'package:p7app/features/company/view/company_details.dart';
 import 'package:p7app/features/job/models/job_model.dart';
 import 'package:p7app/features/job/repositories/job_repository.dart';
 import 'package:p7app/features/job/view/widgets/job_apply_button.dart';
-import 'package:p7app/features/job/view/widgets/share_on_social_media_widget.dart';
+import 'package:p7app/features/job/view/widgets/share_job_on_social_media_widget.dart';
 import 'package:p7app/features/job/view/widgets/simelar_jobs_widget.dart';
 import 'package:p7app/features/job/view_model/applied_job_list_view_model.dart';
 import 'package:p7app/features/job/view_model/favourite_job_list_view_model.dart';
@@ -1079,7 +1079,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
         ),
         centerTitle: true,
         actions: [
-          ShareOnSocialMediaWidget(
+          ShareJobOnSocialMediaWidget(
             jobDetails,
             key: Key("shareButtonKey"),
           ),
