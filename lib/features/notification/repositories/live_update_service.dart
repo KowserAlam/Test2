@@ -40,33 +40,12 @@ class LiveUpdateService {
         logger.i(notificationMap);
         var notification = NotificationModel.fromJson(notificationMap);
         notificationUpdate.sink.add(notification);
-        _showInAppNotification(context, notification);
       }
     });
    socket.connect();
   }
 
-  _showInAppNotification(context, NotificationModel notification) {
-    // BotToast.showNotification(
-    //     title: (_) => Text(notification?.title ?? ""),
-    //     subtitle: (_) => Text(notification?.message ?? ""),
-    //     onTap: () {
-    //       Navigator.push(context,
-    //           CupertinoPageRoute(builder: (context) => NotificationScreen()));
-    //     },onClose: (){
-    //       BotToast.cleanAll();
-    // });
 
-    BotToast.showSimpleNotification(
-      title: notification?.title ?? "",
-      subTitle: notification?.message ?? "",
-        onTap: () {
-          Navigator.push(context,
-              CupertinoPageRoute(builder: (context) => NotificationScreen()));
-        },onClose: (){
-      BotToast.cleanAll();
-    });
-  }
 
   dispose() {
     notificationUpdate.close();

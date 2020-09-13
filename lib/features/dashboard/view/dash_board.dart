@@ -2,6 +2,7 @@ import 'package:after_layout/after_layout.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:p7app/features/auth/view/sign_in_screen.dart';
 import 'package:p7app/features/career_advice/view_models/career_advice_view_model.dart';
 import 'package:p7app/features/dashboard/view/widgets/career_advice_list_h_widget.dart';
@@ -15,6 +16,7 @@ import 'package:p7app/features/dashboard/view/widgets/recent_jobs_widget.dart';
 import 'package:p7app/features/dashboard/view/widgets/top_categories_widget.dart';
 import 'package:p7app/features/dashboard/view/widgets/vital_state_widget.dart';
 import 'package:p7app/features/dashboard/view_model/dashboard_view_model.dart';
+import 'package:p7app/features/notification/view_models/notificaion_view_model.dart';
 import 'package:p7app/features/notification/views/notification_screen.dart';
 import 'package:p7app/features/settings/setings_screen.dart';
 import 'package:p7app/features/settings/settings_view_model.dart';
@@ -86,51 +88,14 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
     var authVM = Provider.of<AuthViewModel>(context);
     bool isLoggedIn = authVM.isLoggerIn;
 
-    errorWidget() {
-      switch (dashboardViewModel.infoBoxError) {
-        case AppError.serverError:
-          return FailureFullScreenWidget(
-            errorMessage: StringResources.unableToLoadData,
-            onTap: () {
-              return _refreshData();
-            },
-          );
+    var notificationIcon = Obx(() {
+      NotificationViewModel c = Get.find();
 
-        case AppError.networkError:
-          return FailureFullScreenWidget(
-            errorMessage: StringResources.unableToReachServerMessage,
-            onTap: () {
-              return _refreshData();
-            },
-          );
-
-        case AppError.unauthorized:
-          return FailureFullScreenWidget(
-            errorMessage: StringResources.unauthorizedText,
-            onTap: () {
-              return _signOut(context);
-            },
-          );
-
-        default:
-          return FailureFullScreenWidget(
-            errorMessage: StringResources.somethingIsWrong,
-            onTap: () {
-              return _refreshData();
-            },
-          );
-      }
-    }
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          isLoggedIn ? StringResources.dashBoardText : FlavorConfig.appName(),
-          key: Key('dashboardAppbarTitle'),
-        ),
-        actions: [
-          if (isLoggedIn)
-            IconButton(
+      bool hastUnreadNoti = c.hasUnreadNotification;
+      return Stack(
+        children: [
+          Center(
+            child: IconButton(
               key: Key("dashboardNotificationIcon"),
               iconSize: 15,
               tooltip: StringResources.notificationsText,
@@ -140,6 +105,29 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
                     builder: (BuildContext context) => NotificationScreen()));
               },
             ),
+          ),
+          if(hastUnreadNoti)
+          Positioned(
+              right: 8,
+              top: 18,
+              child: Container(
+                height: 10,
+                width: 10,
+                decoration: BoxDecoration(
+                    color: Colors.red, borderRadius: BorderRadius.circular(5)),
+              )),
+        ],
+      );
+    });
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          isLoggedIn ? StringResources.dashBoardText : FlavorConfig.appName(),
+          key: Key('dashboardAppbarTitle'),
+        ),
+        actions: [
+          if (isLoggedIn) notificationIcon,
           if (isLoggedIn)
             PopupMenuButton<String>(
               key: Key("dashboardPopupMenuKey"),
