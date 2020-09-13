@@ -44,7 +44,7 @@ class _HomeState extends State<Home> {
     Future.delayed(Duration.zero).then((value) {
       var authVM = Provider.of<AuthViewModel>(context,listen: false);
       if (authVM.isLoggerIn) {
-        locator<LiveUpdateService>().initSocket();
+        locator<LiveUpdateService>().initSocket(context);
         locator<PushNotificationService>().initPush();
         _initUserdata();
       }

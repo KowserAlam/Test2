@@ -20,7 +20,7 @@ class NotificationRepository {
       // logger.i(response.body);
       if (response.statusCode == 200) {
         var mapData = json.decode(utf8.decode(response.bodyBytes));
-        logger.i(mapData);
+        // logger.i(mapData);
         var data = NotificationScreenDataModel.fromJson(mapData);
         return Right(data);
       } else if (response.statusCode == 401) {
