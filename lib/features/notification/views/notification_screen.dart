@@ -1,19 +1,16 @@
 import 'package:after_layout/after_layout.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:p7app/features/notification/models/notification_model.dart';
-import 'package:p7app/features/notification/repositories/live_update_service.dart';
-import 'package:p7app/features/notification/repositories/notification_repository.dart';
 import 'package:p7app/features/notification/view_models/notificaion_view_model.dart';
 import 'package:p7app/features/notification/views/widgets/no_notification_widget.dart';
 import 'package:p7app/features/notification/views/widgets/notification_tile_widget.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/date_format_uitl.dart';
-import 'package:p7app/main_app/views/app_drawer.dart';
 import 'package:p7app/main_app/views/widgets/failure_widget.dart';
 import 'package:p7app/main_app/views/widgets/loader.dart';
-import 'package:provider/provider.dart';
 
 class NotificationScreen extends StatefulWidget {
   @override
@@ -24,52 +21,50 @@ class _NotificationScreenState extends State<NotificationScreen>
     with AfterLayoutMixin {
   ScrollController _scrollController = ScrollController();
 
+  NotificationViewModel _notiController = Get.find();
+
   @override
   void afterFirstLayout(BuildContext context) {
-    var notiVM = Provider.of<NotificationViewModel>(context, listen: false);
-    notiVM.getNotifications();
+    // var notiVM = Provider.of<NotificationViewModel>(context, listen: false);
+    // // notiVM.getNotifications();
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
-        notiVM.getMoreData();
-        notiVM.listenNotification();
+        _notiController.getMoreData();
       }
     });
-
-
   }
 
   errorWidget() {
-    var jobListViewModel =
-        Provider.of<NotificationViewModel>(context, listen: false);
-    switch (jobListViewModel.appError) {
-      case AppError.serverError:
-        return FailureFullScreenWidget(
-          errorMessage: StringResources.unableToLoadData,
-          onTap: () {
-            return Provider.of<NotificationViewModel>(context, listen: false)
-                .refresh();
-          },
-        );
+    // var jobListViewModel =
+    //     Provider.of<NotificationViewModel>(context, listen: false);
+    Obx(() {
+      switch (_notiController.appError.value) {
+        case AppError.serverError:
+          return FailureFullScreenWidget(
+            errorMessage: StringResources.unableToLoadData,
+            onTap: () {
+              return _notiController.refresh();
+            },
+          );
 
-      case AppError.networkError:
-        return FailureFullScreenWidget(
-          errorMessage: StringResources.unableToReachServerMessage,
-          onTap: () {
-            return Provider.of<NotificationViewModel>(context, listen: false)
-                .refresh();
-          },
-        );
+        case AppError.networkError:
+          return FailureFullScreenWidget(
+            errorMessage: StringResources.unableToReachServerMessage,
+            onTap: () {
+              return _notiController.refresh();
+            },
+          );
 
-      default:
-        return FailureFullScreenWidget(
-          errorMessage: StringResources.somethingIsWrong,
-          onTap: () {
-            return Provider.of<NotificationViewModel>(context, listen: false)
-                .refresh();
-          },
-        );
-    }
+        default:
+          return FailureFullScreenWidget(
+            errorMessage: StringResources.somethingIsWrong,
+            onTap: () {
+              return _notiController.refresh();
+            },
+          );
+      }
+    });
   }
 
   @override
@@ -77,37 +72,35 @@ class _NotificationScreenState extends State<NotificationScreen>
     return Scaffold(
       appBar: AppBar(
         title: Text(StringResources.notificationsText),
-        key: Key ('notificationsText'),
+        key: Key('notificationsText'),
       ),
-      body: Consumer<NotificationViewModel>(
-          builder: (context, notificationViewModel, _) {
-        if (notificationViewModel.shouldShowPageLoader) {
+      body: Obx(() {
+        if ( _notiController.shouldShowPageLoader) {
           return Center(
             child: Loader(),
           );
         }
-        if (notificationViewModel.shouldShowAppError) {
+        if ( _notiController.shouldShowAppError) {
           return errorWidget();
         }
-        if (notificationViewModel.shouldShowNoNotification) {
+        if ( _notiController.shouldShowNoNotification) {
           return NoNotificationWidget();
         }
 
         return RefreshIndicator(
-          onRefresh: () async => notificationViewModel.getNotifications(),
+          onRefresh: () async =>  _notiController.getNotifications(),
           child: ListView.builder(
-            physics: AlwaysScrollableScrollPhysics(),
-              controller: _scrollController,
+              physics: AlwaysScrollableScrollPhysics(),
+               controller: _scrollController,
               padding: EdgeInsets.symmetric(vertical: 4),
-              itemCount: notificationViewModel.notifications.length,
+              itemCount:  _notiController.notifications.length,
               itemBuilder: (BuildContext context, int index) {
-                var notification = notificationViewModel.notifications[index];
+                var notification =  _notiController.notifications[index];
                 return NotificationTile(
                   notification,
                   onTap: () {
-                    notificationViewModel.markAsRead(index);
+                     _notiController.markAsRead(index);
                     _showDialog(context, notification, index);
-
                   },
                 );
               }),
@@ -118,7 +111,6 @@ class _NotificationScreenState extends State<NotificationScreen>
 }
 
 _showDialog(context, NotificationModel notification, int index) {
-
 //  print(notification.createdAt);
 //  print(DateTime.now());
 

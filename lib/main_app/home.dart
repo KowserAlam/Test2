@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:p7app/features/auth/view/sign_in_screen.dart';
 import 'package:p7app/features/company/view/company_list_screen.dart';
 import 'package:p7app/features/dashboard/view/dash_board.dart';
@@ -9,6 +10,7 @@ import 'package:p7app/features/job/view_model/all_job_list_view_model.dart';
 import 'package:p7app/features/job/view_model/job_screen_view_model.dart';
 import 'package:p7app/features/messaging/view/message_screen.dart';
 import 'package:p7app/features/notification/repositories/live_update_service.dart';
+import 'package:p7app/features/notification/view_models/notificaion_view_model.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/features/user_profile/views/screens/profile_screen.dart';
 import 'package:p7app/main_app/auth_service/auth_view_model.dart';
@@ -28,6 +30,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
+  NotificationViewModel _notiController = Get.put(NotificationViewModel());
   var _paeViewController = PageController();
   int currentIndex = 0;
 
@@ -35,7 +39,6 @@ class _HomeState extends State<Home> {
   void initState() {
     TokenRefreshScheduler.getInstance();
     _init();
-   
     super.initState();
   }
 

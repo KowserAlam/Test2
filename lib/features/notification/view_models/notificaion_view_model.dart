@@ -1,4 +1,5 @@
-import 'package:flutter/cupertino.dart';
+import 'package:bot_toast/bot_toast.dart';
+import 'package:get/get.dart';
 import 'package:p7app/features/notification/models/notification_model.dart';
 import 'package:p7app/features/notification/repositories/live_update_service.dart';
 import 'package:p7app/features/notification/repositories/notification_repository.dart';
@@ -6,113 +7,132 @@ import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/util/locator.dart';
 import 'package:p7app/main_app/util/logger_helper.dart';
 
-
-class NotificationViewModel with ChangeNotifier {
-
-  AppError _appError;
-  List<NotificationModel> _notifications = [];
-  bool _isFetchingData = false;
-  bool _isGettingMoreData = false;
+class NotificationViewModel extends GetxController {
+  var appError = AppError.none.obs;
+  var notifications = <NotificationModel>[].obs;
+  var isFetchingData = false.obs;
+  var isGettingMoreData = false.obs;
   bool _hasMoreData = false;
   int _page = 1;
+
+  @override
+  void onInit() {
+    getNotifications();
+    listenNotification();
+  }
 
   Future<void> refresh() {
     _page = 1;
     return getNotifications();
   }
 
-
-  void listenNotification(){
+  void listenNotification() {
     logger.i("listening");
     locator<LiveUpdateService>().notificationUpdate.listen((value) {
       logger.i(value);
-      if(_notifications.contains(value)){
-       var index =  _notifications.indexWhere((element) => element.id == value.id);
-       _notifications.insert(index, value);
-      }else{
-        _notifications.insert(0, value);
+      if (notifications.map((e) => e.id).contains(value.id)) {
+        var index =
+            notifications.indexWhere((element) => element.id == value.id);
+        notifications.insert(index, value);
+      } else {
+        _showInAppNotification(value);
+        notifications.insert(0, value);
       }
-    },onError: (e){
+    }, onError: (e) {
       logger.e(e);
     });
   }
 
   Future<void> getNotifications() async {
     _page = 1;
-    _isFetchingData = true;
-    notifyListeners();
+    isFetchingData.value = true;
+
     var res = await NotificationRepository().getNotificationsList();
     res.fold((l) {
-      _isFetchingData = false;
+      isFetchingData.value = false;
       _hasMoreData = false;
-      _appError = l;
-      notifyListeners();
+      appError.value = l;
     }, (r) {
-      _isFetchingData = false;
-      _notifications = r.notifications ?? [];
+      appError.value = AppError.none;
+      isFetchingData.value = false;
+      notifications.value = r.notifications ?? [];
       _hasMoreData = r.next;
-      notifyListeners();
     });
   }
 
   getMoreData() async {
-
-    if (_hasMoreData && !isGettingMoreData) {
+    if (_hasMoreData && !isGettingMoreData.value) {
       _page++;
-      _isGettingMoreData = true;
-      notifyListeners();
-      var res = await NotificationRepository().getNotificationsList(page: _page);
+      isGettingMoreData.value = true;
+
+      var res =
+          await NotificationRepository().getNotificationsList(page: _page);
       res.fold((l) {
-        _isGettingMoreData = false;
-        _appError = l;
+        isGettingMoreData.value = false;
+        appError.value = l;
         _hasMoreData = false;
-        notifyListeners();
       }, (r) {
-        _isGettingMoreData = false;
+        isGettingMoreData.value = false;
         _hasMoreData = r.next;
-        _notifications.addAll(r.notifications);
-        notifyListeners();
+        notifications.addAll(r.notifications);
       });
     }
   }
 
   markAsRead(int index) {
-    if (!_notifications[index].isRead) {
+    if (!notifications[index].isRead) {
       notifications[index].isRead = true;
-      notifyListeners();
+
       NotificationRepository()
           .markAsRead(notifications[index].id)
           .then((value) {
         if (!value) {
           notifications[index].isRead = false;
-          notifyListeners();
         }
       });
     }
   }
 
-  List<NotificationModel> get notifications => _notifications;
+  _showInAppNotification(NotificationModel notification) {
+    // BotToast.showNotification(
+    //     title: (_) => Text(notification?.title ?? ""),
+    //     subtitle: (_) => Text(notification?.message ?? ""),
+    //     onTap: () {
+    //       Navigator.push(context,
+    //           CupertinoPageRoute(builder: (context) => NotificationScreen()));
+    //     },onClose: (){
+    //       BotToast.cleanAll();
+    // });
 
-  set notifications(List<NotificationModel> value) {
-    _notifications = value;
+    BotToast.showSimpleNotification(
+        title: notification?.title ?? "",
+        subTitle: notification?.message ?? "",
+        onTap: () {
+          // Navigator.push(context,
+          //     CupertinoPageRoute(builder: (context) => NotificationScreen()));
+        },
+        onClose: () {
+          BotToast.cleanAll();
+        });
+  }
+  
+
+  bool get hasUnreadNotification {
+    var hasUnread = false;
+    for(var v in notifications) {
+      if(!v.isRead){
+        hasUnread = true;
+        break;
+      }
+    }
+    return hasUnread;
   }
 
-  AppError get appError => _appError;
+  bool get shouldShowPageLoader =>
+      isFetchingData.value && notifications.length == 0;
 
-  set appError(AppError value) {
-    _appError = value;
-  }
-
-  bool get isGettingMoreData => _isGettingMoreData;
-
-  bool get isFetchingData => _isFetchingData;
-
-  bool get hasMoreData => _hasMoreData;
-
-  bool get shouldShowPageLoader => _isFetchingData && notifications.length == 0;
-
-  bool get shouldShowAppError => _appError != null && notifications.length == 0;
+  bool get shouldShowAppError => appError.value != AppError.none && notifications.length == 0;
 
   bool get shouldShowNoNotification =>
-      !_isFetchingData && _appError == null && notifications.length == 0;
+      !isFetchingData.value && appError == null && notifications.length == 0;
 }

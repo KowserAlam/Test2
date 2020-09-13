@@ -8,6 +8,18 @@ extension DateTimeExtension on DateTime {
     else
       return null;
   }
+  String get formatDateJX {
+    if (this != null)
+      return DateFormatUtil.formatDate(this);
+    else
+      return null;
+  }
+  String get formatDateTimeJX {
+    if (this != null)
+      return DateFormatUtil.formatDateTime(this);
+    else
+      return null;
+  }
 
   bool  isToday() {
     if (this != null) {

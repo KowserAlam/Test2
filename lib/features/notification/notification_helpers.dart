@@ -1,3 +1,5 @@
+import 'package:p7app/method_extension.dart';
+
 class NotificationHelper {
   static String calculateTimeStamp(DateTime createdAt, {DateTime compareWith}) {
     if (createdAt == null) return '';
@@ -9,11 +11,13 @@ class NotificationHelper {
       return "${difference.inMinutes}m";
     else if (difference < Duration(hours: 25))
       return "${difference.inHours}h";
-    else if (difference < Duration(days: 30))
-      return "${(difference.inHours / 24).round()}day";
-    else if (difference < Duration(days: 365))
-      return "${(difference.inDays / 30).round()}month";
     else
-      return "${(difference.inDays / 365).round()}y";
+      // (difference < Duration(days: 30))
+      return createdAt.formatDateJX;
+    //   // return "${(difference.inHours / 24).round()}day";
+    // else if (difference < Duration(days: 365))
+    //   return "${(difference.inDays / 30).round()}month";
+    // else
+    //   return "${(difference.inDays / 365).round()}y";
   }
 }
