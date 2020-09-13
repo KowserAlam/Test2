@@ -387,6 +387,19 @@ class StringResources {
   static var expertiseLevel = "Expertise level:";
   static var searchSkillText = "Search your skill";
   static const String typeAtLeast2Letter = "Type at least 2 letter";
+  static  List<String>expertiseMessage = [
+    'I\'m aware of its existence.',
+    'I have a general knowledge on it.',
+    'I have studied similar skill/language.',
+    'I\'ve studided it briefly in the past.',
+    'I\'ve studied it & practiced it in projects.',
+    'I\'m comfortable working with it.',
+    'It is one of the skill/language I regularly work with.',
+    'I\'ve been working with it for a very long time.',
+    'I\'m efficient with it and have made several complete projects with it.',
+    'It is my speciality and I can solve almost any problems with it.',
+    'I\'ve completely mastered this skill.',
+  ];
 
   /// Verify Screen
 

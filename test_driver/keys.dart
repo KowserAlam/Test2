@@ -12,6 +12,7 @@ class Keys{
   static final commonPromptNo = find.byValueKey('commonPromtNo');
 
   //Sign in screen
+  static final dashboardLoginButtonKey = find.byValueKey('dashboardLoginButtonKey');
   static final signInWelcomeText = find.byValueKey('signInWelcomeText');
   static final signInEmail = find.byValueKey('signInEmail');
   static final signInPassword = find.byValueKey('signInPassword');
