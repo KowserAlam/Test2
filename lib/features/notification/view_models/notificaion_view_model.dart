@@ -19,8 +19,11 @@ class NotificationViewModel extends GetxController {
   @override
   void onInit() {
     AuthService.getInstance().then((value) => value.isAccessTokenValid()).then((value) {
-      getNotifications();
-      listenNotification();
+      if(value){ // if logged in
+        getNotifications();
+        listenNotification();
+      }
+
     });
 
   }

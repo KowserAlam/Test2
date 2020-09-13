@@ -102,6 +102,7 @@ class FeaturedCompaniesWidget extends StatelessWidget {
                             Flexible(
                               child: Text(
                                 company.city.swapValueByComa,
+                                maxLines: 1,
                                 style: TextStyle(color: Colors.grey, fontSize: 12),
                               ),
                             ),
