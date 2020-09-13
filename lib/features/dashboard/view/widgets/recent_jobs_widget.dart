@@ -37,23 +37,23 @@ class _RecentJobsState extends State<RecentJobs> {
 
     Widget listItem(JobListModel jobListModel) {
       String publishDateText = jobListModel.postDate == null
-          ? StringResources.noneText
+          ? null
           : DateFormatUtil().dateFormat1(jobListModel.postDate);
 
       String deadLineText = jobListModel.applicationDeadline == null
-          ? StringResources.noneText
+          ? null
           : DateFormatUtil().dateFormat1(jobListModel.applicationDeadline);
 
       return LayoutBuilder(builder: (context, c) {
-        return InkWell(
-          onTap: (){
-            Navigator.of(context).push(CupertinoPageRoute(
-                builder: (context) => JobDetailsScreen(
-                  slug: jobListModel.slug,
-                  fromJobListScreenType: JobListScreenType.main,
-                )));
-          },
-          child: Card(
+        return Card(
+          child: InkWell(
+            onTap: (){
+              Navigator.of(context).push(CupertinoPageRoute(
+                  builder: (context) => JobDetailsScreen(
+                    slug: jobListModel.slug,
+                    fromJobListScreenType: JobListScreenType.main,
+                  )));
+            },
             child: Container(
               height: cardHeight,
               width: cardWidth,
@@ -71,14 +71,16 @@ class _RecentJobsState extends State<RecentJobs> {
                           placeholder: (context, _) => Image.asset(kCompanyImagePlaceholder),),
                       ),
                       SizedBox(width: 3,),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(jobListModel.title, maxLines: 2, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),),
-                          SizedBox(height: 5,),
-                          Text(jobListModel.title, style: TextStyle(fontSize: 10, color: Colors.blueAccent),),
-                        ],
+                      Flexible(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(jobListModel.title, maxLines: 2, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 15, height: 1.3, fontWeight: FontWeight.bold),),
+                            SizedBox(height: 7,),
+                            Text(jobListModel.companyName, style: TextStyle(fontSize: 10, color: Colors.blueAccent),),
+                          ],
+                        ),
                       )
                     ],
                   ),
@@ -86,7 +88,7 @@ class _RecentJobsState extends State<RecentJobs> {
                     padding: EdgeInsets.symmetric(horizontal: 5),
                     child: Divider(height: 20,),
                   ),
-                  Row(
+                  jobListModel.jobCity!=null?Row(
                     children: <Widget>[
                       Icon(
                         FeatherIcons.mapPin,
@@ -98,14 +100,14 @@ class _RecentJobsState extends State<RecentJobs> {
                       ),
                       Expanded(
                         child: Text(
-                          jobListModel.jobCity.swapValueByComa ?? "",
+                          jobListModel.jobCity.swapValueByComa,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: subTitleStyle,
                         ),
                       )
                     ],
-                  ),
+                  ):SizedBox(),
                   SizedBox(height: 7,),
                   Row(
                     children: <Widget>[
@@ -122,7 +124,7 @@ class _RecentJobsState extends State<RecentJobs> {
                     ],
                   ),
                   SizedBox(height: 7,),
-                  Row(
+                  deadLineText!=null?Row(
                     children: <Widget>[
                       Icon(FeatherIcons.clock, size: iconSize, color: subtitleColor),
                       SizedBox(width: 5),
@@ -131,7 +133,7 @@ class _RecentJobsState extends State<RecentJobs> {
                         style: subTitleStyle,
                       ),
                     ],
-                  )
+                  ):SizedBox()
                 ],
               ),
             ),

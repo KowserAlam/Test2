@@ -589,7 +589,7 @@ class StringResources {
       'Do you want to apply for this job?';
   static const String signInRequiredText = 'Sign In required !';
   static const String doYouWantToSingInNowText = 'Do you want to sign in now?';
-  static const String doYouWantToDeleteText = "Do You Want to delete?";
+  static const String doYouWantToDeleteText = "Do You Want to Delete?";
   static const String jobsFoundText = 'jobs found';
   static const String sortBy = 'Sort By';
   static const String advanceFilterText = "Advance Filter";
