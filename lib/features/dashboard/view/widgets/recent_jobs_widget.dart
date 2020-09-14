@@ -161,7 +161,7 @@ class _RecentJobsState extends State<RecentJobs> {
           //     .textTheme
           //     .subtitle1,),
           SizedBox(height: 10,),
-          vm.recebtJobsList.length == 0?
+          vm.shouldShowRecentJobsLoader?
           Shimmer.fromColors(
             baseColor: Colors.grey[300],
             highlightColor: Colors.grey[100],

@@ -68,7 +68,7 @@ class ProfessionalSkillListItem extends StatelessWidget {
                 Text(
                   skillInfo.rating == null
                       ? "N/A"
-                      : skillInfo.rating.toString() + "/10",
+                      : skillInfo.rating.toInt().toString() + "/10",
                   style: titleStyle,
                 ),
                 if (isInEditMode)

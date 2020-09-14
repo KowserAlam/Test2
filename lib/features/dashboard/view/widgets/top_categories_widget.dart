@@ -12,8 +12,44 @@ class TopCategoriesWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     var vm = Provider.of<DashboardViewModel>(context);
     var list = vm.topCategoryList;
-    if (vm.topCategoryList.length == 0)
-      return Padding(
+      return vm.shouldShowTopCategoriesLoader? Padding(
+        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                SizedBox(
+                  width: 8,
+                ),
+                Text(
+                  StringResources.topCategories,
+                  style: CommonStyle.dashboardSectionTitleTexStyle,
+                ),
+              ],
+            ),
+            // Text(StringResources.topCategories,style: Theme.of(context).textTheme.subtitle1,),
+            SizedBox(
+              height: 10,
+            ),
+            Shimmer.fromColors(
+              baseColor: Colors.grey[300],
+              highlightColor: Colors.grey[100],
+              enabled: true,
+              child: Container(
+                height: 150,
+                child: ListView.builder(
+                  itemCount: 6,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) {
+                    var category = TopCategoriesModel();
+                    return listItem(category);
+                  },
+                ),
+              ),
+            ),
+          ],
+        ),
+      ): Padding(
         padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
         child: Column(
           children: [
@@ -35,54 +71,17 @@ class TopCategoriesWidget extends StatelessWidget {
             Container(
               height: 150,
               child: ListView.builder(
-                itemCount: 6,
+                itemCount: list.length,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
-                  var category = TopCategoriesModel();
-                  return Shimmer.fromColors(
-                      baseColor: Colors.grey[300],
-                      highlightColor: Colors.grey[100],
-                      enabled: true,
-                      child: listItem(category));
+                  var category = list[index];
+                  return listItem(category);
                 },
               ),
             ),
           ],
         ),
       );
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              SizedBox(
-                width: 8,
-              ),
-              Text(
-                StringResources.topCategories,
-                style: CommonStyle.dashboardSectionTitleTexStyle,
-              ),
-            ],
-          ),
-          // Text(StringResources.topCategories,style: Theme.of(context).textTheme.subtitle1,),
-          SizedBox(
-            height: 10,
-          ),
-          Container(
-            height: 150,
-            child: ListView.builder(
-              itemCount: list.length,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                var category = list[index];
-                return listItem(category);
-              },
-            ),
-          ),
-        ],
-      ),
-    );
   }
 
   Widget listItem(TopCategoriesModel category) {
