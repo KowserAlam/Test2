@@ -172,6 +172,15 @@ class DashboardViewModel with ChangeNotifier {
   bool get shouldShowJoChartLoader =>
       _isLoadingSkillJobChartData && (_skillJobChartData.length == 0);
 
+  bool get shouldShowFeaturedCompanyLoader =>
+      _isLoadingFeatureCompanies && (_featuredCompanies.length == 0);
+
+  bool get shouldShowRecentJobsLoader =>
+      _isLoadingRecentJobs && (_recentJobsList.length == 0);
+
+  bool get shouldShowTopCategoriesLoader =>
+      _isLoadingTopCategories && (_topCategoryList.length == 0);
+
   AppError get infoBoxError => _infoBoxError;
 
   AppError get skillJobChartError => _skillJobChartError;
