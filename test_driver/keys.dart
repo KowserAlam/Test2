@@ -33,6 +33,7 @@ class Keys{
   static final signUpPasswordField = find.byValueKey('signUpPassword');
   static final signUpConfirmPasswordField = find.byValueKey('signUpConfirmPassword');
   static final signUpRegisterButton = find.byValueKey('signUpRegisterButton');
+  static final signUpTextTitleOnSignUpScreen = find.byValueKey('signUpTextTitleOnSignUpScreen');
 
   //Dashboard
   static final bottomNavigationBarMyProfile = find.byValueKey('bottomNavigationBarMyProfile');
