@@ -32,8 +32,8 @@ class _CompanyListScreenState extends State<CompanyListScreen>
   @override
   void afterFirstLayout(BuildContext context) {
 
-    var companyViewModel = Provider.of<CompanyListViewModel>(context);
-    var isLoggerIn = Provider.of<AuthViewModel>(context).isLoggerIn;
+    var companyViewModel = Provider.of<CompanyListViewModel>(context,listen: false);
+    var isLoggerIn = Provider.of<AuthViewModel>(context,listen: false).isLoggerIn;
     if (isLoggerIn) {
 
       var companyViewModel =
@@ -210,10 +210,13 @@ class _CompanyListScreenState extends State<CompanyListScreen>
                   : SizedBox(),
 
               companyViewModel.shouldShowLoader
-                  ? Padding(
-                      padding: const EdgeInsets.only(top: 15),
-                      child: Loader(),
-                    )
+                  ? Container(
+                height: MediaQuery.of(context).size.height-(AppBar().preferredSize.height*2),
+                    child: Padding(
+                        padding: const EdgeInsets.only(top: 15),
+                        child: Loader(),
+                      ),
+                  )
                   : Container(
                       child: companyViewModel.shouldShowAppError
                           ? errorWidget()
@@ -230,7 +233,7 @@ class _CompanyListScreenState extends State<CompanyListScreen>
                                           : SizedBox();
                                     }
                                     return CompanyListTile(
-                                      key: Key("companyListTileKey${index}"),
+                                      key: Key("companyListTileKey$index"),
                                       onTap: () {
                                         Navigator.push(
                                             context,

@@ -2,6 +2,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:p7app/features/auth/view_models/password_change_view_model.dart';
 import 'package:p7app/features/auth/view_models/password_reset_view_model.dart';
@@ -74,7 +75,7 @@ class P7App extends StatelessWidget {
           return MultiProvider(
             key: Key(vm.user?.userId??""),
             providers: providers,
-            child: MaterialApp(
+            child: GetMaterialApp(
               navigatorKey: navigatorKey,
               navigatorObservers: [
                 BotToastNavigatorObserver(),

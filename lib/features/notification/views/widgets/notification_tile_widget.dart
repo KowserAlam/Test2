@@ -65,21 +65,22 @@ class _NotificationTileState extends State<NotificationTile> {
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Flexible(
-                              child: Container(
-                                height: 15,
-                                child: Text(
-                                  widget.notificationModel.title ?? "",
-                                  style: TextStyle(
-                                      fontWeight: isRead
-                                          ? FontWeight.normal
-                                          : FontWeight.bold,
-                                      color: titleColor,
-                                      fontSize: isRead ? 13 : 14),
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ),
-                            ),
+                            Spacer(),
+                            // Flexible(
+                            //   child: Container(
+                            //     height: 15,
+                            //     child: Text(
+                            //       widget.notificationModel.title ?? "",
+                            //       style: TextStyle(
+                            //           fontWeight: isRead
+                            //               ? FontWeight.normal
+                            //               : FontWeight.bold,
+                            //           color: titleColor,
+                            //           fontSize: isRead ? 13 : 14),
+                            //       overflow: TextOverflow.ellipsis,
+                            //     ),
+                            //   ),
+                            // ),
                             Container(
                               height: 15,
                               width: 60,

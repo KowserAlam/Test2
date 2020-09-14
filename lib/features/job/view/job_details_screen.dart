@@ -380,7 +380,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                   ],
                 ),
                 SizedBox(
-                  height: 10,
+                  height: 10
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
