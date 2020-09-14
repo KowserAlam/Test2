@@ -303,12 +303,12 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
           child: Stack(
             children: [
               Icon(
-                Icons.favorite_outlined,
+                Icons.favorite,
                 color: isFavorite ? AppTheme.colorPrimary : Colors.white,
                 size: 25,
               ),
               Icon(
-                Icons.favorite_outline,
+                Icons.favorite_border,
                 color: isFavorite ? Colors.black : Colors.grey[600],
                 size: 25,
               ),
