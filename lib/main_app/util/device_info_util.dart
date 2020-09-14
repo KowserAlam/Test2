@@ -9,16 +9,16 @@ class DeviceInfoUtil{
   Future<String>getDeviceID()async{
    if( Platform.isIOS){
      IosDeviceInfo iosInfo = await _deviceInfo.iosInfo;
-
-     logger.i('${iosInfo.utsname.machine}');
-     logger.i('Running on ${iosInfo.utsname.machine}');
+     logger.i({"iosInfo.identifierForVendor":iosInfo.identifierForVendor});
+     // logger.i('Running on ${iosInfo.utsname.machine}');
      return iosInfo.identifierForVendor;
+
    }else if(Platform.isAndroid){
      AndroidDeviceInfo androidInfo = await _deviceInfo.androidInfo;
-     logger.i(androidInfo.id);
-     logger.i('Running on ${androidInfo.model}');  // e.g. "Moto G (4)"
+     logger.i({"androidId":androidInfo.androidId});
+     // logger.i('Running on ${androidInfo.device}');  // e.g. "Moto G (4)"
 
-     return androidInfo.id;
+     return androidInfo.androidId;
    }else{
      return "12321abc";
    }
