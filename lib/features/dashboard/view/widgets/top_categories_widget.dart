@@ -5,13 +5,51 @@ import 'package:p7app/features/dashboard/view_model/dashboard_view_model.dart';
 import 'package:p7app/main_app/app_theme/common_style.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 
 class TopCategoriesWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var vm = Provider.of<DashboardViewModel>(context);
     var list = vm.topCategoryList;
-    if (vm.topCategoryList.length == 0) return SizedBox();
+    if (vm.topCategoryList.length == 0)
+      return Padding(
+        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                SizedBox(
+                  width: 8,
+                ),
+                Text(
+                  StringResources.topCategories,
+                  style: CommonStyle.dashboardSectionTitleTexStyle,
+                ),
+              ],
+            ),
+            // Text(StringResources.topCategories,style: Theme.of(context).textTheme.subtitle1,),
+            SizedBox(
+              height: 10,
+            ),
+            Container(
+              height: 150,
+              child: ListView.builder(
+                itemCount: 6,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) {
+                  var category = TopCategoriesModel();
+                  return Shimmer.fromColors(
+                      baseColor: Colors.grey[300],
+                      highlightColor: Colors.grey[100],
+                      enabled: true,
+                      child: listItem(category));
+                },
+              ),
+            ),
+          ],
+        ),
+      );
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
       child: Column(

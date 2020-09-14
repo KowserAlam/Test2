@@ -10,13 +10,52 @@ import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:provider/provider.dart';
 import 'package:p7app/method_extension.dart';
+import 'package:shimmer/shimmer.dart';
 
 class FeaturedCompaniesWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var vm = Provider.of<DashboardViewModel>(context);
     var list = vm.featuredCompanies;
-    if (vm.topCategoryList.length == 0) return SizedBox();
+    if (vm.topCategoryList.length == 0)
+      return Padding(
+        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                SizedBox(
+                  width: 8,
+                ),
+                Text(
+                  StringResources.featuredCompanies,
+                  style: CommonStyle.dashboardSectionTitleTexStyle,
+                ),
+              ],
+            ),
+            // Text(StringResources.topCategories,style: Theme.of(context).textTheme.subtitle1,),
+            SizedBox(
+              height: 10,
+            ),
+            Shimmer.fromColors(
+              baseColor: Colors.grey[300],
+              highlightColor: Colors.grey[100],
+              enabled: true,
+              child: Container(
+                height: 180,
+                child: ListView.builder(
+                  itemCount: 4,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) {
+                    var company = Company();
+                    return listItem(company);
+                  },
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
       child: Column(

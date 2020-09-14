@@ -13,6 +13,7 @@ import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/date_format_uitl.dart';
 import 'package:provider/provider.dart';
 import 'package:p7app/method_extension.dart';
+import 'package:shimmer/shimmer.dart';
 
 class RecentJobs extends StatefulWidget {
   @override
@@ -145,8 +146,6 @@ class _RecentJobsState extends State<RecentJobs> {
 
     var vm = Provider.of<DashboardViewModel>(context);
     var list = vm.recebtJobsList;
-    if (vm.recebtJobsList.length == 0)
-      return SizedBox();
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
       child: Column(
@@ -162,6 +161,23 @@ class _RecentJobsState extends State<RecentJobs> {
           //     .textTheme
           //     .subtitle1,),
           SizedBox(height: 10,),
+          vm.recebtJobsList.length == 0?
+          Shimmer.fromColors(
+            baseColor: Colors.grey[300],
+            highlightColor: Colors.grey[100],
+            enabled: true,
+            child: Container(
+              height: cardHeight,
+              child: ListView.builder(
+                itemCount: 6,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) {
+                  var recentJob = JobListModel();
+                  return listItem(recentJob);
+                },
+              ),
+            ),
+          ):
           Container(
             height: cardHeight,
             child: ListView.builder(
