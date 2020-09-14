@@ -285,7 +285,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                     obscureText: signupViewModel.isObscureConfirmPassword,
                     controller: _confirmPasswordEditingController,
-                    hintText: StringResources.passwordText,
+                    hintText: StringResources.confirmPasswordText,
                     onSubmitted: (s) {
                       _handleRegister(_scaffoldKey.currentState.context);
                     },
