@@ -2,6 +2,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_cache/flutter_cache.dart';
+import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/push_notification_service/push_notification_service.dart';
@@ -10,6 +11,7 @@ import 'package:p7app/main_app/push_notification_service/push_notification_servi
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:p7app/main_app/root.dart';
 import 'package:p7app/main_app/util/local_storage.dart';
 import 'package:p7app/main_app/util/locator.dart';
 import 'package:p7app/main_app/util/logger_helper.dart';
@@ -82,6 +84,7 @@ class SettingsViewModel with ChangeNotifier {
     AuthService.getInstance().then((value) => value.removeUser()).then((value) {
       clearAllCachedData();
       _disconnectGoogleAccount();
+      Get.offAll(Root());
 //      Cache.clear();
 //       locator<RestartNotifier>().restartApp();
 //       locator.reset();
@@ -95,7 +98,5 @@ class SettingsViewModel with ChangeNotifier {
     } catch (e) {
       logger.i(e);
     }
-    GoogleSignIn _googleSignIn = GoogleSignIn();
-    await _googleSignIn.disconnect();
   }
 }
