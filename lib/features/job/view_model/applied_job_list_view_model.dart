@@ -7,6 +7,7 @@ import 'package:p7app/features/job/repositories/job_repository.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/util/common_serviec_rule.dart';
+import 'package:p7app/main_app/util/logger_helper.dart';
 
 class AppliedJobListViewModel with ChangeNotifier {
   List<JobListModel> _jobListApplied = [];
@@ -32,7 +33,7 @@ class AppliedJobListViewModel with ChangeNotifier {
     await _jobListRepository.fetchJobList();
     return result.fold((l) {
       isFetchingData = false;
-      print(l);
+      logger.i(l);
       return false;
     }, (List<JobListModel> list) {
       isFetchingData = false;

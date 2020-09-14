@@ -58,7 +58,7 @@ class JobRepository {
       var response = await ApiClient().getRequest(url);
      logger.i(url);
       logger.i(response.statusCode);
-//      print(response.body);
+//      logger.i(response.body);
       if (response.statusCode == 200) {
         var decodedJson = json.decode(utf8.decode(response.bodyBytes));
 //        Logger().i(decodedJson);
@@ -80,11 +80,11 @@ class JobRepository {
         return Left(AppError.unknownError);
       }
     } on SocketException catch (e) {
-      print(e);
+      logger.e(e);
       BotToast.showText(text: StringResources.unableToReachServerMessage);
       return Left(AppError.networkError);
     } catch (e) {
-      print(e);
+      logger.e(e);
       BotToast.showText(text: StringResources.somethingIsWrong);
       return Left(AppError.serverError);
     }
@@ -105,8 +105,8 @@ class JobRepository {
       String url, bool forceFromServer) async {
       var response = await ApiClient().getRequest(url);
       debugPrint(url);
-      print(response.statusCode);
-//      print(response.body);
+      logger.i(response.statusCode);
+//      logger.i(response.body);
       if (response.statusCode == 200) {
         var decodedJson = json.decode(utf8.decode(response.bodyBytes));
         Cache.remember(url, decodedJson, 30 * 60);
@@ -130,11 +130,11 @@ class JobRepository {
       var jobDetails = JobModel.fromJson(decodedJson);
       return Right(jobDetails);
     } on SocketException catch (e) {
-      print(e);
+      logger.e(e);
       BotToast.showText(text: StringResources.unableToReachServerMessage);
       return Left(AppError.networkError);
     } catch (e) {
-      print(e);
+      logger.e(e);
       BotToast.showText(text: StringResources.somethingIsWrong);
       return Left(AppError.serverError);
     }
@@ -149,7 +149,7 @@ class JobRepository {
     try {
       ApiClient client = apiClient ?? ApiClient();
       var res = await client.postRequest(Urls.applyJobOnlineUrl, body);
-      print(res.body);
+      logger.i(res.body);
 
       if (res.statusCode == 200) {
         BotToast.closeAllLoading();
@@ -165,12 +165,12 @@ class JobRepository {
     } on SocketException catch (e) {
       BotToast.closeAllLoading();
       BotToast.showText(text: StringResources.unableToReachServerMessage);
-      print(e);
+      logger.e(e);
       return false;
     } catch (e) {
       BotToast.closeAllLoading();
       BotToast.showText(text: StringResources.unableToApplyText);
-      print(e);
+      logger.e(e);
       return false;
     }
   }
@@ -184,7 +184,7 @@ class JobRepository {
     try {
       ApiClient client = apiClient ?? ApiClient();
       var res = await client.postRequest(Urls.favouriteJobAddUrl, body);
-      print(res.body);
+      logger.i(res.body);
 
       if (res.statusCode == 200) {
         BotToast.closeAllLoading();
@@ -197,12 +197,12 @@ class JobRepository {
     } on SocketException catch (e) {
       BotToast.closeAllLoading();
       BotToast.showText(text: StringResources.unableToReachServerMessage);
-      print(e);
+      logger.e(e);
       return false;
     } catch (e) {
       BotToast.closeAllLoading();
       BotToast.showText(text: StringResources.unableToAddAsFavoriteText);
-      print(e);
+      logger.e(e);
       return false;
     }
   }
@@ -212,7 +212,7 @@ class JobRepository {
 
     try {
       var res = await ApiClient().getRequest(url);
-      print(res.statusCode);
+      logger.i(res.statusCode);
       if (res.statusCode == 200) {
         var _list = <JobListModel>[];
         var decodedJso = json.decode(utf8.decode(res.bodyBytes));
@@ -224,7 +224,7 @@ class JobRepository {
         return [];
       }
     } catch (e) {
-      print(e);
+      logger.e(e);
       return [];
     }
   }
@@ -234,7 +234,7 @@ class JobRepository {
 
     try {
       var res = await ApiClient().getRequest(url);
-      print(res.statusCode);
+      logger.i(res.statusCode);
       if (res.statusCode == 200) {
         var _list = <JobListModel>[];
         var decodedJso = json.decode(utf8.decode(res.bodyBytes));
@@ -247,7 +247,7 @@ class JobRepository {
         return [];
       }
     } catch (e) {
-      print(e);
+      logger.e(e);
       return [];
     }
   }

@@ -22,10 +22,10 @@ class AppliedJobListRepository {
       var response = await ApiClient().getRequest(url);
       debugPrint(url);
       logger.i(response.statusCode);
-     logger.i(response.body);
+     // logger.i(response.body);
       if (response.statusCode == 200) {
         var mapData = json.decode(utf8.decode(response.bodyBytes));
-        var jobList = fromJson(mapData);
+        var jobList = fromJson(mapData['results']);
         return Right(jobList);
       } else {
         BotToast.showText(text: StringResources.somethingIsWrong);

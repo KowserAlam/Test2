@@ -25,6 +25,7 @@ import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/date_format_uitl.dart';
+import 'package:p7app/main_app/util/logger_helper.dart';
 import 'package:p7app/main_app/views/widgets/common_prompt_dialog.dart';
 import 'package:p7app/main_app/views/widgets/failure_widget.dart';
 import 'package:p7app/main_app/views/widgets/loader.dart';
@@ -60,7 +61,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
 
   @override
   void initState() {
-    print(widget.slug);
+    logger.i(widget.slug);
     getJobDetails();
     super.initState();
   }
@@ -208,10 +209,10 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
       _appError = l;
       if (this.mounted) setState(() {});
 
-      print(l);
+      logger.i(l);
       return;
     }, (JobModel dataModel) {
-      print(dataModel.title);
+      logger.i(dataModel.title);
       jobDetails = dataModel;
       _isBusy = false;
       if (this.mounted) setState(() {});

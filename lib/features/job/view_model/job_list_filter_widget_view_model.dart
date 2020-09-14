@@ -13,6 +13,7 @@ import 'package:p7app/features/user_profile/repositories/degree_list_repository.
 import 'package:p7app/features/user_profile/repositories/gender_list_repository.dart';
 import 'package:p7app/main_app/repositories/skill_list_repository.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
+import 'package:p7app/main_app/util/logger_helper.dart';
 
 class JobListFilterWidgetViewModel with ChangeNotifier {
   List<Skill> _skills = [];
@@ -185,7 +186,7 @@ class JobListFilterWidgetViewModel with ChangeNotifier {
     Either<AppError, List<Skill>> res =
         await SkillListRepository().getSkillList();
     return res.fold((l) {
-      print(l);
+      logger.i(l);
       return [];
     }, (r) => r);
   }
@@ -193,7 +194,7 @@ class JobListFilterWidgetViewModel with ChangeNotifier {
   Future<List<JobType>> _getJobTypeList() async {
     Either<AppError, List<JobType>> res = await JobTypeListRepository().getList();
     return res.fold((l) {
-      print(l);
+      logger.i(l);
       return [];
     }, (r) => r);
   }
@@ -202,7 +203,7 @@ class JobListFilterWidgetViewModel with ChangeNotifier {
     Either<AppError, List<String>> res =
         await JobLocationListRepository().getList();
     return res.fold((l) {
-      print(l);
+      logger.i(l);
       return [];
     }, (r) => r);
   }
@@ -211,7 +212,7 @@ class JobListFilterWidgetViewModel with ChangeNotifier {
     Either<AppError, List<String>> res =
         await JobCategoriesLisRepository().getList();
     return res.fold((l) {
-      print(l);
+      logger.i(l);
       return [];
     }, (r) => r);
   }
@@ -225,7 +226,7 @@ class JobListFilterWidgetViewModel with ChangeNotifier {
     Either<AppError, List<String>> res =
         await JobGenderListRepository().getGenderList();
     return res.fold((l) {
-      print(l);
+      logger.i(l);
       return [];
     }, (r) => r);
   }
