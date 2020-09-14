@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
 import 'package:p7app/features/job/models/job_list_model.dart';
 import 'package:p7app/features/job/repositories/favourite_job_list_repository.dart';
 import 'package:p7app/features/job/repositories/job_repository.dart';
@@ -8,14 +9,22 @@ import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/util/common_serviec_rule.dart';
 import 'package:p7app/main_app/util/logger_helper.dart';
 
-class FavouriteJobListViewModel with ChangeNotifier {
-  List<JobListModel> _jobList = [];
-  bool _isFetchingData = false;
-  FavoriteJobListRepository _jobListRepository = FavoriteJobListRepository();
-  DateTime _lastFetchTime;
-  bool _hasMoreData = false;
-  bool _isFetchingMoreData = false;
+class FavouriteJobListViewModel extends GetxController {
+  var appError = AppError.none.obs;
+  var jobList = <JobListModel>[].obs;
+  var isFetchingData = false.obs;
+  var isFetchingMoreData = false.obs;
+  bool hasMoreData = false;
   var _page = 1;
+
+  void onClose() {
+    appError.close();
+    jobList.close();
+    isFetchingData.close();
+    isFetchingData.close();
+    isFetchingMoreData.close();
+    super.onClose();
+  }
 
   /// ##########################
   /// methods
@@ -24,8 +33,7 @@ class FavouriteJobListViewModel with ChangeNotifier {
       {ApiClient apiClient}) async {
     bool isSuccessful = await JobRepository().applyForJob(jobId);
     if (isSuccessful) {
-      _jobList[index].isApplied = true;
-      notifyListeners();
+      jobList[index].isApplied = true;
       return isSuccessful;
     } else {
       return isSuccessful;
@@ -36,8 +44,8 @@ class FavouriteJobListViewModel with ChangeNotifier {
       {ApiClient apiClient}) async {
     bool isSuccessful = await JobRepository().addToFavorite(jobId);
     if (isSuccessful) {
-      _jobList[index].isFavourite = !_jobList[index].isFavourite;
-      notifyListeners();
+      jobList[index].isFavourite = !jobList[index].isFavourite;
+
       return isSuccessful;
     } else {
       return isSuccessful;
@@ -50,74 +58,53 @@ class FavouriteJobListViewModel with ChangeNotifier {
 
   Future<bool> getJobList() async {
     _page = 0;
-    _lastFetchTime = DateTime.now();
-    isFetchingData = true;
-    Either<AppError, List<JobListModel>> result =
-        await _jobListRepository.fetchJobList();
+    isFetchingData.value = true;
+    Either<AppError, FavouriteJobsScreenDataModel> result =
+        await FavoriteJobListRepository().fetchJobList();
     return result.fold((l) {
-      isFetchingData = false;
+      isFetchingData.value = false;
+      hasMoreData = false;
       logger.i(l);
       return false;
-    }, (List<JobListModel> list) {
-      isFetchingData = false;
-      _jobList = list;
-      notifyListeners();
+    }, (r) {
+      hasMoreData = r.hasMoreData;
+      isFetchingData.value = false;
+      jobList.value = r.jobList;
       return true;
     });
+  }
+  getMoreData() async {
+    // logger.i("getting more data");
+
+    if (!isFetchingMoreData.value && !isFetchingData.value && hasMoreData) {
+      _page++;
+      isFetchingMoreData.value = true;
+      Either<AppError, FavouriteJobsScreenDataModel> result =
+      await FavoriteJobListRepository().fetchJobList(page: _page);
+      return result.fold((l) {
+        isFetchingMoreData.value = false;
+        hasMoreData = false;
+        logger.i(l);
+        return false;
+      }, (r) {
+        hasMoreData = r.hasMoreData;
+        isFetchingMoreData.value = false;
+        jobList.value = r.jobList;
+        return true;
+      });
+    }
   }
 
 
   resetState() {
-    _jobList = [];
-    _isFetchingData = false;
-    _jobListRepository = FavoriteJobListRepository();
+    jobList.value = [];
+    isFetchingData.value = false;
   }
 
-  /// ##########################
-  /// getter setters
-  /// #########################
 
-  List<JobListModel> get jobList => _jobList;
 
-  set jobList(List<JobListModel> value) {
-    _jobList = value;
-    notifyListeners();
-  }
+  bool get shouldShowLoader => isFetchingData.value && jobList.length == 0;
 
-  bool get isFetchingData => _isFetchingData;
+  bool get shouldShowNoJobs => !isFetchingData.value && jobList.length == 0;
 
-  set isFetchingData(bool value) {
-    _isFetchingData = value;
-    notifyListeners();
-  }
-
-  bool get shouldShowLoader => _isFetchingData && _jobList.length == 0;
-
-  bool get shouldShowNoJobs => !_isFetchingData && _jobList.length == 0;
-
-  set jobListRepository(FavoriteJobListRepository value) {
-    _jobListRepository = value;
-    notifyListeners();
-  }
-
-  bool get isFetchingMoreData => _isFetchingMoreData;
-
-  set isFetchingMoreData(bool value) {
-    _isFetchingMoreData = value;
-    notifyListeners();
-  }
-
-  bool get hasMoreData => _hasMoreData;
-
-  set hasMoreData(bool value) {
-    _hasMoreData = value;
-    notifyListeners();
-  }
-
-  DateTime get lastFetchTime => _lastFetchTime;
-
-  set lastFetchTime(DateTime value) {
-    _lastFetchTime = value;
-    notifyListeners();
-  }
 }

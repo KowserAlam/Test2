@@ -15,8 +15,6 @@ class AppliedJobListViewModel extends GetxController {
   bool hasMoreData = false;
   var _page = 1;
 
-
-
   void onClose() {
     appError.close();
     jobListApplied.close();
@@ -55,9 +53,7 @@ class AppliedJobListViewModel extends GetxController {
   getMoreData() async {
     // logger.i("getting more data");
 
-    if (!isFetchingMoreData.value &&
-        !isFetchingData.value &&
-        hasMoreData) {
+    if (!isFetchingMoreData.value && !isFetchingData.value && hasMoreData) {
       _page++;
       isFetchingMoreData.value = true;
       Either<AppError, AppliedJobsScreenDataModel> result =

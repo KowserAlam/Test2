@@ -1,6 +1,7 @@
 import 'package:after_layout/after_layout.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:p7app/features/job/models/job_list_model.dart';
 import 'package:p7app/features/job/view/job_details_screen.dart';
 import 'package:p7app/features/job/view/widgets/job_list_tile_widget.dart';
@@ -12,7 +13,6 @@ import 'package:p7app/main_app/auth_service/auth_view_model.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/views/widgets/common_prompt_dialog.dart';
 import 'package:p7app/main_app/views/widgets/loader.dart';
-import 'package:provider/provider.dart';
 
 class FavouriteJobListScreen extends StatefulWidget {
   FavouriteJobListScreen({Key key}) : super(key: key);
@@ -21,38 +21,24 @@ class FavouriteJobListScreen extends StatefulWidget {
   _FavouriteJobListScreenState createState() => _FavouriteJobListScreenState();
 }
 
-class _FavouriteJobListScreenState extends State<FavouriteJobListScreen>
-    with AfterLayoutMixin, TickerProviderStateMixin {
+class _FavouriteJobListScreenState extends State<FavouriteJobListScreen> {
   ScrollController _scrollController = ScrollController();
   AnimationController controller;
   TextEditingController _searchTextEditingController = TextEditingController();
+  var __vm = Get.put(FavouriteJobListViewModel());
+  FavouriteJobListViewModel vm = Get.find();
 
   @override
   void initState() {
-    controller = AnimationController(
-      vsync: this,
-      duration: Duration(milliseconds: 400),
-      reverseDuration: Duration(milliseconds: 400),
-    );
+    vm.getJobList();
+
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        vm.getMoreData();
+      }
+    });
     super.initState();
-  }
-
-  @override
-  void afterFirstLayout(BuildContext context) {
-    var jobListViewModel =
-        Provider.of<FavouriteJobListViewModel>(context, listen: false);
-    jobListViewModel.getJobList();
-
-    // _scrollController.addListener(() {
-    //   var isLoggedIn =
-    //       Provider.of<AuthViewModel>(context, listen: false).isLoggerIn;
-    //   if (isLoggedIn) if (_scrollController.position.pixels ==
-    //       _scrollController.position.maxScrollExtent) {
-    //     jobListViewModel.getMoreData();
-    //   }
-    // });
-    //
-
   }
 
   @override
@@ -66,16 +52,17 @@ class _FavouriteJobListScreenState extends State<FavouriteJobListScreen>
     return RefreshIndicator(
       onRefresh: () async {
         _searchTextEditingController?.clear();
-        return Provider.of<FavouriteJobListViewModel>(context, listen: false)
-            .refresh();
+        return vm.refresh();
       },
-      child: Consumer<FavouriteJobListViewModel>(
-          builder: (context, favoriteJobListViewModel, _) {
-        var jobList = favoriteJobListViewModel.jobList;
+      child: Obx(() {
+        var jobList = vm.jobList;
         debugPrint("${jobList.length}");
         return Scaffold(
           appBar: AppBar(
-            title: Text(StringResources.favoriteJobsText, key: Key('faqAppBarTitleKey'),),
+            title: Text(
+              StringResources.favoriteJobsText,
+              key: Key('faqAppBarTitleKey'),
+            ),
           ),
 //          drawer: AppDrawer(
 //            routeName: 'favorite_job_list',
@@ -88,7 +75,7 @@ class _FavouriteJobListScreenState extends State<FavouriteJobListScreen>
                     height: 35,
                   ),
                   Expanded(
-                    child: favoriteJobListViewModel.shouldShowLoader
+                    child: vm.shouldShowLoader
                         ? Center(
                             child: Loader(),
                           )
@@ -96,26 +83,41 @@ class _FavouriteJobListScreenState extends State<FavouriteJobListScreen>
                             physics: AlwaysScrollableScrollPhysics(),
                             controller: _scrollController,
                             children: [
-                              favoriteJobListViewModel.shouldShowNoJobs
+                              vm.shouldShowNoJobs
                                   ? NoFavouriteJobsWidget()
                                   : ListView.builder(
                                       padding:
                                           EdgeInsets.symmetric(vertical: 4),
                                       physics: NeverScrollableScrollPhysics(),
                                       shrinkWrap: true,
-                                      itemCount: jobList.length,
+                                      itemCount: jobList.length+1,
                                       itemBuilder: (context, index) {
+                                        if (index == jobList.length) {
+                                          return Obx(() =>
+                                              vm.isFetchingMoreData.value
+                                                  ? Loader()
+                                                  : SizedBox());
+                                        }
+
                                         JobListModel job = jobList[index];
 
                                         return JobListTileWidget(
                                           job,
                                           index: index,
-                                          applyButtonKey: Key('favoriteApplyKey'+index.toString()),
-                                          listTileKey: Key('favoriteTileKey'+index.toString()),
-                                          deadlineKey: Key('favoriteDeadline$index'),
-                                          publishedDateKey: Key('favoritePublishedDate$index'),
-                                          companyLocationKey: Key('favoriteCompanyLocation$index'),
-                                          favoriteButtonKey: Key('favoriteJobsListFavoriteButtonKey'+index.toString()),
+                                          applyButtonKey: Key(
+                                              'favoriteApplyKey' +
+                                                  index.toString()),
+                                          listTileKey: Key('favoriteTileKey' +
+                                              index.toString()),
+                                          deadlineKey:
+                                              Key('favoriteDeadline$index'),
+                                          publishedDateKey: Key(
+                                              'favoritePublishedDate$index'),
+                                          companyLocationKey: Key(
+                                              'favoriteCompanyLocation$index'),
+                                          favoriteButtonKey: Key(
+                                              'favoriteJobsListFavoriteButtonKey' +
+                                                  index.toString()),
                                           onTap: () {
                                             Navigator.of(context).push(
                                                 MaterialPageRoute(
@@ -131,14 +133,10 @@ class _FavouriteJobListScreenState extends State<FavouriteJobListScreen>
                                             _showApplyForJobDialog(job, index);
                                           },
                                           onFavorite: () {
-                                            favoriteJobListViewModel
+                                            vm
                                                 .addToFavorite(job.jobId, index)
                                                 .then((value) {
-                                              return Provider.of<
-                                                          AllJobListViewModel>(
-                                                      context,
-                                                      listen: false)
-                                                  .refresh();
+                                              return vm.refresh();
                                             });
                                           },
                                         );
@@ -166,12 +164,9 @@ class _FavouriteJobListScreenState extends State<FavouriteJobListScreen>
               Navigator.pop(context);
             },
             onAccept: () {
-              Provider.of<FavouriteJobListViewModel>(context, listen: false)
-                  .applyForJob(job.jobId, index)
-                  .then((value) {
+              vm.applyForJob(job.jobId, index).then((value) {
                 Navigator.pop(context);
-                return Provider.of<AllJobListViewModel>(context, listen: false)
-                    .refresh();
+                return vm.refresh();
               });
             },
           );

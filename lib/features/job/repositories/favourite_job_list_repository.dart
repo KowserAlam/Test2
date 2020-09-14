@@ -13,9 +13,8 @@ import 'package:p7app/main_app/util/logger_helper.dart';
 
 
 class FavoriteJobListRepository {
-  Future<Either<AppError, List<JobListModel>>> fetchJobList() async {
-    var url = "${Urls.favouriteJobListUrl}";
-
+  Future<Either<AppError, FavouriteJobsScreenDataModel>> fetchJobList({page=1}) async {
+    var url = "${Urls.favouriteJobListUrl}?page=$page";
     try {
       var response = await ApiClient().getRequest(url);
       debugPrint(url);
@@ -24,7 +23,10 @@ class FavoriteJobListRepository {
       if (response.statusCode == 200) {
         var mapData = json.decode(utf8.decode(response.bodyBytes));
         var jobList = fromJson(mapData["results"]);
-        return Right(jobList);
+        return Right(FavouriteJobsScreenDataModel(
+          jobList: jobList,
+          hasMoreData: mapData["pages"]["next_url"] != null ?? false,
+        ));
       } else {
         BotToast.showText(text: StringResources.somethingIsWrong);
         return Left(AppError.serverError);
@@ -50,4 +52,10 @@ class FavoriteJobListRepository {
 
     return jobList;
   }
+}
+class FavouriteJobsScreenDataModel {
+  List<JobListModel> jobList;
+  bool hasMoreData;
+
+  FavouriteJobsScreenDataModel({this.jobList, this.hasMoreData});
 }
