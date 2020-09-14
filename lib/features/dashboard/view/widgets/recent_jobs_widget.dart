@@ -77,9 +77,9 @@ class _RecentJobsState extends State<RecentJobs> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(jobListModel.title, maxLines: 2, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 15, height: 1.3, fontWeight: FontWeight.bold),),
+                            Text(jobListModel.title??"", maxLines: 2, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 15, height: 1.3, fontWeight: FontWeight.bold),),
                             SizedBox(height: 7,),
-                            Text(jobListModel.companyName, style: TextStyle(fontSize: 10, color: Colors.blueAccent),),
+                            Text(jobListModel.companyName??"", style: TextStyle(fontSize: 10, color: Colors.blueAccent),),
                           ],
                         ),
                       )
@@ -119,7 +119,7 @@ class _RecentJobsState extends State<RecentJobs> {
                       ),
                       SizedBox(width: 5),
                       Text(
-                        publishDateText,
+                        publishDateText??"",
                         style: subTitleStyle,
                       ),
                     ],

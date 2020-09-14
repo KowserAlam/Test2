@@ -53,6 +53,7 @@ class _HomeState extends State<Home> {
       }
     });
     DeviceInfoUtil().getDeviceID();
+    DeviceInfoUtil().getDeviceInfo();
   }
 
 
