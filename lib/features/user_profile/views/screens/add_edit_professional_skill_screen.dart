@@ -332,7 +332,7 @@ class _AddEditProfessionalSkillState extends State<AddEditProfessionalSkill> {
                         children: [
                           SizedBox(height: 10,),
 //                          Text(StringResources.expertiseMessage[expertiseLevel.toInt()], textAlign: TextAlign.center,),
-                          Text( expertiseLevel.toInt().toString(), textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
+                          Text( expertiseLevel.toString(), textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
                           SizedBox(height: 20,),
                           Slider(
                             value: expertiseLevel,
@@ -345,7 +345,6 @@ class _AddEditProfessionalSkillState extends State<AddEditProfessionalSkill> {
                             divisions: 10,
                             min: 0,
                             max: 10,
-                            label: expertiseLevel.toString(),
                           ),
                         ],
                       ),
