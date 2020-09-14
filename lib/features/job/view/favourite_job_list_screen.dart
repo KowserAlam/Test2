@@ -8,6 +8,7 @@ import 'package:p7app/features/job/view/widgets/jobs_screen_segment_control_bar.
 import 'package:p7app/features/job/view/widgets/no_favourite_jobs_widget.dart';
 import 'package:p7app/features/job/view_model/favourite_job_list_view_model.dart';
 import 'package:p7app/features/job/view_model/all_job_list_view_model.dart';
+import 'package:p7app/main_app/auth_service/auth_view_model.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/views/widgets/common_prompt_dialog.dart';
 import 'package:p7app/main_app/views/widgets/loader.dart';
@@ -41,6 +42,17 @@ class _FavouriteJobListScreenState extends State<FavouriteJobListScreen>
     var jobListViewModel =
         Provider.of<FavouriteJobListViewModel>(context, listen: false);
     jobListViewModel.getJobList();
+
+    // _scrollController.addListener(() {
+    //   var isLoggedIn =
+    //       Provider.of<AuthViewModel>(context, listen: false).isLoggerIn;
+    //   if (isLoggedIn) if (_scrollController.position.pixels ==
+    //       _scrollController.position.maxScrollExtent) {
+    //     jobListViewModel.getMoreData();
+    //   }
+    // });
+    //
+
   }
 
   @override

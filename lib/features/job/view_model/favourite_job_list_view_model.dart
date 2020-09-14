@@ -13,6 +13,9 @@ class FavouriteJobListViewModel with ChangeNotifier {
   bool _isFetchingData = false;
   FavoriteJobListRepository _jobListRepository = FavoriteJobListRepository();
   DateTime _lastFetchTime;
+  bool _hasMoreData = false;
+  bool _isFetchingMoreData = false;
+  var _page = 1;
 
   /// ##########################
   /// methods
@@ -46,7 +49,7 @@ class FavouriteJobListViewModel with ChangeNotifier {
   }
 
   Future<bool> getJobList() async {
-
+    _page = 0;
     _lastFetchTime = DateTime.now();
     isFetchingData = true;
     Either<AppError, List<JobListModel>> result =
@@ -62,6 +65,7 @@ class FavouriteJobListViewModel with ChangeNotifier {
       return true;
     });
   }
+
 
   resetState() {
     _jobList = [];
@@ -93,5 +97,27 @@ class FavouriteJobListViewModel with ChangeNotifier {
 
   set jobListRepository(FavoriteJobListRepository value) {
     _jobListRepository = value;
+    notifyListeners();
+  }
+
+  bool get isFetchingMoreData => _isFetchingMoreData;
+
+  set isFetchingMoreData(bool value) {
+    _isFetchingMoreData = value;
+    notifyListeners();
+  }
+
+  bool get hasMoreData => _hasMoreData;
+
+  set hasMoreData(bool value) {
+    _hasMoreData = value;
+    notifyListeners();
+  }
+
+  DateTime get lastFetchTime => _lastFetchTime;
+
+  set lastFetchTime(DateTime value) {
+    _lastFetchTime = value;
+    notifyListeners();
   }
 }

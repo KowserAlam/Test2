@@ -11,38 +11,39 @@ import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/logger_helper.dart';
 
-
 class AppliedJobListRepository {
-
-  Future<Either<AppError, List<JobListModel>>> fetchJobList() async {
-
-    var url = "${Urls.appliedJobListUrl}";
+  Future<Either<AppError, AppliedJobsScreenDataModel>> fetchJobList(
+      {page = 1}) async {
+    var url = "${Urls.appliedJobListUrl}?page=$page";
 
     try {
       var response = await ApiClient().getRequest(url);
       debugPrint(url);
       logger.i(response.statusCode);
-     // logger.i(response.body);
+      // logger.i(response.body);
       if (response.statusCode == 200) {
         var mapData = json.decode(utf8.decode(response.bodyBytes));
         var jobList = fromJson(mapData['results']);
-        return Right(jobList);
+        return Right(AppliedJobsScreenDataModel(
+          hasMoreData: mapData["pages"]["next_url"] != null ?? false,
+          jobList: jobList,
+        ));
       } else {
         BotToast.showText(text: StringResources.somethingIsWrong);
         return Left(AppError.serverError);
       }
     } on SocketException catch (e) {
-      logger.i(e);
+      logger.e(e);
       BotToast.showText(text: StringResources.unableToReachServerMessage);
       return Left(AppError.networkError);
     } catch (e) {
-      logger.i(e);
+      logger.e(e);
       BotToast.showText(text: StringResources.somethingIsWrong);
       return Left(AppError.unknownError);
     }
   }
 
-  List<JobListModel> fromJson( json) {
+  List<JobListModel> fromJson(json) {
     List<JobListModel> jobList = new List<JobListModel>();
     if (json != null) {
       json.forEach((v) {
@@ -51,4 +52,11 @@ class AppliedJobListRepository {
     }
     return jobList;
   }
+}
+
+class AppliedJobsScreenDataModel {
+  List<JobListModel> jobList;
+  bool hasMoreData;
+
+  AppliedJobsScreenDataModel({this.jobList, this.hasMoreData});
 }
