@@ -136,15 +136,15 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
               alignment: Alignment.center,
               children: [
                 Icon(
-                  FontAwesomeIcons.solidHeart,
+                  Icons.favorite_outlined,
                   key: widget.favoriteButtonKey,
                   color: isFavorite ? AppTheme.colorPrimary : Colors.white,
-                  size: 22,
+                  size: 25,
                 ),
                 Icon(
-                  FontAwesomeIcons.heart,
-                  color: Colors.black,
-                  size: 22,
+                  Icons.favorite_outline,
+                  color:isFavorite?Colors.black: Colors.grey[600],
+                  size: 25,
                 ),
               ],
             ),

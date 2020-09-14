@@ -94,8 +94,8 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
             },
             onAccept: () {
               Navigator.pop(context);
-              Navigator.of(context).push(CupertinoPageRoute(builder: (context)=>SignInScreen()));
-
+              Navigator.of(context).push(
+                  CupertinoPageRoute(builder: (context) => SignInScreen()));
             },
           );
         });
@@ -284,6 +284,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
       color: Colors.transparent,
       borderRadius: BorderRadius.circular(20),
       child: InkWell(
+        key: Key('jobDetailsFavoriteButton'),
         borderRadius: BorderRadius.circular(20),
         onTap: () {
           if (isLoggerIn)
@@ -302,12 +303,14 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
           child: Stack(
             children: [
               Icon(
-                isFavorite
-                    ? FontAwesomeIcons.solidHeart
-                    : FontAwesomeIcons.heart,
-                color: isFavorite ? AppTheme.orange : AppTheme.grey,
-                size: 22,
-                key: Key('jobDetailsFavoriteButton'),
+                Icons.favorite_outlined,
+                color: isFavorite ? AppTheme.colorPrimary : Colors.white,
+                size: 25,
+              ),
+              Icon(
+                Icons.favorite_outline,
+                color: isFavorite ? Colors.black : Colors.grey[600],
+                size: 25,
               ),
               Opacity(
                   opacity: 0.1,
@@ -1011,44 +1014,48 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
     var betweenDividerSection = Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        jobDetails.postDate == null?SizedBox():
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Icon(FeatherIcons.calendar, size: 14, color: Colors.grey[500]),
-            SizedBox(
-              width: 5,
-            ),
-            Text(
-              jobDetails.postDate != null
-                  ? DateFormatUtil.formatDate(jobDetails.postDate)
-                  : StringResources.noneText,
-              key: Key('jobDetailsPublishDate'),
-              style: topSideDescriptionFontStyle,
-            ),
-          ],
-        ),
-        jobDetails.applicationDeadline == null?SizedBox():
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Icon(
-              FeatherIcons.clock,
-              size: 14,
-              color: Colors.grey[500],
-            ),
-            SizedBox(
-              width: 5,
-            ),
-            Text(
-              jobDetails.applicationDeadline != null
-                  ? DateFormatUtil.formatDate(jobDetails.applicationDeadline)
-                  : StringResources.noneText,
-              key: Key('jobDetailsDeadlineDate'),
-              style: topSideDescriptionFontStyle,
-            ),
-          ],
-        ),
+        jobDetails.postDate == null
+            ? SizedBox()
+            : Row(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Icon(FeatherIcons.calendar,
+                      size: 14, color: Colors.grey[500]),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Text(
+                    jobDetails.postDate != null
+                        ? DateFormatUtil.formatDate(jobDetails.postDate)
+                        : StringResources.noneText,
+                    key: Key('jobDetailsPublishDate'),
+                    style: topSideDescriptionFontStyle,
+                  ),
+                ],
+              ),
+        jobDetails.applicationDeadline == null
+            ? SizedBox()
+            : Row(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Icon(
+                    FeatherIcons.clock,
+                    size: 14,
+                    color: Colors.grey[500],
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Text(
+                    jobDetails.applicationDeadline != null
+                        ? DateFormatUtil.formatDate(
+                            jobDetails.applicationDeadline)
+                        : StringResources.noneText,
+                    key: Key('jobDetailsDeadlineDate'),
+                    style: topSideDescriptionFontStyle,
+                  ),
+                ],
+              ),
         applyButton,
       ],
     );
