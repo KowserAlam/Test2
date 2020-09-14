@@ -17,30 +17,30 @@ class FeaturedCompaniesWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     var vm = Provider.of<DashboardViewModel>(context);
     var list = vm.featuredCompanies;
-      return vm.shouldShowFeaturedCompanyLoader? Shimmer.fromColors(
-        baseColor: Colors.grey[300],
-        highlightColor: Colors.grey[100],
-        enabled: true,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  SizedBox(
-                    width: 8,
-                  ),
-                  Text(
-                    StringResources.featuredCompanies,
-                    style: CommonStyle.dashboardSectionTitleTexStyle,
-                  ),
-                ],
-              ),
-              // Text(StringResources.topCategories,style: Theme.of(context).textTheme.subtitle1,),
-              SizedBox(
-                height: 10,
-              ),
-              Container(
+      return list.length == 0? Padding(
+        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                SizedBox(
+                  width: 8,
+                ),
+                Text(
+                  StringResources.featuredCompanies,
+                  style: CommonStyle.dashboardSectionTitleTexStyle,
+                ),
+              ],
+            ),
+            // Text(StringResources.topCategories,style: Theme.of(context).textTheme.subtitle1,),
+            SizedBox(
+              height: 10,
+            ),
+            Shimmer.fromColors(
+              baseColor: Colors.grey[300],
+              highlightColor: Colors.grey[100],
+              enabled: true,
+              child: Container(
                 height: 180,
                 child: ListView.builder(
                   itemCount: 4,
@@ -51,8 +51,8 @@ class FeaturedCompaniesWidget extends StatelessWidget {
                   },
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ): Padding(
         padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
