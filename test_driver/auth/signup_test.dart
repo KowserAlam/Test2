@@ -26,6 +26,7 @@ Future<void> signUpTest()async{
     test('Click on signup button on login screen', () async {
       await driver.tap(Keys.signUpText);
       await Future.delayed(const Duration(seconds: 2), (){});
+      await expect(await driver.getText(Keys.signUpTextTitleOnSignUpScreen), 'Sign Up');
     });
     test('Click on signup button when all fields are empty', () async {
       await driver.tap(Keys.signUpRegisterButton);
