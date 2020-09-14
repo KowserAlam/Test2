@@ -10,7 +10,7 @@ class FailureFullScreenWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height -(AppBar().preferredSize.height * 2),
+      height: MediaQuery.of(context).size.height -(AppBar().preferredSize.height * 2.5),
       width: MediaQuery.of(context).size.width,
       child: InkWell(
         onTap: onTap,

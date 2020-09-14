@@ -81,10 +81,11 @@ class SettingsViewModel with ChangeNotifier {
   }
 
   signOut() {
+    Get.offAll(Root());
     AuthService.getInstance().then((value) => value.removeUser()).then((value) {
       clearAllCachedData();
       _disconnectGoogleAccount();
-      Get.offAll(Root());
+
 //      Cache.clear();
 //       locator<RestartNotifier>().restartApp();
 //       locator.reset();

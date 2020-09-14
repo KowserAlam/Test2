@@ -141,5 +141,5 @@ class NotificationViewModel extends GetxController {
   bool get shouldShowAppError => appError.value != AppError.none && notifications.length == 0;
 
   bool get shouldShowNoNotification =>
-      !isFetchingData.value && appError == null && notifications.length == 0;
+      !isFetchingData.value && appError.value == AppError.none && notifications.length == 0;
 }

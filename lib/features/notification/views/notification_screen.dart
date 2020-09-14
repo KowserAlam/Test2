@@ -9,6 +9,7 @@ import 'package:p7app/features/notification/views/widgets/notification_tile_widg
 import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/date_format_uitl.dart';
+import 'package:p7app/main_app/util/logger_helper.dart';
 import 'package:p7app/main_app/views/widgets/failure_widget.dart';
 import 'package:p7app/main_app/views/widgets/loader.dart';
 
@@ -26,7 +27,7 @@ class _NotificationScreenState extends State<NotificationScreen>
   @override
   void afterFirstLayout(BuildContext context) {
     // var notiVM = Provider.of<NotificationViewModel>(context, listen: false);
-    // // notiVM.getNotifications();
+    _notiController.getNotifications();
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
@@ -35,10 +36,10 @@ class _NotificationScreenState extends State<NotificationScreen>
     });
   }
 
-  errorWidget() {
+  Widget errorWidget() {
     // var jobListViewModel =
     //     Provider.of<NotificationViewModel>(context, listen: false);
-    Obx(() {
+    return Obx(() {
       switch (_notiController.appError.value) {
         case AppError.serverError:
           return FailureFullScreenWidget(
@@ -80,20 +81,24 @@ class _NotificationScreenState extends State<NotificationScreen>
             child: Loader(),
           );
         }
-        if ( _notiController.shouldShowAppError) {
+        else if ( _notiController.shouldShowAppError) {
           return errorWidget();
         }
-        if ( _notiController.shouldShowNoNotification) {
+        else if ( _notiController.shouldShowNoNotification) {
           return NoNotificationWidget();
+        }else if(_notiController.notifications.length == 0){
+          return SizedBox();
         }
 
+        var notifications = _notiController.notifications;
+        logger.i(notifications);
         return RefreshIndicator(
           onRefresh: () async =>  _notiController.getNotifications(),
           child: ListView.builder(
               physics: AlwaysScrollableScrollPhysics(),
                controller: _scrollController,
               padding: EdgeInsets.symmetric(vertical: 4),
-              itemCount:  _notiController.notifications.length,
+              itemCount: notifications.length,
               itemBuilder: (BuildContext context, int index) {
                 var notification =  _notiController.notifications[index];
                 return NotificationTile(

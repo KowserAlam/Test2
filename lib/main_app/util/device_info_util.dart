@@ -56,6 +56,7 @@ class DeviceInfoUtil {
         "device_brand": androidInfo.brand,
         "device_model": androidInfo.model,
         "device_os_version": androidInfo.version.release,
+        "device_os_type":"android",
       };
      logger.i(info);
 
