@@ -1,101 +1,112 @@
-
 import 'package:dartz/dartz.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
 import 'package:p7app/features/job/models/job_list_model.dart';
 import 'package:p7app/features/job/repositories/applied_job_list_repository.dart';
 import 'package:p7app/features/job/repositories/job_repository.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
-import 'package:p7app/main_app/util/common_serviec_rule.dart';
+import 'package:p7app/main_app/util/logger_helper.dart';
 
-class AppliedJobListViewModel with ChangeNotifier {
-  List<JobListModel> _jobListApplied = [];
-  bool _isFetchingData = false;
-  AppliedJobListRepository _jobListRepository = AppliedJobListRepository();
-  DateTime _lastFetchTime;
+class AppliedJobListViewModel extends GetxController {
+  var appError = AppError.none.obs;
+  var jobListApplied = <JobListModel>[].obs;
+  var isFetchingData = false.obs;
+  var isFetchingMoreData = false.obs;
+  bool hasMoreData = false;
+  var _page = 1;
 
+  void onClose() {
+    appError.close();
+    jobListApplied.close();
+    isFetchingData.close();
+    isFetchingData.close();
+    isFetchingMoreData.close();
+    super.onClose();
+  }
 
   /// ##########################
   /// methods
   /// #########################
 
-  Future<bool> refresh() async{
+  Future<bool> refresh() async {
     return getJobList();
   }
 
   Future<bool> getJobList() async {
-    _lastFetchTime = DateTime.now();
+    _page = 1;
+    isFetchingData.value = true;
 
-    isFetchingData = true;
-
-    Either<AppError, List<JobListModel>> result =
-    await _jobListRepository.fetchJobList();
+    Either<AppError, AppliedJobsScreenDataModel> result =
+        await AppliedJobListRepository().fetchJobList();
     return result.fold((l) {
-      isFetchingData = false;
-      print(l);
+      isFetchingData.value = false;
+      logger.i(l);
       return false;
-    }, (List<JobListModel> list) {
-      isFetchingData = false;
-      _jobListApplied = list;
-      notifyListeners();
-
+    }, (r) {
+      hasMoreData = r.hasMoreData;
+      isFetchingData.value = false;
+      jobListApplied.value = r.jobList;
       return true;
     });
   }
 
+  getMoreData() async {
+    // logger.i("getting more data");
 
-  resetState() {
-    _jobListApplied = [];
-    _isFetchingData = false;
-    _jobListRepository = AppliedJobListRepository();
+    if (!isFetchingMoreData.value && !isFetchingData.value && hasMoreData) {
+      _page++;
+      isFetchingMoreData.value = true;
+      Either<AppError, AppliedJobsScreenDataModel> result =
+          await AppliedJobListRepository().fetchJobList(page: _page);
+      return result.fold((l) {
+        isFetchingMoreData.value = false;
+        hasMoreData = false;
+        logger.i(l);
+        return false;
+      }, (r) {
+        hasMoreData = r.hasMoreData;
+        isFetchingMoreData.value = false;
+        jobListApplied.value = r.jobList;
+        return true;
+      });
+    }
   }
 
+  resetState() {
+    jobListApplied.value = [];
+    isFetchingData.value = false;
+    _page = 0;
+  }
 
   /// ##########################
   /// getter setters
   /// #########################
 
-  List<JobListModel> get jobList => _jobListApplied;
+  bool get shouldShowLoader =>
+      isFetchingData.value && jobListApplied.length == 0;
 
-  set jobList(List<JobListModel> value) {
-    _jobListApplied = value;
-    notifyListeners();
-  }
+  bool get shouldShowNoJobs =>
+      !isFetchingData.value && jobListApplied.length == 0;
 
-  bool get isFetchingData => _isFetchingData;
-
-  set isFetchingData(bool value) {
-    _isFetchingData = value;
-    notifyListeners();
-  }
-
-  bool get shouldShowLoader => _isFetchingData && _jobListApplied.length == 0;
-  bool get shouldShowNoJobs => !_isFetchingData && _jobListApplied.length == 0;
-
-
-  Future<bool> applyForJob(String jobId, int index,
-      {ApiClient apiClient}) async {
-    bool isSuccessful = await JobRepository().applyForJob(jobId);
-    if (isSuccessful) {
-      _jobListApplied[index].isApplied = true;
-      notifyListeners();
-      return isSuccessful;
-    } else {
-      return isSuccessful;
-    }
-  }
+  // Future<bool> applyForJob(String jobId, int index,
+  //     {ApiClient apiClient}) async {
+  //   bool isSuccessful = await JobRepository().applyForJob(jobId);
+  //   if (isSuccessful) {
+  //     jobListApplied[index].isApplied = true;
+  //     return isSuccessful;
+  //   } else {
+  //     return isSuccessful;
+  //   }
+  // }
 
   Future<bool> addToFavorite(String jobId, int index,
       {ApiClient apiClient}) async {
-
     bool isSuccessful = await JobRepository().addToFavorite(jobId);
     if (isSuccessful) {
-      _jobListApplied[index].isFavourite = !_jobListApplied[index].isFavourite;
-      notifyListeners();
+      jobListApplied[index].isFavourite = !jobListApplied[index].isFavourite;
       return isSuccessful;
     } else {
       return isSuccessful;
     }
   }
-
 }

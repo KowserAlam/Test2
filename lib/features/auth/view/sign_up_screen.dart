@@ -285,7 +285,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                     obscureText: signupViewModel.isObscureConfirmPassword,
                     controller: _confirmPasswordEditingController,
-                    hintText: StringResources.passwordText,
+                    hintText: StringResources.confirmPasswordText,
                     onSubmitted: (s) {
                       _handleRegister(_scaffoldKey.currentState.context);
                     },
@@ -319,7 +319,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
 
     Widget _signupTitle(){
-      return Text('Sign up', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),);
+      return Text('Sign Up', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),);
     }
 
     return Scaffold(

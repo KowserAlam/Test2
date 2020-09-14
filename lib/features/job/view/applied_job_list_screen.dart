@@ -1,6 +1,7 @@
 import 'package:after_layout/after_layout.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:p7app/features/job/models/job_list_model.dart';
 import 'package:p7app/features/job/models/job_model.dart';
 import 'package:p7app/features/job/view/job_details_screen.dart';
@@ -12,7 +13,6 @@ import 'package:p7app/features/job/view_model/all_job_list_view_model.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/views/app_drawer.dart';
 import 'package:p7app/main_app/views/widgets/loader.dart';
-import 'package:provider/provider.dart';
 
 class AppliedJobListScreen extends StatefulWidget {
   AppliedJobListScreen({Key key}) : super(key: key);
@@ -21,27 +21,22 @@ class AppliedJobListScreen extends StatefulWidget {
   _AppliedJobListScreenState createState() => _AppliedJobListScreenState();
 }
 
-class _AppliedJobListScreenState extends State<AppliedJobListScreen>
-    with AfterLayoutMixin, TickerProviderStateMixin {
+class _AppliedJobListScreenState extends State<AppliedJobListScreen> {
   ScrollController _scrollController = ScrollController();
-  AnimationController controller;
   TextEditingController _searchTextEditingController = TextEditingController();
+  var __vm = Get.put(AppliedJobListViewModel());
+  AppliedJobListViewModel vm = Get.find();
 
   @override
   void initState() {
-    controller = AnimationController(
-      vsync: this,
-      duration: Duration(milliseconds: 400),
-      reverseDuration: Duration(milliseconds: 400),
-    );
+    vm.getJobList();
     super.initState();
-  }
-
-  @override
-  void afterFirstLayout(BuildContext context) {
-    var jobListViewModel =
-        Provider.of<AppliedJobListViewModel>(context, listen: false);
-    jobListViewModel.getJobList();
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        vm.getMoreData();
+      }
+    });
   }
 
   @override
@@ -55,13 +50,10 @@ class _AppliedJobListScreenState extends State<AppliedJobListScreen>
     return RefreshIndicator(
       onRefresh: () async {
         _searchTextEditingController?.clear();
-        return Provider.of<AppliedJobListViewModel>(context, listen: false)
-            .refresh();
+        return vm.refresh();
       },
-      child: Consumer<AppliedJobListViewModel>(
-          builder: (context, appliedJobListViewModel, _) {
-        var jobList = appliedJobListViewModel.jobList;
-
+      child: Obx(() {
+        var jobList = vm.jobListApplied;
         debugPrint("${jobList.length}");
         return Scaffold(
           backgroundColor: Colors.white,
@@ -79,7 +71,7 @@ class _AppliedJobListScreenState extends State<AppliedJobListScreen>
                     height: 35,
                   ),
                   Expanded(
-                    child: appliedJobListViewModel.shouldShowLoader
+                    child: vm.shouldShowLoader
                         ? Center(
                             child: Loader(),
                           )
@@ -87,33 +79,41 @@ class _AppliedJobListScreenState extends State<AppliedJobListScreen>
                             physics: AlwaysScrollableScrollPhysics(),
                             controller: _scrollController,
                             children: [
-                              appliedJobListViewModel.shouldShowNoJobs
+                              vm.shouldShowNoJobs
                                   ? NoAppliedJobsWidget()
                                   : ListView.builder(
                                       padding:
                                           EdgeInsets.symmetric(vertical: 4),
                                       physics: NeverScrollableScrollPhysics(),
                                       shrinkWrap: true,
-                                      itemCount: jobList.length,
+                                      itemCount: jobList.length + 1,
 //              separatorBuilder: (context,index)=>Divider(),
                                       itemBuilder: (context, index) {
+                                        if (index == jobList.length) {
+                                          return Obx(() =>
+                                              vm.isFetchingMoreData.value
+                                                  ? Loader()
+                                                  : SizedBox());
+                                        }
+
                                         JobListModel job = jobList[index];
 
                                         return JobListTileWidget(
                                           job,
                                           index: index,
-                                          applyButtonKey: Key('appliedApplyKey'+index.toString()),
-                                          listTileKey: Key('appliedTileKey'+index.toString()),
-                                          favoriteButtonKey: Key('appliedJobsListFavoriteButtonKey'+index.toString()),
+                                          applyButtonKey: Key(
+                                              'appliedApplyKey' +
+                                                  index.toString()),
+                                          listTileKey: Key('appliedTileKey' +
+                                              index.toString()),
+                                          favoriteButtonKey: Key(
+                                              'appliedJobsListFavoriteButtonKey' +
+                                                  index.toString()),
                                           onFavorite: () {
-                                            appliedJobListViewModel
+                                            vm
                                                 .addToFavorite(job.jobId, index)
                                                 .then((value) {
-                                              return Provider.of<
-                                                          AllJobListViewModel>(
-                                                      context,
-                                                      listen: false)
-                                                  .refresh();
+                                              return vm.refresh();
                                             });
                                           },
                                           onTap: () {
@@ -140,31 +140,5 @@ class _AppliedJobListScreenState extends State<AppliedJobListScreen>
         );
       }),
     );
-  }
-
-  _showApplyForJobDialog(JobModel jobModel, int index) {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text(StringResources.doYouWantToApplyText),
-            actions: [
-              RawMaterialButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: Text(StringResources.noText),
-              ),
-              RawMaterialButton(
-                onPressed: () {
-                  Provider.of<AllJobListViewModel>(context, listen: false)
-                      .applyForJob(jobModel.jobId, index);
-                  Navigator.pop(context);
-                },
-                child: Text(StringResources.yesText),
-              ),
-            ],
-          );
-        });
   }
 }

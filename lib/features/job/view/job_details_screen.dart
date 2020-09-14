@@ -25,6 +25,7 @@ import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/date_format_uitl.dart';
+import 'package:p7app/main_app/util/logger_helper.dart';
 import 'package:p7app/main_app/views/widgets/common_prompt_dialog.dart';
 import 'package:p7app/main_app/views/widgets/failure_widget.dart';
 import 'package:p7app/main_app/views/widgets/loader.dart';
@@ -60,7 +61,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
 
   @override
   void initState() {
-    print(widget.slug);
+    logger.i(widget.slug);
     getJobDetails();
     super.initState();
   }
@@ -93,8 +94,8 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
             },
             onAccept: () {
               Navigator.pop(context);
-              Navigator.of(context).push(CupertinoPageRoute(builder: (context)=>SignInScreen()));
-
+              Navigator.of(context).push(
+                  CupertinoPageRoute(builder: (context) => SignInScreen()));
             },
           );
         });
@@ -208,10 +209,10 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
       _appError = l;
       if (this.mounted) setState(() {});
 
-      print(l);
+      logger.i(l);
       return;
     }, (JobModel dataModel) {
-      print(dataModel.title);
+      logger.i(dataModel.title);
       jobDetails = dataModel;
       _isBusy = false;
       if (this.mounted) setState(() {});
@@ -283,6 +284,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
       color: Colors.transparent,
       borderRadius: BorderRadius.circular(20),
       child: InkWell(
+        key: Key('jobDetailsFavoriteButton'),
         borderRadius: BorderRadius.circular(20),
         onTap: () {
           if (isLoggerIn)
@@ -301,12 +303,14 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
           child: Stack(
             children: [
               Icon(
-                isFavorite
-                    ? FontAwesomeIcons.solidHeart
-                    : FontAwesomeIcons.heart,
-                color: isFavorite ? AppTheme.orange : AppTheme.grey,
-                size: 22,
-                key: Key('jobDetailsFavoriteButton'),
+                Icons.favorite,
+                color: isFavorite ? AppTheme.colorPrimary : Colors.white,
+                size: 25,
+              ),
+              Icon(
+                Icons.favorite_border,
+                color: isFavorite ? Colors.black : Colors.grey[600],
+                size: 25,
               ),
               Opacity(
                   opacity: 0.1,
@@ -1010,44 +1014,48 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
     var betweenDividerSection = Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        jobDetails.postDate == null?SizedBox():
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Icon(FeatherIcons.calendar, size: 14, color: Colors.grey[500]),
-            SizedBox(
-              width: 5,
-            ),
-            Text(
-              jobDetails.postDate != null
-                  ? DateFormatUtil.formatDate(jobDetails.postDate)
-                  : StringResources.noneText,
-              key: Key('jobDetailsPublishDate'),
-              style: topSideDescriptionFontStyle,
-            ),
-          ],
-        ),
-        jobDetails.applicationDeadline == null?SizedBox():
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Icon(
-              FeatherIcons.clock,
-              size: 14,
-              color: Colors.grey[500],
-            ),
-            SizedBox(
-              width: 5,
-            ),
-            Text(
-              jobDetails.applicationDeadline != null
-                  ? DateFormatUtil.formatDate(jobDetails.applicationDeadline)
-                  : StringResources.noneText,
-              key: Key('jobDetailsDeadlineDate'),
-              style: topSideDescriptionFontStyle,
-            ),
-          ],
-        ),
+        jobDetails.postDate == null
+            ? SizedBox()
+            : Row(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Icon(FeatherIcons.calendar,
+                      size: 14, color: Colors.grey[500]),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Text(
+                    jobDetails.postDate != null
+                        ? DateFormatUtil.formatDate(jobDetails.postDate)
+                        : StringResources.noneText,
+                    key: Key('jobDetailsPublishDate'),
+                    style: topSideDescriptionFontStyle,
+                  ),
+                ],
+              ),
+        jobDetails.applicationDeadline == null
+            ? SizedBox()
+            : Row(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Icon(
+                    FeatherIcons.clock,
+                    size: 14,
+                    color: Colors.grey[500],
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Text(
+                    jobDetails.applicationDeadline != null
+                        ? DateFormatUtil.formatDate(
+                            jobDetails.applicationDeadline)
+                        : StringResources.noneText,
+                    key: Key('jobDetailsDeadlineDate'),
+                    style: topSideDescriptionFontStyle,
+                  ),
+                ],
+              ),
         applyButton,
       ],
     );

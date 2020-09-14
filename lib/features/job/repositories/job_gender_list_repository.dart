@@ -4,6 +4,7 @@ import 'package:dartz/dartz.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
+import 'package:p7app/main_app/util/logger_helper.dart';
 
 class JobGenderListRepository{
 
@@ -14,7 +15,7 @@ class JobGenderListRepository{
 
       if(res.statusCode == 200){
         var decodedJson = json.decode(res.body);
-        print(decodedJson);
+        logger.i(decodedJson);
 
         List<String> list = fromJson(decodedJson);
         return Right(list);
@@ -25,7 +26,7 @@ class JobGenderListRepository{
 
 
     }catch (e){
-      print(e);
+      logger.e(e);
 
       return Left(AppError.serverError);
     }
