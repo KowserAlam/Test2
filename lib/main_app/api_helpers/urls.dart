@@ -80,6 +80,7 @@ class Urls {
   static String favouriteJobListUrl = "/api/job/favourite/";
   static String companySearchUrl = "/api/company/search";
   static String similarJobs = "/api/job/similar"; // /job id/
+  static String fcmTokenAddUrl = "/api/fcm-cloud-message/"; // /job id/
 
   /// dashboardUrl
   static String dashboardInfoBoxUrl = "/api/pro/dashboard/infobox/";

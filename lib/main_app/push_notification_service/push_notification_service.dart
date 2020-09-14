@@ -3,12 +3,18 @@ import 'dart:io';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:logger/logger.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:get/route_manager.dart';
+import 'package:p7app/features/notification/views/notification_screen.dart';
 import 'package:p7app/features/settings/settings_view_model.dart';
+import 'package:p7app/main_app/api_helpers/api_client.dart';
+import 'package:p7app/main_app/api_helpers/urls.dart';
+import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/flavour/flavour_config.dart';
+import 'package:p7app/main_app/repositories/app_info_repository.dart';
+import 'package:p7app/main_app/util/device_info_util.dart';
 import 'package:p7app/main_app/util/locator.dart';
 import 'package:p7app/main_app/util/logger_helper.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
 
 class PushNotificationService {
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
@@ -16,7 +22,7 @@ class PushNotificationService {
   initPush() {
     if (!kIsWeb) if (Platform.isAndroid || Platform.isIOS) {
       _init();
-      getToken();
+
     } else {
       logger.e(
           "Notification service not implemented for ${Platform.operatingSystem}!");
@@ -49,6 +55,7 @@ class PushNotificationService {
   }
 
   _init() async {
+    bool isLoggedIn = await AuthService.getInstance().then((value) => value.isAccessTokenValid());
     _firebaseMessaging.requestNotificationPermissions();
     _firebaseMessaging.onIosSettingsRegistered.listen((d) {
       print(d);
@@ -77,6 +84,10 @@ class PushNotificationService {
       onResume: (Map<String, dynamic> message) async {
         print("onResume: $message");
 
+        if(isLoggedIn){
+          Get.to(NotificationScreen());
+        }
+
         return;
       },
     );
@@ -86,5 +97,21 @@ class PushNotificationService {
     var token = await _firebaseMessaging.getToken();
     debugPrint("FCMT Token: $token");
     return token;
+  }
+
+
+  updateTokenInServer()async{
+    Map<String,dynamic> info = await DeviceInfoUtil().getDeviceInfo();
+    var info2 = {
+      "app_version": await AppInfoRepository().getAppVersion(),
+      "fcm_token": await getToken(),
+    };
+    info.addAll(info2);
+    //TODO: have to add url
+    var url = Urls.fcmTokenAddUrl;
+    logger.i(info);
+    var res = await ApiClient().postRequest(url, info);
+    logger.i(res.statusCode);
+    logger.i(res.body);
   }
 }

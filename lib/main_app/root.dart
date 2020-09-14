@@ -8,6 +8,7 @@ import 'package:p7app/features/user_profile/view_models/user_profile_view_model.
 import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/auth_service/auth_user_model.dart';
 import 'package:p7app/main_app/home.dart';
+import 'package:p7app/main_app/push_notification_service/push_notification_service.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/util/local_storage.dart';
 import 'package:p7app/main_app/views/widgets/app_version_widget_small.dart';
@@ -25,9 +26,12 @@ class Root extends StatefulWidget {
 
 class _RootState extends State<Root> {
   var _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   void initState() {
-
+    if (widget.showDummyLoadingTime) {
+      PushNotificationService().updateTokenInServer();
+    }
     super.initState();
     Future.delayed(Duration.zero).then((value) {
       init();
@@ -52,8 +56,6 @@ class _RootState extends State<Root> {
     }
   }
 
-
-
   _navigateToLoginScreen() {
     Future.delayed(Duration(seconds: 1)).then((_) {
       Navigator.pushAndRemoveUntil(
@@ -62,8 +64,8 @@ class _RootState extends State<Root> {
           (Route<dynamic> route) => false);
     });
   }
-  _navigateHomeScreenAnonymously() {
 
+  _navigateHomeScreenAnonymously() {
     Future.delayed(Duration(seconds: 1)).then((_) {
       Navigator.pushAndRemoveUntil(
           _scaffoldKey.currentContext,
@@ -77,7 +79,6 @@ class _RootState extends State<Root> {
 //     _initUserdata();
 
     Future.delayed(Duration(seconds: showDummyLoading ? 0 : 2)).then((_) async {
-
       if (await shouldShowOnBoardingScreens()) {
 //        Navigator.pushAndRemoveUntil(
 //            context,
@@ -95,9 +96,6 @@ class _RootState extends State<Root> {
       }
     });
   }
-
-
-
 
   Future<bool> shouldShowOnBoardingScreens() async {
     return false;

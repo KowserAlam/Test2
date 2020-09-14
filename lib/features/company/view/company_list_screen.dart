@@ -210,13 +210,7 @@ class _CompanyListScreenState extends State<CompanyListScreen>
                   : SizedBox(),
 
               companyViewModel.shouldShowLoader
-                  ? Container(
-                height: MediaQuery.of(context).size.height-(AppBar().preferredSize.height*2),
-                    child: Padding(
-                        padding: const EdgeInsets.only(top: 15),
-                        child: Loader(),
-                      ),
-                  )
+                  ? Center(child: Loader())
                   : Container(
                       child: companyViewModel.shouldShowAppError
                           ? errorWidget()
