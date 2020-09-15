@@ -104,17 +104,17 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
               },
             ),
           ),
-          if (hastUnreadNoti)
-            Positioned(
-                right: 8,
-                top: 18,
-                child: Container(
-                  height: 10,
-                  width: 10,
-                  decoration: BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.circular(5)),
-                )),
+          // if (hastUnreadNoti)
+          //   Positioned(
+          //       right: 8,
+          //       top: 18,
+          //       child: Container(
+          //         height: 10,
+          //         width: 10,
+          //         decoration: BoxDecoration(
+          //             color: Colors.red,
+          //             borderRadius: BorderRadius.circular(5)),
+          //       )),
         ],
       );
     });

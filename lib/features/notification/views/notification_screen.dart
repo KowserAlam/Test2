@@ -103,7 +103,7 @@ class _NotificationScreenState extends State<NotificationScreen>
                 return NotificationTile(
                   notification,
                   onTap: () {
-                     _notiController.markAsRead(index);
+                     // _notiController.markAsRead(index);
                     _showDialog(context, notification, index);
                   },
                 );
@@ -123,13 +123,13 @@ _showDialog(context, NotificationModel notification, int index) {
       builder: (context) {
         return AlertDialog(
           scrollable: true,
-          title: Text(notification.title ?? ""),
+          // title: Text(notification.title ?? ""),
           content: Column(
             children: [
               Text(
                 DateFormatUtil.formatDateTime(notification.createdAt) ?? "",
                 style: TextStyle(
-                    fontSize: 10, color: Theme.of(context).primaryColor),
+                    fontSize: 10,),
               ),
               SizedBox(
                 height: 10,
@@ -141,6 +141,7 @@ _showDialog(context, NotificationModel notification, int index) {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           actions: [
             RaisedButton(
+              shape: RoundedRectangleBorder(borderRadius:BorderRadius.circular(20)),
               onPressed: () {
                 Navigator.pop(context);
               },
