@@ -83,40 +83,43 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
               jobListFilterWidgetViewModel.experienceMin ?? experienceMin,
               jobListFilterWidgetViewModel.experienceMax ?? experienceMax);
 
-          var qualificationDropDownMenuItems =
-          jobListFilterWidgetViewModel.qualifications
-              .map((e) =>
-              DropdownMenuItem<String>(
-                key: Key(e),
-                value: e,
-                child: Text(
-                  e,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ))
-              .toList();
-          var jobTypeDropDownMenuItems = jobListFilterWidgetViewModel.jobTypes
-              .map((e) =>
-              DropdownMenuItem<JobType>(
-                key: Key(e.id),
-                value: e,
-                child: Text(
-                  e.name,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ))
-              .toList();
-          var genderDropDownMenuItems = jobListFilterWidgetViewModel.genders
-              .map((e) =>
-              DropdownMenuItem<String>(
-                key: Key(e),
-                value: e,
-                child: Text(
-                  e,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ))
-              .toList();
+          // var qualificationDropDownMenuItems =
+          // jobListFilterWidgetViewModel.qualifications
+          //     .map((e) =>
+          //     DropdownMenuItem<String>(
+          //       key: Key(e),
+          //       value: e,
+          //       child: Text(
+          //         e,
+          //         overflow: TextOverflow.ellipsis,
+          //       ),
+          //     ))
+          //     .toList();
+
+          // var jobTypeDropDownMenuItems = jobListFilterWidgetViewModel.jobTypes
+          //     .map((e) =>
+          //     DropdownMenuItem<JobType>(
+          //       key: Key(e.id),
+          //       value: e,
+          //       child: Text(
+          //         e.name,
+          //         overflow: TextOverflow.ellipsis,
+          //       ),
+          //     ))
+          //     .toList();
+          // var genderDropDownMenuItems = jobListFilterWidgetViewModel.genders
+          //     .map((e) =>
+          //     DropdownMenuItem<String>(
+          //       key: Key(e),
+          //       value: e,
+          //       child: Text(
+          //         e,
+          //         overflow: TextOverflow.ellipsis,
+          //       ),
+          //     ))
+          //     .toList();
+
+
           var datePostedDropDownMenuItems =
           jobListFilterWidgetViewModel.datePostedList
               .map((e) =>
@@ -313,17 +316,31 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
                       ),
                       spaceBetween,
                       //qualification
-                      CustomDropdownButtonFormField(
-                        labelText: StringResources.qualificationText,
-                        hint: Text(StringResources.tapToSelectText),
-                        customDropdownKey: Key('filterQualificationTextfieldKey'),
-                        onChanged: (value) {
-                          jobListFilterWidgetViewModel.selectedQualification =
-                              value;
-                        },
-                        value: jobListFilterWidgetViewModel
-                            .selectedQualification,
-                        items: qualificationDropDownMenuItems,
+                      // CustomDropdownButtonFormField(
+                      //   labelText: StringResources.qualificationText,
+                      //   hint: Text(StringResources.tapToSelectText),
+                      //   customDropdownKey: Key('filterQualificationTextfieldKey'),
+                      //   onChanged: (value) {
+                      //     jobListFilterWidgetViewModel.selectedQualification =
+                      //         value;
+                      //   },
+                      //   value: jobListFilterWidgetViewModel
+                      //       .selectedQualification,
+                      //   items: qualificationDropDownMenuItems,
+                      // ),
+                      CustomDropdownSearchFormField<String>(
+                          showSearchBox: true,
+                          mode: Mode.DIALOG,
+                          labelText: StringResources.qualificationText,
+                          hintText: StringResources.tapToSelectText,
+                          dropdownKey: Key ('filterSkillTextfieldKey'),
+                          items: jobListFilterWidgetViewModel.qualifications,
+                          itemAsString: ( u) => u,
+                          onChanged: (value) {
+                            jobListFilterWidgetViewModel.selectedQualification = value;
+                          },
+                          selectedItem:
+                          jobListFilterWidgetViewModel.selectedQualification
                       ),
 //                      spaceBetween,
                       //gender
