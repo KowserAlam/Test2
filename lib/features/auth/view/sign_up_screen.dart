@@ -25,8 +25,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController _emailEditingController = TextEditingController();
   TextEditingController _mobileEditingController = TextEditingController();
   TextEditingController _passwordEditingController = TextEditingController();
-  TextEditingController _confirmPasswordEditingController =
-  TextEditingController();
+//  TextEditingController _confirmPasswordEditingController = TextEditingController();
 
   FocusNode _emailFocusNode = FocusNode();
   FocusNode _nameFocusNode = FocusNode();
@@ -42,7 +41,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     _emailEditingController.dispose();
     _mobileEditingController.dispose();
     _passwordEditingController.dispose();
-    _confirmPasswordEditingController.dispose();
+//    _confirmPasswordEditingController.dispose();
     super.dispose();
   }
 
@@ -248,50 +247,48 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     controller: _passwordEditingController,
                     hintText: StringResources.passwordText,
                     onSubmitted: (s) {
-                      _confirmPasswordFocusNode.unfocus();
-                      FocusScope.of(_scaffoldKey.currentState.context)
-                          .requestFocus(_confirmPasswordFocusNode);
+                      _handleRegister(_scaffoldKey.currentState.context);
                     },
                   );
                 },
               ),
 
               //Confirm Password TextField
-              spaceBetweenFields,
-              Consumer<SignUpViewModel>(
-                builder: (context, signupViewModel, _) {
-                  bool isObscure = signupViewModel.isObscureConfirmPassword;
-                  return CustomTextFieldRounded(
-                    textFieldKey: Key("signUpConfirmPassword"),
-                    onChanged: signupViewModel.validateConfirmPasswordLocal,
-                    errorText: signupViewModel.errorTextConfirmPassword,
-                    focusNode: _confirmPasswordFocusNode,
-                    textInputAction: TextInputAction.done,
-                    prefixIcon: Icon(
-                      Icons.lock,
-                    ),
-                    suffixIcon: IconButton(
-                      icon: !isObscure
-                          ? Icon(
-                        Icons.visibility,
-                      )
-                          : Icon(
-                        Icons.visibility_off,
-                        color: Theme.of(context).textTheme.body1.color,
-                      ),
-                      onPressed: () {
-                        signupViewModel.isObscureConfirmPassword = !isObscure;
-                      },
-                    ),
-                    obscureText: signupViewModel.isObscureConfirmPassword,
-                    controller: _confirmPasswordEditingController,
-                    hintText: StringResources.confirmPasswordText,
-                    onSubmitted: (s) {
-                      _handleRegister(_scaffoldKey.currentState.context);
-                    },
-                  );
-                },
-              ),
+//              spaceBetweenFields,
+//              Consumer<SignUpViewModel>(
+//                builder: (context, signupViewModel, _) {
+//                  bool isObscure = signupViewModel.isObscureConfirmPassword;
+//                  return CustomTextFieldRounded(
+//                    textFieldKey: Key("signUpConfirmPassword"),
+//                    onChanged: signupViewModel.validateConfirmPasswordLocal,
+//                    errorText: signupViewModel.errorTextConfirmPassword,
+//                    focusNode: _confirmPasswordFocusNode,
+//                    textInputAction: TextInputAction.done,
+//                    prefixIcon: Icon(
+//                      Icons.lock,
+//                    ),
+//                    suffixIcon: IconButton(
+//                      icon: !isObscure
+//                          ? Icon(
+//                        Icons.visibility,
+//                      )
+//                          : Icon(
+//                        Icons.visibility_off,
+//                        color: Theme.of(context).textTheme.body1.color,
+//                      ),
+//                      onPressed: () {
+//                        signupViewModel.isObscureConfirmPassword = !isObscure;
+//                      },
+//                    ),
+//                    obscureText: signupViewModel.isObscureConfirmPassword,
+//                    controller: _confirmPasswordEditingController,
+//                    hintText: StringResources.confirmPasswordText,
+//                    onSubmitted: (s) {
+//                      _handleRegister(_scaffoldKey.currentState.context);
+//                    },
+//                  );
+//                },
+//              ),
               SizedBox(height: 15),
             ],
           ),

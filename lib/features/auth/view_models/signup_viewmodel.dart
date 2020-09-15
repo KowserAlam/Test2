@@ -24,7 +24,7 @@ class SignUpViewModel with ChangeNotifier {
   String _mobile = "";
   String _name = "";
   String _password = "";
-  String _confirmPassword = "";
+  //String _confirmPassword = "";
 
   String _errorText = "";
 
@@ -69,12 +69,12 @@ class SignUpViewModel with ChangeNotifier {
     _errorTextConfirmPassword = value;
   }
 
-  validateConfirmPasswordLocal(String val) {
-    errorTextConfirmPassword = Validator().validateConfirmPassword(_password, val);
-    _confirmPassword = val?.trim();
-    _message = null;
-    notifyListeners();
-  }
+//  validateConfirmPasswordLocal(String val) {
+//    errorTextConfirmPassword = Validator().validateConfirmPassword(_password, val);
+//    _confirmPassword = val?.trim();
+//    _message = null;
+//    notifyListeners();
+//  }
 
   //Mobile getter setter validation
   String get errorTextMobile => _errorTextMobile;
@@ -108,7 +108,7 @@ class SignUpViewModel with ChangeNotifier {
   bool validate(){
     validateEmailLocal(_email);
     validatePasswordLocal(_password);
-    validateConfirmPasswordLocal(_confirmPassword);
+    //validateConfirmPasswordLocal(_confirmPassword);
     validateMobileLocal(_mobile);
     validateNameLocal(_name);
     return errorTextEmail == null && errorTextPassword == null && errorTextConfirmPassword == null && errorTextName== null && errorTextMobile == null;
@@ -184,7 +184,7 @@ class SignUpViewModel with ChangeNotifier {
     _isObscureConfirmPassword = true;
     _email = "";
     _password = "";
-    _confirmPassword = "";
+//    _confirmPassword = "";
     _name = "";
     _mobile = "";
     _isBusy = false;
