@@ -58,8 +58,8 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
             ? filterVM.selectedCategory.replaceFirst("&", "%26")
             : "",
         datePosted: filterVM.selectedDatePosted ?? "",
-        gender: filterVM.selectedGender ?? "",
-        jobType: filterVM.selectedJobType,
+        //gender: filterVM.selectedGender ?? "",
+        //jobType: filterVM.selectedJobType,
         sort: filterVM.selectedSortBy);
 
     jobListViewModel.applyFilters(filter);
@@ -270,18 +270,18 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
                         selectedItem:
                         jobListFilterWidgetViewModel.selectedSkill
                   ),
-                      spaceBetween,
-                      // jobType
-                      CustomDropdownButtonFormField<JobType>(
-                        labelText: StringResources.jobTypeText,
-                        hint: Text(StringResources.tapToSelectText),
-                        customDropdownKey: Key ('filterJobTypeTextfieldKey'),
-                        onChanged: (value) {
-                          jobListFilterWidgetViewModel.selectedJobType = value;
-                        },
-                        value: jobListFilterWidgetViewModel.selectedJobType,
-                        items: jobTypeDropDownMenuItems,
-                      ),
+//                      spaceBetween,
+//                      // jobType
+//                      CustomDropdownButtonFormField<JobType>(
+//                        labelText: StringResources.jobTypeText,
+//                        hint: Text(StringResources.tapToSelectText),
+//                        customDropdownKey: Key ('filterJobTypeTextfieldKey'),
+//                        onChanged: (value) {
+//                          jobListFilterWidgetViewModel.selectedJobType = value;
+//                        },
+//                        value: jobListFilterWidgetViewModel.selectedJobType,
+//                        items: jobTypeDropDownMenuItems,
+//                      ),
                       spaceBetween,
                       // salary range
                       CustomRangeSlider(
@@ -325,18 +325,18 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
                             .selectedQualification,
                         items: qualificationDropDownMenuItems,
                       ),
-                      spaceBetween,
+//                      spaceBetween,
                       //gender
-                      CustomDropdownButtonFormField(
-                        labelText: StringResources.genderText,
-                        hint: Text(StringResources.tapToSelectText),
-                        customDropdownKey: Key ('filterGenderTextfieldKey'),
-                        onChanged: (value) {
-                          jobListFilterWidgetViewModel.selectedGender = value;
-                        },
-                        value: jobListFilterWidgetViewModel.selectedGender,
-                        items: genderDropDownMenuItems,
-                      ),
+//                      CustomDropdownButtonFormField(
+//                        labelText: StringResources.genderText,
+//                        hint: Text(StringResources.tapToSelectText),
+//                        customDropdownKey: Key ('filterGenderTextfieldKey'),
+//                        onChanged: (value) {
+//                          jobListFilterWidgetViewModel.selectedGender = value;
+//                        },
+//                        value: jobListFilterWidgetViewModel.selectedGender,
+//                        items: genderDropDownMenuItems,
+//                      ),
                       spaceBetween,
                       CustomDropdownButtonFormField(
                         labelText: StringResources.datePosted,
