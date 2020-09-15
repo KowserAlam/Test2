@@ -69,7 +69,7 @@ class _RootState extends State<Root> {
     Future.delayed(Duration(seconds: 1)).then((_) {
       Navigator.pushAndRemoveUntil(
           _scaffoldKey.currentContext,
-          CupertinoPageRoute(builder: (context) => SignInScreen()),
+          CupertinoPageRoute(builder: (context) => Home()),
           (Route<dynamic> route) => false);
     });
   }
