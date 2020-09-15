@@ -716,29 +716,47 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                 SizedBox(
                   height: 5,
                 ),
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  if(jobDetails?.company?.webAddress?.isNotEmptyOrNotNull??false)
+                Text.rich(TextSpan(
                   children: [
-                    Text(
-                      StringResources.companyWebAddressText + ': ',
-                      style: descriptionFontStyleBold,
-                    ),
-                    jobDetails.company != null
-                        ? GestureDetector(
-                            onTap: () {
-                              jobDetails.company.webAddress != null
-                                  ? UrlLauncherHelper.launchUrl(
-                                      jobDetails.companyProfile.trim())
-                                  : null;
-                            },
-                            child: Text(
-                              jobDetails.company.webAddress ?? "",
-                              style: TextStyle(color: Colors.lightBlue),
-                            ))
-                        : Text(StringResources.noneText),
-                  ],
-                ),
+                    TextSpan(text:StringResources.companyWebAddressText + ': ',
+                      style: descriptionFontStyleBold,),
+                    WidgetSpan(child: GestureDetector(
+                        onTap: () {
+                          if(jobDetails?.company?.webAddress != null)
+                               UrlLauncherHelper.launchUrl(
+                              jobDetails.companyProfile.trim());
+
+                        },
+                        child: Text(
+                          jobDetails.company.webAddress ?? "",
+                          style: TextStyle(color: Colors.lightBlue),
+                        )))
+                  ]
+                )),
+                // Row(
+                //   mainAxisSize: MainAxisSize.max,
+                //   mainAxisAlignment: MainAxisAlignment.start,
+                //   children: [
+                //     Text(
+                //       StringResources.companyWebAddressText + ': ',
+                //       style: descriptionFontStyleBold,
+                //     ),
+                //     jobDetails.company != null
+                //         ? GestureDetector(
+                //             onTap: () {
+                //               jobDetails.company.webAddress != null
+                //                   ? UrlLauncherHelper.launchUrl(
+                //                       jobDetails.companyProfile.trim())
+                //                   : null;
+                //             },
+                //             child: Text(
+                //               jobDetails.company.webAddress ?? "",
+                //               style: TextStyle(color: Colors.lightBlue),
+                //             ))
+                //         : Text(StringResources.noneText),
+                //   ],
+                // ),
                 SizedBox(
                   height: 5,
                 ),
