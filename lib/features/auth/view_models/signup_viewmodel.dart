@@ -184,7 +184,7 @@ class SignUpViewModel with ChangeNotifier {
     _isObscureConfirmPassword = true;
     _email = "";
     _password = "";
-    _confirmPassword = "";
+//    _confirmPassword = "";
     _name = "";
     _mobile = "";
     _isBusy = false;
