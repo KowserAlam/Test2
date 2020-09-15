@@ -313,17 +313,31 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
                       ),
                       spaceBetween,
                       //qualification
-                      CustomDropdownButtonFormField(
-                        labelText: StringResources.qualificationText,
-                        hint: Text(StringResources.tapToSelectText),
-                        customDropdownKey: Key('filterQualificationTextfieldKey'),
-                        onChanged: (value) {
-                          jobListFilterWidgetViewModel.selectedQualification =
-                              value;
-                        },
-                        value: jobListFilterWidgetViewModel
-                            .selectedQualification,
-                        items: qualificationDropDownMenuItems,
+                      // CustomDropdownButtonFormField(
+                      //   labelText: StringResources.qualificationText,
+                      //   hint: Text(StringResources.tapToSelectText),
+                      //   customDropdownKey: Key('filterQualificationTextfieldKey'),
+                      //   onChanged: (value) {
+                      //     jobListFilterWidgetViewModel.selectedQualification =
+                      //         value;
+                      //   },
+                      //   value: jobListFilterWidgetViewModel
+                      //       .selectedQualification,
+                      //   items: qualificationDropDownMenuItems,
+                      // ),
+                      CustomDropdownSearchFormField<String>(
+                          showSearchBox: true,
+                          mode: Mode.DIALOG,
+                          labelText: StringResources.qualificationText,
+                          hintText: StringResources.tapToSelectText,
+                          dropdownKey: Key ('filterSkillTextfieldKey'),
+                          items: jobListFilterWidgetViewModel.qualifications,
+                          itemAsString: ( u) => u,
+                          onChanged: (value) {
+                            jobListFilterWidgetViewModel.selectedQualification = value;
+                          },
+                          selectedItem:
+                          jobListFilterWidgetViewModel.selectedQualification
                       ),
 //                      spaceBetween,
                       //gender
