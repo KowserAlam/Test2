@@ -91,7 +91,6 @@ class _NotificationScreenState extends State<NotificationScreen>
         }
 
         var notifications = _notiController.notifications;
-        logger.i(notifications);
         return RefreshIndicator(
           onRefresh: () async =>  _notiController.getNotifications(),
           child: ListView.builder(
@@ -100,7 +99,7 @@ class _NotificationScreenState extends State<NotificationScreen>
               padding: EdgeInsets.symmetric(vertical: 4),
               itemCount: notifications.length,
               itemBuilder: (BuildContext context, int index) {
-                var notification =  _notiController.notifications[index];
+                var notification =  notifications[index];
                 return NotificationTile(
                   notification,
                   onTap: () {

@@ -13,7 +13,7 @@ import 'package:p7app/main_app/util/logger_helper.dart';
 class NotificationRepository {
   Future<Either<AppError, NotificationScreenDataModel>>
       getNotificationsList({int page}) async {
-    try {
+    // try {
       var url = "${Urls.notificationListUrl}?page=${page??1}";
       var response = await ApiClient().getRequest(url);
       logger.i(response.statusCode);
@@ -30,15 +30,15 @@ class NotificationRepository {
         BotToast.showText(text: StringResources.somethingIsWrong);
         return Left(AppError.unknownError);
       }
-    } on SocketException catch (e) {
-      logger.e(e);
-      BotToast.showText(text: StringResources.unableToReachServerMessage);
-      return Left(AppError.networkError);
-    } catch (e) {
-      logger.e(e);
-      BotToast.showText(text: StringResources.somethingIsWrong);
-      return Left(AppError.serverError);
-    }
+    // } on SocketException catch (e) {
+    //   logger.e(e);
+    //   BotToast.showText(text: StringResources.unableToReachServerMessage);
+    //   return Left(AppError.networkError);
+    // } catch (e) {
+    //   logger.e(e);
+    //   BotToast.showText(text: StringResources.somethingIsWrong);
+    //   return Left(AppError.serverError);
+    // }
   }
 
   Future<bool> markAsRead(int id) async {
