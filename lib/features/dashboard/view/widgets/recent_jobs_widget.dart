@@ -24,14 +24,12 @@ class _RecentJobsState extends State<RecentJobs> {
   double cardWidth = 220;
   double cardHeight = 180;
 
-
   @override
   Widget build(BuildContext context) {
     bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     var subtitleColor = isDarkMode ? Colors.white : AppTheme.grey;
     var backgroundColor = Theme.of(context).backgroundColor;
     var scaffoldBackgroundColor = Theme.of(context).scaffoldBackgroundColor;
-
     var titleStyle = TextStyle(fontSize: 14, fontWeight: FontWeight.w600);
     var subTitleStyle = TextStyle(fontSize: 12, color: subtitleColor);
     double iconSize = 12;
@@ -161,21 +159,24 @@ class _RecentJobsState extends State<RecentJobs> {
           //     .textTheme
           //     .subtitle1,),
           SizedBox(height: 10,),
-          vm.recebtJobsList.length == 0?
+          vm.shouldShowRecentJobsLoader?
           Shimmer.fromColors(
             baseColor: Colors.grey[300],
             highlightColor: Colors.grey[100],
             enabled: true,
             child: Container(
-              height: cardHeight,
-              child: ListView.builder(
-                itemCount: 6,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  var recentJob = JobListModel();
-                  return listItem(recentJob);
-                },
-              ),
+              height: 180,
+              child: Row(children: [
+                Expanded(child: Material(
+                  borderRadius: BorderRadius.circular(4.0),
+                  color: Colors.grey,child: Center(),
+                )),
+                SizedBox(width: 8,),
+                Expanded(child: Material(
+                  borderRadius: BorderRadius.circular(4.0),
+                  color: Colors.grey,child: Center(),
+                )),
+              ],),
             ),
           ):
           Container(

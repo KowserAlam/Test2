@@ -61,7 +61,7 @@ class _CareerAdviceListHWidgetState extends State<CareerAdviceListHWidget> {
             ),
           ],
         ),
-        vm.isFetchingData
+        vm.shouldShowPageLoader
             ? Padding(
                 padding: EdgeInsets.symmetric(horizontal: 10),
                 child: SizedBox(

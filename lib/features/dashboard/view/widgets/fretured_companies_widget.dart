@@ -17,7 +17,7 @@ class FeaturedCompaniesWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     var vm = Provider.of<DashboardViewModel>(context);
     var list = vm.featuredCompanies;
-      return list.length == 0? Padding(
+      return Padding(
         padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
         child: Column(
           children: [
@@ -36,43 +36,26 @@ class FeaturedCompaniesWidget extends StatelessWidget {
             SizedBox(
               height: 10,
             ),
+            vm.shouldShowFeaturedCompanyLoader?
             Shimmer.fromColors(
               baseColor: Colors.grey[300],
               highlightColor: Colors.grey[100],
               enabled: true,
               child: Container(
                 height: 180,
-                child: ListView.builder(
-                  itemCount: 4,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    var company = Company();
-                    return listItem(company);
-                  },
-                ),
+                child: Row(children: [
+                  Expanded(child: Material(
+                    borderRadius: BorderRadius.circular(4.0),
+                    color: Colors.grey,child: Center(),
+                  )),
+                  SizedBox(width: 8,),
+                  Expanded(child: Material(
+                    borderRadius: BorderRadius.circular(4.0),
+                    color: Colors.grey,child: Center(),
+                  )),
+                ],),
               ),
-            ),
-          ],
-        ),
-      ): Padding(
-        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                SizedBox(
-                  width: 8,
-                ),
-                Text(
-                  StringResources.featuredCompanies,
-                  style: CommonStyle.dashboardSectionTitleTexStyle,
-                ),
-              ],
-            ),
-            // Text(StringResources.topCategories,style: Theme.of(context).textTheme.subtitle1,),
-            SizedBox(
-              height: 10,
-            ),
+            ):
             Container(
               height: 180,
               child: ListView.builder(
