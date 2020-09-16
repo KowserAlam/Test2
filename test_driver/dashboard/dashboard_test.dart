@@ -4,5 +4,5 @@ void main() {
 }
 
  dashboardTest() async {
-   dashboardInfoBoxTest();
+   dashboardAll();
 }
