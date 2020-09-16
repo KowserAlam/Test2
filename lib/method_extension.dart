@@ -77,6 +77,13 @@ extension StringExtension on String {
       return this;
     }
   }
+
+  String get getStringInNotNull {
+    if (this.isNotEmptyOrNotNull) {
+      return this;
+    } else
+      return null;
+  }
 }
 extension ListExtension<T> on List<T>{
 

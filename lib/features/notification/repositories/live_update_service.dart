@@ -42,7 +42,7 @@ class LiveUpdateService {
         notificationUpdate.sink.add(notification);
       }
     });
-   socket.connect();
+   // socket.connect();
   }
 
 
