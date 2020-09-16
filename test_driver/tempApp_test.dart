@@ -56,7 +56,7 @@ Future<void> allTestCaseAtOnce() async {
       await Future.delayed(const Duration(seconds: 3), () {});
     });
 
-    dashboardInfoBoxTest();
+    dashboardAll();
 
     appliedJobsTest();
 
