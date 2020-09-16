@@ -197,15 +197,19 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
 
                       spaceBetween,
                       // sort by
-                      CustomDropdownButtonFormField<SortItem>(
-                        labelText: StringResources.sortBy,
-                        customDropdownKey: Key('filterSortByTextfieldKey'),
-                        hint: Text(StringResources.tapToSelectText),
-                        value: jobListFilterWidgetViewModel.selectedSortBy ??
-                            jobListFilterWidgetViewModel.sortByList[0],
-                        onChanged: (v) =>
-                        jobListFilterWidgetViewModel.selectedSortBy = v,
-                        items: sortByListDropDownMenuItems,
+                      CustomDropdownSearchFormField<SortItem>(
+                          showSearchBox: false,
+                          mode: Mode.DIALOG,
+                          labelText: StringResources.sortBy,
+                          hintText: StringResources.tapToSelectText,
+                          dropdownKey: Key ('filterSortByTextfieldKey'),
+                          items: jobListFilterWidgetViewModel.sortByList,
+                          itemAsString: (SortItem u) => u.value,
+                          onChanged: (value) {
+                            jobListFilterWidgetViewModel.selectedSortBy = value;
+                          },
+                          selectedItem:
+                          jobListFilterWidgetViewModel.selectedSortBy
                       ),
                       spaceBetween,
                       CustomDropdownSearchFormField<String>(
@@ -329,7 +333,7 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
                       //   items: qualificationDropDownMenuItems,
                       // ),
                       CustomDropdownSearchFormField<String>(
-                          showSearchBox: true,
+                          showSearchBox: false,
                           mode: Mode.DIALOG,
                           labelText: StringResources.qualificationText,
                           hintText: StringResources.tapToSelectText,
@@ -355,16 +359,19 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
 //                        items: genderDropDownMenuItems,
 //                      ),
                       spaceBetween,
-                      CustomDropdownButtonFormField(
-                        labelText: StringResources.datePosted,
-                        hint: Text(StringResources.tapToSelectText),
-                        customDropdownKey: Key('filterDatePostedTextfieldKey'),
-                        onChanged: (value) {
-                          jobListFilterWidgetViewModel.selectedDatePosted =
-                              value;
-                        },
-                        value: jobListFilterWidgetViewModel.selectedDatePosted,
-                        items: datePostedDropDownMenuItems,
+                      CustomDropdownSearchFormField<String>(
+                          showSearchBox: false,
+                          mode: Mode.DIALOG,
+                          labelText: StringResources.datePosted,
+                          hintText: StringResources.tapToSelectText,
+                          dropdownKey: Key ('filterDatePostedTextfieldKey'),
+                          items: jobListFilterWidgetViewModel.datePostedList,
+                          itemAsString: ( u) => u,
+                          onChanged: (value) {
+                            jobListFilterWidgetViewModel.selectedDatePosted = value;
+                          },
+                          selectedItem:
+                          jobListFilterWidgetViewModel.selectedDatePosted
                       ),
                       spaceBetween,
                     ],
