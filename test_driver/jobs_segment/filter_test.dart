@@ -116,14 +116,14 @@ Future<void> filterTest()async{
       await Future.delayed(const Duration(seconds: 8), () {});
     });
 
-    test('Open filter section and search Job Type', () async {
-      await driver.tap(filterButtonKey);
-      await driver.tap(filterClearAllButtonKey);
-      await driver.tap(filterJobTypeTextfieldKey);
-      await driver.tap(find.text('Permanent'));
-      await driver.tap(applyFilterButtonKey);
-      await Future.delayed(const Duration(seconds: 8), () {});
-    });
+//    test('Open filter section and search Job Type', () async {
+//      await driver.tap(filterButtonKey);
+//      await driver.tap(filterClearAllButtonKey);
+//      await driver.tap(filterJobTypeTextfieldKey);
+//      await driver.tap(find.text('Permanent'));
+//      await driver.tap(applyFilterButtonKey);
+//      await Future.delayed(const Duration(seconds: 8), () {});
+//    });
 
     test('Open filter section and search Qualification', () async {
       await driver.tap(filterButtonKey);
@@ -136,16 +136,16 @@ Future<void> filterTest()async{
       await Future.delayed(const Duration(seconds: 8), () {});
     });
 
-    test('Open filter section and search Gender', () async {
-      await driver.tap(filterButtonKey);
-      await driver.tap(filterClearAllButtonKey);
-      await driver.scrollUntilVisible(filterListViewKey, filterGenderTextfieldKey,
-          dyScroll: -150);
-      await driver.tap(filterGenderTextfieldKey);
-      await driver.tap(find.text('Male'));
-      await driver.tap(applyFilterButtonKey);
-      await Future.delayed(const Duration(seconds: 6), () {});
-    });
+//    test('Open filter section and search Gender', () async {
+//      await driver.tap(filterButtonKey);
+//      await driver.tap(filterClearAllButtonKey);
+//      await driver.scrollUntilVisible(filterListViewKey, filterGenderTextfieldKey,
+//          dyScroll: -150);
+//      await driver.tap(filterGenderTextfieldKey);
+//      await driver.tap(find.text('Male'));
+//      await driver.tap(applyFilterButtonKey);
+//      await Future.delayed(const Duration(seconds: 6), () {});
+//    });
 
     test('Open filter section and search Date Posted', () async {
       await driver.tap(filterButtonKey);
@@ -169,16 +169,12 @@ Future<void> filterTest()async{
       await driver.tap(filterSkillTextfieldKey);
       await driver.enterText('Pytho');
       await driver.tap(find.text('Python'));
-      await driver.tap(filterJobTypeTextfieldKey);
-      await driver.tap(find.text('Permanent'));
       await driver.scrollUntilVisible(filterListViewKey, filterQualificationTextfieldKey,
           dyScroll: -150);
       await driver.tap(filterQualificationTextfieldKey);
       await driver.tap(find.text('BSc in CSE'));
       await driver.scrollUntilVisible(filterListViewKey, filterGenderTextfieldKey,
           dyScroll: -150);
-      await driver.tap(filterGenderTextfieldKey);
-      await driver.tap(find.text('Male'));
       await driver.scrollUntilVisible(filterListViewKey, filterGenderTextfieldKey,
           dyScroll: -150);
       await driver.tap(filterDatePostedTextfieldKey);
