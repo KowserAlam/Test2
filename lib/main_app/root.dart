@@ -51,19 +51,20 @@ class _RootState extends State<Root> {
         _naveGateToNextScreen();
       } else {
         _navigateHomeScreenAnonymously();
+
         authService.removeUser();
       }
     }
   }
 
-  _navigateToLoginScreen() {
-    Future.delayed(Duration(seconds: 1)).then((_) {
-      Navigator.pushAndRemoveUntil(
-          _scaffoldKey.currentContext,
-          CupertinoPageRoute(builder: (context) => SignInScreen()),
-          (Route<dynamic> route) => false);
-    });
-  }
+  // _navigateToLoginScreen() {
+  //   Future.delayed(Duration(seconds: 1)).then((_) {
+  //     Navigator.pushAndRemoveUntil(
+  //         _scaffoldKey.currentContext,
+  //         CupertinoPageRoute(builder: (context) => SignInScreen()),
+  //         (Route<dynamic> route) => false);
+  //   });
+  // }
 
   _navigateHomeScreenAnonymously() {
     Future.delayed(Duration(seconds: 1)).then((_) {
