@@ -1,4 +1,6 @@
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import 'dart:io';
+
 import 'package:p7app/features/auth/view/password_reset_screens.dart';
 import 'package:p7app/features/auth/view/sign_up_screen.dart';
 import 'package:p7app/features/auth/view/widgets/custom_text_field_rounded.dart';
@@ -8,8 +10,6 @@ import 'package:p7app/main_app/root.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/views/widgets/app_version_widget_small.dart';
-import 'package:p7app/main_app/views/widgets/common_button.dart';
-import 'package:p7app/main_app/views/widgets/loader.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:p7app/main_app/views/widgets/rounded_loading_button.dart';
@@ -451,8 +451,12 @@ class _SignInScreenState extends State<SignInScreen> {
           forgotPasswordWidget,
           SizedBox(height: 5),
           signInButton,
-          SizedBox(height: 20),
-          socialLogin,
+          if(Platform.isAndroid)
+          Column(children: [
+            SizedBox(height: 20),
+            socialLogin,
+          ],),
+
           SizedBox(height: 20),
           registerText,
         ],
