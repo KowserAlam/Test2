@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:p7app/features/user_profile/models/reference_data.dart';
 import 'package:p7app/features/user_profile/views/screens/profile_header_edit_screen.dart';
 import 'package:p7app/main_app/flavour/flavour_config.dart';
@@ -22,6 +24,12 @@ class StringResources {
   static String forgotPassword = "Forgot Password ?";
   static String welcomeBack = "Welcome back!";
   static String loginToYourExistingAccount = "Sign in to your existing account";
+
+
+  //Verify Email Screen
+  static String verifyEmailAppbarTitle = "Verify Email";
+  static String verifyEmailMessage = "An verification link has been sent to your email address. Please open it to confirm your email account.";
+
 
   /// Validator
 
