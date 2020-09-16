@@ -17,6 +17,7 @@ import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/date_format_uitl.dart';
 import 'package:p7app/main_app/views/widgets/common_date_picker_form_field.dart';
 import 'package:p7app/main_app/views/widgets/custom_text_from_field.dart';
+import 'package:p7app/main_app/views/widgets/custom_zefyr_rich_text_from_field.dart';
 import 'package:p7app/main_app/views/widgets/edit_screen_save_button.dart';
 import 'package:p7app/method_extension.dart';
 import 'package:provider/provider.dart';
@@ -36,8 +37,9 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
   //TextEditingController
   final _fatherNameController = TextEditingController();
   final _motherNameController = TextEditingController();
-  final _currentAddressController = TextEditingController();
-  final _permanentAddressController = TextEditingController();
+  ZefyrController _currentAddressController = ZefyrController(NotusDocument());
+  ZefyrController _permanentAddressController = ZefyrController(NotusDocument());
+//  final _permanentAddressController = TextEditingController();
   final _bloodGroupController = TextEditingController();
 
 //  final _nationalityController = TextEditingController();
@@ -90,10 +92,12 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
   void initState() {
     // TODO: implement initState
     var personalInfo = widget.userModel.personalInfo;
+    if(personalInfo.address != null){
+      _currentAddressController = ZefyrController(personalInfo.address.htmlToNotusDocument);
+      _permanentAddressController = ZefyrController(personalInfo.permanentAddress.htmlToNotusDocument);
+    }
     _fatherNameController.text = personalInfo.fatherName ?? "";
     _motherNameController.text = personalInfo.motherName ?? "";
-    _currentAddressController.text = personalInfo.address ?? "";
-    _permanentAddressController.text = personalInfo.permanentAddress ?? "";
     _selectedReligionDropDownItem = personalInfo.religionObj;
     _selectedNationalityDropDownItem = personalInfo.nationalityObj;
     _selectedGenderDropDownItem = personalInfo.gender;
@@ -172,10 +176,10 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
       var data = {
         "father_name": _fatherNameController.text,
         "mother_name": _motherNameController.text,
-        "permanent_address": _permanentAddressController.text,
         "nationality": _selectedNationalityDropDownItem?.id,
         "religion": _selectedReligionDropDownItem?.id,
-        "address": _currentAddressController.text,
+        "address": _currentAddressController.document.toHTML.getStringInNotNull,
+        "permanent_address": _permanentAddressController.document.toHTML.getStringInNotNull,
         "gender": _selectedGenderDropDownItem,
         "blood_group": _selectedBloodGroup,
       };
@@ -212,165 +216,151 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
       height: 15,
     );
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(StringResources.personalInfoText, key: Key('personalInfoAppbarTitle'),),
-        actions: <Widget>[
-          EditScreenSaveButton(
-            text: StringResources.saveText,
-            onPressed: _handleSave,
-            key: Key('personalInfoSaveButton'),
-          ),
-        ],
-      ),
-      body: SingleChildScrollView(
-        key: Key('personalInfoScrollView'),
-        child: Form(
-          key: _formKey,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                //Date of Birth
-                CommonDatePickerFormField(
-                  label: StringResources.dateOfBirthText,
-                  dateFieldKey: Key('personalInfoDOB'),
-                  date: _chosenBirthDate,
-                  onDateTimeChanged: (v) {
-                    setState(() {
-                      _chosenBirthDate = v;
-                    });
-                  },
+    return ZefyrScaffold(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(StringResources.personalInfoText, key: Key('personalInfoAppbarTitle'),),
+          actions: <Widget>[
+            EditScreenSaveButton(
+              text: StringResources.saveText,
+              onPressed: _handleSave,
+              key: Key('personalInfoSaveButton'),
+            ),
+          ],
+        ),
+        body: SingleChildScrollView(
+          key: Key('personalInfoScrollView'),
+          child: Form(
+            key: _formKey,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  //Date of Birth
+                  CommonDatePickerFormField(
+                    label: StringResources.dateOfBirthText,
+                    dateFieldKey: Key('personalInfoDOB'),
+                    date: _chosenBirthDate,
+                    onDateTimeChanged: (v) {
+                      setState(() {
+                        _chosenBirthDate = v;
+                      });
+                    },
 //                    onTapDateClear: (){
 //                      setState(() {
 //                        _chosenBirthDate = null;
 //                      });
 //                    },
-                ),
-                spaceBetweenFields,
-                //Gender
-                CustomDropdownButtonFormField<String>(
-                  labelText: StringResources.genderText,
-                  customDropdownKey: Key('personalInfoGender'),
-                  hint: Text(StringResources.tapToSelectText),
-                  value: _selectedGenderDropDownItem,
-                  onChanged: (value) {
-                    _selectedGenderDropDownItem = value;
-                    setState(() {});
-                  },
-                  items: _genderList,
-                ),
-                spaceBetweenFields,
-                //Father's Name
-                CustomTextFormField(
-                  keyboardType: TextInputType.text,
-                  textFieldKey: Key('personalInfoFatherName'),
-                  //focusNode: _fatherNameFocusNode,
+                  ),
+                  spaceBetweenFields,
+                  //Gender
+                  CustomDropdownButtonFormField<String>(
+                    labelText: StringResources.genderText,
+                    customDropdownKey: Key('personalInfoGender'),
+                    hint: Text(StringResources.tapToSelectText),
+                    value: _selectedGenderDropDownItem,
+                    onChanged: (value) {
+                      _selectedGenderDropDownItem = value;
+                      setState(() {});
+                    },
+                    items: _genderList,
+                  ),
+                  spaceBetweenFields,
+                  //Father's Name
+                  CustomTextFormField(
+                    keyboardType: TextInputType.text,
+                    textFieldKey: Key('personalInfoFatherName'),
+                    //focusNode: _fatherNameFocusNode,
 //                    textInputAction: TextInputAction.next,
-                  onFieldSubmitted: (a) {
+                    onFieldSubmitted: (a) {
 //                      FocusScope.of(context)
 //                          .requestFocus(_motherNameFocusNode);
-                  },
-                  controller: _fatherNameController,
-                  labelText: StringResources.fatherNameText,
-                  hintText: StringResources.fatherNameText,
-                ),
-                spaceBetweenFields,
-                //Mother's Name
-                CustomTextFormField(
-                  keyboardType: TextInputType.text,
-                  textFieldKey: Key('personalInfoMotherName'),
-                  onFieldSubmitted: (a) {
+                    },
+                    controller: _fatherNameController,
+                    labelText: StringResources.fatherNameText,
+                    hintText: StringResources.fatherNameText,
+                  ),
+                  spaceBetweenFields,
+                  //Mother's Name
+                  CustomTextFormField(
+                    keyboardType: TextInputType.text,
+                    textFieldKey: Key('personalInfoMotherName'),
+                    onFieldSubmitted: (a) {
 //                      FocusScope.of(context)
 //                          .requestFocus(_currentAddressFocusNode);
-                  },
-                  controller: _motherNameController,
-                  labelText: StringResources.motherNameText,
-                  hintText: StringResources.motherNameText,
-                ),
-                spaceBetweenFields,
-                //Current Address
-                CustomTextFormField(
-                  maxLength: 255,
-                  textFieldKey: Key('personalInfoCurrentAddress'),
-                  keyboardType: TextInputType.multiline,
-                  minLines: 3,
-                  maxLines: 8,
-                  onFieldSubmitted: (a) {
-//                      FocusScope.of(context)
-//                          .requestFocus(_permanentAddressFocusNode);
-                  },
-                  controller: _currentAddressController,
-                  labelText: StringResources.addressText,
-                  hintText: StringResources.addressText,
-                ),
-                spaceBetweenFields,
-                //Permanent Address
-                CustomTextFormField(
-                  //validator: Validator().nullFieldValidate,
-                  //focusNode: _permanentAddressFocusNode,
-                  textFieldKey: Key('personalInfoPermanentAddress'),
-                  maxLength: 255,
-                  minLines: 3,
-                  maxLines: 8,
-//                    textInputAction: TextInputAction.next,
-                  keyboardType: TextInputType.multiline,
-                  onFieldSubmitted: (a) {
-//                      FocusScope.of(context)
-//                          .requestFocus(_nationalityFocusNode);
-                  },
-                  controller: _permanentAddressController,
-                  labelText: StringResources.permanentAddressText,
-                  hintText: StringResources.permanentAddressText,
-                ),
-                spaceBetweenFields,
-                //Nationality
-                CustomDropdownButtonFormField<Nationality>(
-                  labelText: StringResources.nationalityText,
-                  hint: Text(StringResources.tapToSelectText),
-                  customDropdownKey: Key('personalInfoNationality'),
-                  value: _selectedNationalityDropDownItem,
-                  onChanged: (value) {
-                    _selectedNationalityDropDownItem = value;
-                    setState(() {});
-                  },
-                  items: _nationalityList,
-                ),
-                spaceBetweenFields,
-                //Religion
-                CustomDropdownButtonFormField<Religion>(
-                  labelText: StringResources.religionText,
-                  customDropdownKey: Key('personalInfoReligion'),
-                  hint: Text(StringResources.tapToSelectText),
-                  value: _selectedReligionDropDownItem,
-                  onChanged: (value) {
-                    _selectedReligionDropDownItem = value;
-                    setState(() {});
-                  },
-                  items: _religionList,
-                ),
-                spaceBetweenFields,
-                //Blood Group
-                CustomDropdownButtonFormField<String>(
-                  labelText: StringResources.bloodGroupText,
-                  customDropdownKey: Key('personalInfoBloodGroup'),
-                  hint: Text(StringResources.tapToSelectText),
-                  value: _selectedBloodGroup,
-                  onChanged: (value) {
-                    _selectedBloodGroup = value;
-                    setState(() {});
-                  },
-                  items: _bloodGroupList
-                      .map((e) => DropdownMenuItem<String>(
-                            child: Text(e.isEmptyOrNull?" - - - -":e),
-                            value: e,
-                            key: Key(e),
-                          ))
-                      .toList(),
-                ),
-                spaceBetweenFields
-              ],
+                    },
+                    controller: _motherNameController,
+                    labelText: StringResources.motherNameText,
+                    hintText: StringResources.motherNameText,
+                  ),
+                  spaceBetweenFields,
+                  CustomZefyrRichTextFormField(
+                    labelText: StringResources.addressText,
+                    hintText: StringResources.addressText,
+                    focusNode: _currentAddressFocusNode,
+                    controller: _currentAddressController,
+                    height: 200,
+                    zefyrKey: Key('personalInfoCurrentAddress'),
+                  ),
+                  spaceBetweenFields,
+                  //Permanent Address
+                  CustomZefyrRichTextFormField(
+                    labelText: StringResources.permanentAddressText,
+                    hintText: StringResources.permanentAddressText,
+                    focusNode: _permanentAddressFocusNode,
+                    controller: _permanentAddressController,
+                    height: 200,
+                    zefyrKey: Key('personalInfoPermanentAddress'),
+                  ),
+                  spaceBetweenFields,
+                  //Nationality
+                  CustomDropdownButtonFormField<Nationality>(
+                    labelText: StringResources.nationalityText,
+                    hint: Text(StringResources.tapToSelectText),
+                    customDropdownKey: Key('personalInfoNationality'),
+                    value: _selectedNationalityDropDownItem,
+                    onChanged: (value) {
+                      _selectedNationalityDropDownItem = value;
+                      setState(() {});
+                    },
+                    items: _nationalityList,
+                  ),
+                  spaceBetweenFields,
+                  //Religion
+                  CustomDropdownButtonFormField<Religion>(
+                    labelText: StringResources.religionText,
+                    customDropdownKey: Key('personalInfoReligion'),
+                    hint: Text(StringResources.tapToSelectText),
+                    value: _selectedReligionDropDownItem,
+                    onChanged: (value) {
+                      _selectedReligionDropDownItem = value;
+                      setState(() {});
+                    },
+                    items: _religionList,
+                  ),
+                  spaceBetweenFields,
+                  //Blood Group
+                  CustomDropdownButtonFormField<String>(
+                    labelText: StringResources.bloodGroupText,
+                    customDropdownKey: Key('personalInfoBloodGroup'),
+                    hint: Text(StringResources.tapToSelectText),
+                    value: _selectedBloodGroup,
+                    onChanged: (value) {
+                      _selectedBloodGroup = value;
+                      setState(() {});
+                    },
+                    items: _bloodGroupList
+                        .map((e) => DropdownMenuItem<String>(
+                              child: Text(e.isEmptyOrNull?" - - - -":e),
+                              value: e,
+                              key: Key(e),
+                            ))
+                        .toList(),
+                  ),
+                  spaceBetweenFields
+                ],
+              ),
             ),
           ),
         ),
