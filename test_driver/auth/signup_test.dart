@@ -42,8 +42,6 @@ Future<void> signUpTest()async{
       await driver.enterText('01724232886');
       await driver.tap(Keys.signUpPasswordField);
       await driver.enterText('1234567s');
-      await driver.tap(Keys.signUpConfirmPasswordField);
-      await driver.enterText('1234567s');
       await driver.tap(Keys.signUpRegisterButton);
       await Future.delayed(const Duration(seconds: 2), (){});
     });
@@ -56,8 +54,6 @@ Future<void> signUpTest()async{
       await driver.tap(Keys.signUpMobileField);
       await driver.enterText('017242328866');
       await driver.tap(Keys.signUpPasswordField);
-      await driver.enterText('1234567s');
-      await driver.tap(Keys.signUpConfirmPasswordField);
       await driver.enterText('1234567s');
       await driver.tap(Keys.signUpRegisterButton);
       await Future.delayed(const Duration(seconds: 2), (){});
@@ -72,8 +68,6 @@ Future<void> signUpTest()async{
       await driver.enterText('01724232886');
       await driver.tap(Keys.signUpPasswordField);
       await driver.enterText('12345678');
-      await driver.tap(Keys.signUpConfirmPasswordField);
-      await driver.enterText('12345678');
       await driver.tap(Keys.signUpRegisterButton);
       await Future.delayed(const Duration(seconds: 2), (){});
     });
@@ -86,8 +80,6 @@ Future<void> signUpTest()async{
       await driver.tap(Keys.signUpMobileField);
       await driver.enterText('01724232886');
       await driver.tap(Keys.signUpPasswordField);
-      await driver.enterText('abcdefgh');
-      await driver.tap(Keys.signUpConfirmPasswordField);
       await driver.enterText('abcdefgh');
       await driver.tap(Keys.signUpRegisterButton);
       await Future.delayed(const Duration(seconds: 2), (){});
@@ -102,8 +94,6 @@ Future<void> signUpTest()async{
       await driver.enterText('01724232886');
       await driver.tap(Keys.signUpPasswordField);
       await driver.enterText('123456s');
-      await driver.tap(Keys.signUpConfirmPasswordField);
-      await driver.enterText('123456s');
       await driver.tap(Keys.signUpRegisterButton);
       await Future.delayed(const Duration(seconds: 2), (){});
     });
@@ -117,8 +107,6 @@ Future<void> signUpTest()async{
       await driver.enterText('01724232886');
       await driver.tap(Keys.signUpPasswordField);
       await driver.enterText('1234567s');
-      await driver.tap(Keys.signUpConfirmPasswordField);
-      await driver.enterText('1234567s');
       await driver.tap(Keys.signUpRegisterButton);
       await Future.delayed(const Duration(seconds: 2), (){});
     });
@@ -131,8 +119,6 @@ Future<void> signUpTest()async{
       await driver.tap(Keys.signUpMobileField);
       await driver.enterText('01724232886');
       await driver.tap(Keys.signUpPasswordField);
-      await driver.enterText('1234567s');
-      await driver.tap(Keys.signUpConfirmPasswordField);
       await driver.enterText('1234567s');
       await driver.tap(Keys.signUpRegisterButton);
       await Future.delayed(const Duration(seconds: 5), (){});

@@ -5,15 +5,14 @@ import '../keys.dart';
 
 
 main(){
-  dashboardInfoBoxTest();
+  dashboardAll();
 }
 
-Future<void> dashboardInfoBoxTest() async{
-  return group('Dashboard Infobox', () {
+Future<void> dashboardAll() async{
+  return group('Dashboard All', () {
     final backButton = find.byTooltip('Back');
     final infoboxFavoriteButton = find.byValueKey('dashboardFavoriteInfoBox');
-    final infoboxAppliedButton = find.byValueKey('dashboardAppliedInfoBox');
-    final clickOnDashboard = find.text('Dashboard'); //bottom navigation bar
+    final dashboardAppliedInfoBox = find.byValueKey('dashboardAppliedInfoBox');
     final dashBoardContactUsTile = find.byValueKey('dashBoardContactUsTile');
     final contactUsTextOnAppBar = find.byValueKey('contactUsTextOnAppBar');
     final dashBoardFAQTile = find.byValueKey('dashBoardFAQTile');
@@ -52,23 +51,23 @@ Future<void> dashboardInfoBoxTest() async{
 
     test('If no skilles added, showing skill add button', () async {
       if(Keys.dashboardAddSkillButton != null){
-        await expect(await driver.getText(Keys.dashboardAddSkillButton), 'Add Skill');
+        await expect(driver.waitFor(Keys.dashboardAddSkillButton), 'Add Skill');
       }else{
-        await expect(await driver.getText(dashboardMonthlyJobsTextKey), 'Monthly Jobs');
+        await expect(driver.waitFor(dashboardMonthlyJobsTextKey), 'Monthly Jobs');
       }
     });
 
     test('Click on Applied button on infobox', () async {
-      await driver.tap(infoboxAppliedButton);
+      await driver.tap(dashboardAppliedInfoBox);
       await Future.delayed(const Duration(seconds: 15), () {});
-      await driver.tap(clickOnDashboard);
+      await driver.tap(Keys.bottomNavigationBarDashboard);
       await Future.delayed(const Duration(seconds: 4), () {});
     });
 
     test('Click on favorite button on infobox', () async {
       await driver.tap(infoboxFavoriteButton);
       await Future.delayed(const Duration(seconds: 15), () {});
-      await driver.tap(clickOnDashboard);
+      await driver.tap(Keys.bottomNavigationBarDashboard);
       await Future.delayed(const Duration(seconds: 4), () {});
     });
 
@@ -77,7 +76,8 @@ Future<void> dashboardInfoBoxTest() async{
           dyScroll: -600);
       await driver.tap(dashBoardContactUsTile);
       await expect(await driver.getText(contactUsTextOnAppBar), 'Contact Us');
-      await driver.tap(backButton);
+      await Future.delayed(const Duration(seconds: 5), () {});
+      //contactUsTextOnAppBar
     });
     test('Click on FAQ tile', () async {
       await driver.tap(dashBoardFAQTile);
