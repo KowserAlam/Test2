@@ -30,6 +30,12 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>This app requires accessing your  Camera</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>This app needs your location to show yor location on Maps.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This app requires accessing your  Photo Library</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
@@ -54,31 +60,5 @@
 	<false/>
 	<key>io.flutter.embedded_views_preview</key>
 	<true/>
-	<key>NSCameraUsageDescription</key>
-	<string>This app requires accessing your  Camera</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>This app requires accessing your  Photo Library</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>This app needs your location to show yor location on Maps.</string>
-
-	<!-- Put me in the [my_project]/ios/Runner/Info.plist file -->
-    <!-- Google Sign-in Section -->
-	
-    <!-- <key>CFBundleURLTypes</key>
-    <array>
-    	<dict>
-    		<key>CFBundleTypeRole</key>
-    		<string>Editor</string>
-    		<key>CFBundleURLSchemes</key>
-    		<array>
-
-    			<string>com.googleusercontent.apps.282452792859-v20eihjslfk1tn7jn83ujb0ng282dtq3</string>
-    		</array>
-    	</dict>
-    </array> -->
-	
-    <!-- End of the Google Sign-in Section -->
-	
-	
 </dict>
 </plist>
