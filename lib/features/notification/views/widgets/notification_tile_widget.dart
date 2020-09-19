@@ -18,97 +18,64 @@ class NotificationTile extends StatefulWidget {
 class _NotificationTileState extends State<NotificationTile> {
   @override
   Widget build(BuildContext context) {
-    var scaffoldBackgroundColor = Theme.of(context).scaffoldBackgroundColor;
+    // var scaffoldBackgroundColor = Theme.of(context).scaffoldBackgroundColor;
     var backgroundColor = Theme.of(context).backgroundColor;
-    var primaryColor = Theme.of(context).primaryColor;
+    // var primaryColor = Theme.of(context).primaryColor;
     var createdAt = widget.notificationModel.createdAt;
-    var time = "${NotificationHelper.calculateTimeStamp(createdAt)} ago";
+    var time = "${NotificationHelper.calculateTimeStamp(createdAt)}";
 
     bool isRead = widget.notificationModel?.isRead ?? false;
-    var tileBackgroundColor =
-        isRead ? backgroundColor : AppTheme.selectedBackgroundColor;
-    var titleColor = Colors.black;
-    return Container(
-      height: 70,
-      margin: EdgeInsets.symmetric(
-        vertical: 4,
-      ),
-      decoration: BoxDecoration(
-        color: tileBackgroundColor,
-        boxShadow: CommonStyle.boxShadow
-      ),
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          onTap: widget.onTap,
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 5),
-            child: Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Icon(
-                 FontAwesomeIcons.bell,
-                    size: 35,
-                    color:   isRead?  Colors.grey: Colors.orange,
+    // var tileBackgroundColor =
+    //     isRead ? backgroundColor : AppTheme.selectedBackgroundColor;
+    // var titleColor = Colors.black;
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8),
+      child: Container(
+        height: 70,
+        margin: EdgeInsets.symmetric(
+          vertical: 4,
+        ),
+        decoration: BoxDecoration(
+          color: backgroundColor,
+          boxShadow: CommonStyle.boxShadow
+        ),
+        child: Material(
+          color: Colors.transparent,
+          child: InkWell(
+            onTap: widget.onTap,
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 8),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 5),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Center(
+                            child: Text(
+                          time,
+                          style: TextStyle(fontSize: 10),
+                        )),
+                      ],
+                    ),
                   ),
-                ),
-                Expanded(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 5),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Spacer(),
-                            // Flexible(
-                            //   child: Container(
-                            //     height: 15,
-                            //     child: Text(
-                            //       widget.notificationModel.title ?? "",
-                            //       style: TextStyle(
-                            //           fontWeight: isRead
-                            //               ? FontWeight.normal
-                            //               : FontWeight.bold,
-                            //           color: titleColor,
-                            //           fontSize: isRead ? 13 : 14),
-                            //       overflow: TextOverflow.ellipsis,
-                            //     ),
-                            //   ),
-                            // ),
-                            Container(
-                              height: 15,
-                              width: 60,
-                              child: Center(
-                                  child: Text(
-                                time,
-                                style: TextStyle(fontSize: 10),
-                              )),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Flexible(
-                        child: Container(
-                          padding: EdgeInsets.only(bottom: 5, top: 2),
-                          child: Text(
-                            widget.notificationModel.message ?? "",
-                            style: TextStyle(fontSize: 12,color: Colors.grey[800]),
-                            overflow: TextOverflow.ellipsis,
+                  Container(
+                    padding: EdgeInsets.only(bottom: 5, top: 2),
+                    child: Text(
+                      widget.notificationModel.message ?? "",
+                      style: TextStyle(fontSize: 12,color: Colors.grey[800]),
+                      overflow: TextOverflow.ellipsis,
 
-                            maxLines: 2,
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ],
+                      maxLines: 2,
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         ),
