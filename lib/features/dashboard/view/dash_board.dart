@@ -33,12 +33,17 @@ class DashBoard extends StatefulWidget {
   final Function onTapFavourite;
   final Function onTapApplied;
   final Function onTapSearch;
+  final Function onTapRecentJobs;
+  final Function onTapFeaturedCompany;
+  
 
   DashBoard({
     Key key,
     this.onTapFavourite,
     this.onTapApplied,
     this.onTapSearch,
+    this.onTapRecentJobs,
+    this.onTapFeaturedCompany
   }) : super(key: key);
 
   @override
@@ -207,8 +212,8 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
               ),
             if (!isLoggedIn)
             SigninMessage(),
-               FeaturedCompaniesWidget(),
-              RecentJobs(),
+               FeaturedCompaniesWidget(onTapViewAll: widget.onTapFeaturedCompany),
+              RecentJobs(onTapViewAll: widget.onTapRecentJobs),
                // TopCategoriesWidget(),
               VitalStateWidget(),
               SizedBox(height: 10),
