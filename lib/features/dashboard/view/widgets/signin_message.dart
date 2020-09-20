@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
+import 'package:p7app/features/auth/view/sign_in_screen.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 
 class SigninMessage extends StatelessWidget {
@@ -12,10 +14,13 @@ class SigninMessage extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text("To get the best JobXprss experience, please login."),
+              Text(StringResources.dashboardLoginMessage,textAlign: TextAlign.center,),
               RaisedButton(
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                  color: Colors.white, onPressed: () {},child: Text(StringResources.signInButtonText),),
+                  color: Colors.white, onPressed: () {
+
+                    Get.to(SignInScreen());
+              },child: Text(StringResources.signInButtonText),),
             ],
           ),
         ),
