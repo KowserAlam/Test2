@@ -15,12 +15,15 @@ class SigninMessage extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(StringResources.dashboardLoginMessage,textAlign: TextAlign.center,),
-              RaisedButton(
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                  color: Colors.white, onPressed: () {
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: RaisedButton(
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                    color: Colors.white, onPressed: () {
 
-                    Get.to(SignInScreen());
-              },child: Text(StringResources.signInButtonText),),
+                      Get.to(SignInScreen());
+                },child: Text(StringResources.signInButtonText),),
+              ),
             ],
           ),
         ),
