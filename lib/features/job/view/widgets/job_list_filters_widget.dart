@@ -199,7 +199,7 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
                       // sort by
                       CustomDropdownSearchFormField<SortItem>(
                           showSearchBox: false,
-                          mode: Mode.DIALOG,
+//                          mode: Mode.DIALOG,
                           labelText: StringResources.sortBy,
                           hintText: StringResources.tapToSelectText,
                           dropdownKey: Key ('filterSortByTextfieldKey'),
@@ -334,7 +334,7 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
                       // ),
                       CustomDropdownSearchFormField<String>(
                           showSearchBox: false,
-                          mode: Mode.DIALOG,
+//                          mode: Mode.DIALOG,
                           labelText: StringResources.qualificationText,
                           hintText: StringResources.tapToSelectText,
                           dropdownKey: Key ('filterSkillTextfieldKey'),
@@ -361,7 +361,7 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
                       spaceBetween,
                       CustomDropdownSearchFormField<String>(
                           showSearchBox: false,
-                          mode: Mode.DIALOG,
+//                          mode: Mode.DIALOG,
                           labelText: StringResources.datePosted,
                           hintText: StringResources.tapToSelectText,
                           dropdownKey: Key ('filterDatePostedTextfieldKey'),
