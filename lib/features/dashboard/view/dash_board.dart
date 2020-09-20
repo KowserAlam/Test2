@@ -13,6 +13,7 @@ import 'package:p7app/features/dashboard/view/widgets/job_chart_widget.dart';
 import 'package:p7app/features/dashboard/view/widgets/other_screens_widget.dart';
 import 'package:p7app/features/dashboard/view/widgets/profile_complete_parcent_indicatior_widget.dart';
 import 'package:p7app/features/dashboard/view/widgets/recent_jobs_widget.dart';
+import 'package:p7app/features/dashboard/view/widgets/signin_message.dart';
 import 'package:p7app/features/dashboard/view/widgets/top_categories_widget.dart';
 import 'package:p7app/features/dashboard/view/widgets/vital_state_widget.dart';
 import 'package:p7app/features/dashboard/view_model/dashboard_view_model.dart';
@@ -32,12 +33,17 @@ class DashBoard extends StatefulWidget {
   final Function onTapFavourite;
   final Function onTapApplied;
   final Function onTapSearch;
+  final Function onTapRecentJobs;
+  final Function onTapFeaturedCompany;
+  
 
   DashBoard({
     Key key,
     this.onTapFavourite,
     this.onTapApplied,
     this.onTapSearch,
+    this.onTapRecentJobs,
+    this.onTapFeaturedCompany
   }) : super(key: key);
 
   @override
@@ -204,12 +210,14 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
                   JobChartWidget(),
                 ],
               ),
-              if (!isLoggedIn) FeaturedCompaniesWidget(),
-              if (!isLoggedIn) RecentJobs(),
-              if (!isLoggedIn) TopCategoriesWidget(),
-              if (!isLoggedIn) VitalStateWidget(),
+            if (!isLoggedIn)
+            SigninMessage(),
+               FeaturedCompaniesWidget(onTapViewAll: widget.onTapFeaturedCompany),
+              RecentJobs(onTapViewAll: widget.onTapRecentJobs),
+               // TopCategoriesWidget(),
+              VitalStateWidget(),
               SizedBox(height: 10),
-              SizedBox(height: 10),
+              // SizedBox(height: 10),
               CareerAdviceListHWidget(),
               SizedBox(height: 10),
               OtherScreensWidget(),

@@ -209,6 +209,18 @@ class _HomeState extends State<Home> {
                   Provider.of<JobScreenViewModel>(context, listen: false)
                       .onChange(2);
                 },
+                onTapRecentJobs: () {
+                  _paeViewController.animateToPage(1,
+                      duration: const Duration(milliseconds: 400),
+                      curve: Curves.easeInOut);
+                  Provider.of<JobScreenViewModel>(context, listen: false)
+                      .onChange(0);
+                },
+                onTapFeaturedCompany: () {
+                  _paeViewController.animateToPage(2,
+                      duration: const Duration(milliseconds: 400),
+                      curve: Curves.easeInOut);
+                },
               ),
               JobsScreen(),
 //              AppliedJobListScreen(),

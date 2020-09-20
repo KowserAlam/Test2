@@ -16,6 +16,8 @@ import 'package:p7app/method_extension.dart';
 import 'package:shimmer/shimmer.dart';
 
 class RecentJobs extends StatefulWidget {
+  Function onTapViewAll;
+  RecentJobs({this.onTapViewAll});
   @override
   _RecentJobsState createState() => _RecentJobsState();
 }
@@ -144,54 +146,68 @@ class _RecentJobsState extends State<RecentJobs> {
 
     var vm = Provider.of<DashboardViewModel>(context);
     var list = vm.recebtJobsList;
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
-      child: Column(
-        children: [
-          Row(children: [
-            SizedBox(width: 8,),
-            Text(StringResources.recentJobsText,
-              style: CommonStyle.dashboardSectionTitleTexStyle,
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Padding(
+              padding: EdgeInsets.only(left: 15),
+              child: Text(StringResources.recentJobsText,
+                style: CommonStyle.dashboardSectionTitleTexStyle,
+              ),
             ),
-          ],),
-          // Text(StringResources.recentJobsText, style: Theme
-          //     .of(context)
-          //     .textTheme
-          //     .subtitle1,),
-          SizedBox(height: 10,),
-          vm.shouldShowRecentJobsLoader?
-          Shimmer.fromColors(
-            baseColor: Colors.grey[300],
-            highlightColor: Colors.grey[100],
-            enabled: true,
-            child: Container(
-              height: 180,
-              child: Row(children: [
-                Expanded(child: Material(
-                  borderRadius: BorderRadius.circular(4.0),
-                  color: Colors.grey,child: Center(),
-                )),
-                SizedBox(width: 8,),
-                Expanded(child: Material(
-                  borderRadius: BorderRadius.circular(4.0),
-                  color: Colors.grey,child: Center(),
-                )),
-              ],),
-            ),
-          ):
-          Container(
-            height: cardHeight,
-            child: ListView.builder(
-              itemCount: list.length,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                var recentJob = list[index];
-                return listItem(recentJob);
-              },
-            ),
+            RawMaterialButton(
+              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              onPressed: widget.onTapViewAll,
+              child: Text(
+                StringResources.viewAllText,
+                key: Key('recentJobsViewAll'),
+                style: Theme.of(context)
+                    .textTheme
+                    .subtitle1
+                    .apply(color: Colors.blue),
+              ),
+            )
+        ],),
+        // Text(StringResources.recentJobsText, style: Theme
+        //     .of(context)
+        //     .textTheme
+        //     .subtitle1,),
+        SizedBox(height: 10,),
+        vm.shouldShowRecentJobsLoader?
+        Shimmer.fromColors(
+          baseColor: Colors.grey[300],
+          highlightColor: Colors.grey[100],
+          enabled: true,
+          child: Container(
+            height: 180,
+            child: Row(children: [
+              Expanded(child: Material(
+                borderRadius: BorderRadius.circular(4.0),
+                color: Colors.grey,child: Center(),
+              )),
+              SizedBox(width: 8,),
+              Expanded(child: Material(
+                borderRadius: BorderRadius.circular(4.0),
+                color: Colors.grey,child: Center(),
+              )),
+            ],),
           ),
-        ],
-      ),
+        ):
+        Container(
+          height: cardHeight,
+          child: ListView.builder(
+            padding: EdgeInsets.only(left: 10, right: 10, bottom: 15),
+            itemCount: list.length,
+            scrollDirection: Axis.horizontal,
+            itemBuilder: (context, index) {
+              var recentJob = list[index];
+              return listItem(recentJob);
+            },
+          ),
+        ),
+      ],
     );
   }
 

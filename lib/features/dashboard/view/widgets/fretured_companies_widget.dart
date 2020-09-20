@@ -13,62 +13,77 @@ import 'package:p7app/method_extension.dart';
 import 'package:shimmer/shimmer.dart';
 
 class FeaturedCompaniesWidget extends StatelessWidget {
+  Function onTapViewAll;
+
+  FeaturedCompaniesWidget({this.onTapViewAll});
   @override
   Widget build(BuildContext context) {
     var vm = Provider.of<DashboardViewModel>(context);
     var list = vm.featuredCompanies;
-      return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                SizedBox(
-                  width: 8,
-                ),
-                Text(
+      return Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(left: 15),
+                child: Text(
                   StringResources.featuredCompanies,
                   style: CommonStyle.dashboardSectionTitleTexStyle,
                 ),
-              ],
-            ),
-            // Text(StringResources.topCategories,style: Theme.of(context).textTheme.subtitle1,),
-            SizedBox(
-              height: 10,
-            ),
-            vm.shouldShowFeaturedCompanyLoader?
-            Shimmer.fromColors(
-              baseColor: Colors.grey[300],
-              highlightColor: Colors.grey[100],
-              enabled: true,
-              child: Container(
-                height: 180,
-                child: Row(children: [
-                  Expanded(child: Material(
-                    borderRadius: BorderRadius.circular(4.0),
-                    color: Colors.grey,child: Center(),
-                  )),
-                  SizedBox(width: 8,),
-                  Expanded(child: Material(
-                    borderRadius: BorderRadius.circular(4.0),
-                    color: Colors.grey,child: Center(),
-                  )),
-                ],),
               ),
-            ):
-            Container(
+              RawMaterialButton(
+                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                onPressed: onTapViewAll,
+                child: Text(
+                  StringResources.viewAllText,
+                  key: Key('featuredCompanyViewAll'),
+                  style: Theme.of(context)
+                      .textTheme
+                      .subtitle1
+                      .apply(color: Colors.blue),
+                ),
+              )
+            ],
+          ),
+          // Text(StringResources.topCategories,style: Theme.of(context).textTheme.subtitle1,),
+          SizedBox(
+            height: 10,
+          ),
+          vm.shouldShowFeaturedCompanyLoader?
+          Shimmer.fromColors(
+            baseColor: Colors.grey[300],
+            highlightColor: Colors.grey[100],
+            enabled: true,
+            child: Container(
               height: 180,
-              child: ListView.builder(
-                itemCount: list.length,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  var company = list[index];
-                  return listItem(company);
-                },
-              ),
+              child: Row(children: [
+                Expanded(child: Material(
+                  borderRadius: BorderRadius.circular(4.0),
+                  color: Colors.grey,child: Center(),
+                )),
+                SizedBox(width: 8,),
+                Expanded(child: Material(
+                  borderRadius: BorderRadius.circular(4.0),
+                  color: Colors.grey,child: Center(),
+                )),
+              ],),
             ),
-          ],
-        ),
+          ):
+          Container(
+            height: 180,
+            child: ListView.builder(
+              padding: EdgeInsets.only(left: 10, right: 10),
+              itemCount: list.length,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                var company = list[index];
+                return listItem(company);
+              },
+            ),
+          ),
+        ],
       );
 
   }
@@ -78,7 +93,7 @@ class FeaturedCompaniesWidget extends StatelessWidget {
       return SizedBox(
         width: 180,
         child: Padding(
-          padding: const EdgeInsets.only(bottom: 10, right: 5),
+          padding: const EdgeInsets.only(bottom: 5),
           child: Card(
             child: InkWell(
               onTap: (){

@@ -9,7 +9,6 @@ import 'package:p7app/features/notification/views/widgets/notification_tile_widg
 import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/date_format_uitl.dart';
-import 'package:p7app/main_app/util/logger_helper.dart';
 import 'package:p7app/main_app/views/widgets/failure_widget.dart';
 import 'package:p7app/main_app/views/widgets/loader.dart';
 
