@@ -24,10 +24,10 @@ class JobListFilterWidget extends StatefulWidget {
 
 class _JobListFilterWidgetState extends State<JobListFilterWidget>
     with AfterLayoutMixin {
-  double maxSalary = 100000;
+  double maxSalary = 1000000;
   double minSalary = 0;
   double experienceMin = 0;
-  double experienceMax = 10;
+  double experienceMax = 50;
   var _formKey = GlobalKey<FormState>();
   var _jobCityTextController = TextEditingController();
 
