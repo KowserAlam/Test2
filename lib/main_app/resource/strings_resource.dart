@@ -54,7 +54,7 @@ class StringResources {
 
   ///
   static String doneText = "Done";
-  static String dashboardLoginMessage = "To get the best JobXprss experience, please Sign-in.";
+  static String dashboardLoginMessage = "To get the best JobXprss experience, \nplease Sign-in.";
   static String passwordText = "Password";
   static String confirmPasswordText = "Confirm Password";
   static String labelTextFullName = "Full Name";

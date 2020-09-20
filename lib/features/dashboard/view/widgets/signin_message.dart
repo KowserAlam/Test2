@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:p7app/features/auth/view/sign_in_screen.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 
@@ -14,16 +15,15 @@ class SigninMessage extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(StringResources.dashboardLoginMessage,textAlign: TextAlign.center,),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: RaisedButton(
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                    color: Colors.white, onPressed: () {
+              Text(StringResources.dashboardLoginMessage,textAlign: TextAlign.center,style: GoogleFonts.poppins(fontWeight: FontWeight.w800)),
+              SizedBox(height: 8,),
+              RaisedButton(
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                  color: Colors.white, onPressed: () {
 
-                      Get.to(SignInScreen());
-                },child: Text(StringResources.signInButtonText),),
-              ),
+                    Get.to(SignInScreen());
+              },child: Text(StringResources.signInButtonText,style: GoogleFonts.poppins(fontWeight: FontWeight.w400),),),
+              // SizedBox(height: 8,),
             ],
           ),
         ),
