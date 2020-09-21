@@ -46,18 +46,23 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
     Provider.of<AllJobListViewModel>(context, listen: false);
     var filterVM =
     Provider.of<JobListFilterWidgetViewModel>(context, listen: false);
+    Skill skill = filterVM.selectedSkill.name =='-----'? null:filterVM.selectedSkill;
+    String jobCategory = filterVM.selectedCategory=='-----'?'':filterVM.selectedCategory;
+    String qualification = filterVM.selectedQualification =='-----'?'':filterVM.selectedQualification;
+    String datePosted = filterVM.selectedDatePosted == '-----'?'':filterVM.selectedDatePosted;
+
     var filter = JobListFilters(
         salaryMax: filterVM.salaryMax?.round()?.toString() ?? "",
         salaryMin: filterVM.salaryMin?.round()?.toString() ?? "",
         experienceMax: filterVM.experienceMax?.round()?.toString() ?? "",
         experienceMin: filterVM.experienceMin?.round()?.toString() ?? "",
-        skill: filterVM.selectedSkill,
+        skill: skill,
         location: filterVM.selectedLocation ?? "",
-        qualification: filterVM.selectedQualification ?? "",
-        category: filterVM.selectedCategory.isNotEmptyOrNotNull
-            ? filterVM.selectedCategory.replaceFirst("&", "%26")
+        qualification: qualification,
+        category: jobCategory.isNotEmptyOrNotNull
+            ? jobCategory.replaceFirst("&", "%26")
             : "",
-        datePosted: filterVM.selectedDatePosted ?? "",
+        datePosted: datePosted,
         //gender: filterVM.selectedGender ?? "",
         //jobType: filterVM.selectedJobType,
         sort: filterVM.selectedSortBy);
@@ -208,8 +213,7 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
                           onChanged: (value) {
                             jobListFilterWidgetViewModel.selectedSortBy = value;
                           },
-                          selectedItem:
-                          jobListFilterWidgetViewModel.selectedSortBy
+                          selectedItem: jobListFilterWidgetViewModel.selectedSortBy?? SortItem(key: '', value: 'Most Recent')
                       ),
                       spaceBetween,
                       CustomDropdownSearchFormField<String>(
