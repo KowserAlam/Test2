@@ -1,8 +1,6 @@
 
 
-import 'package:p7app/features/user_profile/models/reference_data.dart';
 import 'package:p7app/features/user_profile/views/screens/profile_header_edit_screen.dart';
-import 'package:p7app/main_app/flavour/flavour_config.dart';
 
 class StringResources {
   /// login screen
@@ -54,7 +52,7 @@ class StringResources {
 
   ///
   static String doneText = "Done";
-  static String dashboardLoginMessage = "To get the best JobXprss experience, \nplease Sign-in.";
+  static String dashboardLoginMessage = "To get access to all the great features,\nplease Sign-in.";
   static String passwordText = "Password";
   static String confirmPasswordText = "Confirm Password";
   static String labelTextFullName = "Full Name";
