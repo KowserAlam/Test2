@@ -2,12 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:p7app/features/settings/settings_view_model.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
 import 'package:p7app/main_app/p7_app.dart';
 import 'package:p7app/main_app/util/locator.dart';
-import 'package:p7app/main_app/views/widgets/restart_widget.dart';
-import 'package:provider/provider.dart';
 
 import 'main_app/flavour/flavour_config.dart';
 
