@@ -1,3 +1,4 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -5,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:p7app/features/auth/view/sign_in_screen.dart';
 import 'package:p7app/features/company/view/company_list_screen.dart';
 import 'package:p7app/features/dashboard/view/dash_board.dart';
+import 'package:p7app/features/job/view/all_job_list_screen.dart';
 import 'package:p7app/features/job/view/jobs_screen.dart';
 import 'package:p7app/features/job/view_model/all_job_list_view_model.dart';
 import 'package:p7app/features/job/view_model/job_screen_view_model.dart';
@@ -19,8 +21,11 @@ import 'package:p7app/main_app/push_notification_service/push_notification_servi
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/device_info_util.dart';
 import 'package:p7app/main_app/util/locator.dart';
+import 'package:p7app/main_app/util/logger_helper.dart';
 import 'package:p7app/main_app/util/token_refresh_scheduler.dart';
 import 'package:provider/provider.dart';
+import 'package:uni_links/uni_links.dart';
+import 'package:flutter/services.dart' show PlatformException;
 
 class Home extends StatefulWidget {
 
@@ -54,11 +59,33 @@ class _HomeState extends State<Home> {
     });
     DeviceInfoUtil().getDeviceID();
     DeviceInfoUtil().getDeviceInfo();
+    initUniLinks();
   }
 
 
   _initUserdata() {
     Provider.of<UserProfileViewModel>(context, listen: false).getUserData();
+  }
+
+
+  Future<Null> initUniLinks() async {
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    try {
+      String initialLink = await getInitialLink();
+      // Parse the link and warn the user, if it is not correct,
+      // but keep in mind it could be `null`.
+
+      if(initialLink != null){
+        Get.to(AllJobListScreen());
+      }
+
+      logger.i(initialLink);
+    } on PlatformException catch(e){
+      logger.e(e);
+      BotToast.showText(text: "$e");
+      // Handle exception by warning the user their action did not succeed
+      // return?
+    }
   }
 
   @override
