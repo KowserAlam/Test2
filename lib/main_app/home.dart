@@ -76,10 +76,11 @@ class _HomeState extends State<Home> {
       // but keep in mind it could be `null`.
 
       if(initialLink != null){
+
+        BotToast.showText(text: "$initialLink");
         Get.to(AllJobListScreen());
       }
-
-      logger.i(initialLink);
+      logger.i({"initialLink":initialLink});
     } on PlatformException catch(e){
       logger.e(e);
       BotToast.showText(text: "$e");
