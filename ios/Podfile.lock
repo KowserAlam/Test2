@@ -169,6 +169,8 @@ PODS:
     - Flutter
     - FMDB (~> 2.7.2)
   - TOCropViewController (2.5.4)
+  - uni_links (0.0.1):
+    - Flutter
   - url_launcher (0.0.1):
     - Flutter
   - webview_flutter (0.0.1):
@@ -191,6 +193,7 @@ DEPENDENCIES:
   - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
   - social_share (from `.symlinks/plugins/social_share/ios`)
   - sqflite (from `.symlinks/plugins/sqflite/ios`)
+  - uni_links (from `.symlinks/plugins/uni_links/ios`)
   - url_launcher (from `.symlinks/plugins/url_launcher/ios`)
   - webview_flutter (from `.symlinks/plugins/webview_flutter/ios`)
 
@@ -256,6 +259,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/social_share/ios"
   sqflite:
     :path: ".symlinks/plugins/sqflite/ios"
+  uni_links:
+    :path: ".symlinks/plugins/uni_links/ios"
   url_launcher:
     :path: ".symlinks/plugins/url_launcher/ios"
   webview_flutter:
@@ -304,6 +309,7 @@ SPEC CHECKSUMS:
   social_share: 702a5e3842addd22db515aa9e1e00a4b80a0296d
   sqflite: 4001a31ff81d210346b500c55b17f4d6c7589dd0
   TOCropViewController: 2a1ae1242600b1f2d996fd91a5268b2309a33b5c
+  uni_links: d97da20c7701486ba192624d99bffaaffcfc298a
   url_launcher: 6fef411d543ceb26efce54b05a0a40bfd74cbbef
   webview_flutter: d2b4d6c66968ad042ad94cbb791f5b72b4678a96
 

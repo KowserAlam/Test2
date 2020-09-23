@@ -11,13 +11,10 @@ import 'package:p7app/features/auth/view_models/signup_viewmodel.dart';
 import 'package:p7app/features/career_advice/view_models/career_advice_view_model.dart';
 import 'package:p7app/features/company/view_model/company_list_view_model.dart';
 import 'package:p7app/features/dashboard/view_model/dashboard_view_model.dart';
-import 'package:p7app/features/job/view_model/applied_job_list_view_model.dart';
-import 'package:p7app/features/job/view_model/favourite_job_list_view_model.dart';
-import 'package:p7app/features/job/view_model/job_list_filter_widget_view_model.dart';
 import 'package:p7app/features/job/view_model/all_job_list_view_model.dart';
+import 'package:p7app/features/job/view_model/job_list_filter_widget_view_model.dart';
 import 'package:p7app/features/job/view_model/job_screen_view_model.dart';
 import 'package:p7app/features/messaging/view_mpdel/message_sender_list_screen_view_model.dart';
-import 'package:p7app/features/notification/view_models/notificaion_view_model.dart';
 import 'package:p7app/features/settings/settings_view_model.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
@@ -26,7 +23,6 @@ import 'package:p7app/main_app/flavour/flavour_config.dart';
 import 'package:p7app/main_app/root.dart';
 import 'package:p7app/main_app/util/common_serviec_rule.dart';
 import 'package:p7app/main_app/util/locator.dart';
-import 'package:p7app/main_app/views/widgets/restart_widget.dart';
 import 'package:provider/provider.dart';
 
 class P7App extends StatelessWidget {
@@ -67,6 +63,14 @@ class P7App extends StatelessWidget {
     ];
     var appName = FlavorConfig.appName();
 
+
+    Get.config(
+      enableLog: true,
+      defaultPopGesture: true,
+      defaultTransition: Transition.cupertino,
+      defaultOpaqueRoute: true,
+      defaultDurationTransition: Duration(milliseconds: 180),
+    );
     return MultiProvider(
 
       providers: locators,

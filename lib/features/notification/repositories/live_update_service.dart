@@ -1,14 +1,11 @@
 import 'dart:convert';
 
-import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:p7app/features/notification/models/notification_model.dart';
-import 'package:p7app/features/notification/views/notification_screen.dart';
 import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/util/logger_helper.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:socket_io/socket_io.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class LiveUpdateService {
