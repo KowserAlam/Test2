@@ -57,7 +57,7 @@ dependencies:
   webview_flutter: ^0.3.24
   charts_flutter: ^0.9.0
   shimmer: ^1.1.1
-  percent_indicator: ^2.1.7+1
+  percent_indicator: ^2.1.7+2
   jwt_decode: ^0.1.0
   flutter_cache: ^0.0.6
   flutter_widget_from_html_core: ^0.5.0+3
@@ -83,8 +83,6 @@ dependency_overrides:
       url: https://github.com/memspace/zefyr.git
       path: packages/zefyr
   platform: 3.0.0-nullsafety.1
-  percent_indicator:
-    path: 3rdParty/flutter_percent_indicator
   flutter_widget_from_html_core:
     path: 3rdParty/flutter_widget_from_html_core
 
