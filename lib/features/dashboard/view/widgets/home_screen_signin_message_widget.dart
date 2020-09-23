@@ -20,7 +20,7 @@ class HomeScreenSigninMessageWidget extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: GoogleFonts.poppins(fontWeight: FontWeight.w800)),
               SizedBox(
-                height: 8,
+                height: 4,
               ),
               RaisedButton(
                 shape: RoundedRectangleBorder(
@@ -34,10 +34,13 @@ class HomeScreenSigninMessageWidget extends StatelessWidget {
                     highlightColor: Colors.yellow,
 
                   period : Duration(seconds: 2),
-                    child: Text(
-                  StringResources.signInButtonText,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 16),
+                      child: Text(
+                  StringResources.dashboardLoginPleaseSigning,
                   style: GoogleFonts.poppins(fontWeight: FontWeight.w400),
-                )),
+                ),
+                    )),
               ),
               // SizedBox(height: 8,),
             ],

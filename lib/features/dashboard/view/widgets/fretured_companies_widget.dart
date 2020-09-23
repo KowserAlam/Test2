@@ -48,9 +48,9 @@ class FeaturedCompaniesWidget extends StatelessWidget {
             ],
           ),
           // Text(StringResources.topCategories,style: Theme.of(context).textTheme.subtitle1,),
-          SizedBox(
-            height: 10,
-          ),
+          // SizedBox(
+          //   height: 10,
+          // ),
           vm.shouldShowFeaturedCompanyLoader?
           Shimmer.fromColors(
             baseColor: Colors.grey[300],

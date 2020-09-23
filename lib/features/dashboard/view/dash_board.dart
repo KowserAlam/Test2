@@ -33,16 +33,15 @@ class DashBoard extends StatefulWidget {
   final Function onTapSearch;
   final Function onTapRecentJobs;
   final Function onTapFeaturedCompany;
-  
 
-  DashBoard({
-    Key key,
-    this.onTapFavourite,
-    this.onTapApplied,
-    this.onTapSearch,
-    this.onTapRecentJobs,
-    this.onTapFeaturedCompany
-  }) : super(key: key);
+  DashBoard(
+      {Key key,
+      this.onTapFavourite,
+      this.onTapApplied,
+      this.onTapSearch,
+      this.onTapRecentJobs,
+      this.onTapFeaturedCompany})
+      : super(key: key);
 
   @override
   _DashBoardState createState() => _DashBoardState();
@@ -125,7 +124,8 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(StringResources.homText,
+        title: Text(
+          StringResources.homText,
           key: Key('dashboardAppbarTitle'),
         ),
         actions: [
@@ -187,7 +187,7 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
         child:
 //        dashboardViewModel.shouldShowError ?ListView(children: [errorWidget()]) :
             ListView(
-              key: Key('dashboardListview'),
+          key: Key('dashboardListview'),
           children: [
             if (!isLoggedIn)
               DashboardHeader(
@@ -207,17 +207,18 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
                   JobChartWidget(),
                 ],
               ),
-            if (!isLoggedIn)
-            HomeScreenSigninMessageWidget(),
-               FeaturedCompaniesWidget(onTapViewAll: widget.onTapFeaturedCompany),
-              RecentJobs(onTapViewAll: widget.onTapRecentJobs),
-               // TopCategoriesWidget(),
-              VitalStateWidget(),
-              SizedBox(height: 10),
-              // SizedBox(height: 10),
-              CareerAdviceListHWidget(),
-              SizedBox(height: 10),
-              OtherScreensWidget(),
+            if (!isLoggedIn) HomeScreenSigninMessageWidget(),
+            SizedBox(height: 10),
+            FeaturedCompaniesWidget(onTapViewAll: widget.onTapFeaturedCompany),
+            RecentJobs(onTapViewAll: widget.onTapRecentJobs),
+            // TopCategoriesWidget(),
+            SizedBox(height: 10),
+            VitalStateWidget(),
+            SizedBox(height: 10),
+            // SizedBox(height: 10),
+            CareerAdviceListHWidget(),
+            // SizedBox(height: 5),
+            OtherScreensWidget(),
           ],
         ),
       ),

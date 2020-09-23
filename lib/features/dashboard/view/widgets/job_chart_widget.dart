@@ -32,21 +32,19 @@ class JobChartWidget extends StatelessWidget {
 //      SkillJobChartDataModel(month: "December", total: 60),
 //    ];
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5.0),
-            child: Consumer<UserProfileViewModel>(
-              builder:
-                  (BuildContext context, userProfileViewModel, Widget child) {
-                var dashboardViewModel =
-                    Provider.of<DashboardViewModel>(context);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 5.0),
+          child: Consumer<UserProfileViewModel>(
+            builder:
+                (BuildContext context, userProfileViewModel, Widget child) {
+              var dashboardViewModel =
+                  Provider.of<DashboardViewModel>(context);
 
-                if (userProfileViewModel.shouldShowLoader) {
-                  return SizedBox();
+              if (userProfileViewModel.shouldShowLoader) {
+                return SizedBox();
 //                return Container(
 //                  height: 200,
 //                  child: Padding(
@@ -68,124 +66,99 @@ class JobChartWidget extends StatelessWidget {
 //                            ))),
 //                  ),
 //                );
-                }
+              }
 
-                bool isExpanded = dashboardViewModel.idExpandedSkillList;
-                List<SkillInfo> skillList =
-                    userProfileViewModel?.userData?.skillInfo ?? [];
+              bool isExpanded = dashboardViewModel.idExpandedSkillList;
+              List<SkillInfo> skillList =
+                  userProfileViewModel?.userData?.skillInfo ?? [];
 
-                String skillText = _buildStringFromSkillList(skillList);
+              String skillText = _buildStringFromSkillList(skillList);
 
-                bool hasMoreText = skillText.length > chLength;
-                String skillsString = (isExpanded || !hasMoreText)
-                    ? skillText ?? ""
-                    : "${skillText?.substring(0, chLength)} ...." ?? "";
+              bool hasMoreText = skillText.length > chLength;
+              String skillsString = (isExpanded || !hasMoreText)
+                  ? skillText ?? ""
+                  : "${skillText?.substring(0, chLength)} ...." ?? "";
 
-                if (userProfileViewModel.appError != null) {
-                  return SizedBox();
-                }
+              if (userProfileViewModel.appError != null) {
+                return SizedBox();
+              }
 
-                if (skillList.length == 0) {
-                  return Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: RawMaterialButton(
-                      fillColor: Theme.of(context).backgroundColor,
-                      elevation: 3,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5)),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            StringResources.addSkillText,
-                            style: TextStyle(color: primaryColor),
-                            key: Key('dashboardAddSkillButton'),
-                          ),
-                          Icon(
-                            Icons.add,
-                            color: primaryColor,
-                          )
-                        ],
-                      ),
-                      onPressed: () {
-                        Navigator.of(context).push(CupertinoPageRoute(
-                            builder: (context) => AddEditProfessionalSkill(
-                                  previouslyAddedSkills: skillList,
-                                )));
-                      },
-                    ),
-                  );
-                }
+              if (skillList.length == 0) {
                 return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 2, bottom: 8),
-                        child: Text(
-                          StringResources.monthlyJobsText,
-                          key: Key('dashboardMonthlyJobsTextKey'),
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold),
+                  padding: const EdgeInsets.all(4.0),
+                  child: RawMaterialButton(
+                    fillColor: Theme.of(context).backgroundColor,
+                    elevation: 3,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          StringResources.addSkillText,
+                          style: TextStyle(color: primaryColor),
+                          key: Key('dashboardAddSkillButton'),
                         ),
-                      ),
-                      SizedBox(
-                        height: 2,
-                      ),
-                      Text.rich(TextSpan(children: [
-                        TextSpan(text: "for Skills ($skillsString "),
-                        if (hasMoreText)
-                          WidgetSpan(
-                              child: InkWell(
-                            onTap: () {
-                              dashboardViewModel.idExpandedSkillList =
-                                  !isExpanded;
-                            },
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 3),
-                              child: Text(
-                                !isExpanded
-                                    ? StringResources.seeMoreText
-                                    : StringResources.seeLessText,
-                                style: TextStyle(color: Colors.blue),
-                              ),
-                            ),
-                          )),
-                        TextSpan(text: ")"),
-                      ])),
-//                      if (hasMoreText)
-//                        Padding(
-//                          padding: const EdgeInsets.only(top: 5),
-//                          child: InkWell(
-//                            onTap: () {
-//                              dashboardViewModel.idExpandedSkillList =
-//                                  !isExpanded;
-//                            },
-//                            child: Padding(
-//                              padding: const EdgeInsets.all(3.0),
-//                              child: Row(
-//                                mainAxisAlignment: MainAxisAlignment.center,
-//                                children: [
-//                                  Text(
-//                                    isExpanded
-//                                        ? StringResources.seeLessText
-//                                        : StringResources.seeMoreText,
-//                                    style: TextStyle(color: Colors.blue),
-//                                  ),
-//                                ],
-//                              ),
-//                            ),
-//                          ),
-//                        ),
-                    ],
+                        Icon(
+                          Icons.add,
+                          color: primaryColor,
+                        )
+                      ],
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).push(CupertinoPageRoute(
+                          builder: (context) => AddEditProfessionalSkill(
+                                previouslyAddedSkills: skillList,
+                              )));
+                    },
                   ),
                 );
-              },
-            ),
+              }
+              return Padding(
+                padding: const EdgeInsets.fromLTRB(8, 2, 8, 8),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 2, bottom: 8),
+                      child: Text(
+                        StringResources.monthlyJobsText,
+                        key: Key('dashboardMonthlyJobsTextKey'),
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Text.rich(TextSpan(children: [
+                      TextSpan(text: "for Skills ($skillsString "),
+                      if (hasMoreText)
+                        WidgetSpan(
+                            child: InkWell(
+                          onTap: () {
+                            dashboardViewModel.idExpandedSkillList =
+                                !isExpanded;
+                          },
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 3),
+                            child: Text(
+                              !isExpanded
+                                  ? StringResources.seeMoreText
+                                  : StringResources.seeLessText,
+                              style: TextStyle(color: Colors.blue),
+                            ),
+                          ),
+                        )),
+                      TextSpan(text: ")"),
+                    ])),
+                  ],
+                ),
+              );
+            },
           ),
-          Consumer<DashboardViewModel>(builder:
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 14),
+          child: Consumer<DashboardViewModel>(builder:
               (BuildContext context, dashboardViewModel, Widget child) {
             if (dashboardViewModel.shouldShowJoChartLoader) {
               return Container(
@@ -242,7 +215,8 @@ class JobChartWidget extends StatelessWidget {
             return Column(
               children: [
                 Container(
-                  padding: EdgeInsets.all(8),
+                  padding: EdgeInsets.only(left: 14,bottom: 8),
+                  color: Theme.of(context).backgroundColor,
                   height: chartHeight,
                   child: charts.TimeSeriesChart(
                     seriesList2,
@@ -294,8 +268,8 @@ class JobChartWidget extends StatelessWidget {
               ],
             );
           }),
-        ],
-      ),
+        ),
+      ],
     );
   }
 

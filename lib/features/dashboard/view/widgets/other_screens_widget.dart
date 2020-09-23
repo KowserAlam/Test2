@@ -61,6 +61,7 @@ class OtherScreensWidget extends StatelessWidget {
             ],
           ),
         ),
+        SizedBox(height: 14,),
       ],
     );
   }
