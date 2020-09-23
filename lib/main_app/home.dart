@@ -74,14 +74,14 @@ class _HomeState extends State<Home> {
       // but keep in mind it could be `null`.
 
       if (initialLink != null) {
-        if (initialLink.contains('job_list')) {
+        if (initialLink.contains('job-list')) {
           Get.to(AllJobListScreen());
         }
-        if (initialLink.contains('job_details/')) {
-
-          /// ./adb shell 'am start -W -a android.intent.action.VIEW -c android.intent.category.BROWSABLE -d "unilinks://jobxprss.com/job_details/slug"'
-          var index = initialLink.indexOf('job_details/');
-          var slug = initialLink.substring(index+12);
+        if (initialLink.contains('job-detail/')) {
+          /// ./adb shell 'am start -W -a android.intent.action.VIEW -c android.intent.category.BROWSABLE -d "applink://jobxprss.com/job-detail/slug"'
+          /// applink://jobxprss.com/job-detail/business-development-executive-a7e22381
+          var index = initialLink.indexOf('job-detail/');
+          var slug = initialLink.substring(index+11);
           logger.i({"slug": slug});
           Get.to(JobDetailsScreen(slug: slug));
         }
@@ -91,7 +91,7 @@ class _HomeState extends State<Home> {
       logger.i({"initialLink": initialLink});
     } on PlatformException catch (e) {
       logger.e(e);
-      BotToast.showText(text: "$e");
+      // BotToast.showText(text: "$e");
       // Handle exception by warning the user their action did not succeed
       // return?
     }
