@@ -319,6 +319,7 @@ class UserProfileHeader extends StatelessWidget {
             borderRadius: BorderRadius.circular(5),
             boxShadow: CommonStyle.boxShadow,
           ),
+          margin: EdgeInsets.symmetric(vertical: 10),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Consumer<UserProfileViewModel>(
@@ -410,7 +411,7 @@ class UserProfileHeader extends StatelessWidget {
             ],
           ),
         ),
-        SizedBox(height: 15),
+        SizedBox(height: 23),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8),
           child: aboutMeWidget,
