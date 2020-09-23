@@ -500,7 +500,7 @@ class StringResources {
   static var versionTextLowerCase = "v ";
   static String noExamFoundText = "No exam found !";
 
-  static var homText = "home";
+  static var homText = "Home";
   static var allTheGreatJobsInOnePlace = "All the Great Jobs in One Place!";
   static var findJobsEmploymentText = "Find Jobs, Employment & Career Opportunities";
 

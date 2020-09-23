@@ -153,9 +153,7 @@ class _HomeState extends State<Home> {
                   FontAwesomeIcons.home,
                 ),
               ),
-              title: Text(isLoggedIn
-                  ? StringResources.dashBoardText
-                  : StringResources.homText)),
+              title: Text( StringResources.homText)),
           //jobs
           BottomNavigationBarItem(
               icon: Padding(
