@@ -1,9 +1,8 @@
-import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show PlatformException;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:p7app/features/auth/view/sign_in_screen.dart';
 import 'package:p7app/features/company/view/company_list_screen.dart';
 import 'package:p7app/features/dashboard/view/dash_board.dart';
 import 'package:p7app/features/job/view/all_job_list_screen.dart';
@@ -26,7 +25,6 @@ import 'package:p7app/main_app/util/logger_helper.dart';
 import 'package:p7app/main_app/util/token_refresh_scheduler.dart';
 import 'package:provider/provider.dart';
 import 'package:uni_links/uni_links.dart';
-import 'package:flutter/services.dart' show PlatformException;
 
 class Home extends StatefulWidget {
   Home();

@@ -127,8 +127,7 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          isLoggedIn ? StringResources.dashBoardText : FlavorConfig.appName(),
+        title: Text(StringResources.homText,
           key: Key('dashboardAppbarTitle'),
         ),
         actions: [
