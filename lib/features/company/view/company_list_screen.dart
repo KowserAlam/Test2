@@ -210,7 +210,7 @@ class _CompanyListScreenState extends State<CompanyListScreen>
                   : SizedBox(),
 
               companyViewModel.shouldShowLoader
-                  ? Center(child: Loader())
+                  ? Expanded(child: Center(child: Loader()))
                   : Container(
                       child: companyViewModel.shouldShowAppError
                           ? errorWidget()
