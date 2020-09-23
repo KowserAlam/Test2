@@ -38,6 +38,7 @@ class JobListFilterWidgetViewModel with ChangeNotifier {
       .getList();
   
   List<String> datePostedList = [
+    "-----",
     "Last hour",
     "Last 24 hour",
     "Last 7 days",
@@ -63,7 +64,8 @@ class JobListFilterWidgetViewModel with ChangeNotifier {
   List<String> get jobCity => _jobCity;
 
   set jobCity(List<String> value) {
-    _jobCity = value;
+    _jobCity.add('-----');
+    _jobCity += value;
     notifyListeners();
   }
 
@@ -91,7 +93,9 @@ class JobListFilterWidgetViewModel with ChangeNotifier {
   List<Skill> get skills => _skills;
 
   set skills(List<Skill> value) {
-    _skills = value;
+//    _skills = value;
+    _skills.add(Skill(id: 'none', name: '-----'));
+    _skills += value;
     notifyListeners();
   }
 
@@ -147,19 +151,22 @@ class JobListFilterWidgetViewModel with ChangeNotifier {
   List<String> get jobCategories => _jobCategories;
 
   set jobCategories(List<String> value) {
-    _jobCategories = value;
+    _jobCategories.add('-----');
+    _jobCategories += value;
   }
 
   List<JobType> get jobTypes => _jobTypes;
 
   set jobTypes(List<JobType> value) {
-    _jobTypes = value;
+    _jobTypes.add(JobType(id: '', name: '-----'));
+    _jobTypes += value;
   }
 
   List<String> get qualifications => _qualifications;
 
   set qualifications(List<String> value) {
-    _qualifications = value;
+    _qualifications.add('-----');
+    _qualifications += value;
   }
 
   List<String> get genders => _genders;
