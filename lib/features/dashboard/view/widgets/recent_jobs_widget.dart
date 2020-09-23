@@ -58,7 +58,7 @@ class _RecentJobsState extends State<RecentJobs> {
             child: Container(
               height: cardHeight,
               width: cardWidth,
-              padding: EdgeInsets.all(6),
+              padding: EdgeInsets.symmetric(horizontal: 6),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -181,7 +181,7 @@ class _RecentJobsState extends State<RecentJobs> {
           highlightColor: Colors.grey[100],
           enabled: true,
           child: Container(
-            height: 180,
+            height: cardHeight,
             child: Row(children: [
               Expanded(child: Material(
                 borderRadius: BorderRadius.circular(4.0),
@@ -198,7 +198,7 @@ class _RecentJobsState extends State<RecentJobs> {
         Container(
           height: cardHeight,
           child: ListView.builder(
-            padding: EdgeInsets.only(left: 10, right: 10, bottom: 15),
+            padding: EdgeInsets.only(left: 10, right: 10, bottom: 10),
             itemCount: list.length,
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) {

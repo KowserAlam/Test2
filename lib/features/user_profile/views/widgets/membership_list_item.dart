@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p7app/features/user_profile/models/member_ship_info.dart';
@@ -24,11 +25,25 @@ class MemberShipListItem extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: ListTile(
         contentPadding: EdgeInsets.zero,
-        leading: Container(
-            height: 55,
-            width: 55,
-            color: Theme.of(context).scaffoldBackgroundColor,
-            child: Icon(FontAwesomeIcons.certificate)),
+        leading: CachedNetworkImage(
+          imageUrl: memberShip?.orgName??"",
+          height: 60,
+          width: 60,
+          placeholder: (v,i)=>    Container(
+            padding: EdgeInsets.all(8),
+            decoration: BoxDecoration(
+                color: Colors.grey[100],
+                borderRadius: BorderRadius.circular(5)
+            ),
+            child: Center(
+              child: Icon(
+                FontAwesomeIcons.certificate,
+                size: 45,
+                color: Colors.grey[400],
+              ),
+            ),
+          ),
+        ),
         title: Text(memberShip.orgName??"", key: Key('membershipTileOrganizationName'+index.toString()),),
         subtitle: Text(memberShip.positionHeld??"", key: Key('membershipTilePositionHeld'+index.toString())),
         trailing: !isInEditMode?SizedBox():Row(
