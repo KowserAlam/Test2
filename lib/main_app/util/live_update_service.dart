@@ -2,16 +2,20 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:p7app/features/notification/models/notification_model.dart';
 import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/util/logger_helper.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
-class LiveUpdateService {
-  var notificationUpdate = PublishSubject<NotificationModel>();
+class LiveUpdateService extends GetxController{
+  var  notificationLive = NotificationModel().obs;
 
-  initSocket(BuildContext context) async {
+
+  // var notificationUpdate = PublishSubject<NotificationModel>();
+
+  initSocket() async {
     logger.i("initSocket");
     var token = await AuthService.getInstance()
         .then((value) => value.getUser().accessToken);
@@ -36,7 +40,8 @@ class LiveUpdateService {
         var notificationMap = json.decode(data["text"]);
         logger.i(notificationMap);
         var notification = NotificationModel.fromJson(notificationMap);
-        notificationUpdate.sink.add(notification);
+        notificationLive.value = notification;
+        // notificationUpdate.sink.add(notification);
       }
     });
    // socket.connect();
@@ -45,6 +50,6 @@ class LiveUpdateService {
 
 
   dispose() {
-    notificationUpdate.close();
+    // notificationUpdate.close();
   }
 }

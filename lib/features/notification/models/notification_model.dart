@@ -45,4 +45,9 @@ class NotificationModel extends Equatable {
         recipient,
         isRead
       ];
+
+  @override
+  String toString() {
+    return 'NotificationModel{id: $id, createdBy: $createdBy, createdAt: $createdAt, createdFrom: $createdFrom, title: $title, message: $message, recipient: $recipient, isRead: $isRead}';
+  }
 }

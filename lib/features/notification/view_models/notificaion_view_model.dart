@@ -1,7 +1,7 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:get/get.dart';
 import 'package:p7app/features/notification/models/notification_model.dart';
-import 'package:p7app/features/notification/repositories/live_update_service.dart';
+import 'package:p7app/main_app/util/live_update_service.dart';
 import 'package:p7app/features/notification/repositories/notification_repository.dart';
 import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
@@ -21,7 +21,7 @@ class NotificationViewModel extends GetxController {
     AuthService.getInstance().then((value) => value.isAccessTokenValid()).then((value) {
       if(value){ // if logged in
         getNotifications();
-        listenNotification();
+        // listenNotification();
       }
 
     });
@@ -34,12 +34,13 @@ class NotificationViewModel extends GetxController {
   }
 
   void listenNotification() {
-    logger.i("listening");
-    locator<LiveUpdateService>().notificationUpdate.listen((value) {
-      logger.i(value);
-      if (notifications.map((e) => e.id).contains(value.id)) {
-        var index =
-            notifications.indexWhere((element) => element.id == value.id);
+    logger.i("listenNotification");
+    var liveService = Get.find<LiveUpdateService>();
+
+    liveService.notificationLive.listen((value) {
+      logger.i(value.toString());
+      int index = notifications.indexWhere((element) => element.id == value.id);
+      if (index != -1) {
         notifications.insert(index, value);
       } else {
         _showInAppNotification(value);

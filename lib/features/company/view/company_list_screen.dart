@@ -31,13 +31,13 @@ class _CompanyListScreenState extends State<CompanyListScreen>
 
   @override
   void afterFirstLayout(BuildContext context) {
-
-    var companyViewModel = Provider.of<CompanyListViewModel>(context,listen: false);
-    var isLoggerIn = Provider.of<AuthViewModel>(context,listen: false).isLoggerIn;
+    var companyViewModel =
+        Provider.of<CompanyListViewModel>(context, listen: false);
+    var isLoggerIn =
+        Provider.of<AuthViewModel>(context, listen: false).isLoggerIn;
     if (isLoggerIn) {
-
       var companyViewModel =
-      Provider.of<CompanyListViewModel>(context, listen: false);
+          Provider.of<CompanyListViewModel>(context, listen: false);
       companyViewModel.getCompanyList();
 
       _scrollController.addListener(() {
@@ -46,9 +46,7 @@ class _CompanyListScreenState extends State<CompanyListScreen>
           companyViewModel.getMoreData();
         }
       });
-
     }
-
   }
 
   errorWidget() {
@@ -86,7 +84,6 @@ class _CompanyListScreenState extends State<CompanyListScreen>
     var isLoggerIn = Provider.of<AuthViewModel>(context).isLoggerIn;
     if (!isLoggerIn) {
       return SignInMessageWidget();
-
     }
 
     List<Company> companySuggestion = companyViewModel.companyList == null

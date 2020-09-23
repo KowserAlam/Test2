@@ -11,7 +11,7 @@ import 'package:p7app/features/job/view/jobs_screen.dart';
 import 'package:p7app/features/job/view_model/all_job_list_view_model.dart';
 import 'package:p7app/features/job/view_model/job_screen_view_model.dart';
 import 'package:p7app/features/messaging/view/message_screen.dart';
-import 'package:p7app/features/notification/repositories/live_update_service.dart';
+import 'package:p7app/main_app/util/live_update_service.dart';
 import 'package:p7app/features/notification/view_models/notificaion_view_model.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/features/user_profile/views/screens/profile_screen.dart';
@@ -38,8 +38,10 @@ class _HomeState extends State<Home> {
   var _paeViewController = PageController();
   int currentIndex = 0;
 
+
   @override
   void initState() {
+    Get.put(LiveUpdateService());
     TokenRefreshScheduler.getInstance();
     _init();
     super.initState();
@@ -50,7 +52,10 @@ class _HomeState extends State<Home> {
     Future.delayed(Duration.zero).then((value) {
       var authVM = Provider.of<AuthViewModel>(context, listen: false);
       if (authVM.isLoggerIn) {
-        locator<LiveUpdateService>().initSocket(context);
+
+        Get.find<LiveUpdateService>().initSocket();
+        Get.find<NotificationViewModel>().listenNotification();
+
         locator<PushNotificationService>().initPush();
         _initUserdata();
       }

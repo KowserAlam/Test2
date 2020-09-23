@@ -101,6 +101,15 @@ class _ConversationScreenState extends State<ConversationScreen>
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 12),
                             child: TextField(
+                              onSubmitted: (v){
+                                if (_messageInoutTextEditingController
+                                    .text.isNotEmpty) {
+                                  vm.createMessage(
+                                      _messageInoutTextEditingController.text,
+                                      widget.senderModel.otherPartyUserId);
+                                  _messageInoutTextEditingController.clear();
+                                }
+                              },
                               controller: _messageInoutTextEditingController,
                               decoration: InputDecoration(
                                   hintText:
