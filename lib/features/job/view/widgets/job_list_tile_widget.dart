@@ -143,7 +143,7 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
                 ),
                 Icon(
                   Icons.favorite_border,
-                  color:isFavorite?Colors.black: Colors.grey[600],
+                  color: isFavorite ? Colors.black : Colors.grey[600],
                   size: 25,
                 ),
               ],
@@ -160,31 +160,18 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
     //   key: widget.applyButtonKey,
     // );
     var applyButton = Material(
+      elevation: 4,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       color: Theme.of(context).primaryColor,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 16),
-        child: Text(StringResources.detailsText),
+      child: Container(
+        alignment: Alignment.center,
+        height: 30,
+        width: 80,
+        // padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+        child: Text(StringResources.detailsText, style: TextStyle(
+          fontSize: 15 )),
       ),
     );
-//    var jobType = Row(
-//      children: <Widget>[
-//        Icon(
-//          FontAwesomeIcons.clock,
-//          size: iconSize,
-//          color: AppTheme.orange,
-//        ),
-//        SizedBox(
-//          width: 5,
-//        ),
-//        Text(
-//          widget.jobModel.jobNature != null
-//              ? widget.jobModel.jobNature
-//              : StringUtils.unspecifiedText,
-//          style: TextStyle(color: subtitleColor),
-//        ),
-//      ],
-//    );
     var applicationDeadlineWidget = Row(
       children: <Widget>[
         Icon(FeatherIcons.clock, size: iconSize, color: subtitleColor),
@@ -196,21 +183,23 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
         ),
       ],
     );
-    var publishDate =      (widget.jobModel.postDate == null) ?SizedBox():Row(
-      children: <Widget>[
-        Icon(
-          FeatherIcons.calendar,
-          size: iconSize,
-          color: subtitleColor,
-        ),
-        SizedBox(width: 5),
-        Text(
-          publishDateText,
-          style: subTitleStyle,
-          key: widget.publishedDateKey,
-        ),
-      ],
-    );
+    var publishDate = (widget.jobModel.postDate == null)
+        ? SizedBox()
+        : Row(
+            children: <Widget>[
+              Icon(
+                FeatherIcons.calendar,
+                size: iconSize,
+                color: subtitleColor,
+              ),
+              SizedBox(width: 5),
+              Text(
+                publishDateText,
+                style: subTitleStyle,
+                key: widget.publishedDateKey,
+              ),
+            ],
+          );
 
     return Container(
       key: widget.listTileKey,
@@ -250,8 +239,8 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
                       ],
                     )),
                     SizedBox(width: 8),
-                    if(Provider.of<AuthViewModel>(context).isLoggerIn)
-                    heartButton,
+                    if (Provider.of<AuthViewModel>(context).isLoggerIn)
+                      heartButton,
                   ],
                 ),
               ),
@@ -262,10 +251,9 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-
                     publishDate,
-                    if(widget.jobModel.applicationDeadline != null)
-                    applicationDeadlineWidget,
+                    if (widget.jobModel.applicationDeadline != null)
+                      applicationDeadlineWidget,
                     applyButton,
                   ],
                 ),

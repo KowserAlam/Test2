@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
-import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 
 class ProfileCompletePercentIndicatorWidget extends StatelessWidget {
   final double percent;
