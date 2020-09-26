@@ -26,7 +26,7 @@ class MemberShipListItem extends StatelessWidget {
       child: ListTile(
         contentPadding: EdgeInsets.zero,
         leading: CachedNetworkImage(
-          imageUrl: memberShip?.orgName??"",
+          imageUrl: memberShip?.organization?.image??"",
           height: 60,
           width: 60,
           placeholder: (v,i)=>    Container(

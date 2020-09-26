@@ -1,3 +1,4 @@
+import 'package:p7app/features/user_profile/models/organization.dart';
 import 'package:p7app/method_extension.dart';
 
 class CertificationInfo {
@@ -9,6 +10,7 @@ class CertificationInfo {
   DateTime expiryDate;
   String credentialId;
   String credentialUrl;
+  Organization organization;
 
   CertificationInfo(
       {this.certificationId,
@@ -18,7 +20,8 @@ class CertificationInfo {
         this.issueDate,
         this.expiryDate,
         this.credentialId,
-        this.credentialUrl});
+        this.credentialUrl,
+        this.organization});
 
   CertificationInfo.fromJson(Map<String, dynamic> json) {
     certificationId = json['id'];
@@ -27,6 +30,11 @@ class CertificationInfo {
     hasExpiryPeriod = json['has_expiry_period'];
     credentialId = json['credential_id'];
     credentialUrl = json['credential_url'];
+    if (json['organization_obj'] != null) {
+      organization = json['organization_obj']['id'] != null
+          ? new Organization.fromJson(json['organization_obj'])
+          : null;
+    }
     if(json['issue_date'] != null){
       issueDate = DateTime.parse(json['issue_date']);
     };
@@ -45,6 +53,7 @@ class CertificationInfo {
     data['expiry_date'] = this.expiryDate.toYYYMMDDString;
     data['credential_id'] = this.credentialId;
     data['credential_url'] = this.credentialUrl;
+//    data['organization_obj'] = this.organization;
     return data;
   }
 }
