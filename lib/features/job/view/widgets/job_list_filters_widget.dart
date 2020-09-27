@@ -167,6 +167,7 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
                     ),
                     //reset button
                     RaisedButton(
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                       color: Theme.of(context).primaryColor,
                       child: Text(StringResources.clearAll),
                       key: Key('filterClearAllButtonKey'),
@@ -387,9 +388,10 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: CommonButton(
-                  height: 50,
-                  width: 150,
-                  circularRadius: 7,
+                  fontSize: 14,
+                  height: 40,
+                  width: 140,
+                  circularRadius: 40,
                   onTap: () {
                     _handleApply();
                   },

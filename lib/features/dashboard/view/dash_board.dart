@@ -164,18 +164,13 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
             ),
           if (!isLoggedIn)
             Center(
-                child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: RawMaterialButton(
-                key: Key("dashboardLoginButtonKey"),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20)),
-                onPressed: () {
-                  Navigator.of(context).push(
-                      CupertinoPageRoute(builder: (context) => SignInScreen()));
-                },
-                child: Text(StringResources.signInButtonText),
-              ),
+                child: FlatButton(
+              key: Key("dashboardLoginButtonKey"),
+              onPressed: () {
+                Navigator.of(context).push(
+                    CupertinoPageRoute(builder: (context) => SignInScreen()));
+              },
+              child: Text(StringResources.signInButtonText),
             ))
         ],
       ),
