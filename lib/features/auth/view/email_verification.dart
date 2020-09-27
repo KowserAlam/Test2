@@ -17,7 +17,10 @@ class EmailVerification extends StatelessWidget {
           children: [
             Text(StringResources.verifyEmailMessage, textAlign: TextAlign.center,),
             SizedBox(height: 15,),
-            CommonButton(label: 'OK', onTap: (){
+            CommonButton(
+                width: 200,
+                height: 50,
+                label: 'OK', onTap: (){
               Navigator.pushReplacement(
                   context, MaterialPageRoute(builder: (BuildContext context) => SignInScreen()));
             })
