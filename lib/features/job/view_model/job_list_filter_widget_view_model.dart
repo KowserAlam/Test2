@@ -76,7 +76,9 @@ class JobListFilterWidgetViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  String get selectedCategory => _selectedCategory;
+  String get selectedCategory {
+    return _selectedCategory;
+  }
 
   set selectedCategory(String value) {
     _selectedCategory = value;
@@ -90,12 +92,14 @@ class JobListFilterWidgetViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  List<Skill> get skills => _skills;
+  List<Skill> get skills {
+    List<Skill> customList = [Skill(id: '', name: '-----')];
+    customList += _skills;
+    return customList;
+  }
 
   set skills(List<Skill> value) {
-//    _skills = value;
-    _skills.add(Skill(id: '', name: '-----'));
-    _skills += value;
+    _skills = value;
     notifyListeners();
   }
 
@@ -148,25 +152,30 @@ class JobListFilterWidgetViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  List<String> get jobCategories => _jobCategories;
+  List<String> get jobCategories {
+    List<String> customList = ['-----'];
+    customList += _jobCategories;
+    return customList;
+  }
 
   set jobCategories(List<String> value) {
-    _jobCategories.add('-----');
-    _jobCategories += value;
+    _jobCategories = value;
   }
 
   List<JobType> get jobTypes => _jobTypes;
 
   set jobTypes(List<JobType> value) {
-    _jobTypes.add(JobType(id: '', name: '-----'));
-    _jobTypes += value;
+    _jobTypes = value;
   }
 
-  List<String> get qualifications => _qualifications;
+  List<String> get qualifications {
+    List<String> customList = ['-----'];
+    customList += _qualifications;
+    return customList;
+  }
 
   set qualifications(List<String> value) {
-    _qualifications.add('-----');
-    _qualifications += value;
+    _qualifications = value;
   }
 
   List<String> get genders => _genders;
