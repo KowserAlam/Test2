@@ -28,8 +28,10 @@ class Urls {
   static String professionalReference =
       "/api/professional/professional_reference";
   static String professionalSkillUrl = "/api/professional/professional_skill";
-  static String professionalEducationUrl = "/api/professional/professional_education";
-  static String professionalEducationObjUrl = "/api/professional/professional_education_object";
+  static String professionalEducationUrl =
+      "/api/professional/professional_education";
+  static String professionalEducationObjUrl =
+      "/api/professional/professional_education_object";
   static String professionalMembershipUrl =
       "/api/professional/professional_membership";
   static String professionalCertificationUrl =
@@ -68,6 +70,7 @@ class Urls {
   static String jobDetailsUrl = "/api/job/get/";
   static String favouriteJobAddUrl = "/api/job/favourite/toggle";
   static String applyJobOnlineUrl = "/api/job/apply/";
+  static String applyJobWithNoteUrl = "/api/job_apply/";
 
 //  http://p7.ishraak.com/api/job_list/?page=1&page_size=2
   /// http://dev.ishraak.com/api/job_list/?page=1&q=job&location=&category=
@@ -100,7 +103,8 @@ class Urls {
   static String notificationGetUrl = "/api/notification/get/"; //  id
   static String createMessageListUrl = "/api/employer-message-create/";
   static String messageSenderListUrl = "/api/sender-list/";
-  static String senderMessageListUrl = "/api/sender-message-list/?sender="; //  id 75
+  static String senderMessageListUrl =
+      "/api/sender-message-list/?sender="; //  id 75
   static String messageMarkedReadUrl =
       "/api/employer-message/mark-read/"; //  id
 

@@ -56,7 +56,7 @@ class JobRepository {
 
     try {
       var response = await ApiClient().getRequest(url);
-     logger.i(url);
+      logger.i(url);
       logger.i(response.statusCode);
 //      logger.i(response.body);
       if (response.statusCode == 200) {
@@ -103,18 +103,17 @@ class JobRepository {
   /// JOB Details
   Future<Map<String, dynamic>> _getJobDetailsBody(
       String url, bool forceFromServer) async {
-      var response = await ApiClient().getRequest(url);
-      debugPrint(url);
-      logger.i(response.statusCode);
+    var response = await ApiClient().getRequest(url);
+    debugPrint(url);
+    logger.i(response.statusCode);
 //      logger.i(response.body);
-      if (response.statusCode == 200) {
-        var decodedJson = json.decode(utf8.decode(response.bodyBytes));
-        Cache.remember(url, decodedJson, 30 * 60);
-        return decodedJson;
-      } else {
-        return null;
-      }
-
+    if (response.statusCode == 200) {
+      var decodedJson = json.decode(utf8.decode(response.bodyBytes));
+      Cache.remember(url, decodedJson, 30 * 60);
+      return decodedJson;
+    } else {
+      return null;
+    }
   }
 
   Future<Either<AppError, JobModel>> fetchJobDetails(String slug,
