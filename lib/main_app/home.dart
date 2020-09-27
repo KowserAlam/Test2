@@ -55,7 +55,6 @@ class _HomeState extends State<Home> {
 
         Get.find<LiveUpdateService>().initSocket();
         Get.find<NotificationViewModel>().listenNotification();
-
         locator<PushNotificationService>().initPush();
         _initUserdata();
       }
@@ -215,6 +214,7 @@ class _HomeState extends State<Home> {
         child: Scaffold(
           bottomNavigationBar: bottomNavBar,
           body: PageView(
+            physics: NeverScrollableScrollPhysics(),
             onPageChanged: (index) {
               setState(() {
                 currentIndex = index;

@@ -12,11 +12,13 @@ class CommonButton extends StatelessWidget {
   /// default width 135 for large device and 115 for mobile device
   final double width;
   final double height;
+  final double fontSize;
 
   const CommonButton({
     @required this.label,
     @required this.onTap,
     this.key,
+    this.fontSize = 18,
     this.width = 115,
     this.height = 60,
     this.circularRadius = 60,
@@ -43,7 +45,7 @@ class CommonButton extends StatelessWidget {
             child: Center(
               child: Text(
                 label,
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),
               ),
             ),
           ),
