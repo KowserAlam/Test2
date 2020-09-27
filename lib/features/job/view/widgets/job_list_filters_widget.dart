@@ -46,7 +46,6 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
     Provider.of<AllJobListViewModel>(context, listen: false);
     var filterVM =
     Provider.of<JobListFilterWidgetViewModel>(context, listen: false);
-    Skill skill = filterVM.selectedSkill.name =='-----'? null:filterVM.selectedSkill;
     String jobCategory = filterVM.selectedCategory=='-----'?'':filterVM.selectedCategory;
     String qualification = filterVM.selectedQualification =='-----'?'':filterVM.selectedQualification;
     String datePosted = filterVM.selectedDatePosted == '-----'?'':filterVM.selectedDatePosted;
@@ -56,7 +55,7 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
         salaryMin: filterVM.salaryMin?.round()?.toString() ?? "",
         experienceMax: filterVM.experienceMax?.round()?.toString() ?? "",
         experienceMin: filterVM.experienceMin?.round()?.toString() ?? "",
-        skill: skill,
+        skill: filterVM.selectedSkill,
         location: filterVM.selectedLocation ?? "",
         qualification: qualification,
         category: jobCategory.isNotEmptyOrNotNull

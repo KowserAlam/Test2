@@ -94,7 +94,7 @@ class JobListFilterWidgetViewModel with ChangeNotifier {
 
   set skills(List<Skill> value) {
 //    _skills = value;
-    _skills.add(Skill(id: 'none', name: '-----'));
+    _skills.add(Skill(id: '', name: '-----'));
     _skills += value;
     notifyListeners();
   }
