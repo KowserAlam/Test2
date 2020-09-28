@@ -164,8 +164,8 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
             ),
           if (!isLoggedIn)
             Center(
+                key: Key("dashboardLoginButtonKey"),
                 child: FlatButton(
-              key: Key("dashboardLoginButtonKey"),
               onPressed: () {
                 Navigator.of(context).push(
                     CupertinoPageRoute(builder: (context) => SignInScreen()));
@@ -182,7 +182,7 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
         child:
 //        dashboardViewModel.shouldShowError ?ListView(children: [errorWidget()]) :
             ListView(
-          key: Key('dashboardListview'),
+              key: Key('dashboardListview'),
           children: [
             if (!isLoggedIn)
               DashboardHeader(
