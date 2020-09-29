@@ -6,7 +6,6 @@ import 'package:p7app/features/user_profile/models/portfolio_info.dart';
 import 'package:p7app/main_app/app_theme/common_style.dart';
 import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
-import 'package:p7app/main_app/views/widgets/custom_zefyr_rich_text_from_field.dart';
 
 class PortfolioListItemWidget extends StatefulWidget {
   final PortfolioInfo portfolioInfo;
@@ -58,7 +57,8 @@ class _PortfolioListItemWidgetState extends State<PortfolioListItemWidget> {
               CachedNetworkImage(
                 height: 55,
                 width: 55,
-                imageUrl: widget.portfolioInfo.image ?? "",
+                fit: BoxFit.cover,
+                imageUrl: widget.portfolioInfo.image ?? kPortfolioNetworkImagePlaceholder,
                 placeholder: (context, _) => Image.asset(
                   kImagePlaceHolderAsset,
                   height: 55,

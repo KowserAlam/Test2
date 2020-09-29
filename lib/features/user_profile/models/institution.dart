@@ -14,7 +14,11 @@ class Institution extends Equatable {
     var baseUrl = FlavorConfig.instance?.values?.baseUrl;
     id = json['id'];
     name = json['name']?.toString();
-    image = "$baseUrl${json['image']}";
+
+    if(json['image'] != null){
+      image = "$baseUrl${json['image']}";
+    }
+
   }
 
   Map<String, dynamic> toJson() {
