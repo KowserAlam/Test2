@@ -173,6 +173,40 @@ class JobRepository {
       return false;
     }
   }
+  Future<bool> applyForJobWithNote(Map<String,dynamic> data, {ApiClient apiClient}) async {
+    BotToast.showLoading();
+    // var userId =
+    //     await AuthService.getInstance().then((value) => value.getUser().userId);
+    // var body = {'user_id': userId, 'job_id': jobId};
+
+    try {
+      ApiClient client = apiClient ?? ApiClient();
+      var res = await client.postRequest(Urls.applyJobOnlineUrl, data);
+      logger.i(res.body);
+
+      if (res.statusCode == 200) {
+        BotToast.closeAllLoading();
+        BotToast.showText(
+            text: StringResources.successfullyAppliedText,
+            duration: Duration(seconds: 2));
+        return true;
+      } else {
+        BotToast.closeAllLoading();
+        BotToast.showText(text: StringResources.unableToApplyText);
+        return false;
+      }
+    } on SocketException catch (e) {
+      BotToast.closeAllLoading();
+      BotToast.showText(text: StringResources.unableToReachServerMessage);
+      logger.e(e);
+      return false;
+    } catch (e) {
+      BotToast.closeAllLoading();
+      BotToast.showText(text: StringResources.unableToApplyText);
+      logger.e(e);
+      return false;
+    }
+  }
 
   Future<bool> addToFavorite(String jobId, {ApiClient apiClient}) async {
     BotToast.showLoading();

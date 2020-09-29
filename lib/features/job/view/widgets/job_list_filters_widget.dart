@@ -87,43 +87,6 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
               jobListFilterWidgetViewModel.experienceMin ?? experienceMin,
               jobListFilterWidgetViewModel.experienceMax ?? experienceMax);
 
-          // var qualificationDropDownMenuItems =
-          // jobListFilterWidgetViewModel.qualifications
-          //     .map((e) =>
-          //     DropdownMenuItem<String>(
-          //       key: Key(e),
-          //       value: e,
-          //       child: Text(
-          //         e,
-          //         overflow: TextOverflow.ellipsis,
-          //       ),
-          //     ))
-          //     .toList();
-
-          // var jobTypeDropDownMenuItems = jobListFilterWidgetViewModel.jobTypes
-          //     .map((e) =>
-          //     DropdownMenuItem<JobType>(
-          //       key: Key(e.id),
-          //       value: e,
-          //       child: Text(
-          //         e.name,
-          //         overflow: TextOverflow.ellipsis,
-          //       ),
-          //     ))
-          //     .toList();
-          // var genderDropDownMenuItems = jobListFilterWidgetViewModel.genders
-          //     .map((e) =>
-          //     DropdownMenuItem<String>(
-          //       key: Key(e),
-          //       value: e,
-          //       child: Text(
-          //         e,
-          //         overflow: TextOverflow.ellipsis,
-          //       ),
-          //     ))
-          //     .toList();
-
-
           var datePostedDropDownMenuItems =
           jobListFilterWidgetViewModel.datePostedList
               .map((e) =>

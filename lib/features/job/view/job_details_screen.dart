@@ -27,6 +27,7 @@ import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/date_format_uitl.dart';
 import 'package:p7app/main_app/util/logger_helper.dart';
 import 'package:p7app/main_app/views/widgets/common_prompt_dialog.dart';
+import 'package:p7app/main_app/views/widgets/custom_zefyr_rich_text_from_field.dart';
 import 'package:p7app/main_app/views/widgets/failure_widget.dart';
 import 'package:p7app/main_app/views/widgets/loader.dart';
 import 'package:p7app/method_extension.dart';
@@ -77,6 +78,11 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
   Future<bool> applyForJob(
     String jobId,
   ) async {
+    var data = {
+      "application_notes": "",
+      "job": jobId,
+    };
+
     bool res = await JobRepository().applyForJob(jobId);
     if (widget.onApply != null) widget.onApply();
     return res;
@@ -102,22 +108,36 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
   }
 
   _showApplyDialog() {
+    // ZefyrController _zefyrController = ZefyrController(NotusDocument());
+    // FocusNode _focusNode = FocusNode();
+
     showDialog(
         context: context,
         builder: (context) {
-          return CommonPromptDialog(
-            titleText: StringResources.doYouWantToApplyText,
-            onCancel: () {
-              Navigator.pop(context);
-            },
-            onAccept: () {
-              applyForJob(jobDetails.jobId).then((value) {
-                setState(() {
-                  jobDetails.isApplied = value;
+          return ZefyrScaffold(
+            child: CommonPromptDialog(
+              titleText: StringResources.doYouWantToApplyText,
+              // content: Column(children: [
+              //   ///about
+              //   CustomZefyrRichTextFormField(
+              //     height: 250,
+              //     zefyrKey: Key('myProfileHeaderDescriptionField'),
+              //     focusNode: _focusNode,
+              //     controller: _zefyrController,
+              //   ),
+              // ],),
+              onCancel: () {
+                Navigator.pop(context);
+              },
+              onAccept: () {
+                applyForJob(jobDetails.jobId).then((value) {
+                  setState(() {
+                    jobDetails.isApplied = value;
+                  });
                 });
-              });
-              Navigator.pop(context);
-            },
+                Navigator.pop(context);
+              },
+            ),
           );
         });
     // showDialog(
@@ -379,9 +399,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                     heartButton,
                   ],
                 ),
-                SizedBox(
-                  height: 10
-                ),
+                SizedBox(height: 10),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
@@ -716,24 +734,25 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                 SizedBox(
                   height: 5,
                 ),
-                  if(jobDetails?.company?.webAddress?.isNotEmptyOrNotNull??false)
-                Text.rich(TextSpan(
-                  children: [
-                    TextSpan(text:StringResources.companyWebAddressText + ': ',
-                      style: descriptionFontStyleBold,),
-                    WidgetSpan(child: GestureDetector(
-                        onTap: () {
-                          if(jobDetails?.company?.webAddress != null)
-                               UrlLauncherHelper.launchUrl(
-                              jobDetails.companyProfile.trim());
-
-                        },
-                        child: Text(
-                          jobDetails.company.webAddress ?? "",
-                          style: TextStyle(color: Colors.lightBlue),
-                        )))
-                  ]
-                )),
+                if (jobDetails?.company?.webAddress?.isNotEmptyOrNotNull ??
+                    false)
+                  Text.rich(TextSpan(children: [
+                    TextSpan(
+                      text: StringResources.companyWebAddressText + ': ',
+                      style: descriptionFontStyleBold,
+                    ),
+                    WidgetSpan(
+                        child: GestureDetector(
+                            onTap: () {
+                              if (jobDetails?.company?.webAddress != null)
+                                UrlLauncherHelper.launchUrl(
+                                    jobDetails.companyProfile.trim());
+                            },
+                            child: Text(
+                              jobDetails.company.webAddress ?? "",
+                              style: TextStyle(color: Colors.lightBlue),
+                            )))
+                  ])),
                 // Row(
                 //   mainAxisSize: MainAxisSize.max,
                 //   mainAxisAlignment: MainAxisAlignment.start,

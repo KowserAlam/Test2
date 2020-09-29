@@ -16,6 +16,7 @@ class JobApplyButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     bool isDateExpired = applicationDeadline != null
         ? (applicationDeadline.isBefore(DateTime.now()) &&
             !applicationDeadline.isToday())
@@ -34,6 +35,8 @@ class JobApplyButton extends StatelessWidget {
         textColor = Colors.white;
       }
     }
+
+
     return Tooltip(
       message: "Apply Button",
       child: Material(

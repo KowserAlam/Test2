@@ -51,19 +51,35 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
   @override
   Widget build(BuildContext context) {
     bool isFavorite = widget.jobModel.isFavourite;
-
+    bool isApplied = widget.jobModel.isApplied;
     String publishDateText = widget.jobModel.postDate == null
         ? StringResources.noneText
-        : DateFormatUtil().dateFormat1(widget.jobModel.postDate);
+        : "Posted on ${DateFormatUtil().dateFormat1(widget.jobModel.postDate)}";
 
     String deadLineText = widget.jobModel.applicationDeadline == null
         ? StringResources.noneText
         : DateFormatUtil().dateFormat1(widget.jobModel.applicationDeadline);
-//    bool isDateExpired = widget.jobModel.applicationDeadline != null
-//        ? DateTime.now().isAfter(widget.jobModel.applicationDeadline)
-//        : true;
 
-//    debugPrint("Deadline: ${widget.jobModel.applicationDeadline}\n Today: ${DateTime.now()} \n $isDateExpired");
+    bool isDateExpired = widget.jobModel.applicationDeadline != null
+        ? (widget.jobModel.applicationDeadline.isBefore(DateTime.now()) &&
+        !widget.jobModel.applicationDeadline.isToday())
+        : false;
+
+    bool isAppliedDisabled = isApplied || isDateExpired;
+
+    var buttonColor = Theme.of(context).primaryColor;
+    var textColor = Colors.black;
+
+    if (isApplied) {
+      buttonColor = Colors.blue[200];
+      textColor = Colors.white;
+    } else {
+      if (isDateExpired) {
+        buttonColor = Colors.grey;
+        textColor = Colors.white;
+      }
+    }
+
     bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     var subtitleColor = isDarkMode ? Colors.white : AppTheme.grey;
     var backgroundColor = Theme.of(context).backgroundColor;
@@ -71,7 +87,7 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
 
     var titleStyle = TextStyle(fontSize: 14, fontWeight: FontWeight.w600);
     var subTitleStyle = TextStyle(fontSize: 12, color: subtitleColor);
-    double iconSize = 12;
+    double iconSize = 10;
 //    bool isTabLayout = MediaQuery.of(context).size.width > kMidDeviceScreenSize;
 
     var companyLogo = Container(
@@ -162,19 +178,31 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
     var applyButton = Material(
       elevation: 4,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      color: Theme.of(context).primaryColor,
+      color: buttonColor,
       child: Container(
         alignment: Alignment.center,
         height: 30,
         width: 80,
         // padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
         child: Text(StringResources.detailsText, style: TextStyle(
+          color: textColor,
           fontSize: 15 )),
       ),
     );
     var applicationDeadlineWidget = Row(
       children: <Widget>[
-        Icon(FeatherIcons.clock, size: iconSize, color: subtitleColor),
+        Icon(FontAwesomeIcons.solidClock, size: iconSize, color: subtitleColor),
+        SizedBox(width: 5),
+        Text(
+          deadLineText,
+          style: subTitleStyle,
+          key: widget.deadlineKey,
+        ),
+      ],
+    );
+    var salary = Row(
+      children: <Widget>[
+        Icon(FontAwesomeIcons.moneyBill, size: iconSize, color: subtitleColor),
         SizedBox(width: 5),
         Text(
           deadLineText,
@@ -188,7 +216,7 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
         : Row(
             children: <Widget>[
               Icon(
-                FeatherIcons.calendar,
+                FontAwesomeIcons.solidCalendar,
                 size: iconSize,
                 color: subtitleColor,
               ),
@@ -253,6 +281,7 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
                   children: <Widget>[
                     publishDate,
                     if (widget.jobModel.applicationDeadline != null)
+                      // applicationDeadlineWidget,
                       applicationDeadlineWidget,
                     applyButton,
                   ],
