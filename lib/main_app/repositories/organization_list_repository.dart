@@ -1,40 +1,56 @@
 import 'dart:convert';
-import 'package:dartz/dartz.dart';
+
+import 'package:p7app/features/user_profile/models/organization.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:p7app/main_app/api_helpers/urls.dart';
-import 'package:p7app/main_app/failure/app_error.dart';
 
-class OrganizationListRepository{
+class OrganizationListRepository {
+  Future<List<Organization>> getCertifyingOrganizations(String query) async {
+    try {
+      var res =
+          await ApiClient().getRequest("${Urls.certifyingOrganizationListUrl}?name=$query");
 
-  Future<Either<AppError,List<String>>> getCompanyList() async{
-    try{
-
-      var res = await ApiClient().getRequest(Urls.companyListUrl);
-
-      if(res.statusCode == 200){
+      if (res.statusCode == 200) {
         var decodedJson = json.decode(res.body);
         print(decodedJson);
 
-        List<String> list = fromJson(decodedJson);
-        return Right(list);
-      }else{
-        return Left(AppError.unknownError);
+        List<Organization> list = fromJson(decodedJson);
+        return list;
+      } else {
+        return [];
       }
-
-
-
-    }catch (e){
+    } catch (e) {
       print(e);
 
-      return Left(AppError.serverError);
+      return [];
     }
   }
-  List<String> fromJson(json){
-    List<String> list = [];
-//   List<Map<String,dynamic>> tl = json.cast<Map<String,dynamic>>();
-//    tl.map<String>((e) => e['name']).toList();
+
+  Future<List<Organization>> getMembershipOrganizations(String query) async {
+    try {
+      var res =
+          await ApiClient().getRequest(Urls.membershipOrganizationListUrl);
+
+      if (res.statusCode == 200) {
+        var decodedJson = json.decode(res.body);
+        print(decodedJson);
+
+        List<Organization> list = fromJson(decodedJson);
+        return list;
+      } else {
+        return [];
+      }
+    } catch (e) {
+      print(e);
+
+      return [];
+    }
+  }
+
+  List<Organization> fromJson(json) {
+    List<Organization> list = [];
     json.forEach((element) {
-      list.add(element['name']);
+      list.add(Organization.fromJson(element));
     });
     return list;
   }

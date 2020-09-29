@@ -2,8 +2,11 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:p7app/features/user_profile/models/member_ship_info.dart';
+import 'package:p7app/features/user_profile/models/organization.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
+import 'package:p7app/main_app/repositories/organization_list_repository.dart';
 import 'package:p7app/main_app/views/widgets/common_date_picker_form_field.dart';
+import 'package:p7app/main_app/views/widgets/custom_auto_complete_text_field.dart';
 import 'package:p7app/main_app/views/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/validator.dart';
@@ -25,7 +28,7 @@ class _EditMemberShipsState extends State<EditMemberShips> {
   final _formKey = GlobalKey<FormState>();
   bool _membershipOngoing = true;
   String startDateErrorText, endDateErrorText;
-
+  Organization selectedOrganization;
   //TextEditingController
   final _orgNameController = TextEditingController();
   final _positionHeldController = TextEditingController();
@@ -57,6 +60,8 @@ class _EditMemberShipsState extends State<EditMemberShips> {
       _startDate = widget.membershipInfo.startDate;
       _endDate = widget.membershipInfo.endDate;
       _membershipOngoing = widget.membershipInfo.membershipOngoing ?? false;
+      _orgNameController.text = widget.membershipInfo?.organization?.name ?? widget.membershipInfo.orgName;
+      selectedOrganization = widget.membershipInfo.organization;
     }
     super.initState();
   }
@@ -80,13 +85,13 @@ class _EditMemberShipsState extends State<EditMemberShips> {
       });
     }
   }
+
   bool _validateDate() {
     if (!_membershipOngoing) {
       if (_startDate != null && _endDate != null) {
         bool isIssueDateBeforeExpireDate = _startDate.isBefore(_endDate);
         if (!isIssueDateBeforeExpireDate) {
-          endDateErrorText =
-              StringResources.endDateCanNotBeBeforeIssueDateText;
+          endDateErrorText = StringResources.endDateCanNotBeBeforeIssueDateText;
           setState(() {});
         }
         debugPrint("isBefore:$isIssueDateBeforeExpireDate");
@@ -101,7 +106,6 @@ class _EditMemberShipsState extends State<EditMemberShips> {
 
   bool validate() {
     bool isValid = _formKey.currentState.validate();
-    
 
     setState(() {});
     return isValid && _validateDate();
@@ -117,6 +121,7 @@ class _EditMemberShipsState extends State<EditMemberShips> {
       membershipOngoing: _membershipOngoing,
       startDate: _startDate,
       endDate: !_membershipOngoing ? _endDate : null,
+      organization: selectedOrganization
     );
 
     if (validate()) {
@@ -139,7 +144,10 @@ class _EditMemberShipsState extends State<EditMemberShips> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(StringResources.membershipAppbarText, key: Key('membershipAppbarTitle'),),
+        title: Text(
+          StringResources.membershipAppbarText,
+          key: Key('membershipAppbarTitle'),
+        ),
         actions: <Widget>[
           EditScreenSaveButton(
             text: StringResources.saveText,
@@ -158,22 +166,44 @@ class _EditMemberShipsState extends State<EditMemberShips> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   //Organization Name
-                  CustomTextFormField(
-                    isRequired: true,
-                    validator: Validator().nullFieldValidate,
-                    textFieldKey: Key('membershipOrganizationName'),
-                    keyboardType: TextInputType.text,
-                    focusNode: _orgNameFocusNode,
-                    autofocus: true,
-                    //textInputAction: TextInputAction.next,
-                    onFieldSubmitted: (a) {
-//                      FocusScope.of(context)
-//                          .requestFocus(_positionHeldFocusNode);
-                    },
-                    controller: _orgNameController,
-                    labelText: StringResources.membershipOrgNameText,
-                    hintText: StringResources.membershipOrgNameText,
-                  ),
+                  CustomAutoCompleteTextField<Organization>(
+                      isRequired: true,
+                      validator: Validator().nullFieldValidate,
+                      textFieldKey: Key('membershipOrganizationName'),
+                      focusNode: _orgNameFocusNode,
+                      controller: _orgNameController,
+                      labelText: StringResources.membershipOrgNameText,
+                      hintText: StringResources.membershipOrgNameText,
+                      onSuggestionSelected: (v) {
+                        _orgNameController.text = v.name;
+                        selectedOrganization = v;
+                      },
+                      itemBuilder: (c, o) => ListTile(
+                            title: Text(o?.name ?? ""),
+                          ),
+                      suggestionsCallback: (q) async {
+                        if(q.length<2){
+                          return [];
+                        }
+                        return OrganizationListRepository()
+                              .getMembershipOrganizations(q);
+                      }),
+//                   CustomTextFormField(
+//                     isRequired: true,
+//                     validator: Validator().nullFieldValidate,
+//                     textFieldKey: Key('membershipOrganizationName'),
+//                     keyboardType: TextInputType.text,
+//                     focusNode: _orgNameFocusNode,
+//                     // autofocus: true,
+//                     //textInputAction: TextInputAction.next,
+//                     onFieldSubmitted: (a) {
+// //                      FocusScope.of(context)
+// //                          .requestFocus(_positionHeldFocusNode);
+//                     },
+//                     controller: _orgNameController,
+//                     labelText: StringResources.membershipOrgNameText,
+//                     hintText: StringResources.membershipOrgNameText,
+//                   ),
                   spaceBetweenFields,
                   //Position Held
                   CustomTextFormField(

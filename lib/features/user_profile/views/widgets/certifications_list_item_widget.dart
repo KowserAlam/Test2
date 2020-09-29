@@ -40,7 +40,7 @@ class CertificationsListItemWidget extends StatelessWidget {
             child: Center(
               child: Icon(
                 FontAwesomeIcons.certificate,
-                size: 45,
+                size: 30,
                 color: Colors.grey[400],
               ),
             ),
