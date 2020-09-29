@@ -58,7 +58,7 @@ class _RecentJobsState extends State<RecentJobs> {
             child: Container(
               height: cardHeight,
               width: cardWidth,
-              padding: EdgeInsets.symmetric(horizontal: 6),
+              padding: EdgeInsets.symmetric(horizontal: 6, vertical: 7),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
