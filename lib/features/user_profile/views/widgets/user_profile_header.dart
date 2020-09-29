@@ -327,7 +327,7 @@ class UserProfileHeader extends StatelessWidget {
                 builder: (context, userProfileViewModel, _) {
               var aboutMeText =
                   userProfileViewModel.userData.personalInfo.aboutMe ?? "";
-              if (aboutMeText.htmlToNotusDocument.toPlainText().trim().isEmptyOrNull ?? false)
+              if (aboutMeText?.htmlToNotusDocument?.toPlainText()?.trim()?.isEmptyOrNull ?? false)
                 return FlatButton(
                   onPressed: () {
                     navigateToAboutMeEdit(
