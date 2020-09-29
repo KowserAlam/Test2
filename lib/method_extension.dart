@@ -1,5 +1,6 @@
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p7app/main_app/util/date_format_uitl.dart';
+import 'package:p7app/main_app/views/widgets/custom_zefyr_rich_text_from_field.dart';
 
 extension DateTimeExtension on DateTime {
   String get toYYYMMDDString {
@@ -33,7 +34,16 @@ extension DateTimeExtension on DateTime {
   }
 }
 
+extension NotusDocumentEx on NotusDocument {
+  String get toHTML {
+    return ZeyfrHelper.notusDocumentToHTML(this);
+  }
+}
+
 extension StringExtension on String {
+  NotusDocument get htmlToNotusDocument {
+    return ZeyfrHelper.htmlToNotusDocument(this);
+  }
   bool get isEmptyOrNull {
     if (this != null) {
       return this.isEmpty;

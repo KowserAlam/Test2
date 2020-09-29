@@ -10,14 +10,12 @@ class ZeyfrHelper {
     }
     final converter = NotusHtmlCodec();
     Delta delta = converter.decode("$htmlString\n"); // Zefyr compatible Delta
-    NotusDocument document = NotusDocument.fromDelta(delta); //
+    NotusDocument document = NotusDocument.fromDelta(delta);
     return document;
   }
 
   static String notusDocumentToHTML(NotusDocument notusDocument) {
-
     final converter = NotusHtmlCodec();
-
     String html = converter.encode(notusDocument.toDelta());
     return html;
   }

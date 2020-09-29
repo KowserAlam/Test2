@@ -44,6 +44,8 @@ class Urls {
   static String industryListUrl = "/api/industry/";
   static String companyListUrl = "/api/company/";
   static String genderListUrl = "/api/gender/list";
+  static String certifyingOrganizationListUrl = "/api/professional/certifying_organization/search/"; //?name=Scrum
+  static String membershipOrganizationListUrl = "/api/professional/membership_organization/search/"; //?name=Scrum
 
   static String nationalityListUrl = "/api/professional/nationality/";
   static String religionListUrl = "/api/professional/religion/";

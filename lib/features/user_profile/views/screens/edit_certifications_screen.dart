@@ -1,15 +1,15 @@
-import 'package:bot_toast/bot_toast.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:p7app/features/user_profile/models/certification_info.dart';
+import 'package:p7app/features/user_profile/models/organization.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
-import 'package:p7app/main_app/views/widgets/common_date_picker_form_field.dart';
-import 'package:p7app/main_app/views/widgets/custom_text_from_field.dart';
-import 'package:p7app/main_app/resource/const.dart';
+import 'package:p7app/main_app/repositories/organization_list_repository.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
-import 'package:p7app/main_app/util/date_format_uitl.dart';
 import 'package:p7app/main_app/util/validator.dart';
-import 'package:p7app/main_app/views/widgets/common_button.dart';
+import 'package:p7app/main_app/views/widgets/common_date_picker_form_field.dart';
+import 'package:p7app/main_app/views/widgets/custom_auto_complete_text_field.dart';
+import 'package:p7app/main_app/views/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/views/widgets/edit_screen_save_button.dart';
 import 'package:provider/provider.dart';
 
@@ -30,6 +30,7 @@ class _EditCertificationState extends State<EditCertification> {
   bool hasExpiryDate;
   DateTime _issueDate, _expiryDate;
   String expiryDateErrorText, IssueDateErrorText;
+  Organization selectedOrganization;
 
   //TextEditingController
   final _certificationNameController = TextEditingController();
@@ -96,6 +97,7 @@ class _EditCertificationState extends State<EditCertification> {
           organizationName: _organizationNameController.text,
           credentialUrl: _credentialUrlController.text,
           credentialId: _credentialIdController.text,
+          organization: selectedOrganization,
           hasExpiryPeriod: hasExpiryDate,
           issueDate: _issueDate,
           expiryDate: _expiryDate);
@@ -122,6 +124,9 @@ class _EditCertificationState extends State<EditCertification> {
       _issueDate = widget.certificationInfo.issueDate ?? null;
       _expiryDate = widget.certificationInfo.expiryDate ?? null;
       hasExpiryDate = widget.certificationInfo.hasExpiryPeriod ?? false;
+      _organizationNameController.text = widget.certificationInfo?.organization?.name??
+          widget.certificationInfo.organizationName ?? "";
+      selectedOrganization = widget.certificationInfo.organization;
     }
     super.initState();
   }
@@ -169,19 +174,42 @@ class _EditCertificationState extends State<EditCertification> {
                 ),
                 spaceBetweenFields,
                 //Organization Name
-                CustomTextFormField(
-                  //validator: Validator().nullFieldValidate,
-                  textFieldKey: Key('certificationOrganizationName'),
-                  keyboardType: TextInputType.text,
-                  focusNode: _organizationNameFocusNode,
-                  textInputAction: TextInputAction.next,
-                  onFieldSubmitted: (a) {
-                    FocusScope.of(context).requestFocus(_credentialIdFocusNode);
-                  },
-                  controller: _organizationNameController,
-                  labelText: StringResources.certificationOrganizationNameText,
-                  hintText: StringResources.certificationOrganizationNameText,
-                ),
+                // CustomTextFormField(
+                //   //validator: Validator().nullFieldValidate,
+                //   textFieldKey: Key('certificationOrganizationName'),
+                //   keyboardType: TextInputType.text,
+                //   focusNode: _organizationNameFocusNode,
+                //   textInputAction: TextInputAction.next,
+                //   onFieldSubmitted: (a) {
+                //     FocusScope.of(context).requestFocus(_credentialIdFocusNode);
+                //   },
+                //   controller: _organizationNameController,
+                //   labelText: StringResources.certificationOrganizationNameText,
+                //   hintText: StringResources.certificationOrganizationNameText,
+                // ),
+                CustomAutoCompleteTextField<Organization>(
+                    isRequired: true,
+                    validator: Validator().nullFieldValidate,
+                    textFieldKey: Key('certificationOrganizationName'),
+                    focusNode: _organizationNameFocusNode,
+                    textInputAction: TextInputAction.next,
+                    controller: _organizationNameController,
+                    labelText: StringResources.certificationOrganizationNameText,
+                    hintText: StringResources.certificationOrganizationNameText,
+                    onSuggestionSelected: (v) {
+                      _organizationNameController.text = v.name;
+                      selectedOrganization = v;
+                    },
+                    itemBuilder: (c, o) => ListTile(
+                      title: Text(o?.name ?? ""),
+                    ),
+                    suggestionsCallback: (q) async {
+                      if(q.length<2){
+                        return [];
+                      }
+                      return OrganizationListRepository()
+                          .getCertifyingOrganizations(q);
+                    }),
                 //Credential Id
                 spaceBetweenFields,
                 CustomTextFormField(

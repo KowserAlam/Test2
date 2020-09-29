@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bot_toast/bot_toast.dart';
+import 'package:dartz/dartz.dart' as dartZ;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -8,23 +9,17 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:p7app/main_app/api_helpers/url_launcher_helper.dart';
-import 'package:p7app/main_app/api_helpers/urls.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
-import 'package:p7app/main_app/flavour/flavour_config.dart';
 import 'package:p7app/main_app/models/contact_us_model.dart';
 import 'package:p7app/main_app/models/settings_model.dart';
 import 'package:p7app/main_app/repositories/contact_us_submit_repository.dart';
 import 'package:p7app/main_app/repositories/setting_repository.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/validator.dart';
-import 'package:p7app/main_app/views/widgets/pge_view_widget.dart';
 import 'package:p7app/main_app/views/widgets/common_button.dart';
-import 'package:p7app/main_app/views/widgets/custom_text_field.dart';
 import 'package:p7app/main_app/views/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/views/widgets/loader.dart';
-import 'package:webview_flutter/webview_flutter.dart';
-import 'package:dartz/dartz.dart' as dartZ;
 
 
 class ContactUsScreen extends StatefulWidget {

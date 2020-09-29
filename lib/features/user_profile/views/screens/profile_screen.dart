@@ -53,11 +53,12 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
 
   @override
   void afterFirstLayout(BuildContext context) {
-    var isLoggerIn = Provider.of<AuthViewModel>(context,listen: false).isLoggerIn;
+    var isLoggerIn =
+        Provider.of<AuthViewModel>(context, listen: false).isLoggerIn;
     if (isLoggerIn) {
-    Provider.of<UserProfileViewModel>(context, listen: false)
-        .getUserData(isFormOnPageLoad: true);
-  }
+      Provider.of<UserProfileViewModel>(context, listen: false)
+          .getUserData(isFormOnPageLoad: true);
+    }
   }
 
   Widget userContactInfo(context) => InkWell(
@@ -136,18 +137,14 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
         ],
       );
 
-
-
   @override
   Widget build(BuildContext context) {
-
     var isLoggerIn = Provider.of<AuthViewModel>(context).isLoggerIn;
     if (!isLoggerIn) {
       return SignInMessageWidget();
     }
 
     var primaryColor = Theme.of(context).primaryColor;
-
 
     // widgets
 
@@ -196,6 +193,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
         }),
       );
     });
+
     var educationWidget = Consumer<UserProfileViewModel>(
         builder: (context, userProfileViewModel, _) {
       var eduList = userProfileViewModel.userData.eduInfo;
@@ -461,19 +459,24 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(StringResources.myProfileText, key: Key('myProfileAppbarTitle'),),
+        title: Text(
+          StringResources.myProfileText,
+          key: Key('myProfileAppbarTitle'),
+        ),
         actions: [
           IconButton(
             tooltip: "Share Public Profile",
-
             key: Key('myProfileShareButton'),
             icon: Icon(
               Icons.share,
             ),
             onPressed: () {
-              var userInfo = Provider.of<UserProfileViewModel>(context, listen: false)
-                  .userData.personalInfo;
-              var link = "${FlavorConfig.instance.values.baseUrl}/pro/${userInfo.slug}/";
+              var userInfo =
+                  Provider.of<UserProfileViewModel>(context, listen: false)
+                      .userData
+                      .personalInfo;
+              var link =
+                  "${FlavorConfig.instance.values.baseUrl}/pro/${userInfo.slug}/";
               SocialShare.shareOptions("${userInfo?.fullName}\n $link");
             },
           ),

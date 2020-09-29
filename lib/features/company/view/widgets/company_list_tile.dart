@@ -67,7 +67,7 @@ class _CompanyListTileState extends State<CompanyListTile> {
                         color: scaffoldBackgroundColor,
                       ),
                       child: CachedNetworkImage(
-                        imageUrl: widget.company.profilePicture ?? "",
+                        imageUrl: widget.company.profilePicture ?? kCompanyNetworkImagePlaceholder,
                         placeholder: (context, _) =>
                             Image.asset(kCompanyImagePlaceholder),
                       ),

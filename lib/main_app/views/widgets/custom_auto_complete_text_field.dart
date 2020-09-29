@@ -6,7 +6,6 @@ import 'package:p7app/main_app/app_theme/common_style.dart';
 class CustomAutoCompleteTextField<T> extends StatelessWidget {
   final String labelText;
   final String hintText;
-  final String initialValue;
   final EdgeInsetsGeometry contentPadding;
   final Widget prefix;
   final ValueChanged<T> onChanged;
@@ -21,11 +20,15 @@ class CustomAutoCompleteTextField<T> extends StatelessWidget {
   final WidgetBuilder noItemsFoundBuilder;
   final Key textFieldKey;
   final bool enabled;
+  final FocusNode focusNode;
+  final TextInputAction textInputAction;
+  final ValueChanged<T> onSubmitted;
 
   const CustomAutoCompleteTextField({
     this.noItemsFoundBuilder,
     this.controller,
     this.isRequired = false,
+    this.textInputAction,
     this.maxLength,
     this.validator,
     this.textFieldKey,
@@ -34,7 +37,8 @@ class CustomAutoCompleteTextField<T> extends StatelessWidget {
     this.onChanged,
     this.labelText,
     this.hintText,
-    this.initialValue,
+    this.onSubmitted,
+    this.focusNode,
     this.enabled = true,
     this.contentPadding = const EdgeInsets.symmetric(
       horizontal: 10,
@@ -70,12 +74,13 @@ class CustomAutoCompleteTextField<T> extends StatelessWidget {
             boxShadow: CommonStyle.boxShadow,
           ),
           child: TypeAheadFormField<T>(
-
             key: textFieldKey,
-            initialValue: initialValue,
             textFieldConfiguration: TextFieldConfiguration(
+                textInputAction:textInputAction,
                 controller: controller,
+                onSubmitted: onSubmitted ?? this.onSubmitted,
                 enabled: enabled,
+                focusNode: focusNode,
                 decoration: InputDecoration(
                   enabled: enabled,
                   hintText: hintText,

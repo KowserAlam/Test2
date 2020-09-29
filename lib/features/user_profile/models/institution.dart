@@ -11,10 +11,14 @@ class Institution extends Equatable {
   Institution({this.id, this.name, this.image});
 
   Institution.fromJson(Map<String, dynamic> json) {
-    var baseUrl = FlavorConfig.instance.values.baseUrl;
+    var baseUrl = FlavorConfig.instance?.values?.baseUrl;
     id = json['id'];
     name = json['name']?.toString();
-    image = "$baseUrl${json['image']}";
+
+    if(json['image'] != null){
+      image = "$baseUrl${json['image']}";
+    }
+
   }
 
   Map<String, dynamic> toJson() {

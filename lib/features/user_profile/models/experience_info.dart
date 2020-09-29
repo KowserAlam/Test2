@@ -41,7 +41,10 @@ class ExperienceInfo {
       endDate = DateTime.parse(json['end_date']);
     }
     if (json['company'] != null) {
-      companyProfilePic = "${baseUrl}${json['company']['profile_picture']}";
+      if(json['company']['profile_picture'] != null){
+        companyProfilePic = "$baseUrl${json['company']['profile_picture']}";
+      }
+
     }
   }
 

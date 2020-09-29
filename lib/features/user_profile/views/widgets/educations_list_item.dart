@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:p7app/features/user_profile/models/edu_info.dart';
 import 'package:p7app/main_app/app_theme/common_style.dart';
+import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/date_format_uitl.dart';
 
@@ -40,21 +41,15 @@ class EducationsListItem extends StatelessWidget {
       child: Row(
         children: [
           CachedNetworkImage(
-            imageUrl: eduInfoModel?.institutionObj?.image??"",
-            height: 61,
-            width: 61,
-            placeholder: (v,i)=>    Container(
-              padding: EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                  color: Colors.grey[100],
-                  borderRadius: BorderRadius.circular(5)
-              ),
-              child: Center(
-                child: Icon(
-                  FontAwesomeIcons.university,
-                  size: 45,
-                  color: Colors.grey[400],
-                ),
+            imageUrl: eduInfoModel?.institutionObj?.image??kEducationNetworkImagePlaceholder,
+            height: 55,
+            width: 55,
+            fit: BoxFit.cover,
+            placeholder: (v,i)=>    Center(
+              child: Icon(
+                FontAwesomeIcons.university,
+                size: 55,
+                color: Colors.grey[700],
               ),
             ),
           ),
