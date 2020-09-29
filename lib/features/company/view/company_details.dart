@@ -188,7 +188,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
 //          SizedBox(height: 5,),
 
                 CompanyDetailsFormattedText(
-                    StringResources.companyCityText, companyDetails.city),
+                    StringResources.companyCityText, companyDetails.city.swapValueByComa),
                 SizedBox(height: 5),
 
                 (companyDetails.country.isEmptyOrNull)
