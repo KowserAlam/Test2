@@ -4,18 +4,20 @@ import 'package:zefyr/zefyr.dart';
 export 'package:zefyr/zefyr.dart';
 export 'package:notustohtml/notustohtml.dart';
 export 'package:p7app/main_app/util/zefyr_helper.dart';
+import 'package:p7app/method_extension.dart';
+export  'package:p7app/method_extension.dart';
 
-extension NotusDocumentEx on NotusDocument {
-  String get toHTML {
-    return ZeyfrHelper.notusDocumentToHTML(this);
-  }
-}
+// extension NotusDocumentEx on NotusDocument {
+//   String get toHTML {
+//     return ZeyfrHelper.notusDocumentToHTML(this);
+//   }
+// }
 
-extension StringEx on String {
-  NotusDocument get htmlToNotusDocument {
-    return ZeyfrHelper.htmlToNotusDocument(this);
-  }
-}
+// extension StringEx on String {
+//   NotusDocument get htmlToNotusDocument {
+//     return ZeyfrHelper.htmlToNotusDocument(this);
+//   }
+// }
 
 class CustomZefyrRichTextFormField extends StatelessWidget {
   final ZefyrController controller;

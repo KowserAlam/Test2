@@ -14,6 +14,7 @@ import 'package:p7app/main_app/resource/const.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:provider/provider.dart';
 import 'package:p7app/method_extension.dart';
+import 'package:p7app/main_app/views/widgets/custom_zefyr_rich_text_from_field.dart';
 
 class UserProfileHeader extends StatelessWidget {
   navigateToAboutMeEdit(
@@ -326,7 +327,7 @@ class UserProfileHeader extends StatelessWidget {
                 builder: (context, userProfileViewModel, _) {
               var aboutMeText =
                   userProfileViewModel.userData.personalInfo.aboutMe ?? "";
-              if (aboutMeText.isEmptyOrNull ?? false)
+              if (aboutMeText.htmlToNotusDocument.toPlainText().trim().isEmptyOrNull ?? false)
                 return FlatButton(
                   onPressed: () {
                     navigateToAboutMeEdit(
