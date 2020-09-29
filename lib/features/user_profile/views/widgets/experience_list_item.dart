@@ -50,7 +50,7 @@ class ExperienceListItem extends StatelessWidget {
               width: 55,
               fit: BoxFit.cover,
             ),
-            imageUrl: experienceInfoModel.companyProfilePic ?? "",
+            imageUrl: experienceInfoModel.companyProfilePic ?? kCompanyNetworkImagePlaceholder,
           ),
           SizedBox(
             width: 8,
