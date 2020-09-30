@@ -1,8 +1,14 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:p7app/features/auth/view/sign_in_screen.dart';
 import 'package:p7app/features/job/view/widgets/apply_now_modal_widget.dart';
+import 'package:p7app/main_app/auth_service/auth_view_model.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
+import 'package:p7app/main_app/views/widgets/common_prompt_dialog.dart';
 import 'package:p7app/main_app/views/widgets/custom_zefyr_rich_text_from_field.dart';
 import 'package:p7app/method_extension.dart';
+import 'package:provider/provider.dart';
 
 class JobApplyButton extends StatelessWidget {
   final Function onSuccessfulApply;
@@ -25,6 +31,7 @@ class JobApplyButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isLoggerIn = Provider.of<AuthViewModel>(context).isLoggerIn;
 
     bool isDateExpired = applicationDeadline != null
         ? (applicationDeadline.isBefore(DateTime.now()) &&
@@ -54,9 +61,14 @@ class JobApplyButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         child: InkWell(
           onTap:(){
-            if(!isAppliedDisabled){
-              _showApplyDialog(context);
+            if(!isLoggerIn){
+              _showLoginDialog(context);
+            }else{
+              if(!isAppliedDisabled){
+                _showApplyDialog(context);
+              }
             }
+
           },
           borderRadius: BorderRadius.circular(20),
           child: Container(
@@ -79,6 +91,26 @@ class JobApplyButton extends StatelessWidget {
     );
   }
 
+  _showLoginDialog(context) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return CommonPromptDialog(
+            titleText: StringResources.signInRequiredText,
+            content: Text(StringResources.doYouWantToSingInNowText),
+            onCancel: () {
+              Navigator.pop(context);
+            },
+            onAccept: () {
+
+              Navigator.pop(context);
+              Get.to(SignInScreen());
+              // Navigator.of(context).push(
+              //     CupertinoPageRoute(builder: (context) => SignInScreen()));
+            },
+          );
+        });
+  }
   _showApplyDialog(BuildContext context) {
     showDialog(
         context: context,

@@ -130,68 +130,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
         });
   }
 
-  // _showApplyDialog(JobModel jobDetails) {
-  //   // ZefyrController _zefyrController = ZefyrController(NotusDocument());
-  //   // FocusNode _focusNode = FocusNode();
-  //
-  //   showDialog(
-  //       context: context,
-  //       builder: (context) {
-  //         return ZefyrScaffold(
-  //           child: CommonPromptDialog(
-  //             titleText: StringResources.doYouWantToApplyText,
-  //             // content: Column(children: [
-  //             //   ///about
-  //             //   CustomZefyrRichTextFormField(
-  //             //     height: 250,
-  //             //     zefyrKey: Key('myProfileHeaderDescriptionField'),
-  //             //     focusNode: _focusNode,
-  //             //     controller: _zefyrController,
-  //             //   ),
-  //             // ],),
-  //             onCancel: () {
-  //               Navigator.pop(context);
-  //             },
-  //             onAccept: () {
-  //               applyForJob(jobDetails.jobId).then((value) {
-  //                 setState(() {
-  //                   jobDetails.isApplied = value;
-  //                 });
-  //               });
-  //               Navigator.pop(context);
-  //             },
-  //           ),
-  //         );
-  //       });
-  //   // showDialog(
-  //   //     context: context,
-  //   //     builder: (context) {
-  //   //       return AlertDialog(
-  //   //         title: Text(StringResources.doYouWantToApplyText, key: Key('jobDetailsApplyButtonText'),),
-  //   //         actions: [
-  //   //           RawMaterialButton(
-  //   //             key: Key('jobDetailsApplyNoButton'),
-  //   //             onPressed: () {
-  //   //               Navigator.pop(context);
-  //   //             },
-  //   //             child: Text(StringResources.noText),
-  //   //           ),
-  //   //           RawMaterialButton(
-  //   //             key: Key('jobDetailsApplyYesButton'),
-  //   //             onPressed: () {
-  //   //               applyForJob(jobDetails.jobId).then((value) {
-  //   //                 setState(() {
-  //   //                   jobDetails.isApplied = value;
-  //   //                 });
-  //   //               });
-  //   //               Navigator.pop(context);
-  //   //             },
-  //   //             child: Text(StringResources.yesText),
-  //   //           ),
-  //   //         ],
-  //   //       );
-  //   //     });
-  // }
+
 
   String refactorAboutJobStrings(String value) {
     if (value == 'ONSITE') return 'On-site';
@@ -212,7 +151,6 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
         fontSize: 14, color: !isDarkMode ? Colors.grey[600] : Colors.grey[500]);
     return Obx(() {
       var jobDetails = vm.jobModel.value;
-
       bool isApplied = jobDetails?.isApplied ?? false;
 
       //Widgets
@@ -231,8 +169,9 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                   key: Key('jobDetailsFavoriteButton'),
                   borderRadius: BorderRadius.circular(20),
                   onTap: () {
-                    updateFn(true);
-                    if (isLoggerIn)
+
+                    if (isLoggerIn){
+                      updateFn(true);
                       addToFavorite(jobDetails.jobId).then((value) {
                         if (value) {
                           jobDetails.isFavourite = !jobDetails.isFavourite;
@@ -240,6 +179,8 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                         }
 
                       });
+                    }
+
                     else
                       _showLoginDialog();
                   },
