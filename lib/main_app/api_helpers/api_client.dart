@@ -64,8 +64,10 @@ class ApiClient {
       [Map<String, String> fields]) async {
     var uri = Uri.parse(_buildUrl(url));
     var request = http.MultipartRequest('POST', uri);
-    request.files
-        .add(await http.MultipartFile.fromPath(fileNameKey, file.path));
+    if (file != null) {
+      request.files
+          .add(await http.MultipartFile.fromPath(fileNameKey, file.path));
+    }
     if (fields != null) {
       request.fields.addAll(fields);
     }

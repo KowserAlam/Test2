@@ -6,7 +6,9 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dartz/dartz_unsafe.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_cache/flutter_cache.dart';
+import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:p7app/features/job/models/job_list_model.dart';
 import 'package:p7app/features/job/models/job_model.dart';
@@ -149,7 +151,6 @@ class JobRepository {
       ApiClient client = apiClient ?? ApiClient();
       var res = await client.postRequest(Urls.applyJobOnlineUrl, body);
       logger.i(res.body);
-
       if (res.statusCode == 200) {
         BotToast.closeAllLoading();
         BotToast.showText(
@@ -176,26 +177,36 @@ class JobRepository {
 
   Future<bool> applyForJobWithAttachment(
       Map<String, String> data, File file) async {
-    BotToast.showLoading();
+    // BotToast.showLoading();
     try {
+      logger.i(data);
       ApiClient client = ApiClient();
       var res = await client.postRequestWithFormData(
           Urls.applyJobWithNoteUrl, file, "attachment", data);
-      logger.i(res);
+      logger.i(res.statusCode);
+      var resData = utf8.decode(await res.stream.first);
+      logger.i(resData);
 
-      if (res.statusCode == 200) {
-        BotToast.closeAllLoading();
-        BotToast.showText(
-            text: StringResources.successfullyAppliedText,
-            duration: Duration(seconds: 2));
+
+
+
+      if (res.statusCode == 201) {
+        // BotToast.closeAllLoading();
+        Get.snackbar(StringResources.successfulText, StringResources.successfullyAppliedText,backgroundColor: Colors.green,colorText: Colors.white);
+        // BotToast.showText(
+        //     text: StringResources.successfullyAppliedText,
+        //     duration: Duration(seconds: 2));
         return true;
       } else {
-        BotToast.closeAllLoading();
-        BotToast.showText(text: StringResources.unableToApplyText);
+        // BotToast.closeAllLoading();
+        var decodedData = json.decode(resData);
+        String errorMessage = decodedData["details"]?? StringResources.unableToApplyText;
+        Get.snackbar("Error", errorMessage,backgroundColor: Colors.red,snackPosition: SnackPosition.BOTTOM);
+        // BotToast.showText(text: errorMessage);
         return false;
       }
     } on SocketException catch (e) {
-      BotToast.closeAllLoading();
+      // BotToast.closeAllLoading();
       BotToast.showText(text: StringResources.unableToReachServerMessage);
       logger.e(e);
       return false;

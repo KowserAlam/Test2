@@ -79,6 +79,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
   double iconSize = 14;
   double sectionIconSize = 20;
   Color clockIconColor = Colors.orange;
+  Widget spaceBetweenSections = SizedBox(height: 30);
 
   Text jobSummeryRichText(String title, String description) {
     return Text.rich(
@@ -108,16 +109,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
     return res;
   }
 
-  Future<bool> applyForJob(String jobId) async {
-    var data = {
-      "application_notes": "",
-      "job": jobId,
-    };
 
-    bool res = await JobRepository().applyForJob(jobId);
-    if (widget.onApply != null) widget.onApply();
-    return res;
-  }
 
   _showLoginDialog() {
     showDialog(
@@ -138,81 +130,68 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
         });
   }
 
-  _showApplyDialog(JobModel jobDetails) {
-    // ZefyrController _zefyrController = ZefyrController(NotusDocument());
-    // FocusNode _focusNode = FocusNode();
-
-    showDialog(
-        context: context,
-        builder: (context) {
-          return ZefyrScaffold(
-            child: CommonPromptDialog(
-              titleText: StringResources.doYouWantToApplyText,
-              // content: Column(children: [
-              //   ///about
-              //   CustomZefyrRichTextFormField(
-              //     height: 250,
-              //     zefyrKey: Key('myProfileHeaderDescriptionField'),
-              //     focusNode: _focusNode,
-              //     controller: _zefyrController,
-              //   ),
-              // ],),
-              onCancel: () {
-                Navigator.pop(context);
-              },
-              onAccept: () {
-                applyForJob(jobDetails.jobId).then((value) {
-                  setState(() {
-                    jobDetails.isApplied = value;
-                  });
-                });
-                Navigator.pop(context);
-              },
-            ),
-          );
-        });
-    // showDialog(
-    //     context: context,
-    //     builder: (context) {
-    //       return AlertDialog(
-    //         title: Text(StringResources.doYouWantToApplyText, key: Key('jobDetailsApplyButtonText'),),
-    //         actions: [
-    //           RawMaterialButton(
-    //             key: Key('jobDetailsApplyNoButton'),
-    //             onPressed: () {
-    //               Navigator.pop(context);
-    //             },
-    //             child: Text(StringResources.noText),
-    //           ),
-    //           RawMaterialButton(
-    //             key: Key('jobDetailsApplyYesButton'),
-    //             onPressed: () {
-    //               applyForJob(jobDetails.jobId).then((value) {
-    //                 setState(() {
-    //                   jobDetails.isApplied = value;
-    //                 });
-    //               });
-    //               Navigator.pop(context);
-    //             },
-    //             child: Text(StringResources.yesText),
-    //           ),
-    //         ],
-    //       );
-    //     });
-  }
-
-  String skillListToString(jobDetails) {
-    String listOfSkills = "";
-    if (jobDetails.jobSkills != null)
-      for (int i = 0; i < jobDetails.jobSkills.length; i++) {
-        if (i + 1 == jobDetails.jobSkills.length) {
-          listOfSkills += jobDetails.jobSkills[i];
-        } else {
-          listOfSkills += jobDetails.jobSkills[i] + ", ";
-        }
-      }
-    return listOfSkills;
-  }
+  // _showApplyDialog(JobModel jobDetails) {
+  //   // ZefyrController _zefyrController = ZefyrController(NotusDocument());
+  //   // FocusNode _focusNode = FocusNode();
+  //
+  //   showDialog(
+  //       context: context,
+  //       builder: (context) {
+  //         return ZefyrScaffold(
+  //           child: CommonPromptDialog(
+  //             titleText: StringResources.doYouWantToApplyText,
+  //             // content: Column(children: [
+  //             //   ///about
+  //             //   CustomZefyrRichTextFormField(
+  //             //     height: 250,
+  //             //     zefyrKey: Key('myProfileHeaderDescriptionField'),
+  //             //     focusNode: _focusNode,
+  //             //     controller: _zefyrController,
+  //             //   ),
+  //             // ],),
+  //             onCancel: () {
+  //               Navigator.pop(context);
+  //             },
+  //             onAccept: () {
+  //               applyForJob(jobDetails.jobId).then((value) {
+  //                 setState(() {
+  //                   jobDetails.isApplied = value;
+  //                 });
+  //               });
+  //               Navigator.pop(context);
+  //             },
+  //           ),
+  //         );
+  //       });
+  //   // showDialog(
+  //   //     context: context,
+  //   //     builder: (context) {
+  //   //       return AlertDialog(
+  //   //         title: Text(StringResources.doYouWantToApplyText, key: Key('jobDetailsApplyButtonText'),),
+  //   //         actions: [
+  //   //           RawMaterialButton(
+  //   //             key: Key('jobDetailsApplyNoButton'),
+  //   //             onPressed: () {
+  //   //               Navigator.pop(context);
+  //   //             },
+  //   //             child: Text(StringResources.noText),
+  //   //           ),
+  //   //           RawMaterialButton(
+  //   //             key: Key('jobDetailsApplyYesButton'),
+  //   //             onPressed: () {
+  //   //               applyForJob(jobDetails.jobId).then((value) {
+  //   //                 setState(() {
+  //   //                   jobDetails.isApplied = value;
+  //   //                 });
+  //   //               });
+  //   //               Navigator.pop(context);
+  //   //             },
+  //   //             child: Text(StringResources.yesText),
+  //   //           ),
+  //   //         ],
+  //   //       );
+  //   //     });
+  // }
 
   String refactorAboutJobStrings(String value) {
     if (value == 'ONSITE') return 'On-site';
@@ -294,19 +273,27 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
 
       }
 
-      Widget applyButton = JobApplyButton(
-        key: Key('jobDetailsApplyButton'),
-        isApplied: isApplied,
-        applicationDeadline: jobDetails.applicationDeadline,
-        onPressedApply: () {
-          if (isLoggerIn)
-            _showApplyDialog(jobDetails);
-          else
-            _showLoginDialog();
-        },
-      );
+      Widget applyButton = ValueBuilder<bool>(
+          initialValue: isApplied,
+          builder: (v,updateFn){
+        return JobApplyButton(
+          key: Key('jobDetailsApplyButton'),
+          isApplied: v,
+          applicationDeadline: jobDetails.applicationDeadline,
+          onSuccessfulApply: () {
+            updateFn(true);
+            if(widget.onApply != null)
+            widget.onApply();
+            //
+            // logger.i("Apply succesful");
+            // vm.jobModel.value.isApplied = true;
+            // vm.jobModel.value = vm.jobModel.value;
 
-      Widget spaceBetweenSections = SizedBox(height: 30);
+          }, jobId: jobDetails.jobId, jobTitle: jobDetails.title,
+        );
+      });
+
+
       Widget jobHeader = Container(
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -523,66 +510,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                   ),
                 );
 
-      Widget location() => (jobDetails.jobAddress.isEmptyOrNull &&
-              jobDetails.jobArea.isEmptyOrNull &&
-              jobDetails.jobCity.isEmptyOrNull &&
-              jobDetails.jobCountry.isEmptyOrNull)
-          ? SizedBox()
-          : Container(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  spaceBetweenSections,
-                  Row(
-                    children: <Widget>[
-                      FaIcon(
-                        Icons.pin_drop,
-                        size: fontAwesomeIconSize,
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        StringResources.jobLocation,
-                        style: sectionTitleFont,
-                      )
-                    ],
-                  ),
-                  SizedBox(height: 5),
-                  jobSummeryRichText(
-                      StringResources.jobAddressText,
-                      jobDetails.jobAddress != null
-                          ? jobDetails.jobAddress
-                          : StringResources.noneText),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  jobSummeryRichText(
-                      StringResources.jobAreaText,
-                      jobDetails.jobArea != null
-                          ? jobDetails.jobArea
-                          : StringResources.noneText),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  jobSummeryRichText(
-                      StringResources.jobCityText,
-                      jobDetails.jobCity != null
-                          ? jobDetails.jobCity.swapValueByComa
-                          : StringResources.noneText),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  (jobDetails.jobCountry.isEmptyOrNull)
-                      ? SizedBox()
-                      : jobSummeryRichText(StringResources.jobCountryText,
-                          jobDetails.jobCountry),
-                  SizedBox(
-                    height: 5,
-                  ),
-                ],
-              ),
-            );
+
 
       Widget aboutJob() => (jobDetails.jobType.isEmptyOrNull &&
               jobDetails.jobSite.isEmptyOrNull &&
@@ -822,38 +750,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
               ],
             );
 
-      Widget requiredSkills() => skillListToString(jobDetails).isEmptyOrNull
-          ? SizedBox()
-          : Container(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  spaceBetweenSections,
-                  Row(
-                    children: <Widget>[
-                      FaIcon(
-                        FontAwesomeIcons.tools,
-                        size: fontAwesomeIconSize,
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        StringResources.requiredSkills,
-                        style: sectionTitleFont,
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Text(
-                    skillListToString(jobDetails),
-                    style: descriptionFontStyle,
-                  )
-                ],
-              ),
-            );
+
 
       bool hideSalary = (jobDetails.salary == null &&
           jobDetails.salaryMin == null &&
@@ -1142,10 +1039,10 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                             aboutJob(),
                             description(),
                             responsibilities(),
-                            requiredSkills(),
+                            requiredSkills(jobDetails),
                             education(),
                             additionalRequirements(),
-                            location(),
+                            location(jobDetails),
                             aboutCompany(),
                             benefitsHeader,
                           ],
@@ -1194,4 +1091,101 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
       );
     });
   }
+
+  Widget requiredSkills(JobModel jobDetails) {
+    var skillsString = jobDetails?.jobSkills?.join(", ");
+
+    return skillsString.isEmptyOrNull
+        ? SizedBox()
+        : Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          spaceBetweenSections,
+          Row(
+            children: <Widget>[
+              FaIcon(
+                FontAwesomeIcons.tools,
+                size: fontAwesomeIconSize,
+              ),
+              SizedBox(
+                width: 5,
+              ),
+              Text(
+                StringResources.requiredSkills,
+                style: sectionTitleFont,
+              )
+            ],
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          Text(
+            skillsString??"",
+            style: descriptionFontStyle,
+          )
+        ],
+      ),
+    );
+  }
+  Widget location(JobModel jobDetails) => (jobDetails.jobAddress.isEmptyOrNull &&
+      jobDetails.jobArea.isEmptyOrNull &&
+      jobDetails.jobCity.isEmptyOrNull &&
+      jobDetails.jobCountry.isEmptyOrNull)
+      ? SizedBox()
+      : Container(
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        spaceBetweenSections,
+        Row(
+          children: <Widget>[
+            FaIcon(
+              Icons.pin_drop,
+              size: fontAwesomeIconSize,
+            ),
+            SizedBox(
+              width: 5,
+            ),
+            Text(
+              StringResources.jobLocation,
+              style: sectionTitleFont,
+            )
+          ],
+        ),
+        SizedBox(height: 5),
+        jobSummeryRichText(
+            StringResources.jobAddressText,
+            jobDetails.jobAddress != null
+                ? jobDetails.jobAddress
+                : StringResources.noneText),
+        SizedBox(
+          height: 5,
+        ),
+        jobSummeryRichText(
+            StringResources.jobAreaText,
+            jobDetails.jobArea != null
+                ? jobDetails.jobArea
+                : StringResources.noneText),
+        SizedBox(
+          height: 5,
+        ),
+        jobSummeryRichText(
+            StringResources.jobCityText,
+            jobDetails.jobCity != null
+                ? jobDetails.jobCity.swapValueByComa
+                : StringResources.noneText),
+        SizedBox(
+          height: 5,
+        ),
+        (jobDetails.jobCountry.isEmptyOrNull)
+            ? SizedBox()
+            : jobSummeryRichText(StringResources.jobCountryText,
+            jobDetails.jobCountry),
+        SizedBox(
+          height: 5,
+        ),
+      ],
+    ),
+  );
 }

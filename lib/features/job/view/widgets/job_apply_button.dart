@@ -1,18 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:p7app/features/job/view/widgets/apply_now_modal_widget.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
+import 'package:p7app/main_app/views/widgets/custom_zefyr_rich_text_from_field.dart';
 import 'package:p7app/method_extension.dart';
 
 class JobApplyButton extends StatelessWidget {
-  final Function onPressedApply;
+  final Function onSuccessfulApply;
   final DateTime applicationDeadline;
   final bool isApplied;
+  final String jobId;
+  final String jobTitle;
+
 
   const JobApplyButton({
-    @required this.onPressedApply,
+    @required this.onSuccessfulApply,
     @required this.applicationDeadline,
     @required this.isApplied,
+    @required this.jobTitle,
+    @required this.jobId,
     Key key,
   }) : super(key: key);
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +53,11 @@ class JobApplyButton extends StatelessWidget {
         color: buttonColor,
         borderRadius: BorderRadius.circular(20),
         child: InkWell(
-          onTap: isAppliedDisabled ? () {} : onPressedApply,
+          onTap:(){
+            if(!isAppliedDisabled){
+              _showApplyDialog(context);
+            }
+          },
           borderRadius: BorderRadius.circular(20),
           child: Container(
             height: 30,
@@ -64,5 +77,13 @@ class JobApplyButton extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  _showApplyDialog(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return ApplyNowModalWidget(jobTitle,jobId,onSuccessfulApply);
+        });
   }
 }

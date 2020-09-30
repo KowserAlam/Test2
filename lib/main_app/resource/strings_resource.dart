@@ -522,6 +522,8 @@ class StringResources {
   static const String negotiableText = "Negotiable";
   static const String deadlineText = "Deadline";
   static const String applyText = "Apply";
+  static const String applyTextCaps = "APPLY";
+  static const String applyNowText = "Apply Now";
   static const String applyFilterText = "Apply Filter";
   static const String appliedText = "Applied";
 
@@ -534,6 +536,7 @@ class StringResources {
   static const String contactUsText = "Contact Us";
   static const String faqText = "FAQ";
   static const String successfullyAppliedText = "Successfully Applied";
+  static const String successfulText = "Successful";
   static const String savedText = "Saved";
   static const String typeToSearch = "Type to search";
   static const String noJobsFound = "No jobs found";
@@ -603,6 +606,7 @@ class StringResources {
   static const String typeHereText = 'Type Here';
   static const String searchHere = 'Search here';
   static const String applicationDeadline = 'Deadline: ';
+  static const String applicationNoteText = 'Application Note';
   static const String requiredSkills = 'Skill Requirement';
   static const String benefitSectionTitle = 'Benefits';
   static const String jobSource = 'Job Source';
