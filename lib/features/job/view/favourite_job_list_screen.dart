@@ -133,7 +133,7 @@ class _FavouriteJobListScreenState extends State<FavouriteJobListScreen> {
                                             _showApplyForJobDialog(job, index);
                                           },
                                           onFavorite: () {
-                                            vm
+                                            return vm
                                                 .addToFavorite(job.jobId, index)
                                                 .then((value) {
                                               return vm.refresh();

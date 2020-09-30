@@ -130,6 +130,9 @@ class _SimilarJobsWidgetState extends State<SimilarJobsWidget> {
                         if (isSuccessful) {
                           _jobs[index].isFavourite = !_jobs[index].isFavourite;
                           if (this.mounted) setState(() {});
+                          return true;
+                        }else{
+                          return false;
                         }
                       },
                       onTap: () {

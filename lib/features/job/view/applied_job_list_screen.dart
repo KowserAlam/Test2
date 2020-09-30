@@ -110,7 +110,7 @@ class _AppliedJobListScreenState extends State<AppliedJobListScreen> {
                                               'appliedJobsListFavoriteButtonKey' +
                                                   index.toString()),
                                           onFavorite: () {
-                                            vm
+                                            return vm
                                                 .addToFavorite(job.jobId, index)
                                                 .then((value) {
                                               return vm.refresh();

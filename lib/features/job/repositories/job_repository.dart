@@ -173,16 +173,15 @@ class JobRepository {
       return false;
     }
   }
-  Future<bool> applyForJobWithNote(Map<String,dynamic> data, {ApiClient apiClient}) async {
-    BotToast.showLoading();
-    // var userId =
-    //     await AuthService.getInstance().then((value) => value.getUser().userId);
-    // var body = {'user_id': userId, 'job_id': jobId};
 
+  Future<bool> applyForJobWithAttachment(
+      Map<String, String> data, File file) async {
+    BotToast.showLoading();
     try {
-      ApiClient client = apiClient ?? ApiClient();
-      var res = await client.postRequest(Urls.applyJobOnlineUrl, data);
-      logger.i(res.body);
+      ApiClient client = ApiClient();
+      var res = await client.postRequestWithFormData(
+          Urls.applyJobWithNoteUrl, file, "attachment", data);
+      logger.i(res);
 
       if (res.statusCode == 200) {
         BotToast.closeAllLoading();
@@ -209,7 +208,6 @@ class JobRepository {
   }
 
   Future<bool> addToFavorite(String jobId, {ApiClient apiClient}) async {
-    BotToast.showLoading();
     var userId =
         await AuthService.getInstance().then((value) => value.getUser().userId);
     var body = {'user_id': userId, 'job_id': jobId};
@@ -220,20 +218,16 @@ class JobRepository {
       logger.i(res.body);
 
       if (res.statusCode == 200) {
-        BotToast.closeAllLoading();
         return true;
       } else {
-        BotToast.closeAllLoading();
         BotToast.showText(text: StringResources.unableToAddAsFavoriteText);
         return false;
       }
     } on SocketException catch (e) {
-      BotToast.closeAllLoading();
       BotToast.showText(text: StringResources.unableToReachServerMessage);
       logger.e(e);
       return false;
     } catch (e) {
-      BotToast.closeAllLoading();
       BotToast.showText(text: StringResources.unableToAddAsFavoriteText);
       logger.e(e);
       return false;

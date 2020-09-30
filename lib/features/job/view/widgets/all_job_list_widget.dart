@@ -7,7 +7,6 @@ import 'package:p7app/features/job/view/widgets/job_list_tile_widget.dart';
 import 'package:p7app/features/job/view_model/all_job_list_view_model.dart';
 import 'package:p7app/main_app/auth_service/auth_view_model.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
-import 'package:p7app/main_app/views/widgets/common_prompt_dialog.dart';
 import 'package:p7app/main_app/views/widgets/loader.dart';
 import 'package:provider/provider.dart';
 
@@ -89,32 +88,32 @@ class AllJobListWidget extends StatelessWidget {
                       )));
             },
             onFavorite: () {
-              jobListViewModel.addToFavorite(job.jobId, index);
+              return jobListViewModel.addToFavorite(job.jobId, index);
             },
-            onApply: job.isApplied
-                ? null
-                : () {
-                    _showApplyForJobDialog(context, job, index);
-                  },
+            // onApply: job.isApplied
+            //     ? null
+            //     : () {
+            //         _showApplyForJobDialog(context, job, index);
+            //       },
           );
         });
   }
 
-  _showApplyForJobDialog(context, JobListModel jobModel, int index) {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return CommonPromptDialog(
-            titleText: StringResources.doYouWantToApplyText,
-            onCancel: () {
-              Navigator.pop(context);
-            },
-            onAccept: () {
-              Provider.of<AllJobListViewModel>(context, listen: false)
-                  .applyForJob(jobModel.jobId, index);
-              Navigator.pop(context);
-            },
-          );
-        });
-  }
+  // _showApplyForJobDialog(context, JobListModel jobModel, int index) {
+  //   showDialog(
+  //       context: context,
+  //       builder: (context) {
+  //         return CommonPromptDialog(
+  //           titleText: StringResources.doYouWantToApplyText,
+  //           onCancel: () {
+  //             Navigator.pop(context);
+  //           },
+  //           onAccept: () {
+  //             Provider.of<AllJobListViewModel>(context, listen: false)
+  //                 .applyForJob(jobModel.jobId, index);
+  //             Navigator.pop(context);
+  //           },
+  //         );
+  //       });
+  // }
 }

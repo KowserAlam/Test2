@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:p7app/features/job/models/job_list_model.dart';
 import 'package:p7app/features/job/models/job_model.dart';
 import 'package:p7app/main_app/app_theme/common_style.dart';
@@ -16,11 +17,11 @@ import 'package:provider/provider.dart';
 
 import 'job_apply_button.dart';
 
-class JobListTileWidget extends StatefulWidget {
+class JobListTileWidget extends StatelessWidget {
   final JobListModel jobModel;
   final Function onTap;
   final Function onApply;
-  final Function onFavorite;
+  final Future Function() onFavorite;
   final int index;
   final Key listTileKey,
       applyButtonKey,
@@ -44,25 +45,20 @@ class JobListTileWidget extends StatefulWidget {
   });
 
   @override
-  _JobListTileWidgetState createState() => _JobListTileWidgetState();
-}
-
-class _JobListTileWidgetState extends State<JobListTileWidget> {
-  @override
   Widget build(BuildContext context) {
-    bool isFavorite = widget.jobModel.isFavourite;
-    bool isApplied = widget.jobModel.isApplied;
-    String publishDateText = widget.jobModel.postDate == null
+    bool isFavorite = jobModel.isFavourite;
+    bool isApplied = jobModel.isApplied;
+    String publishDateText = jobModel.postDate == null
         ? StringResources.noneText
-        : "Posted on ${DateFormatUtil().dateFormat1(widget.jobModel.postDate)}";
+        : "Posted on ${DateFormatUtil().dateFormat1(jobModel.postDate)}";
 
-    String deadLineText = widget.jobModel.applicationDeadline == null
+    String deadLineText = jobModel.applicationDeadline == null
         ? StringResources.noneText
-        : DateFormatUtil().dateFormat1(widget.jobModel.applicationDeadline);
+        : DateFormatUtil().dateFormat1(jobModel.applicationDeadline);
 
-    bool isDateExpired = widget.jobModel.applicationDeadline != null
-        ? (widget.jobModel.applicationDeadline.isBefore(DateTime.now()) &&
-        !widget.jobModel.applicationDeadline.isToday())
+    bool isDateExpired = jobModel.applicationDeadline != null
+        ? (jobModel.applicationDeadline.isBefore(DateTime.now()) &&
+            !jobModel.applicationDeadline.isToday())
         : false;
 
     bool isAppliedDisabled = isApplied || isDateExpired;
@@ -97,20 +93,21 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
         color: scaffoldBackgroundColor,
       ),
       child: CachedNetworkImage(
-        imageUrl: widget.jobModel.profilePicture ?? kCompanyNetworkImagePlaceholder,
+        imageUrl:
+            jobModel.profilePicture ?? kCompanyNetworkImagePlaceholder,
         placeholder: (context, _) => Image.asset(kCompanyImagePlaceholder),
       ),
     ); //That pointless fruit logo
     var jobTitle = Text(
-      widget.jobModel.title ?? "",
+      jobModel.title ?? "",
       style: titleStyle,
-      key: Key('jobTileJobTitle' + widget.index.toString()),
+      key: Key('jobTileJobTitle' + index.toString()),
       maxLines: 3,
       overflow: TextOverflow.ellipsis,
     );
     var companyName = Text(
-      widget.jobModel.companyName ?? "",
-      key: Key('jobTileCompanyName' + widget.index.toString()),
+      jobModel.companyName ?? "",
+      key: Key('jobTileCompanyName' + index.toString()),
       style: subTitleStyle,
     );
     var companyLocation = Container(
@@ -126,54 +123,69 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
           ),
           Expanded(
             child: Text(
-              widget.jobModel.jobCity.swapValueByComa ?? "",
+              jobModel.jobCity.swapValueByComa ?? "",
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: subTitleStyle,
-              key: widget.companyLocationKey,
+              key: companyLocationKey,
             ),
           )
         ],
       ),
     );
-    var heartButton = Material(
-      color: Colors.transparent,
-      borderRadius: BorderRadius.circular(20),
-      child: Tooltip(
-        message: isFavorite
-            ? StringResources.removeFromFavoriteText
-            : StringResources.addToFavoriteText,
-        child: InkWell(
-          borderRadius: BorderRadius.circular(20),
-          onTap: widget.onFavorite,
-          child: Padding(
+    var heartButton = ValueBuilder<bool>(
+        initialValue: false,
+        builder: (bool v, updateFn) {
+      return Material(
+        color: Colors.transparent,
+        borderRadius: BorderRadius.circular(20),
+        child: Tooltip(
+          message: isFavorite
+              ? StringResources.removeFromFavoriteText
+              : StringResources.addToFavoriteText,
+          child: v? Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                Icon(
-                  Icons.favorite,
-                  key: widget.favoriteButtonKey,
-                  color: isFavorite ? AppTheme.colorPrimary : Colors.white,
-                  size: 25,
-                ),
-                Icon(
-                  Icons.favorite_border,
-                  color: isFavorite ? Colors.black : Colors.grey[600],
-                  size: 25,
-                ),
-              ],
+            child: Loader(),
+          ):InkWell(
+            borderRadius: BorderRadius.circular(20),
+            onTap: (){
+              if( onFavorite != null){
+                updateFn(true);
+                onFavorite().then((value) {
+                  updateFn(false);
+                });
+              }
+
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  Icon(
+                    Icons.favorite,
+                    key: favoriteButtonKey,
+                    color: isFavorite ? AppTheme.colorPrimary : Colors.white,
+                    size: 25,
+                  ),
+                  Icon(
+                    Icons.favorite_border,
+                    color: isFavorite ? Colors.black : Colors.grey[600],
+                    size: 25,
+                  ),
+                ],
+              ),
             ),
           ),
         ),
-      ),
-    );
+      );
+    });
 
     // var applyButton = JobApplyButton(
-    //   applicationDeadline: widget.jobModel.applicationDeadline,
-    //   onPressedApply: widget.onApply,
-    //   isApplied: widget.jobModel.isApplied,
-    //   key: widget.applyButtonKey,
+    //   applicationDeadline: jobModel.applicationDeadline,
+    //   onPressedApply: onApply,
+    //   isApplied: jobModel.isApplied,
+    //   key: applyButtonKey,
     // );
     var applyButton = Material(
       elevation: 4,
@@ -184,9 +196,8 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
         height: 30,
         width: 80,
         // padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-        child: Text(StringResources.detailsText, style: TextStyle(
-          color: textColor,
-          fontSize: 15 )),
+        child: Text(StringResources.detailsText,
+            style: TextStyle(color: textColor, fontSize: 15)),
       ),
     );
     var applicationDeadlineWidget = Row(
@@ -196,7 +207,7 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
         Text(
           deadLineText,
           style: subTitleStyle,
-          key: widget.deadlineKey,
+          key: deadlineKey,
         ),
       ],
     );
@@ -207,11 +218,11 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
         Text(
           deadLineText,
           style: subTitleStyle,
-          key: widget.deadlineKey,
+          key: deadlineKey,
         ),
       ],
     );
-    var publishDate = (widget.jobModel.postDate == null)
+    var publishDate = (jobModel.postDate == null)
         ? SizedBox()
         : Row(
             children: <Widget>[
@@ -224,13 +235,13 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
               Text(
                 publishDateText,
                 style: subTitleStyle,
-                key: widget.publishedDateKey,
+                key: publishedDateKey,
               ),
             ],
           );
 
     return Container(
-      key: widget.listTileKey,
+      key: listTileKey,
       decoration: BoxDecoration(
           color: scaffoldBackgroundColor, boxShadow: CommonStyle.boxShadow
 //        borderRadius: BorderRadius.circular(5),
@@ -244,7 +255,7 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
       child: Material(
         color: backgroundColor,
         child: InkWell(
-          onTap: widget.onTap,
+          onTap: onTap,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -263,7 +274,7 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
                         SizedBox(height: 3),
                         companyName,
                         SizedBox(height: 3),
-                        if (widget.jobModel.jobCity != null) companyLocation,
+                        if (jobModel.jobCity != null) companyLocation,
                       ],
                     )),
                     SizedBox(width: 8),
@@ -280,7 +291,7 @@ class _JobListTileWidgetState extends State<JobListTileWidget> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     publishDate,
-                    if (widget.jobModel.applicationDeadline != null)
+                    if (jobModel.applicationDeadline != null)
                       // applicationDeadlineWidget,
                       applicationDeadlineWidget,
                     applyButton,

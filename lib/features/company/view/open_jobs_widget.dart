@@ -133,7 +133,11 @@ class _OpenJobsWidgetState extends State<OpenJobsWidget> {
                     _jobs[index].isFavourite = !_jobs[index].isFavourite;
                     if(this.mounted)
                     setState(() {});
+                    return true;
+                  }else{
+                    return false;
                   }
+
                 },
                 onTap: () {
                   Navigator.of(context).push(CupertinoPageRoute(

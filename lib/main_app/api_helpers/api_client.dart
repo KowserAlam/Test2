@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/flavour/flavour_config.dart';
+import 'package:p7app/main_app/util/logger_helper.dart';
 
 enum ApiUrlType {
   login,
@@ -44,7 +45,7 @@ class ApiClient {
       return _checkTokenValidity().then((value) =>
           httClient.post(completeUrl, headers: headers, body: encodedBody));
     }
-   return httClient.post(completeUrl, headers: headers, body: encodedBody);
+    return httClient.post(completeUrl, headers: headers, body: encodedBody);
   }
 
   Future<http.Response> putRequest(String url, Map<String, dynamic> body,
@@ -56,6 +57,20 @@ class ApiClient {
         httClient.put(completeUrl, headers: headers, body: encodedBody));
 
 //    return httClient.put(completeUrl, headers: headers, body: encodedBody);
+  }
+
+  Future<http.StreamedResponse> postRequestWithFormData(
+      String url, File file, String fileNameKey,
+      [Map<String, String> fields]) async {
+    var uri = Uri.parse(_buildUrl(url));
+    var request = http.MultipartRequest('POST', uri);
+    request.files
+        .add(await http.MultipartFile.fromPath(fileNameKey, file.path));
+    if (fields != null) {
+      request.fields.addAll(fields);
+    }
+    request.headers.addAll(await _getHeaderFormData());
+    return request.send();
   }
 
   Future<Map<String, String>> _getHeaders() async {
@@ -85,5 +100,19 @@ class ApiClient {
     else {
       return true;
     }
+  }
+
+  Future<Map<String, String>> _getHeaderFormData() async {
+    var token = await AuthService.getInstance()
+        .then((authService) => authService.getUser()?.accessToken);
+
+    Map<String, String> headers = {
+      'Api-Key': _apiKey,
+      "Content-Type": "multipart/form-data",
+    };
+
+    if (token != null)
+      headers.addAll({HttpHeaders.authorizationHeader: "Bearer $token"});
+    return headers;
   }
 }

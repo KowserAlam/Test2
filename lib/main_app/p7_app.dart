@@ -45,8 +45,6 @@ class P7App extends StatelessWidget {
       ChangeNotifierProvider(create: (context) => SignInViewModel()),
       ChangeNotifierProvider(create: (context) => SignUpViewModel()),
       ChangeNotifierProvider(create: (context) => AllJobListViewModel()),
-      // ChangeNotifierProvider(create: (context) => AppliedJobListViewModel()),
-      // ChangeNotifierProvider(create: (context) => FavouriteJobListViewModel()),
       ChangeNotifierProvider(create: (context) => CompanyListViewModel()),
       ChangeNotifierProvider(create: (context) => PasswordResetViewModel()),
       ChangeNotifierProvider(create: (context) => UserProfileViewModel()),
@@ -56,7 +54,6 @@ class P7App extends StatelessWidget {
       ChangeNotifierProvider(create: (context) => PasswordChangeViewModel()),
       ChangeNotifierProvider(create: (context) => DashboardViewModel()),
       ChangeNotifierProvider(create: (context) => CareerAdviceViewModel()),
-      // ChangeNotifierProvider(create: (context) => NotificationViewModel()),
       ChangeNotifierProvider(
           create: (context) => MessageSenderListScreenViewModel()),
       ChangeNotifierProvider(create: (context) => JobScreenViewModel()),
@@ -88,11 +85,9 @@ class P7App extends StatelessWidget {
               builder: BotToastInit(),
               debugShowCheckedModeBanner: false,
               title: appName,
-//        darkTheme: AppTheme.darkTheme,
               theme: AppTheme.lightTheme.copyWith(
                 textTheme: GoogleFonts.robotoTextTheme(Theme.of(context).textTheme),
               ),
-//      darkTheme: AppTheme.darkTheme,
               home: Root(),
             ),
           );
