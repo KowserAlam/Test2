@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:p7app/features/auth/view/sign_in_screen.dart';
 import 'package:p7app/features/job/models/job_list_model.dart';
 import 'package:p7app/features/job/view/job_details_screen.dart';
@@ -64,38 +65,44 @@ class AllJobListWidget extends StatelessWidget {
           }
 
           JobListModel job = jobList[index];
+          return ValueBuilder<bool>(
+            builder: (v,updateFn){
+            return  JobListTileWidget(
+              job,
+              index: index,
+              applyButtonKey: Key('allJobsApplyKey' + index.toString()),
+              listTileKey: Key('allJobsTileKey' + index.toString()),
+              favoriteButtonKey:
+              Key('allJobsListFavoriteButtonKey' + index.toString()),
+              onTap: () {
+                Navigator.of(context).push(CupertinoPageRoute(
+                    builder: (context) => JobDetailsScreen(
+                      slug: job.slug,
+                      fromJobListScreenType: JobListScreenType.main,
+                      onFavourite: () {
+                        job.isFavourite = !job.isFavourite;
+                        jobListViewModel.jobList[index] = job;
+                        updateFn(job.isFavourite);
+                      },
+                      onApply: () {
+                        job.isApplied = true;
+                        jobListViewModel.jobList[index] = job;
+                        updateFn(job.isApplied);
+                      },
+                    )));
+              },
+              onFavorite: () {
+                return jobListViewModel.addToFavorite(job.jobId, index);
+              },
+              // onApply: job.isApplied
+              //     ? null
+              //     : () {
+              //         _showApplyForJobDialog(context, job, index);
+              //       },
+            );
+          },);
 
-          return JobListTileWidget(
-            job,
-            index: index,
-            applyButtonKey: Key('allJobsApplyKey' + index.toString()),
-            listTileKey: Key('allJobsTileKey' + index.toString()),
-            favoriteButtonKey:
-                Key('allJobsListFavoriteButtonKey' + index.toString()),
-            onTap: () {
-              Navigator.of(context).push(CupertinoPageRoute(
-                  builder: (context) => JobDetailsScreen(
-                        slug: job.slug,
-                        fromJobListScreenType: JobListScreenType.main,
-                        onFavourite: () {
-                          job.isFavourite = true;
-                          jobListViewModel.jobList[index] = job;
-                        },
-                        onApply: () {
-                          job.isApplied = true;
-                          jobListViewModel.jobList[index] = job;
-                        },
-                      )));
-            },
-            onFavorite: () {
-              return jobListViewModel.addToFavorite(job.jobId, index);
-            },
-            // onApply: job.isApplied
-            //     ? null
-            //     : () {
-            //         _showApplyForJobDialog(context, job, index);
-            //       },
-          );
+
         });
   }
 

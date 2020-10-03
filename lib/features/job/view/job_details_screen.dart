@@ -156,7 +156,9 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
       //Widgets
       Widget heartButton() {
         bool isFavorite = jobDetails?.isFavourite ?? false;
-       return  ValueBuilder<bool>(
+
+        var isFavourite = vm.jobModel.value.isFavourite;
+        return ValueBuilder<bool>(
             initialValue: false,
             builder: (bool v,updateFn){
               return Material(
@@ -174,7 +176,9 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                       updateFn(true);
                       addToFavorite(jobDetails.jobId).then((value) {
                         if (value) {
-                          jobDetails.isFavourite = !jobDetails.isFavourite;
+                          vm.jobModel.update((val) {
+                            val.isFavourite = !isFavourite;
+                          });
                           updateFn(false);
                         }
 
@@ -211,6 +215,9 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                 ),
               );
             });
+       // return  Obx((){
+       //
+       // });
 
       }
 
@@ -225,10 +232,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
             updateFn(true);
             if(widget.onApply != null)
             widget.onApply();
-            //
-            // logger.i("Apply succesful");
-            // vm.jobModel.value.isApplied = true;
-            // vm.jobModel.value = vm.jobModel.value;
+
 
           }, jobId: jobDetails.jobId, jobTitle: jobDetails.title,
         );

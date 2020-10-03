@@ -12,11 +12,6 @@ class RecentActivityViewModel extends GetxController{
   var isLoading = false.obs;
 
 
-  @override
-  void onInit() {
-    getData();
-    super.onInit();
-  }
   Future getData()async{
   isLoading.value = true;
     var res = await RecentActivityRepository().getActivities();
