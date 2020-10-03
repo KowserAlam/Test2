@@ -4,8 +4,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:http/http.dart' as http;
 import 'package:p7app/main_app/api_helpers/urls.dart';
-import 'package:p7app/main_app/models/settings_model.dart';
-import 'package:p7app/main_app/repositories/setting_repository.dart';
+import 'package:p7app/main_app/models/web_settings_model.dart';
+import 'package:p7app/features/settings/repositories/web_setting_repository.dart';
 
 import '../features/auth/password_reset_view_model_test.dart';
 import '../test_data/dataReader.dart';
@@ -24,7 +24,7 @@ main() {
     when(client.getRequest(Urls.settingsUrl))
         .thenAnswer((_) async => http.Response(responseJsonSuccess, 200));
     ;
-    var res = await SettingsRepository().getSettingInfo(apiClient: client);
+    var res = await WebSettingsRepository().getSettingInfo(apiClient: client);
     expect( true, res.isRight());
   });
 
@@ -33,7 +33,7 @@ main() {
     when(client.getRequest(Urls.settingsUrl))
         .thenAnswer((_) async => http.Response(responseJsonSuccess, 401));
     ;
-    var res = await SettingsRepository().getSettingInfo(apiClient: client);
+    var res = await WebSettingsRepository().getSettingInfo(apiClient: client);
     expect( true, res.isLeft());
   });
 }

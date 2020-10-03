@@ -1,4 +1,4 @@
-class SettingsModel {
+class WebSettingsModel {
   String id;
   String facebookUrl;
   String linkedinUrl;
@@ -13,9 +13,11 @@ class SettingsModel {
   int zoom;
   String latitude;
   String longitude;
+  int  minimumProfileCompleteness;
 
-  SettingsModel(
+  WebSettingsModel(
       {this.id,
+      this.minimumProfileCompleteness,
       this.facebookUrl,
       this.linkedinUrl,
       this.twitterUrl,
@@ -30,7 +32,7 @@ class SettingsModel {
       this.latitude,
       this.longitude});
 
-  SettingsModel.fromJson(Map<String, dynamic> json) {
+  WebSettingsModel.fromJson(Map<String, dynamic> json) {
     id = json['id']?.toString();
     facebookUrl = json['facebook_url'];
     linkedinUrl = json['linkedin_url'];
@@ -43,7 +45,7 @@ class SettingsModel {
     address = json['address'];
     phone = json['phone']?.toString();
     zoom = json['zoom'];
-
+    minimumProfileCompleteness = json['minimum_profile_completeness'];
     if (json['longitude'] != null) {
       latitude = json['latitude'];
     }
@@ -52,22 +54,4 @@ class SettingsModel {
     }
   }
 
-//  Map<String, dynamic> toJson() {
-//    final Map<String, dynamic> data = new Map<String, dynamic>();
-//    data['id'] = this.id;
-//    data['facebook_url'] = this.facebookUrl;
-//    data['linkedin_url'] = this.linkedinUrl;
-//    data['twitter_url'] = this.twitterUrl;
-//    data['appstore_url'] = this.appstoreUrl;
-//    data['playstore_url'] = this.playstoreUrl;
-//    data['logo_url'] = this.logoUrl;
-//    data['admin_email'] = this.adminEmail;
-//    data['support_email'] = this.supportEmail;
-//    data['address'] = this.address;
-//    data['phone'] = this.phone;
-//    data['zoom'] = this.zoom;
-//    data['latitude'] = this.latitude;
-//    data['longitude'] = this.longitude;
-//    return data;
-//  }
 }

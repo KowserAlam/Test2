@@ -1,8 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:p7app/features/auth/view/sign_in_screen.dart';
+import 'package:p7app/features/dashboard/view_model/dashboard_view_model.dart';
 import 'package:p7app/features/job/view/widgets/apply_now_modal_widget.dart';
+import 'package:p7app/features/settings/view_models/web_settings_view_model.dart';
 import 'package:p7app/main_app/auth_service/auth_view_model.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/views/widgets/common_prompt_dialog.dart';
@@ -61,13 +65,24 @@ class JobApplyButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         child: InkWell(
           onTap:(){
-            if(!isLoggerIn){
-              _showLoginDialog(context);
-            }else{
-              if(!isAppliedDisabled){
-                _showApplyDialog(context);
-              }
-            }
+          
+      
+             if(!isLoggerIn){
+               _showLoginDialog(context);
+             }else{
+               if(!isAppliedDisabled){
+                 var profileCompletePercent = Provider.of<DashboardViewModel>(context,listen: false).profileCompletePercent;
+                 var minimumProfileCompleteness =  Get.find<WebSettingsViewModel>().settings.value?.minimumProfileCompleteness??60;
+                 if( profileCompletePercent >= minimumProfileCompleteness){
+                   _showApplyDialog(context);
+                 }else{
+                   _showInCompleteProfileMessageDialog(context);
+                 }
+                
+               }
+             }
+       
+           
 
           },
           borderRadius: BorderRadius.circular(20),
@@ -108,6 +123,25 @@ class JobApplyButton extends StatelessWidget {
               // Navigator.of(context).push(
               //     CupertinoPageRoute(builder: (context) => SignInScreen()));
             },
+          );
+        });
+  }
+  _showInCompleteProfileMessageDialog(context) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Icon(FontAwesomeIcons.timesCircle,size: 40,color: Color(0xfff27474),),
+            content: Text(StringResources.pleaseCompleteYourProfile,textAlign: TextAlign.center,),
+            actions: [
+
+              RaisedButton(
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20),),
+                  child: Text("OK"),
+                  onPressed: (){
+                    Get.back();
+                  }),
+            ],
           );
         });
   }

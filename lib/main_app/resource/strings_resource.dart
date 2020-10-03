@@ -614,6 +614,7 @@ class StringResources {
   static const String doYouWantToApplyText =
       'Do you want to apply for this job?';
   static const String signInRequiredText = 'Sign In required !';
+  static const String pleaseCompleteYourProfile = 'Please complete your profile with necessary and authentic information.';
   static const String doYouWantToSingInNowText = 'Do you want to sign in now?';
   static const String doYouWantToDeleteText = "Do You Want to Delete?";
   static const String jobsFoundText = 'jobs found';

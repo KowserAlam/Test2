@@ -12,9 +12,9 @@ import 'package:p7app/main_app/api_helpers/url_launcher_helper.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/models/contact_us_model.dart';
-import 'package:p7app/main_app/models/settings_model.dart';
+import 'package:p7app/main_app/models/web_settings_model.dart';
 import 'package:p7app/main_app/repositories/contact_us_submit_repository.dart';
-import 'package:p7app/main_app/repositories/setting_repository.dart';
+import 'package:p7app/features/settings/repositories/web_setting_repository.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 import 'package:p7app/main_app/util/validator.dart';
 import 'package:p7app/main_app/views/widgets/common_button.dart';
@@ -43,13 +43,13 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
   final _formKey = GlobalKey<FormState>();
   bool _submitted = false;
 
-  SettingsModel _settingsModel;
+  WebSettingsModel _settingsModel;
   getSettingsDetails() async {
-    dartZ.Either<AppError, SettingsModel> result =
-    await SettingsRepository().getSettingInfo();
+    dartZ.Either<AppError, WebSettingsModel> result =
+    await WebSettingsRepository().getSettingInfo();
     return result.fold((l) {
       print(l);
-    }, (SettingsModel settingsModel) {
+    }, (WebSettingsModel settingsModel) {
       print(settingsModel.id);
       _settingsModel = settingsModel;
       double lat = double.parse(settingsModel.latitude);

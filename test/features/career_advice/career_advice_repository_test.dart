@@ -8,8 +8,8 @@ import 'package:p7app/features/career_advice/repositories/c_a_repository.dart';
 import 'package:p7app/main_app/api_helpers/api_client.dart';
 import 'package:http/http.dart' as http;
 import 'package:p7app/main_app/api_helpers/urls.dart';
-import 'package:p7app/main_app/models/settings_model.dart';
-import 'package:p7app/main_app/repositories/setting_repository.dart';
+import 'package:p7app/main_app/models/web_settings_model.dart';
+import 'package:p7app/features/settings/repositories/web_setting_repository.dart';
 
 import '../../test_data/dataReader.dart';
 import '../auth/password_reset_view_model_test.dart';

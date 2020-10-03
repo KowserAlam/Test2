@@ -8,7 +8,7 @@ import 'package:p7app/main_app/api_helpers/urls.dart';
 import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/models/contact_us_model.dart';
-import 'package:p7app/main_app/models/settings_model.dart';
+import 'package:p7app/main_app/models/web_settings_model.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
 
 class ContactUsSubmitRepository {

@@ -11,6 +11,7 @@ import 'package:p7app/features/job/view/jobs_screen.dart';
 import 'package:p7app/features/job/view_model/all_job_list_view_model.dart';
 import 'package:p7app/features/job/view_model/job_screen_view_model.dart';
 import 'package:p7app/features/messaging/view/message_screen.dart';
+import 'package:p7app/features/settings/view_models/web_settings_view_model.dart';
 import 'package:p7app/main_app/util/live_update_service.dart';
 import 'package:p7app/features/notification/view_models/notificaion_view_model.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
@@ -42,6 +43,7 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     Get.put(LiveUpdateService());
+    Get.put(WebSettingsViewModel());
     TokenRefreshScheduler.getInstance();
     _init();
     super.initState();
