@@ -2,7 +2,9 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:p7app/features/auth/view/passworrd_change_screen.dart';
+import 'package:p7app/features/recentactivity/recent_activity_screen.dart';
 import 'package:p7app/features/settings/email_subscriptions_screen.dart';
 import 'package:p7app/features/settings/push_notificaiton_manage_screen.dart';
 import 'package:p7app/features/settings/settings_view_model.dart';
@@ -104,6 +106,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
       subtitle: Text("Show licences"),
       title: Text(StringResources.licenses),
     );
+    var recentActivity = ListTile(
+      onTap: () {
+       Get.to(RecentActivityScreen());
+      },
+      title: Text(StringResources.recentActivityText),
+      subtitle: Text(StringResources.recentActivitiesText),
+
+    );
     var version = FutureBuilder<PackageInfo>(
       future: AppInfoRepository().getAppPackageInfo(),
       builder: (c, AsyncSnapshot<PackageInfo> snapshot) {
@@ -142,6 +152,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
           pushNotification,
           divider,
           emailSubscriptions,
+          divider,
+          recentActivity,
           divider,
           clearCache,
           divider,

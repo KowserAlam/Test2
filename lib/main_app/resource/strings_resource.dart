@@ -641,5 +641,7 @@ class StringResources {
   static const String monthlyJobsText = "Monthly Jobs";
   static const String similarJobsText = "Similar Jobs";
   static const String openJobsText = "Open Jobs";
+  static String recentActivityText = "Recent Activity";
+  static String recentActivitiesText = "Recent Activities";
 
 }

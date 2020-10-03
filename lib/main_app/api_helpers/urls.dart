@@ -73,6 +73,7 @@ class Urls {
   static String favouriteJobAddUrl = "/api/job/favourite/toggle";
   static String applyJobOnlineUrl = "/api/job/apply/";
   static String applyJobWithNoteUrl = "/api/job_apply/";
+  static String proRecentActivityUrl = "/api/professional/pro_recent_activity/";
 
 //  http://p7.ishraak.com/api/job_list/?page=1&page_size=2
   /// http://dev.ishraak.com/api/job_list/?page=1&q=job&location=&category=
