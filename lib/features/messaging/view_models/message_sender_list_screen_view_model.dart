@@ -1,10 +1,11 @@
 
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
 import 'package:p7app/features/messaging/model/message_sender_data_model.dart';
 import 'package:p7app/features/messaging/repositories/message_repository.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
 
-class MessageSenderListScreenViewModel with ChangeNotifier {
+class MessageSenderListScreenViewModel extends GetxController {
   AppError _appError;
   List<MessageSenderModel> _messages = [];
   bool _isFetchingData = false;
@@ -17,36 +18,36 @@ class MessageSenderListScreenViewModel with ChangeNotifier {
 
   Future<void> getSenderList() async {
     _isFetchingData = true;
-    notifyListeners();
+    update();
     var res = await MessageRepository().getSenderList();
     res.fold((l) {
       _isFetchingData = false;
       _hasMoreData = false;
       _appError = l;
-      notifyListeners();
+      update();
     }, (r) {
       _isFetchingData = false;
       _messages = r ?? [];
 //      _hasMoreData = r.next;
-      notifyListeners();
+      update();
     });
   }
 
   getMoreData() async {
     if (_hasMoreData && !isGettingMoreData) {
       _isGettingMoreData = true;
-      notifyListeners();
+      update();
       var res = await MessageRepository().getSenderList();
       res.fold((l) {
         _isGettingMoreData = false;
         _appError = l;
         _hasMoreData = false;
-        notifyListeners();
+        update();
       }, (r) {
         _isGettingMoreData = false;
 //        _hasMoreData = r.next;
 //        _messages.addAll(r.messages);
-        notifyListeners();
+        update();
       });
     }
   }
@@ -55,13 +56,13 @@ class MessageSenderListScreenViewModel with ChangeNotifier {
 //  markAsRead(int index) {
 //    if (!_messages[index].isRead) {
 //      messages[index].isRead = true;
-//      notifyListeners();
+//      update();
 //      MessageRepository()
 //          .markAsRead(messages[index].id)
 //          .then((value) {
 //        if (!value) {
 //          messages[index].isRead = false;
-//          notifyListeners();
+//          update();
 //        }
 //      });
 //    }

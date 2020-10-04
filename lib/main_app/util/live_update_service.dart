@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:p7app/features/messaging/model/conversation_screen_data_model.dart';
 import 'package:p7app/features/notification/models/notification_model.dart';
 import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/util/logger_helper.dart';
@@ -11,6 +12,7 @@ import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class LiveUpdateService extends GetxController{
   var  notificationLive = NotificationModel().obs;
+  var  messageLive = Message().obs;
 
 
   // var notificationUpdate = PublishSubject<NotificationModel>();
@@ -41,6 +43,14 @@ class LiveUpdateService extends GetxController{
         logger.i(notificationMap);
         var notification = NotificationModel.fromJson(notificationMap);
         notificationLive.value = notification;
+        // notificationUpdate.sink.add(notification);
+      }
+      if (data['type'] == "message") {
+        logger.i("message");
+        var messageMap = json.decode(data["text"]);
+        logger.i(messageMap);
+        var msg = Message.fromJson(messageMap);
+        messageLive.value = msg;
         // notificationUpdate.sink.add(notification);
       }
     });
