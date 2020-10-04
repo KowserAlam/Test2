@@ -327,8 +327,8 @@ class UserProfileRepository {
 
     try {
       var response = await ApiClient().postRequest(url, data);
-//      logger.i(response.statusCode);
-//      logger.i(response.body);
+     logger.i(response.statusCode);
+     logger.i(response.body);
       if (response.statusCode == 200) {
         BotToast.closeAllLoading();
         MembershipInfo data =

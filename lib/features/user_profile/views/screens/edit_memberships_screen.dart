@@ -118,7 +118,7 @@ class _EditMemberShipsState extends State<EditMemberShips> {
       positionHeld: _positionHeldController.text,
       description:
           ZeyfrHelper.notusDocumentToHTML(_descriptionZefyrController.document),
-      membershipOngoing: _membershipOngoing,
+      membershipOngoing: _membershipOngoing??false,
       startDate: _startDate,
       endDate: !_membershipOngoing ? _endDate : null,
       organization: selectedOrganization

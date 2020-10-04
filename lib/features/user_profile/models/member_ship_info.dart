@@ -50,7 +50,7 @@ class MembershipInfo {
     data['start_date'] = this.startDate.toYYYMMDDString;
     data['end_date'] = this.endDate.toYYYMMDDString;
     data['description'] = this.description;
-    data['organization_key'] = this.organization?.id;
+    data['organization_key_id'] = this.organization?.id;
     return data;
   }
 }
