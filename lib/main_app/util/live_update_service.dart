@@ -51,7 +51,8 @@ class LiveUpdateService extends GetxController{
         logger.i(messageMap);
         var msg = Message.fromJson(messageMap);
         messageLive.value = msg;
-        // notificationUpdate.sink.add(notification);
+        Get.snackbar(msg?.senderCompany?.name ?? "", msg.message,
+          backgroundColor: Colors.white,);
       }
     });
    // socket.connect();

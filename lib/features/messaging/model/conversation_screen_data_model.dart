@@ -58,7 +58,7 @@ class Message {
 //  ReceiverPro receiverPro;
   int sender;
   String senderType;
-//  ReceiverCompany senderCompany;
+ ReceiverCompany senderCompany;
 //  ReceiverPro senderPro;
   DateTime createdAt;
 
@@ -70,7 +70,7 @@ class Message {
 //        this.receiverPro,
         this.sender,
         this.senderType,
-//        this.senderCompany,
+       this.senderCompany,
 //        this.senderPro,
         this.createdAt});
 
@@ -86,9 +86,9 @@ class Message {
 //        : null;
     sender = json['sender'];
     senderType = json['sender_type'];
-//    senderCompany = json['sender_company'] != null
-//        ? new ReceiverCompany.fromJson(json['sender_company'])
-//        : null;
+   senderCompany = json['sender_company'] != null
+       ? new ReceiverCompany.fromJson(json['sender_company'])
+       : null;
 //    senderPro = json['sender_pro'] != null
 //        ? new ReceiverPro.fromJson(json['sender_pro'])
 //        : null;
@@ -111,9 +111,9 @@ class Message {
 //    }
     data['sender'] = this.sender;
     data['sender_type'] = this.senderType;
-//    if (this.senderCompany != null) {
-//      data['sender_company'] = this.senderCompany.toJson();
-//    }
+   if (this.senderCompany != null) {
+     data['sender_company'] = this.senderCompany.toJson();
+   }
 //    if (this.senderPro != null) {
 //      data['sender_pro'] = this.senderPro.toJson();
 //    }
