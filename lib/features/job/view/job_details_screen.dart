@@ -314,146 +314,122 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
         ),
       );
 
-      Widget description() => (jobDetails.descriptions.isEmptyOrNull)
-          ? SizedBox()
-          : Container(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  spaceBetweenSections,
-                  Row(
-                    children: <Widget>[
-                      Transform.rotate(
-                          angle: pi,
-                          child: FaIcon(
-                            FontAwesomeIcons.alignLeft,
-                            size: fontAwesomeIconSize,
-                          )),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        StringResources.jobDescriptionTitle,
-                        style: sectionTitleFont,
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  HtmlWidget(
-                    jobDetails.descriptions != null
-                        ? jobDetails.descriptions
-                        : StringResources.noneText,
-                    textStyle: descriptionFontStyle,
-                  )
-                ],
-              ),
-            );
-      Widget responsibilities() => (jobDetails.responsibilities.isEmptyOrNull)
-          ? SizedBox()
-          : Container(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  spaceBetweenSections,
-                  Row(
-                    children: <Widget>[
-                      FaIcon(
-                        FontAwesomeIcons.bolt,
-                        size: fontAwesomeIconSize,
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        StringResources.responsibilitiesTitle,
-                        style: sectionTitleFont,
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  HtmlWidget(
-                    jobDetails?.responsibilities ?? "",
-                    textStyle: descriptionFontStyle,
-                  ),
+      var description = jobDetails.descriptions.htmlToNotusDocument.toPlainText().trim().length!=0?Container(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            spaceBetweenSections,
+            Row(
+              children: <Widget>[
+                Transform.rotate(
+                    angle: pi,
+                    child: Transform(
+                        alignment: Alignment.center,
+                        transform: Matrix4.rotationY(pi),
+                        child: FaIcon(
+                          FontAwesomeIcons.alignLeft,
+                          size: fontAwesomeIconSize,
+                        ))),
+                SizedBox(
+                  width: 5,
+                ),
+                Text(
+                  StringResources.jobDescriptionTitle,
+                  style: sectionTitleFont,
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 5,
+            ),
 //          Text(
-//            jobDetails?.responsibilities ?? "",
+//            jobDetails.descriptions != null
+//                ? jobDetails.descriptions
+//                : "",
 //            style: descriptionFontStyle,
-//          )
-                ],
-              ),
-            );
-      Widget education() => (jobDetails.education.isEmptyOrNull)
-          ? SizedBox()
-          : Container(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  spaceBetweenSections,
-                  Row(
-                    children: <Widget>[
-                      FaIcon(
-                        FontAwesomeIcons.book,
-                        size: fontAwesomeIconSize,
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        StringResources.educationTitle,
-                        style: sectionTitleFont,
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  HtmlWidget(
-                    jobDetails.education != null
-                        ? jobDetails.education
-                        : StringResources.noneText,
-                    textStyle: descriptionFontStyle,
-                  )
-                ],
-              ),
-            );
+//          ),
+            HtmlWidget(jobDetails.descriptions),
+          ],
+        ),
+      ):SizedBox();
+      var responsibilities = jobDetails.responsibilities.htmlToNotusDocument.toPlainText().trim().length!=0?Container(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                FaIcon(
+                  FontAwesomeIcons.bolt,
+                  size: fontAwesomeIconSize,
+                ),
+                SizedBox(
+                  width: 5,
+                ),
+                Text(
+                  StringResources.responsibilitiesTitle,
+                  style: sectionTitleFont,
+                )
+              ],
+            ),
+            SizedBox(
+              height: 5,
+            ),
+//          Text(
+//            jobDetails.responsibilities != null
+//                ? jobDetails.responsibilities
+//                : "",
+//            style: descriptionFontStyle,
+//          ),
+            HtmlWidget(jobDetails.responsibilities),
+          ],
+        ),
+      ):SizedBox();
+      var education = jobDetails.education.htmlToNotusDocument.toPlainText().trim().length!=0?Container(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                FaIcon(
+                  FontAwesomeIcons.book,
+                  size: fontAwesomeIconSize,
+                ),
+                SizedBox(
+                  width: 5,
+                ),
+                Text(
+                  StringResources.educationTitle,
+                  style: sectionTitleFont,
+                )
+              ],
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            HtmlWidget(jobDetails.education),
+          ],
+        ),
+      ):SizedBox();
 
-      Widget additionalRequirements() =>
-          (jobDetails.additionalRequirements.isEmptyOrNull)
-              ? SizedBox()
-              : Container(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      spaceBetweenSections,
-                      Row(
-                        children: <Widget>[
-                          FaIcon(
-                            FontAwesomeIcons.tools,
-                            size: fontAwesomeIconSize,
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                            StringResources.jobAdditionalRequirementsText,
-                            style: sectionTitleFont,
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      HtmlWidget(
-                        jobDetails?.additionalRequirements ?? "",
-                        textStyle: descriptionFontStyle,
-                      ),
-                    ],
-                  ),
-                );
+      var additionalRequirements = jobDetails.additionalRequirements.htmlToNotusDocument.toPlainText().length!=1?Container(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                Text(
+                  StringResources.jobAdditionalRequirementsText,
+                  style: sectionTitleFont,
+                )
+              ],
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            HtmlWidget(jobDetails.additionalRequirements),
+          ],
+        ),
+      ):SizedBox();
 
 
 
@@ -982,11 +958,11 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                           children: <Widget>[
                             jobSummary(),
                             aboutJob(),
-                            description(),
-                            responsibilities(),
+                            description,
+                            responsibilities,
                             requiredSkills(jobDetails),
-                            education(),
-                            additionalRequirements(),
+                            education,
+                            additionalRequirements,
                             location(jobDetails),
                             aboutCompany(),
                             benefitsHeader,
