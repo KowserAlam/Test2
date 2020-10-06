@@ -6,8 +6,9 @@ class SkillInfo extends Equatable{
   Skill skill;
   double rating;
   bool verifiedBySkillCheck;
+  bool isTopSkill;
 
-  SkillInfo({this.profSkillId, this.rating, this.verifiedBySkillCheck,this.skill});
+  SkillInfo({this.profSkillId, this.rating, this.verifiedBySkillCheck,this.skill,this.isTopSkill});
 
   SkillInfo.fromJson(Map<String, dynamic> json) {
     profSkillId = json['id']?.toString();
@@ -16,6 +17,7 @@ class SkillInfo extends Equatable{
     }
     rating =  (json['rating'] as num)?.toDouble();
     verifiedBySkillCheck = json['verified_by_skillcheck']??false;
+    isTopSkill = json['is_top_skill'];
   }
 
 
@@ -24,6 +26,7 @@ class SkillInfo extends Equatable{
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['skill_name_id'] = this.skill?.id;
     data['rating'] = this.rating;
+    data['is_top_skill'] = this.isTopSkill;
     return data;
   }
 
@@ -31,10 +34,11 @@ class SkillInfo extends Equatable{
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['skill_name_id'] = this.skill?.id;
     data['rating'] = this.rating;
+    data['is_top_skill'] = this.isTopSkill;
     return data;
   }
 
   @override
   // TODO: implement props
-  List<Object> get props => [this.profSkillId,this.skill,this.rating,this.verifiedBySkillCheck];
+  List<Object> get props => [this.profSkillId,this.skill,this.rating,this.verifiedBySkillCheck, this.isTopSkill];
 }
