@@ -47,8 +47,8 @@ class JobApplyButton extends StatelessWidget {
     var textColor = Colors.black;
 
     if (isApplied) {
-      buttonColor = Colors.blue[200];
-      textColor = Colors.white;
+      buttonColor = Colors.white;
+      textColor = Colors.black;
     } else {
       if (isDateExpired) {
         buttonColor = Colors.grey;

@@ -810,13 +810,15 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
               : Row(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    Icon(FeatherIcons.calendar,
-                        size: 14, color: Colors.grey[500]),
+                    Icon(FontAwesomeIcons.solidCalendar,
+                        size: 12, color: AppTheme.grey),
                     SizedBox(
                       width: 5,
                     ),
                     jobDetails.postDate != null ?Text(
-                      DateFormatUtil.formatDate(jobDetails.postDate),
+                      jobDetails.postDate != null
+                          ? "Posted on ${DateFormatUtil.formatDate(jobDetails.postDate)}"
+                          : StringResources.noneText,
                       key: Key('jobDetailsPublishDate'),
                       style: topSideDescriptionFontStyle,
                     ):SizedBox(),
@@ -828,9 +830,9 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     Icon(
-                      FeatherIcons.clock,
-                      size: 14,
-                      color: Colors.grey[500],
+                      FontAwesomeIcons.solidClock,
+                      size: 12,
+                      color: AppTheme.grey,
                     ),
                     SizedBox(
                       width: 5,
