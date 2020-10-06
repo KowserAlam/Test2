@@ -14,7 +14,6 @@ import 'package:p7app/features/dashboard/view_model/dashboard_view_model.dart';
 import 'package:p7app/features/job/view_model/all_job_list_view_model.dart';
 import 'package:p7app/features/job/view_model/job_list_filter_widget_view_model.dart';
 import 'package:p7app/features/job/view_model/job_screen_view_model.dart';
-import 'package:p7app/features/messaging/view_models/message_sender_list_screen_view_model.dart';
 import 'package:p7app/features/settings/settings_view_model.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
 import 'package:p7app/main_app/app_theme/app_theme.dart';
@@ -26,12 +25,8 @@ import 'package:p7app/main_app/util/locator.dart';
 import 'package:provider/provider.dart';
 
 class P7App extends StatelessWidget {
-  final isEnabledDevicePreview;
   final CommonServiceRule commonServiceRule = CommonServiceRule();
-  FirebaseAnalytics analytics = FirebaseAnalytics();
-
-  P7App({this.isEnabledDevicePreview = false});
-
+  final FirebaseAnalytics analytics = FirebaseAnalytics();
 
   final navigatorKey = GlobalKey<NavigatorState>();
   @override
@@ -54,15 +49,13 @@ class P7App extends StatelessWidget {
       ChangeNotifierProvider(create: (context) => PasswordChangeViewModel()),
       ChangeNotifierProvider(create: (context) => DashboardViewModel()),
       ChangeNotifierProvider(create: (context) => CareerAdviceViewModel()),
-      // ChangeNotifierProvider(
-      //     create: (context) => MessageSenderListScreenViewModel()),
       ChangeNotifierProvider(create: (context) => JobScreenViewModel()),
     ];
     var appName = FlavorConfig.appName();
 
 
     Get.config(
-      enableLog: true,
+      // enableLog: true,
       defaultPopGesture: true,
       defaultTransition: Transition.cupertino,
       defaultOpaqueRoute: true,

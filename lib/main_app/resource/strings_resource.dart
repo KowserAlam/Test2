@@ -54,7 +54,7 @@ class StringResources {
   static String doneText = "Done";
   static String okText = 'OK';
   static String dashboardLoginMessage = "To get access to all the great features.";
-  static String dashboardLoginPleaseSigning= "Please Sign-in";
+  static String dashboardLoginPleaseSigning= "Please Sign In";
   static String passwordText = "Password";
   static String confirmPasswordText = "Confirm Password";
   static String labelTextFullName = "Full Name";
