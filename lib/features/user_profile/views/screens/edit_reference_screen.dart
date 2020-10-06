@@ -97,19 +97,19 @@ class _EditReferenceScreenState extends State<EditReferenceScreen> {
     );
 
 
-    return ZefyrScaffold(
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(StringResources.referenceAppbarText, key: Key('referencesAppbarTitle'),),
-          actions: <Widget>[
-            EditScreenSaveButton(
-              key: Key('myProfileReferencesSaveButton'),
-              text: StringResources.saveText,
-              onPressed: _handleSave,
-            ),
-          ],
-        ),
-        body: SingleChildScrollView(
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(StringResources.referenceAppbarText, key: Key('referencesAppbarTitle'),),
+        actions: <Widget>[
+          EditScreenSaveButton(
+            key: Key('myProfileReferencesSaveButton'),
+            text: StringResources.saveText,
+            onPressed: _handleSave,
+          ),
+        ],
+      ),
+      body: ZefyrScaffold(
+        child: SingleChildScrollView(
           child: Form(
             key: _formKey,
             child: Padding(

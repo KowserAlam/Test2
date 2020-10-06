@@ -216,19 +216,19 @@ class _EditPersonalInfoScreenState extends State<EditPersonalInfoScreen> {
       height: 15,
     );
 
-    return ZefyrScaffold(
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(StringResources.personalInfoText, key: Key('personalInfoAppbarTitle'),),
-          actions: <Widget>[
-            EditScreenSaveButton(
-              text: StringResources.saveText,
-              onPressed: _handleSave,
-              key: Key('personalInfoSaveButton'),
-            ),
-          ],
-        ),
-        body: SingleChildScrollView(
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(StringResources.personalInfoText, key: Key('personalInfoAppbarTitle'),),
+        actions: <Widget>[
+          EditScreenSaveButton(
+            text: StringResources.saveText,
+            onPressed: _handleSave,
+            key: Key('personalInfoSaveButton'),
+          ),
+        ],
+      ),
+      body: ZefyrScaffold(
+        child: SingleChildScrollView(
           key: Key('personalInfoScrollView'),
           child: Form(
             key: _formKey,
