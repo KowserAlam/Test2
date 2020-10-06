@@ -53,7 +53,7 @@ class CertificationInfo {
     data['expiry_date'] = this.expiryDate.toYYYMMDDString;
     data['credential_id'] = this.credentialId;
     data['credential_url'] = this.credentialUrl;
-   data['organization_key'] = this.organization?.id;
+   data['organization_key_id'] = this.organization?.id;
     return data;
   }
 }
