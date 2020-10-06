@@ -1,6 +1,8 @@
 import 'package:after_layout/after_layout.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:p7app/features/dashboard/view_model/dashboard_view_model.dart';
 import 'package:p7app/features/job/view/widgets/all_job_list_widget.dart';
 import 'package:p7app/features/job/view/widgets/filter_preview_widget.dart';
 import 'package:p7app/features/job/view/widgets/job_list_filters_widget.dart';
@@ -33,6 +35,7 @@ class _AllJobListScreenState extends State<AllJobListScreen>
 
   @override
   void afterFirstLayout(BuildContext context) {
+    Get.find<DashboardViewModel>().getProfileCompleteness();
     var jobListViewModel =
         Provider.of<AllJobListViewModel>(context, listen: false);
     jobListViewModel.getJobList(isFormOnPageLoad: true).then((v) {
