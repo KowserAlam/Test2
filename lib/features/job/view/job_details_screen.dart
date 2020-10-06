@@ -504,10 +504,10 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                     ],
                   ),
                   SizedBox(height: 5),
-                  HtmlWidget(
+                  jobDetails.companyProfile.htmlToNotusDocument.toPlainText().trim().length!=0?HtmlWidget(
                     " <b>${StringResources.jobCompanyProfileText}</b>: ${jobDetails.companyProfile ?? ""}",
                     textStyle: descriptionFontStyle,
-                  ),
+                  ):SizedBox(),
                   // jobSummeryRichText(
                   //   StringResources.jobCompanyProfileText,
                   //   jobDetails.companyProfile,
@@ -618,7 +618,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                               jobDetails.jobCategory):SizedBox()
                         ],
                       ),
-                      SizedBox(height: 5),
+                      SizedBox(height: jobDetails.vacancy != null?5:0),
                       Row(
                         children: <Widget>[
                           jobDetails.vacancy != null?jobSummeryRichText(
@@ -626,7 +626,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                               "${jobDetails.vacancy == 0 ? StringResources.notSpecifiedText : jobDetails.vacancy}"):SizedBox()
                         ],
                       ),
-                      SizedBox(height: 5),
+                      SizedBox(height: jobDetails.qualification != null?5:0),
                       Row(
                         children: <Widget>[
                           jobDetails.qualification != null?jobSummeryRichText(
@@ -634,7 +634,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                               jobDetails.qualification):SizedBox()
                         ],
                       ),
-                      SizedBox(height: 5),
+                      SizedBox(height: jobDetails.gender != null?5:0),
                       Row(
                         children: <Widget>[
                           jobDetails.gender != null?jobSummeryRichText(
@@ -642,7 +642,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                               jobDetails.gender):SizedBox()
                         ],
                       ),
-                      SizedBox(height: 5),
+                      SizedBox(height: jobDetails.experience != null?5:0),
                       Row(
                         children: <Widget>[
                           jobDetails.experience != null?jobSummeryRichText(
