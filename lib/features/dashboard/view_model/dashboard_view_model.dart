@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:get/get.dart';
 import 'package:p7app/features/auth/view/sign_in_screen.dart';
 import 'package:p7app/features/company/models/company.dart';
 import 'package:p7app/features/dashboard/models/info_box_data_model.dart';
@@ -11,7 +12,7 @@ import 'package:p7app/main_app/auth_service/auth_service.dart';
 import 'package:p7app/main_app/failure/app_error.dart';
 import 'package:p7app/main_app/util/common_serviec_rule.dart';
 
-class DashboardViewModel with ChangeNotifier {
+class DashboardViewModel extends GetxController {
   AppError _infoBoxError;
   AppError _skillJobChartError;
   AppError _vitalStateError;
@@ -44,7 +45,7 @@ class DashboardViewModel with ChangeNotifier {
     _isLoadingSkillJobChartData = true;
     _infoBoxError = null;
     _skillJobChartError = null;
-    notifyListeners();
+    update();
     return Future.wait([
 
       if(loggedIn)
@@ -70,12 +71,12 @@ class DashboardViewModel with ChangeNotifier {
     return result.fold((l) {
       _infoBoxError = l;
       _isLoadingInfoBoxData = false;
-      notifyListeners();
+      update();
       return false;
     }, (r) {
       _infoBoxData = r;
       _isLoadingInfoBoxData = false;
-      notifyListeners();
+      update();
       return true;
     });
   }
@@ -86,19 +87,19 @@ class DashboardViewModel with ChangeNotifier {
     return result.fold((l) {
       _skillJobChartError = l;
       _isLoadingSkillJobChartData = false;
-      notifyListeners();
+      update();
       return false;
     }, (r) {
       _skillJobChartData = r;
       _isLoadingSkillJobChartData = false;
-      notifyListeners();
+      update();
       return true;
     });
   }
 
   Future<double> _getProfileCompleteness() async {
     return DashBoardRepository().getProfileCompletenessPercent().then((value) {
-      notifyListeners();
+      update();
       return profileCompletePercent = value;
     });
   }
@@ -109,12 +110,12 @@ class DashboardViewModel with ChangeNotifier {
     return result.fold((l) {
       _vitalStateError = l;
       _isLoadingVitalState = false;
-      notifyListeners();
+      update();
       return false;
     }, (r) {
       _vitalStatsData = r;
       _isLoadingVitalState = false;
-      notifyListeners();
+      update();
       return true;
     });
   }
@@ -125,12 +126,12 @@ class DashboardViewModel with ChangeNotifier {
     return result.fold((l) {
       _topCategoriesError = l;
       _isLoadingTopCategories = false;
-      notifyListeners();
+      update();
       return false;
     }, (r) {
       _topCategoryList = r;
       _isLoadingTopCategories = false;
-      notifyListeners();
+      update();
       return true;
     });
   }
@@ -141,12 +142,12 @@ class DashboardViewModel with ChangeNotifier {
     return result.fold((l) {
       _recentJobsError = l;
       _isLoadingRecentJobs = false;
-      notifyListeners();
+      update();
       return false;
     }, (r) {
       _recentJobsList = r;
       _isLoadingRecentJobs = false;
-      notifyListeners();
+      update();
       return true;
     });
   }
@@ -156,12 +157,12 @@ class DashboardViewModel with ChangeNotifier {
     return result.fold((l) {
       _featureCompaniesError = l;
       _isLoadingFeatureCompanies = false;
-      notifyListeners();
+      update();
       return false;
     }, (r) {
       _featuredCompanies = r;
       _isLoadingFeatureCompanies = false;
-      notifyListeners();
+      update();
       return true;
     });
   }
@@ -202,7 +203,7 @@ class DashboardViewModel with ChangeNotifier {
 
   set idExpandedSkillList(bool value) {
     _idExpandedSkillList = value;
-    notifyListeners();
+    update();
   }
 
   bool get isLoadingVitalState => _isLoadingVitalState;

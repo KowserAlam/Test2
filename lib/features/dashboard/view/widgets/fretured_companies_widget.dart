@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:p7app/features/company/models/company.dart';
 import 'package:p7app/features/company/view/company_details.dart';
 import 'package:p7app/features/dashboard/view_model/dashboard_view_model.dart';
@@ -13,77 +14,83 @@ import 'package:p7app/method_extension.dart';
 import 'package:shimmer/shimmer.dart';
 
 class FeaturedCompaniesWidget extends StatelessWidget {
-  Function onTapViewAll;
+  final Function onTapViewAll;
 
   FeaturedCompaniesWidget({this.onTapViewAll});
   @override
   Widget build(BuildContext context) {
-    var vm = Provider.of<DashboardViewModel>(context);
-    var list = vm.featuredCompanies;
-      return Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            mainAxisSize: MainAxisSize.max,
+    // var vm = Provider.of<DashboardViewModel>(context);
+
+      return GetBuilder<DashboardViewModel>(
+
+        builder: (DashboardViewModel vm) {
+          var list = vm.featuredCompanies;
+          return Column(
             children: [
-              Padding(
-                padding: EdgeInsets.only(left: 15),
-                child: Text(
-                  StringResources.featuredCompanies,
-                  style: CommonStyle.dashboardSectionTitleTexStyle,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(left: 15),
+                    child: Text(
+                      StringResources.featuredCompanies,
+                      style: CommonStyle.dashboardSectionTitleTexStyle,
+                    ),
+                  ),
+                  RawMaterialButton(
+                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    onPressed: onTapViewAll,
+                    child: Text(
+                      StringResources.viewAllText,
+                      key: Key('featuredCompanyViewAll'),
+                      style: Theme.of(context)
+                          .textTheme
+                          .subtitle1
+                          .apply(color: Colors.blue),
+                    ),
+                  )
+                ],
+              ),
+              // Text(StringResources.topCategories,style: Theme.of(context).textTheme.subtitle1,),
+              // SizedBox(
+              //   height: 10,
+              // ),
+              vm.shouldShowFeaturedCompanyLoader?
+              Shimmer.fromColors(
+                baseColor: Colors.grey[300],
+                highlightColor: Colors.grey[100],
+                enabled: true,
+                child: Container(
+                  height: 180,
+                  child: Row(children: [
+                    Expanded(child: Material(
+                      borderRadius: BorderRadius.circular(4.0),
+                      color: Colors.grey,child: Center(),
+                    )),
+                    SizedBox(width: 8,),
+                    Expanded(child: Material(
+                      borderRadius: BorderRadius.circular(4.0),
+                      color: Colors.grey,child: Center(),
+                    )),
+                  ],),
+                ),
+              ):
+              Container(
+                height: 180,
+                child: ListView.builder(
+                  padding: EdgeInsets.only(left: 10, right: 10),
+                  itemCount: list.length,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) {
+                    var company = list[index];
+                    return listItem(company);
+                  },
                 ),
               ),
-              RawMaterialButton(
-                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                onPressed: onTapViewAll,
-                child: Text(
-                  StringResources.viewAllText,
-                  key: Key('featuredCompanyViewAll'),
-                  style: Theme.of(context)
-                      .textTheme
-                      .subtitle1
-                      .apply(color: Colors.blue),
-                ),
-              )
             ],
-          ),
-          // Text(StringResources.topCategories,style: Theme.of(context).textTheme.subtitle1,),
-          // SizedBox(
-          //   height: 10,
-          // ),
-          vm.shouldShowFeaturedCompanyLoader?
-          Shimmer.fromColors(
-            baseColor: Colors.grey[300],
-            highlightColor: Colors.grey[100],
-            enabled: true,
-            child: Container(
-              height: 180,
-              child: Row(children: [
-                Expanded(child: Material(
-                  borderRadius: BorderRadius.circular(4.0),
-                  color: Colors.grey,child: Center(),
-                )),
-                SizedBox(width: 8,),
-                Expanded(child: Material(
-                  borderRadius: BorderRadius.circular(4.0),
-                  color: Colors.grey,child: Center(),
-                )),
-              ],),
-            ),
-          ):
-          Container(
-            height: 180,
-            child: ListView.builder(
-              padding: EdgeInsets.only(left: 10, right: 10),
-              itemCount: list.length,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                var company = list[index];
-                return listItem(company);
-              },
-            ),
-          ),
-        ],
+          );
+        }
       );
 
   }

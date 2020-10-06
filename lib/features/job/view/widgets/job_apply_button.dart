@@ -71,7 +71,7 @@ class JobApplyButton extends StatelessWidget {
                _showLoginDialog(context);
              }else{
                if(!isAppliedDisabled){
-                 var profileCompletePercent = Provider.of<DashboardViewModel>(context,listen: false).profileCompletePercent;
+                 var profileCompletePercent = Get.find<DashboardViewModel>().profileCompletePercent;
                  var minimumProfileCompleteness =  Get.find<WebSettingsViewModel>().settings.value?.minimumProfileCompleteness??60;
                  if( profileCompletePercent >= minimumProfileCompleteness){
                    _showApplyDialog(context);

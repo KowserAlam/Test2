@@ -1,86 +1,91 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:p7app/features/dashboard/models/top_categories_model.dart';
 import 'package:p7app/features/dashboard/view_model/dashboard_view_model.dart';
 import 'package:p7app/main_app/app_theme/common_style.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
-import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 
 class TopCategoriesWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var vm = Provider.of<DashboardViewModel>(context);
-    var list = vm.topCategoryList;
-      return vm.shouldShowTopCategoriesLoader? Padding(
-        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                SizedBox(
-                  width: 8,
+
+
+
+      return GetBuilder<DashboardViewModel>(builder: (vm){
+        var list = vm.topCategoryList;
+        return vm.shouldShowTopCategoriesLoader? Padding(
+          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  SizedBox(
+                    width: 8,
+                  ),
+                  Text(
+                    StringResources.topCategories,
+                    style: CommonStyle.dashboardSectionTitleTexStyle,
+                  ),
+                ],
+              ),
+              // Text(StringResources.topCategories,style: Theme.of(context).textTheme.subtitle1,),
+              SizedBox(
+                height: 10,
+              ),
+              Shimmer.fromColors(
+                baseColor: Colors.grey[300],
+                highlightColor: Colors.grey[100],
+                enabled: true,
+                child: Container(
+                  height: 150,
+                  child: ListView.builder(
+                    itemCount: 6,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      var category = TopCategoriesModel();
+                      return listItem(category);
+                    },
+                  ),
                 ),
-                Text(
-                  StringResources.topCategories,
-                  style: CommonStyle.dashboardSectionTitleTexStyle,
-                ),
-              ],
-            ),
-            // Text(StringResources.topCategories,style: Theme.of(context).textTheme.subtitle1,),
-            SizedBox(
-              height: 10,
-            ),
-            Shimmer.fromColors(
-              baseColor: Colors.grey[300],
-              highlightColor: Colors.grey[100],
-              enabled: true,
-              child: Container(
+              ),
+            ],
+          ),
+        ): Padding(
+          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  SizedBox(
+                    width: 8,
+                  ),
+                  Text(
+                    StringResources.topCategories,
+                    style: CommonStyle.dashboardSectionTitleTexStyle,
+                  ),
+                ],
+              ),
+              // Text(StringResources.topCategories,style: Theme.of(context).textTheme.subtitle1,),
+              SizedBox(
+                height: 10,
+              ),
+              Container(
                 height: 150,
                 child: ListView.builder(
-                  itemCount: 6,
+                  itemCount: list.length,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
-                    var category = TopCategoriesModel();
+                    var category = list[index];
                     return listItem(category);
                   },
                 ),
               ),
-            ),
-          ],
-        ),
-      ): Padding(
-        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                SizedBox(
-                  width: 8,
-                ),
-                Text(
-                  StringResources.topCategories,
-                  style: CommonStyle.dashboardSectionTitleTexStyle,
-                ),
-              ],
-            ),
-            // Text(StringResources.topCategories,style: Theme.of(context).textTheme.subtitle1,),
-            SizedBox(
-              height: 10,
-            ),
-            Container(
-              height: 150,
-              child: ListView.builder(
-                itemCount: list.length,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  var category = list[index];
-                  return listItem(category);
-                },
-              ),
-            ),
-          ],
-        ),
+            ],
+          ),
+        );
+      },
       );
   }
 

@@ -47,15 +47,19 @@ class DashBoard extends StatefulWidget {
   _DashBoardState createState() => _DashBoardState();
 }
 
-class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
+class _DashBoardState extends State<DashBoard>  {
   final List<String> menuItems = [
     "Settings",
     "Sign Out",
   ];
+  DashboardViewModel dashboardViewModel;
 
   @override
-  void afterFirstLayout(BuildContext context) {
-    Provider.of<DashboardViewModel>(context, listen: false)
+  void initState() {
+
+    Get.put(DashboardViewModel());
+     dashboardViewModel = Get.find<DashboardViewModel>();
+    dashboardViewModel
         .getDashboardData()
         .then((value) {
       if (value == AppError.unauthorized) {
@@ -64,16 +68,18 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
       }
 //      Provider.of<UserProfileViewModel>(context, listen: false).getUserData();
     });
+    super.initState();
   }
 
+
   Future<void> _refreshData() async {
-    var dbVM = Provider.of<DashboardViewModel>(context, listen: false);
+
     var upVM = Provider.of<UserProfileViewModel>(context, listen: false);
     var cvm = Provider.of<CareerAdviceViewModel>(context, listen: false);
     var isLoggedIn =
         Provider.of<AuthViewModel>(context, listen: false).isLoggerIn;
     return Future.wait([
-      dbVM.getDashboardData(),
+      dashboardViewModel.getDashboardData(),
       if (isLoggedIn) upVM.getUserData(),
       cvm.refresh(),
     ]);
@@ -85,7 +91,7 @@ class _DashBoardState extends State<DashBoard> with AfterLayoutMixin {
 
   @override
   Widget build(BuildContext context) {
-    var dashboardViewModel = Provider.of<DashboardViewModel>(context);
+
     var authVM = Provider.of<AuthViewModel>(context);
     bool isLoggedIn = authVM.isLoggerIn;
 

@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:get/get.dart';
 import 'package:p7app/features/dashboard/view_model/dashboard_view_model.dart';
 import 'package:p7app/features/job/models/job_list_model.dart';
 import 'package:p7app/features/job/view/job_details_screen.dart';
@@ -144,70 +145,74 @@ class _RecentJobsState extends State<RecentJobs> {
     }
 
 
-    var vm = Provider.of<DashboardViewModel>(context);
-    var list = vm.recebtJobsList;
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Padding(
-              padding: EdgeInsets.only(left: 15),
-              child: Text(StringResources.recentJobsText,
-                style: CommonStyle.dashboardSectionTitleTexStyle,
+    // var vm = Provider.of<DashboardViewModel>(context);
+
+    return GetBuilder<DashboardViewModel>(builder: (vm){
+      var list = vm.recebtJobsList;
+      return Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(left: 15),
+                child: Text(StringResources.recentJobsText,
+                  style: CommonStyle.dashboardSectionTitleTexStyle,
+                ),
               ),
+              RawMaterialButton(
+                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                onPressed: widget.onTapViewAll,
+                child: Text(
+                  StringResources.viewAllText,
+                  key: Key('recentJobsViewAll'),
+                  style: Theme.of(context)
+                      .textTheme
+                      .subtitle1
+                      .apply(color: Colors.blue),
+                ),
+              )
+          ],),
+          // Text(StringResources.recentJobsText, style: Theme
+          //     .of(context)
+          //     .textTheme
+          //     .subtitle1,),
+          // SizedBox(height: 10,),
+          vm.shouldShowRecentJobsLoader?
+          Shimmer.fromColors(
+            baseColor: Colors.grey[300],
+            highlightColor: Colors.grey[100],
+            enabled: true,
+            child: Container(
+              height: cardHeight,
+              child: Row(children: [
+                Expanded(child: Material(
+                  borderRadius: BorderRadius.circular(4.0),
+                  color: Colors.grey,child: Center(),
+                )),
+                SizedBox(width: 8,),
+                Expanded(child: Material(
+                  borderRadius: BorderRadius.circular(4.0),
+                  color: Colors.grey,child: Center(),
+                )),
+              ],),
             ),
-            RawMaterialButton(
-              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-              onPressed: widget.onTapViewAll,
-              child: Text(
-                StringResources.viewAllText,
-                key: Key('recentJobsViewAll'),
-                style: Theme.of(context)
-                    .textTheme
-                    .subtitle1
-                    .apply(color: Colors.blue),
-              ),
-            )
-        ],),
-        // Text(StringResources.recentJobsText, style: Theme
-        //     .of(context)
-        //     .textTheme
-        //     .subtitle1,),
-        // SizedBox(height: 10,),
-        vm.shouldShowRecentJobsLoader?
-        Shimmer.fromColors(
-          baseColor: Colors.grey[300],
-          highlightColor: Colors.grey[100],
-          enabled: true,
-          child: Container(
+          ):
+          Container(
             height: cardHeight,
-            child: Row(children: [
-              Expanded(child: Material(
-                borderRadius: BorderRadius.circular(4.0),
-                color: Colors.grey,child: Center(),
-              )),
-              SizedBox(width: 8,),
-              Expanded(child: Material(
-                borderRadius: BorderRadius.circular(4.0),
-                color: Colors.grey,child: Center(),
-              )),
-            ],),
+            child: ListView.builder(
+              padding: EdgeInsets.only(left: 10, right: 10, bottom: 10),
+              itemCount: list.length,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                var recentJob = list[index];
+                return listItem(recentJob);
+              },
+            ),
           ),
-        ):
-        Container(
-          height: cardHeight,
-          child: ListView.builder(
-            padding: EdgeInsets.only(left: 10, right: 10, bottom: 10),
-            itemCount: list.length,
-            scrollDirection: Axis.horizontal,
-            itemBuilder: (context, index) {
-              var recentJob = list[index];
-              return listItem(recentJob);
-            },
-          ),
-        ),
-      ],
+        ],
+      );
+    },
     );
   }
 

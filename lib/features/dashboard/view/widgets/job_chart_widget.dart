@@ -1,6 +1,7 @@
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:p7app/features/dashboard/models/skill_job_chart_data_model.dart';
 import 'package:p7app/features/dashboard/view_model/dashboard_view_model.dart';
 import 'package:p7app/features/user_profile/models/skill_info.dart';
@@ -37,11 +38,9 @@ class JobChartWidget extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 5.0),
-          child: Consumer<UserProfileViewModel>(
-            builder:
-                (BuildContext context, userProfileViewModel, Widget child) {
-              var dashboardViewModel =
-                  Provider.of<DashboardViewModel>(context);
+          child: GetBuilder<DashboardViewModel>(builder: (dashboardViewModel){
+              var userProfileViewModel =
+                  Provider.of<UserProfileViewModel>(context);
 
               if (userProfileViewModel.shouldShowLoader) {
                 return SizedBox();
@@ -158,8 +157,8 @@ class JobChartWidget extends StatelessWidget {
         ),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 14),
-          child: Consumer<DashboardViewModel>(builder:
-              (BuildContext context, dashboardViewModel, Widget child) {
+          child: GetBuilder<DashboardViewModel>(builder:
+              (dashboardViewModel) {
             if (dashboardViewModel.shouldShowJoChartLoader) {
               return Container(
                   child: Shimmer.fromColors(
