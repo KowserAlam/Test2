@@ -36,9 +36,15 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   NotificationViewModel _notiController = Get.put(NotificationViewModel());
-  var _paeViewController = PageController();
+  // var _paeViewController = PageController();
   int currentIndex = 0;
 
+  _moveTo(int index){
+    currentIndex = index;
+    setState(() {
+
+    });
+  }
 
   @override
   void initState() {
@@ -103,34 +109,68 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+
     var authVM = Provider.of<AuthViewModel>(context);
     bool isLoggedIn = authVM.isLoggerIn;
 
-    var bottomNavBar = BottomNavigationBar(
-//        selectedItemColor: Theme.of(context).primaryColor,
-//        unselectedItemColor: Colors.grey,
+    var pages = <Widget>[
+      DashBoard(
+        onTapSearch: () {
+          _moveTo(1);
+          // _paeViewController.animateToPage(1,
+          //     duration: const Duration(milliseconds: 400),
+          //     curve: Curves.easeInOut);
 
+          Provider.of<JobScreenViewModel>(context, listen: false)
+              .onChange(0);
+          Provider.of<AllJobListViewModel>(context, listen: false)
+              .enableSearchMode();
+        },
+        onTapApplied: () {
+          _moveTo(1);
+          // _paeViewController.animateToPage(1,
+          //     duration: const Duration(milliseconds: 400),
+          //     curve: Curves.easeInOut);
+          Provider.of<JobScreenViewModel>(context, listen: false)
+              .onChange(1);
+        },
+        onTapFavourite: () {
+          _moveTo(1);
+          // _paeViewController.animateToPage(1,
+          //     duration: const Duration(milliseconds: 400),
+          //     curve: Curves.easeInOut);
+          Provider.of<JobScreenViewModel>(context, listen: false)
+              .onChange(2);
+        },
+        onTapRecentJobs: () {
+          _moveTo(1);
+          // _paeViewController.animateToPage(1,
+          //     duration: const Duration(milliseconds: 400),
+          //     curve: Curves.easeInOut);
+          Provider.of<JobScreenViewModel>(context, listen: false)
+              .onChange(0);
+        },
+        onTapFeaturedCompany: () {
+          _moveTo(2);
+          // _paeViewController.animateToPage(2,
+          //     duration: const Duration(milliseconds: 400),
+          //     curve: Curves.easeInOut);
+        },
+      ),
+      JobsScreen(),
+//              AppliedJobListScreen(),
+//              FavouriteJobListScreen(),
+      CompanyListScreen(),
+      MessageScreen(),
+      ProfileScreen(),
+    ];
+
+    var bottomNavBar = BottomNavigationBar(
         onTap: (int index) async {
           if (currentIndex != index) {
-            // // animation
-            // var offset = 0;
-            // if (index > currentIndex) {
-            //   offset = 100;
-            // } else if(index < currentIndex) {
-            //   offset = -100;
-            // }
-            // await _paeViewController.animateTo(
-            //     _paeViewController.offset + offset,
-            //     duration: const Duration(milliseconds: 50),
-            //     curve: Curves.easeInOut);
-
-            _paeViewController.jumpToPage(index);
+            // _paeViewController.jumpToPage(index);
+            _moveTo(index);
           }
-
-//
-//          _paeViewController.animateToPage(index,
-//              duration: const Duration(milliseconds: 400),
-//              curve: Curves.easeInOut);
         },
         currentIndex: currentIndex,
         iconSize: 17,
@@ -206,69 +246,17 @@ class _HomeState extends State<Home> {
         if (currentIndex == 0)
           return true;
         else {
-          _paeViewController.animateToPage(0,
-              duration: const Duration(milliseconds: 400),
-              curve: Curves.easeInOut);
+          _moveTo(0);
+          // _paeViewController.animateToPage(0,
+          //     duration: const Duration(milliseconds: 400),
+          //     curve: Curves.easeInOut);
           return false;
         }
       },
       child: FlavorBanner(
         child: Scaffold(
           bottomNavigationBar: bottomNavBar,
-          body: PageView(
-            physics: NeverScrollableScrollPhysics(),
-            onPageChanged: (index) {
-              setState(() {
-                currentIndex = index;
-              });
-            },
-            controller: _paeViewController,
-            children: <Widget>[
-              DashBoard(
-                onTapSearch: () {
-                  _paeViewController.animateToPage(1,
-                      duration: const Duration(milliseconds: 400),
-                      curve: Curves.easeInOut);
-                  Provider.of<JobScreenViewModel>(context, listen: false)
-                      .onChange(0);
-                  Provider.of<AllJobListViewModel>(context, listen: false)
-                      .enableSearchMode();
-                },
-                onTapApplied: () {
-                  _paeViewController.animateToPage(1,
-                      duration: const Duration(milliseconds: 400),
-                      curve: Curves.easeInOut);
-                  Provider.of<JobScreenViewModel>(context, listen: false)
-                      .onChange(1);
-                },
-                onTapFavourite: () {
-                  _paeViewController.animateToPage(1,
-                      duration: const Duration(milliseconds: 400),
-                      curve: Curves.easeInOut);
-                  Provider.of<JobScreenViewModel>(context, listen: false)
-                      .onChange(2);
-                },
-                onTapRecentJobs: () {
-                  _paeViewController.animateToPage(1,
-                      duration: const Duration(milliseconds: 400),
-                      curve: Curves.easeInOut);
-                  Provider.of<JobScreenViewModel>(context, listen: false)
-                      .onChange(0);
-                },
-                onTapFeaturedCompany: () {
-                  _paeViewController.animateToPage(2,
-                      duration: const Duration(milliseconds: 400),
-                      curve: Curves.easeInOut);
-                },
-              ),
-              JobsScreen(),
-//              AppliedJobListScreen(),
-//              FavouriteJobListScreen(),
-              CompanyListScreen(),
-              MessageScreen(),
-              ProfileScreen(),
-            ],
-          ),
+          body: pages[currentIndex],
         ),
       ),
     );

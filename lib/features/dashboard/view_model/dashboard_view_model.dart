@@ -34,7 +34,6 @@ class DashboardViewModel extends GetxController {
   bool _isLoadingRecentJobs = false;
   bool _isLoadingFeatureCompanies = false;
   bool _idExpandedSkillList = false;
-  DateTime _lastFetchTime;
   double profileCompletePercent = 0;
 
   Future<AppError> getDashboardData() async {
@@ -53,14 +52,13 @@ class DashboardViewModel extends GetxController {
       if(loggedIn)
       _getISkillJobChartData(),
       if(loggedIn)
-      _getProfileCompleteness(),
+      getProfileCompleteness(),
 
       _getVitalStats(),
       _getTopCategories(),
       _getRecentJobs(),
       _getFeaturedCompanies(),
     ]).then((value) {
-      _lastFetchTime = DateTime.now();
       return _infoBoxError;
     });
   }
@@ -97,10 +95,12 @@ class DashboardViewModel extends GetxController {
     });
   }
 
-  Future<double> _getProfileCompleteness() async {
+  Future<double> getProfileCompleteness() async {
     return DashBoardRepository().getProfileCompletenessPercent().then((value) {
-      update();
-      return profileCompletePercent = value;
+
+       profileCompletePercent = value;
+       update();
+      return value;
     });
   }
 

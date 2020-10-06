@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
+import 'package:p7app/features/dashboard/view_model/dashboard_view_model.dart';
 import 'package:p7app/features/settings/setings_screen.dart';
 import 'package:p7app/features/user_profile/models/member_ship_info.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
@@ -457,138 +459,144 @@ class _ProfileScreenState extends State<ProfileScreen> with AfterLayoutMixin {
       );
     });
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          StringResources.myProfileText,
-          key: Key('myProfileAppbarTitle'),
+    return WillPopScope(
+      onWillPop: ()async{
+        Get.find<DashboardViewModel>().getProfileCompleteness();
+        return true;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            StringResources.myProfileText,
+            key: Key('myProfileAppbarTitle'),
+          ),
+          actions: [
+            IconButton(
+              tooltip: "Share Public Profile",
+              key: Key('myProfileShareButton'),
+              icon: Icon(
+                Icons.share,
+              ),
+              onPressed: () {
+                var userInfo =
+                    Provider.of<UserProfileViewModel>(context, listen: false)
+                        .userData
+                        .personalInfo;
+                var link =
+                    "${FlavorConfig.instance.values.baseUrl}/pro/${userInfo.slug}/";
+                SocialShare.shareOptions("${userInfo?.fullName}\n $link");
+              },
+            ),
+            IconButton(
+              tooltip: "Settings",
+              key: Key('myProfileSettingsButton'),
+              icon: Icon(
+                Icons.settings,
+              ),
+              onPressed: () {
+                Navigator.push(context,
+                    CupertinoPageRoute(builder: (context) => SettingsScreen()));
+              },
+            ),
+          ],
         ),
-        actions: [
-          IconButton(
-            tooltip: "Share Public Profile",
-            key: Key('myProfileShareButton'),
-            icon: Icon(
-              Icons.share,
-            ),
-            onPressed: () {
-              var userInfo =
-                  Provider.of<UserProfileViewModel>(context, listen: false)
-                      .userData
-                      .personalInfo;
-              var link =
-                  "${FlavorConfig.instance.values.baseUrl}/pro/${userInfo.slug}/";
-              SocialShare.shareOptions("${userInfo?.fullName}\n $link");
-            },
-          ),
-          IconButton(
-            tooltip: "Settings",
-            key: Key('myProfileSettingsButton'),
-            icon: Icon(
-              Icons.settings,
-            ),
-            onPressed: () {
-              Navigator.push(context,
-                  CupertinoPageRoute(builder: (context) => SettingsScreen()));
-            },
-          ),
-        ],
-      ),
-      body: RefreshIndicator(
-        onRefresh: () async {
-          return Provider.of<UserProfileViewModel>(context, listen: false)
-              .getUserData();
-        },
-        child: SingleChildScrollView(
-          key: Key('myProfileScrollView'),
-          physics: AlwaysScrollableScrollPhysics(),
-          child: Consumer<UserProfileViewModel>(
-              builder: (context, userProfileViewModel, child) {
-            if (userProfileViewModel.appError != null) {
-              switch (userProfileViewModel.appError) {
-                case AppError.serverError:
-                  return FailureFullScreenWidget(
-                    errorMessage: StringResources.unableToLoadData,
-                    onTap: () {
-                      return Provider.of<UserProfileViewModel>(context,
-                              listen: false)
-                          .getUserData();
-                    },
-                  );
+        body: RefreshIndicator(
+          onRefresh: () async {
+            return Provider.of<UserProfileViewModel>(context, listen: false)
+                .getUserData();
+          },
+          child: SingleChildScrollView(
+            key: Key('myProfileScrollView'),
+            physics: AlwaysScrollableScrollPhysics(),
+            child: Consumer<UserProfileViewModel>(
+                builder: (context, userProfileViewModel, child) {
+              if (userProfileViewModel.appError != null) {
+                switch (userProfileViewModel.appError) {
+                  case AppError.serverError:
+                    return FailureFullScreenWidget(
+                      errorMessage: StringResources.unableToLoadData,
+                      onTap: () {
+                        return Provider.of<UserProfileViewModel>(context,
+                                listen: false)
+                            .getUserData();
+                      },
+                    );
 
-                case AppError.networkError:
-                  return FailureFullScreenWidget(
-                    errorMessage: StringResources.unableToReachServerMessage,
-                    onTap: () {
-                      return Provider.of<UserProfileViewModel>(context,
-                              listen: false)
-                          .getUserData();
-                    },
-                  );
+                  case AppError.networkError:
+                    return FailureFullScreenWidget(
+                      errorMessage: StringResources.unableToReachServerMessage,
+                      onTap: () {
+                        return Provider.of<UserProfileViewModel>(context,
+                                listen: false)
+                            .getUserData();
+                      },
+                    );
 
-                default:
-                  return FailureFullScreenWidget(
-                    errorMessage: StringResources.somethingIsWrong,
-                    onTap: () {
-                      return Provider.of<UserProfileViewModel>(context,
-                              listen: false)
-                          .getUserData();
-                    },
-                  );
+                  default:
+                    return FailureFullScreenWidget(
+                      errorMessage: StringResources.somethingIsWrong,
+                      onTap: () {
+                        return Provider.of<UserProfileViewModel>(context,
+                                listen: false)
+                            .getUserData();
+                      },
+                    );
+                }
               }
-            }
-            if (userProfileViewModel.userData == null) {
-              return Container(
-                height: MediaQuery.of(context).size.height,
-                child: Center(child: Loader()),
-              );
-            }
-            return Column(
-              children: <Widget>[
-                UserProfileHeader(),
-                SizedBox(height: 15),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 8),
-                  child: Column(
-                    children: [
-                      /// Experience
-                      experienceWidget,
-                      SizedBox(height: 15),
+              if (userProfileViewModel.userData == null) {
+                return Container(
+                  height: MediaQuery.of(context).size.height,
+                  child: Center(child: Loader()),
+                );
+              }
+              return Column(
+                children: <Widget>[
+                  UserProfileHeader(),
+                  SizedBox(height: 15),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 8),
+                    child: Column(
+                      children: [
+                        /// Experience
+                        experienceWidget,
+                        SizedBox(height: 15),
 
-                      ///Education
-                      educationWidget,
-                      SizedBox(height: 15),
+                        ///Education
+                        educationWidget,
+                        SizedBox(height: 15),
 
-                      ///Skill
-                      skillsWidget,
-                      SizedBox(height: 15),
+                        ///Skill
+                        skillsWidget,
+                        SizedBox(height: 15),
 
-                      /// Portfolio
-                      portfolioWidget,
-                      SizedBox(height: 15),
+                        /// Portfolio
+                        portfolioWidget,
+                        SizedBox(height: 15),
 
-                      /// Certifications
-                      certificationsWidget,
-                      SizedBox(height: 15),
+                        /// Certifications
+                        certificationsWidget,
+                        SizedBox(height: 15),
 
-                      /// Memberships
-                      memberShipWidget,
-                      SizedBox(height: 15),
+                        /// Memberships
+                        memberShipWidget,
+                        SizedBox(height: 15),
 
-                      /// References
-                      referencesWidget,
-                      SizedBox(height: 15),
+                        /// References
+                        referencesWidget,
+                        SizedBox(height: 15),
 
-                      /// Personal info
-                      personalInfoWidget,
-                      SizedBox(height: 15),
+                        /// Personal info
+                        personalInfoWidget,
+                        SizedBox(height: 15),
 //                      SubscribeJobAlert(),
 //                      SizedBox(height: 15),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              ],
-            );
-          }),
+                ],
+              );
+            }),
+          ),
         ),
       ),
     );

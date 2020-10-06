@@ -197,10 +197,14 @@ class _DashBoardState extends State<DashBoard>  {
             if (isLoggedIn)
               Column(
                 children: [
-                  if (dashboardViewModel
-                      .showProfileCompletePercentIndicatorWidget)
-                    ProfileCompletePercentIndicatorWidget(
-                        dashboardViewModel.profileCompletePercent / 100),
+                  GetBuilder<DashboardViewModel>(
+                    builder: (vm) {
+                      return  vm
+                          .showProfileCompletePercentIndicatorWidget?
+                        ProfileCompletePercentIndicatorWidget(
+                            vm.profileCompletePercent / 100):SizedBox();
+                    }
+                  ),
                   InfoBoxWidget(
                     onTapApplied: widget.onTapApplied,
                     onTapFavourite: widget.onTapFavourite,
