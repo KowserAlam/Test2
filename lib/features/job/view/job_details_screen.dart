@@ -462,19 +462,17 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                   SizedBox(
                     height: 5,
                   ),
+                  jobDetails.jobNature != null ?
                   jobSummeryRichText(
                       StringResources.jobNature,
-                      jobDetails.jobNature != null
-                          ? refactorAboutJobStrings(jobDetails.jobNature)
-                          : StringResources.noneText),
+                      refactorAboutJobStrings(jobDetails.jobNature)):SizedBox(),
                   SizedBox(
-                    height: 5,
+                    height: jobDetails.jobNature != null ?5:0,
                   ),
+                  jobDetails.jobSite != null?
                   jobSummeryRichText(
                       StringResources.jobSiteText,
-                      jobDetails.jobSite != null
-                          ? refactorAboutJobStrings(jobDetails.jobSite)
-                          : StringResources.noneText),
+                      refactorAboutJobStrings(jobDetails.jobSite)):SizedBox(),
                   SizedBox(
                     height: 5,
                   ),
@@ -615,51 +613,41 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                     children: <Widget>[
                       Row(
                         children: <Widget>[
-                          jobSummeryRichText(
+                          jobDetails.jobCategory != null?jobSummeryRichText(
                               StringResources.category,
-                              jobDetails.jobCategory != null
-                                  ? jobDetails.jobCategory
-                                  : StringResources.noneText)
+                              jobDetails.jobCategory):SizedBox()
                         ],
                       ),
                       SizedBox(height: 5),
                       Row(
                         children: <Widget>[
-                          jobSummeryRichText(
+                          jobDetails.vacancy != null?jobSummeryRichText(
                               StringResources.vacancy,
-                              jobDetails.vacancy != null
-                                  ? "${jobDetails.vacancy == 0 ? StringResources.notSpecifiedText : jobDetails.vacancy}"
-                                  : StringResources.noneText)
+                              "${jobDetails.vacancy == 0 ? StringResources.notSpecifiedText : jobDetails.vacancy}"):SizedBox()
                         ],
                       ),
                       SizedBox(height: 5),
                       Row(
                         children: <Widget>[
-                          jobSummeryRichText(
+                          jobDetails.qualification != null?jobSummeryRichText(
                               StringResources.qualificationText,
-                              jobDetails.qualification != null
-                                  ? jobDetails.qualification
-                                  : StringResources.noneText)
+                              jobDetails.qualification):SizedBox()
                         ],
                       ),
                       SizedBox(height: 5),
                       Row(
                         children: <Widget>[
-                          jobSummeryRichText(
+                          jobDetails.gender != null?jobSummeryRichText(
                               StringResources.gender,
-                              jobDetails.gender != null
-                                  ? jobDetails.gender
-                                  : StringResources.noneText)
+                              jobDetails.gender):SizedBox()
                         ],
                       ),
                       SizedBox(height: 5),
                       Row(
                         children: <Widget>[
-                          jobSummeryRichText(
+                          jobDetails.experience != null?jobSummeryRichText(
                               StringResources.experience,
-                              jobDetails.experience != null
-                                  ? jobDetails.experience
-                                  : StringResources.noneText)
+                              jobDetails.experience):SizedBox()
                         ],
                       ),
                       SizedBox(
@@ -766,12 +754,10 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                   SizedBox(
                     height: 5,
                   ),
-                  HtmlWidget(
-                    jobDetails.otherBenefits != null
-                        ? jobDetails.otherBenefits
-                        : StringResources.noneText,
+                  jobDetails.otherBenefits.htmlToNotusDocument.toPlainText().trim().length!=0?HtmlWidget(
+                    jobDetails.otherBenefits,
                     textStyle: descriptionFontStyle,
-                  )
+                  ):SizedBox()
                 ],
               ),
             );
@@ -829,13 +815,11 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                     SizedBox(
                       width: 5,
                     ),
-                    Text(
-                      jobDetails.postDate != null
-                          ? DateFormatUtil.formatDate(jobDetails.postDate)
-                          : StringResources.noneText,
+                    jobDetails.postDate != null ?Text(
+                      DateFormatUtil.formatDate(jobDetails.postDate),
                       key: Key('jobDetailsPublishDate'),
                       style: topSideDescriptionFontStyle,
-                    ),
+                    ):SizedBox(),
                   ],
                 ),
           jobDetails.applicationDeadline == null
@@ -851,14 +835,11 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                     SizedBox(
                       width: 5,
                     ),
-                    Text(
-                      jobDetails.applicationDeadline != null
-                          ? DateFormatUtil.formatDate(
-                              jobDetails.applicationDeadline)
-                          : StringResources.noneText,
+                    jobDetails.applicationDeadline != null ?Text(
+                      DateFormatUtil.formatDate(jobDetails.applicationDeadline),
                       key: Key('jobDetailsDeadlineDate'),
                       style: topSideDescriptionFontStyle,
-                    ),
+                    ):SizedBox(),
                   ],
                 ),
           applyButton,
@@ -1074,28 +1055,22 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
             )
           ],
         ),
-        SizedBox(height: 5),
-        jobSummeryRichText(
+        SizedBox(height: jobDetails.jobAddress != null?5:0),
+        jobDetails.jobAddress != null?jobSummeryRichText(
             StringResources.jobAddressText,
-            jobDetails.jobAddress != null
-                ? jobDetails.jobAddress
-                : StringResources.noneText),
+            jobDetails.jobAddress):SizedBox(),
         SizedBox(
-          height: 5,
+          height: jobDetails.jobArea != null?5:0,
         ),
-        jobSummeryRichText(
+        jobDetails.jobArea != null?jobSummeryRichText(
             StringResources.jobAreaText,
-            jobDetails.jobArea != null
-                ? jobDetails.jobArea
-                : StringResources.noneText),
+            jobDetails.jobArea):SizedBox(),
         SizedBox(
           height: 5,
         ),
-        jobSummeryRichText(
+        jobDetails.jobCity != null?jobSummeryRichText(
             StringResources.jobCityText,
-            jobDetails.jobCity != null
-                ? jobDetails.jobCity.swapValueByComa
-                : StringResources.noneText),
+            jobDetails.jobCity.swapValueByComa):SizedBox(),
         SizedBox(
           height: 5,
         ),

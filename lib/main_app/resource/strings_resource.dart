@@ -517,7 +517,7 @@ class StringResources {
 
   ///
   /// Jobs
-  static const String noneText = "none";
+//  static const String noneText = "none";
   static const String notSpecifiedText = "Not Specified";
   static const String negotiableText = "Negotiable";
   static const String deadlineText = "Deadline";
