@@ -754,10 +754,12 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                   SizedBox(
                     height: 5,
                   ),
-                  jobDetails.otherBenefits.htmlToNotusDocument.toPlainText().trim().length!=0?HtmlWidget(
-                    jobDetails.otherBenefits,
+                  HtmlWidget(
+                    jobDetails.otherBenefits != null
+                        ? jobDetails.otherBenefits
+                        : StringResources.noneText,
                     textStyle: descriptionFontStyle,
-                  ):SizedBox()
+                  )
                 ],
               ),
             );
