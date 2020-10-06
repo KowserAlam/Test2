@@ -1,20 +1,14 @@
 import 'dart:async';
-import 'package:bot_toast/bot_toast.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:p7app/main_app/models/skill.dart';
 import 'package:p7app/features/user_profile/models/skill_info.dart';
-import 'package:p7app/main_app/repositories/skill_list_repository.dart';
-import 'package:p7app/main_app/app_theme/common_style.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
+import 'package:p7app/main_app/models/skill.dart';
+import 'package:p7app/main_app/repositories/skill_list_repository.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
-import 'package:p7app/main_app/util/validator.dart';
 import 'package:p7app/main_app/views/widgets/custom_searchable_dropdown_from_field.dart';
-import 'package:p7app/main_app/views/widgets/custom_text_from_field.dart';
 import 'package:p7app/main_app/views/widgets/edit_screen_save_button.dart';
-import 'package:p7app/main_app/views/widgets/loader.dart';
 import 'package:provider/provider.dart';
 
 class AddEditProfessionalSkill extends StatefulWidget {
@@ -232,99 +226,29 @@ class _AddEditProfessionalSkillState extends State<AddEditProfessionalSkill> {
                     SizedBox(
                       height: 20,
                     ),
-//                FutureBuilder<dartZ.Either<AppError, List<Skill>>>(
-//                  future: SkillListRepository().getSkillList(),
-//                  builder: (BuildContext context, AsyncSnapshot<dartZ.Either<AppError, List<Skill>>> snapshot){
-//                    if(snapshot.hasData){
-//                      return snapshot.data.fold((l){
-//                        return SizedBox();
-//                      }, (r){
-//                        searchList = r;
-//                        return Column(
-//                          crossAxisAlignment: CrossAxisAlignment.start,
-//                          children: [
-//                            Text("  ${StringUtils.skillNameText}",
-//                                style: TextStyle(fontWeight: FontWeight.bold)),
-//                            SizedBox(
-//                              height: 5,
-//                            ),
-//                            Container(
-//                                padding: EdgeInsets.symmetric(horizontal: 8),
-//                                decoration: BoxDecoration(
-//                                  color: Theme.of(context).backgroundColor,
-//                                  borderRadius: BorderRadius.circular(7),
-//                                  boxShadow: [
-//                                    BoxShadow(
-//                                        color: Color(0xff000000).withOpacity(0.2), blurRadius: 20),
-//                                    BoxShadow(
-//                                        color: Color(0xfffafafa).withOpacity(0.2), blurRadius: 20),
-//                                  ],
-//                                ),
-//                                child: AutoCompleteTextField<Skill>(
-//                                  style: TextStyle(color: Colors.black, fontSize: 16),
-//                                  decoration: InputDecoration(
-//                                    hintText: StringUtils.searchSkillText,
-//                                    border: InputBorder.none,
-//                                  ),
-//
-//                                  itemBuilder: (context, skill) {
-//                                    return Padding(
-//                                      padding: const EdgeInsets.all(8.0),
-//                                      child: Text(skill.name,
-//                                        style: TextStyle(
-//                                            fontSize: 16.0
-//                                        ),),
-//                                    );
-//                                  },
-//                                  key:  key,
-//                                  clearOnSubmit: false,
-//                                  controller: searchController,
-//                                  itemFilter: (skill, query){
-//                                    return skill.name.toLowerCase().startsWith(query.toLowerCase());
-//                                  },
-//                                  itemSorter: (a,b){
-//                                    return a.name.compareTo(b.name);
-//                                  },
-//                                  itemSubmitted: (skill){
-//                                    print(skill);
-//                                    searchController.text = skill.name;
-//                                    _selectedSkill = skill;
-//                                  },
-//                                  suggestions: r,
-//                                )),
-//                          ],
-//                        );
-//                      });
-//                    };
-//                    return Loader();
-//                  },
-//                ),
-//                SizedBox(
-//                  height: 30,
-//                ),
                     skillName,
                     Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
-                        Row(
-                          children: <Widget>[
-                            Text(StringResources.hasExpiryDateText),
-                            Checkbox(
-                              value: topSkill,
-                              key: Key('certificationHasExpiryDate'),
-                              onChanged: (bool newValue) {
-                                if (newValue) {
-                                  topSkill = newValue;
-                                  setState(() {});
-                                } else {
-                                  topSkill = newValue;
-                                  setState(() {});
-                                }
-                              },
-                            )
-                          ],
-                        )
+                        // Row(
+                        //   children: <Widget>[
+                        //     Text(StringResources.topSkillText),
+                        //     Checkbox(
+                        //       value: topSkill,
+                        //       key: Key('certificationHasExpiryDate'),
+                        //       onChanged: (bool newValue) {
+                        //         if (newValue) {
+                        //           topSkill = newValue;
+                        //           setState(() {});
+                        //         } else {
+                        //           topSkill = newValue;
+                        //           setState(() {});
+                        //         }
+                        //       },
+                        //     )
+                        //   ],
+                        // )
                       ],
                     ),
 //                    SizedBox(

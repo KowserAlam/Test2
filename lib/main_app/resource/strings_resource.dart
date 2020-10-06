@@ -199,6 +199,7 @@ class StringResources {
   static var noSkillSelectedText = "No skill selected";
   static var skillText = "Skill";
   static var addYourTopSkillText = "Add your top skills";
+  static var topSkillText = "Top Skills";
   static var skipText = "Skip";
   static var jobLocationPrefText = "Job Location Preference";
   static var professionalSkillText = "Professional Skills";
