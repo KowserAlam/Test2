@@ -150,13 +150,10 @@ class _CompanyDetailsState extends State<CompanyDetails> {
 //                    ]),
 //                    textAlign: TextAlign.justify,
 //                  ),
-                SizedBox(height: 5),
-                CompanyDetailsFormattedText(
+                SizedBox(height: companyDetails.yearOfEstablishment != null?5:0),
+                companyDetails.yearOfEstablishment != null?CompanyDetailsFormattedText(
                     StringResources.companyYearsOfEstablishmentText,
-                    companyDetails.yearOfEstablishment != null
-                        ? DateFormatUtil.formatDate(
-                            companyDetails.yearOfEstablishment)
-                        : StringResources.noneText),
+                    DateFormatUtil.formatDate(companyDetails.yearOfEstablishment)):SizedBox(),
                 SizedBox(
                   height: 5,
                 ),

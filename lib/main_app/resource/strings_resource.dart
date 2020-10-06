@@ -554,8 +554,7 @@ class StringResources {
   static const String contactUsSubjectText = 'Subject';
   static const String contactUsMessageText = 'Message';
   static const String contactUsLocationText = 'Location';
-  static const String contactUsSubmittedText =
-      'Thanks for contacting us! We will get in touch with you shortly.';
+  static const String contactUsSubmittedText = 'Thanks for contacting us! We will get in touch with you shortly.';
 
   ///Job Details
   static const String jobDetailsAppBarTitle = 'Job Details';
