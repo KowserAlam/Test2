@@ -589,7 +589,7 @@ class StringResources {
       'Choose a unique password to protect your account';
   static const String licenses = 'Licenses';
   static const String clearCachedData = 'Clear Cached Data';
-  static const String emailSubscriptionText = 'Email subscription';
+  static const String emailSubscriptionText = 'Email Subscription';
   static const String pushNotificationText = 'Push Notification';
   static const String managePushNotificationText = 'Manage push notification';
   static const String emailSubscriptionInfo = 'Job alert email subscription';

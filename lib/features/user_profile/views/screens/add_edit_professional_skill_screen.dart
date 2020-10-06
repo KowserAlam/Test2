@@ -35,6 +35,7 @@ class _AddEditProfessionalSkillState extends State<AddEditProfessionalSkill> {
   final int index;
   bool loading;
   static double expertiseLevel = 0;
+  bool topSkill = false;
 
 //  static TextEditingController searchController = new TextEditingController();
   TextEditingController ratingController = new TextEditingController();
@@ -50,6 +51,7 @@ class _AddEditProfessionalSkillState extends State<AddEditProfessionalSkill> {
     loading = true;
     ratingController.text =
         widget.skillInfo == null ? "" : widget.skillInfo.rating.toString();
+    if(widget.skillInfo!=null)topSkill=widget.skillInfo.isTopSkill;
 //    searchController.text =
 //        widget.skillInfo == null ? "" : widget.skillInfo.skill.name;
     _selectedSkill = widget.skillInfo == null ? null : widget.skillInfo.skill;
@@ -131,6 +133,7 @@ class _AddEditProfessionalSkillState extends State<AddEditProfessionalSkill> {
           profSkillId: widget.skillInfo?.profSkillId,
           rating: expertiseLevel,
           skill: _selectedSkill,
+          isTopSkill: topSkill
         );
 
         /// adding new data
@@ -146,6 +149,7 @@ class _AddEditProfessionalSkillState extends State<AddEditProfessionalSkill> {
           profSkillId: widget.skillInfo?.profSkillId,
           rating: expertiseLevel,
           skill: _selectedSkill,
+            isTopSkill: topSkill
         );
 
         /// updating existing data
@@ -299,6 +303,30 @@ class _AddEditProfessionalSkillState extends State<AddEditProfessionalSkill> {
 //                  height: 30,
 //                ),
                     skillName,
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        Row(
+                          children: <Widget>[
+                            Text(StringResources.hasExpiryDateText),
+                            Checkbox(
+                              value: topSkill,
+                              key: Key('certificationHasExpiryDate'),
+                              onChanged: (bool newValue) {
+                                if (newValue) {
+                                  topSkill = newValue;
+                                  setState(() {});
+                                } else {
+                                  topSkill = newValue;
+                                  setState(() {});
+                                }
+                              },
+                            )
+                          ],
+                        )
+                      ],
+                    ),
 //                    SizedBox(
 //                      height: 30,
 //                    ),
