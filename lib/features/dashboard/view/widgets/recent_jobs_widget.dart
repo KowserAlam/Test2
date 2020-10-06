@@ -39,13 +39,9 @@ class _RecentJobsState extends State<RecentJobs> {
     double iconSize = 12;
 
     Widget listItem(JobListModel jobListModel) {
-      String publishDateText = jobListModel.postDate == null
-          ? StringResources.noneText
-          : "Posted on ${DateFormatUtil().dateFormat1(jobListModel.postDate)}";
+      String publishDateText = "Posted on ${DateFormatUtil().dateFormat1(jobListModel.postDate)}";
 
-      String deadLineText = jobListModel.applicationDeadline == null
-          ? StringResources.noneText
-          : DateFormatUtil().dateFormat1(jobListModel.applicationDeadline);
+      String deadLineText = DateFormatUtil().dateFormat1(jobListModel.applicationDeadline);
 
       return LayoutBuilder(builder: (context, c) {
         return Card(
@@ -112,7 +108,7 @@ class _RecentJobsState extends State<RecentJobs> {
                     ],
                   ):SizedBox(),
                   SizedBox(height: 7,),
-                  Row(
+                  publishDateText.isNotEmptyOrNotNull?Row(
                     children: <Widget>[
                       Icon(
                         FontAwesomeIcons.solidCalendar,
@@ -121,11 +117,11 @@ class _RecentJobsState extends State<RecentJobs> {
                       ),
                       SizedBox(width: 5),
                       Text(
-                        publishDateText??"",
+                        publishDateText,
                         style: subTitleStyle,
                       ),
                     ],
-                  ),
+                  ):SizedBox(),
                   SizedBox(height: 7,),
                   deadLineText.isNotEmptyOrNotNull?Row(
                     children: <Widget>[
