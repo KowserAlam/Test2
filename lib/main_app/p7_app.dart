@@ -36,6 +36,10 @@ class P7App extends StatelessWidget {
       ChangeNotifierProvider(create: (context) => locator<AuthViewModel>()),
     ];
 
+    //TODO: We are middle of changing state management Provider to GetX. Which are partially done.
+    //TODO: Need to shift all those into GetX ! Because GetXBuilder is liter then ChangeNotifier!
+    //TODO: Also we have advantage of context free dependency injection, Reactive State Management, Context free Navigation and more !
+
     var providers = [
       ChangeNotifierProvider(create: (context) => SignInViewModel()),
       ChangeNotifierProvider(create: (context) => SignUpViewModel()),
@@ -47,7 +51,6 @@ class P7App extends StatelessWidget {
       ChangeNotifierProvider(
           create: (context) => JobListFilterWidgetViewModel()),
       ChangeNotifierProvider(create: (context) => PasswordChangeViewModel()),
-      // ChangeNotifierProvider(create: (context) => DashboardViewModel()),
       ChangeNotifierProvider(create: (context) => CareerAdviceViewModel()),
       ChangeNotifierProvider(create: (context) => JobScreenViewModel()),
     ];
