@@ -50,7 +50,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
         TextStyle(fontSize: 12, fontWeight: FontWeight.bold);
     double fontAwesomeIconSize = 15;
 
-    bool hideBasicInfo = (companyDetails.companyProfile.isEmptyOrNull &&
+    bool hideBasicInfo = ((companyDetails?.companyProfile?.htmlToNotusDocument?.toPlainText()?.trim()?.isEmptyOrNull ?? false) &&
         companyDetails.yearOfEstablishment == null &&
         companyDetails.basisMemberShipNo.isEmptyOrNull);
     bool hideSocialNetwork = (companyDetails.companyNameFacebook == null &&
@@ -117,7 +117,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
             sectionBody: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                if (companyDetails?.companyProfile != null)
+                if (companyDetails?.companyProfile?.htmlToNotusDocument?.toPlainText()?.trim()?.isNotEmptyOrNotNull)
                   HtmlWidget(
                     "<b>${StringResources.companyProfileText}: </b> ${companyDetails.companyProfile ?? ""}",
                     textStyle: descriptionFontStyle,

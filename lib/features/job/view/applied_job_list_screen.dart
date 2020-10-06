@@ -1,17 +1,13 @@
-import 'package:after_layout/after_layout.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:p7app/features/job/models/job_list_model.dart';
-import 'package:p7app/features/job/models/job_model.dart';
 import 'package:p7app/features/job/view/job_details_screen.dart';
 import 'package:p7app/features/job/view/widgets/job_list_tile_widget.dart';
 import 'package:p7app/features/job/view/widgets/jobs_screen_segment_control_bar.dart';
 import 'package:p7app/features/job/view/widgets/no_applied_jobs_widget.dart';
 import 'package:p7app/features/job/view_model/applied_job_list_view_model.dart';
-import 'package:p7app/features/job/view_model/all_job_list_view_model.dart';
 import 'package:p7app/main_app/resource/strings_resource.dart';
-import 'package:p7app/main_app/views/app_drawer.dart';
 import 'package:p7app/main_app/views/widgets/loader.dart';
 
 class AppliedJobListScreen extends StatefulWidget {
@@ -118,7 +114,7 @@ class _AppliedJobListScreenState extends State<AppliedJobListScreen> {
                                           },
                                           onTap: () {
                                             Navigator.of(context).push(
-                                                MaterialPageRoute(
+                                                CupertinoPageRoute(
                                                     builder: (context) =>
                                                         JobDetailsScreen(
                                                           slug: job.slug,
