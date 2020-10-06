@@ -42,9 +42,15 @@ class _RecentJobsState extends State<RecentJobs> {
           ? null
           : DateFormatUtil().dateFormat1(jobListModel.postDate);
 
-      String deadLineText = jobListModel.applicationDeadline == null
-          ? null
-          : DateFormatUtil().dateFormat1(jobListModel.applicationDeadline);
+      String deadLineText = jobListModel.applicationDeadline != null
+          ? jobListModel.applicationDeadline.isBefore(DateTime.now())
+          ? 'Date Expired'
+          : (jobListModel.applicationDeadline
+          .difference(DateTime.now())
+          .inDays+1)
+          .toString() +
+          ' day(s) remaining'
+          : "";
 
       return LayoutBuilder(builder: (context, c) {
         return Card(
@@ -126,7 +132,7 @@ class _RecentJobsState extends State<RecentJobs> {
                     ],
                   ),
                   SizedBox(height: 7,),
-                  deadLineText!=null?Row(
+                  deadLineText.isNotEmptyOrNotNull?Row(
                     children: <Widget>[
                       Icon(FeatherIcons.clock, size: iconSize, color: subtitleColor),
                       SizedBox(width: 5),
