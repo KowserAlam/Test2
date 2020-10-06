@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:p7app/features/dashboard/view_model/dashboard_view_model.dart';
 import 'package:p7app/features/job/models/job_list_model.dart';
@@ -39,18 +40,12 @@ class _RecentJobsState extends State<RecentJobs> {
 
     Widget listItem(JobListModel jobListModel) {
       String publishDateText = jobListModel.postDate == null
-          ? null
-          : DateFormatUtil().dateFormat1(jobListModel.postDate);
+          ? StringResources.noneText
+          : "Posted on ${DateFormatUtil().dateFormat1(jobListModel.postDate)}";
 
-      String deadLineText = jobListModel.applicationDeadline != null
-          ? jobListModel.applicationDeadline.isBefore(DateTime.now())
-          ? 'Date Expired'
-          : (jobListModel.applicationDeadline
-          .difference(DateTime.now())
-          .inDays+1)
-          .toString() +
-          ' day(s) remaining'
-          : "";
+      String deadLineText = jobListModel.applicationDeadline == null
+          ? StringResources.noneText
+          : DateFormatUtil().dateFormat1(jobListModel.applicationDeadline);
 
       return LayoutBuilder(builder: (context, c) {
         return Card(
@@ -120,7 +115,7 @@ class _RecentJobsState extends State<RecentJobs> {
                   Row(
                     children: <Widget>[
                       Icon(
-                        FeatherIcons.calendar,
+                        FontAwesomeIcons.solidCalendar,
                         size: iconSize,
                         color: subtitleColor,
                       ),
@@ -134,7 +129,7 @@ class _RecentJobsState extends State<RecentJobs> {
                   SizedBox(height: 7,),
                   deadLineText.isNotEmptyOrNotNull?Row(
                     children: <Widget>[
-                      Icon(FeatherIcons.clock, size: iconSize, color: subtitleColor),
+                      Icon(FontAwesomeIcons.solidClock, size: iconSize, color: subtitleColor),
                       SizedBox(width: 5),
                       Text(
                         deadLineText,
