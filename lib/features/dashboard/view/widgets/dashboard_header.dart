@@ -40,6 +40,7 @@ class DashboardHeader extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: CustomTextField(
+                textFieldKey: Key('homeOnTapSearchPushToAllJobs'),
                 readOnly: true,
                 onTap: onTapSearch,
                 hintText: "Search",
