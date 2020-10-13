@@ -6,7 +6,7 @@ import 'package:p7app/main_app/views/widgets/custom_text_field.dart';
 class DashboardHeader extends StatelessWidget {
   final Function onTapSearch;
 
-  DashboardHeader({this.onTapSearch});
+  DashboardHeader({this.onTapSearch, Key key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +28,12 @@ class DashboardHeader extends StatelessWidget {
           children: [
             Text(
               StringResources.allTheGreatJobsInOnePlace,
+              key: Key('allTheGreatJobsInOnePlaceKey'),
               style: TextStyle(color: Colors.white, fontSize: 20),
             ),
             Text(
               StringResources.findJobsEmploymentText,
+              key: Key('findJobsEmploymentTextKey'),
               style: TextStyle(color: Colors.white, fontSize: 12),
             ),
             SizedBox(
@@ -40,10 +42,10 @@ class DashboardHeader extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: CustomTextField(
-                textFieldKey: Key('homeOnTapSearchPushToAllJobs'),
                 readOnly: true,
                 onTap: onTapSearch,
                 hintText: "Search",
+                textFieldKey: Key('homeOnTapSearchPushToAllJobsKey'),
               ),
             ),
           ],

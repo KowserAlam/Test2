@@ -17,12 +17,14 @@ class HomeScreenSigninMessageWidget extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(StringResources.dashboardLoginMessage,
+                  key: Key('homeLoginMessageToGetAllgreatF'),
                   textAlign: TextAlign.center,
                   style: GoogleFonts.poppins(fontWeight: FontWeight.w800)),
               SizedBox(
                 height: 4,
               ),
               RaisedButton(
+                key: Key('dashboardLoginPleaseSigningKey'),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8)),
                 color: Colors.white,

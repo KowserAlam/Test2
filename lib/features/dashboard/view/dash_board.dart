@@ -193,6 +193,7 @@ class _DashBoardState extends State<DashBoard>  {
             if (!isLoggedIn)
               DashboardHeader(
                 onTapSearch: widget.onTapSearch,
+                key: Key('onTapSearch'),
               ),
             if (isLoggedIn)
               Column(

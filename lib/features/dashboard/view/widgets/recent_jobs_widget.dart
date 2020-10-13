@@ -158,11 +158,11 @@ class _RecentJobsState extends State<RecentJobs> {
                 ),
               ),
               RawMaterialButton(
+                key: Key('recentJobsViewAll'),
                 materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 onPressed: widget.onTapViewAll,
                 child: Text(
                   StringResources.viewAllText,
-                  key: Key('recentJobsViewAll'),
                   style: Theme.of(context)
                       .textTheme
                       .subtitle1

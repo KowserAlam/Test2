@@ -45,6 +45,19 @@ class Keys{
   static final dashboardAppbardTitle = find.byValueKey('dashboardAppbardTitle');
   static final dashboardAddSkillButton = find.byValueKey('dashboardAddSkillButton');
 
+  //Home
+  static final homeOnTapSearchPushToAllJobsKey = find.byValueKey('homeOnTapSearchPushToAllJobsKey');
+  static final allTheGreatJobsInOnePlaceKey = find.byValueKey('allTheGreatJobsInOnePlaceKey');
+  static final findJobsEmploymentTextKey = find.byValueKey('findJobsEmploymentTextKey');
+  static final dashboardLoginPleaseSigningKey = find.byValueKey('dashboardLoginPleaseSigningKey');
+  static final homeLoginMessageToGetAllgreatF = find.byValueKey('homeLoginMessageToGetAllgreatF');
+  static final featuredCompanyListViewKey = find.byValueKey('featuredCompanyListViewKey');
+  static final featuredCompanyViewAll = find.byValueKey('featuredCompanyViewAll');
+  static final featuredCompaniesTileKey1 = find.byValueKey('featuredCompaniesTileKey1');
+  static final featuredCompaniesTileKey2 = find.byValueKey('featuredCompaniesTileKey2');
+  static final dashboardListview = find.byValueKey('dashboardListview');
+  static final recentJobsViewAll = find.byValueKey('recentJobsViewAll');
+
   //Settings Screen
   static final settingsAppbarTitle = find.byValueKey('settingsAppbarTitle');
   static final settingsChangePassword = find.byValueKey('settingsChangePassword');

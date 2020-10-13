@@ -17,6 +17,8 @@ class FeaturedCompaniesWidget extends StatelessWidget {
   final Function onTapViewAll;
 
   FeaturedCompaniesWidget({this.onTapViewAll});
+
+  get index => null;
   @override
   Widget build(BuildContext context) {
     // var vm = Provider.of<DashboardViewModel>(context);
@@ -39,11 +41,11 @@ class FeaturedCompaniesWidget extends StatelessWidget {
                     ),
                   ),
                   RawMaterialButton(
+                    key: Key('featuredCompanyViewAll'),
                     materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     onPressed: onTapViewAll,
                     child: Text(
                       StringResources.viewAllText,
-                      key: Key('featuredCompanyViewAll'),
                       style: Theme.of(context)
                           .textTheme
                           .subtitle1
@@ -79,6 +81,7 @@ class FeaturedCompaniesWidget extends StatelessWidget {
               Container(
                 height: 180,
                 child: ListView.builder(
+                  key: Key('featuredCompanyListViewKey'),
                   padding: EdgeInsets.only(left: 10, right: 10),
                   itemCount: list.length,
                   scrollDirection: Axis.horizontal,
@@ -103,6 +106,7 @@ class FeaturedCompaniesWidget extends StatelessWidget {
           padding: const EdgeInsets.only(bottom: 5),
           child: Card(
             child: InkWell(
+              key: Key('featuredCompaniesTileKey$index'),
               onTap: (){
                 Navigator.of(context).push(CupertinoPageRoute(builder:(context)=> CompanyDetails(company: company,)));
               },
