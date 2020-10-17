@@ -159,7 +159,7 @@ class SignUpViewModel with ChangeNotifier {
 
       var decodedJson = json.decode(res.body);
       if(decodedJson["status"] == "success"){
-        BotToast.showText(text: 'Sign up successful');
+        BotToast.showText(text: 'Sign Up Successful');
         BotToast.closeAllLoading();
         return true;
       }else{
