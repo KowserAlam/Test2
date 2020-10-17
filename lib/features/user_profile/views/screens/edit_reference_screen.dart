@@ -1,5 +1,6 @@
 
 
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:p7app/features/user_profile/models/reference_data.dart';
 import 'package:p7app/features/user_profile/view_models/user_profile_view_model.dart';
@@ -44,7 +45,7 @@ class _EditReferenceScreenState extends State<EditReferenceScreen> {
   }
 
   _handleSave() {
-    bool isValid = _formKey.currentState.validate();
+    bool isValid = _descriptionZefyrController.document.toHTML.htmlToNotusDocument.toPlainText().trim().length!=0;
     if (isValid) {
       var referenceData = ReferenceData(
         referenceId: widget.referenceData?.referenceId,
@@ -71,6 +72,8 @@ class _EditReferenceScreenState extends State<EditReferenceScreen> {
           }
         });
       }
+    }else{
+      BotToast.showText(text: 'Description can\'t be empty.');
     }
   }
 
