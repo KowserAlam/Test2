@@ -16,6 +16,7 @@ import 'package:p7app/main_app/views/widgets/custom_searchable_dropdown_from_fie
 import 'package:p7app/main_app/views/widgets/custom_text_from_field.dart';
 import 'package:provider/provider.dart';
 import 'package:p7app/method_extension.dart';
+import 'package:get/get.dart';
 
 class JobListFilterWidget extends StatefulWidget {
   @override
@@ -28,6 +29,7 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
   double minSalary = 0;
   double experienceMin = 0;
   double experienceMax = 50;
+  var unspecified = false.obs;
   var _formKey = GlobalKey<FormState>();
   var _jobCityTextController = TextEditingController();
 
@@ -62,9 +64,11 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
             ? jobCategory.replaceFirst("&", "%26")
             : "",
         datePosted: datePosted,
+        salaryUnspecified: unspecified.value,
         //gender: filterVM.selectedGender ?? "",
         //jobType: filterVM.selectedJobType,
         sort: filterVM.selectedSortBy);
+
 
     jobListViewModel.applyFilters(filter);
     Navigator.pop(context);
@@ -269,6 +273,19 @@ class _JobListFilterWidgetState extends State<JobListFilterWidget>
                         bottom: Text(
                             "${salaryRange.start.round()} ৳ - ${salaryRange.end
                                 .round()} ৳"),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Checkbox(
+                            onChanged: (bool value) {
+                              unspecified.value = value;
+                              setState(() {});
+                            },
+                            value: unspecified.value,
+                          ),
+                          Text(StringResources.unspecifiedSalaryText),
+                        ],
                       ),
                       spaceBetween,
                       // experience

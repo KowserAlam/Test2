@@ -148,6 +148,14 @@ boxShadow: CommonStyle.boxShadow
                     jobListFilterWidgetViewModel.salaryMin = null;
                     jobListFilterWidgetViewModel.salaryMax = null;
                   }),
+            if (jobListViewModel.isSalaryUnspecified)
+              filterItem(
+                  context: context,
+                  name: StringResources.salary,
+                  value: "Unspecified",
+                  onClear: () {
+                    jobListViewModel.clearIsSpecified();
+                    }),
             if (jobListViewModel.hasQualification)
               filterItem(
                   context: context,

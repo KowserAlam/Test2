@@ -20,6 +20,7 @@ class JobListFilters {
   bool isApplied;
   JobType jobType;
   String topSkill;
+  bool salaryUnspecified;
 
   JobListFilters({
     this.page = 1,
@@ -39,5 +40,6 @@ class JobListFilters {
     this.isApplied,
     this.jobType,
     this.topSkill,
+    this.salaryUnspecified
   });
 }

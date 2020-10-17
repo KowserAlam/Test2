@@ -34,6 +34,7 @@ class JobListFilterWidgetViewModel with ChangeNotifier {
   Skill _selectedSkill;
   String _selectedDatePosted;
   SortItem _selectedSortBy;
+  bool _isUnspecified;
   List<SortItem> sortByList = JobListSortItemRepository()
       .getList();
   
@@ -51,6 +52,13 @@ class JobListFilterWidgetViewModel with ChangeNotifier {
 
   set selectedSortBy(SortItem value) {
     _selectedSortBy = value;
+    notifyListeners();
+  }
+
+  bool get isUnspecified => _isUnspecified;
+
+  set selectedUnspecified(bool value){
+    _isUnspecified = value;
     notifyListeners();
   }
 

@@ -49,6 +49,7 @@ class JobRepository {
     var _filters =
         "?page=${filters.page}&q=${filters.searchQuery ?? ""}&category=${filters.category ?? ""}"
         "&skill=${filters.skill?.id ?? ""}&salaryMin=${filters.salaryMin ?? ""}&salaryMax=${filters.salaryMax ?? ""}&experienceMin=${filters.experienceMin ?? ""}"
+        "&unspecified_salary=${filters.salaryUnspecified?"1":"0"}"
         "&experienceMax=${filters.experienceMax ?? ""}&datePosted=${filters.datePosted ?? ""}&gender=${filters.gender ?? ""}&job_type=${filters.jobType?.id ?? ""}"
         "&qualification=${filters.qualification ?? ""}&sort=${filters?.sort?.key ?? ""}"
         "&page_size=${filters.page_size}&top-skill=${filters.topSkill ?? ""}"

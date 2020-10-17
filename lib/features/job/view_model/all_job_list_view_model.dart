@@ -279,6 +279,12 @@ class AllJobListViewModel with ChangeNotifier {
     getJobList();
   }
 
+  void clearIsSpecified() {
+    _jobListFilters.salaryUnspecified = false;
+    notifyListeners();
+    getJobList();
+  }
+
   void clearExperienceRange() {
     _jobListFilters.experienceMax = null;
     _jobListFilters.experienceMin = null;
@@ -295,6 +301,8 @@ class AllJobListViewModel with ChangeNotifier {
   bool get hasSortBy => _jobListFilters.sort?.key?.isNotEmptyOrNotNull ?? false;
 
   bool get hasGender => _jobListFilters.gender.isNotEmptyOrNotNull;
+
+  bool get isSalaryUnspecified => _jobListFilters.salaryUnspecified;
 
   bool get hasCategory => _jobListFilters.category.isNotEmptyOrNotNull;
 

@@ -599,6 +599,7 @@ class StringResources {
   static const String seeMoreText = "See More";
   static const String seeLessText = "See Less";
   static const String salaryRangeText = 'Salary Range';
+  static const String unspecifiedSalaryText = 'Unspecified Salary';
   static const String gender = 'Gender';
   static const String addSkillText = 'Add Skill';
   static const String addNewText = 'Add New';
