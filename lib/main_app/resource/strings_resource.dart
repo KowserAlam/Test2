@@ -26,7 +26,7 @@ class StringResources {
 
   //Verify Email Screen
   static String verifyEmailAppbarTitle = "Verify Email";
-  static String verifyEmailMessage = "An verification link has been sent to your email address. Please open it to confirm your email account.";
+  static String verifyEmailMessage = "A verification link has been sent to your email address. Please open it to confirm your email account.";
 
 
   /// Validator
